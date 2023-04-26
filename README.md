@@ -1,4 +1,3 @@
-# E-Mall
 <div align="center">
   <h1>E-Mall</h1>
 </div>
