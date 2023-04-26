@@ -44,33 +44,23 @@ Key features of our Agile approach during this project include:
   <h2>Documentation</h2>
 </div>
 
-<div align="center">
-  <h3>Software Requirements Specification</h3>
-</div>
+### Software Requirements Specifications 
 
 -[Example](Example Link)
 
-<div align="center">
-  <h3>Architecture</h3>
-</div>
+### Architecture
 
 -[Example](Example Link)
 
-<div align="center">
-  <h3>Testing</h3>
-</div>
+### Testing
 
 -[Example](Example Link)
 
-<div align="center">
-  <h3>Research and Development</h3>
-</div>
+### Rsearch and Development
 
 -[Example](Example Link)
 
-<div align="center">
-  <h3>Project Management</h3>
-</div>
+### Project Management
 
 -[Example](Example Link)
 
@@ -78,16 +68,12 @@ Key features of our Agile approach during this project include:
   <h2>Team</h2>
 </div>
 
-<div align="center">
-  <h3>Contact</h3>
-</div>
+### Contact
 
 &nbsp;&nbsp;&nbsp;&nbsp;[![image](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:syntax.sharks@gmail.com?subject[GitHub])
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-<div align="center">
-  <h3>Members</h3>
-</div>
+### Members
 
 |                                                                      Member                                                                      | Links                                                                                                                                                                            | Profile                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | :----------------------------------------------------------------------------------------------------------------------------------------------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
