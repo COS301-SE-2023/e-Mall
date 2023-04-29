@@ -115,7 +115,7 @@ Key features of our Agile approach during this project include:
 ### Client
 
  <p align="center">
-    <img width="200"  src="https://drive.google.com/uc?export=view&id=11M5BP8Xodu2X-XrZhbOP975G42R9LfnA" alt="Gitflow branching strategy">
+    <img width="100"  src="https://drive.google.com/uc?export=view&id=11M5BP8Xodu2X-XrZhbOP975G42R9LfnA" alt="Gitflow branching strategy">
 </p>
 
 ### Members
