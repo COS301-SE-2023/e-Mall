@@ -2,12 +2,15 @@
   <h1>E-Mall</h1>
 </div>
 
+<div align="center">
+
 [![codecov](https://codecov.io/gh/COS301-SE-2023/e-Mall/branch/master/graph/badge.svg?token=2BANYONTYU)](https://codecov.io/gh/COS301-SE-2023/e-Mall)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2023_e-Mall&metric=coverage)](https://sonarcloud.io/summary/new_code?id=COS301-SE-2023_e-Mall)
 ![Build](https://github.com/COS301-SE-2023/e-Mall/actions/workflows/build.yml/badge.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2023_e-Mall&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=COS301-SE-2023_e-Mall)
 ![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2023/e-Mall)
 
+</div>
 
 
 
@@ -108,6 +111,12 @@ Key features of our Agile approach during this project include:
 
 &nbsp;&nbsp;&nbsp;&nbsp;[![image](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:syntax.sharks@gmail.com?subject[GitHub])
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+### Client
+
+ <p align="center">
+    <img width="200"  src="https://drive.google.com/uc?export=view&id=11M5BP8Xodu2X-XrZhbOP975G42R9LfnA" alt="Gitflow branching strategy">
+</p>
 
 ### Members
 
