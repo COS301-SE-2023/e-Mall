@@ -2,9 +2,12 @@
   <h1>E-Mall</h1>
 </div>
 
+[![codecov](https://codecov.io/gh/COS301-SE-2023/e-Mall/branch/master/graph/badge.svg?token=2BANYONTYU)](https://codecov.io/gh/COS301-SE-2022/Pure-LoRa-Tracking)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2023_e-Mall&metric=coverage)](https://sonarcloud.io/summary/new_code?id=COS301-SE-2023_e-Mall)
 ![Build](https://github.com/COS301-SE-2023/e-Mall/actions/workflows/build.yml/badge.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2023_e-Mall&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=COS301-SE-2023_e-Mall)
+![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2023/e-Mall)
+
 
 
 
@@ -15,6 +18,7 @@
 </div>
 
 - [Project Description](#project-description)
+- [Project Methodology](#Methodology)
 - [Project Day](#project-day)
 - [Demo Recordings](#demo-recordings)
 - [Demo Slides](#demo-slides)
