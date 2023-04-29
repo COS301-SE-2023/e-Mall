@@ -16,7 +16,7 @@
 
 
 
-<div align="center">
+<div align="">
   <h2>Table of Contents</h2>
 </div>
 
@@ -30,13 +30,13 @@
 - [Project Management](#project-management)
 - [Team](#team)
 
-<div align="center">
+<div align="">
   <h2>Project Description</h2>
 </div>
 
 E-mall is an online platform that allows verified sellers to list their products and enables customers to easily view and compare similar products across multiple websites. By scraping verified seller websites, E-mall ensures that only high-quality products are displayed to customers, and customers can receive personalized experiences based on their search history. Sellers can benefit from the platform by receiving analytics on customer behavior, while customers can view competitor prices on a given product, enabling them to make informed purchasing decisions. E-mall aims to offer hassle-free shopping and selling experiences to customers and sellers, respectively.
 
-<div align="center">
+<div align="">
   <h2>Project Methodology</h2>
 </div>
 
@@ -50,7 +50,7 @@ Key features of our Agile approach during this project include:
 
 - Consistent Communication: We have established a regular meeting schedule, our team will meet fortnightly to discuss project progress and address any issues or concerns. In addition, we will have a weekly mentor meeting to receive guidance and support. Communication between team roles will be ongoing and frequent to ensure that everyone is aligned and working together effectively.
 
-<div align="center">
+<div align="">
   <h2>Branching Strategy</h2>
 </div>
 
@@ -60,25 +60,25 @@ Key features of our Agile approach during this project include:
 </p>
 
 
-<div align="center">
+<div align="">
   <h2>Project Day</h2>
 </div>
 
 -[Example](Example Link)
 
-<div align="center">
+<div align="">
   <h2>Demo Recordings</h2>
 </div>
 
 -[Example](Example Link)
 
-<div align="center">
+<div align="">
   <h2>Demo Slides</h2>
 </div>
 
 -[Example](Example Link)
 
-<div align="center">
+<div align="">
   <h2>Documentation</h2>
 </div>
 
@@ -103,7 +103,7 @@ Key features of our Agile approach during this project include:
 -[Example](Example Link)
 ###
 
-<div align="center">
+<div align="">
   <h2>Team</h2>
 </div>
 
