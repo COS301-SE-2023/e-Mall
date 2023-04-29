@@ -19,6 +19,7 @@
 
 - [Project Description](#project-description)
 - [Project Methodology](#project-methodology)
+- [Branching Strategy](#branching-strategy)
 - [Project Day](#project-day)
 - [Demo Recordings](#demo-recordings)
 - [Demo Slides](#demo-slides)
@@ -47,12 +48,26 @@ Key features of our Agile approach during this project include:
 - Consistent Communication: We have established a regular meeting schedule, our team will meet fortnightly to discuss project progress and address any issues or concerns. In addition, we will have a weekly mentor meeting to receive guidance and support. Communication between team roles will be ongoing and frequent to ensure that everyone is aligned and working together effectively.
 
 <div align="center">
+  <h2>Branching Strategy</h2>
+</div>
+
+- [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
+ <p align="center">
+    <img width="500"  src="https://drive.google.com/uc?export=view&id=10uUrwkjvK35FLkFeqf8nmrLM6vFS-3ZF" alt="Gitflow branching strategy">
+</p>
+
+
+<div align="center">
   <h2>Project Day</h2>
 </div>
+
+-[Example](Example Link)
 
 <div align="center">
   <h2>Demo Recordings</h2>
 </div>
+
+-[Example](Example Link)
 
 <div align="center">
   <h2>Demo Slides</h2>
@@ -83,6 +98,7 @@ Key features of our Agile approach during this project include:
 ### Project Management
 
 -[Example](Example Link)
+###
 
 <div align="center">
   <h2>Team</h2>
