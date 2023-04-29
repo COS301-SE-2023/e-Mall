@@ -18,6 +18,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  codecov:
-    - name: Upload coverage reports to Codecov
-  uses: codecov/codecov-action@v3
