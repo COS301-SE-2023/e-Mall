@@ -18,7 +18,7 @@
 </div>
 
 - [Project Description](#project-description)
-- [Project Methodology](#Methodology)
+- [Project Methodology](#project-methodology)
 - [Project Day](#project-day)
 - [Demo Recordings](#demo-recordings)
 - [Demo Slides](#demo-slides)
@@ -45,6 +45,14 @@ Key features of our Agile approach during this project include:
 - Continuous Testing: We will test software throughout the development process to address any issues as early as possible
 
 - Consistent Communication: We have established a regular meeting schedule, our team will meet fortnightly to discuss project progress and address any issues or concerns. In addition, we will have a weekly mentor meeting to receive guidance and support. Communication between team roles will be ongoing and frequent to ensure that everyone is aligned and working together effectively.
+
+<div align="center">
+  <h2>Project Day</h2>
+</div>
+
+<div align="center">
+  <h2>Demo Recordings</h2>
+</div>
 
 <div align="center">
   <h2>Demo Slides</h2>
