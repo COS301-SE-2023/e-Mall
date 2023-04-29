@@ -2,8 +2,13 @@
   <h1>E-Mall</h1>
 </div>
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2023_e-Mall&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=COS301-SE-2023_e-Mall)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2023_e-Mall&metric=coverage)](https://sonarcloud.io/summary/new_code?id=COS301-SE-2023_e-Mall)
+![Build](https://github.com/COS301-SE-2023/e-Mall/actions/workflows/build.yml/badge.svg)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2023_e-Mall&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=COS301-SE-2023_e-Mall)
+
+
+
+
 
 <div align="center">
   <h2>Table of Contents</h2>
