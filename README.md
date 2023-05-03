@@ -64,19 +64,19 @@ Key features of our Agile approach during this project include:
   <h2>Project Day</h2>
 </div>
 
--[Example](Example Link)
+- [Example](Example Link)
 
 <div align="">
   <h2>Demo Recordings</h2>
 </div>
 
--[Example](Example Link)
+- [Example](Example Link)
 
 <div align="">
   <h2>Demo Slides</h2>
 </div>
 
--[Example](Example Link)
+- [Example](Example Link)
 
 <div align="">
   <h2>Documentation</h2>
@@ -84,24 +84,23 @@ Key features of our Agile approach during this project include:
 
 ### Software Requirements Specifications 
 
--[Example](Example Link)
+ - [Example](Example Link)
 
 ### Architecture
 
--[Example](Example Link)
+- [Example](Example Link)
 
 ### Testing
 
--[Example](Example Link)
+- [Example](Example Link)
 
-### Rsearch and Development
+### Research and Development
 
--[Example](Example Link)
+- [Example](Example Link)
 
 ### Project Management
 
--[Example](Example Link)
-###
+- [Project Board](https://github.com/orgs/COS301-SE-2023/projects/3)
 
 <div align="">
   <h2>Team</h2>
