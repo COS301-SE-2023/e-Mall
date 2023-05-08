@@ -1,0 +1,14 @@
+{
+  "name": "e-Mall",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "intall_venv": "pip install --user virtualenv",
+    "create_venv": "py -m venv /api/env",
+    "start_venv": "./env/Scripts/activate",
+    "install_req": "pip install -r requirements.txt",
+    "start:emall": "docker-compose up",
+    "create_superuser": "py manage.py createsuperuser"
+  }
+}
