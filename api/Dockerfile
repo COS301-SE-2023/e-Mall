@@ -21,7 +21,7 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 COPY . .
 
 # Expose port 8000 for the Django development server
-EXPOSE 8000
+EXPOSE 3000
 # RUN python manage.py migrate
 # Start the Django development server
 CMD ["python", "manage.py", "runserver", "0.0.0.0:3000"]

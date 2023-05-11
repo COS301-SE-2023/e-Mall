@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class PublicService {
-  api_url = 'http://localhost:8000/';
+  api_url = 'http://localhost:3000/';
   constructor(private http: HttpClient) {}
 
   getMessages() {

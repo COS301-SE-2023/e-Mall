@@ -16,8 +16,8 @@ if env_path.exists():
     with env_path.open("rt", encoding="utf8") as f:
         env.read_env(f, overwrite=True)
 dynamodb = boto3.resource(
-            # 'dynamodb', endpoint_url=DATABASE, region_name=AWS_REGION)
-            'dynamodb', endpoint_url=env('DATABASE'), region_name=env('AWS_REGION'), aws_access_key_id=env('AWS_ACCESS_KEY'), aws_secret_access_key=env('AWS_SECRET_KEY'))
+    # 'dynamodb', endpoint_url=DATABASE, region_name=AWS_REGION)
+    'dynamodb', endpoint_url=env('DATABASE'), region_name=env('AWS_REGION'), aws_access_key_id=env('AWS_ACCESS_KEY'), aws_secret_access_key=env('AWS_SECRET_KEY'))
 
 
 def load_data(devices):

@@ -135,7 +135,14 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:4200",
 ]
 
-# DATABASE = env('DB_DEV')
+DATABASE = env('DATABASE')
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
 
 # AWS_SECRET_KEY = env('AWS_SECRET_KEY')
 # AWS_ACCESS_KEY = env('AWS_ACCESS_KEY')
