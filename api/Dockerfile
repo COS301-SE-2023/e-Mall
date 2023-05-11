@@ -13,7 +13,8 @@ WORKDIR /api
 COPY requirements.txt .
 
 # Install the project's dependencies
-RUN pip install --upgrade pip && pip install -r requirements.txt && python manage.py migrate
+RUN pip install --upgrade pip && pip install -r requirements.txt 
+# && export DJANGO_SETTINGS_MODULE=api.settings
 
 
 # Copy the rest of the project files into the container
@@ -23,7 +24,7 @@ COPY . .
 EXPOSE 8000
 # RUN python manage.py migrate
 # Start the Django development server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:3000"]
 
 # FROM python:3.11
 

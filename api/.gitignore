@@ -151,3 +151,7 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+
+# db
+shared-local-instance.db
+# /db/data
