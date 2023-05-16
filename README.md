@@ -83,9 +83,12 @@ Key features of our Agile approach during this project include:
 - [Management Document](https://www.overleaf.com/5939438223ybcvjtpqxhwc)
 - [Project Board](https://github.com/orgs/COS301-SE-2023/projects/3)
 - [CI/CD GitHub Actions](https://github.com/COS301-SE-2023/e-Mall/actions)
+- [Project Planner](https://docs.google.com/spreadsheets/d/1cKHBTqjqsKePxTVy1imEWQKJXY_DCV7f/edit?usp=sharing&ouid=103477676275821978134&rtpof=true&sd=true)
+- [Miro Board](https://miro.com/app/board/uXjVMJ8tHEg=/?share_link_id=607814951679)
 
 ## Team
 
+### Client
 <img src="https://drive.google.com/uc?export=view&id=11M5BP8Xodu2X-XrZhbOP975G42R9LfnA" width="140"/> 
 
 ### Contact
