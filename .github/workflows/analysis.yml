@@ -1,13 +1,17 @@
-name: Build
+name: Code Analysis
 on:
   push:
     branches:
       - master
+      - develop
   pull_request:
     types: [opened, synchronize, reopened]
+    branches:
+      - master
+      - develop
 jobs:
   sonarcloud:
-    name: SonarCloud
+    name: SonarCloud analysis
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -18,3 +22,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          
+  CodeCov:
+    name: CodeCov analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
