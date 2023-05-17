@@ -4,7 +4,6 @@
 
 <div align="center">
 
-[![codecov](https://codecov.io/gh/COS301-SE-2023/e-Mall/branch/master/graph/badge.svg?token=2BANYONTYU)](https://codecov.io/gh/COS301-SE-2023/e-Mall)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2023_e-Mall&metric=coverage)](https://sonarcloud.io/summary/new_code?id=COS301-SE-2023_e-Mall)
 ![Build](https://github.com/COS301-SE-2023/e-Mall/actions/workflows/analysis.yml/badge.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2023_e-Mall&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=COS301-SE-2023_e-Mall)
