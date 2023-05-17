@@ -17,6 +17,7 @@
 - [Project Description](#project-description)
 - [Project Methodology](#project-methodology)
 - [Branching Strategy](#branching-strategy)
+- [Design](#design)
 - [Demo Recordings](#demo-recordings)
 - [Demo Slides](#demo-slides)
 - [Documentation](#documentation)
@@ -50,6 +51,9 @@ Key features of our Agile approach during this project include:
     <img width="500"  src="https://drive.google.com/uc?export=view&id=10uUrwkjvK35FLkFeqf8nmrLM6vFS-3ZF" alt="Gitflow branching strategy">
 </p>
 
+## Design
+
+- [Figma](https://www.figma.com/file/hsVl44ifCiAVq6FkwH2lqw/eCommerce---Template---Figma?type=design&node-id=17208%3A142099&t=cHTi3WbvIcD8f8oJ-1)
 
 ## Demo Recordings
 
@@ -72,10 +76,10 @@ Key features of our Agile approach during this project include:
 - [Testing Document](https://www.overleaf.com/7975739853pmxvspzhnqmf)
 
 ### Deployment
-- [Example](Example Link)
+
 
 ### Research and Development
-- [Example](Example Link)
+
 
 ## Project Management
 
