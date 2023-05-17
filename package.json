@@ -1,0 +1,14 @@
+{
+  "name": "e-Mall",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "install:venv": "pip install --user virtualenv",
+    "create:venv": "py -m venv ./venv",
+    "start:venv": "./venv/Scripts/activate",
+    "install:req": "./venv/Scripts/activate pip install -r ./api/requirements.txt",
+    "emall:init": "yarn install:venv && yarn create:venv &&create:superuser",
+    "create:superuser": "py ./api/manage.py createsuperuser"
+  }
+}
