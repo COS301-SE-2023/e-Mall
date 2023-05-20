@@ -1,0 +1,130 @@
+@use "utils" as *;
+
+$color_type_0: rgb(0, 0, 0);
+$color_type_1: rgb(247, 249, 249);
+$color_type_2: rgb(255, 255, 255);
+$color_type_3: rgb(55, 208, 214);
+
+$padding_type_0: undefinedpx undefinedpx undefinedpx undefinedpx;
+
+$border_radius_type_0: 1.25px;
+$border_radius_type_1: 16px 16px 16px 16px;
+
+$font_type_0: 600 32px/1.39 "Poppins", Helvetica, Arial, serif;
+$font_type_1: 600 18px/1.5 "Poppins", Helvetica, Arial, serif;
+$font_type_2: 600 100px/1.39 "Poppins", Helvetica, Arial, serif;
+
+.main {
+  @include flex-column;
+  background-color: $color_type_1;
+  padding: $padding_type_0;
+  position: relative;
+  overflow: hidden;
+}
+.main > .cell {
+  @include flex-column;
+  position: relative;
+}
+.section1__section1 {
+  @include flex-column;
+  position: relative;
+  flex-grow: 1;
+  min-height: 1024px;
+}
+.section1__image {
+  width: 400px;
+  height: auto;
+  aspect-ratio: 1.02;
+  vertical-align: top;
+  object-fit: cover;
+  object-position: center center;
+  position: absolute;
+  top: 108px;
+  right: 520px;
+}
+.section1__hero_title {
+  @include font-face($font_type_2, $color_type_0, 0px);
+  width: 1030px;
+  height: auto;
+  position: absolute;
+  top: 542px;
+  right: 205px;
+}
+.section1__title {
+  @include font-face($font_type_0, $color_type_0, 0px);
+  width: 707px;
+  height: auto;
+  position: absolute;
+  top: 722px;
+  right: 366px;
+}
+.section1__group {
+  @include flex-column;
+  width: 26px;
+  height: 16px;
+  position: absolute;
+  bottom: 132px;
+  left: 625px;
+}
+.section1__group1 {
+  @include flex-column;
+  position: absolute;
+  top: -24px;
+  bottom: -24px;
+  left: -31px;
+  right: -195px;
+}
+.section1__line {
+  background-color: $color_type_1;
+  border-radius: $border_radius_type_0;
+  height: 2px;
+  position: absolute;
+  top: 31px;
+  left: 31px;
+  right: 195px;
+}
+.section1__group2 {
+  @include flex-column;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+.section1__image1 {
+  width: 7px;
+  height: auto;
+  aspect-ratio: 0.44;
+  vertical-align: top;
+  object-fit: cover;
+  object-position: center center;
+  position: absolute;
+  top: 24px;
+  left: 31px;
+}
+.section1__box {
+  @include v-center-content;
+  background-color: $color_type_3;
+  border-radius: $border_radius_type_1;
+  filter: drop-shadow(0px 20px 50px rgba(55, 69, 87, 0.098));
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+.section1__box > .spacer {
+  flex: 0 1 31px;
+}
+.section1__box > .cell {
+  @include flex-column;
+  position: relative;
+  flex: 0 0 164px;
+  min-width: 164px;
+}
+.section1__highlights {
+  @include font-face($font_type_1, $color_type_2, 0px);
+  position: relative;
+  flex-grow: 1;
+  margin: 19px 89px 18px 0px;
+}
