@@ -58,5 +58,14 @@ Temporary Items
 
 #env
 environments/
+env.prod.ts
+env.ts
+
+
+#env
+environments/
+env.prod.ts
+env.ts
+
 # Thumbnails
 # Icon
