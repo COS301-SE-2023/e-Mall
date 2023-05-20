@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { CognitoService } from '@app/services/cognito.service';
 import { PublicService } from './services/public.service';
 
 @Component({
@@ -6,16 +9,32 @@ import { PublicService } from './services/public.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Angular 15.2.9 and DRF (AUTH SYSTEM EXAMPLE)';
   msg: any;
-  constructor(private pService: PublicService) {}
-  ngOnInit(): void {
+  isAuthenticated: boolean;
+
+  constructor(
+    private pService: PublicService,
+    private router: Router,
+    private cognitoService: CognitoService
+  ) {
+    this.isAuthenticated = false;
+  }
+  public ngOnInit(): void {
     this.showMessage();
+    this.cognitoService.isAuthenticated().then((success: boolean) => {
+      this.isAuthenticated = success;
+    });
   }
   showMessage() {
     this.pService.getMessages().subscribe(data => {
       (this.msg = data), console.log(this.msg);
+    });
+  }
+  public signOut(): void {
+    this.cognitoService.signOut().then(() => {
+      this.router.navigate(['/signIn']);
     });
   }
 }

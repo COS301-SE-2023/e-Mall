@@ -1,12 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
-  { path: 'sign-in', component: SignInComponent },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+  },
+  {
+    path: 'signIn',
+    component: SignInComponent,
+  },
+
+  // {
+  //   path: '**',
+  //   redirectTo: 'signIn',
+  // },
+
+  { path: '', redirectTo: '/sign-up', pathMatch: 'full' },
+  { path: 'sign-up', component: SignUpComponent },
 ];
 
 @NgModule({
