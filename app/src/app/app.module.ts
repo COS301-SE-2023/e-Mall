@@ -9,8 +9,10 @@ import { HomeComponent } from './home/home.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
+
+import { PendingComponent } from './pending/pending.component';
 @NgModule({
-  declarations: [AppComponent, HomeComponent, SignInComponent, SignUpComponent, SignOutComponent],
+  declarations: [AppComponent, HomeComponent, SignInComponent, SignUpComponent, SignOutComponent,PendingComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
