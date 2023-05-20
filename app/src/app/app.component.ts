@@ -7,7 +7,7 @@ import { PublicService } from './services/public.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   title = 'Angular 15.2.9 and DRF (AUTH SYSTEM EXAMPLE)';
@@ -23,18 +23,31 @@ export class AppComponent implements OnInit {
   }
   public ngOnInit(): void {
     this.showMessage();
-    this.cognitoService.isAuthenticated().then((success: boolean) => {
-      this.isAuthenticated = success;
-    });
+    this.cognitoService
+      .isAuthenticated()
+      .then((success: boolean) => {
+        this.isAuthenticated = success;
+      })
+      .catch((error: any) => {
+        // Handle any errors that occurred during the promise execution
+        console.error(error);
+      });
   }
+
   showMessage() {
     this.pService.getMessages().subscribe(data => {
       (this.msg = data), console.log(this.msg);
     });
   }
   public signOut(): void {
-    this.cognitoService.signOut().then(() => {
-      this.router.navigate(['/signIn']);
-    });
+    this.cognitoService
+      .signOut()
+      .then(() => {
+        this.router.navigate(['/signIn']);
+      })
+      .catch((error: any) => {
+        // Handle any errors that occurred during the promise execution
+        console.error(error);
+      });
   }
 }
