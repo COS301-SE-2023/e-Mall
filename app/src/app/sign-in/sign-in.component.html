@@ -1,1 +1,67 @@
-<p>sign-in works!</p>
+<!DOCTYPE html>
+<html>
+ <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+    <!-- Please DO NOT remove this line, all link and script tags will be merged to here -->
+
+    <link rel="stylesheet" type="text/css" href="/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="/css/fonts.css" />
+    <link rel="stylesheet" type="text/css" href="/css/headroom.css" />
+    <link rel="stylesheet" type="text/css" href="/css/Signin.css" />
+
+    <script type="text/javascript" src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/headroom.js@0.12.0/dist/headroom.min.js"></script>
+  </head>
+
+  <body class="flex-column">
+   
+    <main class="signin main">
+      <div class="cell">
+        <!-- ======= section1 ======= --> 
+        <section class="section1__section1">
+          <div class="section1__content_box"><div class="section1__text">EmaiL Address<input type="text" id="email" name="email"></div></div>
+          <div class="section1__content_box1"><div class="section1__text">Password<input type="text" id="password" name="password"></div></div>
+          <div class="section1__box"><h5 class="section1__highlights">SIGN IN</h5></div>
+          <img src="/" alt="alt text" class="section1__line" />
+          <div class="section1__info2">Don’t have an account?</div>
+          <div class="section1__info">Remember me</div>
+          <div class="section1__group">
+            <div class="section1__cover" >
+            <h1 class="section1__hero_title_box">
+              <span class="section1__hero_title"
+                ><span class="section1__hero_title_span0">Welcome to SA’s leading comparison service for </span
+                ><span class="section1__hero_title_span1">online shopping</span></span
+              >
+            </h1></div>
+            <img src="/" alt="alt text" class="section1__image" />
+            <h1 class="section1__title">Discover<br />Compare<br />Shop<br />E-Mall Has It All!</h1>
+          </div>
+          <h1 class="section1__title1">Login</h1>
+          <div class="section1__info1">Forgot Password</div>
+          <div class="section1__info11">Sign up</div>
+        </section>
+        <!-- ======= End section1 ======= --> 
+
+      </div>
+    </main>
+    <script type="text/javascript">
+      AOS.init();
+
+      const header = document.querySelector("#header");
+      if(header) {
+          const headroom = new Headroom(header);
+          headroom.init();
+      }
+    </script>
+  </body>
+</html>
