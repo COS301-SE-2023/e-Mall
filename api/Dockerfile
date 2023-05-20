@@ -16,7 +16,7 @@ COPY requirements.txt .
 
 # Install the project's dependencies
 # RUN pip install --upgrade pip
-RUN pip install -r requirements.txt 
+RUN pip install -r requirements.txt
 
 # Copy the rest of the project files into the container
 COPY . .
