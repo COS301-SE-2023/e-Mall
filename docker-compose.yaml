@@ -15,15 +15,15 @@ services:
       - "3000:3000"
     volumes:
       - ./api:/api
-    depends_on:
-      - dynamodb  
-  dynamodb:
-    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
-    image: "amazon/dynamodb-local:latest"
-    container_name: dynamodb-local
-    ports:
-      - "8000:8000"
-    volumes:
-      - "./api/db:/home/dynamodblocal/data"
-    working_dir: /home/dynamodblocal
+    # depends_on:
+    #   - dynamodb  
+  # dynamodb:
+  #   command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+  #   image: "amazon/dynamodb-local:latest"
+  #   container_name: dynamodb-local
+  #   ports:
+  #     - "8000:8000"
+  #   volumes:
+  #     - "./api/db:/home/dynamodblocal/data"
+  #   working_dir: /home/dynamodblocal
   
