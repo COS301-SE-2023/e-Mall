@@ -29,7 +29,6 @@
     "aws-amplify": "^5.2.2",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.5",
-    "husky": "^8.0.3",
     "lint": "^0.8.19",
     "prettier": "^2.8.8",
     "rxjs": "~7.8.0",
