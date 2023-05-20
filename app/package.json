@@ -1,12 +1,20 @@
 {
-  "name": "app",
+  "name": "e-Mall",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "start:other": "ng serve --port 4200 && docker-compose up",
+    "start": "start cmd /k \"ng serve --port 4200\" & start cmd /k \"docker-compose up\"",
+    "docker:exec": "docker-compose exec",
+    "app:uninstall": "yarn docker:exec app npm uninstall",
+    "api:uninstall": "yarn docker:exec api pip uninstall",
+    "app:install": "yarn docker:exec app npm install",
+    "api:install": "yarn docker:exec api pip install",
+    "api:freeze": "yarn docker:exec api pip freeze> api/requirements.txt",
+    "api:superuser": "yarn docker:exec api py api/manage.py createsuperuser"
   },
   "private": true,
   "dependencies": {
@@ -18,6 +26,7 @@
     "@angular/platform-browser": "^15.2.0",
     "@angular/platform-browser-dynamic": "^15.2.0",
     "@angular/router": "^15.2.0",
+    "aws-amplify": "^5.2.2",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.5",
     "rxjs": "~7.8.0",
@@ -37,5 +46,6 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "typescript": "~4.9.4"
-  }
+  },
+  "license": "MIT"
 }
