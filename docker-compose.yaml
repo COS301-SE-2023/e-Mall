@@ -1,13 +1,5 @@
 version: '3'
 services:
-  # app:
-  #   build:
-  #     context: ./app
-  #   ports:
-  #     - "4200:4200"
-  #   volumes:
-  #     - ./app:/app
-  #     - /app/node_modules
   api:
     build:
       context: ./api
@@ -15,15 +7,4 @@ services:
       - "3000:3000"
     volumes:
       - ./api:/api
-    # depends_on:
-    #   - dynamodb  
-  # dynamodb:
-  #   command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
-  #   image: "amazon/dynamodb-local:latest"
-  #   container_name: dynamodb-local
-  #   ports:
-  #     - "8000:8000"
-  #   volumes:
-  #     - "./api/db:/home/dynamodblocal/data"
-  #   working_dir: /home/dynamodblocal
   
