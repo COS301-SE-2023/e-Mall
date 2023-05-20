@@ -6,12 +6,10 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "start:other": "ng serve --port 4200 && docker-compose up",
+    "start:other": "$TERMINAL ng serve --port 4200 & $TERMINAL docker-compose up",
     "start": "start cmd /k \"ng serve --port 4200\" & start cmd /k \"docker-compose up\"",
     "docker:exec": "docker-compose exec",
-    "app:uninstall": "yarn docker:exec app npm uninstall",
     "api:uninstall": "yarn docker:exec api pip uninstall",
-    "app:install": "yarn docker:exec app npm install",
     "api:install": "yarn docker:exec api pip install",
     "api:freeze": "yarn docker:exec api pip freeze> api/requirements.txt",
     "api:superuser": "yarn docker:exec api py api/manage.py createsuperuser"
