@@ -20,8 +20,8 @@ const routes: Routes = [
   //   redirectTo: 'signIn',
   // },
 
-  { path: '', redirectTo: '/sign-up', pathMatch: 'full' },
-  { path: 'sign-up', component: SignUpComponent },
+  { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
+  { path: 'sign-in', component: SignInComponent },
 ];
 
 @NgModule({
