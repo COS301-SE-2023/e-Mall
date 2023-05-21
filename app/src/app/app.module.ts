@@ -11,8 +11,12 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
 
+import { ProfileComponent } from './profile/profile.component';
+import { RegisterComponent } from './register/register.component';
+import { Register2Component } from './register2/register2.component';
 
 import { PendingComponent } from './pending/pending.component';
+
 
 @NgModule({
   declarations: [
@@ -22,6 +26,8 @@ import { PendingComponent } from './pending/pending.component';
     SignUpComponent,
     SignOutComponent,
     ProfileComponent,
+    RegisterComponent,
+    Register2Component,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
 
