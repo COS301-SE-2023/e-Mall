@@ -47,23 +47,22 @@ $font_type_2: 600 100px/1.39 "Poppins", Helvetica, Arial, serif;
   width: 1030px;
   height: auto;
   position: absolute;
-  top: 542px;
-  right: 205px;
+  text-align: center
 }
 .section1__title {
   @include font-face($font_type_0, $color_type_0, 0px);
   width: 707px;
   height: auto;
   position: absolute;
-  top: 722px;
-  right: 366px;
+  top: 220px;
+  text-align: center;
 }
 .section1__group {
   @include flex-column;
   width: 26px;
   height: 16px;
   position: absolute;
-  bottom: 132px;
+  top: 400px;
   left: 625px;
 }
 .section1__group1 {
