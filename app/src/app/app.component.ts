@@ -7,11 +7,11 @@ import { PublicService } from './services/public.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   title = 'Angular 15.2.9 and DRF (AUTH SYSTEM EXAMPLE)';
-  msg: any;
+  msg: string | undefined;
   isAuthenticated: boolean;
 
   constructor(
@@ -29,7 +29,8 @@ export class AppComponent implements OnInit {
   }
   showMessage() {
     this.pService.getMessages().subscribe(data => {
-      (this.msg = data), console.log(this.msg);
+      this.msg = data.toString();
+      console.log(this.msg);
     });
   }
   public signOut(): void {

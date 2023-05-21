@@ -12,7 +12,11 @@
     "api:uninstall": "yarn docker:exec api pip uninstall",
     "api:install": "yarn docker:exec api pip install",
     "api:freeze": "yarn docker:exec api pip freeze> api/requirements.txt",
-    "api:superuser": "yarn docker:exec api py api/manage.py createsuperuser",
+    "api:superuser": "yarn docker:exec api python api/manage.py createsuperuser",
+    "api:startapp": "yarn docker:exec api python manage.py startapp",
+    "api:makemigrations": "yarn docker:exec api python manage.py makemigrations", 
+    "api:migrate":  "yarn docker:exec api python manage.py migrate",
+    "api:db": "yarn api:makemigrations && yarn api:migrate",
     "lint": "ng lint"
   },
   "private": true,
