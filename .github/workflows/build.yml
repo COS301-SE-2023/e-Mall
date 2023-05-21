@@ -1,5 +1,5 @@
 name: Build and Deploy
-# test
+
 on:
   push:
     branches:
@@ -26,8 +26,8 @@ jobs:
       - name: Create .env file
         env:
           DjangoSecretKey: ${{ secrets.API_ENV}}
-          CognitoUserPool: ${{secrets.API_ENV_PROD_TS}}
-          CognitoClientPool2: ${{secrets.API_ENV_TS}}
+          CognitoUserPool: ${{secrets.APP_ENV_PROD_TS}}
+          CognitoClientPool2: ${{secrets.APP_ENV_TS}}
         run: |
           echo "DjangoSecretKey=$DjangoSecretKey" > ./api/api/.env
           echo "CognitoUserPool=$CognitoUserPool" > ./app/src/environments/env.prod.ts
