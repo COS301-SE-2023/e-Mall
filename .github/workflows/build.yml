@@ -23,17 +23,17 @@ jobs:
         with:
           node-version: "18"
 
+      - name: Navigate to app directory
+        run: cd app
+
       - name: Install Angular CLI
         run: npm install -g @angular/cli
 
       - name: Install dependencies
         run: yarn install
 
-      - name: Navigate to app directory
-        run: cd app
-
       - name: Build project
         run: yarn build --prod
 
       - name: Run tests
-        run: yarn test 
+        run: yarn test
