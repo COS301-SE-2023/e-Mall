@@ -104,6 +104,7 @@ $font_type_5: 600 1em/1.39 "Poppins", Helvetica, Arial, serif;
   top: 575px;
   right: 152px;
   @include font-face($font_type_2, $color_type_5, 0px);
+  text-align: center
  
 }
 .section1__highlights {
