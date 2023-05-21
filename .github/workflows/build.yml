@@ -29,6 +29,9 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Install Angular devkit packages
+        run: ng update
+
       - name: Run tests
         run: cd app && yarn test
 
