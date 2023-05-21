@@ -29,9 +29,9 @@ jobs:
           CognitoUserPool: ${{secrets.APP_ENV_PROD_TS}}
           CognitoClientPool2: ${{secrets.APP_ENV_TS}}
         run: |
-          echo "DjangoSecretKey=$DjangoSecretKey" > ./api/api/.env
-          echo "CognitoUserPool=$CognitoUserPool" > ./app/src/environments/env.prod.ts
-          echo "CognitoClientPool2=$CognitoClientPool2" > ./app/src/environments/env.ts
+          echo "DjangoSecretKey=$DjangoSecretKey" > .env
+          echo "CognitoUserPool=$CognitoUserPool" > env.prod.ts
+          echo "CognitoClientPool2=$CognitoClientPool2" > env.ts
 
       - name: Install dependencies
         working-directory: ./app
