@@ -43,20 +43,21 @@
                 name="email"
                 placeholder="Email"
                 #email="ngModel"
-                [(ngModel)]="user.email" >
+                [(ngModel)]="user.email" 
+                class ="input1">
        
-          <div class="section1__content_box1">
             <input
                 [type]="user.showPassword ? 'text' : 'password'"
                 id="password"
                 name="password"
                 placeholder="Password"
                 #password="ngModel"
-                [(ngModel)]="user.password">
-          </div>
+                [(ngModel)]="user.password"
+                class="input2">
+
               <button class="section1__box" type="submit" value="Log in" (click)="signIn()">SIGN IN</button>
           
-          <div class="section1__info2"><a href="#">Don’t have an account?</a></div>
+          <div class="section1__info2">Don’t have an account?</div>
           <div class="section1__info">
             <input type="checkbox" id="Remember" name="Remember me" value="yes">Remember me</div>
           <div class="section1__group">

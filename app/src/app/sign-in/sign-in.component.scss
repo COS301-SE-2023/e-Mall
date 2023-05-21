@@ -20,7 +20,7 @@ $font_type_3: 400 14px/1.35 "Open Sans", Helvetica, Arial, serif;
 $font_type_4: 400 12px/1.33 "Open Sans", Helvetica, Arial, serif;
 $font_type_5: 600 1em/1.39 "Poppins", Helvetica, Arial, serif;
 
-input {
+.input1 {
   background-color: $color_type_7;
   border-radius: $border_radius_type_0;
   outline: 1px solid rgb(209, 209, 209);
@@ -29,6 +29,17 @@ input {
   height: 42px;
   position: absolute;
   top: 412px;
+  right: 100px;
+}
+.input2 {
+  background-color: $color_type_7;
+  border-radius: $border_radius_type_0;
+  outline: 1px solid rgb(209, 209, 209);
+  outline-offset: -1px;
+  width: 320px;
+  height: 42px;
+  position: absolute;
+  top: 480px;
   right: 100px;
 }
 
@@ -116,11 +127,11 @@ input {
   right: 221px;
 }
 .section1__info2 {
-  @include font-face($font_type_4, $color_type_3, 0px);
+  @include font-face($font_type_4, $color_type_7, 0px);
   width: 133px;
   height: auto;
   position: absolute;
-  top: 666px;
+  top: 626px;
   right: 218px;
 }
 a {
@@ -128,11 +139,11 @@ a {
 }
 .section1__info {
   @include font-face($font_type_4, $color_type_7, 0px);
-  width: 84px;
+  width: 100px;
   height: auto;
   position: absolute;
   top: 530px;
-  right: 304px;
+  right: 320px;
 }
 .section1__group {
   @include flex-column;
@@ -233,6 +244,6 @@ a {
   width: 42px;
   height: auto;
   position: absolute;
-  top: 666px;
+  top: 626px;
   right: 169px;
 }
