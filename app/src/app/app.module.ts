@@ -10,7 +10,10 @@ import { HomeComponent } from './home/home.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
-import { ProfileComponent } from './profile/profile.component';
+
+
+import { PendingComponent } from './pending/pending.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +24,7 @@ import { ProfileComponent } from './profile/profile.component';
     ProfileComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+
   providers: [],
   bootstrap: [AppComponent],
 })
