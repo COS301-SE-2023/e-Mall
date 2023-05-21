@@ -23,6 +23,16 @@ jobs:
         with:
           node-version: "18"
 
+      - name: Create .env file
+        env:
+          DjangoSecretKey: ${{ secrets.API_ENV}}
+          CognitoUserPool: ${{secrets.API_ENV_PROD_TS}}
+          CognitoClientPool2: ${{secrets.API_ENV_TS}}
+        run: |
+          echo "DjangoSecretKey=$DjangoSecretKey" >> ./api/api/.env
+          echo "CognitoUserPool=$CognitoUserPool" >> ./app/src/environments/env.prod.ts
+          echo "CognitoClientPool2=$CognitoClientPool2" >> ./app/src/environments/env.ts
+
       - name: Install dependencies
         working-directory: ./app
         run: yarn install
