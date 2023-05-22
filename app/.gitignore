@@ -57,7 +57,8 @@ Temporary Items
 .apdisk
 
 #env
-environments/
+
+# environments/
 env.prod.ts
 env.ts
 
