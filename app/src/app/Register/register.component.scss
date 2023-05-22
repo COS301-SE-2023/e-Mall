@@ -53,6 +53,39 @@ $font_type_5: 600 1em/1.39 "Poppins", Helvetica, Arial, serif;
   top: 550px;
   right: 100px;
 }
+.input4 {
+  background-color: $color_type_3;
+  border-radius: $border_radius_type_0;
+  outline: 1px solid rgb(209, 209, 209);
+  outline-offset: -1px;
+  width: 320px;
+  height: 42px;
+  position: absolute;
+  top: 620px;
+  right: 100px;
+}
+.input5 {
+  background-color: $color_type_3;
+  border-radius: $border_radius_type_0;
+  outline: 1px solid rgb(209, 209, 209);
+  outline-offset: -1px;
+  width: 320px;
+  height: 42px;
+  position: absolute;
+  top: 690px;
+  right: 100px;
+}
+.input6 {
+  background-color: $color_type_3;
+  border-radius: $border_radius_type_0;
+  outline: 1px solid rgb(209, 209, 209);
+  outline-offset: -1px;
+  width: 320px;
+  height: 42px;
+  position: absolute;
+  top: 760px;
+  right: 100px;
+}
 .main {
   @include flex-column;
   background-color: $color_type_5;
@@ -111,9 +144,9 @@ $font_type_5: 600 1em/1.39 "Poppins", Helvetica, Arial, serif;
   width: 216px;
   height: 40px;
   position: absolute;
-  top: 640px;
+  top: 815px;
   right: 152px;
-  @include font-face($font_type_2, $color_type_5, 0px);
+  @include font-face($font_type_2, $color_type_5);
  
 }
 .section1__highlights {
@@ -141,7 +174,7 @@ $font_type_5: 600 1em/1.39 "Poppins", Helvetica, Arial, serif;
   width: 133px;
   height: auto;
   position: absolute;
-  top: 690px;
+  top: 860px;
   right: 218px;
 }
 a {
@@ -254,6 +287,6 @@ a {
   width: 42px;
   height: auto;
   position: absolute;
-  top: 690px;
+  top: 860px;
   right: 169px;
 }
