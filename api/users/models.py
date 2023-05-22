@@ -8,7 +8,7 @@ USER_TYPE_CHOICES = (
 
 
 class Users(models.Model):
-    uid = models.AutoField(primary_key=True)
-    username = models.CharField(max_length=10, unique=True)
-    email = models.EmailField(max_length=50, unique=True)
+    # id = models.AutoField(primary_key=True)
+    username = models.CharField(max_length=15, unique=True)
+    email = models.EmailField(max_length=30, unique=True)
     type = models.CharField(max_length=6, choices=USER_TYPE_CHOICES)
