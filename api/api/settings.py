@@ -44,8 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-    'public.apps.PublicConfig',
+    # 'public.apps.PublicConfig',
     'users.apps.UsersConfig',
+    'sellers.apps.SellersConfig',
+    'staffs.apps.StaffsConfig',
 ]
 
 MIDDLEWARE = [
@@ -98,7 +100,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+AUTH_USER_MODEL = "staffs.Staffs"
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
