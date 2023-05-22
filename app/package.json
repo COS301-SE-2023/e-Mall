@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "build": "ng lint && ng build",
+    "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "start:other": "yarn install && $TERMINAL ng serve --port 4200 --configuration=development & $TERMINAL docker-compose up",
@@ -14,8 +14,8 @@
     "api:freeze": "yarn docker:exec api pip freeze> api/requirements.txt",
     "api:superuser": "yarn docker:exec api python api/manage.py createsuperuser",
     "api:startapp": "yarn docker:exec api python manage.py startapp",
-    "api:makemigrations": "yarn docker:exec api python manage.py makemigrations", 
-    "api:migrate":  "yarn docker:exec api python manage.py migrate",
+    "api:makemigrations": "yarn docker:exec api python manage.py makemigrations",
+    "api:migrate": "yarn docker:exec api python manage.py migrate",
     "api:db": "yarn api:makemigrations && yarn api:migrate",
     "lint": "ng lint"
   },
