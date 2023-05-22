@@ -61,7 +61,7 @@
                 [type]="user.showPassword ? 'text' : 'password'"
                 id="password"
                 name="password"
-                placeholder="Password"
+                placeholder="Confirm Password"
                 #password="ngModel"
                 [(ngModel)]="user.password"
                 class="input3">
@@ -69,9 +69,7 @@
               <button class="section1__box" type="submit" value="Log in" (click)="signUp()">SIGN UP</button>
           
           <div class="section1__info2">Already have an account?</div>
-          <div class="section1__info">
-            <input type="checkbox" id="Remember" name="Remember me" value="yes">I agree to the terms and conditions</div>
-
+         
           <div class="section1__group">
             <div class="section1__cover">
               <h1 class="section1__hero_title_box">
