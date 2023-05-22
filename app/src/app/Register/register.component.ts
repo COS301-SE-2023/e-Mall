@@ -19,7 +19,7 @@ export class RegisterComponent {
   }
 
   public signUp(): void {
-    this.loading = true;
+    /* this.loading = true;
     this.cognitoService
       .signUp(this.user)
       .then(() => {
@@ -28,10 +28,11 @@ export class RegisterComponent {
       })
       .catch(() => {
         this.loading = false;
-      });
+      });*/
+    this.router.navigate(['/pending']);
   }
 
-  public confirmSignUp(): void {
+  /* public confirmSignUp(): void {
     this.loading = true;
     this.cognitoService
       .confirmSignUp(this.user)
@@ -41,6 +42,5 @@ export class RegisterComponent {
       .catch(() => {
         this.loading = false;
       });
-  }
+  }*/
 }
-
