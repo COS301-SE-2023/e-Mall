@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="eng">
   <head>
     <title>Sign Up</title>
@@ -32,29 +33,45 @@
       src="https://unpkg.com/headroom.js@0.12.0/dist/headroom.min.js"></script>
   </head>
 
-  <body class="flex-column">
+  <body class="flex-column" style="margin: 0px;">
+
     <main class="signin main">
       <div class="cell">
         <!-- ======= section1 ======= -->
         <section class="section1__section1">
-          <div class="section1__content_box">
-            <div class="section1__text">
-              EmaiL Address<input type="text" id="email" name="email" />
-            </div>
-          </div>
-          <div class="section1__content_box1">
-            <div class="section1__text">
-              Password<input type="text" id="password" name="password" />
-            </div>
-          </div>
-          <div class="section1__box">
-            <h5 class="section1__highlights">
-              <button type="submit" value="Next">NEXT</button>
-            </h5>
-          </div>
-          <img src="/" alt="alt text" class="section1__line" />
-          <div class="section1__info2">Don’t have an account?</div>
-          <div class="section1__info">Remember me</div>
+
+            <input
+                type="text"
+                id="email"
+                name="email"
+                placeholder="Email"
+                #email="ngModel"
+                [(ngModel)]="user.email" 
+                class ="input1">
+       
+            <input
+                [type]="user.showPassword ? 'text' : 'password'"
+                id="password"
+                name="password"
+                placeholder="Password"
+                #password="ngModel"
+                [(ngModel)]="user.password"
+                class="input2">
+                <input
+                [type]="user.showPassword ? 'text' : 'password'"
+                id="password"
+                name="password"
+                placeholder="Password"
+                #password="ngModel"
+                [(ngModel)]="user.password"
+                class="input3">
+
+              <button class="section1__box" type="submit" value="Log in" (click)="signUp()">SIGN UP</button>
+          
+          <div class="section1__info2">Already have an account?</div>
+          <div class="section1__info">
+            <input type="checkbox" id="Remember" name="Remember me" value="yes">I agree to the terms and conditions</div>
+
           <div class="section1__group">
             <div class="section1__cover">
               <h1 class="section1__hero_title_box">
@@ -67,14 +84,14 @@
                 >
               </h1>
             </div>
-            <img src="/" alt="alt text" class="section1__image" />
+            <img src="assets/images/logo.png" alt="alt text" class="section1__image" />
+
             <h1 class="section1__title">
               Discover<br />Compare<br />Shop<br />E-Mall Has It All!
             </h1>
           </div>
           <h1 class="section1__title1">Register</h1>
-          <div class="section1__info1">Forgot Password</div>
-          <div class="section1__info11">Sign up</div>
+          <div class="section1__info11"><a href="#">Sign in</a></div>
         </section>
         <!-- ======= End section1 ======= -->
       </div>
@@ -93,7 +110,7 @@
 <!-- <div class="row justify-content-center my-5">
   <div class="col-4">
     <div class="card">
-      <div class="card-body" *ngIf="!isConfirm">
+      <div class="card-body">
         <div class="row">
           <div class="col mb-2">
             <label for="email" class="form-label">Email:</label>
@@ -139,7 +156,7 @@
           <div class="col d-grid">
             <button
               type="button"
-              (click)="signUp()"
+              (click)="signIn()"
               class="btn btn-sm btn-success"
               [disabled]="loading"
             >
@@ -149,40 +166,7 @@
                 aria-hidden="true"
                 *ngIf="loading"
               ></span>
-              Sign up
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="card-body" *ngIf="isConfirm">
-        <div class="row">
-          <div class="col mb-2">
-            <label for="code" class="form-label">Code:</label>
-            <input
-              type="text"
-              id="code"
-              name="code"
-              #code="ngModel"
-              [(ngModel)]="user.code"
-              class="form-control form-control-sm"
-            />
-          </div>
-        </div>
-        <div class="row">
-          <div class="col d-grid">
-            <button
-              type="button"
-              (click)="confirmSignUp()"
-              class="btn btn-sm btn-success"
-              [disabled]="loading"
-            >
-              <span
-                class="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-                *ngIf="loading"
-              ></span>
-              Confirm
+              Sign in
             </button>
           </div>
         </div>
