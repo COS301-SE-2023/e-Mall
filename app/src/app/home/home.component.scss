@@ -1,0 +1,310 @@
+@use "utils" as *;
+
+$color_type_0: rgb(0, 0, 0);
+$color_type_1: rgb(21, 21, 21);
+$color_type_2: rgb(247, 249, 249);
+$color_type_3: rgb(255, 255, 255);
+
+$padding_type_0: undefinedpx undefinedpx undefinedpx undefinedpx;
+
+$font_type_0: 600 32px/1.39 "Poppins", Helvetica, Arial, serif;
+$font_type_1: 600 18px/1.5 "Poppins", Helvetica, Arial, serif;
+$font_type_2: 400 14px/1.5 "Inter", Helvetica, Arial, serif;
+$font_type_3: 400 14px/1.35 "Open Sans", Helvetica, Arial, serif;
+$font_type_4: 500 12px/1.39 "Inter", Helvetica, Arial, serif;
+$font_type_5: 600 100px/1.39 "Poppins", Helvetica, Arial, serif;
+
+.main {
+  @include flex-column;
+  background-color: $color_type_2;
+  padding: $padding_type_0;
+  position: relative;
+  overflow: hidden;
+}
+.section1__section1 {
+  @include flex-column;
+  height: 656px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+}
+.section1__hero_title {
+  @include lg {
+    font-size: 70px;
+    text-align: left;
+  }
+  @include md {
+    font-size: 72px;
+  }
+  @include sm {
+    font-size: 60px;
+    width: 57.2%;
+  }
+  @include xs {
+    font-size: 52px;
+    width: 64.05%;
+  }
+  @include xxs {
+    font-size: 48px;
+    width: 70.37%;
+  }
+  @include tn {
+    font-size: 24px;
+    width: 76%;
+  }
+  @include font-face($font_type_5, $color_type_0, 0px);
+  width: 50.07%;
+  position: relative;
+  flex-grow: 1;
+  margin: 298px auto 218px;
+}
+.section2__section2 {
+  @include flex-column;
+  height: 299px;
+  position: absolute;
+  bottom: 69px;
+  left: 0px;
+  right: 0px;
+}
+.section2__box2 {
+  @include flex-column;
+  background-color: $color_type_1;
+  position: relative;
+  flex-grow: 1;
+}
+.section2__flex_column {
+  @include flex-column;
+  width: 127px;
+  height: 167px;
+  position: absolute;
+  top: 40px;
+  left: 460px;
+}
+.section2__highlights1 {
+  @include sm {
+    font-size: 12px;
+    text-align: left;
+  }
+  @include font-face($font_type_1, $color_type_2, 0px);
+  position: relative;
+}
+.section2__text1 {
+  @include font-face($font_type_3, $color_type_2, 0px);
+  position: relative;
+  margin: 16px 0px 0px;
+}
+.section2__text11 {
+  @include lg {
+    margin: 16px 32px 0px 0px;
+  }
+  @include md {
+    margin: 16px 28px 0px 0px;
+  }
+  @include sm {
+    margin: 16px 20px 0px 0px;
+  }
+  @include xxs {
+    margin: 16px 16px 0px 0px;
+  }
+  @include tn {
+    margin: 16px 8px 0px 0px;
+  }
+  @include font-face($font_type_3, $color_type_2, 0px);
+  position: relative;
+  margin: 16px 39px 0px 0px;
+}
+.section2__flex_column1 {
+  @include flex-column;
+  width: 227px;
+  height: 132px;
+  position: absolute;
+  top: 40px;
+  right: 426px;
+}
+.section2__title1 {
+  @include lg {
+    font-size: 28px;
+    text-align: left;
+  }
+  @include md {
+    font-size: 24px;
+  }
+  @include sm {
+    font-size: 20px;
+  }
+  @include tn {
+    font-size: 12px;
+  }
+  @include font-face($font_type_0, $color_type_3, 0px);
+  width: 107px;
+  height: auto;
+  position: absolute;
+  top: 40px;
+  left: 40px;
+}
+.section2__group {
+  @include flex-column;
+  width: 8.89%;
+  position: relative;
+  flex-grow: 1;
+  min-height: 132px;
+  margin: 40px 6.81% 127px 84.31%;
+}
+.section2__highlights11 {
+  @include lg {
+    right: 20px;
+  }
+  @include md {
+    right: 16px;
+  }
+  @include sm {
+    font-size: 12px;
+    text-align: left;
+  }
+  @include xs {
+    right: 12px;
+  }
+  @include tn {
+    right: 8px;
+  }
+  @include font-face($font_type_1, $color_type_2, 0px);
+  position: absolute;
+  top: 0px;
+  bottom: 105px;
+  left: 0px;
+  right: 26px;
+}
+.section2__text12 {
+  @include font-face($font_type_3, $color_type_2, 0px);
+  width: 57.81%;
+  position: absolute;
+  top: 43px;
+  bottom: 70px;
+  left: 0px;
+  right: 0px;
+  margin: 0px 42.19% 0px 0%;
+}
+.section2__text13 {
+  @include font-face($font_type_3, $color_type_2, 0px);
+  width: 42.97%;
+  position: absolute;
+  top: 78px;
+  bottom: 35px;
+  left: 0px;
+  right: 0px;
+  margin: 0px 57.03% 0px 0%;
+}
+.section2__text14 {
+  @include font-face($font_type_3, $color_type_2, 0px);
+  position: absolute;
+  top: 113px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+.section2__text15 {
+  @include font-face($font_type_3, $color_type_2, 0px);
+  width: 158px;
+  height: auto;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+.text1 {
+  @include flex-column;
+  height: 19px;
+  position: absolute;
+  bottom: 209px;
+  left: 40px;
+  right: 279px;
+}
+.text11 {
+  @include font-face($font_type_3, $color_type_2, 0px);
+  position: relative;
+  flex-grow: 1;
+}
+.section3__section3 {
+  @include flex-column;
+  position: relative;
+  flex-grow: 1;
+  margin: 955px 0px 0px;
+}
+.section3__box3 {
+  @include flex-column;
+  background-color: $color_type_3;
+  position: relative;
+  overflow: hidden;
+  flex-grow: 1;
+  min-height: 69px;
+}
+.section3__flexRow {
+  @include v-center-content;
+  width: 422px;
+  height: 33px;
+  position: absolute;
+  top: 18px;
+  right: 120px;
+}
+.section3__text2 {
+  @include font-face($font_type_2, $color_type_0, 0px);
+  position: relative;
+  flex: 0 0 auto;
+  min-width: 40px;
+  margin: 6px 0px;
+}
+.section3__flexRow > .spacer {
+  flex: 0 1 56px;
+}
+.section3__text21 {
+  @include font-face($font_type_2, $color_type_0, 0px);
+  position: relative;
+  flex: 0 0 auto;
+  min-width: 58px;
+  margin: 6px 0px;
+}
+.section3__text22 {
+  @include font-face($font_type_2, $color_type_0, 0px);
+  position: relative;
+  flex: 0 0 auto;
+  min-width: 46px;
+  margin: 6px 0px;
+}
+.section3__flexRow > .spacer1 {
+  flex: 0 1 44px;
+}
+.section3__box4 {
+  @include flex-column;
+  background-color: $color_type_0;
+  position: relative;
+  flex: 0 1 122px;
+}
+.section3__info {
+  @include lg {
+    margin: 8px 16px;
+  }
+  @include md {
+    margin: 8px 12px;
+  }
+  @include xs {
+    margin: 8px;
+  }
+  @include tn {
+    margin: 8px 4px;
+  }
+  @include font-face($font_type_4, $color_type_3, 0px);
+  position: relative;
+  flex-grow: 1;
+  margin: 8px 20px;
+}
+.image1 {
+  width: 141px;
+  height: auto;
+  aspect-ratio: 3.92;
+  vertical-align: top;
+  object-fit: cover;
+  object-position: center center;
+  position: absolute;
+  bottom: 16px;
+  left: 120px;
+}

@@ -23,10 +23,17 @@ export class AppComponent implements OnInit {
   }
   public ngOnInit(): void {
     this.showMessage();
-    this.cognitoService.isAuthenticated().then((success: boolean) => {
-      this.isAuthenticated = success;
-    });
+    this.cognitoService
+      .isAuthenticated()
+      .then((success: boolean) => {
+        this.isAuthenticated = success;
+      })
+      .catch((error: any) => {
+        // Handle any errors that occurred during the promise execution
+        console.error(error);
+      });
   }
+
   showMessage() {
     this.pService.getMessages().subscribe(data => {
       this.msg = data.toString();
@@ -34,8 +41,14 @@ export class AppComponent implements OnInit {
     });
   }
   public signOut(): void {
-    this.cognitoService.signOut().then(() => {
-      this.router.navigate(['/signIn']);
-    });
+    this.cognitoService
+      .signOut()
+      .then(() => {
+        this.router.navigate(['/signIn']);
+      })
+      .catch((error: any) => {
+        // Handle any errors that occurred during the promise execution
+        console.error(error);
+      });
   }
 }
