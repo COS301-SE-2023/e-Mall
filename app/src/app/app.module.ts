@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-
+import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -16,6 +16,7 @@ import { RegisterComponent } from './register/register.component';
 import { Register2Component } from './register2/register2.component';
 
 import { PendingComponent } from './pending/pending.component';
+import { ConstructionComponent } from './construction/construction.component';
 
 
 @NgModule({
@@ -28,8 +29,18 @@ import { PendingComponent } from './pending/pending.component';
     ProfileComponent,
     RegisterComponent,
     Register2Component,
+    ConstructionComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule,
+    RouterModule.forRoot([
+      {path: 'home', component: HomeComponent},
+      {path: 'construction', component: ConstructionComponent},
+      {path: 'pending', component: PendingComponent},
+      {path: 'register', component: RegisterComponent},
+      {path: 'register2', component: Register2Component},
+      {path: 'sign-in', component: SignInComponent},
+      {path: 'sign-up', component: SignUpComponent},
+    ]),],
 
   providers: [],
   bootstrap: [AppComponent],
