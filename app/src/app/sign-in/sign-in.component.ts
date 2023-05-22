@@ -21,7 +21,7 @@ export class SignInComponent {
     this.cognitoService
       .signIn(this.user)
       .then(() => {*/
-        this.router.navigate(['/home']);
+        this.router.navigate(['/construction']);
     /*  })
       .catch(() => {
         this.loading = false;
