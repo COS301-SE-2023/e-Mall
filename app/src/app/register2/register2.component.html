@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-
 <html lang="en">
   <head>
-    <title>Login</title>
-
+    <title>Register</title>
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -26,46 +24,38 @@
     <link rel="stylesheet" type="text/css" href="/css/headroom.css" />
     <link rel="stylesheet" type="text/css" href="/css/Signin.css" />
 
-    <script
-      type="text/javascript"
-      src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script
-      type="text/javascript"
-      src="https://unpkg.com/headroom.js@0.12.0/dist/headroom.min.js"></script>
   </head>
 
-
   <body class="flex-column" style="margin: 0px;">
-
     <main class="signin main">
       <div class="cell">
         <!-- ======= section1 ======= -->
         <section class="section1__section1">
-
             <input
                 type="text"
-                id="email"
-                name="email"
-                placeholder="Email"
-                #email="ngModel"
-                [(ngModel)]="user.email" 
+                id="Website"
+                name="Website"
+                placeholder="Website"
                 class ="input1">
        
             <input
-                [type]="user.showPassword ? 'text' : 'password'"
-                id="password"
-                name="password"
-                placeholder="Password"
-                #password="ngModel"
-                [(ngModel)]="user.password"
+                
+            type="text"
+            id="feed"
+            name="feed"
+            placeholder="Product feed"
                 class="input2">
+                <input
+               
+                type="text"
+                id="type"
+                name="type"
+                placeholder="Type of business"
+                class="input3">
 
-              <button class="section1__box" type="submit" value="Log in" (click)="signIn()">SIGN IN</button>
+              <button class="section1__box" type="submit" value="Log in" (click)="signUp()">Sign up</button>
           
-
-          <div class="section1__info2">Don’t have an account?</div>
-          <div class="section1__info">
-            <input type="checkbox" id="Remember" name="Remember me" value="yes">Remember me</div>
+          <div class="section1__info2">Already have an account?</div>
           <div class="section1__group">
             <div class="section1__cover">
               <h1 class="section1__hero_title_box">
@@ -74,19 +64,16 @@
                     >Welcome to SA’s leading comparison service for </span
                   ><span class="section1__hero_title_span1"
                     >online shopping</span
-                  ></span
-                >
+                  ></span>
               </h1>
             </div>
             <img src="assets/images/logo.png" alt="alt text" class="section1__image" />
-
             <h1 class="section1__title">
               Discover<br />Compare<br />Shop<br />E-Mall Has It All!
             </h1>
           </div>
-          <h1 class="section1__title1">Login</h1>
-          <div class="section1__info1"><a href="#">Forgot Password</a></div>
-          <div class="section1__info11"><a href="#">Sign up</a></div>
+          <h1 class="section1__title1">Fill in your details</h1>
+          <div class="section1__info11"><a href="#">Sign in</a></div>
         </section>
         <!-- ======= End section1 ======= -->
       </div>
