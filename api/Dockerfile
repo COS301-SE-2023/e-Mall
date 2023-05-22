@@ -13,6 +13,7 @@ WORKDIR /api
 
 # Copy the requirements.txt file into the container
 COPY requirements.txt .
+COPY docker-entrypoint.sh .
 
 # Install the project's dependencies
 # RUN pip install --upgrade pip
@@ -24,8 +25,8 @@ COPY . .
 #database migration
 # RUN sudo apt install build-essential libpq-dev python3-dev
 # RUN apt-get install -y python3-psycopg2
-RUN python manage.py makemigrations
-RUN python manage.py migrate
+RUN chmod +x docker-entrypoint.sh
+ENTRYPOINT ["./docker-entrypoint.sh"]
 
 # Expose port 8000 for the Django development server
 EXPOSE 3000
