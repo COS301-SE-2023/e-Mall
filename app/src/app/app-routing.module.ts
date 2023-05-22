@@ -14,6 +14,7 @@ import { ConstructionComponent } from './construction/construction.component';
 
 const routes: Routes = [
 
+
   {
     path: 'profile',
     component: ProfileComponent,
