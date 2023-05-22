@@ -42,10 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'public.apps.PublicConfig',
     'corsheaders',
     'rest_framework',
-
+    # 'public.apps.PublicConfig',
+    'users.apps.UsersConfig',
+    'sellers.apps.SellersConfig',
+    'staffs.apps.StaffsConfig',
 ]
 
 MIDDLEWARE = [
@@ -98,7 +100,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+AUTH_USER_MODEL = "staffs.Staffs"
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -137,12 +139,12 @@ CORS_ALLOWED_ORIGINS = [
 
 # DATABASE = env('DATABASE')
 DATABASES = {
-  'default': {
-    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME': env('DB_NAME'),
-    'USER': env('DB_USER'),
-    'PASSWORD': env('DB_PASSWORD'),
-    'HOST': env('DB_HOST'),
-    'PORT': env('DB_PORT'),
-  }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
+    }
 }
