@@ -5,6 +5,8 @@ $color_type_1: rgb(21, 21, 21);
 $color_type_2: rgb(247, 249, 249);
 $color_type_3: rgb(255, 255, 255);
 
+$border_radius_type_0: 12px 12px 12px 12px;
+
 $padding_type_0: undefinedpx undefinedpx undefinedpx undefinedpx;
 
 $font_type_0: 600 32px/1.39 "Poppins", Helvetica, Arial, serif;
@@ -30,46 +32,25 @@ $font_type_5: 600 100px/1.39 "Poppins", Helvetica, Arial, serif;
   right: 0px;
 }
 .section1__hero_title {
-  @include lg {
-    font-size: 70px;
-    text-align: left;
-  }
-  @include md {
-    font-size: 72px;
-  }
-  @include sm {
-    font-size: 60px;
-    width: 57.2%;
-  }
-  @include xs {
-    font-size: 52px;
-    width: 64.05%;
-  }
-  @include xxs {
-    font-size: 48px;
-    width: 70.37%;
-  }
-  @include tn {
-    font-size: 24px;
-    width: 76%;
-  }
+ 
   @include font-face($font_type_5, $color_type_0, 0px);
-  width: 50.07%;
+  width: 75%;
   position: relative;
   flex-grow: 1;
   margin: 298px auto 218px;
+  text-align: center;
 }
 .section2__section2 {
   @include flex-column;
   height: 299px;
   position: absolute;
-  bottom: 69px;
+  bottom: 0px;
   left: 0px;
   right: 0px;
+  background-color: rgb(193, 237, 233)
 }
 .section2__box2 {
   @include flex-column;
-  background-color: $color_type_1;
   position: relative;
   flex-grow: 1;
 }
@@ -86,11 +67,11 @@ $font_type_5: 600 100px/1.39 "Poppins", Helvetica, Arial, serif;
     font-size: 12px;
     text-align: left;
   }
-  @include font-face($font_type_1, $color_type_2, 0px);
+  @include font-face($font_type_1, $color_type_0, 0px);
   position: relative;
 }
 .section2__text1 {
-  @include font-face($font_type_3, $color_type_2, 0px);
+  @include font-face($font_type_3, $color_type_0, 0px);
   position: relative;
   margin: 16px 0px 0px;
 }
@@ -110,7 +91,7 @@ $font_type_5: 600 100px/1.39 "Poppins", Helvetica, Arial, serif;
   @include tn {
     margin: 16px 8px 0px 0px;
   }
-  @include font-face($font_type_3, $color_type_2, 0px);
+  @include font-face($font_type_3, $color_type_0, 0px);
   position: relative;
   margin: 16px 39px 0px 0px;
 }
@@ -121,6 +102,15 @@ $font_type_5: 600 100px/1.39 "Poppins", Helvetica, Arial, serif;
   position: absolute;
   top: 40px;
   right: 426px;
+}
+
+.section2__flex_column2 {
+  @include flex-column;
+  width: 227px;
+  height: 132px;
+  position: absolute;
+  top: 40px;
+  right: 150px;
 }
 .section2__title1 {
   @include lg {
@@ -136,7 +126,7 @@ $font_type_5: 600 100px/1.39 "Poppins", Helvetica, Arial, serif;
   @include tn {
     font-size: 12px;
   }
-  @include font-face($font_type_0, $color_type_3, 0px);
+  @include font-face($font_type_0, $color_type_1, 0px);
   width: 107px;
   height: auto;
   position: absolute;
@@ -168,7 +158,7 @@ $font_type_5: 600 100px/1.39 "Poppins", Helvetica, Arial, serif;
   @include tn {
     right: 8px;
   }
-  @include font-face($font_type_1, $color_type_2, 0px);
+  @include font-face($font_type_1, $color_type_0, 0px);
   position: absolute;
   top: 0px;
   bottom: 105px;
@@ -176,7 +166,7 @@ $font_type_5: 600 100px/1.39 "Poppins", Helvetica, Arial, serif;
   right: 26px;
 }
 .section2__text12 {
-  @include font-face($font_type_3, $color_type_2, 0px);
+  @include font-face($font_type_3, $color_type_0, 0px);
   width: 57.81%;
   position: absolute;
   top: 43px;
@@ -186,7 +176,7 @@ $font_type_5: 600 100px/1.39 "Poppins", Helvetica, Arial, serif;
   margin: 0px 42.19% 0px 0%;
 }
 .section2__text13 {
-  @include font-face($font_type_3, $color_type_2, 0px);
+  @include font-face($font_type_3, $color_type_0, 0px);
   width: 42.97%;
   position: absolute;
   top: 78px;
@@ -196,7 +186,7 @@ $font_type_5: 600 100px/1.39 "Poppins", Helvetica, Arial, serif;
   margin: 0px 57.03% 0px 0%;
 }
 .section2__text14 {
-  @include font-face($font_type_3, $color_type_2, 0px);
+  @include font-face($font_type_3, $color_type_0, 0px);
   position: absolute;
   top: 113px;
   bottom: 0px;
@@ -204,7 +194,7 @@ $font_type_5: 600 100px/1.39 "Poppins", Helvetica, Arial, serif;
   right: 0px;
 }
 .section2__text15 {
-  @include font-face($font_type_3, $color_type_2, 0px);
+  @include font-face($font_type_3, $color_type_0, 0px);
   width: 158px;
   height: auto;
   position: absolute;
@@ -220,7 +210,7 @@ $font_type_5: 600 100px/1.39 "Poppins", Helvetica, Arial, serif;
   right: 279px;
 }
 .text11 {
-  @include font-face($font_type_3, $color_type_2, 0px);
+  @include font-face($font_type_3, $color_type_0, 0px);
   position: relative;
   flex-grow: 1;
 }
@@ -229,73 +219,6 @@ $font_type_5: 600 100px/1.39 "Poppins", Helvetica, Arial, serif;
   position: relative;
   flex-grow: 1;
   margin: 955px 0px 0px;
-}
-.section3__box3 {
-  @include flex-column;
-  background-color: $color_type_3;
-  position: relative;
-  overflow: hidden;
-  flex-grow: 1;
-  min-height: 69px;
-}
-.section3__flexRow {
-  @include v-center-content;
-  width: 422px;
-  height: 33px;
-  position: absolute;
-  top: 18px;
-  right: 120px;
-}
-.section3__text2 {
-  @include font-face($font_type_2, $color_type_0, 0px);
-  position: relative;
-  flex: 0 0 auto;
-  min-width: 40px;
-  margin: 6px 0px;
-}
-.section3__flexRow > .spacer {
-  flex: 0 1 56px;
-}
-.section3__text21 {
-  @include font-face($font_type_2, $color_type_0, 0px);
-  position: relative;
-  flex: 0 0 auto;
-  min-width: 58px;
-  margin: 6px 0px;
-}
-.section3__text22 {
-  @include font-face($font_type_2, $color_type_0, 0px);
-  position: relative;
-  flex: 0 0 auto;
-  min-width: 46px;
-  margin: 6px 0px;
-}
-.section3__flexRow > .spacer1 {
-  flex: 0 1 44px;
-}
-.section3__box4 {
-  @include flex-column;
-  background-color: $color_type_0;
-  position: relative;
-  flex: 0 1 122px;
-}
-.section3__info {
-  @include lg {
-    margin: 8px 16px;
-  }
-  @include md {
-    margin: 8px 12px;
-  }
-  @include xs {
-    margin: 8px;
-  }
-  @include tn {
-    margin: 8px 4px;
-  }
-  @include font-face($font_type_4, $color_type_3, 0px);
-  position: relative;
-  flex-grow: 1;
-  margin: 8px 20px;
 }
 .image1 {
   width: 141px;
@@ -307,4 +230,196 @@ $font_type_5: 600 100px/1.39 "Poppins", Helvetica, Arial, serif;
   position: absolute;
   bottom: 16px;
   left: 120px;
+}
+
+
+
+.root {
+  @include v-center-content;
+  background-color: $color_type_2;
+  position: relative;
+  overflow: hidden;
+}
+.root > .cell {
+  @include flex-column;
+  position: relative;
+  flex: 0 0 147px;
+  min-width: 147px;
+}
+.title {
+  @include lg {
+    font-size: 28px;
+    text-align: left;
+    margin: 18px 0px 17px 32px;
+  }
+  @include md {
+    font-size: 24px;
+    margin: 18px 0px 17px 28px;
+  }
+  @include sm {
+    font-size: 20px;
+    margin: 18px 0px 17px 24px;
+  }
+  @include xs {
+    margin: 18px 0px 17px 20px;
+  }
+  @include xxs {
+    margin: 18px 0px 17px 16px;
+  }
+  @include tn {
+    font-size: 12px;
+    margin: 18px 0px 17px 8px;
+  }
+  @include font-face($font_type_0, $color_type_0, 0px);
+  position: relative;
+  flex-grow: 1;
+  margin: 18px 0px 17px 40px;
+}
+.root > .spacer {
+  flex: 0 1 339px;
+}
+.wrapper {
+  @include v-center-content;
+  background-color: $color_type_2;
+  border-radius: $border_radius_type_0;
+  outline: 1px solid rgb(209, 209, 209);
+  outline-offset: -1px;
+  position: relative;
+  flex: 0 1 500px;
+  margin: 19px 0px;
+}
+.wrapper > .cell {
+  @include flex-column;
+  position: relative;
+  flex: 0 0 122px;
+  min-width: 122px;
+}
+.highlights {
+  @include lg {
+    margin: 10px 0px 9px 12px;
+  }
+  @include sm {
+    margin: 10px 0px 9px 8px;
+  }
+  @include tn {
+    margin: 10px 0px 9px 4px;
+  }
+  @include font-face($font_type_1, $color_type_3, 0px);
+  position: relative;
+  flex-grow: 1;
+  margin: 10px 0px 9px 16px;
+}
+.wrapper > .spacer {
+  flex: 0 1 12px;
+}
+.wrapper1 {
+  @include flex-column;
+  background: var(--src) center center / cover no-repeat;
+  position: relative;
+  flex: 0 1 7px;
+  min-height: 2px;
+  margin: 21px 0px 19px;
+}
+.wrapper > .spacer1 {
+  flex: 0 1 28px;
+}
+.rect1 {
+  background-color: $color_type_2;
+  position: relative;
+  flex: 0 0 auto;
+  min-width: 1px;
+  min-height: 20px;
+  margin: 11px 0px;
+}
+.wrapper > .spacer2 {
+  flex: 0 1 24px;
+}
+.input1 {
+  @include font-face($font_type_2, $color_type_1, 0px);
+  position: relative;
+  flex: 0 0 auto;
+  min-width: 262px;
+  margin: 11px 0px 12px;
+  text-align: left
+}
+.wrapper > .cell1 {
+  @include flex-column;
+  position: relative;
+  flex: 0 1 32px;
+}
+.icon {
+  @include lg {
+    margin: 13px 12px 13px 0px;
+  }
+  @include sm {
+    margin: 13px 8px 13px 0px;
+  }
+  @include tn {
+    margin: 13px 4px 13px 0px;
+  }
+  width: 16px;
+  height: auto;
+  aspect-ratio: 1;
+  vertical-align: top;
+  object-fit: cover;
+  object-position: center center;
+  position: relative;
+  min-width: 16px;
+  margin: 13px 16px 13px 0px;
+}
+.root > .spacer1 {
+  flex: 0 1 338px;
+}
+.root > .cell1 {
+  @include flex-column;
+  position: relative;
+  flex: 0 1 116px;
+}
+.box {
+  @include lg {
+    margin: 25px 32px 25px 0px;
+  }
+  @include md {
+    margin: 25px 28px 25px 0px;
+  }
+  @include sm {
+    margin: 25px 24px 25px 0px;
+  }
+  @include xs {
+    margin: 25px 20px 25px 0px;
+  }
+  @include xxs {
+    margin: 25px 16px 25px 0px;
+  }
+  @include tn {
+    margin: 25px 8px 25px 0px;
+  }
+  display: flex;
+  align-items: center;
+  border-radius: $border_radius_type_0;
+  outline: 2px solid rgb(124, 208, 211);
+  outline-offset: 5px;
+  position: relative;
+  flex-grow: 1;
+  margin: 25px 40px 25px 0px;
+}
+.box > .cell {
+  @include flex-column;
+  position: relative;
+  flex: 0 0 76px;
+  min-width: 76px;
+}
+.highlights1 {
+  @include lg {
+    margin: 4px 8px 3px;
+  }
+  @include xs {
+    margin: 4px 4px 3px;
+  }
+  @include font-face($font_type_1, $color_type_1, 0px);
+  position: relative;
+  flex-grow: 1;
+  width: 100%;
+  margin: 4px 12px 3px;
+  text-align: left;
 }
