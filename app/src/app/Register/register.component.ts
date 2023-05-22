@@ -36,7 +36,7 @@ export class RegisterComponent {
     this.cognitoService
       .confirmSignUp(this.user)
       .then(() => {
-        this.router.navigate(['/signIn']);
+        this.router.navigate(['/register2']);
       })
       .catch(() => {
         this.loading = false;
