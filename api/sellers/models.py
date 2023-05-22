@@ -16,12 +16,14 @@ SELLER_CATEGORY_CHOICES = (
 
 
 class Sellers(models.Model):
-    regNo = models.CharField(max_length=14, unique=True)
-    businessName = models.CharField(max_length=30)
-    businesCategory = models.CharField(
+    reg_no = models.CharField(max_length=14, unique=True)
+    business_name = models.CharField(max_length=30)
+    business_type = models.CharField(max_length=100)
+    catalogue_size = models.IntegerField(default=0)
+    busines_category = models.CharField(
         max_length=6, choices=SELLER_CATEGORY_CHOICES)
     status = models.CharField(max_length=9, choices=SELLER_STATUS_CHOICES)
-    isVerified = models.BooleanField
+    is_verified = models.BooleanField
     website = models.URLField(max_length=200, unique=True)
-    userId = models.ForeignKey(
+    user_id = models.ForeignKey(
         Users, verbose_name='owner', on_delete=models.CASCADE)
