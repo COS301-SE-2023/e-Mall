@@ -16,6 +16,7 @@ import { RegisterComponent } from './register/register.component';
 import { Register2Component } from './register2/register2.component';
 
 import { PendingComponent } from './pending/pending.component';
+import { ConstructionComponent } from './construction/construction.component';
 
 
 @NgModule({
