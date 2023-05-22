@@ -18,13 +18,13 @@ export class SignInComponent {
 
   public signIn(): void {
     this.loading = true;
-    this.cognitoService
-      .signIn(this.user)
-      .then(() => {
-        this.router.navigate(['/home']);
-      })
-      .catch(() => {
-        this.loading = false;
-      });
+    // this.cognitoService
+    // .signIn(this.user)
+    // .then(() => {
+    this.router.navigate(['/home']);
+    // })
+    // .catch(() => {
+    // this.loading = false;
+    // });
   }
 }
