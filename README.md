@@ -47,7 +47,7 @@ Key features of our Agile approach during this project include:
 
 - [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
  <p >
-    <img width="500"  src="https://drive.google.com/uc?export=view&id=10uUrwkjvK35FLkFeqf8nmrLM6vFS-3ZF" alt="Gitflow branching strategy">
+    <img width="500"  src="https://drive.google.com/uc?export=view&id=1RyA8oq8HRugf5sQH-StnJqOvUtrWEcDu" alt="Gitflow branching strategy">
 </p>
 
 ## Design
