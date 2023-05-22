@@ -37,10 +37,10 @@ jobs:
         working-directory: ./app
         run: yarn install
 
-      # - name: Build project
-      #   working-directory: ./app
-      #   run: yarn build
-
-      - name: Run tests
+      - name: Build project
         working-directory: ./app
-        run: yarn test
+        run: yarn build
+
+      # - name: Run tests
+      #   working-directory: ./app
+      #   run: yarn test
