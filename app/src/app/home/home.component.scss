@@ -7,7 +7,6 @@ $color_type_3: rgb(255, 255, 255);
 
 $border_radius_type_0: 12px 12px 12px 12px;
 
-$padding_type_0: undefinedpx undefinedpx undefinedpx undefinedpx;
 
 $font_type_0: 600 32px/1.39 "Poppins", Helvetica, Arial, serif;
 $font_type_1: 600 18px/1.5 "Poppins", Helvetica, Arial, serif;
@@ -15,11 +14,16 @@ $font_type_2: 400 14px/1.5 "Inter", Helvetica, Arial, serif;
 $font_type_3: 400 14px/1.35 "Open Sans", Helvetica, Arial, serif;
 $font_type_4: 500 12px/1.39 "Inter", Helvetica, Arial, serif;
 $font_type_5: 600 100px/1.39 "Poppins", Helvetica, Arial, serif;
-
+body { 
+  margin-top: -9px;
+  margin-right: -9px;
+  margin-bottom: -15px;
+  margin-left: -9px
+}
 .main {
   @include flex-column;
   background-color: $color_type_2;
-  padding: $padding_type_0;
+  padding: 0;
   position: relative;
   overflow: hidden;
 }
@@ -287,6 +291,20 @@ $font_type_5: 600 100px/1.39 "Poppins", Helvetica, Arial, serif;
   position: relative;
   flex: 0 1 500px;
   margin: 19px 0px;
+  width: 500px;
+  height: 42px !important;
+}
+.wrapper {
+  @include v-center-content;
+  background-color: $color_type_2;
+  border-radius: $border_radius_type_0;
+  border-color: $color_type_2;
+  outline: 1px solid rgb(209, 209, 209);
+  outline-offset: -1px;
+  position: relative;
+  flex: 0 1 500px;
+  margin: 19px 0px;
+  height: max-content;
 }
 .wrapper > .cell {
   @include flex-column;
