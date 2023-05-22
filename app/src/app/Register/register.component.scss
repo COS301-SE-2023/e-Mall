@@ -19,7 +19,45 @@ $font_type_2: 700 15px/1.53 "Poppins", Helvetica, Arial, serif;
 $font_type_3: 400 14px/1.35 "Open Sans", Helvetica, Arial, serif;
 $font_type_4: 400 12px/1.33 "Open Sans", Helvetica, Arial, serif;
 $font_type_5: 600 1em/1.39 "Poppins", Helvetica, Arial, serif;
-
+body { 
+  margin-top: -9px;
+  margin-right: -9px;
+  margin-bottom: -9px;
+  margin-left: -9px;
+}
+.input00 {
+  background-color: $color_type_3;
+  border-radius: $border_radius_type_0;
+  outline: 1px solid rgb(209, 209, 209);
+  outline-offset: -1px;
+  width: 320px;
+  height: 42px;
+  position: absolute;
+  top: 200px;
+  right: 100px;
+}
+.input0 {
+  background-color: $color_type_3;
+  border-radius: $border_radius_type_0;
+  outline: 1px solid rgb(209, 209, 209);
+  outline-offset: -1px;
+  width: 320px;
+  height: 42px;
+  position: absolute;
+  top: 270px;
+  right: 100px;
+}
+.input {
+  background-color: $color_type_3;
+  border-radius: $border_radius_type_0;
+  outline: 1px solid rgb(209, 209, 209);
+  outline-offset: -1px;
+  width: 320px;
+  height: 42px;
+  position: absolute;
+  top: 340px;
+  right: 100px;
+}
 .input1 {
   background-color: $color_type_3;
   border-radius: $border_radius_type_0;
@@ -260,7 +298,7 @@ a {
   width: 87px;
   height: auto;
   position: absolute;
-  top: 200px;
+  top: 130px;
   right: 236px;
 }
 .section1__icon {

@@ -13,11 +13,17 @@
 
 </head>
 
-<body class="flex-column" style="margin: 0px;">
+<body class="flex-column" >
   <main class="signin main">
     <div class="cell">
       <!-- ======= section1 ======= -->
       <section class="section1__section1">
+        <input type="text" id="name" name="name" placeholder="Business name"
+        class="input00">
+        <input type="text" id="name" name="name" placeholder="Business website"
+          class="input0">
+          <input type="text" id="name" name="name" placeholder="Business registration no."
+          class="input">
         <input type="text" id="email" name="email" placeholder="Email" #email="ngModel" [(ngModel)]="user.email"
           class="input1">
 
@@ -35,9 +41,9 @@
 
           <select name="cSize" required class="input5">
             <option value="" disabled selected hidden>Catalogue size</option>
-            <option value="clothing">Clothing</option>
-            <option value="technology">Technology</option>
-            <option value="house">House</option>
+            <option value="500">500-1000</option>
+            <option value="1000">1000-1500</option>
+            <option value="1500">1500-2000</option>
           </select>
 
           <select name="bSize" required class="input6">
@@ -62,7 +68,7 @@
             Discover<br />Compare<br />Shop<br />E-Mall Has It All!
           </h1>
         </div>
-        <h1 class="section1__title1">Register Your Business Today!</h1>
+        <h1 class="section1__title1">Register</h1>
         <div class="section1__info11"><a href="/sign-in">Sign in</a></div>
       </section>
       <!-- ======= End section1 ======= -->
