@@ -20,7 +20,7 @@ export class SignUpComponent {
   }
 
   public signUp(): void {
-  /*  this.loading = true;
+    /*  this.loading = true;
     this.cognitoService
       .signUp(this.user)
       .then(() => {
@@ -30,10 +30,10 @@ export class SignUpComponent {
       .catch(() => {
         this.loading = false;
       });*/
-      this.router.navigate(['/home']);
+    this.router.navigate(['/home']);
   }
 
- /* public confirmSignUp(): void {
+  /* public confirmSignUp(): void {
     this.loading = true;
     this.cognitoService
       .confirmSignUp(this.user)
