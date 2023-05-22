@@ -9,27 +9,23 @@ import { RegisterComponent } from './register/register.component';
 import { Register2Component } from './register2/register2.component';
 
 import { PendingComponent } from './pending/pending.component';
+import { ConstructionComponent } from './construction/construction.component';
 
 
 const routes: Routes = [
-
-  {
-    path: 'profile',
-    component: ProfileComponent,
-  },
-  {
-    path: 'signIn',
-    component: SignInComponent,
-  },
 
   // {
   //   path: '**',
   //   redirectTo: 'signIn',
   // },
-
-
-  { path: '', redirectTo: '/sign-up', pathMatch: 'full' },
+  {path: 'home', component: HomeComponent},
+  {path: 'construction', component: ConstructionComponent},
+  {path: 'pending', component: PendingComponent},
+  {path: 'register', component: RegisterComponent},
+  {path: 'register2', component: Register2Component},
+  {path: 'sign-in', component: SignInComponent},
   { path: 'sign-up', component: SignUpComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
 
 ];
 
