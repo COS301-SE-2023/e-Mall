@@ -17,14 +17,14 @@ export class SignInComponent {
   }
 
   public signIn(): void {
-    this.loading = true;
+   /* this.loading = true;
     this.cognitoService
       .signIn(this.user)
-      .then(() => {
+      .then(() => {*/
         this.router.navigate(['/home']);
-      })
+    /*  })
       .catch(() => {
         this.loading = false;
-      });
+      });*/
   }
 }
