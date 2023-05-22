@@ -2,6 +2,10 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
+    "types": [
+      "babel__generator"
+    ],
+    
     "baseUrl": "src",
     "paths":{
       "@app/*":["app/*"]
