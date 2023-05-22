@@ -5,6 +5,9 @@
     "types": [
       "babel__generator"
     ],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     
     "baseUrl": "src",
     "paths":{
