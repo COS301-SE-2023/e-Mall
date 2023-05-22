@@ -15,19 +15,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.contrib.auth.models import User
+from staffs.models import Staffs
 from rest_framework import routers, serializers, viewsets
 from django.urls import path, include
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = User
-        fields = ['url', 'username', 'email', 'is_staff']
+        model = Staffs
+        fields = ['id,fname,sname,password,email,role,createdAt,lastLogin']
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
+    queryset = Staffs.objects.all()
     serializer_class = UserSerializer
 
 
