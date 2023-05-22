@@ -37,10 +37,19 @@ jobs:
         working-directory: ./app
         run: yarn install
 
+      # - name: Run tests
+      #   working-directory: ./app
+      #   run: yarn test
+
       - name: Build project
         working-directory: ./app
         run: yarn build
 
-      # - name: Run tests
-      #   working-directory: ./app
-      #   run: yarn test
+    # build: artifact for deployment
+    # - name: Archive Build Artifact
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: dist-artifact
+    #     path: dist
+    #     retention-days: 1
+
