@@ -11,9 +11,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
 
-import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
-import { Register2Component } from './register2/register2.component';
 
 import { PendingComponent } from './pending/pending.component';
 import { ConstructionComponent } from './construction/construction.component';
@@ -26,9 +24,7 @@ import { ConstructionComponent } from './construction/construction.component';
     SignInComponent,
     SignUpComponent,
     SignOutComponent,
-    ProfileComponent,
     RegisterComponent,
-    Register2Component,
     ConstructionComponent
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule,
@@ -37,7 +33,6 @@ import { ConstructionComponent } from './construction/construction.component';
       {path: 'construction', component: ConstructionComponent},
       {path: 'pending', component: PendingComponent},
       {path: 'register', component: RegisterComponent},
-      {path: 'register2', component: Register2Component},
       {path: 'sign-in', component: SignInComponent},
       {path: 'sign-up', component: SignUpComponent},
     ]),],
