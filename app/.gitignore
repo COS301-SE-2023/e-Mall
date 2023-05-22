@@ -56,5 +56,11 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+#env
+# environments/
+env.prod.ts
+env.ts
+
+
 # Thumbnails
 # Icon

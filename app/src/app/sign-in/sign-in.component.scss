@@ -9,7 +9,7 @@ $color_type_5: rgb(247, 249, 249);
 $color_type_6: rgb(55, 208, 214);
 $color_type_7: rgb(87, 87, 87);
 
-$padding_type_0: undefinedpx undefinedpx undefinedpx undefinedpx;
+$padding_type_0:0px;
 
 $border_radius_type_0: 12px 12px 12px 12px;
 
@@ -20,12 +20,37 @@ $font_type_3: 400 14px/1.35 "Open Sans", Helvetica, Arial, serif;
 $font_type_4: 400 12px/1.33 "Open Sans", Helvetica, Arial, serif;
 $font_type_5: 600 1em/1.39 "Poppins", Helvetica, Arial, serif;
 
+.input1 {
+  background-color: $color_type_3;
+  border-radius: $border_radius_type_0;
+  outline: 1px solid rgb(209, 209, 209);
+  outline-offset: -1px;
+  width: 320px;
+  height: 42px;
+  position: absolute;
+  top: 412px;
+  right: 100px;
+}
+.input2 {
+  background-color: $color_type_3;
+  border-radius: $border_radius_type_0;
+  outline: 1px solid rgb(209, 209, 209);
+  outline-offset: -1px;
+  width: 320px;
+  height: 42px;
+  position: absolute;
+  top: 480px;
+  right: 100px;
+}
+
 .main {
   @include flex-column;
   background-color: $color_type_5;
   padding: $padding_type_0;
   position: relative;
   overflow: hidden;
+  border: none;
+  margin: 0%
 }
 .main > .cell {
   @include flex-column;
@@ -65,7 +90,7 @@ $font_type_5: 600 1em/1.39 "Poppins", Helvetica, Arial, serif;
   height: 42px;
   position: absolute;
   top: 479px;
-  right: 200px;
+  right: 100px;
 }
 .section1__box {
   @include flex-column;
@@ -77,7 +102,10 @@ $font_type_5: 600 1em/1.39 "Poppins", Helvetica, Arial, serif;
   height: 40px;
   position: absolute;
   top: 575px;
-  right: 252px;
+  right: 152px;
+  @include font-face($font_type_2, $color_type_5, 0px);
+  text-align: center
+ 
 }
 .section1__highlights {
   @include font-face($font_type_2, $color_type_5, 0px);
@@ -100,20 +128,23 @@ $font_type_5: 600 1em/1.39 "Poppins", Helvetica, Arial, serif;
   right: 221px;
 }
 .section1__info2 {
-  @include font-face($font_type_4, $color_type_3, 0px);
+  @include font-face($font_type_4, $color_type_7, 0px);
   width: 133px;
   height: auto;
   position: absolute;
-  top: 666px;
-  right: 318px;
+  top: 626px;
+  right: 218px;
+}
+a {
+  @include font-face($font_type_4, $color_type_6, 0px);
 }
 .section1__info {
   @include font-face($font_type_4, $color_type_7, 0px);
-  width: 84px;
+  width: 100px;
   height: auto;
   position: absolute;
   top: 530px;
-  right: 404px;
+  right: 320px;
 }
 .section1__group {
   @include flex-column;
@@ -124,13 +155,14 @@ $font_type_5: 600 1em/1.39 "Poppins", Helvetica, Arial, serif;
   left: 0px;
 }
 .section1__cover {
+  margin: 0px;
   width: calc(100% - 0px);
   height: auto;
   aspect-ratio: 0.7;
   vertical-align: top;
   object-fit: cover;
-  object-position: center center;
   position: absolute;
+  top:-10px;
   bottom: 0px;
   left: 0px;
   right: 0px;
@@ -187,7 +219,7 @@ $font_type_5: 600 1em/1.39 "Poppins", Helvetica, Arial, serif;
   height: auto;
   position: absolute;
   top: 342px;
-  right: 316px;
+  right: 216px;
 }
 .section1__icon {
   width: 20px;
@@ -206,13 +238,13 @@ $font_type_5: 600 1em/1.39 "Poppins", Helvetica, Arial, serif;
   height: auto;
   position: absolute;
   top: 530px;
-  right: 200px;
+  right: 100px;
 }
 .section1__info11 {
   @include font-face($font_type_4, $color_type_1, 0px);
   width: 42px;
   height: auto;
   position: absolute;
-  top: 666px;
-  right: 269px;
+  top: 626px;
+  right: 169px;
 }
