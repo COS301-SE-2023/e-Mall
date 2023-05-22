@@ -11,7 +11,32 @@ on:
       - develop
 
 jobs:
+  lint_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        working-directory: ./app
+        run: yarn install
+
+      - name: Lint Code
+        working-directory: ./app
+        run: yarn lint
+
+      # - name: Run Unit Tests
+      #   working-directory: ./app
+      #   run: yarn test:ci
+
   build:
+    needs: lint_and_test
     runs-on: ubuntu-latest
 
     steps:
@@ -41,6 +66,10 @@ jobs:
         working-directory: ./app
         run: yarn build
 
-      # - name: Run tests
-      #   working-directory: ./app
-      #   run: yarn test
+    # build: artifact for deployment
+    # - name: Archive Build Artifact
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: dist-artifact
+    #     path: dist
+    #     retention-days: 1
