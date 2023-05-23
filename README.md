@@ -68,11 +68,7 @@ Key features of our Agile approach during this project include:
 
 ### Architecture
 
-- [Architecture Document](https://www.overleaf.com/3354657325mgfvvcfmbwry)
-
 ### Testing
-
-- [Testing Document](https://www.overleaf.com/7975739853pmxvspzhnqmf)
 
 ### Deployment
 
