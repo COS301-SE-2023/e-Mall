@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-
-import { Router } from '@angular/router';
 import { IUser, CognitoService } from '@app/services/cognito.service';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register2.component.html',

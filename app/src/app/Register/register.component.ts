@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { Router } from '@angular/router';
 import { IUser, CognitoService } from '@app/services/cognito.service';
 @Component({
