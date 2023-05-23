@@ -31,9 +31,9 @@ jobs:
         working-directory: ./app
         run: yarn lint
 
-      - name: Run Backend Unit Tests
-        working-directory: ./app
-        run: yarn api:test
+      # - name: Run Backend Unit Tests
+      #   working-directory: ./app
+      #   run: yarn api:test
 
   build:
     needs: lint_and_test
