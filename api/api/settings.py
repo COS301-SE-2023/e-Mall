@@ -45,9 +45,10 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     # 'public.apps.PublicConfig',
-    'users.apps.UsersConfig',
-    'sellers.apps.SellersConfig',
-    'staffs.apps.StaffsConfig',
+    # 'user.apps.UserConfig',
+    'seller.apps.SellerConfig',
+    'staff.apps.StaffConfig',
+    'consumer.apps.ConsumerConfig',
 ]
 
 MIDDLEWARE = [
@@ -100,7 +101,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = "staffs.Staffs"
+AUTH_USER_MODEL = "staff.Staff"
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -127,7 +128,7 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.AllowAny',
     ]
 }
 # LOGIN_REDIRECT_URL = '/'
