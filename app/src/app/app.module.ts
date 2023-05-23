@@ -12,7 +12,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
 
 import { ProfileComponent } from './profile/profile.component';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './Register/register.component';
 import { Register2Component } from './register2/register2.component';
 
 import { PendingComponent } from './pending/pending.component';
