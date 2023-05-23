@@ -16,15 +16,12 @@ iniconfig==2.0.0
 jmespath==1.0.1
 Markdown==3.4.3
 marshmallow==3.19.0
-mirakuru==2.5.1
 packaging==23.1
 pluggy==1.0.0
-port-for==0.6.3
-psutil==5.9.5
-psycopg==3.1.9
 psycopg2-binary==2.9.6
 pycodestyle==2.10.0
 pytest==7.3.1
+pytest-django==4.5.2
 python-dateutil==2.8.2
 pytz==2023.3
 requests==2.30.0
@@ -32,7 +29,6 @@ s3transfer==0.6.1
 six==1.16.0
 sqlparse==0.4.4
 tomli==2.0.1
-typing_extensions==4.6.0
 tzdata==2023.3
 urllib3==1.26.15
 yarg==0.1.9
