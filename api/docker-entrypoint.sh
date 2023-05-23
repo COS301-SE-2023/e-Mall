@@ -9,12 +9,12 @@
 # done
 # echo "Connected."
 
-# echo "Flush the manage.py command if any"
-# #reset db
-# while ! python manage.py flush --no-input 2>&1; do
-#   echo "Flusing django manage command"
-#   sleep 1
-# done
+echo "Flush the manage.py command if any"
+#reset db
+while ! python manage.py flush --no-input 2>&1; do
+  echo "Flusing django manage command"
+  sleep 1
+done
 
 echo "Migrate the Database at startup of project"
 
