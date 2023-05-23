@@ -17,6 +17,7 @@
     "api:makemigrations": "yarn docker:exec api python manage.py makemigrations",
     "api:migrate": "yarn docker:exec api python manage.py migrate",
     "api:db": "yarn api:makemigrations && yarn api:migrate",
+    "api:test" : "yarn docker:exec api pytest",
     "lint": "ng lint"
   },
   "private": true,
