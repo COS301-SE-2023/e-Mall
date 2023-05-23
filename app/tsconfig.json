@@ -1,39 +1,35 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "compileOnSave": true,
   "compilerOptions": {
-    "types": [
-      "babel__generator"
-    ],
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    
-    "baseUrl": "src",
-    "paths":{
-      "@app/*":["app/*"]
-    },
+    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "ES2022",
-    "module": "ES2022",
-    "useDefineForClassFields": false,
+    "target": "es2022",
+    "module": "es2022",
     "lib": [
-      "ES2022",
+      "es2022",
       "dom"
-    ]
+    ],
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "@app/*": ["src/app/*"]
+    }
   },
+  "include": [
+    "src/**/*.ts"
+  ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
