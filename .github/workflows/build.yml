@@ -50,10 +50,10 @@ jobs:
 
       - name: Create .env file
         env:
-          DjangoSecretKey: ${{ secrets.API_ENV}}
-          DjangoSecretKey1: ${{ secrets.API_ENV_PROD}}
-          Cognito: ${{secrets.APP_ENV_PROD_TS}}
-          CognitoClientPool2: ${{secrets.APP_ENV_TS}}
+          DjangoSecretKey: "${{ secrets.API_ENV}}"
+          DjangoSecretKey1: "${{ secrets.API_ENV_PROD}}"
+          Cognito: "${{secrets.APP_ENV_PROD_TS}}"
+          CognitoClientPool2: "${{secrets.APP_ENV_TS}}"
         run: |
           echo "DjangoSecretKey=$DjangoSecretKey" > ./api/api/.env
           echo "DjangoSecretKey1=$DjangoSecretKey1" > ./api/api/env.prod.ts
