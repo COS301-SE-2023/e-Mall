@@ -57,7 +57,6 @@ jobs:
         run: |
           echo "DjangoSecretKey=$DjangoSecretKey" > ./api/api/.env
           echo "DjangoSecretKey1=$DjangoSecretKey1" > ./api/api/env.prod.ts
-          echo "CognitoUserPool1=$CognitoUserPool1" > ./app/src/environments/env.prod.ts
           echo "CognitoClientPool2=$CognitoClientPool2" > ./app/src/environments/env.ts
 
       - name: Install dependencies
