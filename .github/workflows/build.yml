@@ -5,10 +5,12 @@ on:
     branches:
       - master
       - develop
+      - john/git_build
   pull_request:
     branches:
       - master
       - develop
+      - john/git_build
 
 jobs:
   lint_and_test:
@@ -49,16 +51,16 @@ jobs:
           node-version: "18"
 
       - name: Create .env file
-        env:
-          DjangoSecretKey: ${{ secrets.API_ENV}}
-          DjangoSecretKey1: ${{ secrets.API_ENV_PROD}}
-          Cognito: ${{secrets.APP_ENV_PROD_TS}}
-          CognitoClientPool2: ${{secrets.APP_ENV_TS}}
+        # env:
+        #   # DjangoSecretKey: ${{ secrets.API_ENV}}
+        #   # DjangoSecretKey1: ${{ secrets.API_ENV_PROD}}
+        #   # Cognito: "${{secrets.APP_ENV_PROD_TS}}"
+        #   # CognitoClientPool2: "${{secrets.APP_ENV_TS}}"
         run: |
-          echo "DjangoSecretKey=$DjangoSecretKey" > ./api/api/.env
-          echo "DjangoSecretKey1=$DjangoSecretKey1" > ./api/api/.env.prod.ts
-          echo "CognitoClientPool2=$CognitoClientPool2" > ./app/src/environments/env.ts
-          echo "Cognito=$Cognito" > ./app/src/environments/env.prod.ts
+          echo "${{ secrets.API_ENV}}" > ./api/api/.env
+          echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod.ts
+          echo "${{secrets.APP_ENV_TS}}" > ./app/src/environments/env.ts
+          echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
 
       - name: Install dependencies
         working-directory: ./app
