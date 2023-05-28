@@ -51,12 +51,14 @@ jobs:
       - name: Create .env file
         env:
           DjangoSecretKey: ${{ secrets.API_ENV}}
+          DjangoSecretKey1: ${{ secrets.API_ENV_PROD}}
           CognitoUserPool: ${{secrets.APP_ENV_PROD_TS}}
           CognitoClientPool2: ${{secrets.APP_ENV_TS}}
         run: |
           echo "DjangoSecretKey=$DjangoSecretKey" > .env
           echo "CognitoUserPool=$CognitoUserPool" > env.prod.ts
           echo "CognitoClientPool2=$CognitoClientPool2" > env.ts
+          echo "DjangoSecretKey1=$DjangoSecretKey1" > env.prod.ts
 
       - name: Install dependencies
         working-directory: ./app
