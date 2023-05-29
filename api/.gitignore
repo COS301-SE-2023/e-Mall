@@ -155,4 +155,6 @@ GitHub.sublime-settings
 
 # db
 shared-local-instance.db
+**/migrations/*
+!**/migrations/__init__.py
 # /db/data
