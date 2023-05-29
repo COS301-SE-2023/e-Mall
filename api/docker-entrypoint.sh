@@ -9,7 +9,7 @@
 # done
 # echo "Connected."
 
-echo "Flush the manage.py command if any"
+echo "Flush the database"
 #reset db
 while ! python manage.py flush --no-input 2>&1; do
   echo "Flusing django manage command"
