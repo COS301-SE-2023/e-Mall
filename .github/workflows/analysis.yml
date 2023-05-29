@@ -24,6 +24,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   codecov:
     name: Codecov
+    working-directory: ./app
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
