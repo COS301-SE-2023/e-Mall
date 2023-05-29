@@ -9,6 +9,15 @@
 # done
 # echo "Connected."
 
+# echo "Waiting for db.."
+# python manage.py check --database default > /dev/null 2> /dev/null
+# until [ $? -eq 0 ];
+# do
+#   sleep 2
+#   python manage.py check --database default > /dev/null 2> /dev/null
+# done
+# echo "Connected."
+
 # echo "Flush the database"
 # #reset db
 # while ! python manage.py flush --no-input 2>&1; do
