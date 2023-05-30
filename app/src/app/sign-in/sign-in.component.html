@@ -15,41 +15,47 @@
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
       crossorigin="anonymous" />
- 
   </head>
 
-
-  <body class="flex-column" style="margin: 0px;">
-
+  <body class="flex-column">
     <main class="signin main">
       <div class="cell">
         <!-- ======= section1 ======= -->
         <section class="section1__section1">
+          <input
+            type="text"
+            id="email"
+            name="email"
+            placeholder="Email"
+            #email="ngModel"
+            [(ngModel)]="user.email"
+            class="input1" />
 
-            <input
-                type="text"
-                id="email"
-                name="email"
-                placeholder="Email"
-                #email="ngModel"
-                [(ngModel)]="user.email" 
-                class ="input1">
-       
-            <input
-                [type]="user.showPassword ? 'text' : 'password'"
-                id="password"
-                name="password"
-                placeholder="Password"
-                #password="ngModel"
-                [(ngModel)]="user.password"
-                class="input2">
+          <input
+            [type]="user.showPassword ? 'text' : 'password'"
+            id="password"
+            name="password"
+            placeholder="Password"
+            #password="ngModel"
+            [(ngModel)]="user.password"
+            class="input2" />
 
-              <button class="section1__box" type="submit" value="Log in" (click)="signIn()">SIGN IN</button>
-          
+          <button
+            class="section1__box"
+            type="submit"
+            value="Log in"
+            (click)="signIn()">
+            SIGN IN
+          </button>
 
           <div class="section1__info2">Don’t have an account?</div>
           <div class="section1__info">
-            <input type="checkbox" id="Remember" name="Remember me" value="yes">Remember me</div>
+            <input
+              type="checkbox"
+              id="Remember"
+              name="Remember me"
+              value="yes" />Remember me
+          </div>
           <div class="section1__group">
             <div class="section1__cover">
               <h1 class="section1__hero_title_box">
@@ -62,14 +68,19 @@
                 >
               </h1>
             </div>
-            <img src="assets/images/logo.png" alt="alt text" class="section1__image" />
+            <img
+              src="assets/images/logo.png"
+              alt="alt text"
+              class="section1__image" />
 
             <h1 class="section1__title">
               Discover<br />Compare<br />Shop<br />E-Mall Has It All!
             </h1>
           </div>
           <h1 class="section1__title1">Login</h1>
-          <div class="section1__info1"><a href="/construction">Forgot Password</a></div>
+          <div class="section1__info1">
+            <a href="/construction">Forgot Password</a>
+          </div>
           <div class="section1__info11"><a href="/sign-up">Sign up</a></div>
         </section>
         <!-- ======= End section1 ======= -->

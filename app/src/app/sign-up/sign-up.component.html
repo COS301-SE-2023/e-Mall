@@ -18,59 +18,48 @@
       rel="stylesheet"
       type="text/css"
       href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
-    <!-- Please DO NOT remove this line, all link and script tags will be merged to here -->
-
-    <link rel="stylesheet" type="text/css" href="/css/common.css" />
-    <link rel="stylesheet" type="text/css" href="/css/fonts.css" />
-    <link rel="stylesheet" type="text/css" href="/css/headroom.css" />
-    <link rel="stylesheet" type="text/css" href="/css/Signin.css" />
-
-    <script
-      type="text/javascript"
-      src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script
-      type="text/javascript"
-      src="https://unpkg.com/headroom.js@0.12.0/dist/headroom.min.js"></script>
   </head>
 
-  <body class="flex-column" style="margin: 0px;">
-
+  <body class="flex-column">
     <main class="signin main">
       <div class="cell">
         <!-- ======= section1 ======= -->
         <section class="section1__section1">
+          <input
+            type="text"
+            id="email"
+            name="email"
+            placeholder="Email"
+            #email="ngModel"
+            [(ngModel)]="user.email"
+            class="input1" />
 
-            <input
-                type="text"
-                id="email"
-                name="email"
-                placeholder="Email"
-                #email="ngModel"
-                [(ngModel)]="user.email" 
-                class ="input1">
-       
-            <input
-                [type]="user.showPassword ? 'text' : 'password'"
-                id="password"
-                name="password"
-                placeholder="Password"
-                #password="ngModel"
-                [(ngModel)]="user.password"
-                class="input2">
-                <input
-                [type]="user.showPassword ? 'text' : 'password'"
-                id="password"
-                name="password"
-                placeholder="Password"
-                #password="ngModel"
-                [(ngModel)]="user.password"
-                class="input3">
+          <input
+            [type]="user.showPassword ? 'text' : 'password'"
+            id="password"
+            name="password"
+            placeholder="Password"
+            #password="ngModel"
+            [(ngModel)]="user.password"
+            class="input2" />
+          <input
+            [type]="user.showPassword ? 'text' : 'password'"
+            id="password"
+            name="password"
+            placeholder="Confirm Password"
+            #password="ngModel"
+            [(ngModel)]="user.password"
+            class="input3" />
 
-              <button class="section1__box" type="submit" value="Log in" (click)="signUp()">SIGN UP</button>
-          
+          <button
+            class="section1__box"
+            type="submit"
+            value="Log in"
+            (click)="signUp()">
+            SIGN UP
+          </button>
+
           <div class="section1__info2">Already have an account?</div>
-          <div class="section1__info">
-            <input type="checkbox" id="Remember" name="Remember me" value="yes">I agree to the terms and conditions</div>
 
           <div class="section1__group">
             <div class="section1__cover">
@@ -84,7 +73,10 @@
                 >
               </h1>
             </div>
-            <img src="assets/images/logo.png" alt="alt text" class="section1__image" />
+            <img
+              src="assets/images/logo.png"
+              alt="alt text"
+              class="section1__image" />
 
             <h1 class="section1__title">
               Discover<br />Compare<br />Shop<br />E-Mall Has It All!

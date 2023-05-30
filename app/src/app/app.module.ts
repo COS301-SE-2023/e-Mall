@@ -18,7 +18,6 @@ import { Register2Component } from './register2/register2.component';
 import { PendingComponent } from './pending/pending.component';
 import { ConstructionComponent } from './construction/construction.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,19 +27,22 @@ import { ConstructionComponent } from './construction/construction.component';
     SignOutComponent,
     ProfileComponent,
     RegisterComponent,
-    Register2Component,
-    ConstructionComponent
+    ConstructionComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule,
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
     RouterModule.forRoot([
-      {path: 'home', component: HomeComponent},
-      {path: 'construction', component: ConstructionComponent},
-      {path: 'pending', component: PendingComponent},
-      {path: 'register', component: RegisterComponent},
-      {path: 'register2', component: Register2Component},
-      {path: 'sign-in', component: SignInComponent},
-      {path: 'sign-up', component: SignUpComponent},
-    ]),],
+      { path: 'home', component: HomeComponent },
+      { path: 'construction', component: ConstructionComponent },
+      { path: 'pending', component: PendingComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'sign-in', component: SignInComponent },
+      { path: 'sign-up', component: SignUpComponent },
+    ]),
+  ],
 
   providers: [],
   bootstrap: [AppComponent],

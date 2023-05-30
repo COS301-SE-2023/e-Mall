@@ -4,8 +4,9 @@
 
 <div align="center">
 
+![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/COS301-SE-2023/e-Mall)  
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2023_e-Mall&metric=coverage)](https://sonarcloud.io/summary/new_code?id=COS301-SE-2023_e-Mall)
-![Build](https://github.com/COS301-SE-2023/e-Mall/actions/workflows/analysis.yml/badge.svg)
+![Build](https://github.com/COS301-SE-2023/e-Mall/actions/workflows/build.yml/badge.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2023_e-Mall&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=COS301-SE-2023_e-Mall)
 ![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2023/e-Mall)
 
@@ -47,7 +48,7 @@ Key features of our Agile approach during this project include:
 
 - [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
  <p >
-    <img width="500"  src="https://drive.google.com/uc?export=view&id=10uUrwkjvK35FLkFeqf8nmrLM6vFS-3ZF" alt="Gitflow branching strategy">
+    <img width="500"  src="https://drive.google.com/uc?export=view&id=1RyA8oq8HRugf5sQH-StnJqOvUtrWEcDu" alt="Gitflow branching strategy">
 </p>
 
 ## Design
@@ -56,23 +57,21 @@ Key features of our Agile approach during this project include:
 
 ## Demo Recordings
 
+- [Demo 1](https://drive.google.com/file/d/1WtD4Cf2bJh35EIP8aaokh-adotzQDbdi/view?usp=share_link)
+
 ## Demo Slides
 
-- [Example](Example Link)
+- [Demo 1](https://docs.google.com/presentation/d/1YZrFA4QHVVs61md-jd0sVwaYuVxk8gIflGG08N9U5ts/edit?usp=share_link)
 
 ## Documentation
 
 ### Software Requirements Specification
 
-- [SRS Document](https://www.overleaf.com/4334476151tprspyxymvcd)
+- [SRS V1](https://drive.google.com/file/d/1xYJfWMI8LHSDu71Z_4f4M5lmC0sm7LC7/view?usp=share_link)
 
 ### Architecture
 
-- [Architecture Document](https://www.overleaf.com/3354657325mgfvvcfmbwry)
-
 ### Testing
-
-- [Testing Document](https://www.overleaf.com/7975739853pmxvspzhnqmf)
 
 ### Deployment
 
@@ -105,5 +104,5 @@ Key features of our Agile approach during this project include:
 |     Gerard Nagura <br> <img src="https://drive.google.com/uc?export=view&id=115KAmYTvMNWBVfBuKUs_1TffhrUbxOD0" width="140"/> <br> u19004232      |                   [![image](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white "LinkedIn Profile")](https://www.linkedin.com/in/gerard-nagura/) <br> [![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white "GitHub Profile")](https://github.com/MaverickGDN03)                   | Gerard is a Computer Science student experienced in back-end development with a strong background in web development. He has worked as a full-stack developer and business analyst, giving him a diverse skill set. Gerard excels in team environments and handles stress with ease.                                                                                                                                                                                    |
 |       John Yoon <br> <img src="https://drive.google.com/uc?export=view&id=1TK_uwvL4jydNmKwzLUnOML0Rl0YUvd2o" width="140"/> <br> u17260044        |                  [![image](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white "LinkedIn Profile")](https://www.linkedin.com/in/yoon-john-a00b39269/) <br> [![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white "GitHub Profile")](https://github.com/u17260044)                  | John is a Computer Science student and has a background in military service as a server operator and maintainer for approximately two years. In addition, he has worked on a mobile app project as a full-stack developer using Flutter and Node.js for over a year. He is passionate about technology and possesses a keen desire to learn new skills. He is a diligent worker who is committed to putting in the necessary time and effort to ensure quality results. |
 |    Kaitlyn Sookdhev <br> <img src="https://drive.google.com/uc?export=view&id=1PDeEeioCIas4vEcCCko6-iE6MbUBPowr" width="140"/> <br> u21483974    | [![image](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white "LinkedIn Profile")](https://www.linkedin.com/in/kaitlyn-sookdhew-b999ab21b/) <br> [![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white "GitHub Profile")](https://www.linkedin.com/in/kaitlyn-sookdhew-b999ab21b/) | Kaitlyn is a final year Computer Science student with a deep passion for programming. She is an innovative and creative thinker, adept in software development and working with various data structures. Kaitlyn knows user interface, testing, and debugging processes and is equipped with a diverse and promising skill set. She can effectively self-manage during independent projects and collaborate in a team setting.                                          |
-| Letlhogonolo Rakgantsho<br> <img src="https://drive.google.com/uc?export=view&id=15OUNJZJjkToJkL5I97H-JaCKCMT1xJjC" width="140"/> <br> u21612812 |                [![image](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white "LinkedIn Profile")](https://www.linkedin.com/in/isakvdw/) <br> [![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white "Github Profile")](https://github.com/Eaziey22?tab=repositories)                | Letlhogonolo is a highly motivated final year Information Knowledge Systems student with a strong passion for coding and problem-solving. He has experience working with programming languages such as Java, C++, JavaScript, J-Query, and C#. Additionally, he has worked with web development tools such as HTML, CSS, and PHP.                                                                                                                                       |
-| Munashe Mashonganyika <br> <img src="https://drive.google.com/uc?export=view&id=1v34OzFyB3CdvIl4HjISkxaFsduWbipR9" width="140"/> <br> u19077450  |           [![image](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white "LinkedIn Profile")](https://www.linkedin.com/in/munashe-mashonganyika-32583a162/) <br> [![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white "Github Profile")](https://github.com/munashemash)           | Munashe is an Information Knowledge Systems student and a student lab technician with experience in both back-end and front-end development. He is well-versed in data science and machine learning and is particularly interested in artificial intelligence. During his studies, Munashe has developed a strong passion for web development.                                                                                                                          |
+| Letlhogonolo Rakgantsho<br> <img src="https://drive.google.com/uc?export=view&id=15OUNJZJjkToJkL5I97H-JaCKCMT1xJjC" width="140"/> <br> u21612812 |                     [![image](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/letlhogonolo-rakgantsho-603203275) <br> [![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Eaziey22?tab=repositories)                      | Letlhogonolo is a highly motivated final year Information Knowledge Systems student with a strong passion for coding and problem-solving. He has experience working with programming languages such as Java, C++, JavaScript, J-Query, and C#. Additionally, he has worked with web development tools such as HTML, CSS, and PHP.                                                                                                                                       |
+| Munashe Mashonganyika <br> <img src="https://drive.google.com/uc?export=view&id=1v34OzFyB3CdvIl4HjISkxaFsduWbipR9" width="140"/> <br> u19077450  |                             [![image](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/munashe-mashonganyika-32583a162/) <br> [![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/munashemash)                             | Munashe is an Information Knowledge Systems student and a student lab technician with experience in both back-end and front-end development. He is well-versed in data science and machine learning and is particularly interested in artificial intelligence. During his studies, Munashe has developed a strong passion for web development.                                                                                                                          |

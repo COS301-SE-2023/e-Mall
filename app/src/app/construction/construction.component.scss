@@ -13,7 +13,12 @@ $border_radius_type_1: 16px 16px 16px 16px;
 $font_type_0: 600 32px/1.39 "Poppins", Helvetica, Arial, serif;
 $font_type_1: 600 18px/1.5 "Poppins", Helvetica, Arial, serif;
 $font_type_2: 600 100px/1.39 "Poppins", Helvetica, Arial, serif;
-
+body { 
+  margin-top: -9px;
+  margin-right: -9px;
+  margin-bottom: -9px;
+  margin-left: -9px
+}
 .main {
   @include flex-column;
   background-color: $color_type_1;
