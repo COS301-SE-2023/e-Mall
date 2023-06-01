@@ -41,6 +41,9 @@ jobs:
         working-directory: ./app
         run: yarn lint
 
+      - name: Set up Docker Compose
+        run: docker-compose up -d
+
       - name: Run Backend Unit Tests
         working-directory: ./app
         run: yarn api:test
