@@ -18,6 +18,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Check for .env and env.prod.ts files
+        run: |
+          if [ -f ".env" ] || [ -f "env.prod.ts" ]; then
+            echo "Error: .env or env.prod.ts file found."
+            exit 1
+          else
+            echo "No .env or env.prod.ts file found."
+          fi
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
