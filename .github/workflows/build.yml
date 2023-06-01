@@ -1,4 +1,4 @@
-name: Build and Test
+name: Build
 
 on:
   push:
@@ -9,7 +9,6 @@ on:
     branches:
       - master
       - develop
-
 
 jobs:
   build:

@@ -45,9 +45,9 @@ jobs:
         working-directory: ./app
         run: yarn api:test
 
-
   sonarcloud:
     name: SonarCloud analysis
+    needs: [lint_and_test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -60,6 +60,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   codecov:
     name: Codecov
+    needs: [lint_and_test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
