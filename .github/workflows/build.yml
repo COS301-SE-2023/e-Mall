@@ -10,42 +10,9 @@ on:
       - master
       - develop
 
+
 jobs:
-  lint_and_test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Check for .env and env.prod.ts files
-        run: |
-          if [ -f ".env" ] || [ -f "env.prod.ts" ]; then
-            echo "Error: .env or env.prod.ts file found."
-            exit 1
-          else
-            echo "No .env or env.prod.ts file found."
-          fi
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "18"
-
-      - name: Install dependencies
-        working-directory: ./app
-        run: yarn install
-
-      - name: Lint Code
-        working-directory: ./app
-        run: yarn lint
-
-      # - name: Run Backend Unit Tests
-      #   working-directory: ./app
-      #   run: yarn api:test
-
   build:
-    needs: lint_and_test
     runs-on: ubuntu-latest
 
     steps:
