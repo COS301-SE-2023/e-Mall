@@ -9,6 +9,7 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2023_e-Mall&metric=coverage)](https://sonarcloud.io/summary/new_code?id=COS301-SE-2023_e-Mall)
 ![Build](https://github.com/COS301-SE-2023/e-Mall/actions/workflows/build.yml/badge.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2023_e-Mall&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=COS301-SE-2023_e-Mall)
+[![Uptime Robot status](https://img.shields.io/uptimerobot/ratio/7/m794460227-f44b2021a919ab7f3c0fd93d?style=flat-square)](https://img.shields.io/uptimerobot/ratio/7/m794460227-f44b2021a919ab7f3c0fd93d)
 ![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2023/e-Mall)
 
 </div>
@@ -59,16 +60,22 @@ Key features of our Agile approach during this project include:
 ## Demo Recordings
 
 - [Demo 1](https://drive.google.com/file/d/1WtD4Cf2bJh35EIP8aaokh-adotzQDbdi/view?usp=share_link)
+- [Demo 2](https://drive.google.com/file/d/1KlQhxeGZgHjAIOnKp6gupPG63rgjzcS-/view?usp=sharing)
 
 ## Demo Slides
 
 - [Demo 1](https://docs.google.com/presentation/d/1YZrFA4QHVVs61md-jd0sVwaYuVxk8gIflGG08N9U5ts/edit?usp=share_link)
+- [Demo 2](https://docs.google.com/presentation/d/1eknA2NjDVeAyFU2KvNPRM3W3024Jb-ArIjgltQonX9E/edit?usp=sharing)
 
 ## Documentation
+
+### How to run the project
+- [Instructions](https://github.com/COS301-SE-2023/e-Mall/wiki/How-to-run-the-project-locally)
 
 ### Software Requirements Specification
 
 - [SRS V1](https://drive.google.com/file/d/1xYJfWMI8LHSDu71Z_4f4M5lmC0sm7LC7/view?usp=share_link)
+- [SRS V2](https://drive.google.com/file/d/1O_zjfsFCpV5V17NZM9OG02uwljBLO9lz/view?usp=sharing)
 
 ### Architecture
 
@@ -80,6 +87,7 @@ Key features of our Agile approach during this project include:
 
 ## Project Management
 
+- [Jira](https://ss-e-mall.atlassian.net/jira/software/projects/SS/boards/1)
 - [Management Document](https://www.overleaf.com/5939438223ybcvjtpqxhwc)
 - [Project Board](https://github.com/orgs/COS301-SE-2023/projects/3)
 - [CI/CD GitHub Actions](https://github.com/COS301-SE-2023/e-Mall/actions)
