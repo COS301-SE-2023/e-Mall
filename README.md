@@ -5,8 +5,7 @@
 <div align="center">
 
 ![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/COS301-SE-2023/e-Mall)
-[![codecov](https://codecov.io/gh/COS301-SE-2023/e-Mall/branch/master/graph/badge.svg?token=E5XAZ3LOGP)](https://codecov.io/gh/COS301-SE-2023/e-Mall)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2023_e-Mall&metric=coverage)](https://sonarcloud.io/summary/new_code?id=COS301-SE-2023_e-Mall)
+[![codecov](https://codecov.io/github/COS301-SE-2023/e-Mall/branch/GN/55/backend_unit_testing_CI_CD/graph/badge.svg?token=30QP7VAW2W)](https://codecov.io/github/COS301-SE-2023/e-Mall)
 ![Build](https://github.com/COS301-SE-2023/e-Mall/actions/workflows/build.yml/badge.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2023_e-Mall&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=COS301-SE-2023_e-Mall)
 [![Uptime Robot status](https://img.shields.io/uptimerobot/ratio/7/m794460227-f44b2021a919ab7f3c0fd93d?style=flat-square)](https://img.shields.io/uptimerobot/ratio/7/m794460227-f44b2021a919ab7f3c0fd93d)
