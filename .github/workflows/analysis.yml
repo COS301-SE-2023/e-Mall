@@ -19,13 +19,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - uses: actions/checkout@v2
-      - name: Run Docker Compose Up
-        run: chmod +x api/docker-entrypoint.sh && docker-compose up -d
+      - name: Build Docker image
+        run: docker build -t myapp .
+        # run: chmod +x api/docker-entrypoint.sh && docker-compose up -d
 
       - name: Run Backend Unit Tests
         working-directory: ./app
         run: yarn docker:exec api pytest -t
+        with:
+          image-name: myapp
 
   sonarcloud:
     name: SonarCloud analysis
