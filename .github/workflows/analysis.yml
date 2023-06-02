@@ -24,7 +24,8 @@ jobs:
         run: chmod +x api/docker-entrypoint.sh && docker-compose up -d
 
       - name: Run Backend Unit Tests
-        uses: pavelzw/pytest-action@v2
+        working-directory: ./app
+        run: yarn api:test
 
   sonarcloud:
     name: SonarCloud analysis
