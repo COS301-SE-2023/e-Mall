@@ -25,7 +25,7 @@ jobs:
 
       - name: Run Backend Unit Tests
         working-directory: ./app
-        run: yarn api:test
+        run: yarn docker:exec api pytest -t
 
   sonarcloud:
     name: SonarCloud analysis
