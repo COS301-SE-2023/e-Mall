@@ -19,77 +19,90 @@
       href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   </head>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="card">
+  <body>
 
-          <div class="text-center">
-            <h1>Register with e-Mall</h1>
+    <div class="container-fluid same-height d-flex align-items-center justify-content-center">
+      <div class="row no-gutters">
+        <div class="col-md-6 col-lg-6 d-flex align-items-stretch">
+
+          <div class="card flex-grow-1 smaller-container">
+          
+            <div class="text-center">
+              <h1>e-Mall</h1>
+              <h2>Register your Business Today!</h2>
+            </div>
+            <form>
+              <div class="form-group">
+
+                <div class="mb-3">
+                  <input type="email" class="form-control" id="email" placeholder="Email*">
+                </div>
+
+                <div class="mb-3">
+                  <input type="Password" class="form-control" id="password" placeholder="Password*">
+                </div>
+              
+                <div class="mb-3">
+                  <input type="Password" class="form-control" id="cpassword" placeholder="Confirm Password*">
+                </div>
+
+              <div class="mb-3">
+                <input type="text" class="form-control" id="Website" placeholder="Website*">
+              </div>
+
+              <div class="mb-3">
+                <input type="text" class="form-control" id="feed" aria-describedby="productFeedHelp" placeholder="Product Feed">
+                <div id="productFeedHelp" class="form-text">You can enter the URL for your product feed, if you already got one.</div>
+              </div>
+
+              <div class="mb-3">
+                <select class="form-control mb-3" id="typeOfBusiness" id="typeOfBusiness" >
+                  <option value="" disabled selected hidden >Select Type Of Business*</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </div>
+              
+
+              <div class="mb-3">
+                <input type="number" class="form-control" id="catalogSize" placeholder="Catalog Size*">
+              </div>
+            
+              <div class="mb-3">
+                <input type="number" class="form-control" id="sizeOfBusiness" placeholder="Size Of Business*">
+              </div>
+              
+            
+              <button type="submit" class="btn">Submit</button>
+
+              <p style="margin-top: 20px;">already have an account? Sign Up</p>
+            </div>
+            </form>
           </div>
-          <form>
-
-            <div class="mb-3">
-              <label for="Website" class="form-label">Website</label>
-              <input type="text" class="form-control" id="Website" aria-describedby="">
-            </div>
-
-            <div class="mb-3">
-              <label for="firstName" class="form-label">First Name</label>
-              <input type="text" class="form-control" id="firstName" aria-describedby="">
-            </div>
-
-            <div class="mb-3">
-              <label for="surname" class="form-label">Surname</label>
-              <input type="text" class="form-control" id="surname" aria-describedby="">
-            </div>
-
-            <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email">
-            </div>
-
-            <div class="mb-3">
-              <label for="phoneNumber" class="form-label">Phone Number</label>
-              <input type="number" class="form-control" id="phoneNumber">
-            </div>
-
-            <div class="mb-3">
-              <label for="feed" class="form-label">Product feed</label>
-              <input type="text" class="form-control" id="feed" aria-describedby="productFeedHelp">
-              <div id="productFeedHelp" class="form-text">You can enter the URL for your product feed, if you already got one.</div>
-            </div>
-
-            <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
-              <input type="Password" class="form-control" id="password">
-            </div>
-
-            <div class="mb-3">
-              <label for="cpassword" class="form-label">Confirm Password</label>
-              <input type="Password" class="form-control" id="cpassword">
-            </div>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+        </div>
+       
+        <div class="col-md-6 col-lg-6 d-flex align-items-stretch">
+          <div class="container welcomeMsg_container flex-grow-1 smaller-container" id="welcomeMsg">
+        
+          <h1>Welcome to SA's leading comparison service for <span>online shopping</span></h1>
+          <img class="welcomeMsg_logo" 
+                src="assets/images/logo.png"
+                alt="e-Mall logo"
+          >
+          <h1 class="">
+            Discover<br />Compare<br />Shop<br />E-Mall Has It All!
+          </h1>
         </div>
       </div>
-      <div class="col-md-6">
-      
-        <h1>Welcome to SA's leading comparison service for <span>online shopping</span></h1>
-        <img class="" 
-              src="assets/images/logo.png"
-              alt="alt text"
-              class="" 
-        >
-        <h1 class="">
-          Discover<br />Compare<br />Shop<br />E-Mall Has It All!
-        </h1>
+      </div>
+    
+    
     </div>
-  </div>
-  
-  
-</div>
+  </body>
+</html>
 
 
   <!--
