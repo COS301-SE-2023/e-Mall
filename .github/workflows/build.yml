@@ -24,11 +24,6 @@ jobs:
           node-version: "18"
 
       - name: Create .env file
-        # env:
-        #   # DjangoSecretKey: ${{ secrets.API_ENV}}
-        #   # DjangoSecretKey1: ${{ secrets.API_ENV_PROD}}
-        #   # Cognito: "${{secrets.APP_ENV_PROD_TS}}"
-        #   # CognitoClientPool2: "${{secrets.APP_ENV_TS}}"
         run: |
           echo "${{ secrets.API_ENV}}" > ./api/api/.env
           echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod.ts
