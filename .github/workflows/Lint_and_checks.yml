@@ -1,4 +1,4 @@
-name: Code Analysis
+name: Lint and Test
 on:
   push:
     branches:
@@ -40,5 +40,3 @@ jobs:
       - name: Lint Code
         working-directory: ./app
         run: yarn lint
-
-
