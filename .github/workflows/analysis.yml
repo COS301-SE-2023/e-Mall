@@ -49,6 +49,7 @@ jobs:
   codecov:
     name: Codecov
     needs: [test]
+
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -57,3 +58,4 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./api/coverage.xml
+
