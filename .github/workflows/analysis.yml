@@ -32,7 +32,7 @@ jobs:
       - name: Run Backend Unit Tests
         working-directory: ./app
         run: docker-compose exec -T api pytest
-        
+
   sonarcloud:
     name: SonarCloud analysis
     needs: [test]
@@ -56,4 +56,4 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: $GITHUB_WORKSPACE/coverage.xml
+          files: ./api/coverage.xml
