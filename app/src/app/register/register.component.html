@@ -31,32 +31,48 @@
               <h1>e-Mall</h1>
               <h2>Register your Business Today!</h2>
             </div>
-            <form>
+            
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
               <div class="form-group">
 
                 <div class="mb-3">
-                  <input type="email" class="form-control" id="email" placeholder="Email*">
+                  <input type="email" class="form-control" id="email" placeholder="Email*" formControlName="email">
+                  <div *ngIf="f['email'].touched && f['email'].invalid" class="text-danger">
+                    <div *ngIf="f['email'].errors?.['required']">Email is required</div>
+                    <div *ngIf="f['email'].errors?.['email']">Invalid email address</div>
+                  </div>
                 </div>
 
                 <div class="mb-3">
-                  <input type="Password" class="form-control" id="password" placeholder="Password*">
+                  <input type="Password" class="form-control" id="password" placeholder="Password*" formControlName="password">
+                  <div *ngIf="f['password'].touched && f['password'].invalid" class="text-danger">
+                    <div *ngIf="f['password'].errors?.['required']">Password is required</div>
+                    <div *ngIf="f['password'].errors?.['minlength']">Password must be at least 8 characters long</div>
+                  </div>
                 </div>
               
                 <div class="mb-3">
-                  <input type="Password" class="form-control" id="cpassword" placeholder="Confirm Password*">
+                  <input type="Password" class="form-control" id="cpassword" placeholder="Confirm Password*" formControlName="cpassword">
+                  <div *ngIf="f['cpassword'].touched && f['cpassword'].invalid" class="text-danger">
+                    <div *ngIf="f['cpassword'].errors?.['required']">Confirm Password is required</div>
+                    <div *ngIf="f['cpassword'].errors?.['passwordMismatch'] && f['cpassword'].value !== ''">Password and Confirm Password do not match</div>
+                  </div>
                 </div>
 
               <div class="mb-3">
-                <input type="text" class="form-control" id="Website" placeholder="Website*">
+                <input type="text" class="form-control" id="Website" placeholder="Website*" formControlName="Website">
+                <div *ngIf="f['Website'].touched && f['Website'].invalid" class="text-danger">
+                  <div *ngIf="f['Website'].errors?.['required']">Website is required</div>
+                </div>
               </div>
 
               <div class="mb-3">
-                <input type="text" class="form-control" id="feed" aria-describedby="productFeedHelp" placeholder="Product Feed">
+                <input type="text" class="form-control" id="feed" aria-describedby="productFeedHelp" placeholder="Product Feed" formControlName="feed">
                 <div id="productFeedHelp" class="form-text">You can enter the URL for your product feed, if you already got one.</div>
               </div>
 
               <div class="mb-3">
-                <select class="form-control mb-3" id="typeOfBusiness" id="typeOfBusiness" >
+                <select class="form-control mb-3" id="typeOfBusiness" id="typeOfBusiness" formControlName="typeOfBusiness">
                   <option value="" disabled selected hidden >Select Type Of Business*</option>
                   <option>1</option>
                   <option>2</option>
@@ -64,19 +80,32 @@
                   <option>4</option>
                   <option>5</option>
                 </select>
+                <div *ngIf="f['typeOfBusiness'].touched && f['typeOfBusiness'].invalid" class="text-danger">
+                  <div *ngIf="f['typeOfBusiness'].errors?.['required']">Type of Business is required</div>
+                </div>
               </div>
               
 
               <div class="mb-3">
-                <input type="number" class="form-control" id="catalogSize" placeholder="Catalog Size*">
+                <input type="number" class="form-control" id="catalogSize" placeholder="Catalog Size*" formControlName="catalogSize">
+                <div *ngIf="f['catalogSize'].touched && f['catalogSize'].invalid" class="text-danger">
+                  <div *ngIf="f['catalogSize'].errors?.['required']">Catalog Size is required</div>
+                </div>
               </div>
             
               <div class="mb-3">
-                <input type="number" class="form-control" id="sizeOfBusiness" placeholder="Size Of Business*">
+                <input type="number" class="form-control" id="sizeOfBusiness" placeholder="Size Of Business*" formControlName="sizeOfBusiness">
+                <div *ngIf="f['sizeOfBusiness'].touched && f['sizeOfBusiness'].invalid" class="text-danger">
+                  <div *ngIf="f['sizeOfBusiness'].errors?.['required']">Size of Business is required</div>
+                </div>
+              </div>
+
+              <div class="text-danger" *ngIf="!registerForm.valid && formSubmitted">
+                Form invalid. Please fill in all required fields.
               </div>
               
             
-              <button type="submit" class="btn">Submit</button>
+              <button type="submit" class="btn btn-lg btn-block">Submit</button>
 
               <p style="margin-top: 20px;">already have an account? Sign Up</p>
             </div>
