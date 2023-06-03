@@ -16,6 +16,9 @@ import { RegisterComponent } from './register/register.component';
 import { PendingComponent } from './pending/pending.component';
 import { ConstructionComponent } from './construction/construction.component';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +42,7 @@ import { ConstructionComponent } from './construction/construction.component';
       { path: 'sign-in', component: SignInComponent },
       { path: 'sign-up', component: SignUpComponent },
     ]),
+    ReactiveFormsModule
   ],
 
   providers: [],
