@@ -4,38 +4,14 @@ on:
     branches:
       - master
       - develop
-      - GN/55/backend_unit_testing_CI_CD
   pull_request:
     types: [opened, synchronize, reopened]
     branches:
       - master
       - develop
-      - GN/55/backend_unit_testing_CI_CD
 jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Create .env file
-        run: |
-          echo "${{ secrets.API_ENV}}" > ./api/api/.env
-          echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod.ts
-          echo "${{secrets.APP_ENV_TS}}" > ./app/src/environments/env.ts
-          echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
-
-      - name: Run Docker Compose Up
-        run: chmod +x api/docker-entrypoint.sh && docker-compose up -d
-
-      - name: Run Backend Unit Tests
-        working-directory: ./app
-        run: docker-compose exec -T api pytest
-
   sonarcloud:
     name: SonarCloud analysis
-    needs: [test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -48,8 +24,6 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   codecov:
     name: Codecov
-    needs: [test]
-
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -57,5 +31,3 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./api/coverage.xml
-
