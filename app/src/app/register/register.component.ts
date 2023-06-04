@@ -26,9 +26,7 @@ export class RegisterComponent implements OnInit{
   }
 
   ngOnInit() {
-
     this.registerForm = this.formBuilder.group({
-
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       cpassword: ['', Validators.required],
@@ -38,7 +36,7 @@ export class RegisterComponent implements OnInit{
       catalogSize: ['', Validators.required],
       sizeOfBusiness: ['', Validators.required]
     }, {
-      validator: this.passwordMatchValidator
+      validators: this.passwordMatchValidator
     });
   }
 
@@ -62,11 +60,9 @@ export class RegisterComponent implements OnInit{
 
   //check if password and confim password match
   passwordMatchValidator(formGroup: FormGroup) {
-
-    
     const password = formGroup.get('password')?.value;
     const cpassword = formGroup.get('cpassword')?.value;
-
+  
     if (password !== cpassword) {
       formGroup.get('cpassword')?.setErrors({ passwordMismatch: true });
     } else {
@@ -74,8 +70,9 @@ export class RegisterComponent implements OnInit{
     }
   }
 
+  /*
   public signUp(): void {
-    /* this.loading = true;
+     this.loading = true;
     this.cognitoService
       .signUp(this.user)
       .then(() => {
@@ -84,9 +81,9 @@ export class RegisterComponent implements OnInit{
       })
       .catch(() => {
         this.loading = false;
-      });*/
+      });
     this.router.navigate(['/pending']);
-  }
+  }*/
 
   /* public confirmSignUp(): void {
     this.loading = true;
