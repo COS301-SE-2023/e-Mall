@@ -32,4 +32,6 @@ router.register(r'consumer', ConsumerViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls'))
+    # path('api/sellers/<str:pk>/', SellerViewSet.as_view({'get': 'retrieve'})),
 ]

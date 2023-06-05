@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -15,6 +15,7 @@ import { RegisterComponent } from './register/register.component';
 
 import { PendingComponent } from './pending/pending.component';
 import { ConstructionComponent } from './construction/construction.component';
+import { httpInterceptorProviders } from './interceptors/index';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import { ConstructionComponent } from './construction/construction.component';
     ]),
   ],
 
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ISellerForm } from '@app/models/seller.interface';
 
-import { IUser, CognitoService } from '@app/services/cognito.service';
+import { CognitoService } from '@app/services/cognito.service';
+import { PublicService } from '@app/services/public.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,12 +13,19 @@ import { IUser, CognitoService } from '@app/services/cognito.service';
 export class SignUpComponent {
   loading: boolean;
   isConfirm: boolean;
-  user: IUser;
+  user: any;
+  // user: ISellerForm;
 
-  constructor(private router: Router, private cognitoService: CognitoService) {
+  constructor(
+    private router: Router,
+    private cognitoService: CognitoService,
+    private pService: PublicService
+  ) {
     this.loading = false;
     this.isConfirm = false;
-    this.user = {} as IUser;
+    this.user = { showPassword: false };
+
+    // this.user = {} as ISellerForm;
   }
 
   public signUp(): void {
@@ -30,6 +39,7 @@ export class SignUpComponent {
       .catch(() => {
         this.loading = false;
       });*/
+
     this.router.navigate(['/home']);
   }
 
