@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'django_extensions',
     # 'public.apps.PublicConfig',
     # 'user.apps.UserConfig',
     'seller.apps.SellerConfig',
@@ -128,7 +129,8 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        # 'rest_framework.permissions.AllowAny',
     ]
 }
 # LOGIN_REDIRECT_URL = '/'

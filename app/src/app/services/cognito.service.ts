@@ -1,16 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, from, Observable, switchMap } from 'rxjs';
 import { Amplify, Auth } from 'aws-amplify';
 
 import { environment } from '../../environments/env';
-export interface IUser {
-  email: string;
-  password: string;
-  showPassword: boolean;
-  code: string;
-  name: string;
-}
-
 @Injectable({
   providedIn: 'root',
 })
@@ -25,19 +19,19 @@ export class CognitoService {
     this.authenticationSubject = new BehaviorSubject<boolean>(false);
   }
 
-  public signUp(user: IUser): Promise<any> {
+  public signUp(email: string, password: string): Promise<any> {
     return Auth.signUp({
-      username: user.email,
-      password: user.password,
+      username: email,
+      password: password!,
     });
   }
 
-  public confirmSignUp(user: IUser): Promise<any> {
-    return Auth.confirmSignUp(user.email, user.code);
+  public confirmSignUp(email: string, verificatn_code: string): Promise<any> {
+    return Auth.confirmSignUp(email, verificatn_code);
   }
 
-  public signIn(user: IUser): Promise<any> {
-    return Auth.signIn(user.email, user.password).then(() => {
+  public signIn(email: string, password: string): Promise<any> {
+    return Auth.signIn(email, password).then(() => {
       this.authenticationSubject.next(true);
     });
   }
@@ -70,9 +64,15 @@ export class CognitoService {
     return Auth.currentUserInfo();
   }
 
-  public updateUser(user: IUser): Promise<any> {
-    return Auth.currentUserPoolUser().then((cognitoUser: any) => {
-      return Auth.updateUserAttributes(cognitoUser, user);
-    });
+  // public updateUser(user: IUser): Promise<any> {
+  //   return Auth.currentUserPoolUser().then((cognitoUser: any) => {
+  //     return Auth.updateUserAttributes(cognitoUser, user);
+  //   });
+  // }
+
+  public getAccessToken(): Observable<string> {
+    return from(Auth.currentSession()).pipe(
+      switchMap(session => from(session.getAccessToken().getJwtToken()))
+    );
   }
 }

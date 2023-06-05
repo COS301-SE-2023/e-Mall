@@ -10,6 +10,6 @@ def get_default_data():
 
 
 class Consumer(User):
-    type = models.CharField(max_length=8, default='consumer')
+    type = models.CharField(max_length=8, default='consumer', editable=False)
     wishlist = models.JSONField(
         encoder=None, default=get_default_data, null=False)
