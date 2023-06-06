@@ -125,7 +125,7 @@ body{
 }
 
 .form-group a {
-  transition: color 0.3s ease-in-out; 
+  transition: color 0.2s ease-in-out; 
   color: #444;
   text-decoration: none;
   font-size: larger;
@@ -133,6 +133,7 @@ body{
 
 .form-group a:hover {
   text-decoration: underline;
+  color: $color_type_6;
 }
 
 .errorMsg {
@@ -149,7 +150,17 @@ body{
 }
 
 .form-group p {
-  margin-left: 100px;
+  margin-left: 70px;
+  font-size: small;
+
+}
+
+.dnotHave-acc{
+  margin-top: 40px;
+  border-top: 2px solid #444;
+  margin-right: 50px;
+  margin-left: 50px;
+  padding: 0;
 }
 
 .welcomeMsg_logo {
