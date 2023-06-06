@@ -32,6 +32,7 @@ body{
   align-items: stretch;
 }
 
+//
 .d-flex {
   display: flex;
 }
@@ -43,15 +44,13 @@ body{
 .justify-content-center {
   justify-content: center;
 }
-
+//
 .container-fluid {
   padding: 0px;
-  margin-top:15%;
-  margin-bottom: 15%;
+  margin-top:7%;
   //margin-left: 0px;
   display: flex;
   justify-content: flex-start;
- 
 }
 
 @media (min-width: 768px) {
@@ -73,15 +72,17 @@ body{
 
 .smaller-container {
   //max-width: 800px;
-  margin: 0;
+  margin-right: auto;
+  margin-left: 0;
   padding: 20px;
   display: flex;
   /*flex-direction: column;*/
   justify-content: flex-start;
   height: 100%;
+  margin-top: 0;
 }
 
-
+//
 .smaller-container h1{
 
   margin:10%;
@@ -91,22 +92,30 @@ body{
 
   margin:10%;
 }
-
+//
 
 .card{
-  width:300px /*!important*/ ;
-  margin-left: 0px;
+  width:330px /*!important*/ ;
+  margin-left: 6%;
   border-radius: 20px 0 0 20px;
   flex:1;
   flex-direction: column;
 }
+
+//
+.card h2{
+  color: black;
+  padding-top: 60px;
+  font-family: $font_type_4;
+}
+//
 
 .welcomeMsg_container {
   background-color:$color_type_6;
   border-radius: 0 20px 20px 0;
   height: 100%;
   flex: none;
-  width:700px !important;
+  width:770px !important;
   flex-direction: column;
   flex-grow: 1;
   //justify-content:flex-start;
@@ -125,11 +134,43 @@ body{
 
 .form-group {
   border-radius: 10px 0 0 10px;
+  font-family: $font_type_0;
+}
+
+.form-group input, select {
+  width:80%;
+  margin-left:auto;
+  margin-right: auto;
+}
+
+.form-group a {
+  transition: color 0.3s ease-in-out; 
+  color: #444;
+  text-decoration: none;
+  font-size: larger;
+}
+
+.form-group a:hover {
+  text-decoration: underline;
+}
+
+.errorMsg {
+  margin-left: 45px;
+  margin-top: 0;
+}
+
+#productFeedHelp{
+  font-size:x-small;
+  padding-left: 50px;
 }
 
 .btn{
   background-color: $color_type_6;
   margin-left: 180px;
+  margin-top: 25px;
+  @include font-face($font_type_3, white, 0px);
+  
+
   //margin-right: auto;
 }
 
@@ -150,24 +191,53 @@ body{
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  margin-top: 20%;
+  margin-top: 10%;
   padding-top: 0;
+  color: white;
+  font-family: $font_type_4;
   
 }
 
 .welcomeMsg-words-top {
   margin-left: auto;
   margin-right: auto;
-  //text-align: center;
+  text-align:left;
   margin-top: 90%;
   padding-top: 0;
+  padding-left:120px;
+  padding-right: 0px;
+  color: white;
+  font-family: $font_type_4;
   
 }
+
+.welcomeMsg-words-top span{
+  color: black;
+  padding:0;
+}
+
 
 .footer{
   background-color: $color_type_8;
   padding-top: 60px;
-  margin-top: 20%;
+  margin-top: 30%;
+}
+
+.footer a {
+  transition: color 0.3s ease-in-out; 
+  color: #444;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.icons {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid #444 ;
+ 
 }
 
 .welcomeMsg_logo_footer {
@@ -179,99 +249,6 @@ body{
   margin-right: auto;
 }
 
-
-
-
-
-/*
-body{
-  background-color: $color_type_2 ;
-}
-
-#flex-center{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height: 100%;
-  background-color: pink;
-  border-radius: $border_radius_type_0;
-  height: 100vh;
-}
-
-.col-md-6 {
-  padding: 20px;
-}
-
-h1 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-@media (max-width: 767px) {
-  .col-md-6 {
-    width: 100%;
-  }
-  
-  h1 {
-    font-size: 20px;
-  }
-}
-
-
-
-.welcomeMsg_logo {
-  max-width: 100%;
-  height: auto;
-}
-
-
-
-.welcomeMsg_container {
-  background-color: $color_type_6;
-  padding: 0px; 
-  margin: 0px;
-}
-
-.no-gutters {
-  margin-right: 0;
-  margin-left: 0;
-
-  > .col,
-  > [class*="col-"] {
-    padding-right: 0;
-    padding-left: 0;
-  }
-}
-
-.same-height {
-  display: flex;
-  align-items: stretch;
-  height: 100vh;
-  background-color: white;
-}
-
-.welcomeMsg_container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  //width-right: 700px !important;
-  width: 20000px !important;
-  border-radius: 0 10px 10px 0;
-  height:100vh;
-}
-
-//.smaller-container {
- // max-width: 400px;
-//}
-
-.card{
-  border-radius: 10px 0 0 10px;
-  height:100vh;
-}
-
-*/
 
 
 
