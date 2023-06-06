@@ -4,8 +4,6 @@ import { Router } from '@angular/router';
 import { ISellerForm } from '@app/models/seller.interface';
 import { AuthService } from '@app/services/auth.service';
 
-import { CognitoService } from '@app/services/cognito.service';
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -17,11 +15,7 @@ export class RegisterComponent {
   user: any;
   // user: ISellerForm;
 
-  constructor(
-    private router: Router,
-    private cognitoService: CognitoService,
-    private authService: AuthService
-  ) {
+  constructor(private router: Router, private authService: AuthService) {
     this.loading = false;
     this.isConfirm = false;
     this.user = { showPassword: false };
@@ -41,18 +35,18 @@ export class RegisterComponent {
         this.loading = false;
       });*/
     const data: ISellerForm = {
-      username: 'test6',
-      email: 'test6@test.com',
+      username: 'test2',
+      email: 'test2@test.com',
       type: 'seller',
-      reg_no: '123456023456',
-      business_name: 'Test1 Business',
+      reg_no: '123456023452',
+      business_name: 'Test2 Business',
       business_type: 'Test Type',
       catalogue_size: 200,
       business_category: 'MICRO',
       status: 'PENDING',
       is_verified: false,
-      website: 'https://www.bing6.com/',
-      feed_url: 'https://www.bing6.com/',
+      website: 'https://www.bing1.com/',
+      feed_url: 'https://www.bing1.com/',
       password: '!Q2w3e4r!',
     };
     // this.authService.sellerSignUp(data);

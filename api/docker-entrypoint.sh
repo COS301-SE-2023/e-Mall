@@ -9,12 +9,12 @@
 # done
 # echo "Connected."
 
-echo "Reset the database"
-#reset db
-while ! python manage.py reset_db --noinput 2>&1; do
-  echo "Resetting the database"
-  sleep 1
-done
+# echo "Reset the database"
+# #reset db
+# while ! python manage.py reset_db --noinput 2>&1; do
+#   echo "Resetting the database"
+#   sleep 1
+# done
 # echo "Flush the database"
 # #reset db
 # while ! python manage.py flush --no-input 2>&1; do

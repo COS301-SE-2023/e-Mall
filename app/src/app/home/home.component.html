@@ -33,7 +33,12 @@
         <div class="cell1">
           <div class="box">
             <div class="cell">
-              <a href="/sign-in" class="highlights1">Sign In</a>
+              <a *ngIf="!isAuthenticated" href="/sign-in" class="highlights1"
+                >Sign In</a
+              >
+              <a *ngIf="isAuthenticated" class="highlights1" (click)="signOut()"
+                >Sign Out</a
+              >
             </div>
           </div>
         </div>
