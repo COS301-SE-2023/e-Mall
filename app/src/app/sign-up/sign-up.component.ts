@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ISellerForm } from '@app/models/seller.interface';
 
-import { CognitoService } from '@app/services/cognito.service';
 import { PublicService } from '@app/services/public.service';
 
 @Component({
@@ -16,11 +15,7 @@ export class SignUpComponent {
   user: any;
   // user: ISellerForm;
 
-  constructor(
-    private router: Router,
-    private cognitoService: CognitoService,
-    private pService: PublicService
-  ) {
+  constructor(private router: Router, private pService: PublicService) {
     this.loading = false;
     this.isConfirm = false;
     this.user = { showPassword: false };

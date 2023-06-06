@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ISellerForm } from '@app/models/seller.interface';
 
-import { CognitoService } from '@app/services/cognito.service';
-import { PublicService } from '@app/services/public.service';
+import { PublicService } from '@service/public.service';
+import { AuthService } from '@service/auth.service';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -12,28 +12,36 @@ import { PublicService } from '@app/services/public.service';
 export class SignInComponent {
   loading: boolean;
   user: any;
+  email: string | undefined;
+  password: string | undefined;
   // user: ISellerForm;
 
   constructor(
     private router: Router,
-    private cognitoService: CognitoService,
+    private AuthService: AuthService,
     private pService: PublicService
   ) {
     this.loading = false;
     this.user = { showPassword: false };
+    this.email = undefined;
+    this.password = undefined;
     // this.user = {} as ISellerForm;
   }
 
   public signIn(): void {
-    // console.log(this.user.email);
-    // this.pService.sellserSignIn(this.user.email).subscribe(data => {
-    //   console.log(data);
-    // });
-    /* this.loading = true;
-    this.cognitoService
-      .signIn(this.user)
-      .then(() => {*/
-    this.router.navigate(['/construction']);
+    this.email = 'test1@test.com';
+    this.password = '!Q2w3e4r!';
+    if (this.email && this.password) {
+      this.AuthService.signIn(this.email, this.password).subscribe(() => {
+        this.router.navigate(['/home']);
+      }); // this.pService.sellserSignIn(this.user.email).subscribe(data => { // console.log(this.user.email);
+      //   console.log(data);
+      // });
+      /* this.loading = true;
+      this.cognitoService
+        .signIn(this.user)
+        .then(() => {*/
+    }
     /*  })
       .catch(() => {
         this.loading = false;

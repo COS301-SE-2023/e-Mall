@@ -1,4 +1,5 @@
 export interface ISellerForm {
+  id?: string;
   username: string;
   email: string;
   password?: string;
