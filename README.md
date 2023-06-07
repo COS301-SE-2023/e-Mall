@@ -4,6 +4,8 @@
 
 <div align="center">
 
+![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/COS301-SE-2023/e-Mall)
+[![codecov](https://codecov.io/gh/COS301-SE-2023/e-Mall/branch/master/graph/badge.svg?token=E5XAZ3LOGP)](https://codecov.io/gh/COS301-SE-2023/e-Mall)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2023_e-Mall&metric=coverage)](https://sonarcloud.io/summary/new_code?id=COS301-SE-2023_e-Mall)
 ![Build](https://github.com/COS301-SE-2023/e-Mall/actions/workflows/build.yml/badge.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2023_e-Mall&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=COS301-SE-2023_e-Mall)
@@ -56,6 +58,8 @@ Key features of our Agile approach during this project include:
 
 ## Demo Recordings
 
+- [Demo 1](https://drive.google.com/file/d/1WtD4Cf2bJh35EIP8aaokh-adotzQDbdi/view?usp=share_link)
+
 ## Demo Slides
 
 - [Demo 1](https://docs.google.com/presentation/d/1YZrFA4QHVVs61md-jd0sVwaYuVxk8gIflGG08N9U5ts/edit?usp=share_link)
@@ -68,11 +72,7 @@ Key features of our Agile approach during this project include:
 
 ### Architecture
 
-- [Architecture Document](https://www.overleaf.com/3354657325mgfvvcfmbwry)
-
 ### Testing
-
-- [Testing Document](https://www.overleaf.com/7975739853pmxvspzhnqmf)
 
 ### Deployment
 
