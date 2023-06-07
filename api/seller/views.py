@@ -1,6 +1,7 @@
 # from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from rest_framework import generics
 from rest_framework import viewsets
 from .serializers import SellerSerializer
 from .models import Seller
@@ -24,3 +25,8 @@ class SellerViewSet(viewsets.ModelViewSet):
     def is_verified(self, request, *args, **kwargs):
         instance = self.get_object()
         return Response({'is_verified': instance.is_verified})
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.prefetch_related('product_set')
+        return queryset

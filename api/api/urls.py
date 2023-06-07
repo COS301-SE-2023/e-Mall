@@ -18,6 +18,7 @@ from django.contrib import admin
 from seller.views import SellerViewSet
 from staff.views import StaffViewSet
 from consumer.views import ConsumerViewSet
+from product.views import ProductList
 
 from rest_framework import routers
 from django.urls import path, include
@@ -25,11 +26,12 @@ from django.urls import path, include
 
 # api
 router = routers.DefaultRouter()
-router.register(r'staff', StaffViewSet)
-router.register(r'seller', SellerViewSet)
-router.register(r'consumer', ConsumerViewSet)
+router.register(r"staff", StaffViewSet)
+router.register(r"seller", SellerViewSet)
+router.register(r"consumer", ConsumerViewSet)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
+    path("admin/", admin.site.urls),
+    path("api/", include(router.urls)),
+    path("api/product/", ProductList.as_view(), name="product-list"),
 ]
