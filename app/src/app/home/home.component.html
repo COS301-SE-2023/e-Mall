@@ -7,6 +7,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
+
     <link
       rel="stylesheet"
       type="text/css"
@@ -19,25 +20,29 @@
       href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   </head>
 
+
   <body class="flex-column">
     <header id="header">
-      <div class="headers root">
-        <div class="cell"><h1 class="title">e-Mall</h1></div>
-        <div class="spacer"></div>
-        <input
-          type="text"
-          placeholder="Search Products, categories ..."
-          class="wrapper" />
-        <div class="spacer"></div>
-        <div class="spacer1"></div>
-        <div class="cell1">
-          <div class="box">
-            <div class="cell">
-              <a href="/sign-in" class="highlights1">Sign In</a>
+      <nav class="headers root">
+          <a href="/home" class="title">e-Mall</a>
+          <a class="nav_link" href="/construction">Categories</a>
+          <form (submit)="search()" #f="ngForm">
+            <input
+              type="search"
+              type="search"
+              class="wrapper"
+              placeholder="Search Products..."
+            />
+          </form>
+          <div class="spacer"></div>
+          <div class="cell1">
+            <div class="box">
+              <div class="cell">
+                <a href="/sign-in" class="highlights1">Sign In</a>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+      </nav>
     </header>
     <main class="landing main">
       <!-- ======= section1 ======= -->
@@ -76,6 +81,7 @@
         </div>
       </section>
       <!-- ======= End section2 ======= -->
+
 
       <!-- ======= section3 ======= -->
       <section class="section3__section3"></section>

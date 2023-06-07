@@ -1,11 +1,15 @@
 @use "utils" as *;
 
+
 $color_type_0: rgb(0, 0, 0);
 $color_type_1: rgb(21, 21, 21);
 $color_type_2: rgb(247, 249, 249);
 $color_type_3: rgb(255, 255, 255);
 
+
 $border_radius_type_0: 12px 12px 12px 12px;
+
+
 
 
 $font_type_0: 600 32px/1.39 "Poppins", Helvetica, Arial, serif;
@@ -14,7 +18,7 @@ $font_type_2: 400 14px/1.5 "Inter", Helvetica, Arial, serif;
 $font_type_3: 400 14px/1.35 "Open Sans", Helvetica, Arial, serif;
 $font_type_4: 500 12px/1.39 "Inter", Helvetica, Arial, serif;
 $font_type_5: 600 100px/1.39 "Poppins", Helvetica, Arial, serif;
-body { 
+body {
   margin-top: -9px;
   margin-right: -9px;
   margin-bottom: -15px;
@@ -107,6 +111,7 @@ body {
   top: 40px;
   right: 426px;
 }
+
 
 .section2__flex_column2 {
   @include flex-column;
@@ -238,6 +243,9 @@ body {
 
 
 
+
+
+
 .root {
   @include v-center-content;
   background-color: $color_type_2;
@@ -249,6 +257,15 @@ body {
   position: relative;
   flex: 0 0 147px;
   min-width: 147px;
+}
+.nav_link{
+ 
+  @include font-face($font_type_2, $color_type_0, 0px);
+  position: relative;
+  flex-grow: 1;
+  text-align: left !important;
+  margin: 18px 0px 17px 0px !important;
+ 
 }
 .title {
   @include lg {
@@ -280,7 +297,7 @@ body {
   margin: 18px 0px 17px 40px;
 }
 .root > .spacer {
-  flex: 0 1 339px;
+  flex: 0 1 20px;
 }
 .wrapper {
   @include v-center-content;
@@ -305,6 +322,7 @@ body {
   flex: 0 1 500px;
   margin: 19px 0px;
   height: max-content;
+  width: min-content;
 }
 .wrapper > .cell {
   @include flex-column;
@@ -328,7 +346,7 @@ body {
   margin: 10px 0px 9px 16px;
 }
 .wrapper > .spacer {
-  flex: 0 1 12px;
+  flex: 0 1 4px;
 }
 .wrapper1 {
   @include flex-column;
@@ -441,3 +459,5 @@ body {
   margin: 4px 12px 3px;
   text-align: left;
 }
+
+
