@@ -280,7 +280,7 @@ body {
   margin: 18px 0px 17px 40px;
 }
 .root > .spacer {
-  flex: 0 1 339px;
+  flex: 0 1 20px;
 }
 .wrapper {
   @include v-center-content;
@@ -305,6 +305,7 @@ body {
   flex: 0 1 500px;
   margin: 19px 0px;
   height: max-content;
+  width: min-content;
 }
 .wrapper > .cell {
   @include flex-column;
@@ -328,7 +329,7 @@ body {
   margin: 10px 0px 9px 16px;
 }
 .wrapper > .spacer {
-  flex: 0 1 12px;
+  flex: 0 1 4px;
 }
 .wrapper1 {
   @include flex-column;
