@@ -250,6 +250,15 @@ body {
   flex: 0 0 147px;
   min-width: 147px;
 }
+.nav_link{
+ 
+  @include font-face($font_type_2, $color_type_0, 0px);
+  position: relative;
+  flex-grow: 1;
+  text-align: left !important;
+  margin: 18px 0px 17px 0px !important;
+  
+}
 .title {
   @include lg {
     font-size: 28px;
