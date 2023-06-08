@@ -8,6 +8,7 @@ import { RegisterComponent } from './register/register.component';
 
 import { PendingComponent } from './pending/pending.component';
 import { ConstructionComponent } from './construction/construction.component';
+import { ProductPageComponent } from './product-page/product-page.component';
 
 const routes: Routes = [
   // {
@@ -22,6 +23,7 @@ const routes: Routes = [
 
   { path: 'sign-up', component: SignUpComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'product-page', component: ProductPageComponent }
 ];
 
 @NgModule({

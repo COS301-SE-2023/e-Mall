@@ -17,6 +17,7 @@ import { PendingComponent } from './pending/pending.component';
 import { ConstructionComponent } from './construction/construction.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProductPageComponent } from './product-page/product-page.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     SignOutComponent,
     RegisterComponent,
     ConstructionComponent,
+    ProductPageComponent,
   ],
   imports: [
     BrowserModule,
