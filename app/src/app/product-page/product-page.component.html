@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>Product Page</title>
+
+        <meta charset="utf-8" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+          crossorigin="anonymous" />
+    </head>
+
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">
+                <img class="navbar-logo" 
+                src="assets/images/logo.png"
+                alt="e-Mall logo" width="70" height="60">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" routerLink="/construction" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            All Categories
+                        </a>
+                    </li>
+                  <li class="nav-item">
+                    <a class="nav-link" routerLink="/construction">Expert Reviews</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" routerLink="/construction">Sale</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" routerLink="/construction">Guides</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" routerLink="/construction">How to use</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" routerLink="/construction">About Us</a>
+                  </li>
+                </ul>
+              </div>
+          
+            <form class="form-inline " >
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                      </span>
+                    </div>
+                    <input class="form-control search-input" type="search" placeholder="Search Products" aria-label="Search">
+                </div>
+            </form>
+                  
+            <button class="btn btn-outline-light my-2 my-sm-0 ms-auto" type="submit" routerLink = "/sign-in">Sign in</button>
+
+        </nav>
+
+    </body>
+
+</html>
+
