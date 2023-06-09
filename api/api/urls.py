@@ -18,7 +18,6 @@ from django.contrib import admin
 from seller.views import SellerViewSet
 from staff.views import StaffViewSet
 from consumer.views import ConsumerViewSet
-from product.views import ProductList
 
 from rest_framework import routers
 from django.urls import path, include
@@ -33,5 +32,5 @@ router.register(r"consumer", ConsumerViewSet)
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),
-    path("api/product/", ProductList.as_view(), name="product-list"),
+    path("api/", include("product.urls")),
 ]
