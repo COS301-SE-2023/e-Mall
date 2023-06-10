@@ -1,8 +1,15 @@
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { ISellerForm } from '@app/models/seller.interface';
+
+// import { PublicService } from '@app/services/public.service';
+
 import { Component, OnInit } from '@angular/core';
-import { Router} from '@angular/router';
+// import { Router} from '@angular/router';
 
 import { IUser, CognitoService } from '@app/services/cognito.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-sign-up',
@@ -12,14 +19,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SignUpComponent { 
   loading: boolean;
   isConfirm: boolean;
+
+//   user: any;
+  // user: ISellerForm;
+
+//   constructor(private router: Router, private pService: PublicService) {
+
   user: IUser;
   signUpForm!: FormGroup;
   formSubmitted = false;
 
   constructor(private router: Router, private cognitoService: CognitoService,  private formBuilder: FormBuilder) {
+
     this.loading = false;
     this.isConfirm = false;
-    this.user = {} as IUser;
+    this.user = { showPassword: false };
+
+    // this.user = {} as ISellerForm;
   }
 
   ngOnInit() {
@@ -72,6 +88,7 @@ export class SignUpComponent {
       .catch(() => {
         this.loading = false;
       });*/
+
     this.router.navigate(['/home']);
   }
 

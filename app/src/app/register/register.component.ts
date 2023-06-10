@@ -1,9 +1,8 @@
 import { Component, OnInit} from '@angular/core';
-
 import { Router } from '@angular/router';
-import { IUser, CognitoService } from '@app/services/cognito.service';
+import { ISellerForm } from '@app/models/seller.interface';
+import { AuthService } from '@app/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 
 @Component({
   selector: 'app-register',
@@ -14,15 +13,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegisterComponent implements OnInit{
   loading: boolean;
   isConfirm: boolean;
-  user: IUser;
-  registerForm!: FormGroup;
-  formSubmitted = false;
+  user: any;
+  constructor(private router: Router, ) {
+
   
 
-  constructor(private router: Router, private cognitoService: CognitoService, private formBuilder: FormBuilder) {
+  constructor(private router: Router, private authService: AuthService, private formBuilder: FormBuilder) {
     this.loading = false;
     this.isConfirm = false;
-    this.user = {} as IUser;
+    this.user = { showPassword: false };
+    registerForm!: FormGroup;
+    formSubmitted = false;
+    // this.user = {} as ISellerForm;
   }
 
   ngOnInit() {
@@ -70,20 +72,31 @@ export class RegisterComponent implements OnInit{
     }
   }
 
-  /*
+  
   public signUp(): void {
-     this.loading = true;
-    this.cognitoService
-      .signUp(this.user)
-      .then(() => {
-        this.loading = false;
-        this.isConfirm = true;
-      })
-      .catch(() => {
-        this.loading = false;
-      });
+//      this.loading = true;
+    const data: ISellerForm = {
+      username: 'test2',
+      email: 'test2@test.com',
+      type: 'seller',
+      reg_no: '123456023452',
+      business_name: 'Test2 Business',
+      business_type: 'Test Type',
+      catalogue_size: 200,
+      business_category: 'MICRO',
+      status: 'PENDING',
+      is_verified: false,
+      website: 'https://www.bing1.com/',
+      feed_url: 'https://www.bing1.com/',
+      password: '!Q2w3e4r!',
+    };
+    this.authService.sellerSignUp(data);
+//     this.authService.sellerSignUp(data).subscribe(data => {
+//       console.log('hiiiiiiiiiiiii');
+//       console.log(data);
+//     });
     this.router.navigate(['/pending']);
-  }*/
+  }
 
   /* public confirmSignUp(): void {
     this.loading = true;

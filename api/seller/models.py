@@ -1,5 +1,4 @@
 from django.db import models
-
 from user.models import User
 
 # Create your models here.
@@ -16,7 +15,7 @@ SELLER_CATEGORY_CHOICES = (
 
 
 class Seller(User):
-    type = models.CharField(max_length=6, default='seller')
+    type = models.CharField(max_length=6, default='seller', editable=False)
     reg_no = models.CharField(max_length=14, unique=True)
     business_name = models.CharField(max_length=30)
     business_type = models.CharField(max_length=100)
@@ -27,3 +26,6 @@ class Seller(User):
     is_verified = models.BooleanField(default=False)
     website = models.URLField(max_length=200, unique=True)
     feed_url = models.URLField(max_length=200, unique=True)
+
+    class Meta:
+        app_label = 'seller'
