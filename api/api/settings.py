@@ -36,14 +36,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    "corsheaders",
-    "rest_framework",
+
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'corsheaders',
+    'rest_framework',
+    'django_extensions',
     # 'public.apps.PublicConfig',
     # 'user.apps.UserConfig',
     "seller.apps.SellerConfig",
@@ -129,8 +131,15 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.AllowAny",
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'auth.authentication.CognitoAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        'auth.permissions.CognitoPermission',
+        # 'rest_framework.permissions.AllowAny',
     ]
 }
 # LOGIN_REDIRECT_URL = '/'
@@ -150,4 +159,11 @@ DATABASES = {
         "HOST": env("DB_HOST"),
         "PORT": env("DB_PORT"),
     }
+}
+COGNITO_CONFIG = {
+    'url': f"https://{env('AWS_USER_POOLS_ID')}.auth.{env('AWS_REGION')}.amazoncognito.com/oauth2/token",
+    'app_client_id': env("AWS_APP_CLIENT_ID"),
+    'region': env('AWS_REGION'),
+    'user_pools_id': env("AWS_USER_POOLS_ID"),
+    'user_pools_web_client_id': env("AWS_APP_CLIENT_ID"),
 }
