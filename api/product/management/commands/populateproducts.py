@@ -32,7 +32,7 @@ class Command(BaseCommand):
                 description=fake.text(),
                 brand=fake.company(),
                 category=generate_fake_input(select_category),
-                original_price=Decimal(fake.random_int(100, 10000)),
+                # original_price=Decimal(fake.random_int(100, 10000)),
                 created_at=datetime.now() - timedelta(days=1),
                 updated_at=datetime.now() - timedelta(days=1),
             )

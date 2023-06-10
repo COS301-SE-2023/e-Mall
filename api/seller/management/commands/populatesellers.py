@@ -43,8 +43,8 @@ class Command(BaseCommand):
                 is_verified = True
 
             seller = Seller(
-                username=fake.user_name(),
-                email=fake.email(),
+                username=fake.user_name()[:15],
+                email=fake.email()[:30],
                 created_at=timezone.now(),
                 modified_at=timezone.now(),
                 last_login=timezone.now(),
