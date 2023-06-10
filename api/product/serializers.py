@@ -7,7 +7,7 @@ class ProductSerializer(serializers.ModelSerializer):
     min_price_discount = serializers.SerializerMethodField()
     min_price_discount_rate = serializers.SerializerMethodField()
     min_price = serializers.SerializerMethodField()
-    min_price_seller_id = serializers.SerializerMethodField()
+    min_price_seller_id = serializers.UUIDField()
     min_price_seller_product_url = serializers.SerializerMethodField()
     min_price_seller_business_name = serializers.SerializerMethodField()
     min_price_in_stock = serializers.SerializerMethodField()

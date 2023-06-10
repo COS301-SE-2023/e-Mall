@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from productseller.models import ProductSeller
 
@@ -23,7 +24,7 @@ class Product(models.Model):
         max_length=100, choices=CATEGORY_CHOICES, default="electronics"
     )
     min_price = models.DecimalField(max_digits=7, decimal_places=2, default=000.00)
-    min_price_seller_id = models.IntegerField(default=0)
+    min_price_seller_id = models.UUIDField(default=uuid.uuid4, editable=False)
     min_price_seller_product_url = models.URLField(
         max_length=200, verbose_name="Seller URL"
     )
