@@ -17,6 +17,9 @@ import { PendingComponent } from './pending/pending.component';
 import { ConstructionComponent } from './construction/construction.component';
 import { httpInterceptorProviders } from './interceptors/index';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +43,7 @@ import { httpInterceptorProviders } from './interceptors/index';
       { path: 'sign-in', component: SignInComponent },
       { path: 'sign-up', component: SignUpComponent },
     ]),
+    ReactiveFormsModule
   ],
 
   providers: [httpInterceptorProviders],
