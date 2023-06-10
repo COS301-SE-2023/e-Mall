@@ -128,8 +128,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'auth.authentication.CognitoAuthentication',
+    ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        'auth.permissions.CognitoPermission',
         # 'rest_framework.permissions.AllowAny',
     ]
 }
@@ -150,4 +156,11 @@ DATABASES = {
         'HOST': env('DB_HOST'),
         'PORT': env('DB_PORT'),
     }
+}
+COGNITO_CONFIG = {
+    'url': f"https://{env('AWS_USER_POOLS_ID')}.auth.{env('AWS_REGION')}.amazoncognito.com/oauth2/token",
+    'app_client_id': env("AWS_APP_CLIENT_ID"),
+    'region': env('AWS_REGION'),
+    'user_pools_id': env("AWS_USER_POOLS_ID"),
+    'user_pools_web_client_id': env("AWS_APP_CLIENT_ID"),
 }

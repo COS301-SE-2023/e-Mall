@@ -4,7 +4,10 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+/*
+implemented later if needed. this should change http to https
+didnt test yet. add to index.ts if needed
+*/
 @Injectable()
 export class HttpsReplaceInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
@@ -12,7 +15,6 @@ export class HttpsReplaceInterceptor implements HttpInterceptor {
     const secure = req.clone({
       url: req.url.replace('http://', 'https://'),
     });
-    // send the cloned, "secure" request to the next handler.
     return next.handle(secure);
   }
 }

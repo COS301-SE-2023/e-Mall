@@ -34,26 +34,26 @@ export class RegisterComponent {
       .catch(() => {
         this.loading = false;
       });*/
-    const data: ISellerForm = {
-      username: 'test2',
-      email: 'test2@test.com',
-      type: 'seller',
-      reg_no: '123456023452',
-      business_name: 'Test2 Business',
-      business_type: 'Test Type',
-      catalogue_size: 200,
-      business_category: 'MICRO',
-      status: 'PENDING',
-      is_verified: false,
-      website: 'https://www.bing1.com/',
-      feed_url: 'https://www.bing1.com/',
-      password: '!Q2w3e4r!',
-    };
-    // this.authService.sellerSignUp(data);
-    this.authService.sellerSignUp(data).subscribe(data => {
-      console.log('hiiiiiiiiiiiii');
-      console.log(data);
-    });
+    // const data: ISellerForm = {
+    //   username: 'test2',
+    //   email: 'test2@test.com',
+    //   type: 'seller',
+    //   reg_no: '123456023452',
+    //   business_name: 'Test2 Business',
+    //   business_type: 'Test Type',
+    //   catalogue_size: 200,
+    //   business_category: 'MICRO',
+    //   status: 'PENDING',
+    //   is_verified: false,
+    //   website: 'https://www.bing1.com/',
+    //   feed_url: 'https://www.bing1.com/',
+    //   password: '!Q2w3e4r!',
+    // };
+    // // this.authService.sellerSignUp(data);
+    // this.authService.sellerSignUp(data).subscribe(data => {
+    //   console.log('hiiiiiiiiiiiii');
+    //   console.log(data);
+    // });
     this.router.navigate(['/pending']);
   }
 

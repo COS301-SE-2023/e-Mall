@@ -15,7 +15,7 @@
 #   echo "Resetting the database"
 #   sleep 1
 # done
-# echo "Flush the database"
+# echo "Flush the database record"
 # #reset db
 # while ! python manage.py flush --no-input 2>&1; do
 #   echo "Flusing django manage command"

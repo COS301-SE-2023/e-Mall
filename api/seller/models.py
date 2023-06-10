@@ -26,3 +26,6 @@ class Seller(User):
     is_verified = models.BooleanField(default=False)
     website = models.URLField(max_length=200, unique=True)
     feed_url = models.URLField(max_length=200, unique=True)
+
+    class Meta:
+        app_label = 'seller'

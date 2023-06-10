@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {
   catchError,
   Observable,
@@ -7,11 +7,9 @@ import {
   switchMap,
   from,
   map,
-  tap,
   BehaviorSubject,
 } from 'rxjs';
-import { ISellerForm, ISellerProfile } from '@app/models/seller.interface';
-import { response } from '../models/response.interface';
+import { ISellerForm } from '@app/models/seller.interface';
 import { Amplify, Auth } from 'aws-amplify';
 
 import { environment } from '../../environments/env';
@@ -45,11 +43,12 @@ export class AuthService {
 
     seller.password = undefined;
     seller.verification_code = undefined;
-    return this.signUpDB(seller).pipe(
+    return this.signUpSellerDB(seller).pipe(
       switchMap(response => {
         console.log('signUpDB() was successful:', response);
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        return this.signUpCognito(seller.email, password!).pipe(
+
+        return this.signUpCognito(seller.email, password!, seller.type).pipe(
           map(() => {
             return response;
           }),
@@ -65,8 +64,8 @@ export class AuthService {
       })
     );
   }
-  private signUpDB(seller: ISellerForm): Observable<any> {
-    const url = `${this.base_url}seller/`;
+  private signUpSellerDB(seller: ISellerForm): Observable<any> {
+    const url = `${this.base_url}seller/register/`;
     const data = JSON.stringify(seller);
     return this.http
       .post(url, data, {
@@ -80,8 +79,17 @@ export class AuthService {
         })
       );
   }
-  private signUpCognito(email: string, password: string): Observable<any> {
-    const promise = Auth.signUp(email, password);
+  private signUpCognito(
+    email: string,
+    password: string,
+    type: string
+  ): Observable<any> {
+    console.log('');
+    const promise = Auth.signUp({
+      username: email,
+      password: password,
+      attributes: { 'custom:type': type },
+    });
     return from(promise).pipe(
       catchError(error => {
         console.error('Error in signUpCognito():', error);
@@ -121,12 +129,51 @@ export class AuthService {
       );
     }
   }
-  public getUser(): Observable<any> {
+  public getUserCognito(): Observable<any> {
     return from(Auth.currentUserInfo());
   }
-  public getAccessToken(): Observable<string> {
-    return from(Auth.currentSession()).pipe(
-      switchMap(session => from(session.getAccessToken().getJwtToken()))
+  public getAccessTokenCognito(): Observable<string> {
+    return from(
+      Auth.currentSession().then(session => {
+        return session.getAccessToken().getJwtToken();
+        // return token;
+      })
     );
+  }
+  public getCurrentUserDB(email: string): Observable<any> {
+    const url = `${this.base_url}seller/`;
+    const data = JSON.stringify(email);
+    return this.http
+      .post(url, data, {
+        headers: new HttpHeaders().set('Content-Type', 'application/json'),
+        observe: 'response',
+      })
+      .pipe(
+        catchError(error => {
+          console.error('Error in signUpDB():', error);
+          return throwError(() => error);
+        })
+      );
+  }
+  public authTest(): Observable<any> {
+    const url = `${this.base_url}seller/auth_test/`;
+    const email = 'test2@test.com';
+    const data = {
+      email: email,
+    };
+    console.log('im here');
+    return this.http
+      .post(url, data, {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Authorization', 'true'),
+        observe: 'response',
+      })
+      .pipe(
+        catchError(error => {
+          console.error('Error in authTest():', error);
+          return throwError(() => error);
+        })
+      );
   }
 }

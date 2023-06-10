@@ -29,14 +29,13 @@ export class SignInComponent {
   }
 
   public signIn(): void {
-    this.email = 'test1@test.com';
-    this.password = '!Q2w3e4r!';
+    // this.email = 'test2@test.com';
+    // this.password = '!Q2w3e4r!';
     if (this.email && this.password) {
       this.AuthService.signIn(this.email, this.password).subscribe(() => {
         this.router.navigate(['/home']);
-      }); // this.pService.sellserSignIn(this.user.email).subscribe(data => { // console.log(this.user.email);
-      //   console.log(data);
-      // });
+      });
+
       /* this.loading = true;
       this.cognitoService
         .signIn(this.user)
