@@ -1,6 +1,7 @@
 from django.db import models
 
 from user.models import User
+from product.models import Product
 
 # Create your models here.
 SELLER_STATUS_CHOICES = (
@@ -26,3 +27,6 @@ class Seller(User):
     is_verified = models.BooleanField(default=False)
     website = models.URLField(max_length=200, unique=True)
     feed_url = models.URLField(max_length=200, unique=True)
+
+    def __str__(self):
+        return self.username

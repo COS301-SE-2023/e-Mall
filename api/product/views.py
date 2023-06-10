@@ -9,7 +9,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Product
 from .serializers import ProductSerializer
 import math
-
+from django.utils.dateparse import parse_date
 from rest_framework.pagination import PageNumberPagination
 
 
@@ -28,6 +28,15 @@ class ProductBackendAPIView(APIView):
         # Input for sort[brand, price, name]
         sort = request.GET.get("sort")
 
+        # Input for filter[brand, price range, category, date range, seller]
+        filter_brand = request.GET.get("filter_brand")
+        filter_price_min = request.GET.get("filter_price_min")
+        filter_price_max = request.GET.get("filter_price_max")
+        filter_category = request.GET.get("filter_category")
+        filter_date_min = request.GET.get("filter_date_min")
+        filter_date_max = request.GET.get("filter_date_max")
+        filter_seller = request.GET.get("filter_seller")
+        
         # Pagination
         page = int(request.GET.get("page")) if request.GET.get("page") else 1
         per_page = 10
@@ -42,6 +51,30 @@ class ProductBackendAPIView(APIView):
                 | Q(brand__icontains=search)
                 | Q(category__icontains=search)
             )
+
+        # Filtering
+        if filter_brand:
+            products = products.filter(brand__icontains=filter_brand)
+
+        if filter_price_min:
+            products = products.filter(price__gte=filter_price_min)
+
+        if filter_price_max:
+            products = products.filter(price__lte=filter_price_max)
+
+        if filter_category:
+            products = products.filter(category=filter_category)
+
+        if filter_date_min:
+            date_min = parse_date(filter_date_min)
+            products = products.filter(created_at__gte=date_min)
+
+        if filter_date_max:
+            date_max = parse_date(filter_date_max)
+            products = products.filter(created_at__lte=date_max)
+
+        if filter_seller:
+            products = products.filter(seller=filter_seller)
 
         # Sorting
         # all in asc order(big to small)

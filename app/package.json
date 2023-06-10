@@ -17,9 +17,11 @@
     "api:makemigrations": "yarn docker:exec api python manage.py makemigrations",
     "api:migrate": "yarn docker:exec api python manage.py migrate",
     "api:populateproducts": "yarn docker:exec api python manage.py populateproducts",
+    "api:populateproductsellers": "yarn docker:exec api python manage.py populateproductsellers",
     "api:populatesellers": "yarn docker:exec api python manage.py populatesellers",
     "api:depopulatesellers": "yarn docker:exec api python manage.py depopulatesellers",
     "api:depopulateproducts": "yarn docker:exec api python manage.py depopulateproducts",
+    "api:depopulateproductsellers": "yarn docker:exec api python manage.py depopulateproductsellers",
     "api:db": "yarn api:makemigrations && yarn api:migrate",
     "api:test": "yarn docker:exec api pytest",
     "lint": "ng lint"

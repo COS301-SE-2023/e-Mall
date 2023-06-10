@@ -3,6 +3,7 @@ from django.core.management.base import BaseCommand
 from faker import Faker
 from product.models import Product
 from decimal import Decimal, ROUND_DOWN
+from datetime import datetime, timedelta
 
 fake = Faker()
 
@@ -24,28 +25,16 @@ class Command(BaseCommand):
             "books",
             "food and beverages",
         ]
-        for _ in range(50):
-            discount_rate = Decimal(fake.random.uniform(0, 0.99)).quantize(
-                Decimal("0.00"), rounding=ROUND_DOWN
-            )
-            original_price = Decimal(fake.random_int(min=10, max=1000))
-
-            discounted_price = original_price * (Decimal(1) - discount_rate)
-
-            # Round the discounted price to two decimal places
-            discounted_price = discounted_price.quantize(
-                Decimal("0.00"), rounding=ROUND_DOWN
-            )
+        for _ in range(20):
             product = Product(
                 img=fake.image_url(),
                 name=fake.name(),
                 description=fake.text(),
                 brand=fake.company(),
                 category=generate_fake_input(select_category),
-                price=discounted_price,
-                discount=original_price - discounted_price,
-                discount_rate=discount_rate,
-                original_price=original_price,
+                original_price=Decimal(fake.random_int(100, 10000)),
+                created_at=datetime.now() - timedelta(days=1),
+                updated_at=datetime.now() - timedelta(days=1),
             )
             product.save()
         self.stdout.write(self.style.SUCCESS("Products created successfully"))
