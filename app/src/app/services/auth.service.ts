@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {
@@ -19,7 +21,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   base_url = 'http://localhost:3000/api/'; // change in deployment
-  private authenticationSubject: BehaviorSubject<any>;
+  private authenticationSubject: BehaviorSubject<boolean>;
 
   constructor(private http: HttpClient, private router: Router) {
     Amplify.configure({
@@ -29,7 +31,7 @@ export class AuthService {
     this.authenticationSubject = new BehaviorSubject<boolean>(false);
   }
 
-  public signIn(email: string, password: string): Observable<any> {
+  public signIn(email: string, password: string): Observable<unknown> {
     return from(
       Auth.signIn(email, password).then(() => {
         this.authenticationSubject.next(true);
@@ -37,9 +39,9 @@ export class AuthService {
     );
   }
 
-  public sellerSignUp(seller: ISellerForm): Observable<any> {
+  public sellerSignUp(seller: ISellerForm): Observable<unknown> {
     const password = seller.password;
-    const code = seller.verification_code;
+    // const code = seller.verification_code;
 
     seller.password = undefined;
     seller.verification_code = undefined;
@@ -64,7 +66,7 @@ export class AuthService {
       })
     );
   }
-  private signUpSellerDB(seller: ISellerForm): Observable<any> {
+  private signUpSellerDB(seller: ISellerForm): Observable<unknown> {
     const url = `${this.base_url}seller/register/`;
     const data = JSON.stringify(seller);
     return this.http
@@ -100,10 +102,10 @@ export class AuthService {
   public confirmSignUp(
     email: string,
     verificatn_code: string
-  ): Observable<any> {
+  ): Observable<unknown> {
     return from(Auth.confirmSignUp(email, verificatn_code));
   }
-  public signOut(): Observable<any> {
+  public signOut(): Observable<unknown> {
     return from(
       Auth.signOut().then(() => {
         this.authenticationSubject.next(false);
@@ -129,7 +131,7 @@ export class AuthService {
       );
     }
   }
-  public getUserCognito(): Observable<any> {
+  public getUserCognito(): Observable<unknown> {
     return from(Auth.currentUserInfo());
   }
   public getAccessTokenCognito(): Observable<string> {
