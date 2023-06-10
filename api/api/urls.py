@@ -33,4 +33,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/seller/', include('seller.urls')),
     path('api-auth/', include('rest_framework.urls')),
+    path("api/", include("product.urls")),
+    path("api/", include("productseller.urls")),
 ]
