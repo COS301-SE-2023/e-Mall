@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(8)]],
         cpassword: ['', Validators.required],
-        Website: ['', Validators.required],
+        website: ['', Validators.required],
         feed: [''],
         typeOfBusiness: ['', Validators.required],
         catalogSize: ['', Validators.required],
@@ -53,8 +53,10 @@ export class RegisterComponent implements OnInit {
     // Handle form submission
     if (this.registerForm.valid) {
       console.log('Form submitted');
+
       //console.log(this.registerForm.value);
-      this.router.navigate(['/pending']);
+      // this.router.navigate(['/pending'])
+      this.signUp();
     } else {
       console.log('Form is invalid!');
       this.formSubmitted = true;
@@ -72,30 +74,31 @@ export class RegisterComponent implements OnInit {
       formGroup.get('cpassword')?.setErrors(null);
     }
   }
-
+  private getFormValue(field: string) {
+    return this.registerForm.controls[field].value;
+  }
   public signUp(): void {
     //      this.loading = true;
     const data: ISellerForm = {
-      username: 'test2',
-      email: 'test2@test.com',
+      // username: this.getFormValue('email').split('@')[0],
+      email: this.getFormValue('email'),
       type: 'seller',
-      reg_no: '123456023452',
-      business_name: 'Test2 Business',
-      business_type: 'Test Type',
-      catalogue_size: 200,
-      business_category: 'MICRO',
-      status: 'PENDING',
-      is_verified: false,
-      website: 'https://www.bing1.com/',
-      feed_url: 'https://www.bing1.com/',
-      password: '!Q2w3e4r!',
+      // reg_no: '123456023452',
+      // business_name: 'Test2 Business',
+      business_type: this.getFormValue('typeOfBusiness'),
+      catalogue_size: this.getFormValue('catalogSize'),
+      no_employees: this.getFormValue('sizeOfBusiness'),
+      // status: 'PENDING',
+      // is_verified: false,
+      website: this.getFormValue('website'),
+      feed_url: this.getFormValue('feed'),
+      password: this.getFormValue('password'),
     };
-    this.authService.sellerSignUp(data);
-    //     this.authService.sellerSignUp(data).subscribe(data => {
-    //       console.log('hiiiiiiiiiiiii');
-    //       console.log(data);
-    //     });
-    this.router.navigate(['/pending']);
+    // this.authService.sellerSignUp(data);
+    this.authService.sellerSignUp(data).subscribe(data => {
+      console.log('data: ', data);
+      this.router.navigate(['/pending']);
+    });
   }
 
   /* public confirmSignUp(): void {

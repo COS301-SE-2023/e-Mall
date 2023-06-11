@@ -1,4 +1,5 @@
 # from django.shortcuts import render
+from django.forms import ValidationError
 from rest_framework.response import Response
 # from rest_framework.decorators import action
 # from rest_framework.views import APIView
@@ -13,6 +14,8 @@ from rest_framework.permissions import AllowAny
 # Create your views here.
 from rest_framework import status
 
+# temporary import
+from faker import Faker
 
 # class SellerView(ViewSet):
 #     queryset = Seller.objects.all()
@@ -64,12 +67,21 @@ from rest_framework import status
 #     #             return Response({'detail': 'Seller not found.'}, status=status.HTTP_404_NOT_FOUND)
 #     #     else:
 #     #         return super().retrieve(request, pk)
+
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def register(request):
+    request.data['username'] = Faker().user_name()[:15]
+    request.data['reg_no'] = Faker().bothify('##############')
+    request.data['business_name'] = Faker().company()
     serializer = SellerSerializer(data=request.data)
+    if not serializer.is_valid():
+        for field, error in serializer.errors.items():
+            print(f"Error in field {field}: {error}")
     serializer.is_valid(raise_exception=True)
     serializer.save()
+
     return Response({'message': 'Seller registered successfully'}, status=status.HTTP_201_CREATED)
 
 

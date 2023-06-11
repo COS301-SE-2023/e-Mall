@@ -53,11 +53,13 @@ class Command(BaseCommand):
                 business_name=fake.company(),
                 business_type=generate_fake_input(select_type),
                 catalogue_size=fake.random_int(min=10, max=100),
-                business_category=generate_fake_input(select_category),
+                no_employees=fake.random_int(min=1, max=250),
+                # business_category=generate_fake_input(select_category),
                 status=status,
                 is_verified=is_verified,
                 website=fake.url(),
                 feed_url=fake.url(),
             )
+
             seller.save()
         self.stdout.write(self.style.SUCCESS("Sellers created successfully"))
