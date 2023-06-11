@@ -1,16 +1,17 @@
 from django.db import models
 from user.models import User
+from product.models import Product
 
 # Create your models here.
 SELLER_STATUS_CHOICES = (
-    ('PENDING', 'pending'),
-    ('ACTIVE', 'active'),
-    ('SUSPENDED', 'suspended'),
+    ("PENDING", "pending"),
+    ("ACTIVE", "active"),
+    ("SUSPENDED", "suspended"),
 )
 SELLER_CATEGORY_CHOICES = (
-    ('MICRO', 'micro'),
-    ('SMALL', 'small'),
-    ('MEDIUM', 'medium'),
+    ("MICRO", "micro"),
+    ("SMALL", "small"),
+    ("MEDIUM", "medium"),
 )
 
 
@@ -21,11 +22,13 @@ class Seller(User):
     business_type = models.CharField(max_length=100)
     catalogue_size = models.IntegerField(default=0)
     business_category = models.CharField(
-        max_length=6, choices=SELLER_CATEGORY_CHOICES)
-    status = models.CharField(max_length=9, choices=SELLER_STATUS_CHOICES)
+        max_length=6, choices=SELLER_CATEGORY_CHOICES, blank=True, null=True)
+    status = models.CharField(
+        max_length=9, choices=SELLER_STATUS_CHOICES, default="PENDING")
     is_verified = models.BooleanField(default=False)
     website = models.URLField(max_length=200, unique=True)
     feed_url = models.URLField(max_length=200, unique=True)
+    no_employees = models.IntegerField(default=1)
 
     class Meta:
         app_label = 'seller'

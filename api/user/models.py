@@ -3,8 +3,8 @@ import uuid
 
 # Create your models here.
 USER_TYPE_CHOICES = (
-    ('SELLER', 'seller'),
-    ('CONSUMER', 'consumer'),
+    ("SELLER", "seller"),
+    ("CONSUMER", "consumer"),
 )
 
 
