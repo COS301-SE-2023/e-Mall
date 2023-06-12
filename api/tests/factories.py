@@ -1,5 +1,7 @@
+from django.db.models.signals import pre_save
 from consumer.models import Consumer
 from seller.models import Seller, SELLER_CATEGORY_CHOICES, SELLER_STATUS_CHOICES
+from seller.signals import set_business_category
 import factory
 from faker import Faker
 fake = Faker()
@@ -44,3 +46,6 @@ class SellerFactory(factory.django.DjangoModelFactory):
     is_verified = False
     website = fake.url()[:200]
     feed_url = fake.url()[:200]
+
+
+# pre_save.connect(set_business_category, sender=Seller)

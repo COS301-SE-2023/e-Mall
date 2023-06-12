@@ -9,18 +9,18 @@
 # done
 # echo "Connected."
 
-# echo "Reset the database"
-# #reset db
-# while ! python manage.py reset_db --noinput 2>&1; do
-#   echo "Resetting the database"
-#   sleep 1
-# done
-# echo "Flush the database record"
-# #reset db
-# while ! python manage.py flush --no-input 2>&1; do
-#   echo "Flusing django manage command"
-#   sleep 1
-# done
+echo "Reset the database"
+#reset db
+while ! python manage.py reset_db --noinput 2>&1; do
+  echo "Resetting the database"
+  sleep 1
+done
+echo "Flush the database record"
+#reset db
+while ! python manage.py flush --no-input 2>&1; do
+  echo "Flusing django manage command"
+  sleep 1
+done
 
 echo "Migrate the Database at startup of project"
 
