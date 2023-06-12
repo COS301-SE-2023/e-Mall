@@ -33,6 +33,58 @@ body {
   margin-bottom: -15px;
   margin-left: -9px
 }
+// Image Carousel
+#image-carousel {
+  margin-top: 20px;
+  width: 100%;
+
+  .carousel-inner {
+    .carousel-item {
+      img {
+        height: 300px;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+// Product Carousel
+#product-carousel {
+  margin-top: 20px;
+  width: 100%;
+
+  .carousel-inner {
+    .carousel-item {
+      display: flex;
+      justify-content: center;
+
+      .card {
+        width: 300px;
+        margin: 0 10px;
+
+        .card-img-top {
+          height: 200px;
+          object-fit: cover;
+        }
+
+        .card-body {
+          text-align: center;
+          padding: 10px;
+
+          .card-title {
+            font-size: 18px;
+            font-weight: bold;
+          }
+
+          .card-text {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
 .main {
   @include flex-column;
   background-color: $color_type_2;
