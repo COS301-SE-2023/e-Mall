@@ -1,39 +1,35 @@
 import pytest
-from django.urls import reverse
-from rest_framework.settings import api_settings
-from rest_framework import status
-from rest_framework.test import APITestCase
 from consumer.models import Consumer
+from faker import Faker
+fake = Faker()
 
 
-class ConsumerSignUpTestCase(APITestCase):
-    def test_get_consumers(self):
-        url = reverse('consumer-list')
-        response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+@pytest.mark.parametrize(
+    "username, email, validity",
+    [
+        # valid
+        (fake.user_name()[:15], fake.email()[:30], True),
 
-    def test_consumer_signup_all_correct_details(self):
-        """
-            Ensure we can create a new account object.
-            """
-        url = reverse('consumer-list')
-        data = {'username': 'test',
-                'email': 'test@example.com', }
-        response = self.client.post(url, data, format='json')
-        print(response.content)
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Consumer.objects.count(), 1)
-        self.assertEqual(Consumer.objects.get().type, 'consumer')
+        # invalid : username empty
+        (None, fake.email()[:30], False),
 
-    def test_consumer_signup_incorrect_details(self):
-        """
-            Ensure we can create a new account object.
-            """
-        url = reverse('consumer-list')
-        data = {'username': 'test',
-                'email': 'test@',
-                'type': 'user', }
-        response = self.client.post(url, data, format='json')
-        print(response.content)
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(Consumer.objects.count(), 0)
+        # invalid: email empty
+        (fake.user_name()[:15], None, False),
+
+        # invalid : username more than 15 char
+        (fake.pystr(min_chars=16, max_chars=16), fake.email()[:30], False),
+
+        # invalid : email more than 30 char
+        (fake.user_name()[:15], fake.pystr(
+            min_chars=19)+"@example.com", False),
+    ],
+)
+def test_consumer_instance(
+    db, consumer_factory, username, email, validity
+):
+    if validity:
+        test = consumer_factory(username=username, email=email)
+        assert test.type == 'consumer'
+    else:
+        with pytest.raises(Exception):
+            consumer_factory(username=username, email=email)
