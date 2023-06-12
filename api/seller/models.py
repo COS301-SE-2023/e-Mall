@@ -22,7 +22,7 @@ class Seller(User):
     business_type = models.CharField(max_length=100)
     catalogue_size = models.IntegerField(default=0)
     business_category = models.CharField(
-        max_length=6, choices=SELLER_CATEGORY_CHOICES, blank=True, null=True)
+        max_length=6, choices=SELLER_CATEGORY_CHOICES, default="NONE")
     status = models.CharField(
         max_length=9, choices=SELLER_STATUS_CHOICES, default="PENDING")
     is_verified = models.BooleanField(default=False)
