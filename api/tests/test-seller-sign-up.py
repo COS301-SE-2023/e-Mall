@@ -1,64 +1,4 @@
-# # import pytest
-# # from django.urls import reverse
-# # from rest_framework.settings import api_settings
-# # from rest_framework import status
-# # from rest_framework.test import APITestCase
-# # from seller.models import Seller
-
-
-# # class SellerSignUpTestCase(APITestCase):
-# #     def test_get_sellers(self):
-# #         """
-# #             Ensure we can create a new account object.
-# #             """
-# #         url = reverse('seller-list')
-# #         response = self.client.get(url, format='json')
-# #         self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-# #     def test_seller_signup_all_correct_details(self):
-# #         """
-# #             Ensure we can create a new account object.
-# #             """
-# #         url = reverse('seller-list')
-# #         data = {'username': 'test',
-# #                 'email': 'test@example.com',
-# #                 'type': 'seller',
-# #                 'reg_no': '1234567890',
-# #                 'business_name': 'Test Business',
-# #                 'business_type': 'Test Type',
-# #                 'catalogue_size': 200,
-# #                 'business_category': 'MICRO',
-# #                 'status': 'PENDING',
-# #                 'is_verified': False,
-# #                 'website': 'https://www.bing.com/',
-# #                 'feed_url': 'https://www.bing.com/', }
-# #         response = self.client.post(url, data, format='json')
-# #         print(response.content)
-# #         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-# #         self.assertEqual(Seller.objects.count(), 1)
-# #         self.assertEqual(Seller.objects.get().username, 'test')
-
-# #     def test_seller_signup_incorrect_details(self):
-# #         """
-# #             Ensure we can create a new account object.
-# #             """
-# #         url = reverse('seller-list')
-# #         data = {'username': 'test',
-# #                 'email': 'test',
-# #                 'type': 'seller',
-# #                 'reg_no': '1234567890',
-# #                 'business_name': 'Test Business',
-# #                 'business_type': 'Test Type',
-# #                 'catalogue_size': 200,
-# #                 'business_category': 'MICRO',
-# #                 'status': 'PENDING',
-# #                 'is_verified': False,
-# #                 'website': 'https://www.google.com/',
-# #                 'feed_url': 'https://www.google.com/', }
-# #         response = self.client.post(url, data, format='json')
-# #         print(response.content)
-# #         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-# #         self.assertEqual(Seller.objects.count(), 0)
+from rest_framework.test import APITestCase
 import pytest
 from seller.models import Seller
 from faker import Faker
@@ -127,3 +67,38 @@ def test_seller_instance(
         with pytest.raises(Exception):
             seller_factory(username=username, email=email, reg_no=reg_no, business_name=business_name, business_type=business_type,
                            catalogue_size=catalogue_size, no_employees=no_employees, website=website, feed_url=feed_url)
+
+
+class TestSellerRegistration(APITestCase):
+    def test_valid_seller_registration(self):
+        url = '/api/seller/register/'
+        data = {
+            'username': fake.user_name()[:15],
+            'email': fake.email()[:30],
+            'type': 'seller',
+            'reg_no': fake.bothify('##############'),
+            'business_name': fake.company(),
+            'business_type': fake.random_element(select_type),
+            'catalogue_size': fake.random_int(min=10, max=100),
+            'no_employees': fake.random_int(min=1, max=250),
+            'website': fake.url()[:200],
+            'feed_url': fake.url()[:200],
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, 201)
+
+    def test_invalid_seller_registration(self):
+        url = '/api/seller/register/'
+        data = {
+            'username': fake.user_name()[:15],
+            'email': fake.email()[:30],
+            'reg_no': fake.pystr(min_chars=15, max_chars=15),
+            'business_name': fake.company(),
+            'business_type': fake.random_element(select_type),
+            'catalogue_size': fake.random_int(min=10, max=100),
+            'no_employees': fake.random_int(min=1, max=250),
+            'website': '',
+            'feed_url': fake.url()[:200],
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, 400)

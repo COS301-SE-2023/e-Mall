@@ -5,9 +5,6 @@ from .models import Seller
 
 @receiver(pre_save, sender=Seller)
 def set_business_category(sender, instance, **kwargs):
-    print('passing here')
-    # print(instance.no_em)
-    # if (instance.business_category is None):
     if instance.no_employees <= 10:
         instance.business_category = 'MICRO'
     elif instance.no_employees <= 50:
