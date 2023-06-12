@@ -1,30 +1,63 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ISellerForm } from '@app/models/seller.interface';
 
-import { IUser, CognitoService } from '@app/services/cognito.service';
+import { PublicService } from '@service/public.service';
+import { AuthService } from '@service/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],
 })
-export class SignInComponent {
+export class SignInComponent implements OnInit {
   loading: boolean;
-  user: IUser;
+  signInForm!: FormGroup;
+  formSubmitted = false;
 
-  constructor(private router: Router, private cognitoService: CognitoService) {
+  constructor(
+    private router: Router,
+    private AuthService: AuthService,
+    private formBuilder: FormBuilder
+  ) {
     this.loading = false;
-    this.user = {} as IUser;
+    //     this.user = { showPassword: false };
+    //     this.email = undefined;
+    //     this.password = undefined;
+    // this.user = {} as ISellerForm;
+  }
+
+  ngOnInit() {
+    this.signInForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+    });
+  }
+
+  get f() {
+    return this.signInForm.controls;
+  }
+  private getFormValue(field: string) {
+    return this.signInForm.controls[field].value;
+  }
+  onSubmit() {
+    // Handle form submission
+    if (this.signInForm.valid) {
+      console.log('Form submitted');
+      this.signIn();
+    } else {
+      console.log('Form is invalid!');
+      this.formSubmitted = true;
+    }
   }
 
   public signIn(): void {
-    /* this.loading = true;
-    this.cognitoService
-      .signIn(this.user)
-      .then(() => {*/
-    this.router.navigate(['/construction']);
-    /*  })
-      .catch(() => {
-        this.loading = false;
-      });*/
+    this.AuthService.signIn(
+      this.getFormValue('email'),
+      this.getFormValue('password')
+    ).subscribe(() => {
+      this.router.navigate(['/home']);
+    });
   }
 }
