@@ -22,6 +22,9 @@ class ProductFrontendAPIView(APIView):
 
 class ProductBackendAPIView(APIView):
     def get(self, request):
+        # Input for specific product
+        prod_id = request.GET.get("prod_id")
+
         # Input for search
         search = request.GET.get("search")
 
@@ -36,7 +39,7 @@ class ProductBackendAPIView(APIView):
         filter_date_min = request.GET.get("filter_date_min")
         filter_date_max = request.GET.get("filter_date_max")
         filter_seller = request.GET.get("filter_seller")
-        
+
         # Pagination
         page = int(request.GET.get("page")) if request.GET.get("page") else 1
         per_page = 10
@@ -77,7 +80,7 @@ class ProductBackendAPIView(APIView):
             products = products.filter(seller=filter_seller)
 
         # Sorting
-        # all in asc order(big to small)
+        # all in asc order(small to big)
         if sort == "brand":
             products = products.order_by("brand")
         elif sort == "price":
@@ -85,12 +88,16 @@ class ProductBackendAPIView(APIView):
         elif sort == "name":
             products = products.order_by("name")
         elif sort == "-price":
-            # sort by desc order(small to big)
+            # sort by desc order(big to small)
             products = products.order_by("-price")
         elif sort == "-name":
             products = products.order_by("-name")
         elif sort == "-brand":
             products = products.order_by("-brand")
+
+        # Specific product
+        if prod_id:
+            products = products.filter(id=prod_id)
 
         # Pagination
         total = products.count()
