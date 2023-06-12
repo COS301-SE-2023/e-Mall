@@ -17,6 +17,9 @@ export class HomeComponent implements OnInit {
     //   this.isAuthenticated = val;
     // });
   }
+  search() {
+    this.router.navigate(['/construction']);
+  }
   ngOnInit(): void {
     this.authService.isAuthenticated().subscribe(isAuthenticated => {
       this.isAuthenticated = isAuthenticated;
