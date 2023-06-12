@@ -35,7 +35,7 @@ body {
 }
 // Image Carousel
 #image-carousel {
-  margin-top: 20px;
+  margin-top: 10px;
   width: 100%;
 
   .carousel-inner {
@@ -111,7 +111,7 @@ body {
 }
 .section2__section2 {
   @include flex-column;
-  height: 299px;
+  height: 250px;
   position: absolute;
   bottom: 0px;
   left: 0px;
