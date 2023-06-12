@@ -59,37 +59,56 @@
 # #         print(response.content)
 # #         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 # #         self.assertEqual(Seller.objects.count(), 0)
-# import pytest
-# from seller.models import Seller
-# from faker import Faker
-# fake = Faker()
+import pytest
+from seller.models import Seller
+from faker import Faker
+fake = Faker()
+
+select_type = [
+    "Technology",
+    "Fashion",
+    "Food",
+    "Health",
+    "Sports",
+    "Books",
+    "Toys",
+    "Home",
+    "Beauty",
+]
 
 
-# @pytest.mark.parametrize(
-#     "username, email,reg_no,business_name,business_type,catalogue_size,business_category,status,is_verified,website,feed_url,no_employees,validity",
-#     [
-#         # valid
-#         (fake.user_name()[:15], fake.email()[:30], True),
+@pytest.mark.parametrize(
+    "username, email,reg_no,business_name,business_type,catalogue_size,no_employees,website,feed_url,validity",
+    [
+        # valid
+        (fake.user_name()[:15], fake.email()[:30], fake.pystr(min_chars=14, max_chars=14), fake.company()[:30], fake.random_element(
+            select_type), fake.random_int(min=10, max=100), fake.random_int(min=1, max=250), fake.url()[:200], fake.url()[:200], True),
 
-#         # invalid : username empty
-#         (None, fake.email()[:30], False),
+        # invalid : username empty
+        (None, fake.email()[:30], fake.pystr(min_chars=14, max_chars=14), fake.company()[:30], fake.random_element(
+            select_type), fake.random_int(min=10, max=100), fake.random_int(min=1, max=250), fake.url()[:200], fake.url()[:200], False),
 
-#         # invalid: email empty
-#         (fake.user_name()[:15], None, False),
 
-#         # invalid : username more than 15 char
-#         (fake.pystr(min_chars=16, max_chars=16), fake.email()[:30], False),
+        # invalid: email empty
+        (fake.user_name()[:15], None, fake.pystr(min_chars=14, max_chars=14), fake.company()[:30], fake.random_element(
+            select_type), fake.random_int(min=10, max=100), fake.random_int(min=1, max=250), fake.url()[:200], fake.url()[:200], False),
 
-#         # invalid : email more than 30 char
-#         (fake.user_name()[:15], fake.pystr(
-#             min_chars=19)+"@example.com", False),
-#     ],
-# )
-# def test_consumer_instance(
-#     db, consumer_factory, username, email, validity
-# ):
-#     if validity:
-#         consumer_factory(username=username, email=email)
-#     else:
-#         with pytest.raises(Exception):
-#             consumer_factory(username=username, email=email)
+        # invalid : reg_no not provided
+        (fake.user_name()[:15], fake.email()[:30], None, fake.company()[:30], fake.random_element(
+            select_type), fake.random_int(min=10, max=100), fake.random_int(min=1, max=250), fake.url()[:200], fake.url()[:200], False),
+
+        #     # invalid : email more than 30 char
+        #     (fake.user_name()[:15], fake.pystr(
+        #         min_chars=19)+"@example.com", False),
+    ],
+)
+def test_seller_instance(
+    db, seller_factory, username, email, reg_no, business_name, business_type, catalogue_size, no_employees, website, feed_url, validity
+):
+    if validity:
+        seller_factory(username=username, email=email, reg_no=reg_no, business_name=business_name, business_type=business_type,
+                       catalogue_size=catalogue_size, no_employees=no_employees, website=website, feed_url=feed_url)
+    else:
+        with pytest.raises(Exception):
+            seller_factory(username=username, email=email, reg_no=reg_no, business_name=business_name, business_type=business_type,
+                           catalogue_size=catalogue_size, no_employees=no_employees, website=website, feed_url=feed_url)
