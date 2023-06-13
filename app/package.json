@@ -24,6 +24,7 @@
     "api:depopulateproductsellers": "yarn docker:exec api python manage.py depopulateproductsellers",
     "api:db": "yarn api:makemigrations && yarn api:migrate",
     "api:test": "yarn docker:exec api pytest",
+    "app:e2e" : "start cmd /k \"cypress open\"",
     "lint": "ng lint"
   },
   "private": true,
@@ -62,6 +63,7 @@
     "@types/jasmine": "~4.3.0",
     "@typescript-eslint/eslint-plugin": "5.48.2",
     "@typescript-eslint/parser": "5.48.2",
+    "cypress": "^12.14.0",
     "eslint": "^8.41.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
