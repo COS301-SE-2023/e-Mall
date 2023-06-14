@@ -106,7 +106,9 @@ jobs:
       
       - name: Backend Unit Tests
         working-directory: ./api
-        run: docker-compose exec -T api pytest
+        run: |
+          docker-compose exec -T api pytest
+          docker-compose exec -T api coverage.xml -i
       - run: echo $PWD
       - name: Upload coverage report
         uses: actions/upload-artifact@v2
