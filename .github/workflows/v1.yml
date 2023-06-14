@@ -146,13 +146,6 @@ jobs:
 
       - name: Change dir in report
         run: |
-          ls $GITHUB_WORKSPACE/
-          echo "other ------------"
-          ls $GITHUB_WORKSPACE/api/
-          echo "other ------------2"
-          ls $GITHUB_WORKSPACE/api/api
-          sed -i "s|<source>/api</source>|<source>{$GITHUB_WORKSPACE}/api<\/source>|g" $GITHUB_WORKSPACE/api/coverage.xml
-          echo $GITHUB_WORKSPACE
           cat $GITHUB_WORKSPACE/api/coverage.xml
 
       - name: SonarCloud Scan
@@ -161,8 +154,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          projectBaseDir: $GITHUB_WORKSPACE/api
-          args: -Dsonar.sources=$GITHUB_WORKSPACE/api
+          projectBaseDir: api/
+          args: -Dsonar.sources=api/
 
   # sonarcloud_front:
   #   name: SonarCloud analysis
