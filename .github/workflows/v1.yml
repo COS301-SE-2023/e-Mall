@@ -150,6 +150,8 @@ jobs:
           ls $GITHUB_WORKSPACE/
           echo "other ------------"
           ls $GITHUB_WORKSPACE/api/
+          echo "other ------------2"
+          ls $GITHUB_WORKSPACE/api/api
           sed -i "s|<source>/api</source>|<source>{$GITHUB_WORKSPACE}/api<\/source>|g" $GITHUB_WORKSPACE/api/coverage.xml
           echo $GITHUB_WORKSPACE
           cat $GITHUB_WORKSPACE/api/coverage.xml
