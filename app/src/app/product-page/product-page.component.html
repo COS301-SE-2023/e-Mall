@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 
+<!DOCTYPE html>
+
 <html lang="en">
     <head>
         <title>Product Page</title>
@@ -19,7 +21,7 @@
 
 
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark upperNav">
             <a class="navbar-brand" routerLink="/">
                 <img class="navbar-logo" 
                 src="assets/images/logo.png"
@@ -55,11 +57,11 @@
                 </ul>
               </div>
           
-            <form class="form-inline " >
+            <form class="form-inline flex-grow-1 " >
                 <div class="input-group">
                     <div class="input-group-prepend">
                       <span class="input-group-text">
-                        <i class="fa fa-search" aria-hidden="true"></i>
+                        <i class="fa-sharp fa-solid fa-magnifying-glass search-icon"></i>
                       </span>
                     </div>
                     <input class="form-control search-input" type="search" placeholder="Search Products" aria-label="Search">
@@ -70,8 +72,143 @@
 
         </nav>
 
+        <div class="container-fluid" id="prices">
+          <div class="row">
+            <div class="col-sm-4 col-md-4 col-lg-4 mini-imgs-container">
+              <div class="placeholder mini-imgs-small-container">
+                <img src="" alt="" class="img-fluid">
+              </div>
+              <div class="placeholder mini-imgs-small-container">
+                <img src="" alt="" class="img-fluid">
+              </div>
+              <div class="placeholder mini-imgs-small-container">
+                <img src="" alt="" class="img-fluid">
+              </div>
+              <div class="placeholder mini-imgs-small-container">
+                <img src="" alt="" class="img-fluid">
+              </div>
+              <div class="placeholder mini-imgs-small-container">
+                <img src="" alt="" class="img-fluid">
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-4 col-lg-4 main-img-container">
+              <div class="placeholder main-img-small-container">
+                <div class="heart-container">
+                  <button class="btn btn-circle btn-light">
+                    <i class="fa fa-heart-o heart" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <img src="" alt="" class="img-fluid">
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-4 col-lg-4 product-info-container">
+              <div class="product-info-small-container">
+                <h2>Product name</h2>
+                <p>Product information</p>
+              </div>
+            </div>
+          </div>
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light lowerNav">
+            
+
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+              </button>
+
+              <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                  <ul class="navbar-nav">
+
+                    <li class="nav-item">
+                      <a class="nav-link">Prices</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link">Reviews & tests</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link">Statistics</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" >Product information</a>
+                    </li>
+                  </ul>
+                </div>
+
+            </nav>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-1 col-md-1 col-lg-1">
+                  <div class="filter">filterIcon</div>
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                  <div class="only-in-stock">Only in stock</div>
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                  <div class="price-incl-delivery">Price inc. delivery</div>
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                  <div class="delivery-opt">
+                    <div class="dropdown">
+                      <a class=" dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false">
+                        Delivery Options
+                      </a>
+        
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2 d-flex justify-content-end">
+                  <div class="lowest-price ml-auto">
+                    Lowest Price
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="container-fluid comp-products">
+              <span class="dropdown-arrow">dropDown arrow</span><span class="seller-name">seller name</span>
+              <div class="product-name">product name <span class="product-name-price">price</span></div>
+
+            </div>
+
+            <div class="container-fluid related-products">
+              <h3>Related Products</h3>
+              <div class="row">
+                <div class="col-sm-3 col-md-3 col-lg-3">
+
+                  <div class="card" style="width: 18rem;">
+                    <img src="..." class="card-img-top related-product-img placeholder" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Product name</h5>
+                      <h6 class="card-subtitle mb-2 text-body-secondary">Product description</h6>
+                      <p class="card-text">Price</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="container-fluid reviews" id="reviews">
+              <h3>Reviews</h3>
+
+            </div>  
+
+            <div class="container-fluid statistics" id="statistics">
+              <h3>Statistics</h3>
+
+            </div>
+            
+            <div class="container-fluid full-product-info" id="full-product-info">
+              <h3>Products Information</h3>
+              <p>product info</p>
+
+            </div>
+
+        </div>
+        
+
         <footer class="footer ">
-            <div class="container">
+            <div class="container"> 
               <div class="row">
                 <div class="col-md-3">
                   <img class="welcomeMsg_logo_footer" 
@@ -120,6 +257,8 @@
             </div>
           </footer>
     </body>
+
+    
 
 </html>
 
