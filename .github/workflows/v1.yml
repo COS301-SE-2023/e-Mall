@@ -127,16 +127,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
-
       - name: Cache SonarCloud package
         uses: actions/cache@v3
         with:
-          path: .sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonarcloud-github-action-${{ hashFiles('**/sonar-project.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-sonarcloud-github-action-
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
       - name: Download coverage report
         uses: actions/download-artifact@v2
@@ -145,11 +147,7 @@ jobs:
           path: api/
 
       - name: Change dir in report
-        run: |
-          head -n 10 api/coverage.xml
-          sed -i "s|<source>\/api</source>|<source>api\/<\/source>|g" api/coverage.xml
-          echo "After change"
-          head -n 10 api/coverage.xml
+        run: sed -i "s|<source>\/api</source>|<source>api\/<\/source>|g" api/coverage.xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
