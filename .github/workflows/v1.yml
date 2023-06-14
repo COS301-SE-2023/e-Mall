@@ -113,6 +113,8 @@ jobs:
         with:
           name: coverage-report
           path: ./api/coverage.xml
+          retention-days: 1
+
       # - name: check docker name
       #   run: docker ps && docker exec e-mall_api_1 ls /coverage.xml
         
@@ -134,7 +136,7 @@ jobs:
         with:
           name: coverage-report
           path: coverage.xml
-
+          retention-days: 1
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -155,6 +157,7 @@ jobs:
         with:
           name: coverage-report
           path: coverage.xml
+          retention-days: 1
 
 
       - uses: codecov/codecov-action@v3
