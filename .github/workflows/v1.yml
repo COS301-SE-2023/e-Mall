@@ -145,7 +145,8 @@ jobs:
         with:
           args:
             -Dsonar.sources=.
- 
+            -Dsonar.python.version=3.10, 3.11
+            -Dsonar.forceFullAnalysis= true
   codecov: 
     name: Codecov
     needs: [backend]
