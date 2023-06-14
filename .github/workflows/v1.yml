@@ -16,8 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -68,21 +67,11 @@ jobs:
         working-directory: ./app
         run: yarn build
 
-  # add front unit tests
-
-  # build: artifact for deployment
-  # - name: Archive Build Artifact
-  #   uses: actions/upload-artifact@v3
-  #   with:
-  #     name: dist-artifact
-  #     path: dist
-  #     retention-days: 1
   backend:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Create .env file
         run: |
@@ -105,9 +94,7 @@ jobs:
 
       - name: Backend Unit Tests
         working-directory: api
-        run:
-          docker-compose exec -T api pytest
-          # docker-compose exec -T api coverage xml -i
+        run: docker-compose exec -T api pytest
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v2
@@ -115,28 +102,13 @@ jobs:
           name: coverage-report
           path: api/coverage.xml
 
-      # - name: check docker name
-      #   run: docker ps && docker exec e-mall_api_1 ls /coverage.xml
-
-      # docker cp api:/coverage.xml .
-
   sonarcloud:
     name: SonarCloud analysis
-    # needs: [frontend,backend]
-    needs: [backend]
+    needs: [frontend, backend]
     runs-on: ubuntu-latest
 
     steps:
-      - name: Cache SonarCloud package
-        uses: actions/cache@v3
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonarcloud-github-action-${{ hashFiles('sonar-project.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-sonarcloud-github-action-
-
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
@@ -154,55 +126,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        # with:
-        #   projectBaseDir: api/
-        #   args: -Dsonar.sources=.
-        #     -Dsonar.python.coverage.reportPaths=api/coverage.xml
-      # - name: Run ls command in api directory
-      #   run: |
-      #     ls
-      #     head -n 10 api/coverage.xml
-  # sonarcloud_front:
-  #   name: SonarCloud analysis
-  #   # needs: [frontend,backend]
-  #   needs: [frontend]
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #       with:
-  #         fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
-
-  #     - name: Cache SonarCloud package
-  #       uses: actions/cache@v3
-  #       with:
-  #         path: ~/.sonar/cache
-  #         key: ${{ runner.os }}-sonar
-  #         restore-keys: ${{ runner.os }}-sonar
-
-  #     - name: Download coverage report
-  #       uses: actions/download-artifact@v2
-  #       with:
-  #         name: coverage-report
-  #         path: ./app/
-
-  #     - name: SonarCloud Scan
-  #       uses: SonarSource/sonarcloud-github-action@master
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
-  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  #       with:
-  #         projectBaseDir: ./app/
-  #         args:
-  #           -Dsonar.sources=.
 
   codecov:
     name: Codecov
-    needs: [backend]
+    needs: [frontend, backend]
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
+
       - name: Download coverage report
         uses: actions/download-artifact@v2
         with:
@@ -213,3 +145,18 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage.xml
+
+  cypress-e2e:
+    name: Cypress E2E
+    needs: [frontend, backend]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          start: yarn start
+
+      # add front unit tests
