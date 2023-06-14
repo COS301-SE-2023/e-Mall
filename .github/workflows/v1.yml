@@ -133,7 +133,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: coverage-report
-          path: ./api/coverage.xml
+          path: api/coverage.xml
 
 
       - name: SonarCloud Scan
@@ -141,9 +141,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: > 
-            -Dsonar.python.coverage.reportPaths= ./api/coverage.xml
  
   codecov: 
     name: Codecov
@@ -163,4 +160,4 @@ jobs:
       - uses: codecov/codecov-action@v3
         with:    
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./api/coverage.xml
+          files: api/coverage.xml
