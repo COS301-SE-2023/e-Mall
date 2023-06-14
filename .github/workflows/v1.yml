@@ -106,7 +106,13 @@ jobs:
       
       - name: Backend Unit Tests
         working-directory: ./api
-        run: docker-compose exec -T api pytest && docker cp api:/coverage.xml .
+        run: docker-compose exec -T api pytest
+
+      - name: check docker name
+        run: docker ps && docker exec api ls /coverage.xml
+        
+        
+        # docker cp api:/coverage.xml .
       
   sonarcloud:
     name: SonarCloud analysis
