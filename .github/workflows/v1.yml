@@ -142,7 +142,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: coverage-report
-          path: $GITHUB_WORKSPACE/api/
+          path: api/
 
       - name: Change dir in report
         run: |
