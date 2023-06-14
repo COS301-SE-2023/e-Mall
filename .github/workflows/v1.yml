@@ -155,7 +155,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: coverage-report
-          path: .
+          path: api/
 
 
       - uses: codecov/codecov-action@v3
