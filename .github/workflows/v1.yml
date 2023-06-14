@@ -105,7 +105,7 @@ jobs:
         run: chmod +x api/docker-entrypoint.sh && docker-compose up -d
       
       - name: Backend Unit Tests
-        working-directory: $GITHUB_WORKSPACE/api
+        working-directory: api
         run: docker-compose exec -T api pytest
           # docker-compose exec -T api coverage xml -i
 
