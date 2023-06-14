@@ -106,9 +106,8 @@ jobs:
       
       - name: Backend Unit Tests
         working-directory: ./api
-        run: |
-          docker-compose exec -T api pytest
-          docker-compose exec -T api coverage xml -i
+        run: docker-compose exec -T api pytest
+          # docker-compose exec -T api coverage xml -i
       - run: echo $PWD
       - name: Upload coverage report
         uses: actions/upload-artifact@v2
@@ -146,11 +145,11 @@ jobs:
           name: coverage-report
           path: ./api/
 
-      # - name: Change dir in report
-      #   run: |
-      #     sed -i "s|<source>/api</source>|<source>/github/workspace/api/<\/source>|g" ./api/coverage.xml
-      #     echo $GITHUB_WORKSPACE
-      #     cat ./api/coverage.xml
+      - name: Change dir in report
+        run: |
+          sed -i "s|<source>/api</source>|<source>/github/workspace/api<\/source>|g" ./api/coverage.xml
+          echo $GITHUB_WORKSPACE
+          cat ./api/coverage.xml
     
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
