@@ -146,9 +146,9 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage.xml
 
-  cypress-e2e:
-    name: Cypress E2E
-    needs: [frontend, backend]
+  start-django:
+    name: Django
+    # needs: [frontend, backend]
     runs-on: ubuntu-latest
 
     steps:
@@ -157,12 +157,26 @@ jobs:
       - name: Start Django server
         run: docker-compose up &
 
-      - name: Start Angular app
+  start-angular:
+    name: Angular
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Start Angular server
         run: ng serve --port 4200 --configuration=development &
+
+  cypress-e2e:
+    name: Cypress E2E
+    needs: [start-django, start-angular]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
 
       - name: Cypress run
         uses: cypress-io/github-action@v5
-        with:
-          install: false
+        # with:
+        #   install: false
 
       # add front unit tests
