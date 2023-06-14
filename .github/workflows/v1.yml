@@ -130,7 +130,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
-      - run: echo $PWD
+
       - name: Download coverage report
         uses: actions/download-artifact@v2
         with:
@@ -144,8 +144,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args:
-            -Dsonar.sources=./api/
-            -Dsonar.python.coverage.reportPaths=./api/coverage.xml
+            -Dsonar.sources=.
  
   codecov: 
     name: Codecov
