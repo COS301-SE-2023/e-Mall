@@ -153,13 +153,21 @@ jobs:
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
+        with:
+          run: |
+            ls
+            head -n 10 api/coverage.xml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
+
+          with:
           projectBaseDir: /home/runner/work/e-Mall/e-Mall/
           args: -Dsonar.sources=/home/runner/work/e-Mall/e-Mall/api/
-
+      - name: Run ls command in api directory
+        run: |
+          ls
+          head -n 10 api/coverage.xml
   # sonarcloud_front:
   #   name: SonarCloud analysis
   #   # needs: [frontend,backend]
