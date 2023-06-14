@@ -133,7 +133,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: coverage-report
-          path: api/coverage.xml
+          path: ./api/coverage.xml
 
 
       - name: SonarCloud Scan
@@ -160,4 +160,4 @@ jobs:
       - uses: codecov/codecov-action@v3
         with:    
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: api/coverage.xml
+          files: ./api/coverage.xml
