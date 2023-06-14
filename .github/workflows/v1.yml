@@ -147,6 +147,7 @@ jobs:
       - name: Change dir in report
         run: |
           cat $GITHUB_WORKSPACE/api/coverage.xml
+          sed -i "s|<source>/api</source>|<source>api/<\/source>|g" api/coverage.xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
