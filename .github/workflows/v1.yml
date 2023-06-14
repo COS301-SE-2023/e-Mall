@@ -106,10 +106,10 @@ jobs:
       
       - name: Backend Unit Tests
         working-directory: ./api
-        run: docker-compose exec -T api pytest
+        run: docker-compose exec -T api pytest && docker cp e-mall_api_1:/coverage.xml .
 
-      - name: check docker name
-        run: docker ps && docker exec e-mall_api_1 ls /coverage.xml
+      # - name: check docker name
+      #   run: docker ps && docker exec e-mall_api_1 ls /coverage.xml
         
         
         # docker cp api:/coverage.xml .
