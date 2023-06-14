@@ -145,7 +145,7 @@ jobs:
         with:
           args:
             -Dsonar.sources=./api/
-            -Dsonar.python.coverage.reportPaths=coverage.xml
+            -Dsonar.python.coverage.reportPaths=./api/coverage.xml
  
   codecov: 
     name: Codecov
