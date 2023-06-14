@@ -27,7 +27,7 @@ jobs:
       - name: Get node version
         id: node
         run: |
-          echo "::set-env name=NODE_VERSION::$(node --version)"
+          echo "version=$(node -v)" >> $GITHUB_OUTPUT
 
       - name: Create env files
         run: |
@@ -53,7 +53,7 @@ jobs:
           path: |
             **/node_modules
           # Adding node version as cache key
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ env.NODE_VERSION }}
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ steps.node.outputs.version }}
 
 
       - name: Install dependencies
