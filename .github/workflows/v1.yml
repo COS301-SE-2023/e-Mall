@@ -108,11 +108,11 @@ jobs:
         working-directory: ./api
         run: docker-compose exec -T api pytest
       
-      # - name: Upload coverage report
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: coverage-report
-      #     path: ./api/coverage.xml
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          path: ./api/coverage.xml
 
       # - name: check docker name
       #   run: docker ps && docker exec e-mall_api_1 ls /coverage.xml
@@ -135,7 +135,6 @@ jobs:
         with:
           name: coverage-report
           path: coverage.xml
-          retention-days: 1
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -156,7 +155,6 @@ jobs:
         with:
           name: coverage-report
           path: coverage.xml
-          retention-days: 1
 
 
       - uses: codecov/codecov-action@v3
