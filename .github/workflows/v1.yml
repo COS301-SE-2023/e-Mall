@@ -144,7 +144,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: coverage-report
-          path: .
+          path: ./api/
 
       # - name: Change dir in report
       #   run: |
@@ -157,10 +157,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        # with:
-          # projectBaseDir: 
-          # args:
-            # -Dsonar.sources=.
+        with:
+          projectBaseDir: /github/workspace/api/
+          args:
+            -Dsonar.sources=/github/workspace/api/
 
   # sonarcloud_front:
   #   name: SonarCloud analysis
