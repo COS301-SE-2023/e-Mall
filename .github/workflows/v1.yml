@@ -23,7 +23,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: v18.16.0
-            
+          cache: "yarn"
+      
+      - name: Get node version
+        id: node
+        run: |
+          echo "NODE_VERSION=$(node -v)" >> $GITHUB_OUTPUT
+
       - name: Create env files
         run: |
           echo "${{secrets.APP_ENV_TS}}" > ./app/src/environments/env.ts
@@ -48,7 +54,7 @@ jobs:
           path: |
             **/node_modules
           # Adding node version as cache key
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ node -v }}
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ $NODE_VERSION }}
 
 
       - name: Install dependencies
