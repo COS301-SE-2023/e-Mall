@@ -157,8 +157,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          projectBaseDir: api/
-          args: -Dsonar.sources=api/
+          projectBaseDir: /home/runner/work/e-Mall/e-Mall/api/
+          args: -Dsonar.sources=/home/runner/work/e-Mall/e-Mall/api/
 
   # sonarcloud_front:
   #   name: SonarCloud analysis
