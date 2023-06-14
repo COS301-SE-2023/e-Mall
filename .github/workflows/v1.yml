@@ -122,7 +122,8 @@ jobs:
       
   sonarcloud:
     name: SonarCloud analysis
-    needs: [frontend,backend]
+    # needs: [frontend,backend]
+    needs: [backend]
     runs-on: ubuntu-latest
     
     steps:
@@ -134,7 +135,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: coverage-report
-          path: coverage.xml
+          path: ./api/coverage.xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -154,7 +155,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: coverage-report
-          path: coverage.xml
+          path: ./api/coverage.xml
 
 
       - uses: codecov/codecov-action@v3
