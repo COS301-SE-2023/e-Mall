@@ -157,13 +157,12 @@ jobs:
           run: |
             ls
             head -n 10 api/coverage.xml
-        env:
+          projectBaseDir: /home/runner/work/e-Mall/e-Mall/api/
+          args: -Dsonar.sources=/home/runner/work/e-Mall/e-Mall/api/
+          env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-          with:
-          projectBaseDir: /home/runner/work/e-Mall/e-Mall/
-          args: -Dsonar.sources=/home/runner/work/e-Mall/e-Mall/api/
       - name: Run ls command in api directory
         run: |
           ls
