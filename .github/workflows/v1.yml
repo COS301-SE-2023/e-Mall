@@ -144,6 +144,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args:
+            -Dsonar.sources=.
             -Dsonar.python.coverage.reportPaths=./api/coverage.xml
  
   codecov: 
