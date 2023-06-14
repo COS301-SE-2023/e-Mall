@@ -106,7 +106,7 @@ jobs:
       
       - name: Backend Unit Tests
         working-directory: ./api
-        run: docker-compose exec -T api pytest && docker cp e-Mall_api_1:coverage.xml .
+        run: docker-compose exec -T api pytest
 
       # - name: check docker name
       #   run: docker ps && docker exec e-mall_api_1 ls /coverage.xml
@@ -129,8 +129,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          projectBaseDir: app/
  
   codecov: 
     name: Codecov
