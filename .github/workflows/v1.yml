@@ -149,7 +149,7 @@ jobs:
         run: |
           sed -i "s|<source>/api</source>|<source>{$GITHUB_WORKSPACE}/api<\/source>|g" $GITHUB_WORKSPACE/api/coverage.xml
           echo $GITHUB_WORKSPACE
-          cat ./api/coverage.xml
+          cat $GITHUB_WORKSPACE/api/coverage.xml
     
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
