@@ -112,7 +112,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: coverage-report
-          path: /coverage.xml
+          path: ./api/coverage.xml
       # - name: check docker name
       #   run: docker ps && docker exec e-mall_api_1 ls /coverage.xml
         
