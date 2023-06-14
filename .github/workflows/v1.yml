@@ -23,7 +23,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: v18.16.0
-          cache: "yarn"
       
       - name: Get node version
         id: node
