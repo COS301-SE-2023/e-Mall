@@ -109,7 +109,7 @@ jobs:
         run: docker-compose exec -T api pytest
 
       - name: check docker name
-        run: docker ps && docker exec api ls /coverage.xml
+        run: docker ps && docker exec e-mall_api_1 ls /coverage.xml
         
         
         # docker cp api:/coverage.xml .
