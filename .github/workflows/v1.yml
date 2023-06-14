@@ -135,7 +135,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: coverage-report
-          path: $PWD/api/
+          path: /api/
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -144,8 +144,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args:
-            -Dsonar.sources=$PWD/api
-            -Dsonar.python.coverage.reportPaths=$PWD/api/coverage.xml
+            -Dsonar.sources=/api
+            -Dsonar.python.coverage.reportPaths=/api/coverage.xml
  
   codecov: 
     name: Codecov
@@ -154,12 +154,11 @@ jobs:
     
     steps:
       - uses: actions/checkout@v3
-      - run: echo $PWD
       - name: Download coverage report
         uses: actions/download-artifact@v2
         with:
           name: coverage-report
-          path: ./api/
+          path: /api/
 
 
       - uses: codecov/codecov-action@v3
