@@ -132,12 +132,12 @@ jobs:
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
       
-      - name: Cache SonarCloud package
-        uses: actions/cache@v3
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
+      # - name: Cache SonarCloud package
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: ~/.sonar/cache
+      #     key: ${{ runner.os }}-sonar
+      #     restore-keys: ${{ runner.os }}-sonar
 
       - name: Download coverage report
         uses: actions/download-artifact@v2
@@ -147,6 +147,8 @@ jobs:
 
       - name: Change dir in report
         run: |
+          ls $GITHUB_WORKSPACE/
+          ls $GITHUB_WORKSPACE/api/
           sed -i "s|<source>/api</source>|<source>{$GITHUB_WORKSPACE}/api<\/source>|g" $GITHUB_WORKSPACE/api/coverage.xml
           echo $GITHUB_WORKSPACE
           cat $GITHUB_WORKSPACE/api/coverage.xml
