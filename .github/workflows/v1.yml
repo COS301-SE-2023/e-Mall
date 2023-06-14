@@ -131,7 +131,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonarcloud-github-action-${{ hashFiles('**/sonar-project.properties') }}
+          key: ${{ runner.os }}-sonarcloud-github-action-${{ hashFiles('sonar-project.properties') }}
           restore-keys: |
             ${{ runner.os }}-sonarcloud-github-action-
 
