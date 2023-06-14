@@ -150,22 +150,44 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          projectBaseDir: api/
+          projectBaseDir: ./api/
           args:
             -Dsonar.sources=.
-            -Dsonar.python.version=3.10
-            -Dsonar.forceFullAnalysis=true
+
+  sonarcloud_front:
+    name: SonarCloud analysis
+    # needs: [frontend,backend]
+    needs: [frontend]
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
       
-      - name: SonarCloud Scan 2
+      - name: Cache SonarCloud package
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Download coverage report
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage-report
+          path: ./app/
+
+      - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          projectBaseDir: app/
+          projectBaseDir: ./app/
           args:
             -Dsonar.sources=.
-            -Dsonar.forceFullAnalysis=true
+      
   codecov: 
     name: Codecov
     needs: [backend]
