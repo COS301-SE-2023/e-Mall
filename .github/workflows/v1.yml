@@ -156,14 +156,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          projectBaseDir: api/
-          args: -Dsonar.sources=api/
-
-      - name: Run ls command in api directory
-        run: |
-          ls
-          head -n 10 api/coverage.xml
+        # with:
+        #   projectBaseDir: api/
+        #   args: -Dsonar.sources=.
+        #     -Dsonar.python.coverage.reportPaths=api/coverage.xml
+      # - name: Run ls command in api directory
+      #   run: |
+      #     ls
+      #     head -n 10 api/coverage.xml
   # sonarcloud_front:
   #   name: SonarCloud analysis
   #   # needs: [frontend,backend]
