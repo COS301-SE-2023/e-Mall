@@ -144,6 +144,9 @@ jobs:
           name: coverage-report
           path: ./api/
 
+      - name: Change dir in report
+        run: sed -i "s|<source>/api</source>|<source>$CI_PROJECT_DIR\/api<\/source>|g" ./api/coverage.xml
+    
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
@@ -154,39 +157,39 @@ jobs:
           args:
             -Dsonar.sources=.
 
-  sonarcloud_front:
-    name: SonarCloud analysis
-    # needs: [frontend,backend]
-    needs: [frontend]
-    runs-on: ubuntu-latest
+  # sonarcloud_front:
+  #   name: SonarCloud analysis
+  #   # needs: [frontend,backend]
+  #   needs: [frontend]
+  #   runs-on: ubuntu-latest
     
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
       
-      - name: Cache SonarCloud package
-        uses: actions/cache@v3
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
+  #     - name: Cache SonarCloud package
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: ~/.sonar/cache
+  #         key: ${{ runner.os }}-sonar
+  #         restore-keys: ${{ runner.os }}-sonar
 
-      - name: Download coverage report
-        uses: actions/download-artifact@v2
-        with:
-          name: coverage-report
-          path: ./app/
+  #     - name: Download coverage report
+  #       uses: actions/download-artifact@v2
+  #       with:
+  #         name: coverage-report
+  #         path: ./app/
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          projectBaseDir: ./app/
-          args:
-            -Dsonar.sources=.
+  #     - name: SonarCloud Scan
+  #       uses: SonarSource/sonarcloud-github-action@master
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  #       with:
+  #         projectBaseDir: ./app/
+  #         args:
+  #           -Dsonar.sources=.
       
   codecov: 
     name: Codecov
