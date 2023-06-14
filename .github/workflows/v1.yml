@@ -112,8 +112,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Codecov
-        uses: codecov/codecov-action@v1
-        with:
+      - uses: codecov/codecov-action@v3
+        with:    
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./api/coverage.xml
