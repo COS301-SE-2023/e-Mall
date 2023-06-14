@@ -146,11 +146,11 @@ jobs:
           name: coverage-report
           path: ./api/
 
-      - name: Change dir in report
-        run: |
-          sed -i "s|<source>/api</source>|<source>/github/workspace/api/<\/source>|g" ./api/coverage.xml
-          echo $GITHUB_WORKSPACE
-          cat ./api/coverage.xml
+      # - name: Change dir in report
+      #   run: |
+      #     sed -i "s|<source>/api</source>|<source>/github/workspace/api/<\/source>|g" ./api/coverage.xml
+      #     echo $GITHUB_WORKSPACE
+      #     cat ./api/coverage.xml
     
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
