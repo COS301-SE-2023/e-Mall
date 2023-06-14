@@ -108,7 +108,7 @@ jobs:
         working-directory: ./api
         run: docker-compose exec -T api pytest
           # docker-compose exec -T api coverage xml -i
-      - run: echo $PWD
+      - run: echo $GITHUB_WORKSPACE
       - name: Upload coverage report
         uses: actions/upload-artifact@v2
         with:
@@ -143,23 +143,23 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: coverage-report
-          path: ./api/
+          path: ./
 
-      - name: Change dir in report
-        run: |
-          sed -i "s|<source>/api</source>|<source>/github/workspace/api<\/source>|g" ./api/coverage.xml
-          echo $GITHUB_WORKSPACE
-          cat ./api/coverage.xml
+      # - name: Change dir in report
+      #   run: |
+      #     sed -i "s|<source>/api</source>|<source>/github/workspace/api<\/source>|g" ./api/coverage.xml
+      #     echo $GITHUB_WORKSPACE
+      #     cat ./api/coverage.xml
     
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          projectBaseDir: /github/workspace/api/
-          args:
-            -Dsonar.sources=/github/workspace/api/
+        # with:
+        #   projectBaseDir: /github/workspace/api/
+        #   args:
+        #     -Dsonar.sources=/github/workspace/api/
 
   # sonarcloud_front:
   #   name: SonarCloud analysis
