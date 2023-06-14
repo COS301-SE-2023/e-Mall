@@ -135,7 +135,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: coverage-report
-          path: ./api/
+          path: .
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -155,7 +155,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: coverage-report
-          path: ./api/
+          path: .
 
 
       - uses: codecov/codecov-action@v3
