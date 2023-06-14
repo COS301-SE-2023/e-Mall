@@ -17,81 +17,114 @@
       crossorigin="anonymous" />
   </head>
 
-
   <body>
-
-    <div class="container-fluid same-height d-flex ">
+    <div class="container-fluid same-height d-flex">
       <div class="row no-gutters">
         <div class="col-md-6 col-lg-6 d-flex align-items-stretch">
-
           <div class="card flex-grow-1 smaller-container">
-          
             <div class="text-center">
               <!--<h1>e-Mall</h1>-->
-              <h2>Login</h2> 
+              <h2>Login</h2>
             </div>
-            
+
             <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
               <div class="form-group">
-
                 <div class="mb-3">
-                  <input type="email" class="form-control" id="email" placeholder="Email Address*" formControlName="email">
-                  <div *ngIf="f['email'].touched && f['email'].invalid" class="text-danger">
-                    <div class ="errorMsg" *ngIf="f['email'].errors?.['required']">Email is required</div>
-                    <div class ="errorMsg" *ngIf="f['email'].errors?.['email']">Invalid email address</div>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    placeholder="Email Address*"
+                    formControlName="email" />
+                  <div
+                    *ngIf="f['email'].touched && f['email'].invalid"
+                    class="text-danger">
+                    <div
+                      class="errorMsg"
+                      *ngIf="f['email'].errors?.['required']">
+                      Email is required
+                    </div>
+                    <div class="errorMsg" *ngIf="f['email'].errors?.['email']">
+                      Invalid email address
+                    </div>
                   </div>
                 </div>
 
                 <div class="mb-3">
-                  <input type="Password" class="form-control" id="password" placeholder="Password*" formControlName="password">
-                  <div *ngIf="f['password'].touched && f['password'].invalid" class="text-danger">
-                    <div class ="errorMsg" *ngIf="f['password'].errors?.['required']">Password is required</div>
-                    <div class ="errorMsg" *ngIf="f['password'].errors?.['minlength']">Password must be at least 8 characters long</div>
+                  <input
+                    type="Password"
+                    class="form-control"
+                    id="password"
+                    placeholder="Password*"
+                    formControlName="password" />
+                  <div
+                    *ngIf="f['password'].touched && f['password'].invalid"
+                    class="text-danger">
+                    <div
+                      class="errorMsg"
+                      *ngIf="f['password'].errors?.['required']">
+                      Password is required
+                    </div>
+                    <div
+                      class="errorMsg"
+                      *ngIf="f['password'].errors?.['minlength']">
+                      Password must be at least 8 characters long
+                    </div>
                   </div>
                 </div>
-            
 
-              <div class="text-danger errorMsg" *ngIf="!signInForm.valid && formSubmitted">
-                 Please fill in your Email and Password.
-              </div>
-              
-              <div class="dnotHave-acc">
-                <p style="margin-top: 20px;">Do not have an account? <span><a routerLink="/sign-up">Sign Up</a></span></p>
-                <p style="margin-top: 10px; margin-left: 70px;">Want to register your shop? <span><a routerLink="/register">Register Shop</a></span></p>
-              </div>
-    
-              <button type="submit" class="btn btn-lg btn-block">Submit</button>
+                <div
+                  class="text-danger errorMsg"
+                  *ngIf="!signInForm.valid && formSubmitted">
+                  Please fill in your Email and Password.
+                </div>
 
-            </div>
+                <div class="dnotHave-acc">
+                  <p style="margin-top: 20px">
+                    Do not have an account?
+                    <span><a routerLink="/sign-up">Sign Up</a></span>
+                  </p>
+                  <p style="margin-top: 10px; margin-left: 70px">
+                    Want to register your shop?
+                    <span><a routerLink="/register">Register Shop</a></span>
+                  </p>
+                </div>
+
+                <button type="submit" class="btn btn-lg btn-block">
+                  Submit
+                </button>
+              </div>
             </form>
           </div>
         </div>
-       
+
         <div class="col-md-6 col-lg-6 d-flex align-items-stretch">
-          <div class="container welcomeMsg_container flex-grow-1 smaller-container" id="welcomeMsg">
-        
-          <h1 class="welcomeMsg-words-top" >Welcome to SA's leading comparison service for <span class="welcomeMsg-words-top">online shopping</span></h1>
-          <img class="welcomeMsg_logo" 
-                src="assets/images/logo.png"
-                alt="e-Mall logo"
-          >
-          <h3 class="welcomeMsg-words-bottom">
-            Discover<br />Compare<br />Shop<br />E-Mall Has It All!
-          </h3>
+          <div
+            class="container welcomeMsg_container flex-grow-1 smaller-container"
+            id="welcomeMsg">
+            <h1 class="welcomeMsg-words-top">
+              Welcome to SA's leading comparison service for
+              <span class="welcomeMsg-words-top">online shopping</span>
+            </h1>
+            <img
+              class="welcomeMsg_logo"
+              src="assets/images/logo.png"
+              alt="e-Mall logo" />
+            <h3 class="welcomeMsg-words-bottom">
+              Discover<br />Compare<br />Shop<br />E-Mall Has It All!
+            </h3>
+          </div>
         </div>
       </div>
-      </div>
-    
-    
     </div>
-    <footer class="footer ">
+    <footer class="footer">
       <div class="container">
         <div class="row">
           <div class="col-md-3">
-            <img class="welcomeMsg_logo_footer" 
-                    src="assets/images/logo.png"
-                    alt="e-Mall logo"
-              >
+            <img
+              class="welcomeMsg_logo_footer"
+              src="assets/images/logo.png"
+              alt="e-Mall logo" />
           </div>
           <div class="col-md-3">
             <h5>e-Mall</h5>
@@ -118,17 +151,20 @@
           </div>
         </div>
         <div class="row icons">
-    
           <div class="col-md-3">
             <p>Copyright © 2023 e-Mall</p>
           </div>
-    
-          <div class="col-md-3 "></div>
-          <div class="col-md-3" >
-            <a routerLink="#"><i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i></a>
+
+          <div class="col-md-3"></div>
+          <div class="col-md-3">
+            <a routerLink="#"
+              ><i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i
+            ></a>
           </div>
-          <div class="col-md-3" >
-            <a routerLink="#"><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
+          <div class="col-md-3">
+            <a routerLink="#"
+              ><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i
+            ></a>
           </div>
         </div>
       </div>
@@ -136,7 +172,7 @@
   </body>
 </html>
 
-  <!--
+<!--
   <body class="flex-column">
     <main class="signin main">
       <div class="cell">

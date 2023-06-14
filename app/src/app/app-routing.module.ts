@@ -9,6 +9,7 @@ import { RegisterComponent } from './register/register.component';
 import { PendingComponent } from './pending/pending.component';
 import { ConstructionComponent } from './construction/construction.component';
 import { ProductPageComponent } from './product-page/product-page.component';
+import { SignOutComponent } from './sign-out/sign-out.component';
 
 const routes: Routes = [
   // {
@@ -20,7 +21,7 @@ const routes: Routes = [
   { path: 'pending', component: PendingComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'sign-in', component: SignInComponent },
-
+  { path: 'sign-out', component: SignOutComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'product-page', component: ProductPageComponent }

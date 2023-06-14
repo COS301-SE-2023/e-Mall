@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ISellerForm } from '@app/models/seller.interface';
 
-import { IUser, CognitoService } from '@app/services/cognito.service'; 
+import { PublicService } from '@service/public.service';
+import { AuthService } from '@service/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -9,17 +11,21 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],
 })
-
-
-export class SignInComponent implements OnInit{
+export class SignInComponent implements OnInit {
   loading: boolean;
-  user: IUser;
   signInForm!: FormGroup;
   formSubmitted = false;
 
-  constructor(private router: Router, private cognitoService: CognitoService,  private formBuilder: FormBuilder) {
+  constructor(
+    private router: Router,
+    private AuthService: AuthService,
+    private formBuilder: FormBuilder
+  ) {
     this.loading = false;
-    this.user = {} as IUser;
+    //     this.user = { showPassword: false };
+    //     this.email = undefined;
+    //     this.password = undefined;
+    // this.user = {} as ISellerForm;
   }
 
   ngOnInit() {
@@ -29,32 +35,29 @@ export class SignInComponent implements OnInit{
     });
   }
 
-  get f() { return this.signInForm.controls; }
-
+  get f() {
+    return this.signInForm.controls;
+  }
+  private getFormValue(field: string) {
+    return this.signInForm.controls[field].value;
+  }
   onSubmit() {
-
     // Handle form submission
     if (this.signInForm.valid) {
       console.log('Form submitted');
-      this.router.navigate(['/']);
+      this.signIn();
     } else {
       console.log('Form is invalid!');
       this.formSubmitted = true;
     }
   }
 
-  /*
   public signIn(): void {
-     this.loading = true;
-    this.cognitoService
-      .signIn(this.user)
-      .then(() => {
-    this.router.navigate(['/construction']);
-      })
-      .catch(() => {
-        this.loading = false;
-      });
-  }*/
-} 
-
-
+    this.AuthService.signIn(
+      this.getFormValue('email'),
+      this.getFormValue('password')
+    ).subscribe(() => {
+      this.router.navigate(['/home']);
+    });
+  }
+}
