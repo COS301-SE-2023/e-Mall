@@ -159,6 +159,7 @@ jobs:
 
   start-angular:
     name: Angular
+    needs: [frontend]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
