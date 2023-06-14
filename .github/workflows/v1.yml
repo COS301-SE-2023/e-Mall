@@ -105,7 +105,7 @@ jobs:
         run: chmod +x api/docker-entrypoint.sh && docker-compose up -d
       
       - name: Backend Unit Tests
-        working-directory: ./api
+        working-directory: $GITHUB_WORKSPACE/api
         run: docker-compose exec -T api pytest
           # docker-compose exec -T api coverage xml -i
 
@@ -113,7 +113,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: coverage-report
-          path: ./api/coverage.xml
+          path: $GITHUB_WORKSPACE/api/coverage.xml
 
       # - name: check docker name
       #   run: docker ps && docker exec e-mall_api_1 ls /coverage.xml
