@@ -146,7 +146,7 @@ jobs:
 
       - name: Change dir in report
         run: |
-          sed -i "s|<source>/api</source>|<source>\$GITHUB_WORKSPACE/api<\/source>|g" ./api/coverage.xml
+          sed -i "s|<source>/api</source>|<source>${GITHUB_WORKSPACE}/api<\/source>|g" ./api/coverage.xml
           echo $GITHUB_WORKSPACE
           cat ./api/coverage.xml
     
