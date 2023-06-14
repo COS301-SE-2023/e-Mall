@@ -157,6 +157,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
-          start: yarn start
+          install: false
+          run: yarn run cypress-run
 
       # add front unit tests
