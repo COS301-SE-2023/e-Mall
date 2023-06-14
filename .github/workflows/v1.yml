@@ -23,7 +23,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: v18.16.0
-          cache: 'yarn'
       
       - name: Get node version
         id: node
@@ -60,7 +59,7 @@ jobs:
       - name: Install dependencies
         if: steps.node_modules.outputs.cache-hit != 'true'
         working-directory: ./app
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
       - name: Lint Code
         working-directory: ./app
