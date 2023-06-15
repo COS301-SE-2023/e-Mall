@@ -64,7 +64,6 @@ jobs:
         run: |
           echo $env_app_dev > $path_app_dev
           echo $env_app_prod > $path_app_prod
-          ls -$path_app_dev
 
       - name: Get node_modules cache
         uses: actions/cache@v3
@@ -169,6 +168,12 @@ jobs:
           echo $env_app_prod > $path_app_prod
           echo $env_api_dev > $path_api_dev
           echo $env_api_prod > $path_api_prod
+          ls -a
+          ls -a app/
+          ls -a api/
+          echo "path----"
+          ls -a ./api/api/.env
+          ls -a ./app/src/environments/
 
       - name: start django
         run: chmod +x api/docker-entrypoint.sh && docker-compose up -d &
