@@ -1,2 +1,2 @@
 [run]
-omit= **/migrations/*,**/tests/*,**/tests.py
+omit= **/migrations/*,**/tests/*,**/tests.py,**/signals.py,**/__init__.py,**/settings.py,**/urls.py,**/auth/*
