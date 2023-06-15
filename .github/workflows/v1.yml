@@ -9,6 +9,8 @@ on:
     branches:
       - master
       - develop
+env:
+  node_version: v18.16.0
 
 jobs:
   frontend:
@@ -21,12 +23,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: v18.16.0
-
-      - name: Get node version
-        id: node
-        run: |
-          echo "version=$(node -v)" >> $GITHUB_OUTPUT
+          node-version: $node_version
 
       - name: Create env files
         run: |
@@ -52,7 +49,7 @@ jobs:
           path: |
             **/node_modules
           # Adding node version as cache key
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ steps.node.outputs.version }}
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ env.node_version }}
 
       - name: Install dependencies
         if: steps.node_modules.outputs.cache-hit != 'true'
@@ -169,7 +166,7 @@ jobs:
           path: |
             **/node_modules
           # Adding node version as cache key
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ steps.node.outputs.version }}
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ env.node_version }}
 
       - name: Install dependencies
         if: steps.node_modules.outputs.cache-hit != 'true'
