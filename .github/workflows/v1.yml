@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - develop
+      - JY/82/E2E-into-pipeline
   pull_request:
     branches:
       - master
