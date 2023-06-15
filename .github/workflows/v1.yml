@@ -28,23 +28,23 @@ jobs:
     steps:
       - name: Check if env exists
         run: |
-          if [ -z "$env_app_dev" ]; then
+          if [ -z "${{ env.env_app_dev }}" ]; then
               echo "env_app_dev is unset or empty"
               exit 1
           fi
 
-          if [ -z "$env_app_prod" ]; then
-              echo "env_app_prod is unset or empty"
+          if [ -z "${{ env.env_app_prod }}" ]; then
+              echo "{{ env.env_app_prod }} is unset or empty"
               exit 1
           fi
 
-          if [ -z "$env_api_dev" ]; then
-              echo "env_api_dev is unset or empty"
+          if [ -z "${{ env.env_api_dev }}" ]; then
+              echo "{{ env.env_api_dev }} is unset or empty"
               exit 1
           fi
 
-          if [ -z "$env_api_prod" ]; then
-              echo "env_api_prod is unset or empty"
+          if [ -z "${{ env.env_api_prod }}" ]; then
+              echo "{{ env.env_api_prod }} is unset or empty"
               exit 1
           fi
 
@@ -62,8 +62,8 @@ jobs:
 
   #     - name: Create env files
   #       run: |
-  #         echo $env_app_dev > $path_app_dev
-  #         echo $env_app_prod > $path_app_prod
+  #         echo ${{ env.env_app_dev }} > ${{ env.path_app_dev }}
+  #         echo ${{ env.env_app_prod }} > ${{ env.path_app_prod }}
 
   #     - name: Get node_modules cache
   #       uses: actions/cache@v3
@@ -92,8 +92,8 @@ jobs:
 
   #     - name: Create .env file
   #       run: |
-  #         echo $env_api_dev > $path_api_dev
-  #         echo $env_api_prod > $path_api_prod
+  #         echo ${{ env.env_api_dev }} > ${{ env.path_api_dev }}
+  #         echo ${{ env.env_api_prod }} > ${{ env.path_api_prod }}
 
   #     - name: Run Docker Compose Up
   #       run: |
@@ -164,19 +164,19 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo $env_app_dev > $path_app_dev
-          echo $env_app_prod > $path_app_prod
-          echo $env_api_dev > $path_api_dev
-          echo $env_api_prod > $path_api_prod
+          echo ${{ env.env_app_dev }} > ${{ env.path_app_dev }}
+          echo ${{ env.env_app_prod }} > ${{ env.path_app_prod }}
+          echo ${{ env.env_api_dev }} > ${{ env.path_api_dev }}
+          echo ${{ env.env_api_prod }} > ${{ env.path_api_prod }}
 
-          echo $path_app_dev
-          cat $path_app_dev
-          echo $path_app_prod
-          cat $path_app_prod
-          echo $path_api_dev
-          cat $path_api_dev
-          echo $path_api_prod
-          cat $path_api_prod
+          echo ${{ env.path_app_dev }}
+          cat ${{ env.path_app_dev }}
+          echo ${{ env.path_app_prod }}
+          cat ${{ env.path_app_prod }}
+          echo ${{ env.path_api_dev }}
+          cat ${{ env.path_api_dev }}
+          echo ${{ env.path_api_prod }}
+          cat ${{ env.path_api_prod }}
 
       - name: start django
         run: chmod +x api/docker-entrypoint.sh && docker-compose up -d &
