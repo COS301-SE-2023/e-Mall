@@ -58,12 +58,12 @@ jobs:
   #     - name: Set up Node.js
   #       uses: actions/setup-node@v3
   #       with:
-  #         node-version: ${{env.node_version}}
+  #         node-version: $node_version
 
   #     - name: Create env files
   #       run: |
-  #         echo ${{ env.env_app_dev }} > ${{ env.path_app_dev }}
-  #         echo ${{ env.env_app_prod }} > ${{ env.path_app_prod }}
+  #         echo "$env.env_app_dev" > "$env.path_app_dev"
+  #         echo "$env.env_app_prod" > "$env.path_app_prod"
 
   #     - name: Get node_modules cache
   #       uses: actions/cache@v3
@@ -92,8 +92,8 @@ jobs:
 
   #     - name: Create .env file
   #       run: |
-  #         echo ${{ env.env_api_dev }} > ${{ env.path_api_dev }}
-  #         echo ${{ env.env_api_prod }} > ${{ env.path_api_prod }}
+  #         echo "$env.env_api_dev" >  "$env.path_api_dev"
+  #         echo "$env.env_api_prod" > "$env.path_api_prod"
 
   #     - name: Run Docker Compose Up
   #       run: |
@@ -164,19 +164,10 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo ${{ env.env_app_dev }} > ${{ env.path_app_dev }}
-          echo ${{ env.env_app_prod }} > ${{ env.path_app_prod }}
-          echo ${{ env.env_api_dev }} > ${{ env.path_api_dev }}
-          echo ${{ env.env_api_prod }} > ${{ env.path_api_prod }}
-
-          echo ${{ env.path_app_dev }}
-          cat ${{ env.path_app_dev }}
-          echo ${{ env.path_app_prod }}
-          cat ${{ env.path_app_prod }}
-          echo ${{ env.path_api_dev }}
-          cat ${{ env.path_api_dev }}
-          echo ${{ env.path_api_prod }}
-          cat ${{ env.path_api_prod }}
+          echo "$env.env_app_dev" > "$ env.path_app_dev"
+          echo "$env.env_app_prod" > "$env.path_app_prod"
+          echo "$env.env_api_dev" > "$env.path_api_dev"
+          echo "$env.env_api_prod" > "$env.path_api_prod"
 
       - name: start django
         run: chmod +x api/docker-entrypoint.sh && docker-compose up -d &
@@ -188,7 +179,7 @@ jobs:
           path: |
             **/node_modules
           # Adding node version as cache key
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ steps.node.outputs.version }}
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ env.node_version }}
 
       - name: Install dependencies
         if: steps.node_modules.outputs.cache-hit != 'true'
