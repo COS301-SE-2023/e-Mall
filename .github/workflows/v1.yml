@@ -17,8 +17,8 @@ env:
   env_api_prod: ${{secrets.API_ENV_PROD}}
   path_app_dev: ./app/src/environments/env.ts
   path_app_prod: ./app/src/environments/env.prod.ts
-  path_api_dev: ./api/api/env
-  path_api_prod: ./api/api/env.prod
+  path_api_dev: ./api/api/.env
+  path_api_prod: ./api/api/.env.prod
   node_version: v18.16.0
 
 jobs:
@@ -137,7 +137,6 @@ jobs:
   codecov:
     name: Codecov Analysis
     needs: [frontend, backend]
-
     runs-on: ubuntu-latest
 
     steps:
@@ -149,7 +148,8 @@ jobs:
           name: coverage-report
           path: ./api/
 
-      - uses: codecov/codecov-action@v3
+      - name: Analyse report
+        uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage.xml
@@ -194,12 +194,8 @@ jobs:
         working-directory: ./app
         run: |
           yarn cypress install
-          until $(curl --output /dev/null --silent --head --fail http://localhost:4200); do
-            sleep 5
-          done
+          timeout 5m bash -c 'until $(curl --output /dev/null --silent --head --fail http://localhost:3000); do sleep 5; done'
+          timeout 5m bash -c 'until $(curl --output /dev/null --silent --head --fail http://localhost:4200); do sleep 5; done'
           yarn cypress run
-
-        # with:
-        #   install: false
 
       # add front unit tests
