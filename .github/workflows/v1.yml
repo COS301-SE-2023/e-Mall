@@ -15,11 +15,11 @@ env:
   env_app_prod: ${{secrets.APP_ENV_PROD_TS}}
   env_api_dev: ${{secrets.API_ENV}}
   env_api_prod: ${{secrets.API_ENV_PROD}}
-  path_app_dev: ./app/src/environments/env.ts
-  path_app_prod: ./app/src/environments/env.prod.ts
-  path_api_dev: ./api/api/.env
-  path_api_prod: ./api/api/.env.prod
-  node_version: v18.16.0
+  path_app_dev: "./app/src/environments/env.ts"
+  path_app_prod: "./app/src/environments/env.prod.ts"
+  path_api_dev: "./api/api/.env"
+  path_api_prod: "./api/api/.env.prod"
+  node_version: "v18.16.0"
 
 jobs:
   secrets:
