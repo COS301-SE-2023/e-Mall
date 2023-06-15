@@ -193,6 +193,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Create .env file
+        run: |
+          echo "${{ secrets.API_ENV}}" > ./api/api/.env
+          echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod
+          echo "${{secrets.APP_ENV_TS}}" > ./app/src/environments/env.ts
+          echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
+
       - name: start django
         run: chmod +x api/docker-entrypoint.sh && docker-compose up -d
 
