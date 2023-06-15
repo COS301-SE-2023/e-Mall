@@ -22,6 +22,7 @@ env:
 
 jobs:
   secrets:
+    name: Set Secrets
     runs-on: ubuntu-latest
     steps:
       - name: Check if env exists
@@ -47,6 +48,7 @@ jobs:
           fi
 
   frontend:
+    name: Angular Build and Test
     runs-on: ubuntu-latest
     needs: [secrets]
     steps:
@@ -60,24 +62,13 @@ jobs:
       - name: Get node version
         id: node
         run: |
+          echo node -v
           echo "version=$(node -v)" >> $GITHUB_OUTPUT
 
       - name: Create env files
         run: |
           echo $env_app_dev > $path_app_dev
           echo $env_app_prod > $path_app_prod
-
-      # - name: Check if env files exists
-      #   run: |
-      #     if [ ! -f ./app/src/environments/env.ts ]; then
-      #       echo "app.env not found!"
-      #       exit 1
-      #     fi
-
-      #     if [ ! -f ./app/src/environments/env.prod.ts ]; then
-      #       echo "app.env.prod not found!"
-      #       exit 1
-      #     fi
 
       - name: Get node_modules cache
         uses: actions/cache@v3
@@ -102,6 +93,7 @@ jobs:
         run: yarn build
 
   backend:
+    name: Django Build and Test
     runs-on: ubuntu-latest
     needs: [secrets]
     steps:
@@ -109,20 +101,9 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "${{ secrets.API_ENV}}" > ./api/api/.env
-          echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod
+          echo $env_api_dev > $path_api_dev
+          echo $env_api_prod > $path_api_prod
 
-      - name: Check if env files exists
-        run: |
-          if [ ! -f ./api/api/.env ]; then
-            echo "api.env not found!"
-            exit 1
-          fi
-
-          if [ ! -f ./api/api/env.prod ]; then
-            echo "api.env.prod not found!"
-            exit 1
-          fi
       - name: Run Docker Compose Up
         run: |
           chmod +x api/docker-entrypoint.sh && docker-compose up -d
@@ -138,7 +119,7 @@ jobs:
           path: api/coverage.xml
 
   sonarcloud:
-    name: SonarCloud analysis
+    name: SonarCloud Analysis
     needs: [frontend, backend]
     runs-on: ubuntu-latest
 
@@ -163,7 +144,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   codecov:
-    name: Codecov
+    name: Codecov Analysis
     needs: [frontend, backend]
 
     runs-on: ubuntu-latest
@@ -182,47 +163,9 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage.xml
 
-  # start-django:
-  #   name: Django
-  #   # needs: [frontend, backend]
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - uses: actions/checkout@v3
-
-  #     - name: Create .env file
-  #       run: |
-  #         echo "${{ secrets.API_ENV}}" > ./api/api/.env
-  #         echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod
-
-  #     - name: Check if env files exists
-  #       run: |
-  #         if [ ! -f ./api/api/.env ]; then
-  #           echo "api.env not found!"
-  #           exit 1
-  #         fi
-
-  #         if [ ! -f ./api/api/env.prod ]; then
-  #           echo "api.env.prod not found!"
-  #           exit 1
-  #         fi
-  #     - name: Run Docker Compose Up
-  #       run: chmod +x api/docker-entrypoint.sh && docker-compose up -d
-
-  # start-angular:
-  #   name: Angular
-  #   needs: [backend, frontend]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-
-  #     - name: Start Angular server
-  #       run: ng serve --port 4200 --configuration=development &
-
   cypress-e2e:
-    name: Cypress E2E
-    # needs: [start-django, start-angular]
-    # needs: [backend, frontend]
+    name: Cypress E2E Test
+    needs: [secrets]
     runs-on: ubuntu-latest
 
     steps:
@@ -230,10 +173,10 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "${{ secrets.API_ENV}}" > ./api/api/.env
-          echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod
           echo $env_app_dev > $path_app_dev
           echo $env_app_prod > $path_app_prod
+          echo $env_api_dev > $path_api_dev
+          echo $env_api_prod > $path_api_prod
 
       - name: start django
         run: chmod +x api/docker-entrypoint.sh && docker-compose up -d &
