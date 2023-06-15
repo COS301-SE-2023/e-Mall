@@ -169,10 +169,10 @@ jobs:
           echo $env_api_dev > $path_api_dev
           echo $env_api_prod > $path_api_prod
           ls -a
-          ls -a app/
-          ls -a api/
+          ls -a app/src/
+          ls -a api/api/
           echo "path----"
-          ls -a ./api/api/.env
+          ls -a ./api/api/
           ls -a ./app/src/environments/
 
       - name: start django
@@ -200,8 +200,8 @@ jobs:
         working-directory: ./app
         run: |
           yarn cypress install
-          timeout 5m bash -c 'until $(curl --output /dev/null --silent --head --fail http://localhost:3000); do sleep 5; done'
-          timeout 5m bash -c 'until $(curl --output /dev/null --silent --head --fail http://localhost:4200); do sleep 5; done'
+          timeout 3m bash -c 'until $(curl --output /dev/null --silent --head --fail http://localhost:3000); do sleep 5; done'
+          timeout 3m bash -c 'until $(curl --output /dev/null --silent --head --fail http://localhost:4200); do sleep 5; done'
           yarn cypress run
 
       # add front unit tests
