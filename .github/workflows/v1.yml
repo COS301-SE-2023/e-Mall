@@ -168,12 +168,6 @@ jobs:
           echo $env_app_prod > $path_app_prod
           echo $env_api_dev > $path_api_dev
           echo $env_api_prod > $path_api_prod
-          ls -a
-          ls -a app/src/
-          ls -a api/api/
-          echo "path----"
-          ls -a ./api/api/
-          ls -a ./app/src/environments/
 
       - name: start django
         run: chmod +x api/docker-entrypoint.sh && docker-compose up -d &
