@@ -225,6 +225,7 @@ jobs:
       - name: start cypress
         working-directory: ./app
         run: |
+          yarn cypress install
           until $(curl --output /dev/null --silent --head --fail http://localhost:4200); do
             sleep 5
           done
