@@ -62,7 +62,7 @@ jobs:
       - name: Get node version
         id: node
         run: |
-          echo node -v
+          echo $(node -v)
           echo "version=$(node -v)" >> $GITHUB_OUTPUT
 
       - name: Create env files
