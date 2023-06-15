@@ -68,7 +68,7 @@ jobs:
         run: yarn build
 
       - name: Start Angular
-        run: ng serve --port 4200 --configuration=development
+        run: yarn ng serve --port 4200 --configuration=development
 
   backend:
     runs-on: ubuntu-latest
