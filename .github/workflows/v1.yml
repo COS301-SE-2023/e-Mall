@@ -67,6 +67,9 @@ jobs:
         working-directory: ./app
         run: yarn build
 
+      - name: Start Angular
+        run: ng serve --port 4200 --configuration=development
+
   backend:
     runs-on: ubuntu-latest
 
@@ -130,6 +133,7 @@ jobs:
   codecov:
     name: Codecov
     needs: [frontend, backend]
+
     runs-on: ubuntu-latest
 
     steps:
@@ -146,37 +150,54 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage.xml
 
-  start-django:
-    name: Django
-    # needs: [frontend, backend]
-    runs-on: ubuntu-latest
+  # start-django:
+  #   name: Django
+  #   # needs: [frontend, backend]
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v3
+  #   steps:
+  #     - uses: actions/checkout@v3
 
-      - name: Start Django server
-        run: docker-compose up &
+  #     - name: Create .env file
+  #       run: |
+  #         echo "${{ secrets.API_ENV}}" > ./api/api/.env
+  #         echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod
 
-  start-angular:
-    name: Angular
-    needs: [frontend]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+  #     - name: Check if env files exists
+  #       run: |
+  #         if [ ! -f ./api/api/.env ]; then
+  #           echo "api.env not found!"
+  #           exit 1
+  #         fi
 
-      - name: Start Angular server
-        run: ng serve --port 4200 --configuration=development &
+  #         if [ ! -f ./api/api/env.prod ]; then
+  #           echo "api.env.prod not found!"
+  #           exit 1
+  #         fi
+  #     - name: Run Docker Compose Up
+  #       run: chmod +x api/docker-entrypoint.sh && docker-compose up -d
+
+  # start-angular:
+  #   name: Angular
+  #   needs: [backend, frontend]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+
+  #     - name: Start Angular server
+  #       run: ng serve --port 4200 --configuration=development &
 
   cypress-e2e:
     name: Cypress E2E
-    needs: [start-django, start-angular]
+    # needs: [start-django, start-angular]
+    needs: [backend, frontend]
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
 
       - name: Cypress run
-        uses: cypress-io/github-action@v5
+        run: cypress run
         # with:
         #   install: false
 
