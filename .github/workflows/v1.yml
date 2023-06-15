@@ -98,7 +98,6 @@ jobs:
             exit 1
           fi
       - name: Run Docker Compose Up
-        working-directory: api
         run: |
           chmod +x api/docker-entrypoint.sh && docker-compose up -d &
           bg_pid=$!
