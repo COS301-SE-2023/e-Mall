@@ -64,6 +64,7 @@ jobs:
         run: |
           echo $env_app_dev > $path_app_dev
           echo $env_app_prod > $path_app_prod
+          ls -$path_app_dev
 
       - name: Get node_modules cache
         uses: actions/cache@v3
