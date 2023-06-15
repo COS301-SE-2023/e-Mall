@@ -26,6 +26,11 @@ jobs:
     steps:
       - name: Check if env exists
         run: |
+          echo $env_app_dev  
+          echo $env_app_prod  
+          echo $env_api_dev  
+          echo $env_api_prod  
+
           if [ -z "$env_app_dev" ]; then
               echo "env_app_dev is unset or empty"
               exit 1
