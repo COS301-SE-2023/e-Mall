@@ -202,15 +202,20 @@ jobs:
           echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
 
       - name: start django
-        run: chmod +x api/docker-entrypoint.sh && docker-compose up -d
+        run: chmod +x api/docker-entrypoint.sh && docker-compose up -d &
 
       - name: start angular
         working-directory: ./app
-        run: yarn install && yarn ng serve --port 4200 --configuration=development
+        run: yarn install && yarn ng serve --port 4200 --configuration=development &
 
       - name: start cypress
         working-directory: ./app
-        run: cypress run
+        run: |
+          until $(curl --output /dev/null --silent --head --fail http://localhost:4200); do
+            printf '.'
+            sleep 5
+          done
+          cypress run
 
         # with:
         #   install: false
