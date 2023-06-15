@@ -10,11 +10,45 @@ on:
     branches:
       - master
       - develop
+env:
+  env_app_dev: ${{secrets.APP_ENV_TS}}
+  env_app_prod: ${{secrets.APP_ENV_TS_PROD}}
+  env_api_dev: ${{secrets.API_ENV_TS}}
+  env_api_prod: ${{secrets.API_ENV_TS_PROD}}
+  path_app_dev: ./app/src/environments/env.ts
+  path_app_prod: ./app/src/environments/env.prod.ts
+  path_api_dev: ./api/api/env
+  path_api_prod: ./api/api/env.prod
 
 jobs:
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if env exists
+        run: |
+          if [ -z "$env_app_dev" ]; then
+              echo "env_app_dev is unset or empty"
+              exit 1
+          fi
+
+          if [ -z "$env_app_prod" ]; then
+              echo "env_app_prod is unset or empty"
+              exit 1
+          fi
+
+          if [ -z "$env_api_dev" ]; then
+              echo "env_api_dev is unset or empty"
+              exit 1
+          fi
+
+          if [ -z "$env_api_prod" ]; then
+              echo "env_api_prod is unset or empty"
+              exit 1
+          fi
+
   frontend:
     runs-on: ubuntu-latest
-
+    needs: [secrets]
     steps:
       - uses: actions/checkout@v3
 
@@ -30,20 +64,20 @@ jobs:
 
       - name: Create env files
         run: |
-          echo "${{secrets.APP_ENV_TS}}" > ./app/src/environments/env.ts
-          echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
+          echo $env_app_dev > $path_app_dev
+          echo $env_app_prod > $path_app_prod
 
-      - name: Check if env files exists
-        run: |
-          if [ ! -f ./app/src/environments/env.ts ]; then
-            echo "app.env not found!"
-            exit 1
-          fi
+      # - name: Check if env files exists
+      #   run: |
+      #     if [ ! -f ./app/src/environments/env.ts ]; then
+      #       echo "app.env not found!"
+      #       exit 1
+      #     fi
 
-          if [ ! -f ./app/src/environments/env.prod.ts ]; then
-            echo "app.env.prod not found!"
-            exit 1
-          fi
+      #     if [ ! -f ./app/src/environments/env.prod.ts ]; then
+      #       echo "app.env.prod not found!"
+      #       exit 1
+      #     fi
 
       - name: Get node_modules cache
         uses: actions/cache@v3
@@ -69,7 +103,7 @@ jobs:
 
   backend:
     runs-on: ubuntu-latest
-
+    needs: [secrets]
     steps:
       - uses: actions/checkout@v3
 
@@ -198,8 +232,8 @@ jobs:
         run: |
           echo "${{ secrets.API_ENV}}" > ./api/api/.env
           echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod
-          echo "${{secrets.APP_ENV_TS}}" > ./app/src/environments/env.ts
-          echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
+          echo $env_app_dev > $path_app_dev
+          echo $env_app_prod > $path_app_prod
 
       - name: start django
         run: chmod +x api/docker-entrypoint.sh && docker-compose up -d &
