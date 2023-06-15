@@ -19,6 +19,7 @@ env:
   path_app_prod: ./app/src/environments/env.prod.ts
   path_api_dev: ./api/api/env
   path_api_prod: ./api/api/env.prod
+  node_version: v18.16.0
 
 jobs:
   secrets:
@@ -57,13 +58,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: v18.16.0
+          node-version: $node_version
 
-      - name: Get node version
-        id: node
-        run: |
-          echo $(node -v)
-          echo "version=$(node -v)" >> $GITHUB_OUTPUT
+      # - name: Get node version
+      #   id: node
+      #   run: |
+      #     echo $(node -v)
+      #     echo "version=$(node -v)" >> $GITHUB_OUTPUT
 
       - name: Create env files
         run: |
@@ -77,7 +78,7 @@ jobs:
           path: |
             **/node_modules
           # Adding node version as cache key
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ steps.node.outputs.version }}
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-$node_version
 
       - name: Install dependencies
         if: steps.node_modules.outputs.cache-hit != 'true'
