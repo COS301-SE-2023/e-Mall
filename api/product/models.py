@@ -1,4 +1,5 @@
 import uuid
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from productseller.models import ProductSeller
 
@@ -16,7 +17,9 @@ class Product(models.Model):
     ]
 
     id = models.AutoField(primary_key=True)
-    img = models.URLField(max_length=200, verbose_name="Image URL")
+    min_price_img_array = ArrayField(
+        models.CharField(max_length=200), verbose_name="Image URL"
+    )
     name = models.CharField(max_length=100)
     description = models.TextField()
     brand = models.CharField(max_length=100, default="")
@@ -50,40 +53,45 @@ class Product(models.Model):
                 productseller.discount,
                 productseller.discount_rate,
                 productseller.original_price,
+                productseller.img_array,
             )
-        return None, None, None, None, None, None, None, None
+        return None, None, None, None, None, None, None, None, None
 
     def min_price(self):
-        min_price, _, _, _, _, _, _, _ = self.get_minimum_price()
+        min_price, _, _, _, _, _, _, _, _ = self.get_minimum_price()
         return min_price
 
     def min_price_seller_id(self):
-        _, seller_id, _, _, _, _, _, _ = self.get_minimum_price()
+        _, seller_id, _, _, _, _, _, _, _ = self.get_minimum_price()
         return seller_id
 
     def min_price_seller_product_url(self):
-        _, _, seller_url, _, _, _, _, _ = self.get_minimum_price()
+        _, _, seller_url, _, _, _, _, _, _ = self.get_minimum_price()
         return seller_url
 
     def min_price_seller_business_name(self):
-        _, _, _, business_name, _, _, _, _ = self.get_minimum_price()
+        _, _, _, business_name, _, _, _, _, _ = self.get_minimum_price()
         return business_name
 
     def min_price_in_stock(self):
-        _, _, _, _, in_stock, _, _, _ = self.get_minimum_price()
+        _, _, _, _, in_stock, _, _, _, _ = self.get_minimum_price()
         return in_stock
 
     def min_price_discount(self):
-        _, _, _, _, _, discount, _, _ = self.get_minimum_price()
+        _, _, _, _, _, discount, _, _, _ = self.get_minimum_price()
         return discount
 
     def min_price_discount_rate(self):
-        _, _, _, _, _, _, discount_rate, _ = self.get_minimum_price()
+        _, _, _, _, _, _, discount_rate, _, _ = self.get_minimum_price()
         return discount_rate
 
     def min_price_original_price(self):
-        _, _, _, _, _, _, _, original_price = self.get_minimum_price()
+        _, _, _, _, _, _, _, original_price, _ = self.get_minimum_price()
         return original_price
+
+    def min_price_img_array(self):
+        _, _, _, _, _, _, _, _, img_array = self.get_minimum_price()
+        return img_array
 
     min_price.short_description = "Minimum Price"
     min_price_seller_id.short_description = "Seller ID"
