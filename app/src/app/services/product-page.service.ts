@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductPageService {
+  private apiUrl = 'http://localhost:3000/api/';
 
-  private apiUrl = 'http://localhost:3000/api/products/frontend';
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  getProductData(): Observable<any> {
-
-    const url = `${this.apiUrl}?prod_id =1`; 
+  public getProductData(id: number): Observable<unknown> {
+    const url = `${this.apiUrl}products/backend?prod_id=${id}`;
+    return this.http.get(url);
+  }
+  public getSellerList(id: number): Observable<unknown> {
+    const url = `${this.apiUrl}productseller/backend?prod_id=${id}`;
     return this.http.get(url);
   }
 }
