@@ -2,10 +2,13 @@ from django.db.models.signals import pre_save
 from consumer.models import Consumer
 from seller.models import Seller, SELLER_CATEGORY_CHOICES, SELLER_STATUS_CHOICES
 from product.models import Product
+from productseller.models import ProductSeller
+from decimal import Decimal
 
 import factory
 from faker import Faker
 import faker_commerce
+
 fake = Faker()
 fake.add_provider(faker_commerce.Provider)
 
@@ -65,8 +68,28 @@ class ProductFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Product
 
-    img = fake.image_url(),
-    name = fake.ecommerce_name(),
-    description = fake.text(),
-    brand = fake.company(),
-    category = fake.ecommerce_category(),
+    name = (fake.ecommerce_name(),)
+    description = (fake.text(),)
+    brand = (fake.company(),)
+    category = (fake.ecommerce_category(),)
+
+
+class ProductSellerFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = ProductSeller
+
+    product = factory.SubFactory(ProductFactory)
+    seller = factory.SubFactory(SellerFactory)
+    original_price = factory.LazyAttribute(
+        lambda _: Decimal(fake.random_int(min=10, max=1000))
+    )
+    price = factory.LazyAttribute(lambda _: Decimal(fake.random_int(min=10, max=1000)))
+    discount = factory.LazyAttribute(lambda _: Decimal(fake.random_int(min=0, max=500)))
+    discount_rate = factory.LazyAttribute(
+        lambda _: Decimal(fake.random.uniform(0, 0.99)).quantize(Decimal("0.00"))
+    )
+    product_url = factory.LazyAttribute(lambda _: fake.url())
+    in_stock = fake.boolean()
+    img_array = factory.LazyAttribute(
+        lambda _: [fake.image_url() for _ in range(fake.random_int(min=1, max=5))]
+    )
