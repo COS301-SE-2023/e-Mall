@@ -14,3 +14,18 @@ class ProductSeller(models.Model):
     product_url = models.URLField(max_length=200, verbose_name="Product URL")
     in_stock = models.BooleanField(default=True)
     img_array = models.JSONField(default=list)
+    business_name = models.CharField(max_length=100, default="")
+    product_name = models.CharField(max_length=100, default="")
+
+    def get_names(self):
+        seller = self.seller
+
+        if True:
+            business_name = seller.business_name
+            return business_name
+
+        return None
+
+    def business_name(self):
+        business_name = self.get_names()
+        return business_name
