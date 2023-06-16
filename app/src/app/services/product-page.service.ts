@@ -6,6 +6,7 @@ import { map, Observable, switchMap } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductPageService {
+  currentProductId$: number | undefined;
   private apiUrl = 'http://localhost:3000/api/';
 
   constructor(private http: HttpClient) {}

@@ -1,5 +1,11 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, ExtraOptions } from '@angular/router';
+import {
+  RouterModule,
+  Routes,
+  ExtraOptions,
+  provideRouter,
+  withComponentInputBinding,
+} from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -10,6 +16,8 @@ import { PendingComponent } from './pending/pending.component';
 import { ConstructionComponent } from './construction/construction.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
   // {
@@ -26,9 +34,11 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'products/:id', component: ProductPageComponent },
 ];
-
+// bootstrapApplication(AppComponent, {
+//   providers: [provideRouter(routes, withComponentInputBinding())],
+// });
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { bindToComponentInputs: true })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
