@@ -99,7 +99,7 @@ nosetests.xml
 coverage.xml 
 *.cover 
 .hypothesis/ 
-
+coverage
 # Jupyter Notebook 
 .ipynb_checkpoints 
 
