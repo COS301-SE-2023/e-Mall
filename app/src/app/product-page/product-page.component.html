@@ -179,26 +179,67 @@
           </div>
           
           <div class="container-fluid comp-products" *ngIf="products">
-            <span class="dropdown-arrow">dropDown arrow</span><span class="seller-name">{{products[3].name}}</span>
+
+            <div class="row drop-d-sellerName-container">
+              <div class="col-sm-3 col-md-3 col-lg-3 dropdown-arrow">
+                <span class=""><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
+              </div>
+              <div class="col-sm-9 col-md-9 col-lg-9 seller-name">
+                <span class="">{{products[3].name}}</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-12 product-name">
+                product name <span class="product-name-price">price</span>
+              </div>
+            </div>
+
+            <!--
+            <div class="drop-d-sellerName-container">
+              <span class="dropdown-arrow"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
+              <span class="seller-name">{{products[3].name}}</span>
+            </div>
             <div class="product-name">product name <span class="product-name-price">price</span></div>
+          -->
           </div>
 
         
 
-        <div class="container-fluid related-products">
+        <div class="container-fluid related-products" *ngIf="products">
               <h3>Related Products</h3>
               <div class="row">
                 <div class="col-sm-3 col-md-3 col-lg-3">
-
                   <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top related-product-img placeholder" alt="...">
+                    <img [src]="products[6].img" alt="Product Image" class="card-img-top related-product-img">
                     <div class="card-body">
-                      <h5 class="card-title">Product name</h5>
-                      <h6 class="card-subtitle mb-2 text-body-secondary">Product description</h6>
-                      <p class="card-text">Price</p>
+                      <h5 class="card-title">{{products[6].brand}}</h5>
+                      <h6 class="card-subtitle mb-2 text-body-secondary">{{products[6].description}}</h6>
+                      <p class="card-text">R{{products[6].min_price}}</p>
                     </div>
                   </div>
                 </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                  <div class="card" style="width: 18rem;">
+                    <img [src]="products[17].img" alt="Product Image" class="card-img-top related-product-img">
+                    <div class="card-body">
+                      <h5 class="card-title">{{products[17].brand}}</h5>
+                      <h6 class="card-subtitle mb-2 text-body-secondary">{{products[17].description}}</h6>
+                      <p class="card-text">R{{products[17].min_price}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                  <div class="card" style="width: 18rem;">
+                    <img [src]="products[19].img" alt="Product Image" class="card-img-top related-product-img">
+                    <div class="card-body">
+                      <h5 class="card-title">{{products[19].brand}}</h5>
+                      <h6 class="card-subtitle mb-2 text-body-secondary">{{products[19].description}}</h6>
+                      <p class="card-text">R{{products[19].min_price}}</p>
+                    </div>
+                  </div>
+                </div>
+
+
               </div>
         </div>
 
