@@ -1,0 +1,192 @@
+name: dev-v1
+
+on:
+  push:
+    branches:
+      - develop
+
+  pull_request:
+    branches:
+      - develop
+env:
+  node_version: v18.16.0
+
+jobs:
+  frontend:
+    name: Angular Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{env.node_version}}
+
+      - name: Create env files
+        run: |
+          echo "${{secrets.APP_ENV_TS}}" > ./app/src/environments/env.ts
+          echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
+
+      - name: Check if env files exists
+        run: |
+          if [ ! -f ./app/src/environments/env.ts ]; then
+            echo "app.env not found!"
+            exit 1
+          fi
+
+          if [ ! -f ./app/src/environments/env.prod.ts ]; then
+            echo "app.env.prod not found!"
+            exit 1
+          fi
+
+      - name: Get node_modules cache
+        uses: actions/cache@v3
+        id: node_modules
+        with:
+          path: |
+            **/node_modules
+          # Adding node version as cache key
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ env.node_version }}
+
+      - name: Install dependencies
+        if: steps.node_modules.outputs.cache-hit != 'true'
+        working-directory: ./app
+        run: yarn install --frozen-lockfile
+
+      - name: Lint and Build
+        working-directory: ./app
+        run: yarn lint && yarn build
+
+        #add front unit testing
+
+  backend:
+    name: Django Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Create .env file
+        run: |
+          echo "${{ secrets.API_ENV}}" > ./api/api/.env
+          echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod
+
+      - name: Check if env files exists
+        run: |
+          if [ ! -f ./api/api/.env ]; then
+            echo "api.env not found!"
+            exit 1
+          fi
+
+          if [ ! -f ./api/api/env.prod ]; then
+            echo "api.env.prod not found!"
+            exit 1
+          fi
+      - name: Run docker compose up
+        run: |
+          chmod +x api/docker-entrypoint.sh && docker-compose up -d
+
+      - name: Backend unit tests
+        working-directory: api
+        run: docker-compose exec -T api pytest
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          path: api/coverage.xml
+
+  sonarcloud:
+    name: SonarCloud Analysis
+    needs: [frontend, backend]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: Download coverage report
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage-report
+          path: api/
+
+      - name: Change report source
+        run: sed -i "s|<source>\/api</source>|<source>api\/<\/source>|g" api/coverage.xml
+
+      - name: SonarCloud scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  codecov:
+    name: Codecov Analysis
+    needs: [frontend, backend]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download coverage report
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage-report
+          path: ./api/
+
+      - name: Codecov scan
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage.xml
+
+  cypress-e2e:
+    name: Cypress E2E Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Create .env file
+        run: |
+          echo "${{ secrets.API_ENV}}" > ./api/api/.env
+          echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod
+          echo "${{secrets.APP_ENV_TS}}" > ./app/src/environments/env.ts
+          echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
+
+      - name: Get node_modules cache
+        uses: actions/cache@v3
+        id: node_modules
+        with:
+          path: |
+            **/node_modules
+          # Adding node version as cache key
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ env.node_version }}
+
+      - name: Install dependencies
+        if: steps.node_modules.outputs.cache-hit != 'true'
+        working-directory: ./app
+        run: yarn install --frozen-lockfile
+
+      - name: Start django
+        run: chmod +x api/docker-entrypoint.sh && docker-compose up -d &
+
+      - name: Start angular
+        working-directory: ./app
+        run: yarn ng serve --port 4200 --configuration=development &
+
+      - name: Start cypress test
+        working-directory: ./app
+        run: |
+          yarn cypress install
+          echo "[Django] waiting for server..."
+          timeout 3m bash -c 'until $(curl --output /dev/null --silent --head --fail http://localhost:3000/admin); do sleep 5; done'
+          echo "[Django] server is up!"
+          echo "[Angular] waiting for server..."
+          timeout 3m bash -c 'until $(curl --output /dev/null --silent --head --fail http://localhost:4200); do sleep 5; done'
+          echo "[Angular] server is up!"  
+          yarn cypress run

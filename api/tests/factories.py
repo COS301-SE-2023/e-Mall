@@ -1,10 +1,13 @@
 from django.db.models.signals import pre_save
 from consumer.models import Consumer
 from seller.models import Seller, SELLER_CATEGORY_CHOICES, SELLER_STATUS_CHOICES
-from seller.signals import set_business_category
+from product.models import Product
+
 import factory
 from faker import Faker
+import faker_commerce
 fake = Faker()
+fake.add_provider(faker_commerce.Provider)
 
 
 class ConsumerFactory(factory.django.DjangoModelFactory):
@@ -25,6 +28,16 @@ select_type = [
     "Toys",
     "Home",
     "Beauty",
+]
+select_category = [
+    "electronics",
+    "clothing",
+    "home and kitchen",
+    "health and beauty",
+    "sports and outdoors",
+    "toys and games",
+    "books",
+    "food and beverages",
 ]
 
 
@@ -48,4 +61,12 @@ class SellerFactory(factory.django.DjangoModelFactory):
     feed_url = fake.url()[:200]
 
 
-# pre_save.connect(set_business_category, sender=Seller)
+class ProductFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Product
+
+    img = fake.image_url(),
+    name = fake.ecommerce_name(),
+    description = fake.text(),
+    brand = fake.company(),
+    category = fake.ecommerce_category(),
