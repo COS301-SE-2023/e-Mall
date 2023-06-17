@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {MatCardModule} from '@angular/material/card';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
@@ -34,11 +35,13 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     ConstructionComponent,
     ProductPageComponent,
     SearchResultsComponent,
+  
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    MatCardModule,
     FormsModule,
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent },

@@ -140,27 +140,67 @@
         <div class="product-card">
           <ng-container *ngIf="searchResults$ | async as products">
             <div class="row">
-              <div class="col-md-3" *ngFor="let product of products; let i = index">
-                <div class="product-card">
-                  <img [src]="getOneImg(product?.min_price_img_array)" alt="Product Image" class="img-fluid w-100" />
-                  <h3>{{ product.name }}</h3>
-                  <p>{{ product.min_price }}</p>
-                </div>
+              <div
+                class="col-md-3"
+                *ngFor="let product of products; let i = index">
+                <!-- <mat-card
+                  class="product-card"
+                  (click)="goToProductPage(product.id)">
+                  <img
+                    mat-card-image
+                    [src]="getOneImg(product?.min_price_img_array)"
+                    alt="Product Image"
+                    class="img-fluid w-100" />
+                  <mat-card-content>
+                    <mat-card-title>{{ product.name }}</mat-card-title>
+                    <mat-card-subtitle>{{
+                      product.category
+                    }}</mat-card-subtitle>
+                    <mat-card-title>R {{ product.min_price }}</mat-card-title>
+                  </mat-card-content>
+                  <mat-card-actions>
+                    <button mat-button>Wishlist</button>
+                  </mat-card-actions>
+                </mat-card> -->
+                <mat-card class="product-card" (click)="goToProductPage(product.id)">
+                  <img
+                    mat-card-image
+                    [src]="getOneImg(product?.min_price_img_array)"
+                    alt="Product Image"
+                    class="product-image"
+                  />
+                  <mat-card-content>
+                    <mat-card-title>{{ product.name }}</mat-card-title>
+                    <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
+                    <mat-card-title>R {{ product.min_price }}</mat-card-title>
+                  </mat-card-content>
+                  <mat-card-actions>
+                    <button mat-button>Wishlist</button>
+                  </mat-card-actions>
+                </mat-card>
+
+
                 <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
-                <div class="col-md-1" *ngIf="(i + 1) % 4 === 0 && products.length > 4"></div>
+                <div
+                  class="col-md-1"
+                  *ngIf="(i + 1) % 4 === 0 && products.length > 4"></div>
               </div>
             </div>
           </ng-container>
-        
-          <div class="search-results-container" *ngIf="(searchResults$ | async)?.length === 0">
+
+          <div
+            class="search-results-container"
+            *ngIf="(searchResults$ | async)?.length === 0">
             <div class="product-card">
               <img src="path/to/placeholder-image" alt="No Product Found" />
               <h3>No Products Found</h3>
-              <p>The product you have searched for was not found. Please try again.</p>
+              <p>
+                The product you have searched for was not found. Please try
+                again.
+              </p>
             </div>
           </div>
         </div>
-        
 
         <footer class="footer">
           <div class="container">
@@ -216,3 +256,7 @@
             </div>
           </div>
         </footer>
+      </div>
+    </main>
+  </body>
+</html>

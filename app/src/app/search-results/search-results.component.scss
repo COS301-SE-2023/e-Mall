@@ -151,6 +151,13 @@ $font_type_5: 600 1em/1.39 'Poppins', Helvetica, Arial, serif;
     border-radius: 0.25rem;
     padding: 1rem;
     cursor: pointer;
+  }
+  .product-image {
+    width: 100%;
+    height: 200px; /* Adjust the height as needed */
+    object-fit: cover;
+  }
+  
   
     img {
       width: 100%;
@@ -166,4 +173,5 @@ $font_type_5: 600 1em/1.39 'Poppins', Helvetica, Arial, serif;
       margin-top: 0.5rem;
       font-size: 0.8rem;
     }
-  }
+
+  
