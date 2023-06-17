@@ -18,6 +18,7 @@ import { ProductPageComponent } from './product-page/product-page.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
+import { SearchResultsComponent } from './search-results/search-results.component'; 
 
 const routes: Routes = [
   // {
@@ -25,6 +26,7 @@ const routes: Routes = [
   //   redirectTo: 'signIn',
   // },
   { path: 'home', component: HomeComponent },
+  { path: 'search-results', component: SearchResultsComponent },
   { path: 'construction', component: ConstructionComponent },
   { path: 'pending', component: PendingComponent },
   { path: 'register', component: RegisterComponent },
@@ -34,9 +36,9 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'products/:id', component: ProductPageComponent },
 ];
-// bootstrapApplication(AppComponent, {
-//   providers: [provideRouter(routes, withComponentInputBinding())],
-// });
+bootstrapApplication(AppComponent, {
+  providers: [provideRouter(routes, withComponentInputBinding())],
+});
 @NgModule({
   imports: [RouterModule.forRoot(routes, { bindToComponentInputs: true })],
   exports: [RouterModule],

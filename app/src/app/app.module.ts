@@ -20,6 +20,7 @@ import { httpInterceptorProviders } from './interceptors/index';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SearchResultsComponent } from './search-results/search-results.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RegisterComponent,
     ConstructionComponent,
     ProductPageComponent,
+    SearchResultsComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +47,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       { path: 'register', component: RegisterComponent },
       { path: 'sign-in', component: SignInComponent },
       { path: 'sign-up', component: SignUpComponent },
+      { path: 'search-results', component: SearchResultsComponent },
     ]),
     ReactiveFormsModule,
     BrowserAnimationsModule
