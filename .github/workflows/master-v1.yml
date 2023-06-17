@@ -1,11 +1,12 @@
 name: master-v1
 
 on:
-  push:
-    branches:
-      - master
+  # push:
+  #   branches:
+  #     - master
 
   pull_request:
+    types: [opened]
     branches:
       - master
 env:
