@@ -98,7 +98,8 @@ class ProductBackendAPIView(APIView):
         # Specific product
         if prod_id:
             products = products.filter(id=prod_id)
-
+            serializer = ProductSerializer(products[0])
+            return Response(serializer.data)
         # Pagination
         total = products.count()
         start = (page - 1) * per_page

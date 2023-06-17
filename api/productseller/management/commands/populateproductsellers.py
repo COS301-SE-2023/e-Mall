@@ -38,6 +38,7 @@ class Command(BaseCommand):
                 product_url=fake.url(),
                 in_stock=fake.boolean(),
                 img_array=[fake.image_url() for _ in range(3)],
+                product_name=fake.name(),
             )
             productseller.save()
         self.stdout.write(self.style.SUCCESS("Productseller's created successfully"))
