@@ -269,6 +269,9 @@ padding: 0;
 .product-name{
   margin-left: 30px;
   padding-top:0 ;
+  font-size: larger;
+  text-decoration: solid;
+  color: $color_type_6;
 
 }
 
@@ -448,6 +451,10 @@ padding: 0;
 
 .full-product-info h3{
   margin-top: 30px;
+}
+
+.full-product-info p {
+  margin-top: 40px;
 }
 
 html {

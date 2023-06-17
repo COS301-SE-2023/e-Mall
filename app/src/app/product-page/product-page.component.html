@@ -126,6 +126,7 @@
             </div>
           </div>
 
+          
           <div class="col-sm-4 col-md-4 col-lg-4 upper-product-info-container">
             <div
               class="upper-product-info-small-container"
@@ -162,7 +163,7 @@
                 <a class="nav-link">Reviews & tests</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" routerLink="." fragment="statistics">Statistics</a>
+                <a class="nav-link">Statistics</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link">Product information</a>
@@ -296,6 +297,8 @@
           <h3>Reviews</h3>
           <div class="row">
             <div class=" col-sm-7 col-md-7 col-lg-7 reviews-info-container">
+
+              <!------------------------------------------ reviews------------------------------------------------>
               <p><span><i class="fa-solid fa-star overall-star"></i></span><b> 4.7</b> (from 4,703 reviews) </p>
               <p>Let us know your thoughts on a product or view reviews from others. Please note that e-Mall does not verify whether the user has used or purchased the product.</p>
             </div>
@@ -402,13 +405,38 @@
           </button>
         </div>
 
+        <!--
         <div class="container-fluid statistics" id="statistics">
           <h3>Statistics</h3>
         </div>
-
+      -->
+      
         <div class="container-fluid full-product-info" id="full-product-info">
           <h3>Products Information</h3>
-          <p>product info</p>
+          <ng-container *ngIf="sellers$ | async as sellers">
+            <div
+              *ngFor="let seller of sellers; let i = index">
+            </div>
+          
+          <div *ngIf="product$ | async as product">
+            <p>
+              Lowest price for {{product.brand}} is <b>R{{ product.min_price }}</b> this is currrently the lowest price out of {{sellers.length}} stores
+            </p>
+
+            <p><b>{{product.brand}}</b></p>
+            <p>{{product.description}}</p>
+            <p>{{product.brand}} is just the thing you need to listen to your favorite podcast. They connect cord-free via Bluetooth and with active noise cancelling you get some peace and quiet in the busy office landscape.</p>
+            <ul>
+              <li>Active noise cancelling</li>
+              <li>Completely wireless design</li>
+              <li>Connects wirelessly</li>
+              <li>Six hours of battery life</li>
+              <li>Built-in microphone for phone calls</li>
+              <li>Simple design</li>
+
+            </ul>
+          </div>
+        </ng-container>
         </div>
 
         <!--
