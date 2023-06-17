@@ -19,6 +19,7 @@ import { httpInterceptorProviders } from './interceptors/index';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductPageComponent } from './product-page/product-page.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { ProductPageComponent } from './product-page/product-page.component';
       { path: 'sign-in', component: SignInComponent },
       { path: 'sign-up', component: SignUpComponent },
     ]),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
 
   providers: [httpInterceptorProviders],
