@@ -18,11 +18,13 @@ class ProductSellerFrontendAPIView(APIView):
 class ProductSellerBackendAPIView(APIView):
     def get(self, request):
         # Input for search of a specific product
-        prod_id = int(request.GET.get("prod_id")) if request.GET.get("prod_id") else 1
+        prod_id = int(request.GET.get("prod_id")
+                      ) if request.GET.get("prod_id") else 1
 
         # input for sort[price, discount]
         sort = request.GET.get("sort")
-
+        if (sort is None):
+            sort = "price"
         productseller = ProductSeller.objects.all()
 
         if prod_id:
