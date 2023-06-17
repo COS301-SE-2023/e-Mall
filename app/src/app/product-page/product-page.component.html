@@ -162,7 +162,7 @@
                 <a class="nav-link">Reviews & tests</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link">Statistics</a>
+                <a class="nav-link" routerLink="." fragment="statistics">Statistics</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link">Product information</a>
@@ -294,6 +294,112 @@
 
         <div class="container-fluid reviews" id="reviews">
           <h3>Reviews</h3>
+          <div class="row">
+            <div class=" col-sm-7 col-md-7 col-lg-7 reviews-info-container">
+              <p><span><i class="fa-solid fa-star overall-star"></i></span><b> 4.7</b> (from 4,703 reviews) </p>
+              <p>Let us know your thoughts on a product or view reviews from others. Please note that e-Mall does not verify whether the user has used or purchased the product.</p>
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2 show-all">
+              <a routerLink="./construction"><B>Show all</B></a>
+            </div>
+          </div>
+          
+          <div class="row review-row">
+            <div class="col-sm-3 col-md-3 col-lg-3 reviews-cols">
+              <div class="review">
+                <div class="row">
+                  <div class="col-sm-2 col-md-2 col-lg-2 reviews-cols">
+                    <div class="S-initial"><span><b>S</b></span></div>
+                  </div>
+                  <div class="col-sm-6 col-md-6 col-lg-6 reviews-cols">
+                    <div class="reviewer-name">
+                      <h6>Samu</h6>
+                      <p>2 months ago</p>
+                    </div>
+                    
+                  </div>
+                  <div class="col-sm-4 col-md-4 col-lg-4 reviews-cols">
+                    <div class="reviewer-star-container">
+                      <span><i class="fa-solid fa-star reviewer-star"></i></span><b>3</b>
+                    </div>
+                  </div>
+                </div>
+                <p class="review-words">I'm really impressed with this product. It exceeded my expectations and works flawlessly! </p>
+              </div>
+            </div>
+
+            <div class="col-sm-3 col-md-3 col-lg-3 reviews-cols">
+              <div class="review">
+                <div class="row">
+                  <div class="col-sm-2 col-md-2 col-lg-2 reviews-cols">
+                    <div class="J-initial"><span><b>J</b></span></div>
+                  </div>
+                  <div class="col-sm-6 col-md-6 col-lg-6 reviews-cols">
+                    <div class="reviewer-name">
+                      <h6>Jane</h6>
+                      <p>1 month ago</p>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-4 col-lg-4 reviews-cols">
+                    <div class="reviewer-star-container">
+                      <span><i class="fa-solid fa-star reviewer-star"></i></span><b>5</b>
+                    </div>
+                  </div>
+                </div>
+                <p class="review-words">I've been using this product for a while now, and I can't imagine my life without it. Highly recommended! </p>
+              </div>
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3 reviews-cols">
+              <div class="review">
+                <div class="row">
+                  <div class="col-sm-2 col-md-2 col-lg-2 reviews-cols">
+                    <div class="SD-initial"><span><b>SD</b></span></div>
+                  </div>
+                  <div class="col-sm-6 col-md-6 col-lg-6 reviews-cols">
+                    <div class="reviewer-name">
+                      <h6>Sam Day</h6>
+                      <p>4 months ago</p>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-4 col-lg-4 reviews-cols">
+                    <div class="reviewer-star-container">
+                      <span><i class="fa-solid fa-star reviewer-star"></i></span><b>4</b>
+                    </div>
+                  </div>
+                </div>
+                <p class="review-words">I've tried several similar products, but this one stands out from the rest. It's reliable, easy to use, and delivers consistent results. </p>
+              </div>
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3 reviews-cols">
+              <div class="review">
+                <div class="row">
+                  <div class="col-sm-2 col-md-2 col-lg-2 reviews-cols">
+                    <div class="TT-initial"><span><b>TK</b></span></div>
+                  </div>
+                  <div class="col-sm-6 col-md-6 col-lg-6 reviews-cols">
+                    <div class="reviewer-name">
+                      <h6>Thabiso Thaka</h6>
+                      <p>2 months ago</p>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-4 col-lg-4 reviews-cols">
+                    <div class="reviewer-star-container">
+                      <span><i class="fa-solid fa-star reviewer-star"></i></span><b>5</b>
+                    </div>
+                  </div>
+                </div>
+                <p class="review-words">This product has made my life so much easier. It simplifies tasks and saves me valuable time. Highly satisfied!</p>
+              </div>
+            </div>
+          </div>
+
+          <button
+            class="btn btn-outline-dark my-2 my-sm-0 ms-auto post-review"
+            type="submit"
+            routerLink="/construction">
+            <span><i class="fa-solid fa-pen"></i></span>
+              Post a review
+          </button>
         </div>
 
         <div class="container-fluid statistics" id="statistics">
