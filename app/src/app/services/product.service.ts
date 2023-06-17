@@ -14,6 +14,14 @@ export class ProductService {
 
   searchProducts(query: string): Observable<IProduct[]> {
     const url = `${this.apiUrl}?search=${query}`;
+    
+    return this.http
+      .get(url)
+      .pipe(map((res: any) => res['data'] as IProduct[]));
+  }
+
+  filterProducts(query: string): Observable<IProduct[]> {
+    const url = `${this.apiUrl}?filter=${query}`;
 
     return this.http
       .get(url)

@@ -103,54 +103,59 @@
 
     <main class="landing main">
       <div class="search-results">
-        <h1>Search Results</h1>
-        <div class="filter">
-          <h2>Filter</h2>
-          <div class="filter-options">
-            <label>
-              Brand
-              <input type="checkbox" name="brand" id="brand" />
-            </label>
-            <label>
-              Price Min
-              <input type="checkbox" name="price_min" id="price_min" />
-            </label>
-            <label>
-              Price Max
-              <input type="checkbox" name="price_max" id="price_max" />
-            </label>
-            <label>
-              Category
-              <input type="checkbox" name="category" id="category" />
-            </label>
-            <label>
-              Date Min
-              <input type="checkbox" name="date_min" id="date_min" />
-            </label>
-            <label>
-              Date
-              <input type="checkbox" name="date" id="date" />
-            </label>
-            <label>
-              Seller
-              <input type="checkbox" name="seller" id="seller" />
-            </label>
-          </div>
-        </div>
+        <h1>Search Results </h1>
+        <mat-sidenav-container>
+          <mat-sidenav opened>
+            <div class="filter">
+              <h2>Filter</h2>
+              <div class="filter-options">
+                <label>
+                  Brand
+                  <mat-checkbox name="brand" id="brand"></mat-checkbox>
+                </label>
+                <label>
+                  Price Min
+                  <mat-checkbox name="price_min" id="price_min"></mat-checkbox>
+                </label>
+                <label>
+                  Price Max
+                  <mat-checkbox name="price_max" id="price_max"></mat-checkbox>
+                </label>
+                <label>
+                  Category
+                  <mat-checkbox name="category" id="category"></mat-checkbox>
+                </label>
+                <label>
+                  Date Min
+                  <mat-checkbox name="date_min" id="date_min"></mat-checkbox>
+                </label>
+                <label>
+                  Date
+                  <mat-checkbox name="date" id="date"></mat-checkbox>
+                </label>
+                <label>
+                  Seller
+                  <mat-checkbox name="seller" id="seller"></mat-checkbox>
+                </label>
+              </div>
+            </div>
+          </mat-sidenav>
+          <mat-sidenav-content>Main</mat-sidenav-content>
+        </mat-sidenav-container>
         <div class="product-card">
           <ng-container *ngIf="searchResults$ | async as products">
             <div class="row">
               <div
                 class="col-md-3"
                 *ngFor="let product of products; let i = index">
-                <!-- <mat-card
+                <mat-card
                   class="product-card"
                   (click)="goToProductPage(product.id)">
                   <img
                     mat-card-image
                     [src]="getOneImg(product?.min_price_img_array)"
                     alt="Product Image"
-                    class="img-fluid w-100" />
+                    class="product-image" />
                   <mat-card-content>
                     <mat-card-title>{{ product.name }}</mat-card-title>
                     <mat-card-subtitle>{{
@@ -159,26 +164,14 @@
                     <mat-card-title>R {{ product.min_price }}</mat-card-title>
                   </mat-card-content>
                   <mat-card-actions>
-                    <button mat-button>Wishlist</button>
-                  </mat-card-actions>
-                </mat-card> -->
-                <mat-card class="product-card" (click)="goToProductPage(product.id)">
-                  <img
-                    mat-card-image
-                    [src]="getOneImg(product?.min_price_img_array)"
-                    alt="Product Image"
-                    class="product-image"
-                  />
-                  <mat-card-content>
-                    <mat-card-title>{{ product.name }}</mat-card-title>
-                    <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
-                    <mat-card-title>R {{ product.min_price }}</mat-card-title>
-                  </mat-card-content>
-                  <mat-card-actions>
-                    <button mat-button>Wishlist</button>
+                    <button
+                      mat-icon-button
+                      color="warn"
+                      aria-label="Example icon button with a heart icon">
+                      <mat-icon>favorite</mat-icon>
+                    </button>
                   </mat-card-actions>
                 </mat-card>
-
 
                 <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
                 <div

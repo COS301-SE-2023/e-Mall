@@ -31,20 +31,10 @@ export class SearchResultsComponent implements OnInit {
       this.searchResults$ = this.productService.searchProducts(
         this.searchQuery
       );
-      this.searchResults$.subscribe(results => {
-        console.log(results);
-      });
     });
   }
 
-  // getSearchResults(): void {
-  //   this.productService
-  //     .searchProducts(this.searchQuery)
-  //     .subscribe(async results => {
-  //       this.searchResults = await results;
-  //     });
-  //   console.log(this.searchResults);
-  // }
+  //
 
   signOut(): void {
     this.router.navigate(['sign-out']);

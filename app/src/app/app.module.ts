@@ -4,7 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
@@ -23,7 +28,6 @@ import { ProductPageComponent } from './product-page/product-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchResultsComponent } from './search-results/search-results.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,13 +39,17 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     ConstructionComponent,
     ProductPageComponent,
     SearchResultsComponent,
-  
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     MatCardModule,
+    MatButtonModule,
+    MatBadgeModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatCheckboxModule,
     FormsModule,
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent },
@@ -53,7 +61,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
       { path: 'search-results', component: SearchResultsComponent },
     ]),
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
 
   providers: [httpInterceptorProviders],
