@@ -18,6 +18,7 @@ import { ConstructionComponent } from './construction/construction.component';
 import { httpInterceptorProviders } from './interceptors/index';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProductPageComponent } from './product-page/product-page.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     SignOutComponent,
     RegisterComponent,
     ConstructionComponent,
+    ProductPageComponent,
   ],
   imports: [
     BrowserModule,

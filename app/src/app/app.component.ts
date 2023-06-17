@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
     // this.AuthService.isAuthenticated().subscribe(val => {
     // console.log('Auth: ', val);
     // this.isAuthenticated = val;
-    // });
+    // });w
     console.log('app.component');
   }
 
