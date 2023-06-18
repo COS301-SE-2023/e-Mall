@@ -3,7 +3,7 @@
   <head>
     <title>Home</title>
     <meta charset="utf-8" />
-    <meta
+    <!-- <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
@@ -16,77 +16,19 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+      href="https://unpkg.com/aos@2.3.1/dist/aos.css" /> -->
   </head>
 
-  <body class="flex-column">
-    <header id="header">
-      <nav class="headers root">
-        <a href="/home" class="title">e-Mall</a>
-        <a class="nav_link" href="/construction">Categories</a>
-        <form (submit)="search()" #f="ngForm">
-          <input
-            type="search"
-            type="search"
-            class="wrapper"
-            placeholder="Search Products..." />
-        </form>
-        <div class="spacer"></div>
-        <div class="cell1">
-          <div class="box">
-            <div class="cell">
-              <a *ngIf="!isAuthenticated" href="/sign-in" class="highlights1"
-                >Sign In</a
-              >
-              <a *ngIf="isAuthenticated" class="highlights1" (click)="signOut()"
-                >Sign Out</a
-              >
-            </div>
-          </div>
-        </div>
-      </nav>
-    </header>
-    <main class="landing main">
-      <!-- ======= section1 ======= -->
-      <section class="section1__section1">
-        <h1 class="section1__hero_title">Coming Soon!</h1>
-      </section>
-      <!-- ======= End section1 ======= -->
-      <!-- ======= section2 ======= -->
-      <section class="section2__section2">
-        <div class="section2__box2">
-          <!--  <div class="section2__flex_column">
-            <h4 class="section2__highlights1">e-Mall</h4>
-            <div class="section2__text1">About Us</div>
-            <div class="section2__text1">Contact Us</div>
-            <div class="section2__text1">Careers</div>
-            <div class="section2__text1">New features</div>
-          </div>-->
-          <div class="section2__flex_column1">
-            <h4 class="section2__highlights1">Partners and Advertisers</h4>
-            <div class="section2__text1">
-              <a href="/register" class="section2__text1">Register your shop</a>
-            </div>
-            <div class="section2__text1">Merchant Dashboard</div>
-            <div class="section2__text1">Advertising</div>
-          </div>
-          <h1 class="section2__title1">e-Mall<br /></h1>
-          <div class="section2__flex_column2">
-            <h4 class="section2__highlights1">Learn More</h4>
-            <div class="section2__text1">
-              <a href="/sign-up" class="section2__text1">Get started</a>
-            </div>
-            <div class="section2__text1">Our App</div>
-            <div class="section2__text1">Policies and Privacy</div>
-          </div>
-          <div class="section2__text15">Copyright © 2023 e-Mall</div>
-        </div>
-      </section>
-      <!-- ======= End section2 ======= -->
+  <!-- <body class="flex-column"> -->
+  <body>
+    <app-navbar></app-navbar>
 
-      <!-- ======= section3 ======= -->
-      <section class="section3__section3"></section>
-      <!-- ======= End section3 ======= -->
-    </main>
+    <!-- <main class="landing main"> -->
+    <!-- <section class="section1__section1"> -->
+    <!-- <h1 class="section1__hero_title">Coming Soon!</h1> -->
+    <!-- </section> -->
+    <!-- <section class="section3__section3"></section> -->
+    <!-- </main> -->
+    <app-footer></app-footer>
   </body>
 </html>

@@ -6,6 +6,7 @@
       "@app/*":["app/*"],
       "@service/*":["app/services/*"],
       "@models/*":["app/models/*"],
+      "@shared/*":["app/shared/*"],
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

@@ -14,13 +14,14 @@ import { SignOutComponent } from './sign-out/sign-out.component';
 import { RegisterComponent } from './register/register.component';
 
 import { PendingComponent } from './pending/pending.component';
-import { ConstructionComponent } from './construction/construction.component';
 import { httpInterceptorProviders } from './interceptors/index';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { NavbarModule } from './shared/feature/navbar/navbar.module';
+import { FooterModule } from './shared/feature/footer/footer.module';
+import { ConstructionModule } from './shared/feature/construction/construction.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SignUpComponent,
     SignOutComponent,
     RegisterComponent,
-    ConstructionComponent,
     ProductPageComponent,
   ],
   imports: [
@@ -40,14 +40,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent },
-      { path: 'construction', component: ConstructionComponent },
       { path: 'pending', component: PendingComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'sign-in', component: SignInComponent },
       { path: 'sign-up', component: SignUpComponent },
     ]),
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NavbarModule,
+    FooterModule,
+    ConstructionModule,
   ],
 
   providers: [httpInterceptorProviders],
