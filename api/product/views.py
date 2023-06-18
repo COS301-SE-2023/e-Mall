@@ -94,9 +94,7 @@ class ProductBackendAPIView(APIView):
 
         # Sorting
         # all in asc order(small to big)
-        if sort == "brand":
-            products = products.order_by("brand")
-        elif sort == "price":
+        if sort == "price":
             products = products.order_by("productseller__price")
         elif sort == "name":
             products = products.order_by("name")
@@ -105,8 +103,8 @@ class ProductBackendAPIView(APIView):
             products = products.order_by("-productseller__price")
         elif sort == "-name":
             products = products.order_by("-name")
-        elif sort == "-brand":
-            products = products.order_by("-brand")
+        elif sort == "discount":
+            products = products.order_by("-productseller__discount_rate")
 
         # Specific product
         if prod_id:
