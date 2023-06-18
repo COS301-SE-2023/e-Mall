@@ -18,7 +18,7 @@ export class ProductService {
     sortOption?: any
   ): Observable<IProduct[]> {
     let url = `${this.apiUrl}?search=${query}`;
-    filterOptions = { filter_date_min: 'Marshall-Flores', filter_date_max: 'Clothing' };
+    // filterOptions = { };
     if (filterOptions) {
       for (const [key, value] of Object.entries(filterOptions)) {
         url += `&${key}=${value}`;
