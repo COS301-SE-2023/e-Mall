@@ -25,7 +25,9 @@
     "api:db": "yarn api:makemigrations && yarn api:migrate",
     "api:test": "yarn docker:exec api pytest",
     "app:e2e": "start cmd /k \"cypress open\"",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "api:deletemigrations": "powershell -Command \"Get-ChildItem -Path ../api/ -Filter *.py -Recurse | Where-Object { $_.FullName -like '*\\migrations\\*' -and $_.Name -ne '__init__.py' } | Remove-Item\"",
+    "api:mockdata": 
   },
   "private": true,
   "dependencies": {
