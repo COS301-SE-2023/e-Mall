@@ -5,6 +5,8 @@ import { IProductTemp } from '@app/models/product-temp.interface';
 import { ProductPageService } from '@service/product-page.service';
 import { Observable, of } from 'rxjs';
 
+import { FormControl } from '@angular/forms';
+
 @Component({
   selector: 'app-product-page',
   templateUrl: './product-page.component.html',
@@ -16,7 +18,12 @@ export class ProductPageComponent implements OnInit {
   product$: Observable<IProductTemp> | undefined;
   sellers$: Observable<IProductSeller[]> | undefined;
   currency$: Observable<string> | undefined;
-  constructor(private productService: ProductPageService) {}
+
+  selected: FormControl;
+  
+  constructor(private productService: ProductPageService) {
+    this.selected = new FormControl('lowestPrice');
+  }
 
   ngOnInit() {
     const id = this.id;

@@ -222,6 +222,24 @@ padding: 0;
   margin-left: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   background-color: white;
+  border: none;
+}
+
+/* Hide the default arrow */
+::ng-deep .mat-select-arrow-wrapper {
+  display: none !important;
+  opacity:0;
+}
+
+/* Add custom arrow */
+.custom-select {
+  position: relative;
+}
+
+
+
+.lowest-price select{
+  border: none;
 }
 
 .lowest-price i{

@@ -20,6 +20,8 @@ import { httpInterceptorProviders } from './interceptors/index';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSelectModule} from '@angular/material/select';
+
 
 
 @NgModule({
@@ -47,7 +49,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       { path: 'sign-up', component: SignUpComponent },
     ]),
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSelectModule
   ],
 
   providers: [httpInterceptorProviders],
