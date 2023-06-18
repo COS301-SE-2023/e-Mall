@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark upperNav">
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark upperNav">
   <a class="navbar-brand" routerLink="/">
     <img
       class="navbar-logo"
@@ -60,12 +60,7 @@
       (keydown.enter)="f.valid && f.ngSubmit.emit()" />
   </form>
 
-  <!-- <button
-        class="btn btn-outline-dark my-2 my-sm-0 ms-auto"
-        type="submit"
-        routerLink="/sign-in">
-        Sign in
-      </button> -->
+
   <button
     *ngIf="!isAuthenticated"
     class="btn btn-outline-dark my-2 my-sm-0 ms-auto"
@@ -80,27 +75,15 @@
     (click)="signOut()">
     Sign Out
   </button>
-</nav>
+</nav> -->
+<!-- <button
+        class="btn btn-outline-dark my-2 my-sm-0 ms-auto"
+        type="submit"
+        routerLink="/sign-in">
+        Sign in
+      </button> -->
 
-<!-- <mat-toolbar color="primary">
-  <a routerLink="/">
-    <img
-      class="navbar-logo"
-      src="assets/images/logo.png"
-      alt="e-Mall logo"
-      width="70"
-      height="60" />
-  </a>
-  <span class="flex-spacer"></span>
-  <button mat-button [matMenuTriggerFor]="menu">All Categories</button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item routerLink="/construction">Expert Reviews</button>
-    <button mat-menu-item routerLink="/construction">Sale</button>
-    <button mat-menu-item routerLink="/construction">Guides</button>
-    <button mat-menu-item routerLink="/construction">How to use</button>
-    <button mat-menu-item routerLink="/construction">About Us</button>
-  </mat-menu>
-  
-  <span class="flex-spacer"></span>
-  <button mat-button routerLink="/sign-in">Sign in</button>
-</mat-toolbar> -->
+<mat-toolbar color="primary">
+  <div *viewSize="'mobile'">I am visible only on mobile</div>
+  <div *viewSize="'desktop'">I am visible only on desktop</div>
+</mat-toolbar>

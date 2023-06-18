@@ -5,12 +5,11 @@ import { Router, NavigationExtras } from '@angular/router';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
   isAuthenticated = false;
-  constructor(private authService: AuthService, private router: Router) {
-  }
+  constructor(private authService: AuthService, private router: Router) {}
   ngOnInit(): void {
     this.authService.isAuthenticated().subscribe(isAuthenticated => {
       this.isAuthenticated = isAuthenticated;
@@ -25,7 +24,7 @@ export class NavbarComponent implements OnInit {
 
     this.router.navigate(['/search-results'], navigationextras);
   }
-    public signOut(): void {
+  public signOut(): void {
     this.router.navigate(['sign-out']);
   }
 }

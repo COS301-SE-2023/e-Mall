@@ -32,6 +32,7 @@ import { FooterModule } from './shared/components/footer/footer.module';
 import { ConstructionModule } from './shared/pages/construction/construction.module';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { NotFoundModule } from '@shared/pages/not-found/not-found.module';
+// import { ViewSizeDirective } from './shared/directives/view-size.directive';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { NotFoundModule } from '@shared/pages/not-found/not-found.module';
     RegisterComponent,
     ProductPageComponent,
     SearchResultsComponent,
+    // ViewSizeDirective,
   ],
   imports: [
     BrowserModule,

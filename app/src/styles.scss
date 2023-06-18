@@ -9,16 +9,16 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 $custom-tilt-palette: (
-  50: #e0f3f5,
-  100: #b1e2e4,
-  200: #7cd0d3,
-  300: #41bdbf,
-  400: #00aeaf,
-  500: #009f9e,
-  600: #009290,
-  700: #00817e,
-  800: #00716e,
-  900: #00554f,
+  50: #e6f8f7,
+  100: #c1ede9,
+  200: #99e3dc,
+  300: #72d7cd,
+  400: #58cbbf,
+  500: #4cc0b2,
+  600: #47b1a3,
+  700: #40a091,
+  800: #3b8f81,
+  900: #327163,
   A100:#FFFFFF,
   A200:#E0FEFF,
   A400:#ADFBFF,
@@ -101,7 +101,7 @@ $custom-red-palette: (
     A700 : #000000,
   )
 );
-$tilt-primary: mat.define-palette($custom-tilt-palette, 200, 50, 600);
+$tilt-primary: mat.define-palette($custom-tilt-palette, 100, 50, 300);
 $tilt-accent: mat.define-palette($custom-green-palette, 200, 50, 600);
 // The warn palette is optional (defaults to red).
 $tilt-warn: mat.define-palette($custom-red-palette, 600);

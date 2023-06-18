@@ -10,9 +10,15 @@ import { NavbarRoutingRoutingModule } from './navbar-routing.module';
 import { SignInComponent } from '@app/sign-in/sign-in.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignOutComponent } from '@app/sign-out/sign-out.component';
+import { ViewSizeDirective } from '@shared/directives/view-size.directive';
 
 @NgModule({
-  declarations: [NavbarComponent, SignInComponent, SignOutComponent],
+  declarations: [
+    NavbarComponent,
+    SignInComponent,
+    SignOutComponent,
+    ViewSizeDirective,
+  ],
   imports: [
     NavbarRoutingRoutingModule,
     CommonModule,
