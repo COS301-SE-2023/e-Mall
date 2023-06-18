@@ -23,6 +23,8 @@ import { ProductPageComponent } from './product-page/product-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import {MatSelectModule} from '@angular/material/select';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 
@@ -56,7 +58,9 @@ import {MatSelectModule} from '@angular/material/select';
     ]),
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatSelectModule
+    MatSelectModule, 
+    MatIconModule,
+    MatTooltipModule
   ],
 
   providers: [httpInterceptorProviders],

@@ -19,6 +19,8 @@ export class ProductPageComponent implements OnInit {
   sellers$: Observable<IProductSeller[]> | undefined;
   currency$: Observable<string> | undefined;
 
+  currencyCode: string = "ZAR";
+
   selected: FormControl;
   
   constructor(private productService: ProductPageService) {

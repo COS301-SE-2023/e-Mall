@@ -218,8 +218,37 @@
             </div>
           </div>
         </div>
+
+        
         <ng-container *ngIf="sellers$ | async as sellers">
-          <div
+          <ul class="seller-list">
+            <li *ngFor="let seller of sellers">
+              <div class="container-fluid comp-products">
+              <mat-card class="seller-card">
+                <mat-card-actions>
+                    <button mat-button aria-label="icon-button with an expand icon" class="seller-dropdown-button">
+                      <mat-icon>expand_more</mat-icon>
+                    </button>
+                    <mat-card-title class="seller-name">{{seller.business_name}}</mat-card-title>
+                  
+                </mat-card-actions>
+                
+                <mat-card-header class="seller-product-name-price">
+                  <div class="card-title-container">
+                    <mat-card-title class="product-name">{{ seller.product_name }}</mat-card-title>
+                    <div [ngClass]="{'in-stock-boxes': seller.in_stock, 'out-of-stock-boxes': !seller.in_stock}" matTooltipPosition="above" aria-label="Example tooltip">
+                      <i class="fa-sharp fa-solid fa-boxes-stacked in-stock-box"></i>
+                      <i *ngIf="seller.in_stock" class="fa-sharp fa-solid fa-check in-stock-tick" matTooltip="in stock"></i>
+                      <i *ngIf="!seller.in_stock" class="fa-sharp fa-solid fa-x in-stock-x" matTooltip="out of stock"></i>
+                    </div>
+                    <mat-card-title class="product-price"> {{ seller.price }} {{currencyCode}}</mat-card-title>
+                  </div>
+                </mat-card-header>
+              </mat-card>
+              </div>
+            </li>
+          </ul>
+          <!--<div
             *ngFor="let seller of sellers"
             class="container-fluid comp-products">
             <div class="row drop-d-sellerName-container">
@@ -238,17 +267,8 @@
                 <span class="product-name-price">{{ seller.price }}</span >
               </div>
             </div>
-            <!-- <div class="drop-d-sellerName-container">
-              <span class="dropdown-arrow"
-                ><i class="fa-solid fa-chevron-down" aria-hidden="true"></i
-              ></span>
-              <span class="seller-name">{{ seller.business_name }}</span>
-            </div>
-            <div class="product-name">
-              {{ seller.product_name }}
-              <span class="product-name-price">{{ seller.price }}</span>
-            </div> -->
-          </div>
+          </div>-->
+
         </ng-container>
         <!--<div class="container-fluid related-products" *ngIf="products">
           <h3>Related Products</h3>
