@@ -10,6 +10,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
@@ -50,6 +51,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     MatIconModule,
     MatSidenavModule,
     MatCheckboxModule,
+    MatDividerModule,
     FormsModule,
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent },
