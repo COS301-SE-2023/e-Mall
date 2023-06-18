@@ -1,0 +1,106 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark upperNav">
+  <a class="navbar-brand" routerLink="/">
+    <img
+      class="navbar-logo"
+      src="assets/images/logo.png"
+      alt="e-Mall logo"
+      width="70"
+      height="60" />
+  </a>
+
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          routerLink="/construction"
+          id="navbarDropdownMenuLink"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false">
+          All Categories
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/construction">Expert Reviews</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/construction">Sale</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/construction">Guides</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/construction">How to use</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/construction">About Us</a>
+      </li>
+    </ul>
+  </div>
+
+  <form (ngSubmit)="search(f.value.searchQuery)" #f="ngForm">
+    <input
+      type="search"
+      class="wrapper"
+      placeholder="Search Products..."
+      name="searchQuery"
+      ngModel
+      (keydown.enter)="f.valid && f.ngSubmit.emit()" />
+  </form>
+
+  <!-- <button
+        class="btn btn-outline-dark my-2 my-sm-0 ms-auto"
+        type="submit"
+        routerLink="/sign-in">
+        Sign in
+      </button> -->
+  <button
+    *ngIf="!isAuthenticated"
+    class="btn btn-outline-dark my-2 my-sm-0 ms-auto"
+    type="submit"
+    routerLink="/sign-in">
+    Sign in
+  </button>
+  <button
+    *ngIf="isAuthenticated"
+    class="btn btn-outline-dark my-2 my-sm-0 ms-auto"
+    type="submit"
+    (click)="signOut()">
+    Sign Out
+  </button>
+</nav>
+
+<!-- <mat-toolbar color="primary">
+  <a routerLink="/">
+    <img
+      class="navbar-logo"
+      src="assets/images/logo.png"
+      alt="e-Mall logo"
+      width="70"
+      height="60" />
+  </a>
+  <span class="flex-spacer"></span>
+  <button mat-button [matMenuTriggerFor]="menu">All Categories</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/construction">Expert Reviews</button>
+    <button mat-menu-item routerLink="/construction">Sale</button>
+    <button mat-menu-item routerLink="/construction">Guides</button>
+    <button mat-menu-item routerLink="/construction">How to use</button>
+    <button mat-menu-item routerLink="/construction">About Us</button>
+  </mat-menu>
+  
+  <span class="flex-spacer"></span>
+  <button mat-button routerLink="/sign-in">Sign in</button>
+</mat-toolbar> -->

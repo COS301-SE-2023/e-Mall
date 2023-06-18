@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { AuthService } from '@app/services/auth.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { AuthService } from '@app/services/auth.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   isAuthenticated = false;
   // isAuthenticated$;
   constructor(private authService: AuthService, private router: Router) {
@@ -17,16 +17,22 @@ export class HomeComponent implements OnInit {
     //   this.isAuthenticated = val;
     // });
   }
-  search() {
-    this.router.navigate(['/construction']);
+  search(searchQuery: string): void {
+    // Create the navigation extras object with the search query as a parameter
+    const navigationextras: NavigationExtras = {
+      queryParams: { search: searchQuery },
+    };
+
+    this.router.navigate(['/search-results'], navigationextras);
   }
-  ngOnInit(): void {
-    this.authService.isAuthenticated().subscribe(isAuthenticated => {
-      this.isAuthenticated = isAuthenticated;
-      console.log('Home [Auth]: ', isAuthenticated);
-    });
-  }
-  public signOut(): void {
-    this.router.navigate(['sign-out']);
-  }
+
+  // ngOnInit(): void {
+  // this.authService.isAuthenticated().subscribe(isAuthenticated => {
+  //   this.isAuthenticated = isAuthenticated;
+  //   console.log('Home [Auth]: ', isAuthenticated);
+  // });
+  // }
+  // public signOut(): void {
+  //   this.router.navigate(['sign-out']);
+  // }
 }
