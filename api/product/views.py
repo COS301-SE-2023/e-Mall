@@ -60,10 +60,10 @@ class ProductBackendAPIView(APIView):
             products = products.filter(brand__icontains=filter_brand)
 
         if filter_price_min:
-            products = products.filter(price__gte=filter_price_min)
+            products = products.filter(productseller__price__gte=filter_price_min)
 
         if filter_price_max:
-            products = products.filter(price__lte=filter_price_max)
+            products = products.filter(productseller__price__lte=filter_price_max)
 
         if filter_category:
             products = products.filter(category=filter_category)
@@ -84,12 +84,12 @@ class ProductBackendAPIView(APIView):
         if sort == "brand":
             products = products.order_by("brand")
         elif sort == "price":
-            products = products.order_by("price")
+            products = products.order_by("productseller__price")
         elif sort == "name":
             products = products.order_by("name")
         elif sort == "-price":
             # sort by desc order(big to small)
-            products = products.order_by("-price")
+            products = products.order_by("-productseller__price")
         elif sort == "-name":
             products = products.order_by("-name")
         elif sort == "-brand":
