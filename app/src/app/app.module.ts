@@ -11,7 +11,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
-
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { SignInComponent } from './sign-in/sign-in.component';
@@ -52,6 +53,8 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     MatSidenavModule,
     MatCheckboxModule,
     MatDividerModule,
+    MatExpansionModule,
+    MatSelectModule,
     FormsModule,
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent },
