@@ -105,7 +105,7 @@
       <div class="search-results">
         <h1>Search Results </h1>
         <mat-sidenav-container>
-          <mat-sidenav opened>
+          <mat-sidenav >
             <div class="filter">
               <h2>Filter</h2>
               <div class="filter-options">
@@ -140,38 +140,40 @@
               </div>
             </div>
           </mat-sidenav>
-          <mat-sidenav-content>Main</mat-sidenav-content>
-        </mat-sidenav-container>
-        <div class="product-card">
-          <ng-container *ngIf="searchResults$ | async as products">
-            <div class="row">
-              <div
-                class="col-md-3"
-                *ngFor="let product of products; let i = index">
-                <mat-card
-                  class="product-card"
-                  (click)="goToProductPage(product.id)">
-                  <img
-                    mat-card-image
-                    [src]="getOneImg(product?.min_price_img_array)"
-                    alt="Product Image"
-                    class="product-image" />
-                  <mat-card-content>
-                    <mat-card-title>{{ product.name }}</mat-card-title>
-                    <mat-card-subtitle>{{
-                      product.category
-                    }}</mat-card-subtitle>
-                    <mat-card-title>R {{ product.min_price }}</mat-card-title>
-                  </mat-card-content>
-                  <mat-card-actions>
-                    <button
-                      mat-icon-button
-                      color="warn"
-                      aria-label="Example icon button with a heart icon">
-                      <mat-icon>favorite</mat-icon>
-                    </button>
-                  </mat-card-actions>
-                </mat-card>
+          <mat-sidenav-content>
+            <div class="product-card">
+              <ng-container *ngIf="searchResults$ | async as products">
+                <div class="row">
+                  <div
+                    class="col-md-3"
+                    *ngFor="let product of products; let i = index">
+                    <mat-card
+                      class="product-card"
+                      (click)="goToProductPage(product.id)">
+                      <img
+                        mat-card-image
+                        [src]="getOneImg(product?.min_price_img_array)"
+                        alt="Product Image"
+                        class="product-image" />
+                      <mat-card-content>
+                        <mat-card-title>{{ product.name }}</mat-card-title>
+                        <mat-card-subtitle>{{
+                          product.category
+                        }}</mat-card-subtitle>
+                        <mat-card-title>R {{ product.min_price }}</mat-card-title>
+                      </mat-card-content>
+                      <mat-card-actions>
+                        <button
+                          mat-icon-button
+                          color="warn"
+                          aria-label="Example icon button with a heart icon">
+                          <mat-icon>favorite</mat-icon>
+                        </button>
+                      </mat-card-actions>
+                    </mat-card>
+                <!-- </mat-sidenav-content> -->
+        <!-- </mat-sidenav-container> -->
+        
 
                 <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
                 <div
@@ -249,7 +251,7 @@
             </div>
           </div>
         </footer>
-      </div>
-    </main>
-  </body>
-</html>
+      <!-- </div> -->
+    <!-- </main> -->
+  <!-- </body> -->
+<!-- </html> -->
