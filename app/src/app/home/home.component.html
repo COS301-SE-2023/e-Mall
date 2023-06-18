@@ -24,12 +24,14 @@
       <nav class="headers root">
         <a href="/home" class="title">e-Mall</a>
         <a class="nav_link" href="/construction">Categories</a>
-        <form (submit)="search()" #f="ngForm">
+        <form (ngSubmit)="search(f.value.searchQuery)" #f="ngForm">
           <input
             type="search"
-            type="search"
             class="wrapper"
-            placeholder="Search Products..." />
+            placeholder="Search Products..."
+            name="searchQuery"
+            ngModel
+            (keydown.enter)="f.valid && f.ngSubmit.emit()" />
         </form>
         <div class="spacer"></div>
         <div class="cell1">

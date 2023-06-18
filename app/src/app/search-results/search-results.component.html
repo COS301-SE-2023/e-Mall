@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Search Results</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css"
+      rel="stylesheet" />
+    <link href="search-results.component.scss" rel="stylesheet" />
+  </head>
+
+  <body>
+    <header id="header">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" routerLink="/">
+          <img
+            class="navbar-logo"
+            src="assets/images/logo.png"
+            alt="e-Mall logo"
+            width="70"
+            height="60" />
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+                All Categories
+              </a>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="#">Electronics</a>
+                <a class="dropdown-item" href="#">Clothing</a>
+                <a class="dropdown-item" href="#">Home and Kitchen</a>
+                <a class="dropdown-item" href="#">Health and Beauty</a>
+                <a class="dropdown-item" href="#">Sports and Outdoors</a>
+                <a class="dropdown-item" href="#">Toys and Games</a>
+                <a class="dropdown-item" href="#">Books</a>
+                <a class="dropdown-item" href="#">Food and Beverages</a>
+              </div>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/construction">Expert Reviews</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/construction">Sale</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/construction">Guides</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/construction">How to use</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/construction">About Us</a>
+            </li>
+          </ul>
+        </div>
+
+        <form class="form-inline">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </span>
+            </div>
+            <input
+              class="form-control search-input"
+              type="search"
+              placeholder="Search Products"
+              aria-label="Search" />
+          </div>
+        </form>
+
+        <button
+          class="btn btn-outline-dark my-2 my-sm-0 ms-auto"
+          type="submit"
+          routerLink="/sign-in">
+          Sign in
+        </button>
+      </nav>
+    </header>
+
+    <main class="landing main">
+      <div class="search-results">
+        <h1>Search Results</h1>
+        <div class="filter">
+          <h2>Filter</h2>
+          <div class="filter-options">
+            <label>
+              Brand
+              <input type="checkbox" name="brand" id="brand" />
+            </label>
+            <label>
+              Price Min
+              <input type="checkbox" name="price_min" id="price_min" />
+            </label>
+            <label>
+              Price Max
+              <input type="checkbox" name="price_max" id="price_max" />
+            </label>
+            <label>
+              Category
+              <input type="checkbox" name="category" id="category" />
+            </label>
+            <label>
+              Date Min
+              <input type="checkbox" name="date_min" id="date_min" />
+            </label>
+            <label>
+              Date
+              <input type="checkbox" name="date" id="date" />
+            </label>
+            <label>
+              Seller
+              <input type="checkbox" name="seller" id="seller" />
+            </label>
+          </div>
+        </div>
+        <div class="product-card">
+          <ng-container *ngIf="searchResults$ | async as products">
+            <div class="row">
+              <div
+                class="col-md-3"
+                *ngFor="let product of products; let i = index">
+                <!-- <mat-card
+                  class="product-card"
+                  (click)="goToProductPage(product.id)">
+                  <img
+                    mat-card-image
+                    [src]="getOneImg(product?.min_price_img_array)"
+                    alt="Product Image"
+                    class="img-fluid w-100" />
+                  <mat-card-content>
+                    <mat-card-title>{{ product.name }}</mat-card-title>
+                    <mat-card-subtitle>{{
+                      product.category
+                    }}</mat-card-subtitle>
+                    <mat-card-title>R {{ product.min_price }}</mat-card-title>
+                  </mat-card-content>
+                  <mat-card-actions>
+                    <button mat-button>Wishlist</button>
+                  </mat-card-actions>
+                </mat-card> -->
+                <mat-card class="product-card" (click)="goToProductPage(product.id)">
+                  <img
+                    mat-card-image
+                    [src]="getOneImg(product?.min_price_img_array)"
+                    alt="Product Image"
+                    class="product-image"
+                  />
+                  <mat-card-content>
+                    <mat-card-title>{{ product.name }}</mat-card-title>
+                    <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
+                    <mat-card-title>R {{ product.min_price }}</mat-card-title>
+                  </mat-card-content>
+                  <mat-card-actions>
+                    <button mat-button>Wishlist</button>
+                  </mat-card-actions>
+                </mat-card>
+
+
+                <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
+                <div
+                  class="col-md-1"
+                  *ngIf="(i + 1) % 4 === 0 && products.length > 4"></div>
+              </div>
+            </div>
+          </ng-container>
+
+          <div
+            class="search-results-container"
+            *ngIf="(searchResults$ | async)?.length === 0">
+            <div class="product-card">
+              <img src="path/to/placeholder-image" alt="No Product Found" />
+              <h3>No Products Found</h3>
+              <p>
+                The product you have searched for was not found. Please try
+                again.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <footer class="footer">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-3">
+                <img
+                  class="welcomeMsg_logo_footer"
+                  src="assets/images/logo.png"
+                  alt="e-Mall logo" />
+              </div>
+              <div class="col-md-3">
+                <h5>e-Mall</h5>
+                <ul class="list-unstyled">
+                  <li><a routerLink="/construction">About us</a></li>
+                  <li><a routerLink="/construction">Contact</a></li>
+                </ul>
+              </div>
+              <div class="col-md-3">
+                <h5>Learn More</h5>
+                <ul class="list-unstyled">
+                  <li><a routerLink="/sign-up">Get started</a></li>
+                  <li><a routerLink="/construction">Our App</a></li>
+                  <li>
+                    <a routerLink="/construction">Policies and privacy</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-3">
+                <h5>Partners & Advertisers</h5>
+                <ul class="list-unstyled">
+                  <li><a routerLink="/register">Register your shop</a></li>
+                  <li><a routerLink="/construction">Merchant Dashboard</a></li>
+                  <li><a routerlink="/construction">Avertising</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="row icons">
+              <div class="col-md-3">
+                <p>Copyright © 2023 e-Mall</p>
+              </div>
+
+              <div class="col-md-3"></div>
+              <div class="col-md-3">
+                <a routerLink="#"
+                  ><i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i
+                ></a>
+              </div>
+              <div class="col-md-3">
+                <a routerLink="#"
+                  ><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </body>
+</html>
