@@ -6,10 +6,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  templateUrl: './seller-register.component.html',
+  styleUrls: ['./seller-register.component.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class SellerRegisterComponent implements OnInit {
   loading: boolean;
   isConfirm: boolean;
   user: any;

@@ -15,7 +15,7 @@ import { distinctUntilChanged, Subscription, Observable } from 'rxjs';
 import { debounceTime } from 'rxjs';
 import { filter } from 'rxjs';
 import { fromEvent, map } from 'rxjs';
-import { IProduct } from '@app//models/product.interface';
+import { IProduct } from '@app/models/product/product.interface';
 import { faker } from '@faker-js/faker';
 import { startWith } from 'rxjs';
 import { tap } from 'rxjs';

@@ -7,13 +7,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { ProductPageComponent } from '../product-page/product-page.component';
+import { ProductComponent } from '../product/product.component';
 
 @Component({
-  templateUrl: './search-results.component.html',
-  styleUrls: ['./search-results.component.scss'],
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.scss'],
 })
-export class SearchResultsComponent implements OnInit {
+export class SearchComponent implements OnInit {
   searchQuery!: string;
   searchResults$: Observable<IProduct[]> | undefined;
   isAuthenticated!: boolean;

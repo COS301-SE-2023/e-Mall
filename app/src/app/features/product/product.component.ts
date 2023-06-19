@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IProductSeller } from '@app/models/product/product-seller.interface';
-import { IProductTemp } from '@app/models/product-temp.interface';
+import { IProductTemp } from '@app/models/product/product-temp.interface';
 
 import { ProductPageService } from '@app/services/product/product-page.service';
 import { Observable, of } from 'rxjs';
@@ -8,11 +8,11 @@ import { Observable, of } from 'rxjs';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-product-page',
-  templateUrl: './product-page.component.html',
-  styleUrls: ['./product-page.component.scss'],
+  selector: 'app-product',
+  templateUrl: './product.component.html',
+  styleUrls: ['./product.component.scss'],
 })
-export class ProductPageComponent implements OnInit {
+export class ProductComponent implements OnInit {
   @Input() id!: number;
 
   product$: Observable<IProductTemp> | undefined;

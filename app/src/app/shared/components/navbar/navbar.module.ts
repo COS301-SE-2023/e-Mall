@@ -13,11 +13,15 @@ import { SignOutComponent } from '@app/features/sign-out/sign-out.component';
 import { ViewSizeDirective } from '@shared/directives/view-size.directive';
 import { MatInputModule } from '@angular/material/input';
 import { SearchBarModule } from '@shared/components/search-bar/search-bar.module';
+import { SignOutModule } from '../../../features/sign-out/sign-out.module';
+import { SignInModule } from '@app/features/sign-in/sign-in.module';
+import { ConsumerRegisterModule } from '../../../features/sign-up/consumer/consumer-register.module';
+import { SellerRegisterModule } from '../../../features/sign-up/seller/seller-register.module';
 @NgModule({
   declarations: [
     NavbarComponent,
-    SignInComponent,
-    SignOutComponent,
+    // SignInComponent,
+    // SignOutComponent,
     ViewSizeDirective,
   ],
   imports: [
@@ -26,6 +30,10 @@ import { SearchBarModule } from '@shared/components/search-bar/search-bar.module
     FormsModule,
     SearchBarModule,
     ReactiveFormsModule,
+    SignInModule,
+    SignOutModule,
+    ConsumerRegisterModule,
+    SellerRegisterModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ISellerForm } from '@app/models/seller/seller.interface';
-
-import { PublicService } from '@service/public.service';
 import { AuthService } from '@app/services/auth/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 

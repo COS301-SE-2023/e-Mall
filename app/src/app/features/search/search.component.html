@@ -7,7 +7,7 @@
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css"
       rel="stylesheet" />
-    <link href="search-results.component.scss" rel="stylesheet" />
+    <link href="search.component.scss" rel="stylesheet" />
   </head>
 
   <body>
@@ -103,13 +103,11 @@
 
     <main class="landing main">
       <div class="search-results">
-        <h1>Search Results </h1>
+        <h1>Search Results</h1>
         <p>Products found: {{ (searchResults$ | async)?.length }}</p>
         <mat-expansion-panel class="sort-panel">
           <mat-expansion-panel-header>
-            <mat-panel-title>
-              Sort by
-            </mat-panel-title>
+            <mat-panel-title> Sort by </mat-panel-title>
           </mat-expansion-panel-header>
           <mat-form-field>
             <mat-label>Sort Options</mat-label>
@@ -121,10 +119,10 @@
             </mat-select>
           </mat-form-field>
         </mat-expansion-panel>
-        
+
         <mat-divider></mat-divider>
         <mat-sidenav-container>
-          <mat-sidenav >
+          <mat-sidenav>
             <div class="filter">
               <h2>Filter</h2>
               <div class="filter-options">
@@ -179,7 +177,9 @@
                         <mat-card-subtitle>{{
                           product.category
                         }}</mat-card-subtitle>
-                        <mat-card-title>R {{ product.min_price }}</mat-card-title>
+                        <mat-card-title
+                          >R {{ product.min_price }}</mat-card-title
+                        >
                       </mat-card-content>
                       <mat-card-actions>
                         <button
@@ -190,87 +190,98 @@
                         </button>
                       </mat-card-actions>
                     </mat-card>
-                <!-- </mat-sidenav-content> -->
-        <!-- </mat-sidenav-container> -->
-        
+                    <!-- </mat-sidenav-content> -->
+                    <!-- </mat-sidenav-container> -->
 
-                <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
-                <div
-                  class="col-md-1"
-                  *ngIf="(i + 1) % 4 === 0 && products.length > 4"></div>
+                    <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
+                    <div
+                      class="col-md-1"
+                      *ngIf="(i + 1) % 4 === 0 && products.length > 4"></div>
+                  </div>
+                </div>
+              </ng-container>
+
+              <div
+                class="search-results-container"
+                *ngIf="(searchResults$ | async)?.length === 0">
+                <div class="product-card">
+                  <img src="path/to/placeholder-image" alt="No Product Found" />
+                  <h3>No Products Found</h3>
+                  <p>
+                    The product you have searched for was not found. Please try
+                    again.
+                  </p>
+                </div>
               </div>
             </div>
-          </ng-container>
 
-          <div
-            class="search-results-container"
-            *ngIf="(searchResults$ | async)?.length === 0">
-            <div class="product-card">
-              <img src="path/to/placeholder-image" alt="No Product Found" />
-              <h3>No Products Found</h3>
-              <p>
-                The product you have searched for was not found. Please try
-                again.
-              </p>
-            </div>
-          </div>
-        </div>
+            <footer class="footer">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-3">
+                    <img
+                      class="welcomeMsg_logo_footer"
+                      src="assets/images/logo.png"
+                      alt="e-Mall logo" />
+                  </div>
+                  <div class="col-md-3">
+                    <h5>e-Mall</h5>
+                    <ul class="list-unstyled">
+                      <li><a routerLink="/construction">About us</a></li>
+                      <li><a routerLink="/construction">Contact</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-md-3">
+                    <h5>Learn More</h5>
+                    <ul class="list-unstyled">
+                      <li><a routerLink="/sign-up">Get started</a></li>
+                      <li><a routerLink="/construction">Our App</a></li>
+                      <li>
+                        <a routerLink="/construction">Policies and privacy</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-3">
+                    <h5>Partners & Advertisers</h5>
+                    <ul class="list-unstyled">
+                      <li><a routerLink="/register">Register your shop</a></li>
+                      <li>
+                        <a routerLink="/construction">Merchant Dashboard</a>
+                      </li>
+                      <li><a routerlink="/construction">Avertising</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row icons">
+                  <div class="col-md-3">
+                    <p>Copyright © 2023 e-Mall</p>
+                  </div>
 
-        <footer class="footer">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-3">
-                <img
-                  class="welcomeMsg_logo_footer"
-                  src="assets/images/logo.png"
-                  alt="e-Mall logo" />
+                  <div class="col-md-3"></div>
+                  <div class="col-md-3">
+                    <a routerLink="#"
+                      ><i
+                        class="fa fa-facebook-square fa-2x"
+                        aria-hidden="true"></i
+                    ></a>
+                  </div>
+                  <div class="col-md-3">
+                    <a routerLink="#"
+                      ><i
+                        class="fa fa-linkedin-square fa-2x"
+                        aria-hidden="true"></i
+                    ></a>
+                  </div>
+                </div>
               </div>
-              <div class="col-md-3">
-                <h5>e-Mall</h5>
-                <ul class="list-unstyled">
-                  <li><a routerLink="/construction">About us</a></li>
-                  <li><a routerLink="/construction">Contact</a></li>
-                </ul>
-              </div>
-              <div class="col-md-3">
-                <h5>Learn More</h5>
-                <ul class="list-unstyled">
-                  <li><a routerLink="/sign-up">Get started</a></li>
-                  <li><a routerLink="/construction">Our App</a></li>
-                  <li>
-                    <a routerLink="/construction">Policies and privacy</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="col-md-3">
-                <h5>Partners & Advertisers</h5>
-                <ul class="list-unstyled">
-                  <li><a routerLink="/register">Register your shop</a></li>
-                  <li><a routerLink="/construction">Merchant Dashboard</a></li>
-                  <li><a routerlink="/construction">Avertising</a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="row icons">
-              <div class="col-md-3">
-                <p>Copyright © 2023 e-Mall</p>
-              </div>
-
-              <div class="col-md-3"></div>
-              <div class="col-md-3">
-                <a routerLink="#"
-                  ><i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i
-                ></a>
-              </div>
-              <div class="col-md-3">
-                <a routerLink="#"
-                  ><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i
-                ></a>
-              </div>
-            </div>
-          </div>
-        </footer>
-      <!-- </div> -->
-    <!-- </main> -->
-  <!-- </body> -->
-<!-- </html> -->
+            </footer>
+            <!-- </div> -->
+            <!-- </main> -->
+            <!-- </body> -->
+            <!-- </html> -->
+          </mat-sidenav-content></mat-sidenav-container
+        >
+      </div>
+    </main>
+  </body>
+</html>

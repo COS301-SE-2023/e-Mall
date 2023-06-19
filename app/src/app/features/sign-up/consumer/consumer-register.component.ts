@@ -9,11 +9,11 @@ import { AuthService } from '@app/services/auth/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss'],
+  selector: 'app-consumer-register',
+  templateUrl: './consumer-register.component.html',
+  styleUrls: ['./consumer-register.component.scss'],
 })
-export class SignUpComponent implements OnInit {
+export class ConsumerRegisterComponent implements OnInit {
   loading: boolean;
   isConfirm: boolean;
 
