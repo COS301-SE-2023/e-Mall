@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
 import { PendingComponent } from './features/pending/pending.component';
 import { ConstructionComponent } from './features/construction/construction.component';
-import { ProductComponent } from './features/product/product.component';
+// import { ProductComponent } from './features/product/product.component';
 import { SearchComponent } from './features/search/search.component';
 import { NotFoundComponent } from '@app/features/not-found/not-found.component';
 import { SellerRegisterComponent } from './features/sign-up/seller/seller-register.component';
 import { ConsumerRegisterComponent } from './features/sign-up/consumer/consumer-register.component';
+import { SignInComponent } from './features/sign-in/sign-in.component';
+import { SignOutComponent } from './features/sign-out/sign-out.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -16,10 +18,14 @@ const routes: Routes = [
   { path: 'search-results', component: SearchComponent },
   { path: 'pending', component: PendingComponent },
   { path: 'register', component: SellerRegisterComponent },
+  { path: 'sign-in', component: SignInComponent },
+  { path: 'sign-out', component: SignOutComponent },
   { path: 'sign-up', component: ConsumerRegisterComponent },
-  { path: 'products/:id', component: ProductComponent },
-  { path: 'not-found', component: NotFoundComponent },
-  { path: '**', redirectTo: 'not-found' },
+  { path: 'register', component: SellerRegisterComponent },
+  { path: 'search-results', component: SearchComponent },
+  { path: 'sign-up', component: ConsumerRegisterComponent },
+  // { path: 'products', component: ProductComponent },
+  { path: '**', component: NotFoundComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes, { bindToComponentInputs: true })],

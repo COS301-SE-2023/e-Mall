@@ -1,6 +1,6 @@
 export interface IProduct {
   id: number;
-  min_price_img_array: string[];
+  min_price_img_array?: string[];
   name: string;
   description?: string;
   brand: string;

@@ -24,6 +24,10 @@ export class NavbarComponent implements OnInit {
 
     this.router.navigate(['/search-results'], navigationextras);
   }
+
+  public signIn(): void {
+    this.router.navigate(['sign-in']);
+  }
   public signOut(): void {
     this.router.navigate(['sign-out']);
   }

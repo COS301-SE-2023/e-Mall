@@ -43,7 +43,11 @@
         <img
           alt="pro img"
           class="example-option-img"
-          [src]="option.min_price_img_array[0]"
+          [src]="
+            option.min_price_img_array
+              ? option.min_price_img_array[0]
+              : 'asset/images/no-image.png'
+          "
           height="25" />
         <span>{{ option.name }}</span> |
         <small>currency: {{ option.min_price }}</small>

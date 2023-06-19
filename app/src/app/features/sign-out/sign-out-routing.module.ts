@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SignOutComponent } from './sign-out.component';
 
-const routes: Routes = [{ path: '', component: SignOutComponent }];
+const routes: Routes = [
+  { path: '', pathMatch: 'full', component: SignOutComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

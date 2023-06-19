@@ -64,7 +64,7 @@
     *ngIf="!isAuthenticated"
     class="btn btn-outline-dark my-2 my-sm-0 ms-auto"
     type="submit"
-    routerLink="/sign-in">
+    (click)="signIn()">
     Sign in
   </button>
   <button
@@ -118,8 +118,7 @@
   </span>
 </mat-toolbar> -->
 
-<mat-toolbar *viewSize="'desktop'" color="primary">
+<!-- <mat-toolbar *viewSize="'desktop'" color="primary">
   <div>I am visible only on desktop</div>
   <mat-icon>search</mat-icon>
-</mat-toolbar>
--->
+</mat-toolbar> -->

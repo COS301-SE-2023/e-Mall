@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IProductSeller } from '@app/models/product/product-seller.interface';
-import { IProductTemp } from '@app/models/product/product-temp.interface';
 
-import { ProductPageService } from '@app/services/product/product-page.service';
 import { Observable, of } from 'rxjs';
 
 import { FormControl } from '@angular/forms';
+import { IProduct } from '@app/models/product/product.interface';
+import { ProductService } from '@app/services/product/product.service';
 
 @Component({
   selector: 'app-product',
@@ -15,7 +15,7 @@ import { FormControl } from '@angular/forms';
 export class ProductComponent implements OnInit {
   @Input() id!: number;
 
-  product$: Observable<IProductTemp> | undefined;
+  product$: Observable<IProduct> | undefined;
   sellers$: Observable<IProductSeller[]> | undefined;
   currency$: Observable<string> | undefined;
 
@@ -25,7 +25,7 @@ export class ProductComponent implements OnInit {
 
   selected: FormControl;
 
-  constructor(private productService: ProductPageService) {
+  constructor(private productService: ProductService) {
     this.selected = new FormControl('lowestPrice');
   }
 
@@ -50,7 +50,7 @@ export class ProductComponent implements OnInit {
       this.product$ = this.productService.getProductData(id);
       this.sellers$ = this.productService.getSellerList(id);
       this.currency$ = of('ZAR');
-      this.product$?.subscribe((res: IProductTemp) => {
+      this.product$?.subscribe((res: IProduct) => {
         console.log('getProductData');
         console.log(res);
       });
