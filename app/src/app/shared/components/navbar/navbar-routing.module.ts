@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SearchResultsComponent } from '@app/search-results/search-results.component';
-import { SignInComponent } from '@app/sign-in/sign-in.component';
-import { SignOutComponent } from '@app/sign-out/sign-out.component';
+import { SearchResultsComponent } from '@app/features/search-results/search-results.component';
+import { SignInComponent } from '@app/features/sign-in/sign-in.component';
+import { SignOutComponent } from '@app/features/sign-out/sign-out.component';
 
 const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },

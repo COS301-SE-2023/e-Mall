@@ -1,25 +1,15 @@
 import { NgModule } from '@angular/core';
-import {
-  RouterModule,
-  Routes,
-  ExtraOptions,
-  provideRouter,
-  withComponentInputBinding,
-} from '@angular/router';
-import { HomeComponent } from './home/home.component';
-// import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './features/home/home.component';
+import { SignUpComponent } from './features/sign-up/sign-up.component';
 
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './features/register/register.component';
 
-import { PendingComponent } from './pending/pending.component';
-import { ConstructionComponent } from './shared/pages/construction/construction.component';
-import { ProductPageComponent } from './product-page/product-page.component';
-// import { SignOutComponent } from './sign-out/sign-out.component';
-import { bootstrapApplication } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
-import { SearchResultsComponent } from './search-results/search-results.component';
-import { NotFoundComponent } from '@shared/pages/not-found/not-found.component';
+import { PendingComponent } from './features/pending/pending.component';
+import { ConstructionComponent } from './features/construction/construction.component';
+import { ProductPageComponent } from './features/product-page/product-page.component';
+import { SearchResultsComponent } from './features/search-results/search-results.component';
+import { NotFoundComponent } from '@app/features/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -33,9 +23,6 @@ const routes: Routes = [
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: 'not-found' },
 ];
-// bootstrapApplication(AppComponent, {
-//   providers: [provideRouter(routes, withComponentInputBinding())],
-// });
 @NgModule({
   imports: [RouterModule.forRoot(routes, { bindToComponentInputs: true })],
   exports: [RouterModule],

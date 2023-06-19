@@ -14,32 +14,34 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from '@app/features/home/home.component';
 // import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
+import { SignUpComponent } from '@app/features/sign-up/sign-up.component';
 // import { SignOutComponent } from './sign-out/sign-out.component';
 
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from '@app/features/register/register.component';
 
-import { PendingComponent } from './pending/pending.component';
-import { httpInterceptorProviders } from './interceptors/index';
+import { PendingComponent } from '@app/features/pending/pending.component';
+import { httpInterceptorProviders } from '@app/shared/interceptors/index';
 
 import { ReactiveFormsModule } from '@angular/forms';
-import { ProductPageComponent } from './product-page/product-page.component';
+import { ProductPageComponent } from '@app/features/product-page/product-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavbarModule } from './shared/components/navbar/navbar.module';
-import { FooterModule } from './shared/components/footer/footer.module';
-import { ConstructionModule } from './shared/pages/construction/construction.module';
-import { SearchResultsComponent } from './search-results/search-results.component';
+import { NavbarModule } from '@app/shared/components/navbar/navbar.module';
+import { FooterModule } from '@app/shared/components/footer/footer.module';
+import { ConstructionModule } from '@app/features/construction/construction.module';
+import { SearchResultsComponent } from '@app/features/search-results/search-results.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { NotFoundModule } from '@shared/pages/not-found/not-found.module';
+import { NotFoundModule } from '@app/features/not-found/not-found.module';
+import { HomeModule } from './features/home/home.module';
+
 // import { ViewSizeDirective } from './shared/directives/view-size.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    // HomeComponent,
     // SignInComponent,
     SignUpComponent,
     RegisterComponent,
@@ -71,6 +73,7 @@ import { NotFoundModule } from '@shared/pages/not-found/not-found.module';
     FooterModule,
     ConstructionModule,
     NotFoundModule,
+    HomeModule,
   ],
 
   providers: [httpInterceptorProviders],
