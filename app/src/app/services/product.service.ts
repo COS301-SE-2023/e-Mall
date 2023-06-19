@@ -12,21 +12,26 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  searchProducts(query: string): Observable<IProduct[]> {
-    const url = `${this.apiUrl}?search=${query}`;
-    
+  searchProducts(
+    query: string,
+    filterOptions?: any,
+    sortOption?: any
+  ): Observable<IProduct[]> {
+    let url = `${this.apiUrl}?search=${query}`;
+    // filterOptions = { };
+    if (filterOptions) {
+      for (const [key, value] of Object.entries(filterOptions)) {
+        url += `&${key}=${value}`;
+      }
+    }
+
+    if (sortOption) {
+      url += '&sort=' + sortOption;
+    }
+
     return this.http
       .get(url)
       .pipe(map((res: any) => res['data'] as IProduct[]));
   }
-
-  filterProducts(query: string): Observable<IProduct[]> {
-    const url = `${this.apiUrl}?filter=${query}`;
-
-    return this.http
-      .get(url)
-      .pipe(map((res: any) => res['data'] as IProduct[]));
-  }
-
   // Other methods for CRUD operations on products can be added here
 }
