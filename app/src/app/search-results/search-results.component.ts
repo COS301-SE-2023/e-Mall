@@ -31,6 +31,10 @@ export class SearchResultsComponent implements OnInit {
       this.searchResults$ = this.productService.searchProducts(
         this.searchQuery
       );
+        this.searchResults$?.subscribe((res: IProduct[]) => {
+          console.log('getProductList');
+          console.log(res);
+        });
     });
   }
 
