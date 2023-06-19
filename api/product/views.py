@@ -59,14 +59,27 @@ class ProductBackendAPIView(APIView):
         if filter_brand:
             products = products.filter(brand__icontains=filter_brand)
 
+        if filter_price_min and filter_price_max:
+            products = products.filter(
+                Q(productseller__price__gte=filter_price_min)
+                & Q(productseller__price__lte=filter_price_max)
+            )
+
         if filter_price_min:
-            products = products.filter(price__gte=filter_price_min)
+            products = products.filter(productseller__price__gte=filter_price_min)
 
         if filter_price_max:
-            products = products.filter(price__lte=filter_price_max)
+            products = products.filter(productseller__price__lte=filter_price_max)
 
         if filter_category:
             products = products.filter(category=filter_category)
+
+        if filter_date_min and filter_date_max:
+            date_min = parse_date(filter_date_min)
+            date_max = parse_date(filter_date_max)
+            products = products.filter(
+                Q(created_at__gte=date_min) & Q(created_at__lte=date_max)
+            )
 
         if filter_date_min:
             date_min = parse_date(filter_date_min)
@@ -81,19 +94,17 @@ class ProductBackendAPIView(APIView):
 
         # Sorting
         # all in asc order(small to big)
-        if sort == "brand":
-            products = products.order_by("brand")
-        elif sort == "price":
-            products = products.order_by("price")
+        if sort == "price":
+            products = products.order_by("productseller__price")
         elif sort == "name":
             products = products.order_by("name")
         elif sort == "-price":
             # sort by desc order(big to small)
-            products = products.order_by("-price")
+            products = products.order_by("-productseller__price")
         elif sort == "-name":
             products = products.order_by("-name")
-        elif sort == "-brand":
-            products = products.order_by("-brand")
+        elif sort == "discount":
+            products = products.order_by("-productseller__discount_rate")
 
         # Specific product
         if prod_id:

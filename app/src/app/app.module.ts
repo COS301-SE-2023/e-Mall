@@ -1,53 +1,40 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HomeComponent } from './home/home.component';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { SignOutComponent } from './sign-out/sign-out.component';
-
-import { RegisterComponent } from './register/register.component';
-
-import { PendingComponent } from './pending/pending.component';
-import { ConstructionComponent } from './construction/construction.component';
-import { httpInterceptorProviders } from './interceptors/index';
-
-import { ReactiveFormsModule } from '@angular/forms';
-import { ProductPageComponent } from './product-page/product-page.component';
+import { HttpClientModule } from '@angular/common/http';
+import { httpInterceptorProviders } from '@app/shared/interceptors/index';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { HomeModule } from './features/home/home.module';
+import { ConstructionModule } from './features/construction/construction.module';
+import { ProductModule } from './features/product/product.module';
+import { NotFoundModule } from './features/not-found/not-found.module';
+import { SearchModule } from './features/search/search.module';
+import { SignInModule } from './features/sign-in/sign-in.module';
+import { SellerRegisterModule } from './features/sign-up/seller/seller-register.module';
+import { ConsumerRegisterModule } from './features/sign-up/consumer/consumer-register.module';
+import { SignOutModule } from './features/sign-out/sign-out.module';
+import { NavbarModule } from './shared/components/navbar/navbar.module';
+import { FooterModule } from './shared/components/footer/footer.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    SignInComponent,
-    SignUpComponent,
-    SignOutComponent,
-    RegisterComponent,
-    ConstructionComponent,
-    ProductPageComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
-    FormsModule,
-    RouterModule.forRoot([
-      { path: 'home', component: HomeComponent },
-      { path: 'construction', component: ConstructionComponent },
-      { path: 'pending', component: PendingComponent },
-      { path: 'register', component: RegisterComponent },
-      { path: 'sign-in', component: SignInComponent },
-      { path: 'sign-up', component: SignUpComponent },
-    ]),
-    ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HomeModule,
+    ConstructionModule,
+    ProductModule,
+    SearchModule,
+    SignInModule,
+    SellerRegisterModule,
+    ConsumerRegisterModule,
+    SignOutModule,
+    NavbarModule,
+    FooterModule,
+    NotFoundModule,
+    AppRoutingModule,
   ],
 
   providers: [httpInterceptorProviders],
