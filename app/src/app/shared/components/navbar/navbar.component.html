@@ -83,7 +83,53 @@
         Sign in
       </button> -->
 
-<mat-toolbar color="primary">
+<mat-toolbar *viewSize="'mobile'" color="primary" style="height: 55px">
+  <button
+    mat-icon-button
+    [matMenuTriggerFor]="menu"
+    aria-label="Main menu"
+    style="display: flex">
+    <i class="fa-solid fa-bars" aria-hidden="true" style="width: auto"></i>
+  </button>
+  <mat-menu #menu="matMenu">
+    <ng-template matMenuContent>
+      <button mat-menu-item>
+        <mat-icon>dialpad</mat-icon>
+        <span>Redial</span>
+      </button>
+      <button mat-menu-item disabled>
+        <mat-icon>voicemail</mat-icon>
+        <span>Check voice mail</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon>
+        <span>Disable alerts</span>
+      </button>
+    </ng-template>
+  </mat-menu>
+
+  <!-- <span class="logo" style="flex: 1 1 auto; text-align: center">Logo</span> -->
+  <a
+    class="navbar-brand"
+    routerLink="/"
+    style="flex: 1 1 auto; text-align: center">
+    <img
+      class="navbar-logo"
+      src="assets/images/logo.png"
+      alt="e-Mall logo"
+      width="auto"
+      height="55px" />
+  </a>
+  <span>
+    <app-search-bar></app-search-bar>
+  </span>
+</mat-toolbar>
+
+<mat-toolbar *viewSize="'desktop'" color="primary">
+  <div>I am visible only on desktop</div>
+  <mat-icon>search</mat-icon>
+</mat-toolbar>
+<!-- <mat-toolbar color="primary">
   <div *viewSize="'mobile'">I am visible only on mobile</div>
   <div *viewSize="'desktop'">I am visible only on desktop</div>
-</mat-toolbar>
+</mat-toolbar> -->

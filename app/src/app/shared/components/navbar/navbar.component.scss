@@ -499,3 +499,11 @@
 //     margin-left: auto;
 //     margin-right: auto;
 // }
+
+// .mat-mdc-icon-button ::ng-deep .mat-mdc-button-persistent-ripple {
+//     vertical-align: middle;
+// }
+.mat-icon-button {
+    display: flex;
+    align-items: center;
+}

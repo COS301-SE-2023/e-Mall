@@ -11,7 +11,8 @@ import { SignInComponent } from '@app/sign-in/sign-in.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignOutComponent } from '@app/sign-out/sign-out.component';
 import { ViewSizeDirective } from '@shared/directives/view-size.directive';
-
+import { MatInputModule } from '@angular/material/input';
+import { SearchBarModule } from '@shared/components/search-bar/search-bar.module';
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -22,13 +23,15 @@ import { ViewSizeDirective } from '@shared/directives/view-size.directive';
   imports: [
     NavbarRoutingRoutingModule,
     CommonModule,
+    FormsModule,
+    SearchBarModule,
+    ReactiveFormsModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
     MatFormFieldModule,
-    FormsModule,
-    ReactiveFormsModule,
+    MatInputModule,
   ],
   exports: [NavbarComponent],
 })
