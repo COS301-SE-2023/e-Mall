@@ -25,7 +25,9 @@
     "api:db": "yarn api:makemigrations && yarn api:migrate",
     "api:test": "yarn docker:exec api pytest",
     "app:e2e": "start cmd /k \"cypress open\"",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "api:deletemigrations": "powershell -Command \"Get-ChildItem -Path ../api/ -Filter *.py -Recurse | Where-Object { $_.FullName -like '*\\migrations\\*' -and $_.Name -ne '__init__.py' } | Remove-Item\"",
+    "api:mockdata": "yarn api:populateproducts&& yarn api:populatesellers && yarn api:populateproductsellers && yarn api:populateproductsellers && yarn api:populateproductsellers"
   },
   "private": true,
   "dependencies": {
@@ -62,6 +64,7 @@
     "@angular/cli": "~16.1.0",
     "@angular/compiler-cli": "^16.1.1",
     "@angular/language-service": "^16.1.1",
+    "@faker-js/faker": "^8.0.2",
     "@types/jasmine": "~4.3.3",
     "@typescript-eslint/eslint-plugin": "5.59.11",
     "@typescript-eslint/parser": "5.59.11",
