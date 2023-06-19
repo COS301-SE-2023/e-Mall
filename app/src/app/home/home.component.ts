@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-
 import { HttpClient } from '@angular/common/http';
 interface Product {
   img: string;
@@ -17,7 +16,11 @@ import { AuthService } from '@app/services/auth.service';
 })
 export class HomeComponent implements OnInit {
   products: Product[] | undefined;
-  constructor(private authService: AuthService,private router: Router, private http: HttpClient) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
     this.fetchProducts();
@@ -36,7 +39,7 @@ export class HomeComponent implements OnInit {
 
   search() {
     this.router.navigate(['/construction']);
- /* isAuthenticated = false;
+    /* isAuthenticated = false;
   // isAuthenticated$;
   constructor(private authService: AuthService, private router: Router) {
     // this.isAuthenticated$ = this.authService.isAuthenticated();
@@ -54,5 +57,5 @@ export class HomeComponent implements OnInit {
   public signOut(): void {
     this.router.navigate(['sign-out']);
   }*/
-}
+  }
 }

@@ -3,7 +3,13 @@
 <html lang="en">
   <head>
     <title>Login</title>
+  <head>
+    <title>Login</title>
 
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -209,6 +215,13 @@
     <script type="text/javascript">
       AOS.init();
 
+      const header = document.querySelector('#header');
+      if (header) {
+        const headroom = new Headroom(header);
+        headroom.init();
+      }
+    </script>
+  </body>
       const header = document.querySelector('#header');
       if (header) {
         const headroom = new Headroom(header);

@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'pending', component: PendingComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'sign-in', component: SignInComponent },
-  { path: 'sign-out', component: SignOutComponent },
+
   { path: 'sign-up', component: SignUpComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
