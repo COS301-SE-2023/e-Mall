@@ -5,6 +5,8 @@ import { IProductTemp } from '@app/models/product-temp.interface';
 import { ProductPageService } from '@service/product-page.service';
 import { Observable, of } from 'rxjs';
 
+import { FormControl } from '@angular/forms';
+
 @Component({
   selector: 'app-product-page',
   templateUrl: './product-page.component.html',
@@ -16,7 +18,34 @@ export class ProductPageComponent implements OnInit {
   product$: Observable<IProductTemp> | undefined;
   sellers$: Observable<IProductSeller[]> | undefined;
   currency$: Observable<string> | undefined;
-  constructor(private productService: ProductPageService) {}
+
+  currencyCode = "ZAR";
+
+  expandedStates: Map<string, boolean> = new Map<string, boolean>();
+
+  selected: FormControl;
+  
+  constructor(private productService: ProductPageService) {
+    this.selected = new FormControl('lowestPrice');
+  }
+
+  
+/*
+  togglePanel(seller: any) {
+    const expanded = this.expandedStates.get(seller.id) || false;
+    this.expandedStates.set(seller.id, !expanded);
+  }
+  
+  isExpanded(seller: any): boolean {
+    return this.expandedStates.get(seller.id) || false;
+  }
+  
+  getAriaLabel(seller: any): string {
+    return this.isExpanded(seller) ? 'Collapse panel' : 'Expand panel';
+  }*/
+  
+  
+  
 
   ngOnInit() {
     const id = this.id;

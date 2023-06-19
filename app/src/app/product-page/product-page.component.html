@@ -92,6 +92,8 @@
       </button>
     </nav>
 
+    
+
     <div class="container-fluid body-container">
       <div class="container-fluid prices" id="prices">
         <div class="row product-img-info-container">
@@ -105,10 +107,12 @@
                 <img [src]="img" alt="Product Image" class="img-fluid w-100" />
               </div>
             </div>
+            
+
           </div>
 
           <div class="col-sm-4 col-md-4 col-lg-4 main-img-container">
-            <div class="main-img-small-container">
+            <!--<div class="main-img-small-container">
               <div class="heart-container">
                 <button class="btn btn-circle btn-light">
                   <i class="fa fa-heart-o heart" aria-hidden="true"></i>
@@ -120,7 +124,21 @@
                   alt="Product Image"
                   class="img-fluid w-100" />
               </div>
-            </div>
+            </div>-->
+
+            <mat-card class="product-card">
+              <img
+                mat-card-image
+                [src]="getOneImg((product$ | async)?.min_price_img_array)"
+                alt="Product Image"
+                class="product-image"
+              />
+              <mat-card-actions>
+                <button mat-icon-button>
+                  <mat-icon>favorite</mat-icon>
+                </button>
+              </mat-card-actions>
+            </mat-card>
           </div>
 
           <div class="col-sm-4 col-md-4 col-lg-4 upper-product-info-container">
@@ -130,7 +148,7 @@
               <h2>{{ product.brand }}</h2>
               <p>{{ product.description }}</p>
               <p>
-                Compare prices from <b>R{{ product.min_price }}</b>
+                Compare prices from <b>{{ product.min_price }} {{currencyCode}}</b>
               </p>
             </div>
           </div>
@@ -196,17 +214,112 @@
               </div>
             </div>
             <div class="col-sm-2 col-md-2 col-lg-2 d-flex justify-content-end">
-              <div class="lowest-price ml-auto">
+              <!--<div class="lowest-price ml-auto">
                 Lowest Price
                 <span
                   ><i class="fa-solid fa-chevron-down" aria-hidden="true"></i
                 ></span>
+              </div>-->
+              <div class="lowest-price ml-auto">
+                <!--<select class="custom-select" matNativeControl required>
+                  <option value="lowest price ">Lowest Price</option>
+                  <option value="fastest delivery">Fastest Delivery</option>
+                </select>-->
+                <mat-select [formControl]="selected" class="custom-select" hideToggle>
+                  <mat-option value="lowestPrice" >Lowest Price</mat-option>
+                  <mat-option value="fastestDelivery">Fastest Delivery</mat-option>
+                </mat-select>
               </div>
             </div>
           </div>
         </div>
-        <ng-container *ngIf="sellers$ | async as sellers">
-          <div
+
+        
+        <!--<ng-container *ngIf="sellers$ | async as sellers">
+          <ul class="seller-list">
+            <li *ngFor="let seller of sellers">
+              <div class="container-fluid comp-products">
+              <mat-card class="seller-card">
+                <mat-card-actions>
+                    <button mat-button aria-label="icon-button with an expand icon" class="seller-dropdown-button">
+                      <mat-icon>expand_more</mat-icon>
+                    </button>
+                    <mat-card-title class="seller-name">{{seller.business_name}}</mat-card-title>
+                  
+                </mat-card-actions>
+                
+                <mat-card-header class="seller-product-name-price">
+                  <div class="card-title-container">
+                    <mat-card-title class="product-name"><a routerLink = "{{seller.product_url}}">{{ seller.product_name }}</a></mat-card-title>
+                    <div [ngClass]="{'in-stock-boxes': seller.in_stock, 'out-of-stock-boxes': !seller.in_stock}" matTooltipPosition="above" aria-label="Example tooltip">
+                      <i class="fa-sharp fa-solid fa-boxes-stacked in-stock-box"></i>
+                      <i *ngIf="seller.in_stock" class="fa-sharp fa-solid fa-check in-stock-tick" matTooltip="in stock"></i>
+                      <i *ngIf="!seller.in_stock" class="fa-sharp fa-solid fa-x in-stock-x" matTooltip="out of stock"></i>
+                    </div>
+                    <mat-card-title class="product-price"> {{ seller.price }} {{currencyCode}}</mat-card-title>
+                  </div>
+                </mat-card-header>
+              </mat-card>
+              </div>
+            </li>
+          </ul>-->
+
+          <ng-container *ngIf="sellers$ | async as sellers">
+            <ul class="seller-list">
+              <li *ngFor="let seller of sellers">
+                <div class="container-fluid comp-products">
+                <mat-accordion >
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title >
+                        <!--<div class="toggle-icon">
+                          <button mat-icon-button class="seller-dropdown-button" [attr.aria-label]="getAriaLabel(seller)" (click)="togglePanel(seller)">
+                            <mat-icon>{{ isExpanded(seller) ? 'expand_less' : 'expand_more' }}</mat-icon>
+                          </button>
+                        </div>-->
+                        <mat-card-title class="seller-name">{{seller.business_name}}</mat-card-title>
+                      </mat-panel-title>
+                      <mat-panel-description>
+                        
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="payment-methods-expanded">
+                      <h5>Payment Methods</h5>
+                      <div class="row">
+                        <div class="col-sm-2 col-md-2 col-lg-2  payment-method">
+                          <p>Visa</p>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2  payment-method">
+                          <p>Master card</p>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2  payment-method">
+                          <p>Pay Pal</p>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2  payment-method">
+                          <p>Klarna</p>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                  <mat-card-header class="seller-product-name-price">
+                    <div class="card-title-container">
+                      <mat-card-title class="product-name"><a routerLink = "{{seller.product_url}}">{{ seller.product_name }}</a></mat-card-title>
+                      <div [ngClass]="{'in-stock-boxes': seller.in_stock, 'out-of-stock-boxes': !seller.in_stock}" matTooltipPosition="above" aria-label="Example tooltip">
+                        <i class="fa-sharp fa-solid fa-boxes-stacked in-stock-box"></i>
+                        <i *ngIf="seller.in_stock" class="fa-sharp fa-solid fa-check in-stock-tick" matTooltip="in stock"></i>
+                        <i *ngIf="!seller.in_stock" class="fa-sharp fa-solid fa-x in-stock-x" matTooltip="out of stock"></i>
+                      </div>
+                      <mat-card-title class="product-price"> {{ seller.price }} {{currencyCode}}</mat-card-title>
+                    </div>
+                  </mat-card-header>
+                  
+                </mat-accordion>
+                </div>
+                
+              </li>
+            </ul>
+          </ng-container>
+          <!--<div
             *ngFor="let seller of sellers"
             class="container-fluid comp-products">
             <div class="row drop-d-sellerName-container">
@@ -222,22 +335,12 @@
             <div class="row">
               <div class="col-sm-12 col-md-12 col-lg-12 product-name">
                 {{ seller.product_name }}
-                <span class="product-name-price">{{ seller.price }}</span>
+                <span class="product-name-price">{{ seller.price }}</span >
               </div>
             </div>
+          </div>-->
 
-            <!-- <div class="drop-d-sellerName-container">
-              <span class="dropdown-arrow"
-                ><i class="fa-solid fa-chevron-down" aria-hidden="true"></i
-              ></span>
-              <span class="seller-name">{{ seller.business_name }}</span>
-            </div>
-            <div class="product-name">
-              {{ seller.product_name }}
-              <span class="product-name-price">{{ seller.price }}</span>
-            </div> -->
-          </div>
-        </ng-container>
+        <!--</ng-container>-->
         <!--<div class="container-fluid related-products" *ngIf="products">
           <h3>Related Products</h3>
           <div class="row">

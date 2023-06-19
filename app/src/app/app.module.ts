@@ -31,6 +31,8 @@ import { NavbarModule } from './shared/components/navbar/navbar.module';
 import { FooterModule } from './shared/components/footer/footer.module';
 import { ConstructionModule } from './shared/pages/construction/construction.module';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 import { NotFoundModule } from '@shared/pages/not-found/not-found.module';
 // import { ViewSizeDirective } from './shared/directives/view-size.directive';
 
@@ -61,6 +63,10 @@ import { NotFoundModule } from '@shared/pages/not-found/not-found.module';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    MatSelectModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatExpansionModule,
     NavbarModule,
     FooterModule,
     ConstructionModule,
