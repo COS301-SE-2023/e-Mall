@@ -25,6 +25,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import {MatSelectModule} from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 
@@ -60,7 +61,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     BrowserAnimationsModule,
     MatSelectModule, 
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatExpansionModule
   ],
 
   providers: [httpInterceptorProviders],

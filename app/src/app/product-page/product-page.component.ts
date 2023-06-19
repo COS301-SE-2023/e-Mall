@@ -19,13 +19,33 @@ export class ProductPageComponent implements OnInit {
   sellers$: Observable<IProductSeller[]> | undefined;
   currency$: Observable<string> | undefined;
 
-  currencyCode: string = "ZAR";
+  currencyCode = "ZAR";
+
+  expandedStates: Map<string, boolean> = new Map<string, boolean>();
 
   selected: FormControl;
   
   constructor(private productService: ProductPageService) {
     this.selected = new FormControl('lowestPrice');
   }
+
+  
+/*
+  togglePanel(seller: any) {
+    const expanded = this.expandedStates.get(seller.id) || false;
+    this.expandedStates.set(seller.id, !expanded);
+  }
+  
+  isExpanded(seller: any): boolean {
+    return this.expandedStates.get(seller.id) || false;
+  }
+  
+  getAriaLabel(seller: any): string {
+    return this.isExpanded(seller) ? 'Collapse panel' : 'Expand panel';
+  }*/
+  
+  
+  
 
   ngOnInit() {
     const id = this.id;
