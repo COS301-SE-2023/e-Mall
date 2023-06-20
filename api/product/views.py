@@ -42,55 +42,49 @@ class ProductBackendAPIView(APIView):
 
         # Pagination
         page = int(request.GET.get("page")) if request.GET.get("page") else 1
-        per_page = 10
+        per_page = 20
 
-        products = Product.objects.all()
+        # Default
+        products = any
 
-        # Searching
+        # Searching the DB and returning the relevant products based on the search query
         if search:
-            products = products.filter(
+            products = Product.objects.filter(
                 Q(name__icontains=search)
                 | Q(description__icontains=search)
                 | Q(brand__icontains=search)
                 | Q(category__icontains=search)
             )
 
-        # Filtering
+        # Apply filters
+        filters = Q()
         if filter_brand:
-            products = products.filter(brand__icontains=filter_brand)
-
+            filters &= Q(brand__icontains=filter_brand)
         if filter_price_min and filter_price_max:
-            products = products.filter(
-                Q(productseller__price__gte=filter_price_min)
-                & Q(productseller__price__lte=filter_price_max)
+            filters &= Q(
+                productseller__price__gte=filter_price_min,
+                productseller__price__lte=filter_price_max,
             )
-
-        if filter_price_min:
-            products = products.filter(productseller__price__gte=filter_price_min)
-
-        if filter_price_max:
-            products = products.filter(productseller__price__lte=filter_price_max)
-
+        elif filter_price_min:
+            filters &= Q(productseller__price__gte=filter_price_min)
+        elif filter_price_max:
+            filters &= Q(productseller__price__lte=filter_price_max)
         if filter_category:
-            products = products.filter(category=filter_category)
-
+            filters &= Q(category=filter_category)
         if filter_date_min and filter_date_max:
             date_min = parse_date(filter_date_min)
             date_max = parse_date(filter_date_max)
-            products = products.filter(
-                Q(created_at__gte=date_min) & Q(created_at__lte=date_max)
-            )
-
-        if filter_date_min:
+            filters &= Q(created_at__gte=date_min, created_at__lte=date_max)
+        elif filter_date_min:
             date_min = parse_date(filter_date_min)
-            products = products.filter(created_at__gte=date_min)
-
-        if filter_date_max:
+            filters &= Q(created_at__gte=date_min)
+        elif filter_date_max:
             date_max = parse_date(filter_date_max)
-            products = products.filter(created_at__lte=date_max)
-
+            filters &= Q(created_at__lte=date_max)
         if filter_seller:
-            products = products.filter(seller=filter_seller)
+            filters &= Q(seller=filter_seller)
+
+        products = products.filter(filters)
 
         # Sorting
         # all in asc order(small to big)
@@ -112,16 +106,11 @@ class ProductBackendAPIView(APIView):
             serializer = ProductSerializer(products[0])
             return Response(serializer.data)
         # Pagination
-        total = products.count()
-        start = (page - 1) * per_page
-        end = page * per_page
+        paginator = Paginator(products, per_page)
+        try:
+            paginated_products = paginator.page(page)
+        except (EmptyPage, PageNotAnInteger):
+            paginated_products = paginator.page(1)
 
-        serializer = ProductSerializer(products[start:end], many=True)
-        return Response(
-            {
-                "data": serializer.data,
-                "total": total,
-                "page": page,
-                "last_page": math.ceil(total / per_page),
-            }
-        )
+        serializer = ProductSerializer(paginated_products, many=True)
+        return Response({"data": serializer.data})
