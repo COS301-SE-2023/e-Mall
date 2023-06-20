@@ -16,7 +16,7 @@ export class ProductService {
   constructor(private http: HttpClient) {}
 
   public getProductData(id: number): Observable<IProduct> {
-    const url = `${this.apiUrl}products/backend?prod_id=${id}`;
+    const url = `${this.apiUrl}products/frontend?prod_id=${id}`;
     return this.http.get<IProduct>(url);
   }
   public getSellerList(id: number): Observable<IProductSeller[]> {

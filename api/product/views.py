@@ -16,15 +16,19 @@ from rest_framework.pagination import PageNumberPagination
 class ProductFrontendAPIView(APIView):
     def get(self, request):
         products = Product.objects.all()
+        # Input for specific product
+        prod_id = request.GET.get("prod_id")
+        # Specific product
+        if prod_id:
+            products = products.filter(id=prod_id)
+            serializer = ProductSerializer(products[0])
+            return Response(serializer.data)
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)
 
 
 class ProductBackendAPIView(APIView):
     def get(self, request):
-        # Input for specific product
-        prod_id = request.GET.get("prod_id")
-
         # Input for search
         search = request.GET.get("search")
 
@@ -100,11 +104,6 @@ class ProductBackendAPIView(APIView):
         elif sort == "discount":
             products = products.order_by("-productseller__discount_rate")
 
-        # Specific product
-        if prod_id:
-            products = products.filter(id=prod_id)
-            serializer = ProductSerializer(products[0])
-            return Response(serializer.data)
         # Pagination
         paginator = Paginator(products, per_page)
         try:
