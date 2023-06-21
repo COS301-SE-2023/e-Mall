@@ -24,6 +24,9 @@ const routes: Routes = [
   { path: 'register', component: SellerRegisterComponent },
   { path: 'search-results', component: SearchComponent },
   { path: 'sign-up', component: ConsumerRegisterComponent },
+  { path: 'about', component: ConstructionComponent },
+  { path: 'sale', component: ConstructionComponent },
+
   // { path: 'products', component: ProductComponent },
   { path: '**', component: NotFoundComponent },
 ];

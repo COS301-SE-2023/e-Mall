@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@app/services/auth/auth.service';
 import { Router, NavigationExtras } from '@angular/router';
@@ -9,6 +10,7 @@ import { Router, NavigationExtras } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   isAuthenticated = false;
+  isCategoryOpened = false;
   constructor(private authService: AuthService, private router: Router) {}
   ngOnInit(): void {
     this.authService.isAuthenticated().subscribe(isAuthenticated => {
@@ -24,11 +26,18 @@ export class NavbarComponent implements OnInit {
 
     this.router.navigate(['/search-results'], navigationextras);
   }
+  toggleCategory(): void {
+    this.isCategoryOpened = !this.isCategoryOpened;
+  }
 
   public signIn(): void {
     this.router.navigate(['sign-in']);
   }
   public signOut(): void {
     this.router.navigate(['sign-out']);
+  }
+
+  public redirect(page: string): void {
+    this.router.navigate([`/${page}`]);
   }
 }

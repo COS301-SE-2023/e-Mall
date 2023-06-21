@@ -11,12 +11,16 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { NavbarModule } from '@shared/components/navbar/navbar.module';
+import { FooterModule } from '@shared/components/footer/footer.module';
 
 @NgModule({
   declarations: [SearchComponent],
   imports: [
     CommonModule,
     SearchRoutingModule,
+    NavbarModule,
+    FooterModule,
     MatExpansionModule,
     MatFormFieldModule,
     MatSelectModule,

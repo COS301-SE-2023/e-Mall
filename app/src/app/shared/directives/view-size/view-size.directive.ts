@@ -56,6 +56,7 @@ const config = {
 };
 
 @Directive({
+  // standalone: true,
   selector: '[viewSize]',
 })
 export class ViewSizeDirective implements OnDestroy {
