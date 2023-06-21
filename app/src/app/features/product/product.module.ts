@@ -8,6 +8,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { NavbarModule } from '@shared/components/navbar/navbar.module';
+import { FooterModule } from '@shared/components/footer/footer.module';
 
 @NgModule({
   declarations: [ProductComponent],
@@ -20,6 +22,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatCardModule,
     MatSelectModule,
     MatExpansionModule,
+    NavbarModule,
+    FooterModule,
   ],
   exports: [ProductComponent],
 })
