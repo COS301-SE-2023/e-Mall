@@ -17,7 +17,16 @@ export class SearchComponent implements OnInit {
   searchQuery!: string;
   searchResults$: Observable<IProduct[]> | undefined;
   isAuthenticated!: boolean;
+  min_price_in_stock!: number;
   page!: number[];
+  categoryElectronics!: boolean;
+  categoryClothing!: boolean;
+  categoryHomeAndKitchen!: boolean;
+  categoryHealthAndBeauty!: boolean;
+  categorySportsAndOutdoors!: boolean;
+  categoryToysAndGames!: boolean;
+  categoryBooks!: boolean;
+  categoryFoodAndBeverages!: boolean;
 
   constructor(
     private route: ActivatedRoute,
