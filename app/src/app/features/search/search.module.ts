@@ -12,6 +12,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [SearchComponent],
@@ -27,6 +28,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatCardModule,
     MatIconModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
   ],
   exports: [SearchComponent],
 })
