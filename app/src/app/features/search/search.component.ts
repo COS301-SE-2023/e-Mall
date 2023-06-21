@@ -31,10 +31,16 @@ export class SearchComponent implements OnInit {
   categoryToysAndGames!: boolean;
   categoryBooks!: boolean;
   categoryFoodAndBeverages!: boolean;
+  priceRange: number[] = [0, 100]; // Initial price range
+  minPrice!: number; // Minimum price value
+  maxPrice!: number; // Maximum price value
+
+
   selectedSortOption!: string;
   currentPage$ = new BehaviorSubject<number>(0);
   itemsPerPage$ = new BehaviorSubject<number>(10);
   totalSearchCount$: Observable<number> | undefined;
+
 
   constructor(
     private route: ActivatedRoute,
