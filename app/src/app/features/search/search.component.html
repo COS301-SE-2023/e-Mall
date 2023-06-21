@@ -86,6 +86,10 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <!-- Content for Price panel -->
+          <mat-slider>
+            <input matSliderStartThumb>
+            <input matSliderEndThumb>
+          </mat-slider>
           <!-- ... -->
         </mat-expansion-panel>
       
@@ -100,6 +104,23 @@
           <mat-slide-toggle [aria-label]="min_price_in_stock? 'Disable in-stock filter' : 'Enable in-stock filter'">
             Show only in stock
           </mat-slide-toggle>          
+          <!-- ... -->
+        </mat-expansion-panel>
+
+        <!--Price drop-->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Sale
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <!-- Content for price drop panel -->
+          <mat-radio-group>
+            <mat-radio-button value="50">50% or more</mat-radio-button>
+            <mat-radio-button value="25">25% or more</mat-radio-button>
+            <mat-radio-button value="10">10% or more</mat-radio-button>
+            <mat-radio-button value="5">5% or more</mat-radio-button>
+          </mat-radio-group>
           <!-- ... -->
         </mat-expansion-panel>
       
