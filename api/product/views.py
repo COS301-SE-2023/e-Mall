@@ -46,7 +46,9 @@ class ProductBackendAPIView(APIView):
 
         # Pagination
         page = int(request.GET.get("page")) if request.GET.get("page") else 1
-        per_page = 20
+        per_page = (
+            int(request.GET.get("per_page")) if request.GET.get("per_page") else 5
+        )
 
         # Default
         products = any
@@ -106,10 +108,11 @@ class ProductBackendAPIView(APIView):
 
         # Pagination
         paginator = Paginator(products, per_page)
+        total_count = paginator.count
         try:
             paginated_products = paginator.page(page)
         except (EmptyPage, PageNotAnInteger):
             paginated_products = paginator.page(1)
 
         serializer = ProductSerializer(paginated_products, many=True)
-        return Response({"data": serializer.data})
+        return Response({"data": serializer.data, "total_count": total_count})

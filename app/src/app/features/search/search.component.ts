@@ -3,11 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '@app/services/product/product.service';
 import { IProduct } from '@app/models/product/product.interface';
 import { Router, NavigationExtras } from '@angular/router';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { ProductComponent } from '../product/product.component';
+import { Observable, map, of } from 'rxjs';
+import { PageEvent } from '@angular/material/paginator';
+import { BehaviorSubject } from 'rxjs';
+import { result } from 'cypress/types/lodash';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   templateUrl: './search.component.html',
@@ -18,7 +19,6 @@ export class SearchComponent implements OnInit {
   searchResults$: Observable<IProduct[]> | undefined;
   isAuthenticated!: boolean;
   min_price_in_stock!: number;
-  page!: number[];
   brandOptions: string[] = []; // Populate this array with the brand names based on your search results
   selectedBrands: string[] = []; // Stores the selected brand options
   sellerOptions: string[] = []; // Populate this array with the seller names based on your search results
@@ -31,21 +31,16 @@ export class SearchComponent implements OnInit {
   categoryToysAndGames!: boolean;
   categoryBooks!: boolean;
   categoryFoodAndBeverages!: boolean;
-  filteredProducts: IProduct[] = [];
   priceRange: number[] = [0, 100]; // Initial price range
   minPrice!: number; // Minimum price value
   maxPrice!: number; // Maximum price value
-  products: IProduct[] = []; // Assuming you have an array of products
 
-  filterProducts():void{
-    this.filteredProducts = this.products.filter((product) => {
-      const price = product.min_price;
-      return (
-        (this.minPrice === undefined || price >= this.minPrice) &&
-        (this.maxPrice === undefined || price <= this.maxPrice)
-      );
-    });
-  }
+
+  selectedSortOption!: string;
+  currentPage$ = new BehaviorSubject<number>(0);
+  itemsPerPage$ = new BehaviorSubject<number>(10);
+  totalSearchCount$: Observable<number> | undefined;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -56,46 +51,54 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params['search'];
-      this.searchResults$ = this.productService.searchProducts(
-        this.searchQuery
-      );
-      this.searchResults$?.subscribe((res: IProduct[]) => {
-        console.log('getProductList');
-        console.log(res);
-      });
-    });
-    // Fetch the brand names from the search results and populate the brandOptions array
-    this.searchResults$?.pipe(
-      tap((products: IProduct[]) => {
-        const brands = new Set<string>();
-        products.forEach((product) => {
-          brands.add(product.brand);
-        });
-        this.brandOptions = Array.from(brands);
-      })
-    ).subscribe((res: IProduct[]) => {
-      console.log('getProductList');
-      console.log(res);
-    });
-    // Fetch the seller names from the search results and populate the sellerOptions array
-    this.searchResults$?.pipe(
-      tap((products: IProduct[]) => {
-        const sellers = new Set<string>();
-        products.forEach((product) => {
-          if (product.min_price_seller_business_name !== undefined && product.min_price_seller_business_name !== '') {
-            sellers.add(product.min_price_seller_business_name);
-          }
-        });
-        this.sellerOptions = Array.from(sellers).filter(seller => seller); // Filter out empty or falsy values
-      })
-    ).subscribe((res: IProduct[]) => {
-      console.log('getProductList');
-      console.log(res);
-    });
-    //price filter function
-    
-    
+      this.productService
+        .searchProducts(
+          this.searchQuery,
+          null,
+          this.selectedSortOption,
+          this.currentPage$.value,
+          this.itemsPerPage$.value
+        )
+        .subscribe(result => {
+          this.searchResults$ = of(result.products);
+          this.totalSearchCount$ = of(result.totalCount);
+          console.log('totalSearchCount$');
+          console.log(this.totalSearchCount$);
 
+          // Fetch the brand names from the search results and populate the brandOptions array
+          this.searchResults$
+            .pipe(
+              tap((products: IProduct[]) => {
+                const brands = new Set<string>();
+                products.forEach(product => {
+                  brands.add(product.brand);
+                });
+                this.brandOptions = Array.from(brands);
+              })
+            )
+            .subscribe();
+
+          // Fetch the seller names from the search results and populate the sellerOptions array
+          this.searchResults$
+            .pipe(
+              tap((products: IProduct[]) => {
+                const sellers = new Set<string>();
+                products.forEach(product => {
+                  if (
+                    product.min_price_seller_business_name !== undefined &&
+                    product.min_price_seller_business_name !== ''
+                  ) {
+                    sellers.add(product.min_price_seller_business_name);
+                  }
+                });
+                this.sellerOptions = Array.from(sellers).filter(
+                  seller => seller
+                ); // Filter out empty or falsy values
+              })
+            )
+            .subscribe();
+        });
+    });
   }
 
   //
@@ -120,5 +123,51 @@ export class SearchComponent implements OnInit {
     console.log(prod_id);
 
     this.router.navigate(['products', prod_id], navigationextras);
+  }
+
+  onSortOptionChange(): void {
+    this.productService
+      .searchProducts(this.searchQuery, null, this.selectedSortOption)
+      .subscribe(result => {
+        this.searchResults$ = of(result.products);
+        this.totalSearchCount$ = of(result.totalCount);
+      });
+
+    this.searchResults$?.subscribe((res: IProduct[]) => {
+      console.log('getSortedProductList');
+      console.log(res);
+    });
+  }
+
+  onPageChange(event: PageEvent) {
+    this.currentPage$.next(event.pageIndex + 1);
+    this.itemsPerPage$.next(event.pageSize);
+    console.log('Page size: ' + event.pageSize);
+    console.log('Page index: ' + event.pageIndex);
+    this.updateQueryParams();
+    this.productService
+      .searchProducts(
+        this.searchQuery,
+        null,
+        this.selectedSortOption,
+        this.currentPage$.value,
+        this.itemsPerPage$.value
+      )
+      .subscribe(result => {
+        this.searchResults$ = of(result.products);
+        this.totalSearchCount$ = of(result.totalCount);
+        console.log('totalSearchCount$');
+        console.log(result.totalCount);
+      });
+  }
+  updateQueryParams() {
+    this.router.navigate([], {
+      queryParams: {
+        page: this.currentPage$.value,
+        per_page: this.itemsPerPage$.value,
+      },
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
+    });
   }
 }
