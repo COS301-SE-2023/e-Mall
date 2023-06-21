@@ -121,43 +121,12 @@
         </mat-expansion-panel>
 
         <mat-divider></mat-divider>
-        <mat-sidenav-container>
-          <mat-sidenav>
-            <div class="filter">
-              <h2>Filter</h2>
-              <div class="filter-options">
-                <label>
-                  Brand
-                  <mat-checkbox name="brand" id="brand"></mat-checkbox>
-                </label>
-                <label>
-                  Price Min
-                  <mat-checkbox name="price_min" id="price_min"></mat-checkbox>
-                </label>
-                <label>
-                  Price Max
-                  <mat-checkbox name="price_max" id="price_max"></mat-checkbox>
-                </label>
-                <label>
-                  Category
-                  <mat-checkbox name="category" id="category"></mat-checkbox>
-                </label>
-                <label>
-                  Date Min
-                  <mat-checkbox name="date_min" id="date_min"></mat-checkbox>
-                </label>
-                <label>
-                  Date
-                  <mat-checkbox name="date" id="date"></mat-checkbox>
-                </label>
-                <label>
-                  Seller
-                  <mat-checkbox name="seller" id="seller"></mat-checkbox>
-                </label>
-              </div>
-            </div>
-          </mat-sidenav>
-          <mat-sidenav-content>
+       <!--filter-->
+      
+      
+
+
+       <!--products-->
             <div class="product-card">
               <ng-container *ngIf="searchResults$ | async as products">
                 <div class="row">
@@ -200,6 +169,13 @@
                   </div>
                 </div>
               </ng-container>
+              <!--paginator-->
+              <div class="mat-paginator">
+                <mat-paginator></mat-paginator>
+              </div>
+              
+
+              <!--end of paginator-->
 
               <div
                 class="search-results-container"
@@ -279,8 +255,6 @@
             <!-- </main> -->
             <!-- </body> -->
             <!-- </html> -->
-          </mat-sidenav-content></mat-sidenav-container
-        >
       </div>
     </main>
   </body>
