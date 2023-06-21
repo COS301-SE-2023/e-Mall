@@ -269,6 +269,15 @@
   resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-16.1.1.tgz#1500853ffc3d65bb3f604be3fd9b9c890d9403d4"
   integrity sha512-3ZifAA15eV9TIHHdNuOBDYQRTA9HGqh1EIYe8JgkRDm9ImlIG7l747VuFs4SoBeTlEBlwyjAIt/47aYHx0R+wg==
 
+"@angular/localize@^16.1.1":
+  version "16.1.1"
+  resolved "https://registry.yarnpkg.com/@angular/localize/-/localize-16.1.1.tgz#6656c23f56bc46e4f0730552a170170a4d3cbd37"
+  integrity sha512-7TDy4joFVBzRGySvjimKDSGQ9wFvZkXtR3RYquarJl+h4V9udCVv4hOez0yYfM35wKd0pP7UtnOh9VQGm+RVKg==
+  dependencies:
+    "@babel/core" "7.21.8"
+    fast-glob "3.2.12"
+    yargs "^17.2.1"
+
 "@angular/material@^16.1.1":
   version "16.1.1"
   resolved "https://registry.yarnpkg.com/@angular/material/-/material-16.1.1.tgz#fd42b726cfed30d0105b1f4a31fd94bf51de5e85"
@@ -4341,6 +4350,13 @@
     "@material/theme" "15.0.0-canary.90291f2e2.0"
     tslib "^2.1.0"
 
+"@ng-bootstrap/ng-bootstrap@^15.0.1":
+  version "15.0.1"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-15.0.1.tgz#0f67a7bd4015d3a2387134c97a819a23296655d2"
+  integrity sha512-a86fcS6XPpC/FyZ/nx4oLnTWd/XEe7ZLYjqEU/VIj5RTVPgbC6ieKCeaprIEabFf/k0Jw2j4X4CdiFiE+xfXPA==
+  dependencies:
+    tslib "^2.3.0"
+
 "@ngtools/webpack@16.1.0":
   version "16.1.0"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-16.1.0.tgz#54231a29db7b669396d9685ba9d60f7956e6c42b"
@@ -4502,6 +4518,11 @@
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"
   integrity sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==
+
+"@popperjs/core@^2.11.8":
+  version "2.11.8"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
+  integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
 "@schematics/angular@16.1.0":
   version "16.1.0"

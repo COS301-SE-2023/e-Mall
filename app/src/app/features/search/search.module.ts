@@ -13,12 +13,16 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NavbarModule } from '@shared/components/navbar/navbar.module';
+import { FooterModule } from '@shared/components/footer/footer.module';
 
 @NgModule({
   declarations: [SearchComponent],
   imports: [
     CommonModule,
     SearchRoutingModule,
+    NavbarModule,
+    FooterModule,
     MatExpansionModule,
     MatFormFieldModule,
     MatSelectModule,

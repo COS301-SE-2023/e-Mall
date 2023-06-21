@@ -20,8 +20,58 @@
   </head>
 
   <!-- <body class="flex-column"> -->
-  <body class="flex-column">
+  <body>
     <app-navbar></app-navbar>
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        min-height: 800px;
+        vertical-align: middle;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+      ">
+      <div>
+        <ngb-carousel *ngIf="images">
+          <ng-template ngbSlide>
+            <div class="picsum-img-wrapper">
+              <img [src]="images[0]" alt="Random first slide" />
+            </div>
+            <div class="carousel-caption">
+              <h3>First slide label</h3>
+              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            </div>
+          </ng-template>
+          <ng-template ngbSlide>
+            <div class="picsum-img-wrapper">
+              <img [src]="images[1]" alt="Random second slide" />
+            </div>
+            <div class="carousel-caption">
+              <h3>Second slide label</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+          </ng-template>
+          <ng-template ngbSlide>
+            <div class="picsum-img-wrapper">
+              <img [src]="images[2]" alt="Random third slide" />
+            </div>
+            <div class="carousel-caption">
+              <h3>Third slide label</h3>
+              <p>
+                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+              </p>
+            </div>
+          </ng-template>
+        </ngb-carousel>
+      </div>
+      <div style="align-items: center">
+        <h1 style="font-size: 100px">Coming Soon(Home)</h1>
+      </div>
+      <div></div>
+    </div>
+
     <!-- <header id="header">
       <nav class="headers root">
         <a href="/home" class="title">e-Mall</a>
@@ -60,10 +110,10 @@
         </div>
       </nav>
     </header> -->
-    <main class="landing main">
-      <!-- ======= section1 ======= -->
-      <section class="section1__section1">
-        <!-- <div id="carouselExample" class="carousel slide" data-ride="carousel">
+    <!-- <main class="landing main"> -->
+    <!-- ======= section1 ======= -->
+    <!-- <section class="section1__section1"> -->
+    <!-- <div id="carouselExample" class="carousel slide" data-ride="carousel">
           <ol class="carousel-indicators">
             <li
               data-target="#carouselExample"
@@ -116,7 +166,7 @@
           </a>
         </div> -->
 
-        <!-- <div id="product-carousel" class="carousel slide" data-ride="carousel">
+    <!-- <div id="product-carousel" class="carousel slide" data-ride="carousel">
           <h1 class="section2__title1">Popular products<br /></h1>
           <div class="carousel-inner">
             <div class="carousel-item active">
@@ -155,19 +205,19 @@
             <span class="sr-only">Next</span>
           </a>
         </div> -->
-      </section>
-      <!-- ======= End section1 ======= -->
-      <!-- ======= section2 ======= -->
-      <section class="section2__section2">
-        <!-- <div class="section2__box2"> -->
-        <!--  <div class="section2__flex_column">
+    <!-- </section> -->
+    <!-- ======= End section1 ======= -->
+    <!-- ======= section2 ======= -->
+    <!-- <section class="section2__section2"> -->
+    <!-- <div class="section2__box2"> -->
+    <!--  <div class="section2__flex_column">
             <h4 class="section2__highlights1">e-Mall</h4>
             <div class="section2__text1">About Us</div>
             <div class="section2__text1">Contact Us</div>
             <div class="section2__text1">Careers</div>
             <div class="section2__text1">New features</div>
           </div>-->
-        <!-- <div class="section2__flex_column1">
+    <!-- <div class="section2__flex_column1">
             <h4 class="section2__highlights1">Partners and Advertisers</h4>
             <div class="section2__text1">
               <a href="/register" class="section2__text1">Register your shop</a>
@@ -186,15 +236,17 @@
           </div>
           <div class="section2__text15">Copyright © 2023 e-Mall</div>
         </div> -->
-      </section>
-      <!-- ======= End section2 ======= -->
+    <!-- </section> -->
+    <!-- ======= End section2 ======= -->
 
-      <!-- <main class="landing main"> -->
-      <!-- <section class="section1__section1"> -->
-      <!-- <h1 class="section1__hero_title">Coming Soon!</h1> -->
-      <!-- </section> -->
-      <!-- <section class="section3__section3"></section> -->
-    </main>
-    <app-footer></app-footer>
+    <!-- <main class="landing main"> -->
+    <!-- <section class="section1__section1"> -->
+    <!-- <h1 class="section1__hero_title">Coming Soon!</h1> -->
+    <!-- </section> -->
+    <!-- <section class="section3__section3"></section> -->
+    <!-- </main> -->
   </body>
+  <footer>
+    <app-footer></app-footer>
+  </footer>
 </html>

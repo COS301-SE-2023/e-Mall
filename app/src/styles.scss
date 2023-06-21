@@ -133,6 +133,17 @@ $app-theme: mat.define-light-theme((
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+html, body { height: 100%;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @import '~bootstrap/dist/css/bootstrap.css';
+
+
+.dense-1 {
+  @include mat.all-component-densities(-1);
+}
+.dense-2 {
+  @include mat.all-component-densities(-2);
+}
+.dense-3 {
+  @include mat.all-component-densities(-3);
+}
