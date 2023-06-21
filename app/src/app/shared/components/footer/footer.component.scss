@@ -1,58 +1,62 @@
-/*@use "utils" as *;*/
+// /*@use "utils" as *;*/
 
-$color_type_0: rgb(0, 0, 0);
-$color_type_1: rgb(124, 208, 211);
-$color_type_2: rgb(169, 169, 169);
-$color_type_3: rgb(209, 209, 209);
-$color_type_4: rgb(21, 21, 21);
-$color_type_5: rgb(247, 249, 249);
-$color_type_6: rgb(55, 208, 214);
-$color_type_7: rgb(87, 87, 87);
-$color_type_8: rgb(193, 237, 233);
+// $color_type_0: rgb(0, 0, 0);
+// $color_type_1: rgb(124, 208, 211);
+// $color_type_2: rgb(169, 169, 169);
+// $color_type_3: rgb(209, 209, 209);
+// $color_type_4: rgb(21, 21, 21);
+// $color_type_5: rgb(247, 249, 249);
+// $color_type_6: rgb(55, 208, 214);
+// $color_type_7: rgb(87, 87, 87);
+// $color_type_8: rgb(193, 237, 233);
 
-$padding_type_0: 0px;
+// $padding_type_0: 0px;
 
-$border_radius_type_0: 12px 12px 12px 12px;
+// $border_radius_type_0: 12px 12px 12px 12px;
 
-$font_type_0: 600 50px/1.39 "Poppins", Helvetica, Arial, serif;
-$font_type_1: 600 32px/1.39 "Poppins", Helvetica, Arial, serif;
-$font_type_2: 700 15px/1.53 "Poppins", Helvetica, Arial, serif;
-$font_type_3: 400 14px/1.35 "Open Sans", Helvetica, Arial, serif;
-$font_type_4: 400 12px/1.33 "Open Sans", Helvetica, Arial, serif;
-$font_type_5: 600 1em/1.39 "Poppins", Helvetica, Arial, serif;
+// $font_type_0: 600 50px/1.39 "Poppins", Helvetica, Arial, serif;
+// $font_type_1: 600 32px/1.39 "Poppins", Helvetica, Arial, serif;
+// $font_type_2: 700 15px/1.53 "Poppins", Helvetica, Arial, serif;
+// $font_type_3: 400 14px/1.35 "Open Sans", Helvetica, Arial, serif;
+// $font_type_4: 400 12px/1.33 "Open Sans", Helvetica, Arial, serif;
+// $font_type_5: 600 1em/1.39 "Poppins", Helvetica, Arial, serif;
 
-.body-container {
-    padding: 0
-}
+// .body-container {
+//     padding: 0
+// }
 
-html {
-    scroll-behavior: smooth
-}
+// html {
+//     scroll-behavior: smooth
+// }
 
-.footer {
-    background-color: $color_type_8;
-    padding-top: 60px
-}
+// .footer {
+//     background-color: $color_type_8;
+//     padding-top: 60px
+// }
 
-.footer a {
-    transition: color .3s ease-in-out;
-    color: #444;
-    text-decoration: none
-}
+// .footer a {
+//     transition: color .3s ease-in-out;
+//     color: #444;
+//     text-decoration: none
+// }
 
-.footer a:hover {
-    text-decoration: underline
-}
+// .footer a:hover {
+//     text-decoration: underline
+// }
 
-.icons {
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 2px solid #444
-}
+// .icons {
+//     margin-top: 20px;
+//     padding-top: 20px;
+//     border-top: 2px solid #444
+// }
 
-.welcomeMsg_logo_footer {
-    width: auto;
-    height: 100px;
-    margin-left: auto;
-    margin-right: auto
+// .welcomeMsg_logo_footer {
+//     width: auto;
+//     height: 100px;
+//     margin-left: auto;
+//     margin-right: auto
+// }
+
+footer {
+    background-color: #c1ede9;
 }

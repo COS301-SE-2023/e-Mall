@@ -1,66 +1,5 @@
 <footer>
-  <!-- <mat-grid-list cols="3" rowHeight="100px" style="margin: 0px"> -->
-  <!-- <mat-toolbar colour="primary">
-  <mat-grid-list cols="3" rowHeight="100px">
-    <mat-grid-tile>
-      <img
-        class="welcomeMsg_logo_footer"
-        src="assets/images/logo.png"
-        alt="e-Mall logo" />
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <h5>e-Mall</h5>
-      <ul class="list-unstyled">
-        <li>
-          <a mat-button routerLink="/construction">About us</a>
-        </li>
-        <li>
-          <a mat-button routerLink="/construction">Contact</a>
-        </li>
-      </ul>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <h5>Learn More</h5>
-      <ul class="list-unstyled">
-        <li>
-          <a mat-button routerLink="/sign-up">Get started</a>
-        </li>
-        <li>
-          <a mat-button routerLink="/construction">Our App</a>
-        </li>
-        <li>
-          <a mat-button routerLink="/construction">Policies and privacy</a>
-        </li>
-      </ul>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <h5>Partners & Advertisers</h5>
-      <ul class="list-unstyled">
-        <li>
-          <a mat-button routerLink="/register">Register your shop</a>
-        </li>
-        <li>
-          <a mat-button routerLink="/construction">Merchant Dashboard</a>
-        </li>
-        <li>
-          <a mat-button routerLink="/construction">Avertising</a>
-        </li>
-      </ul>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <p>Copyright © 2023 e-Mall</p>
-      <div>
-        <a mat-icon-button>
-          <mat-icon>facebook</mat-icon>
-        </a>
-        <a mat-icon-button>
-          <mat-icon>linkedin</mat-icon>
-        </a>
-      </div>
-    </mat-grid-tile>
-  </mat-grid-list>
-</mat-toolbar> -->
-  <div class="footer">
+  <!-- <div class="footer">
     <div class="container">
       <div class="row">
         <div class="col-md-3">
@@ -72,17 +11,17 @@
         <div class="col-md-3">
           <h5>e-Mall</h5>
           <ul class="list-unstyled">
-            <li><a routerLink="/construction">About us</a></li>
-            <li><a routerLink="/construction">Contact </a></li>
+            <li><a routerLink="/home">Home</a></li>
+            <li><a routerLink="/about">About us</a></li>
+            <li><a routerLink="/contact">Contact </a></li>
           </ul>
         </div>
         <div class="col-md-3">
           <h5>Learn More</h5>
           <ul class="list-unstyled">
             <li><a routerLink="/sign-up">Get started</a></li>
-            <li><a routerLink="/construction">Our App</a></li>
             <li>
-              <a routerLink="/construction">Policies and privacy</a>
+              <a routerLink="/policies-and-privacy">Policies and privacy</a>
             </li>
           </ul>
         </div>
@@ -90,8 +29,8 @@
           <h5>Partners & Advertisers</h5>
           <ul class="list-unstyled">
             <li><a routerLink="/register">Register your shop</a></li>
-            <li><a routerLink="/construction">Merchant Dashboard</a></li>
-            <li><a routerlink="/construction">Avertising</a></li>
+            <li><a routerLink="/seller/dashboard">Merchant Dashboard</a></li>
+            <li><a routerLink="/ads">Advertising</a></li>
           </ul>
         </div>
       </div>
@@ -99,19 +38,53 @@
         <div class="col-md-3">
           <p>Copyright © 2023 e-Mall</p>
         </div>
-
-        <div class="col-md-3"></div>
-        <div class="col-md-3">
-          <a routerLink="#"
-            ><i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i
-          ></a>
-        </div>
-        <div class="col-md-3">
-          <a routerLink="#"
-            ><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i
-          ></a>
-        </div>
       </div>
     </div>
+  </div> -->
+  <div class="container">
+    <footer
+      class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+      <p class="col-md-4 mb-0 text-body-secondary">&copy; 2023 Company, Inc</p>
+
+      <a
+        href="/"
+        class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <img
+          class="bi me-2"
+          style="width: auto; height: 50px; padding: 0px; margin: 0px"
+          src="assets/images/logo-black-no-bg.png"
+          alt="e-Mall logo" />
+      </a>
+
+      <ul class="nav col-md-4 justify-content-end">
+        <li class="nav-item">
+          <a routerLink="/home" class="nav-link px-2 text-body-secondary"
+            >Home</a
+          >
+        </li>
+        <!-- <li class="nav-item">
+          <a href="#" class="nav-link px-2 text-body-secondary"></a>
+        </li> -->
+        <!-- <li class="nav-item">
+          <a href="#" class="nav-link px-2 text-body-secondary">Pricing</a>
+        </li> -->
+
+        <li class="nav-item">
+          <a routerLink="/about" class="nav-link px-2 text-body-secondary"
+            >About</a
+          >
+        </li>
+        <li class="nav-item">
+          <a routerLink="/register" class="nav-link px-2 text-body-secondary"
+            >Listing</a
+          >
+        </li>
+        <li class="nav-item">
+          <a routerLink="/contact" class="nav-link px-2 text-body-secondary"
+            >Contact</a
+          >
+        </li>
+      </ul>
+    </footer>
   </div>
 </footer>

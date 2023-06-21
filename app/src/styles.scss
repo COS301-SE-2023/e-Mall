@@ -1,6 +1,7 @@
 
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
+@use 'sass:map';
 @use '@angular/material' as mat;
 // Plus imports for other components in your app.
 
@@ -123,7 +124,11 @@ $app-theme: mat.define-light-theme((
     warn: $tilt-warn,
   )
 ));
-
+$color-config: mat.get-color-config($app-theme);
+$primary-palette: map.get($color-config, 'primary');
+$accent-palette: map.get($color-config, 'accent');
+$warn-palette: map.get($color-config, 'warn');
+// $is-dark-theme: map.get($color-config, 'is-dark');
 
 
 // Include theme styles for core and each component used in your app.
