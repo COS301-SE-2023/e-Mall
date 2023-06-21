@@ -42,6 +42,8 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <!-- Content for Brand panel -->
+          <mat-checkbox *ngFor="let brand of brandOptions" [checked]="selectedBrands.includes(brand)" [value]="brand">{{ brand }}</mat-checkbox>
+
           <!-- ... -->
         </mat-expansion-panel>
       
@@ -72,6 +74,9 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <!-- Content for Seller panel -->
+
+          <mat-checkbox *ngFor="let seller of sellerOptions" [checked]="selectedSellers.includes(seller)" [value]="seller">{{ seller }}</mat-checkbox>
+
           <!-- ... -->
         </mat-expansion-panel>
       
