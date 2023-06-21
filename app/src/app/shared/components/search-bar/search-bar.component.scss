@@ -12,7 +12,7 @@
     // height: 36px;
 }
 
-::ng-deep .mat-mdc-text-field-wrapper {    
+::ng-deep .search-bar-wrapper .mat-mdc-text-field-wrapper {    
     height: 33px !important;
     margin-top: 18px;
     font-family: sans-serif;
@@ -20,7 +20,7 @@
     background-color: rgb(255, 255, 255);
     min-width: 250px
 }
-::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+::ng-deep .search-bar-wrapper .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
     height: 33px !important;
     padding-bottom: 0px;
     padding-top: 5px !important;
