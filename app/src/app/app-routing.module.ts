@@ -10,6 +10,8 @@ import { SellerRegisterComponent } from './features/sign-up/seller/seller-regist
 import { ConsumerRegisterComponent } from './features/sign-up/consumer/consumer-register.component';
 import { SignInComponent } from './features/sign-in/sign-in.component';
 import { SignOutComponent } from './features/sign-out/sign-out.component';
+import { ContactComponent } from './features/contact/contact.component';
+import { AboutComponent } from './features/about/about.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -24,8 +26,11 @@ const routes: Routes = [
   { path: 'register', component: SellerRegisterComponent },
   { path: 'search-results', component: SearchComponent },
   { path: 'sign-up', component: ConsumerRegisterComponent },
-  { path: 'about', component: ConstructionComponent },
-  { path: 'sale', component: ConstructionComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'contact', component: ContactComponent },
+  { path: 'policies-and-privacy', redirectTo: '/home' },
+  { path: 'seller/dashboard', redirectTo: '/home' },
+  { path: 'ads', redirectTo: '/home' },
 
   // { path: 'products', component: ProductComponent },
   { path: '**', component: NotFoundComponent },

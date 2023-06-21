@@ -16,6 +16,8 @@ import { ConsumerRegisterModule } from './features/sign-up/consumer/consumer-reg
 import { SignOutModule } from './features/sign-out/sign-out.module';
 import { NavbarModule } from './shared/components/navbar/navbar.module';
 import { FooterModule } from './shared/components/footer/footer.module';
+import { ContactModule } from './features/contact/contact.module';
+import { AboutModule } from './features/about/about.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,7 +35,9 @@ import { FooterModule } from './shared/components/footer/footer.module';
     SignOutModule,
     NavbarModule,
     FooterModule,
+    ContactModule,
     NotFoundModule,
+    AboutModule,
     AppRoutingModule,
   ],
 
