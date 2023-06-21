@@ -205,7 +205,7 @@
             <ng-container *ngIf="searchResults$ | async as products">
               <mat-paginator
                 [length]="totalSearchCount$ | async"
-                [pageSizeOptions]="[5, 10, 20, 50, 100]"
+                [pageSizeOptions]="[10, 20, 50, 100]"
                 aria-label="Select page"
                 [pageIndex]="currentPage$ | async"
                 [pageSize]="itemsPerPage$ | async"

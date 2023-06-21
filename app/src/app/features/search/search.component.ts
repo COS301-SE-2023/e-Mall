@@ -33,7 +33,7 @@ export class SearchComponent implements OnInit {
   categoryFoodAndBeverages!: boolean;
   selectedSortOption!: string;
   currentPage$ = new BehaviorSubject<number>(0);
-  itemsPerPage$ = new BehaviorSubject<number>(5);
+  itemsPerPage$ = new BehaviorSubject<number>(10);
   totalSearchCount$: Observable<number> | undefined;
 
   constructor(
