@@ -1,57 +1,114 @@
-<button
-  mat-icon-button
-  *ngIf="!opened"
-  aria-label="Main menu"
-  style="display: flex"
-  (click)="openSearchBar()">
-  <i class="fa-sharp fa-solid fa-magnifying-glass fa-xl search-icon"></i>
-</button>
-<ng-container *ngIf="opened">
-  <mat-form-field #field>
-    <input
-      #searchInput
-      matInput
-      [placeholder]="placeHolder"
-      [formControl]="searchInputController"
-      (keydown)="keyDownFunction($event)"
-      (blur)="onBlur()"
-      [matAutocomplete]="auto" />
+<mat-form-field
+  appearance="outline"
+  class="dense-3 search-bar"
+  subscriptSizing="dynamic">
+  <input
+    #searchInput
+    matInput
+    [placeholder]="placeHolder"
+    [formControl]="searchInputController"
+    (keydown)="keyDownFunction($event)"
+    [matAutocomplete]="auto" />
 
+  <button
+    class="toolbar-button"
+    *ngIf="!searchInputController.value"
+    matSuffix
+    mat-icon-button
+    aria-label="Search"
+    (click)="searchIconFunction()">
+    <mat-icon>search</mat-icon>
+  </button>
+  <button
+    class="toolbar-button"
+    *ngIf="searchInputController.value"
+    matSuffix
+    mat-icon-button
+    aria-label="Clear"
+    (click)="searchInputController.reset()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="search()">
+    <mat-option *ngFor="let option of searchHistories" [value]="option">
+      {{ option }}
+    </mat-option>
+    <mat-option
+      *ngFor="let option of suggestions$ | async"
+      [value]="option.name">
+      <img
+        alt="pro img"
+        class="example-option-img"
+        [src]="
+          option.min_price_img_array
+            ? option.min_price_img_array[0]
+            : 'asset/images/no-image.png'
+        "
+        height="25px" />
+      <span>{{ option.name }}</span> |
+      <small>R: {{ option.min_price }}</small>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+
+<!-- <div style="display: flex"> -->
+<!-- <ng-container *viewSize="'mobile'">
     <button
-      *ngIf="!searchInputController.value"
-      matSuffix
       mat-icon-button
-      aria-label="Search"
-      (click)="searchIconFunction()">
-      <mat-icon>search</mat-icon>
+      *ngIf="!opened"
+      aria-label="Main menu"
+      (click)="openSearchBar()">
+      <i
+        class="fa-sharp fa-solid fa-magnifying-glass"
+        style="vertical-align: top"></i>
     </button>
-    <button
-      *ngIf="searchInputController.value"
-      matSuffix
-      mat-icon-button
-      aria-label="Clear"
-      (click)="searchInputController.reset()">
-      <mat-icon>close</mat-icon>
-    </button>
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="search()">
-      <mat-option *ngFor="let option of searchHistories" [value]="option">
-        {{ option }}
-      </mat-option>
-      <mat-option
-        *ngFor="let option of suggestions$ | async"
-        [value]="option.name">
-        <img
-          alt="pro img"
-          class="example-option-img"
-          [src]="
-            option.min_price_img_array
-              ? option.min_price_img_array[0]
-              : 'asset/images/no-image.png'
-          "
-          height="25" />
-        <span>{{ option.name }}</span> |
-        <small>currency: {{ option.min_price }}</small>
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-</ng-container>
+    <ng-container *ngIf="opened">
+      <mat-form-field style="width: 100%; position: static">
+        <input
+          #searchInput
+          matInput
+          [placeholder]="placeHolder"
+          [formControl]="searchInputController"
+          (keydown)="keyDownFunction($event)"
+          (blur)="onBlur()"
+          [matAutocomplete]="auto" />
+
+        <button
+          *ngIf="!searchInputController.value"
+          matSuffix
+          mat-icon-button
+          aria-label="Search"
+          (click)="searchIconFunction()">
+          <mat-icon>search</mat-icon>
+        </button>
+        <button
+          *ngIf="searchInputController.value"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="searchInputController.reset()">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="search()">
+          <mat-option *ngFor="let option of searchHistories" [value]="option">
+            {{ option }}
+          </mat-option>
+          <mat-option
+            *ngFor="let option of suggestions$ | async"
+            [value]="option.name">
+            <img
+              alt="pro img"
+              class="example-option-img"
+              [src]="
+                option.min_price_img_array
+                  ? option.min_price_img_array[0]
+                  : 'asset/images/no-image.png'
+              "
+              height="25" />
+            <span>{{ option.name }}</span> |
+            <small>currency: {{ option.min_price }}</small>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </ng-container>
+  </ng-container> -->
+<!-- </div> -->

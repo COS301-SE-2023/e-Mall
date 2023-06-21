@@ -9,6 +9,7 @@ import { AuthService } from '@app/services/auth/auth.service';
 })
 export class HomeComponent {
   isAuthenticated = false;
+  images = [944, 1011, 984].map(n => `https://picsum.photos/id/${n}/900/500`);
   // isAuthenticated$;
   constructor(private authService: AuthService, private router: Router) {
     // this.isAuthenticated$ = this.authService.isAuthenticated();
@@ -25,14 +26,4 @@ export class HomeComponent {
 
     this.router.navigate(['/search-results'], navigationextras);
   }
-
-  // ngOnInit(): void {
-  // this.authService.isAuthenticated().subscribe(isAuthenticated => {
-  //   this.isAuthenticated = isAuthenticated;
-  //   console.log('Home [Auth]: ', isAuthenticated);
-  // });
-  // }
-  // public signOut(): void {
-  //   this.router.navigate(['sign-out']);
-  // }
 }

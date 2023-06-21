@@ -7,17 +7,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ViewSizeDirective } from '@shared/directives/view-size.directive';
 import { MatInputModule } from '@angular/material/input';
 import { SearchBarModule } from '@shared/components/search-bar/search-bar.module';
+import { ViewSizeModule } from '@shared/directives/view-size/view-size.module';
 
 @NgModule({
-  declarations: [NavbarComponent, ViewSizeDirective],
+  declarations: [NavbarComponent],
   imports: [
     CommonModule,
     FormsModule,
-    SearchBarModule,
     ReactiveFormsModule,
+    ViewSizeModule,
+    SearchBarModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,

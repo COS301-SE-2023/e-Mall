@@ -1,4 +1,104 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark upperNav">
+<!-- <ng-container *viewSize="'mobile'">
+  <mat-toolbar color="primary">
+    <div class="flex-container">
+      <div>
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Main menu">
+          <i class="fa-solid fa-bars margin-edit" aria-hidden="true"></i>
+        </button>
+        <mat-menu #menu="matMenu">
+          <ng-template matMenuContent>
+            <button mat-menu-item>
+              <mat-icon>dialpad</mat-icon>
+              <span>Redial</span>
+            </button>
+            <button mat-menu-item disabled>
+              <mat-icon>voicemail</mat-icon>
+              <span>Check voice mail</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>notifications_off</mat-icon>
+              <span>Disable alerts</span>
+            </button>
+          </ng-template>
+        </mat-menu>
+      </div>
+      <div>
+        <a class="navbar-brand" routerLink="/">
+          <img
+            class="navbar-logo"
+            src="assets/images/logo.png"
+            alt="e-Mall logo" />
+        </a>
+      </div>
+      <app-search-bar></app-search-bar>
+    </div>
+  </mat-toolbar>
+</ng-container>-->
+<header>
+  <nav>
+    <div>
+      <mat-toolbar color="primary" class="navbar">
+        <div class="flex-container">
+          <div>
+            <a class="navbar-brand">
+              <img
+                class="navbar-logo"
+                src="assets/images/logo.png"
+                alt="e-Mall logo"
+                (click)="redirect('home')" />
+            </a>
+          </div>
+
+          <button mat-button class="toolbar-button" (click)="toggleCategory()">
+            <span>All Categories</span>
+            <i
+              *ngIf="!isCategoryOpened"
+              class="fa-solid fa-chevron-down fa-xs arrow"></i>
+            <i
+              *ngIf="isCategoryOpened"
+              class="fa-solid fa-chevron-up fa-xs arrow"></i>
+          </button>
+          <button mat-button class="toolbar-button" (click)="redirect('sale')">
+            Sale
+          </button>
+          <button mat-button class="toolbar-button" (click)="redirect('about')">
+            About Us
+          </button>
+          <!-- </span> -->
+          <!-- <form (ngSubmit)="search(f.value.searchQuery)" #f="ngForm">
+      <input
+        type="search"
+        class="wrapper"
+        placeholder="Search Products..."
+        name="searchQuery"
+        ngModel
+        (keydown.enter)="f.valid && f.ngSubmit.emit()" />
+         </form> -->
+          <div class="navbar-spacer"></div>
+          <!-- <div style="color: darkgreen; top: 30px"> -->
+          <app-search-bar class="search-bar"></app-search-bar>
+
+          <button
+            mat-button
+            class="toolbar-button"
+            *ngIf="!isAuthenticated"
+            (click)="signIn()">
+            Sign in
+          </button>
+          <button
+            *ngIf="isAuthenticated"
+            class="btn btn-outline-dark my-2 my-sm-0 ms-auto"
+            type="submit"
+            (click)="signOut()">
+            Sign Out
+          </button>
+        </div>
+      </mat-toolbar>
+    </div>
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark upperNav">
   <a class="navbar-brand" routerLink="/">
     <img
       class="navbar-logo"
@@ -74,51 +174,6 @@
     (click)="signOut()">
     Sign Out
   </button>
-</nav>
-
-<!-- <mat-toolbar *viewSize="'mobile'" color="primary" style="height: 55px">
-  <button
-    mat-icon-button
-    [matMenuTriggerFor]="menu"
-    aria-label="Main menu"
-    style="display: flex">
-    <i class="fa-solid fa-bars" aria-hidden="true" style="width: auto"></i>
-  </button>
-  <mat-menu #menu="matMenu">
-    <ng-template matMenuContent>
-      <button mat-menu-item>
-        <mat-icon>dialpad</mat-icon>
-        <span>Redial</span>
-      </button>
-      <button mat-menu-item disabled>
-        <mat-icon>voicemail</mat-icon>
-        <span>Check voice mail</span>
-      </button>
-      <button mat-menu-item>
-        <mat-icon>notifications_off</mat-icon>
-        <span>Disable alerts</span>
-      </button>
-    </ng-template>
-  </mat-menu>
--->
-<!-- <span class="logo" style="flex: 1 1 auto; text-align: center">Logo</span> -->
-<!-- <a
-    class="navbar-brand"
-    routerLink="/"
-    style="flex: 1 1 auto; text-align: center">
-    <img
-      class="navbar-logo"
-      src="assets/images/logo.png"
-      alt="e-Mall logo"
-      width="auto"
-      height="55px" />
-  </a>
-  <span>
-    <app-search-bar></app-search-bar>
-  </span>
-</mat-toolbar> -->
-
-<!-- <mat-toolbar *viewSize="'desktop'" color="primary">
-  <div>I am visible only on desktop</div>
-  <mat-icon>search</mat-icon>
-</mat-toolbar> -->
+</nav> -->
+  </nav>
+</header>
