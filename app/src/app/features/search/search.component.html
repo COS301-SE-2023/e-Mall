@@ -166,7 +166,7 @@
                       <mat-card-actions>
                         <button
                           mat-icon-button
-                          color="warm"
+                          color="warn"
                           aria-label="Example icon button with a heart icon">
                           <mat-icon>favorite</mat-icon>
                         </button>
@@ -193,8 +193,8 @@
               <div
                 class="search-results-container"
                 *ngIf="(searchResults$ | async)?.length === 0">
-                <div class="product-card">
-                  <img src="path/to/placeholder-image" alt="No Product Found" />
+                <div class="product-card-no">
+                  <!-- <img src="path/to/placeholder-image" alt="No Product Found" /> -->
                   <h3>No Products Found</h3>
                   <p>
                     The product you have searched for was not found. Please try
