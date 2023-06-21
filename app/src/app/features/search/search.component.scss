@@ -98,30 +98,9 @@ margin-top: 1rem;
 margin-left: 0.5rem;
 }
 
-.filter {
-  margin-top: 2rem;
-  text-align: left;
-}
-
-
-.filter-options {
-  display: flex;
-  flex-direction: column;
-}
-
-.filter-option {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  flex-direction: column;
-}
-
-.filter-option input {
-  margin-right: 5px;
-}
-
-.filter-options label {
-  display: inline-block;
+.filter-menu{
+  float: left;
+  width: 300px;
 }
 
 .footer {
@@ -180,5 +159,6 @@ margin-left: 0.5rem;
 }
 
 .mat-paginator {
+  margin-left: 12rem;
   display: flex;
   justify-content: center;}
