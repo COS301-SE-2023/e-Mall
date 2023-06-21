@@ -31,6 +31,21 @@ export class SearchComponent implements OnInit {
   categoryToysAndGames!: boolean;
   categoryBooks!: boolean;
   categoryFoodAndBeverages!: boolean;
+  filteredProducts: IProduct[] = [];
+  priceRange: number[] = [0, 100]; // Initial price range
+  minPrice!: number; // Minimum price value
+  maxPrice!: number; // Maximum price value
+  products: IProduct[] = []; // Assuming you have an array of products
+
+  filterProducts():void{
+    this.filteredProducts = this.products.filter((product) => {
+      const price = product.min_price;
+      return (
+        (this.minPrice === undefined || price >= this.minPrice) &&
+        (this.maxPrice === undefined || price <= this.maxPrice)
+      );
+    });
+  }
 
   constructor(
     private route: ActivatedRoute,
@@ -77,6 +92,8 @@ export class SearchComponent implements OnInit {
       console.log('getProductList');
       console.log(res);
     });
+    //price filter function
+    
     
 
   }

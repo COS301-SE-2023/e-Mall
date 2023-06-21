@@ -88,10 +88,10 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <!-- Content for Price panel -->
-          <mat-slider class="slider" showTickMarks>
-            <input matSliderStartThumb>
-            <input matSliderEndThumb>
-          </mat-slider>
+          <input type="number" [(ngModel)]="minPrice" placeholder="Minimum Price" (input)="filterProducts()">
+          <p></p>
+          <input type="number" [(ngModel)]="maxPrice" placeholder="Maximum Price" (input)="filterProducts()">
+
           <!-- ... -->
         </mat-expansion-panel>
       
