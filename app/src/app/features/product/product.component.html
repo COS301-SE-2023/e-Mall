@@ -17,80 +17,8 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark upperNav">
-      <a class="navbar-brand" routerLink="/">
-        <img
-          class="navbar-logo"
-          src="assets/images/logo.png"
-          alt="e-Mall logo"
-          width="70"
-          height="60" />
-      </a>
+    <app-navbar></app-navbar>
 
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              routerLink="/construction"
-              id="navbarDropdownMenuLink"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false">
-              All Categories
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/construction">Expert Reviews</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/construction">Sale</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/construction">Guides</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/construction">How to use</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/construction">About Us</a>
-          </li>
-        </ul>
-      </div>
-
-      <form class="form-inline flex-grow-1">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">
-              <i class="fa-sharp fa-solid fa-magnifying-glass search-icon"></i>
-            </span>
-          </div>
-          <input
-            class="form-control search-input"
-            type="search"
-            placeholder="Search Products"
-            aria-label="Search" />
-        </div>
-      </form>
-
-      <button
-        class="btn btn-outline-dark my-2 my-sm-0 ms-auto"
-        type="submit"
-        routerLink="/sign-in">
-        Sign in
-      </button>
-    </nav>
 
     
 
@@ -126,7 +54,7 @@
               </div>
             </div>-->
 
-            <mat-card class="product-card">
+            <!--<mat-card class="product-card">
               <img
                 mat-card-image
                 [src]="getOneImg((product$ | async)?.min_price_img_array)"
@@ -138,7 +66,23 @@
                   <mat-icon>favorite</mat-icon>
                 </button>
               </mat-card-actions>
-            </mat-card>
+            </mat-card>-->
+
+            <mat-card class="product-card">
+                      <img
+                        mat-card-image
+                        [src]="getOneImg((product$ | async)?.min_price_img_array)"
+                        alt="Product Image"
+                        class="product-image" />
+                      <mat-card-actions>
+                        <button
+                          mat-icon-button
+                          color="warm"
+                          aria-label="Example icon button with a heart icon">
+                          <mat-icon>favorite</mat-icon>
+                        </button>
+                      </mat-card-actions>
+                    </mat-card>
           </div>
 
           <div class="col-sm-4 col-md-4 col-lg-4 upper-product-info-container">
@@ -415,114 +359,94 @@
 
           <div class="row review-row">
             <div class="col-sm-3 col-md-3 col-lg-3 reviews-cols">
-              <div class="review">
-                <div class="row">
-                  <div class="col-sm-2 col-md-2 col-lg-2 reviews-cols">
-                    <div class="S-initial">
-                      <span><b>S</b></span>
+                <div class="card review-card" style="width: 18rem;">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-2 col-md-2 col-lg-2">
+                        <div class="S-div">
+                          <span class="initial">S</span>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-md-6 col-lg-6">
+                        <div class="reviewer-name">
+                          <h6 class="card-title">Samukelo</h6>
+                          <p>2 months ago</p>
+                        </div>
+                      </div>
+                      <div class="col-sm-4 col-md-4 col-lg-4 ">
+                        <div class="reviewer-star-container">
+                          <span><i class="fa-solid fa-star reviewer-star"></i></span
+                          ><b>3</b>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-sm-6 col-md-6 col-lg-6 reviews-cols">
-                    <div class="reviewer-name">
-                      <h6>Samu</h6>
-                      <p>2 months ago</p>
-                    </div>
-                  </div>
-                  <div class="col-sm-4 col-md-4 col-lg-4 reviews-cols">
-                    <div class="reviewer-star-container">
-                      <span><i class="fa-solid fa-star reviewer-star"></i></span
-                      ><b>3</b>
-                    </div>
+                    <p class="card-text">
+                      I'm really impressed with this product. It exceeded my
+                      expectations and works flawlessly!
+                    </p>
                   </div>
                 </div>
-                <p class="review-words">
-                  I'm really impressed with this product. It exceeded my
-                  expectations and works flawlessly!
-                </p>
-              </div>
             </div>
 
             <div class="col-sm-3 col-md-3 col-lg-3 reviews-cols">
-              <div class="review">
-                <div class="row">
-                  <div class="col-sm-2 col-md-2 col-lg-2 reviews-cols">
-                    <div class="J-initial">
-                      <span><b>J</b></span>
+                <div class="card review-card" style="width: 18rem;">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-2 col-md-2 col-lg-2">
+                        <div class="J-div">
+                          <span class="initial">J</span>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-md-6 col-lg-6">
+                        <div class="reviewer-name">
+                          <h6 class="card-title">Jane</h6>
+                          <p>1 month ago</p>
+                        </div>
+                      </div>
+                      <div class="col-sm-4 col-md-4 col-lg-4 ">
+                        <div class="reviewer-star-container">
+                          <span><i class="fa-solid fa-star reviewer-star"></i></span
+                          ><b>5</b>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-sm-6 col-md-6 col-lg-6 reviews-cols">
-                    <div class="reviewer-name">
-                      <h6>Jane</h6>
-                      <p>1 month ago</p>
-                    </div>
-                  </div>
-                  <div class="col-sm-4 col-md-4 col-lg-4 reviews-cols">
-                    <div class="reviewer-star-container">
-                      <span><i class="fa-solid fa-star reviewer-star"></i></span
-                      ><b>5</b>
-                    </div>
+                    <p class="card-text">
+                      I've been using this product for a while now, and I can't
+                      imagine my life without it. Highly recommended!
+                    </p>
                   </div>
                 </div>
-                <p class="review-words">
-                  I've been using this product for a while now, and I can't
-                  imagine my life without it. Highly recommended!
-                </p>
-              </div>
             </div>
+
             <div class="col-sm-3 col-md-3 col-lg-3 reviews-cols">
-              <div class="review">
-                <div class="row">
-                  <div class="col-sm-2 col-md-2 col-lg-2 reviews-cols">
-                    <div class="SD-initial">
-                      <span><b>SD</b></span>
+                <div class="card review-card" style="width: 18rem;">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-2 col-md-2 col-lg-2">
+                        <div class="SD-div">
+                          <span class="initial">SD</span>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-md-6 col-lg-6">
+                        <div class="reviewer-name">
+                          <h6 class="card-title">Sam Day</h6>
+                          <p>4 months ago</p>
+                        </div>
+                      </div>
+                      <div class="col-sm-4 col-md-4 col-lg-4 ">
+                        <div class="reviewer-star-container">
+                          <span><i class="fa-solid fa-star reviewer-star"></i></span
+                          ><b>4</b>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-sm-6 col-md-6 col-lg-6 reviews-cols">
-                    <div class="reviewer-name">
-                      <h6>Sam Day</h6>
-                      <p>4 months ago</p>
-                    </div>
-                  </div>
-                  <div class="col-sm-4 col-md-4 col-lg-4 reviews-cols">
-                    <div class="reviewer-star-container">
-                      <span><i class="fa-solid fa-star reviewer-star"></i></span
-                      ><b>4</b>
-                    </div>
+                    <p class="card-text">
+                      I've tried several similar products, but this one stands out
+                      from the rest. It's reliable, easy to use, and delivers
+                      consistent results.
+                    </p>
                   </div>
                 </div>
-                <p class="review-words">
-                  I've tried several similar products, but this one stands out
-                  from the rest. It's reliable, easy to use, and delivers
-                  consistent results.
-                </p>
-              </div>
-            </div>
-            <div class="col-sm-3 col-md-3 col-lg-3 reviews-cols">
-              <div class="review">
-                <div class="row">
-                  <div class="col-sm-2 col-md-2 col-lg-2 reviews-cols">
-                    <div class="TT-initial">
-                      <span><b>TK</b></span>
-                    </div>
-                  </div>
-                  <div class="col-sm-6 col-md-6 col-lg-6 reviews-cols">
-                    <div class="reviewer-name">
-                      <h6>Thabiso Thaka</h6>
-                      <p>2 months ago</p>
-                    </div>
-                  </div>
-                  <div class="col-sm-4 col-md-4 col-lg-4 reviews-cols">
-                    <div class="reviewer-star-container">
-                      <span><i class="fa-solid fa-star reviewer-star"></i></span
-                      ><b>5</b>
-                    </div>
-                  </div>
-                </div>
-                <p class="review-words">
-                  This product has made my life so much easier. It simplifies
-                  tasks and saves me valuable time. Highly satisfied!
-                </p>
-              </div>
             </div>
           </div>
 
