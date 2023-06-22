@@ -34,7 +34,7 @@ export class ProductService {
     // filterOptions = { };
     if (filterOptions) {
       for (const [key, value] of Object.entries(filterOptions)) {
-        url += `&${key}=${value}`;
+        url += '&' + value;
       }
     }
 

@@ -45,9 +45,9 @@ class ProductBackendAPIView(APIView):
         filter_seller = request.GET.get("filter_seller")
 
         # Pagination
-        page = int(request.GET.get("page")) if request.GET.get("page") else 1
+        page = int(request.GET.get("page")) if request.GET.get("page") else 0
         per_page = (
-            int(request.GET.get("per_page")) if request.GET.get("per_page") else 5
+            int(request.GET.get("per_page")) if request.GET.get("per_page") else 10
         )
 
         # Default

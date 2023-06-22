@@ -55,36 +55,56 @@
           </mat-expansion-panel>
 
           <!-- ... -->
-        </mat-expansion-panel>
-      
-        <!-- Price -->
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Price
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <!-- Content for Price panel -->
-          <input type="number" [(ngModel)]="minPrice" placeholder="Minimum Price" (input)="filterProducts()">
-          <p></p>
-          <input type="number" [(ngModel)]="maxPrice" placeholder="Maximum Price" (input)="filterProducts()">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Category </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content for Category panel -->
+            <mat-checkbox
+              *ngFor="let category of categoryOptions"
+              [checked]="selectedCategories.includes(category)"
+              [value]="category"
+              >{{ category }}</mat-checkbox
+            >
+          </mat-expansion-panel>
 
           <!-- ... -->
-        </mat-expansion-panel>
-      
-        <!-- Inventory -->
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Inventory
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <!-- Content for Inventory panel -->
-          <mat-slide-toggle [aria-label]="min_price_in_stock? 'Disable in-stock filter' : 'Enable in-stock filter'">
-            Show only in stock
-          </mat-slide-toggle>          
-          <!-- ... -->
-        </mat-expansion-panel>
+
+          <!-- Price -->
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Price </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content for Price panel -->
+            <input
+              type="number"
+              [(ngModel)]="minPrice"
+              placeholder="Minimum Price" />
+            <p></p>
+            <input
+              type="number"
+              [(ngModel)]="maxPrice"
+              placeholder="Maximum Price" />
+
+            <!-- ... -->
+          </mat-expansion-panel>
+
+          <!-- Inventory -->
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Inventory </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content for Inventory panel -->
+            <mat-slide-toggle
+              [aria-label]="
+                min_price_in_stock
+                  ? 'Disable in-stock filter'
+                  : 'Enable in-stock filter'
+              ">
+              Show only in stock
+            </mat-slide-toggle>
+            <!-- ... -->
+          </mat-expansion-panel>
 
           <!-- Seller -->
           <mat-expansion-panel>

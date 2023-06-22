@@ -23,24 +23,16 @@ export class SearchComponent implements OnInit {
   selectedBrands: string[] = []; // Stores the selected brand options
   sellerOptions: string[] = []; // Populate this array with the seller names based on your search results
   selectedSellers: string[] = []; // Stores the selected seller options
-  categoryElectronics!: boolean;
-  categoryClothing!: boolean;
-  categoryHomeAndKitchen!: boolean;
-  categoryHealthAndBeauty!: boolean;
-  categorySportsAndOutdoors!: boolean;
-  categoryToysAndGames!: boolean;
-  categoryBooks!: boolean;
-  categoryFoodAndBeverages!: boolean;
+  categoryOptions: string[] = []; // Populate this array with the category names based on your search results
+  selectedCategories: string[] = []; // Stores the selected category options
   priceRange: number[] = [0, 100]; // Initial price range
   minPrice!: number; // Minimum price value
   maxPrice!: number; // Maximum price value
-
 
   selectedSortOption!: string;
   currentPage$ = new BehaviorSubject<number>(0);
   itemsPerPage$ = new BehaviorSubject<number>(10);
   totalSearchCount$: Observable<number> | undefined;
-
 
   constructor(
     private route: ActivatedRoute,
@@ -74,6 +66,17 @@ export class SearchComponent implements OnInit {
                   brands.add(product.brand);
                 });
                 this.brandOptions = Array.from(brands);
+              })
+            )
+            .subscribe();
+          this.searchResults$
+            .pipe(
+              tap((products: IProduct[]) => {
+                const categories = new Set<string>();
+                products.forEach(product => {
+                  categories.add(product.category);
+                });
+                this.categoryOptions = Array.from(categories);
               })
             )
             .subscribe();
