@@ -23,6 +23,24 @@ export class ProductService {
     return this.http.get<IProductSeller[]>(url);
   }
 
+  public getPopProducts(): Observable<IProduct[]> {
+    //Algo needs to be implemented
+    //Mock data for demo
+    const url = `${this.apiUrl}products/backend?search=a`;
+    return this.http
+      .get(url)
+      .pipe(map((res: any) => res['data'] as IProduct[]));
+  }
+
+  public getForYouProducts(): Observable<IProduct[]> {
+    //Algo needs to be implemented
+    //Mock data for demo
+    const url = `${this.apiUrl}products/backend?search=f`;
+    return this.http
+      .get(url)
+      .pipe(map((res: any) => res['data'] as IProduct[]));
+  }
+
   searchProducts(
     query: string,
     filterOptions?: any,
