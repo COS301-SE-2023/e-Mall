@@ -5,9 +5,10 @@
   <title>Home</title>
   <meta charset="utf-8" />
 </head>
+
 <body>
   <app-navbar></app-navbar>
-  
+  <br>
   <div style="
         display: flex;
         flex-direction: column;
@@ -18,7 +19,7 @@
         align-items: center;
         align-content: center;
       ">
-    <div>
+    <div style="width: 100%;">
       <ngb-carousel *ngIf="images">
         <ng-template ngbSlide>
           <div class="picsum-img-wrapper">
@@ -52,20 +53,20 @@
       </ngb-carousel>
     </div>
 
-<br><br>
+    <br><br>
     <!--Product carousel-->
     <div style="align-items: center">
-      <h3 style="font-size: 60px">Products For You</h3>
+      <h3>Products For You</h3>
     </div>
-    <div>
-      <div *ngIf="(forYouProducts$ | async)===null">
+    <div style="width: 80%; ">
+      <div *ngIf="(forYouProducts$ | async)===null" >
         <!-- Show loading animation here -->
         <mat-spinner></mat-spinner>
       </div>
-      <ngb-carousel *ngIf="forYouProducts$ | async as products" [wrap]="true" >
+      <ngb-carousel *ngIf="forYouProducts$ | async as products" [wrap]="true">
         <ng-template ngbSlide>
           <div class="row">
-            <div class="col-md-4" *ngFor="let product of products.slice(0, 3); let i = index">
+            <div class="col-md-3" *ngFor="let product of products.slice(0, 4); let i = index">
               <mat-card class="product-card" (click)="goToProductPage(product.id)">
                 <img mat-card-image [src]="getOneImg(product?.min_price_img_array)" alt="Product Image"
                   class="product-image" />
@@ -85,10 +86,10 @@
         </ng-template>
         <ng-template ngbSlide>
           <div class="row">
-            <div class="col-md-4" *ngFor="let product of products.slice(3, 6); let i = index">
+            <div class="col-md-3" *ngFor="let product of products.slice(4, 8); let i = index">
               <mat-card class="product-card" (click)="goToProductPage(product.id)">
                 <img mat-card-image [src]="getOneImg(product?.min_price_img_array)" alt="Product Image"
-                  class="product-image"/>
+                  class="product-image" />
                 <mat-card-content>
                   <mat-card-title>{{ product.name }}</mat-card-title>
                   <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
@@ -105,7 +106,7 @@
         </ng-template>
         <ng-template ngbSlide>
           <div class="row">
-            <div class="col-md-4" *ngFor="let product of products.slice(6, 9); let i = index">
+            <div class="col-md-3" *ngFor="let product of products.slice(8, 12); let i = index">
               <mat-card class="product-card" (click)="goToProductPage(product.id)">
                 <img mat-card-image [src]="getOneImg(product?.min_price_img_array)" alt="Product Image"
                   class="product-image" />
@@ -126,20 +127,20 @@
       </ngb-carousel>
     </div>
 
-<br><br>
-   <!--Product carousel-->
+    <br><br>
+    <!--Product carousel-->
     <div style="align-items: center">
-      <h3 style="font-size: 60px">Popular products</h3>
+      <h3>Popular products</h3>
     </div>
-    <div>
+    <div style="width: 80%;">
       <div *ngIf="(popProducts$ | async)===null">
         <!-- Show loading animation here -->
         <mat-spinner></mat-spinner>
       </div>
-      <ngb-carousel *ngIf="popProducts$ | async as products" [wrap]="true" >
+      <ngb-carousel *ngIf="popProducts$ | async as products" [wrap]="true">
         <ng-template ngbSlide>
           <div class="row">
-            <div class="col-md-4" *ngFor="let product of products.slice(0, 3); let i = index">
+            <div class="col-md-3" *ngFor="let product of products.slice(0, 4); let i = index">
               <mat-card class="product-card" (click)="goToProductPage(product.id)">
                 <img mat-card-image [src]="getOneImg(product?.min_price_img_array)" alt="Product Image"
                   class="product-image" />
@@ -159,10 +160,10 @@
         </ng-template>
         <ng-template ngbSlide>
           <div class="row">
-            <div class="col-md-4" *ngFor="let product of products.slice(3, 6); let i = index">
+            <div class="col-md-3" *ngFor="let product of products.slice(4, 8); let i = index">
               <mat-card class="product-card" (click)="goToProductPage(product.id)">
                 <img mat-card-image [src]="getOneImg(product?.min_price_img_array)" alt="Product Image"
-                  class="product-image"/>
+                  class="product-image" />
                 <mat-card-content>
                   <mat-card-title>{{ product.name }}</mat-card-title>
                   <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
@@ -179,7 +180,7 @@
         </ng-template>
         <ng-template ngbSlide>
           <div class="row">
-            <div class="col-md-4" *ngFor="let product of products.slice(6, 9); let i = index">
+            <div class="col-md-3" *ngFor="let product of products.slice(8, 12); let i = index">
               <mat-card class="product-card" (click)="goToProductPage(product.id)">
                 <img mat-card-image [src]="getOneImg(product?.min_price_img_array)" alt="Product Image"
                   class="product-image" />
@@ -204,8 +205,9 @@
 
 
 
-<br><br>
+  <br><br>
   <app-footer></app-footer>
 
 </body>
+
 </html>
