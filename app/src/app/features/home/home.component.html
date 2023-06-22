@@ -7,6 +7,7 @@
 </head>
 <body>
   <app-navbar></app-navbar>
+  <br><br>
   <div style="
         display: flex;
         flex-direction: column;
@@ -54,10 +55,80 @@
 <br><br>
     <!--Product carousel-->
     <div style="align-items: center">
+      <h3 style="font-size: 60px">Products For You</h3>
+    </div>
+    <div>
+      <ngb-carousel *ngIf="forYouProducts$ | async as products" [wrap]="true" >
+        <ng-template ngbSlide>
+          <div class="row">
+            <div class="col-md-4" *ngFor="let product of products.slice(0, 3); let i = index">
+              <mat-card class="product-card" (click)="goToProductPage(product.id)">
+                <img mat-card-image [src]="getOneImg(product?.min_price_img_array)" alt="Product Image"
+                  class="product-image" />
+                <mat-card-content>
+                  <mat-card-title>{{ product.name }}</mat-card-title>
+                  <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
+                  <mat-card-title>R {{ product.min_price }}</mat-card-title>
+                </mat-card-content>
+                <mat-card-actions>
+                  <mat-icon mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
+                    <mat-icon>favorite</mat-icon>
+                  </mat-icon>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template ngbSlide>
+          <div class="row">
+            <div class="col-md-4" *ngFor="let product of products.slice(3, 6); let i = index">
+              <mat-card class="product-card" (click)="goToProductPage(product.id)">
+                <img mat-card-image [src]="getOneImg(product?.min_price_img_array)" alt="Product Image"
+                  class="product-image"/>
+                <mat-card-content>
+                  <mat-card-title>{{ product.name }}</mat-card-title>
+                  <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
+                  <mat-card-title>R {{ product.min_price }}</mat-card-title>
+                </mat-card-content>
+                <mat-card-actions>
+                  <mat-icon mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
+                    <mat-icon>favorite</mat-icon>
+                  </mat-icon>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template ngbSlide>
+          <div class="row">
+            <div class="col-md-4" *ngFor="let product of products.slice(6, 9); let i = index">
+              <mat-card class="product-card" (click)="goToProductPage(product.id)">
+                <img mat-card-image [src]="getOneImg(product?.min_price_img_array)" alt="Product Image"
+                  class="product-image" />
+                <mat-card-content>
+                  <mat-card-title>{{ product.name }}</mat-card-title>
+                  <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
+                  <mat-card-title>R {{ product.min_price }}</mat-card-title>
+                </mat-card-content>
+                <mat-card-actions>
+                  <mat-icon mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
+                    <mat-icon>favorite</mat-icon>
+                  </mat-icon>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-carousel>
+    </div>
+
+
+   <!--Product carousel-->
+    <div style="align-items: center">
       <h3 style="font-size: 60px">Popular products</h3>
     </div>
     <div>
-      <ngb-carousel *ngIf="products$ | async as products" [wrap]="true" >
+      <ngb-carousel *ngIf="popProducts$ | async as products" [wrap]="true" >
         <ng-template ngbSlide>
           <div class="row">
             <div class="col-md-4" *ngFor="let product of products.slice(0, 3); let i = index">

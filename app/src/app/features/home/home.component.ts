@@ -11,7 +11,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  products$: Observable<IProduct[]> | undefined;
+  popProducts$: Observable<IProduct[]> | undefined;
+  forYouProducts$: Observable<IProduct[]> | undefined;
   isAuthenticated = false;
   images = [944, 1011, 984].map(n => `https://picsum.photos/id/${n}/900/500`);
   // isAuthenticated$;
@@ -28,12 +29,25 @@ export class HomeComponent {
   }
 
   ngOnInit(): void {
-    this.fetchProducts();
+    this.fetchPopProducts();
+    this.fetchforYouProducts();
   }
 
-  fetchProducts() {
-    this.products$ = this.productService.getPopProducts();
-    this.products$?.subscribe((res: IProduct[]) => {
+  fetchPopProducts() {
+    //Need to implement AI algo
+    //Mock data below
+    this.popProducts$ = this.productService.getPopProducts();
+    this.popProducts$?.subscribe((res: IProduct[]) => {
+      console.log('getProductList');
+      console.log(res);
+    });
+  }
+
+  fetchforYouProducts() {
+    //Need to implement AI algo 
+    //Mock data below 
+    this.forYouProducts$ = this.productService.getForYouProducts();
+    this.forYouProducts$?.subscribe((res: IProduct[]) => {
       console.log('getProductList');
       console.log(res);
     });
