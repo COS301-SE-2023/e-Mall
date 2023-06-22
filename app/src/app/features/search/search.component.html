@@ -46,10 +46,9 @@
             <!-- Content for Brand panel -->
             <mat-checkbox
               *ngFor="let brand of brandOptions"
-              [checked]="selectedBrands.includes(brand)"
               [value]="brand"
-              >{{ brand }}</mat-checkbox
-            >
+              (change)="onFilterOptionChange('filter_brand',brand,$event.checked)">{{ brand }}
+            </mat-checkbox>
 
             <!-- ... -->
           </mat-expansion-panel>
@@ -64,8 +63,8 @@
               *ngFor="let category of categoryOptions"
               [checked]="selectedCategories.includes(category)"
               [value]="category"
-              >{{ category }}</mat-checkbox
-            >
+              (change)="onFilterOptionChange('filter_category',category,$event.checked)">{{ category }}
+            </mat-checkbox>
           </mat-expansion-panel>
 
           <!-- ... -->
@@ -117,7 +116,7 @@
               *ngFor="let seller of sellerOptions"
               [checked]="selectedSellers.includes(seller)"
               [value]="seller"
-              >{{ seller }}</mat-checkbox
+              (change)="onFilterOptionChange('filter_seller',seller,$event.checked)">{{ seller }}</mat-checkbox
             >
 
             <!-- ... -->

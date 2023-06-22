@@ -64,8 +64,21 @@ class ProductBackendAPIView(APIView):
 
         # Apply filters
         filters = Q()
+        # Filtering by brand
         if filter_brand:
-            filters &= Q(brand__icontains=filter_brand)
+            brand_values = filter_brand.split(
+                ","
+            )  # Split the filter_brand value by comma
+
+            brand_filters = Q()  # Create a separate Q object for brand filters
+
+            for brand_value in brand_values:
+                brand_filters |= Q(
+                    brand__icontains=brand_value.strip()
+                )  # Apply brand filter for each brand value
+
+            filters &= brand_filters
+
         if filter_price_min and filter_price_max:
             filters &= Q(
                 productseller__price__gte=filter_price_min,
@@ -76,7 +89,19 @@ class ProductBackendAPIView(APIView):
         elif filter_price_max:
             filters &= Q(productseller__price__lte=filter_price_max)
         if filter_category:
-            filters &= Q(category=filter_category)
+            categories_values = filter_category.split(
+                ","
+            )  # Split the filter_categories value by comma
+
+            category_filters = Q()  # Create a separate Q object for category filters
+
+            for category_value in categories_values:
+                category_filters |= Q(
+                    category__icontains=category_value.strip()
+                )  # Apply category filter for each category value
+
+            filters &= category_filters
+
         if filter_date_min and filter_date_max:
             date_min = parse_date(filter_date_min)
             date_max = parse_date(filter_date_max)
@@ -88,7 +113,18 @@ class ProductBackendAPIView(APIView):
             date_max = parse_date(filter_date_max)
             filters &= Q(created_at__lte=date_max)
         if filter_seller:
-            filters &= Q(seller=filter_seller)
+            seller_values = filter_seller.split(
+                ","
+            )  # Split the filter_sellers value by comma
+
+            seller_filters = Q()  # Create a separate Q object for seller filters
+
+            for seller_value in seller_values:
+                seller_filters |= Q(
+                    productseller__seller__icontains=seller_value.strip()
+                )  # Apply seller filter for each seller value
+
+            filters &= seller_filters
 
         products = products.filter(filters)
 

@@ -9,6 +9,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { BehaviorSubject } from 'rxjs';
 import { result } from 'cypress/types/lodash';
 import { ChangeDetectorRef } from '@angular/core';
+import { filter } from 'cypress/types/bluebird';
 
 @Component({
   templateUrl: './search.component.html',
@@ -20,7 +21,7 @@ export class SearchComponent implements OnInit {
   isAuthenticated!: boolean;
   min_price_in_stock!: number;
   brandOptions: string[] = []; // Populate this array with the brand names based on your search results
-  selectedBrands: string[] = []; // Stores the selected brand options
+  // selectedBrands: string =; // Stores the selected brand options
   sellerOptions: string[] = []; // Populate this array with the seller names based on your search results
   selectedSellers: string[] = []; // Stores the selected seller options
   categoryOptions: string[] = []; // Populate this array with the category names based on your search results
@@ -28,7 +29,7 @@ export class SearchComponent implements OnInit {
   priceRange: number[] = [0, 100]; // Initial price range
   minPrice!: number; // Minimum price value
   maxPrice!: number; // Maximum price value
-
+  filterOptions: string[] = []; // Stores the selected filter options
   selectedSortOption!: string;
   currentPage$ = new BehaviorSubject<number>(0);
   itemsPerPage$ = new BehaviorSubject<number>(10);
@@ -43,10 +44,11 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params['search'];
+      console.log('filter options' + this.filterOptions);
       this.productService
         .searchProducts(
           this.searchQuery,
-          null,
+          this.filterOptions,
           this.selectedSortOption,
           this.currentPage$.value,
           this.itemsPerPage$.value
@@ -172,5 +174,59 @@ export class SearchComponent implements OnInit {
       queryParamsHandling: 'merge',
       replaceUrl: true,
     });
+  }
+
+  onFilterOptionChange(filter_type: string, value: any, checked: boolean) {
+    if (checked) {
+      // Check if the filter option already exists in the array
+      const existingoptionindex = this.filterOptions.findIndex(option =>
+        option.startsWith(`${filter_type}=`)
+      );
+
+      if (existingoptionindex > -1) {
+        // If the filter option already exists, update it by appending the new value
+        const existingoption = this.filterOptions[existingoptionindex];
+        const existingvalues = existingoption.split('=')[1].split(',');
+        existingvalues.push(value);
+        this.filterOptions[
+          existingoptionindex
+        ] = `${filter_type}=${existingvalues.join(',')}`;
+      } else {
+        // If the filter option doesn't exist, add it as a new option
+        this.filterOptions.push(`${filter_type}=${value}`);
+      }
+    } else {
+      // Remove the value from the filter option when unchecked
+      const existingoptionindex = this.filterOptions.findIndex(option =>
+        option.startsWith(`${filter_type}=`)
+      );
+      if (existingoptionindex > -1) {
+        const existingoption = this.filterOptions[existingoptionindex];
+        const existingvalues = existingoption.split('=')[1].split(',');
+        const valueindex = existingvalues.indexOf(value);
+        if (valueindex > -1) {
+          existingvalues.splice(valueindex, 1);
+          if (existingvalues.length === 0) {
+            this.filterOptions.splice(existingoptionindex, 1);
+          } else {
+            this.filterOptions[
+              existingoptionindex
+            ] = `${filter_type}=${existingvalues.join(',')}`;
+          }
+        }
+      }
+    }
+
+    this.productService
+      .searchProducts(
+        this.searchQuery,
+        this.filterOptions,
+        this.selectedSortOption
+      )
+      .subscribe(result => {
+        this.searchResults$ = of(result.products);
+        this.totalSearchCount$ = of(result.totalCount);
+        console.log(this.searchResults$);
+      });
   }
 }
