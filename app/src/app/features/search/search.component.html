@@ -47,7 +47,10 @@
             <mat-checkbox
               *ngFor="let brand of brandOptions"
               [value]="brand"
-              (change)="onFilterOptionChange('filter_brand',brand,$event.checked)">{{ brand }}
+              (change)="
+                onFilterOptionChange('filter_brand', brand, $event.checked)
+              "
+              >{{ brand }}
             </mat-checkbox>
 
             <!-- ... -->
@@ -63,7 +66,14 @@
               *ngFor="let category of categoryOptions"
               [checked]="selectedCategories.includes(category)"
               [value]="category"
-              (change)="onFilterOptionChange('filter_category',category,$event.checked)">{{ category }}
+              (change)="
+                onFilterOptionChange(
+                  'filter_category',
+                  category,
+                  $event.checked
+                )
+              "
+              >{{ category }}
             </mat-checkbox>
           </mat-expansion-panel>
 
@@ -78,12 +88,19 @@
             <input
               type="number"
               [(ngModel)]="minPrice"
-              placeholder="Minimum Price" />
+              placeholder="Minimum Price"
+              (ngModelChange)="
+                onFilterOptionChange('filter_min_price', minPrice, true)
+              " />
+
             <p></p>
             <input
               type="number"
               [(ngModel)]="maxPrice"
-              placeholder="Maximum Price" />
+              placeholder="Maximum Price"
+              (ngModelChange)="
+                onFilterOptionChange('filter_max_price', maxPrice, true)
+              " />
 
             <!-- ... -->
           </mat-expansion-panel>
@@ -95,10 +112,18 @@
             </mat-expansion-panel-header>
             <!-- Content for Inventory panel -->
             <mat-slide-toggle
+              [(ngModel)]="isChecked"
               [aria-label]="
                 min_price_in_stock
                   ? 'Disable in-stock filter'
                   : 'Enable in-stock filter'
+              "
+              (change)="
+                onFilterOptionChange(
+                  'filter_in_stock',
+                  isChecked,
+                  $event.checked
+                )
               ">
               Show only in stock
             </mat-slide-toggle>
@@ -116,7 +141,10 @@
               *ngFor="let seller of sellerOptions"
               [checked]="selectedSellers.includes(seller)"
               [value]="seller"
-              (change)="onFilterOptionChange('filter_seller',seller,$event.checked)">{{ seller }}</mat-checkbox
+              (change)="
+                onFilterOptionChange('filter_seller', seller, $event.checked)
+              "
+              >{{ seller }}</mat-checkbox
             >
 
             <!-- ... -->

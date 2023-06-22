@@ -4,9 +4,8 @@ import { ProductService } from '@app/services/product/product.service';
 import { IProduct } from '@app/models/product/product.interface';
 import { Router, NavigationExtras } from '@angular/router';
 import { tap } from 'rxjs/operators';
-import { Observable, map, of } from 'rxjs';
+import { Observable, map, of, BehaviorSubject } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
-import { BehaviorSubject } from 'rxjs';
 import { result } from 'cypress/types/lodash';
 import { ChangeDetectorRef } from '@angular/core';
 import { filter } from 'cypress/types/bluebird';
@@ -31,9 +30,11 @@ export class SearchComponent implements OnInit {
   maxPrice!: number; // Maximum price value
   filterOptions: string[] = []; // Stores the selected filter options
   selectedSortOption!: string;
+  isChecked!: boolean;
   currentPage$ = new BehaviorSubject<number>(0);
   itemsPerPage$ = new BehaviorSubject<number>(10);
   totalSearchCount$: Observable<number> | undefined;
+  
 
   constructor(
     private route: ActivatedRoute,
@@ -177,46 +178,84 @@ export class SearchComponent implements OnInit {
   }
 
   onFilterOptionChange(filter_type: string, value: any, checked: boolean) {
-    if (checked) {
-      // Check if the filter option already exists in the array
-      const existingoptionindex = this.filterOptions.findIndex(option =>
-        option.startsWith(`${filter_type}=`)
-      );
+    if (
+      filter_type === 'filter_category' ||
+      filter_type === 'filter_brand' ||
+      filter_type === 'filter_seller'
+    ) {
+      if (checked) {
+        // Check if the filter option already exists in the array
+        const existingoptionindex = this.filterOptions.findIndex(option =>
+          option.startsWith(`${filter_type}=`)
+        );
 
-      if (existingoptionindex > -1) {
-        // If the filter option already exists, update it by appending the new value
-        const existingoption = this.filterOptions[existingoptionindex];
-        const existingvalues = existingoption.split('=')[1].split(',');
-        existingvalues.push(value);
-        this.filterOptions[
-          existingoptionindex
-        ] = `${filter_type}=${existingvalues.join(',')}`;
+        if (existingoptionindex > -1) {
+          // If the filter option already exists, update it by appending the new value
+          const existingoption = this.filterOptions[existingoptionindex];
+          const existingvalues = existingoption.split('=')[1].split(',');
+          existingvalues.push(value);
+          this.filterOptions[
+            existingoptionindex
+          ] = `${filter_type}=${existingvalues.join(',')}`;
+        } else {
+          // If the filter option doesn't exist, add it as a new option
+          this.filterOptions.push(`${filter_type}=${value}`);
+        }
       } else {
-        // If the filter option doesn't exist, add it as a new option
-        this.filterOptions.push(`${filter_type}=${value}`);
-      }
-    } else {
-      // Remove the value from the filter option when unchecked
-      const existingoptionindex = this.filterOptions.findIndex(option =>
-        option.startsWith(`${filter_type}=`)
-      );
-      if (existingoptionindex > -1) {
-        const existingoption = this.filterOptions[existingoptionindex];
-        const existingvalues = existingoption.split('=')[1].split(',');
-        const valueindex = existingvalues.indexOf(value);
-        if (valueindex > -1) {
-          existingvalues.splice(valueindex, 1);
-          if (existingvalues.length === 0) {
-            this.filterOptions.splice(existingoptionindex, 1);
-          } else {
-            this.filterOptions[
-              existingoptionindex
-            ] = `${filter_type}=${existingvalues.join(',')}`;
+        // Remove the value from the filter option when unchecked
+        const existingoptionindex = this.filterOptions.findIndex(option =>
+          option.startsWith(`${filter_type}=`)
+        );
+        if (existingoptionindex > -1) {
+          const existingoption = this.filterOptions[existingoptionindex];
+          const existingvalues = existingoption.split('=')[1].split(',');
+          const valueindex = existingvalues.indexOf(value);
+          if (valueindex > -1) {
+            existingvalues.splice(valueindex, 1);
+            if (existingvalues.length === 0) {
+              this.filterOptions.splice(existingoptionindex, 1);
+            } else {
+              this.filterOptions[
+                existingoptionindex
+              ] = `${filter_type}=${existingvalues.join(',')}`;
+            }
           }
         }
       }
-    }
+    } else if (filter_type === 'filter_in_stock') {
+      const filteroption = `${filter_type}=true`; // Set the filter option as "filter_in_stock=true"
 
+      if (checked) {
+        // Add the filter option if checked is true
+        this.filterOptions.push(filteroption);
+      } else {
+        // Remove the filter option if checked is false
+        const index = this.filterOptions.indexOf(filteroption);
+        if (index > -1) {
+          this.filterOptions.splice(index, 1);
+        }
+      }
+    } else if (
+      filter_type === 'filter_min_price' ||
+      filter_type === 'filter_max_price'
+    ) {
+      const filteroption = `${filter_type}=${value}`; // Set the filter option as "filter_in_stock=true"
+
+      if (value != null) {
+        // Remove any existing filter option with the same filter type
+        this.filterOptions = this.filterOptions.filter(
+          option => !option.startsWith(`${filter_type}=`)
+        );
+        // Add the new filter option
+        this.filterOptions.push(filteroption);
+      } else {
+        // Remove the filter option with the specified filter type and value
+        this.filterOptions = this.filterOptions.filter(
+          option => option !== filteroption
+        );
+      }
+    }
+    console.log('filter Options: ' + this.filterOptions);
     this.productService
       .searchProducts(
         this.searchQuery,

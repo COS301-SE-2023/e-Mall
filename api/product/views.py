@@ -43,6 +43,7 @@ class ProductBackendAPIView(APIView):
         filter_date_min = request.GET.get("filter_date_min")
         filter_date_max = request.GET.get("filter_date_max")
         filter_seller = request.GET.get("filter_seller")
+        filter_in_stock = request.GET.get("filter_in_stock")
 
         # Pagination
         page = int(request.GET.get("page")) if request.GET.get("page") else 0
@@ -125,6 +126,8 @@ class ProductBackendAPIView(APIView):
                 )  # Apply seller filter for each seller value
 
             filters &= seller_filters
+        if filter_in_stock:
+            filters &= Q(productseller__in_stock=True)
 
         products = products.filter(filters)
 
