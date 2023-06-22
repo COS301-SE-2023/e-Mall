@@ -24,6 +24,13 @@ export class ProductService {
     return this.http.get<IProductSeller[]>(url);
   }
 
+  public getPopProducts(): Observable<IProduct[]> {
+    const url = `${this.apiUrl}products/backend?search=a`;
+    return this.http
+      .get(url)
+      .pipe(map((res: any) => res['data'] as IProduct[]));
+  }
+
   searchProducts(
     query: string,
     filterOptions?: any,
