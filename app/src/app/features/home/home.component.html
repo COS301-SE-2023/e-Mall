@@ -7,7 +7,7 @@
 </head>
 <body>
   <app-navbar></app-navbar>
-  <br><br>
+  
   <div style="
         display: flex;
         flex-direction: column;
@@ -58,6 +58,10 @@
       <h3 style="font-size: 60px">Products For You</h3>
     </div>
     <div>
+      <div *ngIf="(forYouProducts$ | async)===null">
+        <!-- Show loading animation here -->
+        <mat-spinner></mat-spinner>
+      </div>
       <ngb-carousel *ngIf="forYouProducts$ | async as products" [wrap]="true" >
         <ng-template ngbSlide>
           <div class="row">
@@ -122,12 +126,16 @@
       </ngb-carousel>
     </div>
 
-
+<br><br>
    <!--Product carousel-->
     <div style="align-items: center">
       <h3 style="font-size: 60px">Popular products</h3>
     </div>
     <div>
+      <div *ngIf="(popProducts$ | async)===null">
+        <!-- Show loading animation here -->
+        <mat-spinner></mat-spinner>
+      </div>
       <ngb-carousel *ngIf="popProducts$ | async as products" [wrap]="true" >
         <ng-template ngbSlide>
           <div class="row">

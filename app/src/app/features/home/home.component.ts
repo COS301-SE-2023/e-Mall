@@ -29,8 +29,9 @@ export class HomeComponent {
   }
 
   ngOnInit(): void {
-    this.fetchPopProducts();
+    
     this.fetchforYouProducts();
+    this.fetchPopProducts();
   }
 
   fetchPopProducts() {
