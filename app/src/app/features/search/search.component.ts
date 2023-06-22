@@ -17,7 +17,20 @@ export class SearchComponent implements OnInit {
   searchQuery!: string;
   searchResults$: Observable<IProduct[]> | undefined;
   isAuthenticated!: boolean;
+  min_price_in_stock!: number;
   page!: number[];
+  brandOptions: string[] = []; // Populate this array with the brand names based on your search results
+  selectedBrands: string[] = []; // Stores the selected brand options
+  sellerOptions: string[] = []; // Populate this array with the seller names based on your search results
+  selectedSellers: string[] = []; // Stores the selected seller options
+  categoryElectronics!: boolean;
+  categoryClothing!: boolean;
+  categoryHomeAndKitchen!: boolean;
+  categoryHealthAndBeauty!: boolean;
+  categorySportsAndOutdoors!: boolean;
+  categoryToysAndGames!: boolean;
+  categoryBooks!: boolean;
+  categoryFoodAndBeverages!: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,6 +49,36 @@ export class SearchComponent implements OnInit {
         console.log(res);
       });
     });
+    // Fetch the brand names from the search results and populate the brandOptions array
+    this.searchResults$?.pipe(
+      tap((products: IProduct[]) => {
+        const brands = new Set<string>();
+        products.forEach((product) => {
+          brands.add(product.brand);
+        });
+        this.brandOptions = Array.from(brands);
+      })
+    ).subscribe((res: IProduct[]) => {
+      console.log('getProductList');
+      console.log(res);
+    });
+    // Fetch the seller names from the search results and populate the sellerOptions array
+    this.searchResults$?.pipe(
+      tap((products: IProduct[]) => {
+        const sellers = new Set<string>();
+        products.forEach((product) => {
+          if (product.min_price_seller_business_name !== undefined && product.min_price_seller_business_name !== '') {
+            sellers.add(product.min_price_seller_business_name);
+          }
+        });
+        this.sellerOptions = Array.from(sellers).filter(seller => seller); // Filter out empty or falsy values
+      })
+    ).subscribe((res: IProduct[]) => {
+      console.log('getProductList');
+      console.log(res);
+    });
+    
+
   }
 
   //

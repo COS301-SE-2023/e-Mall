@@ -21,55 +21,116 @@
           <mat-expansion-panel-header>
             <mat-panel-title> Sort by </mat-panel-title>
           </mat-expansion-panel-header>
-          <mat-form-field>
-            <mat-label>Sort Options</mat-label>
-            <mat-select>
-              <mat-option value="Lowest Price">Lowest price</mat-option>
-              <mat-option value="Highest Price">Highest price</mat-option>
-              <mat-option value="Name">Name</mat-option>
-              <mat-option value="Price drop">Price drop</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <mat-radio-group class>
+            <mat-radio-button value="Lowest Price">Lowest price</mat-radio-button>
+            <mat-radio-button value="Highest Price">Highest price</mat-radio-button>
+            <mat-radio-button value="Name">Name</mat-radio-button>
+            <mat-radio-button value="Price drop">Price drop</mat-radio-button>
+          </mat-radio-group>
         </mat-expansion-panel>
 
         <mat-divider></mat-divider>
-        <mat-sidenav-container>
-          <mat-sidenav>
-            <div class="filter">
-              <h2>Filter</h2>
-              <div class="filter-options">
-                <label>
-                  Brand
-                  <mat-checkbox name="brand" id="brand"></mat-checkbox>
-                </label>
-                <label>
-                  Price Min
-                  <mat-checkbox name="price_min" id="price_min"></mat-checkbox>
-                </label>
-                <label>
-                  Price Max
-                  <mat-checkbox name="price_max" id="price_max"></mat-checkbox>
-                </label>
-                <label>
-                  Category
-                  <mat-checkbox name="category" id="category"></mat-checkbox>
-                </label>
-                <label>
-                  Date Min
-                  <mat-checkbox name="date_min" id="date_min"></mat-checkbox>
-                </label>
-                <label>
-                  Date
-                  <mat-checkbox name="date" id="date"></mat-checkbox>
-                </label>
-                <label>
-                  Seller
-                  <mat-checkbox name="seller" id="seller"></mat-checkbox>
-                </label>
-              </div>
-            </div>
-          </mat-sidenav>
-          <mat-sidenav-content>
+       <!--filter-->
+       
+       <mat-accordion class="filter-menu" multi>
+        <h2 class="filter-title">Filter</h2>
+        <!-- Brand -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Brand
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <!-- Content for Brand panel -->
+          <mat-checkbox *ngFor="let brand of brandOptions" [checked]="selectedBrands.includes(brand)" [value]="brand">{{ brand }}</mat-checkbox>
+
+          <!-- ... -->
+        </mat-expansion-panel>
+      
+        <!-- Category -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Category
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <!-- Content for Category panel -->
+          <mat-checkbox [(ngModel)]="categoryElectronics">Electronics</mat-checkbox>
+          <mat-checkbox [(ngModel)]="categoryClothing">Clothing</mat-checkbox>
+          <mat-checkbox [(ngModel)]="categoryHomeAndKitchen">Home and Kitchen</mat-checkbox>
+          <mat-checkbox [(ngModel)]="categoryHealthAndBeauty">Health and Beauty</mat-checkbox>
+          <mat-checkbox [(ngModel)]="categorySportsAndOutdoors">Sports and Outdoors</mat-checkbox>
+          <mat-checkbox [(ngModel)]="categoryToysAndGames">Toys and Games</mat-checkbox>
+          <mat-checkbox [(ngModel)]="categoryBooks">Books</mat-checkbox>
+          <mat-checkbox [(ngModel)]="categoryFoodAndBeverages">Food and Beverages</mat-checkbox>
+          <!-- ... -->
+        </mat-expansion-panel>
+      
+        <!-- Seller -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Seller
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <!-- Content for Seller panel -->
+
+          <mat-checkbox *ngFor="let seller of sellerOptions" [checked]="selectedSellers.includes(seller)" [value]="seller">{{ seller }}</mat-checkbox>
+
+          <!-- ... -->
+        </mat-expansion-panel>
+      
+        <!-- Price -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Price
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <!-- Content for Price panel -->
+          <mat-slider class="slider" showTickMarks>
+            <input matSliderStartThumb>
+            <input matSliderEndThumb>
+          </mat-slider>
+          <!-- ... -->
+        </mat-expansion-panel>
+      
+        <!-- Inventory -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Inventory
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <!-- Content for Inventory panel -->
+          <mat-slide-toggle [aria-label]="min_price_in_stock? 'Disable in-stock filter' : 'Enable in-stock filter'">
+            Show only in stock
+          </mat-slide-toggle>          
+          <!-- ... -->
+        </mat-expansion-panel>
+
+        <!--Sale-->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Sale
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <!-- Content for discount panel -->
+          <mat-radio-group>
+            <mat-radio-button value="50">50% or more</mat-radio-button>
+            <mat-radio-button value="25">25% or more</mat-radio-button>
+            <mat-radio-button value="10">10% or more</mat-radio-button>
+            <mat-radio-button value="5">5% or more</mat-radio-button>
+          </mat-radio-group>
+          <!-- ... -->
+        </mat-expansion-panel>
+      </mat-accordion>
+      
+      
+
+
+       <!--products-->
             <div class="product-card">
               <ng-container *ngIf="searchResults$ | async as products">
                 <div class="row">
@@ -94,12 +155,12 @@
                         >
                       </mat-card-content>
                       <mat-card-actions>
-                        <button
+                        <mat-icon
                           mat-icon-button
-                          color="warm"
+                          color="warn"
                           aria-label="Example icon button with a heart icon">
                           <mat-icon>favorite</mat-icon>
-                        </button>
+                        </mat-icon>
                       </mat-card-actions>
                     </mat-card>
                     <!-- </mat-sidenav-content> -->
@@ -112,12 +173,19 @@
                   </div>
                 </div>
               </ng-container>
+              <!--paginator-->
+              <div class="mat-paginator">
+                <mat-paginator></mat-paginator>
+              </div>
+              
+
+              <!--end of paginator-->
 
               <div
                 class="search-results-container"
                 *ngIf="(searchResults$ | async)?.length === 0">
-                <div class="product-card">
-                  <img src="path/to/placeholder-image" alt="No Product Found" />
+                <div class="product-card-no">
+                  <!-- <img src="path/to/placeholder-image" alt="No Product Found" /> -->
                   <h3>No Products Found</h3>
                   <p>
                     The product you have searched for was not found. Please try
@@ -191,8 +259,6 @@
             <!-- </main> -->
             <!-- </body> -->
             <!-- </html> -->
-          </mat-sidenav-content></mat-sidenav-container
-        >
       </div>
     </main>
     <app-footer></app-footer>
