@@ -20,11 +20,8 @@ export class SearchComponent implements OnInit {
   isAuthenticated!: boolean;
   min_price_in_stock!: number;
   brandOptions: string[] = []; // Populate this array with the brand names based on your search results
-  // selectedBrands: string =; // Stores the selected brand options
   sellerOptions: string[] = []; // Populate this array with the seller names based on your search results
-  selectedSellers: string[] = []; // Stores the selected seller options
   categoryOptions: string[] = []; // Populate this array with the category names based on your search results
-  selectedCategories: string[] = []; // Stores the selected category options
   priceRange: number[] = [0, 100]; // Initial price range
   minPrice!: number; // Minimum price value
   maxPrice!: number; // Maximum price value
@@ -32,9 +29,10 @@ export class SearchComponent implements OnInit {
   selectedSortOption!: string;
   isChecked!: boolean;
   currentPage$ = new BehaviorSubject<number>(0);
+  maxPrice$: Observable<number> | null = null;
+  minPrice$: Observable<number> | null = null;
   itemsPerPage$ = new BehaviorSubject<number>(10);
   totalSearchCount$: Observable<number> | undefined;
-  
 
   constructor(
     private route: ActivatedRoute,
@@ -154,7 +152,7 @@ export class SearchComponent implements OnInit {
     this.productService
       .searchProducts(
         this.searchQuery,
-        null,
+        this.filterOptions,
         this.selectedSortOption,
         this.currentPage$.value,
         this.itemsPerPage$.value
@@ -239,23 +237,30 @@ export class SearchComponent implements OnInit {
       filter_type === 'filter_min_price' ||
       filter_type === 'filter_max_price'
     ) {
-      const filteroption = `${filter_type}=${value}`; // Set the filter option as "filter_in_stock=true"
+      const filteroption = `${filter_type}=${value}`;
 
-      if (value != null) {
-        // Remove any existing filter option with the same filter type
+      if (value == null) {
+        console.log('if value is null: ' + this.filterOptions);
+        // Remove the filter option if checked is false
+        const index = this.filterOptions.indexOf(filteroption);
+        if (index > -1) {
+          this.filterOptions.splice(index, 1);
+        }
+      } else {
+        console.log('should be a min_price: ' + this.filterOptions);
+        // // Remove any existing filter option with the same filter type
         this.filterOptions = this.filterOptions.filter(
           option => !option.startsWith(`${filter_type}=`)
         );
+        console.log('should be empty: ' + this.filterOptions);
         // Add the new filter option
         this.filterOptions.push(filteroption);
-      } else {
-        // Remove the filter option with the specified filter type and value
-        this.filterOptions = this.filterOptions.filter(
-          option => option !== filteroption
-        );
+        console.log('should be min_price: ' + this.filterOptions);
       }
     }
-    console.log('filter Options: ' + this.filterOptions);
+    console.log(
+      'filter Options after all filters applied: ' + this.filterOptions
+    );
     this.productService
       .searchProducts(
         this.searchQuery,
@@ -265,7 +270,6 @@ export class SearchComponent implements OnInit {
       .subscribe(result => {
         this.searchResults$ = of(result.products);
         this.totalSearchCount$ = of(result.totalCount);
-        console.log(this.searchResults$);
       });
   }
 }

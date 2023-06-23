@@ -64,7 +64,6 @@
             <!-- Content for Category panel -->
             <mat-checkbox
               *ngFor="let category of categoryOptions"
-              [checked]="selectedCategories.includes(category)"
               [value]="category"
               (change)="
                 onFilterOptionChange(
@@ -87,19 +86,19 @@
             <!-- Content for Price panel -->
             <input
               type="number"
-              [(ngModel)]="minPrice"
+              [(ngModel)]="minPrice$"
               placeholder="Minimum Price"
               (ngModelChange)="
-                onFilterOptionChange('filter_min_price', minPrice, true)
+                onFilterOptionChange('filter_min_price', minPrice$, true)
               " />
 
             <p></p>
             <input
               type="number"
-              [(ngModel)]="maxPrice"
+              [(ngModel)]="maxPrice$"
               placeholder="Maximum Price"
               (ngModelChange)="
-                onFilterOptionChange('filter_max_price', maxPrice, true)
+                onFilterOptionChange('filter_max_price', $event, true)
               " />
 
             <!-- ... -->
@@ -139,7 +138,6 @@
 
             <mat-checkbox
               *ngFor="let seller of sellerOptions"
-              [checked]="selectedSellers.includes(seller)"
               [value]="seller"
               (change)="
                 onFilterOptionChange('filter_seller', seller, $event.checked)
@@ -147,21 +145,6 @@
               >{{ seller }}</mat-checkbox
             >
 
-            <!-- ... -->
-          </mat-expansion-panel>
-
-          <!--Sale-->
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title> Sale </mat-panel-title>
-            </mat-expansion-panel-header>
-            <!-- Content for discount panel -->
-            <mat-radio-group>
-              <mat-radio-button value="50">50% or more</mat-radio-button>
-              <mat-radio-button value="25">25% or more</mat-radio-button>
-              <mat-radio-button value="10">10% or more</mat-radio-button>
-              <mat-radio-button value="5">5% or more</mat-radio-button>
-            </mat-radio-group>
             <!-- ... -->
           </mat-expansion-panel>
         </mat-accordion>
