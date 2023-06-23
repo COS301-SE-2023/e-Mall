@@ -38,7 +38,6 @@ class ProductFrontendAPIView(APIView):
 
 class ProductBackendAPIView(APIView):
     def get(self, request):
-
         # Input for search
         search = request.GET.get("search")
 
@@ -175,16 +174,16 @@ class ProductTestAPIView(APIView):
     def get(self, request):
         # set sort fileds map
         sort_fields = {
-            'id': 'id',
-            '-id': '-id',
-            'name': 'name',
-            '-name': '-name',
-            'brand': 'brand',
-            '-brand': '-brand',
-            'price': 'min_price',
-            '-price': '-min_price',
-            'discount': 'min_discount_rate',
-            '-discount': '-min_discount_rate'
+            "id": "id",
+            "-id": "-id",
+            "name": "name",
+            "-name": "-name",
+            "brand": "brand",
+            "-brand": "-brand",
+            "price": "min_price",
+            "-price": "-min_price",
+            "discount": "min_discount_rate",
+            "-discount": "-min_discount_rate",
         }
 
         # Input for search
@@ -192,8 +191,8 @@ class ProductTestAPIView(APIView):
 
         # Input for sort[brand, price, name]
         sort = request.GET.get("sort")
-        if (sort is None):
-            sort = 'price'
+        if sort is None:
+            sort = "price"
         # Input for filter[brand, price range, category, date range, seller]
         filter_brand = request.GET.get("filter_brand")
         filter_price_min = request.GET.get("filter_price_min")
@@ -204,65 +203,61 @@ class ProductTestAPIView(APIView):
         products = {}
 
         min_price_seller = ProductSeller.objects.filter(
-            product=OuterRef('pk')
-        ).order_by('price')
+            product=OuterRef("pk")
+        ).order_by("price")
 
         products = Product.objects.annotate(
             min_price_original_price=(
-                min_price_seller.values('original_price')[:1]),
-            min_price_discount=(
-                min_price_seller.values('discount')[:1]),
+                min_price_seller.values("original_price")[:1]),
+            min_price_discount=(min_price_seller.values("discount")[:1]),
             min_price_discount_rate=(
-                min_price_seller.values('discount_rate')[:1]),
-            min_price=(min_price_seller.values('price')[:1]),
-            min_price_seller_id=(
-                min_price_seller.values('seller')[:1]),
+                min_price_seller.values("discount_rate")[:1]),
+            min_price=(min_price_seller.values("price")[:1]),
+            min_price_seller_id=(min_price_seller.values("seller")[:1]),
             min_price_seller_product_url=(
-                min_price_seller.values('product_url')[:1]),
+                min_price_seller.values("product_url")[:1]),
             min_price_seller_business_name=(
-                min_price_seller.values('seller__business_name')[:1]),
-            min_price_in_stock=(
-                min_price_seller.values('in_stock')[:1]),
-            min_price_img_array=(
-                min_price_seller.values('img_array')[:1]),
+                min_price_seller.values("seller__business_name")[:1]
+            ),
+            min_price_in_stock=(min_price_seller.values("in_stock")[:1]),
+            min_price_img_array=(min_price_seller.values("img_array")[:1]),
         )
 
         query = Q(name__icontains=search)
 
         if filter_brand:
-            query &= self.build_query_from_list(
-                filter_brand, 'brand')
+            query &= self.build_query_from_list(filter_brand, "brand")
         if filter_category:
-            query &= self.build_query_from_list(
-                filter_category, 'category')
+            query &= self.build_query_from_list(filter_category, "category")
 
         if filter_seller:
             query &= self.build_query_from_list(
-                filter_seller, 'min_price_seller_business_name')
+                filter_seller, "min_price_seller_business_name"
+            )
 
         if filter_price_min:
             print(Decimal(filter_price_min))
-            query &= Q(min_price__gte=Decimal(
-                filter_price_min))
+            query &= Q(min_price__gte=Decimal(filter_price_min))
 
         if filter_price_max:
-            query &= Q(min_price__lte=Decimal(
-                filter_price_max))
+            query &= Q(min_price__lte=Decimal(filter_price_max))
         products = products.filter(query).order_by(sort_fields[sort])
         data = []
         for product in products:
             product_data = model_to_dict(product)
-            product_data.update({
-                'min_price_original_price': product.min_price_original_price,
-                'min_price_discount': product.min_price_discount,
-                'min_price_discount_rate': product.min_price_discount_rate,
-                'min_price': product.min_price,
-                'min_price_seller_id': product.min_price_seller_id,
-                'min_price_seller_product_url': product.min_price_seller_product_url,
-                'min_price_seller_business_name': product.min_price_seller_business_name,
-                'min_price_in_stock': product.min_price_in_stock,
-                'min_price_img_array': product.min_price_img_array,
-            })
+            product_data.update(
+                {
+                    "min_price_original_price": product.min_price_original_price,
+                    "min_price_discount": product.min_price_discount,
+                    "min_price_discount_rate": product.min_price_discount_rate,
+                    "min_price": product.min_price,
+                    "min_price_seller_id": product.min_price_seller_id,
+                    "min_price_seller_product_url": product.min_price_seller_product_url,
+                    "min_price_seller_business_name": product.min_price_seller_business_name,
+                    "min_price_in_stock": product.min_price_in_stock,
+                    "min_price_img_array": product.min_price_img_array,
+                }
+            )
             data.append(product_data)
 
         # Pagination
@@ -274,7 +269,7 @@ class ProductTestAPIView(APIView):
         )
         start = (page - 1) * per_page
         end = start + per_page
-        total_count = ceil(len(data) / per_page)
+        total_count = len(data)
         paginated_data = data[start:end]
 
         return Response({"data": paginated_data, "total_count": total_count})
@@ -284,6 +279,5 @@ class ProductTestAPIView(APIView):
         _list = _param.split(',,,')
         for keyword in _list:
             keyword = keyword.strip()
-            _query |= Q(
-                **{f"{field}__icontains": keyword})
+            _query |= Q(**{f"{field}__icontains": keyword})
         return _query
