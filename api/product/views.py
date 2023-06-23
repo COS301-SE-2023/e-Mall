@@ -57,8 +57,7 @@ class ProductBackendAPIView(APIView):
         # Pagination
         page = int(request.GET.get("page")) if request.GET.get("page") else 0
         per_page = (
-            int(request.GET.get("per_page")) if request.GET.get(
-                "per_page") else 10
+            int(request.GET.get("per_page")) if request.GET.get("per_page") else 10
         )
 
         # Default
@@ -199,6 +198,7 @@ class ProductTestAPIView(APIView):
         filter_price_max = request.GET.get("filter_price_max")
         filter_category = request.GET.get("filter_category")
         filter_seller = request.GET.get("filter_seller")
+        filter_in_stock = request.GET.get("filter_in_stock")
 
         products = {}
 
@@ -207,15 +207,12 @@ class ProductTestAPIView(APIView):
         ).order_by("price")
 
         products = Product.objects.annotate(
-            min_price_original_price=(
-                min_price_seller.values("original_price")[:1]),
+            min_price_original_price=(min_price_seller.values("original_price")[:1]),
             min_price_discount=(min_price_seller.values("discount")[:1]),
-            min_price_discount_rate=(
-                min_price_seller.values("discount_rate")[:1]),
+            min_price_discount_rate=(min_price_seller.values("discount_rate")[:1]),
             min_price=(min_price_seller.values("price")[:1]),
             min_price_seller_id=(min_price_seller.values("seller")[:1]),
-            min_price_seller_product_url=(
-                min_price_seller.values("product_url")[:1]),
+            min_price_seller_product_url=(min_price_seller.values("product_url")[:1]),
             min_price_seller_business_name=(
                 min_price_seller.values("seller__business_name")[:1]
             ),
@@ -241,6 +238,10 @@ class ProductTestAPIView(APIView):
 
         if filter_price_max:
             query &= Q(min_price__lte=Decimal(filter_price_max))
+
+        if filter_in_stock:
+            query &= Q(min_price_in_stock=True)
+
         products = products.filter(query).order_by(sort_fields[sort])
         data = []
         for product in products:
@@ -264,8 +265,7 @@ class ProductTestAPIView(APIView):
 
         page = int(request.GET.get("page")) if request.GET.get("page") else 1
         per_page = (
-            int(request.GET.get("per_page")) if request.GET.get(
-                "per_page") else 10
+            int(request.GET.get("per_page")) if request.GET.get("per_page") else 10
         )
         start = (page - 1) * per_page
         end = start + per_page
@@ -276,7 +276,7 @@ class ProductTestAPIView(APIView):
 
     def build_query_from_list(self, _param, field):
         _query = Q()
-        _list = _param.split(',,,')
+        _list = _param.split(",,,")
         for keyword in _list:
             keyword = keyword.strip()
             _query |= Q(**{f"{field}__icontains": keyword})

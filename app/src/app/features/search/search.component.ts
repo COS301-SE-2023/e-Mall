@@ -148,7 +148,7 @@ export class SearchComponent implements OnInit {
     this.itemsPerPage$.next(event.pageSize);
     console.log('Page size: ' + event.pageSize);
     console.log('Page index: ' + event.pageIndex);
-    this.updateQueryParams();
+    // this.updateQueryParams();
     this.productService
       .searchProducts(
         this.searchQuery,
@@ -164,16 +164,16 @@ export class SearchComponent implements OnInit {
         console.log(result.totalCount);
       });
   }
-  updateQueryParams() {
-    this.router.navigate([], {
-      queryParams: {
-        page: this.currentPage$.value,
-        per_page: this.itemsPerPage$.value,
-      },
-      queryParamsHandling: 'merge',
-      replaceUrl: true,
-    });
-  }
+  // updateQueryParams() {
+  //   this.router.navigate([], {
+  //     queryParams: {
+  //       page: this.currentPage$.value,
+  //       per_page: this.itemsPerPage$.value,
+  //     },
+  //     queryParamsHandling: 'merge',
+  //     replaceUrl: true,
+  //   });
+  // }
 
   onFilterOptionChange(filter_type: string, value: any, checked: boolean) {
     if (
@@ -234,8 +234,8 @@ export class SearchComponent implements OnInit {
         }
       }
     } else if (
-      filter_type === 'filter_min_price' ||
-      filter_type === 'filter_max_price'
+      filter_type === 'filter_price_min' ||
+      filter_type === 'filter_price_max'
     ) {
       const filteroption = `${filter_type}=${value}`;
 

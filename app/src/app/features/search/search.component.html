@@ -16,7 +16,9 @@
     <main class="landing main">
       <div class="search-results">
         <h1>Search Results</h1>
-        <p>You searched for: <strong>{{searchQuery}}</strong></p>
+        <p>
+          You searched for: <strong>{{ searchQuery }}</strong>
+        </p>
         <!-- <div class="sort-panel"> -->
         <mat-form-field class="sort-panel">
           <mat-label>Sort Options</mat-label>
@@ -88,8 +90,8 @@
               type="number"
               [(ngModel)]="minPrice$"
               placeholder="Minimum Price"
-              (ngModelChange)="
-                onFilterOptionChange('filter_min_price', minPrice$, true)
+              (onSubmit)="
+                onFilterOptionChange('filter_price_min', minPrice$, true)
               " />
 
             <p></p>
@@ -98,7 +100,7 @@
               [(ngModel)]="maxPrice$"
               placeholder="Maximum Price"
               (ngModelChange)="
-                onFilterOptionChange('filter_max_price', $event, true)
+                onFilterOptionChange('filter_price_max', $event, true)
               " />
 
             <!-- ... -->
