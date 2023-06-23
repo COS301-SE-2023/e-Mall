@@ -26,7 +26,7 @@ export class ProductComponent implements OnInit {
   selected: FormControl;
 
   constructor(private productService: ProductService) {
-    this.selected = new FormControl('filterIcon');
+    this.selected = new FormControl('default');
   }
 
   /*
