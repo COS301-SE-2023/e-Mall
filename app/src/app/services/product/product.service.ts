@@ -59,9 +59,10 @@ export class ProductService {
     if (sortOption) {
       url += '&sort=' + sortOption;
     }
-
     if (page) {
       url += '&page=' + page;
+    }
+    if (per_page) {
       url += '&per_page=' + per_page;
     }
     return this.http.get(url).pipe(

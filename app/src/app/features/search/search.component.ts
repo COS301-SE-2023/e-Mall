@@ -1,20 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '@app/services/product/product.service';
 import { IProduct } from '@app/models/product/product.interface';
 import { Router, NavigationExtras } from '@angular/router';
 import { tap } from 'rxjs/operators';
-import { Observable, map, of, BehaviorSubject } from 'rxjs';
+import {
+  Observable,
+  map,
+  of,
+  BehaviorSubject,
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+  pipe,
+  filter,
+} from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { result } from 'cypress/types/lodash';
 import { ChangeDetectorRef } from '@angular/core';
-import { filter } from 'cypress/types/bluebird';
+import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
   searchQuery!: string;
   searchResults$: Observable<IProduct[]> | undefined;
   isAuthenticated!: boolean;
@@ -28,12 +39,19 @@ export class SearchComponent implements OnInit {
   filterOptions: string[] = []; // Stores the selected filter options
   selectedSortOption!: string;
   isChecked!: boolean;
-  currentPage$ = new BehaviorSubject<number>(0);
+  currentPage!: number;
   maxPrice$: Observable<number> | null = null;
   minPrice$: Observable<number> | null = null;
-  itemsPerPage$ = new BehaviorSubject<number>(10);
+  itemsPerPage!: number;
   totalSearchCount$: Observable<number> | undefined;
 
+  ////J fix for min , max price
+  minInputController = new FormControl();
+  maxInputController = new FormControl();
+  minInputControllerSub = new Subscription();
+  maxInputControllerSub = new Subscription();
+
+  /////
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
@@ -49,8 +67,8 @@ export class SearchComponent implements OnInit {
           this.searchQuery,
           this.filterOptions,
           this.selectedSortOption,
-          this.currentPage$.value,
-          this.itemsPerPage$.value
+          this.currentPage,
+          this.itemsPerPage
         )
         .subscribe(result => {
           this.searchResults$ = of(result.products);
@@ -103,6 +121,20 @@ export class SearchComponent implements OnInit {
             .subscribe();
         });
     });
+    this.minInputControllerSub = this.minInputController.valueChanges
+      .pipe(debounceTime(1500), distinctUntilChanged())
+      .subscribe(val =>
+        this.onFilterOptionChange('filter_price_min', val, true)
+      );
+    this.maxInputControllerSub = this.maxInputController.valueChanges
+      .pipe(debounceTime(1500), distinctUntilChanged())
+      .subscribe(val =>
+        this.onFilterOptionChange('filter_price_max', val, true)
+      );
+  }
+  ngOnDestroy(): void {
+    this.minInputControllerSub.unsubscribe();
+    this.maxInputControllerSub.unsubscribe();
   }
 
   //
@@ -144,18 +176,18 @@ export class SearchComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent) {
-    this.currentPage$.next(event.pageIndex + 1);
-    this.itemsPerPage$.next(event.pageSize);
+    this.currentPage = event.pageIndex;
+    this.itemsPerPage = event.pageSize;
     console.log('Page size: ' + event.pageSize);
     console.log('Page index: ' + event.pageIndex);
-    this.updateQueryParams();
+    // this.updateQueryParams();
     this.productService
       .searchProducts(
         this.searchQuery,
         this.filterOptions,
         this.selectedSortOption,
-        this.currentPage$.value,
-        this.itemsPerPage$.value
+        this.currentPage,
+        this.itemsPerPage
       )
       .subscribe(result => {
         this.searchResults$ = of(result.products);
@@ -164,16 +196,16 @@ export class SearchComponent implements OnInit {
         console.log(result.totalCount);
       });
   }
-  updateQueryParams() {
-    this.router.navigate([], {
-      queryParams: {
-        page: this.currentPage$.value,
-        per_page: this.itemsPerPage$.value,
-      },
-      queryParamsHandling: 'merge',
-      replaceUrl: true,
-    });
-  }
+  // updateQueryParams() {
+  //   this.router.navigate([], {
+  //     queryParams: {
+  //       page: this.currentPage$.value,
+  //       per_page: this.itemsPerPage$.value,
+  //     },
+  //     queryParamsHandling: 'merge',
+  //     replaceUrl: true,
+  //   });
+  // }
 
   onFilterOptionChange(filter_type: string, value: any, checked: boolean) {
     if (
@@ -190,11 +222,11 @@ export class SearchComponent implements OnInit {
         if (existingoptionindex > -1) {
           // If the filter option already exists, update it by appending the new value
           const existingoption = this.filterOptions[existingoptionindex];
-          const existingvalues = existingoption.split('=')[1].split(',');
+          const existingvalues = existingoption.split('=')[1].split(',,,');
           existingvalues.push(value);
           this.filterOptions[
             existingoptionindex
-          ] = `${filter_type}=${existingvalues.join(',')}`;
+          ] = `${filter_type}=${existingvalues.join(',,,')}`;
         } else {
           // If the filter option doesn't exist, add it as a new option
           this.filterOptions.push(`${filter_type}=${value}`);
@@ -206,7 +238,7 @@ export class SearchComponent implements OnInit {
         );
         if (existingoptionindex > -1) {
           const existingoption = this.filterOptions[existingoptionindex];
-          const existingvalues = existingoption.split('=')[1].split(',');
+          const existingvalues = existingoption.split('=')[1].split(',,,');
           const valueindex = existingvalues.indexOf(value);
           if (valueindex > -1) {
             existingvalues.splice(valueindex, 1);
@@ -215,7 +247,7 @@ export class SearchComponent implements OnInit {
             } else {
               this.filterOptions[
                 existingoptionindex
-              ] = `${filter_type}=${existingvalues.join(',')}`;
+              ] = `${filter_type}=${existingvalues.join(',,,')}`;
             }
           }
         }
@@ -234,38 +266,50 @@ export class SearchComponent implements OnInit {
         }
       }
     } else if (
-      filter_type === 'filter_min_price' ||
-      filter_type === 'filter_max_price'
+      filter_type === 'filter_price_min' ||
+      filter_type === 'filter_price_max'
     ) {
       const filteroption = `${filter_type}=${value}`;
+      console.log('a ', filteroption);
 
       if (value == null) {
+        // Remove the filter option if checked is false
+        this.filterOptions = this.filterOptions.filter(
+          option => !option.startsWith(`${filter_type}=`)
+        );
         console.log('if value is null: ' + this.filterOptions);
         // Remove the filter option if checked is false
+
+        console.log('b ', filteroption);
+        console.log('b ', this.filterOptions);
         const index = this.filterOptions.indexOf(filteroption);
         if (index > -1) {
           this.filterOptions.splice(index, 1);
         }
       } else {
+        console.log('c ', filteroption);
+
         console.log('should be a min_price: ' + this.filterOptions);
         // // Remove any existing filter option with the same filter type
         this.filterOptions = this.filterOptions.filter(
           option => !option.startsWith(`${filter_type}=`)
         );
-        console.log('should be empty: ' + this.filterOptions);
+        // console.log('should be empty: ' + this.filterOptions);
         // Add the new filter option
         this.filterOptions.push(filteroption);
-        console.log('should be min_price: ' + this.filterOptions);
+        // console.log('should be min_price: ' + this.filterOptions);
       }
     }
-    console.log(
-      'filter Options after all filters applied: ' + this.filterOptions
-    );
+    // console.log(
+    //   'filter Options after all filters applied: ' + this.filterOptions
+    // );
     this.productService
       .searchProducts(
         this.searchQuery,
         this.filterOptions,
-        this.selectedSortOption
+        this.selectedSortOption,
+        this.currentPage,
+        this.itemsPerPage
       )
       .subscribe(result => {
         this.searchResults$ = of(result.products);
