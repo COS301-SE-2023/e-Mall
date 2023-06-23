@@ -30,7 +30,7 @@ export class ProductService {
     page?: any,
     per_page?: any
   ): Observable<{ products: IProduct[]; totalCount: number }> {
-    let url = `${this.apiUrl}products/backend?search=${query}`;
+    let url = `${this.apiUrl}products/test?search=${query}`;
     // filterOptions = { };
     if (filterOptions) {
       for (const [key, value] of Object.entries(filterOptions)) {

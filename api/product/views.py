@@ -192,6 +192,8 @@ class ProductTestAPIView(APIView):
 
         # Input for sort[brand, price, name]
         sort = request.GET.get("sort")
+        if (sort is None):
+            sort = 'price'
         # Input for filter[brand, price range, category, date range, seller]
         filter_brand = request.GET.get("filter_brand")
         filter_price_min = request.GET.get("filter_price_min")
