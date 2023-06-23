@@ -126,7 +126,7 @@ export class SearchComponent implements OnInit {
     };
     console.log(prod_id);
 
-    this.router.navigate(['products', prod_id], navigationextras);
+    this.router.navigate(['products'], navigationextras);
   }
 
   onSortOptionChange(): void {
