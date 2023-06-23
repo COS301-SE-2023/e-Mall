@@ -135,7 +135,12 @@
           <div class="row">
             <div class="col-sm-2 col-md-2 col-lg-2">
               <div class="filter">
-                <i class="fa fa-filter" aria-hidden="true"></i>
+                <!--<i class="fa fa-filter" aria-hidden="true"></i>-->
+                <mat-select [formControl]="selected" class="custom-select" hideToggle>
+                  <mat-option value="filterIcon" >filter</mat-option>
+                  <mat-option value="onlyInStock" >Only in stock</mat-option>
+                  <mat-option value="lowestPrice">Lowest price</mat-option>
+                </mat-select>
               </div>
             </div>
             <div class="col-sm-2 col-md-2 col-lg-2">
@@ -143,21 +148,9 @@
                 <span><i class="fa-solid fa-cube" aria-hidden="true"></i></span>
                 Only in stock
               </div>
+              
             </div>
-            <div class="col-sm-2 col-md-2 col-lg-2">
-              <div class="price-incl-delivery">
-                <span><i class="fa-solid fa-truck" aria-hidden="true"></i></span
-                >Price inc. delivery
-              </div>
-            </div>
-            <div class="col-sm-2 col-md-2 col-lg-2">
-              <div class="delivery-opt">
-                Delivery Options
-                <span
-                  ><i class="fa-solid fa-chevron-down" aria-hidden="true"></i
-                ></span>
-              </div>
-            </div>
+
             <div class="col-sm-2 col-md-2 col-lg-2 d-flex justify-content-end">
               <!--<div class="lowest-price ml-auto">
                 Lowest Price
@@ -170,10 +163,12 @@
                   <option value="lowest price ">Lowest Price</option>
                   <option value="fastest delivery">Fastest Delivery</option>
                 </select>-->
-                <mat-select [formControl]="selected" class="custom-select" hideToggle>
+                <!--<mat-select [formControl]="selected" class="custom-select" hideToggle>
                   <mat-option value="lowestPrice" >Lowest Price</mat-option>
-                  <mat-option value="fastestDelivery">Fastest Delivery</mat-option>
-                </mat-select>
+                </mat-select>-->
+
+                  Lowest Price
+                
               </div>
             </div>
           </div>
@@ -228,23 +223,6 @@
                         
                       </mat-panel-description>
                     </mat-expansion-panel-header>
-                    <div class="payment-methods-expanded">
-                      <h5>Payment Methods</h5>
-                      <div class="row">
-                        <div class="col-sm-2 col-md-2 col-lg-2  payment-method">
-                          <p>Visa</p>
-                        </div>
-                        <div class="col-sm-2 col-md-2 col-lg-2  payment-method">
-                          <p>Master card</p>
-                        </div>
-                        <div class="col-sm-2 col-md-2 col-lg-2  payment-method">
-                          <p>Pay Pal</p>
-                        </div>
-                        <div class="col-sm-2 col-md-2 col-lg-2  payment-method">
-                          <p>Klarna</p>
-                        </div>
-                      </div>
-                    </div>
                   </mat-expansion-panel>
                   <mat-card-header class="seller-product-name-price">
                     <div class="card-title-container">
@@ -336,6 +314,39 @@
             </div>
           </div>
         </div> -->
+        <div class="container-fluid full-product-info" id="full-product-info">
+          <h3>Products Information</h3>
+          <ng-container *ngIf="sellers$ | async as sellers">
+            <div *ngFor="let seller of sellers; let i = index"></div>
+
+            <div *ngIf="product$ | async as product">
+              <p>
+                Lowest price for {{ product.brand }} is
+                <b>R{{ product.min_price }}</b> this is currrently the lowest
+                price out of {{ sellers.length }} stores
+              </p>
+
+              <p>
+                <b>{{ product.brand }}</b>
+              </p>
+              <p>{{ product.description }}</p>
+              <p>
+                {{ product.brand }} is just the thing you need to listen to your
+                favorite podcast. They connect cord-free via Bluetooth and with
+                active noise cancelling you get some peace and quiet in the busy
+                office landscape.
+              </p>
+              <ul>
+                <li>Active noise cancelling</li>
+                <li>Completely wireless design</li>
+                <li>Connects wirelessly</li>
+                <li>Six hours of battery life</li>
+                <li>Built-in microphone for phone calls</li>
+                <li>Simple design</li>
+              </ul>
+            </div>
+          </ng-container>
+        </div>
 
         <div class="container-fluid reviews" id="reviews">
           <h3>Reviews</h3>
@@ -465,39 +476,7 @@
         </div>
       -->
 
-        <div class="container-fluid full-product-info" id="full-product-info">
-          <h3>Products Information</h3>
-          <ng-container *ngIf="sellers$ | async as sellers">
-            <div *ngFor="let seller of sellers; let i = index"></div>
-
-            <div *ngIf="product$ | async as product">
-              <p>
-                Lowest price for {{ product.brand }} is
-                <b>R{{ product.min_price }}</b> this is currrently the lowest
-                price out of {{ sellers.length }} stores
-              </p>
-
-              <p>
-                <b>{{ product.brand }}</b>
-              </p>
-              <p>{{ product.description }}</p>
-              <p>
-                {{ product.brand }} is just the thing you need to listen to your
-                favorite podcast. They connect cord-free via Bluetooth and with
-                active noise cancelling you get some peace and quiet in the busy
-                office landscape.
-              </p>
-              <ul>
-                <li>Active noise cancelling</li>
-                <li>Completely wireless design</li>
-                <li>Connects wirelessly</li>
-                <li>Six hours of battery life</li>
-                <li>Built-in microphone for phone calls</li>
-                <li>Simple design</li>
-              </ul>
-            </div>
-          </ng-container>
-        </div>
+        
 
         <!--
         <div *ngIf="product">
