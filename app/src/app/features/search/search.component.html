@@ -16,7 +16,7 @@
     <main class="landing main">
       <div class="search-results">
         <h1>Search Results</h1>
-        <p>Products found: {{ (searchResults$ | async)?.length }}</p>
+        <p>You searched for: <strong>{{searchQuery}}</strong></p>
         <!-- <div class="sort-panel"> -->
         <mat-form-field class="sort-panel">
           <mat-label>Sort Options</mat-label>
@@ -28,7 +28,7 @@
             <mat-option value="-price">Highest price</mat-option>
             <mat-option value="name">Name(A-Z)</mat-option>
             <mat-option value="-name">Name(Z-A)</mat-option>
-            <mat-option value="discount">Price drop</mat-option>
+            <!-- <mat-option value="discount">Price drop</mat-option> -->
           </mat-select>
         </mat-form-field>
         <!-- </div> -->
@@ -199,7 +199,7 @@
               <h3>No Products Found</h3>
               <p>
                 The product you have searched for was not found. Please try
-                again.
+                searching another phrase or word.
               </p>
             </div>
           </div>
