@@ -12,6 +12,7 @@ import { SignInComponent } from './features/sign-in/sign-in.component';
 import { SignOutComponent } from './features/sign-out/sign-out.component';
 import { ContactComponent } from './features/contact/contact.component';
 import { AboutComponent } from './features/about/about.component';
+import { ProductComponent } from './features/product/product.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -22,15 +23,14 @@ const routes: Routes = [
   { path: 'register', component: SellerRegisterComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-out', component: SignOutComponent },
-  { path: 'sign-up', component: ConsumerRegisterComponent },
-  { path: 'register', component: SellerRegisterComponent },
   { path: 'search-results', component: SearchComponent },
   { path: 'sign-up', component: ConsumerRegisterComponent },
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'policies-and-privacy', redirectTo: '/home' },
-  { path: 'seller/dashboard', redirectTo: '/home' },
-  { path: 'ads', redirectTo: '/home' },
+  { path: 'products', component: ProductComponent },
+  { path: 'policies-and-privacy', redirectTo: '/construction' },
+  { path: 'seller/dashboard', redirectTo: '/construction' },
+  { path: 'ads', redirectTo: '/construction' },
 
   // { path: 'products', component: ProductComponent },
   { path: '**', component: NotFoundComponent },

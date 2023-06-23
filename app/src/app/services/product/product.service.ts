@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { IProduct } from '@app/models/product/product.interface';
-import { any } from 'cypress/types/bluebird';
 import { IProductSeller } from '@app/models/product/product-seller.interface';
 
 @Injectable({
@@ -24,16 +23,36 @@ export class ProductService {
     return this.http.get<IProductSeller[]>(url);
   }
 
+  public getPopProducts(): Observable<IProduct[]> {
+    //Algo needs to be implemented
+    //Mock data for demo
+    const url = `${this.apiUrl}products/backend?search=a`;
+    return this.http
+      .get(url)
+      .pipe(map((res: any) => res['data'] as IProduct[]));
+  }
+
+  public getForYouProducts(): Observable<IProduct[]> {
+    //Algo needs to be implemented
+    //Mock data for demo
+    const url = `${this.apiUrl}products/backend?search=f`;
+    return this.http
+      .get(url)
+      .pipe(map((res: any) => res['data'] as IProduct[]));
+  }
+
   searchProducts(
     query: string,
     filterOptions?: any,
-    sortOption?: any
-  ): Observable<IProduct[]> {
-    let url = `${this.apiUrl}products/backend?search=${query}`;
+    sortOption?: any,
+    page?: any,
+    per_page?: any
+  ): Observable<{ products: IProduct[]; totalCount: number }> {
+    let url = `${this.apiUrl}products/test?search=${query}`;
     // filterOptions = { };
     if (filterOptions) {
       for (const [key, value] of Object.entries(filterOptions)) {
-        url += `&${key}=${value}`;
+        url += '&' + value;
       }
     }
 
@@ -41,9 +60,17 @@ export class ProductService {
       url += '&sort=' + sortOption;
     }
 
-    return this.http
-      .get(url)
-      .pipe(map((res: any) => res['data'] as IProduct[]));
+    if (page) {
+      url += '&page=' + page;
+      url += '&per_page=' + per_page;
+    }
+    return this.http.get(url).pipe(
+      map((res: any) => ({
+        products: res['data'] as IProduct[],
+        totalCount: res['total_count'] as number,
+      }))
+    );
   }
+
   // Other methods for CRUD operations on products can be added here
 }
