@@ -20,11 +20,11 @@ export class ProductService {
   }
   public getSellerList(
     id: number,
-    inStock: boolean
+    inStock: string
   ): Observable<IProductSeller[]> {
     const url = `${this.apiUrl}productseller/backend?prod_id=${id}`;
     console.log('inStock: ' + inStock);
-    if (inStock == true) {
+    if (inStock == 'true') {
       console.log('ifworking: ' + inStock);
       return this.http.get<IProductSeller[]>(url + '&filter_in_stock=true');
     } else {
