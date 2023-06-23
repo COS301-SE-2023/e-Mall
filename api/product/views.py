@@ -8,12 +8,18 @@ from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Product
-from .serializers import ProductSerializer
+from .serializers import ProductSerializer, ProductFilterSerializer
 import math
 from django.utils.dateparse import parse_date
 from rest_framework.pagination import PageNumberPagination
 from django.db.models import Subquery, OuterRef, Min
 from productseller.models import ProductSeller
+from django.core import serializers
+
+from django.forms.models import model_to_dict
+
+from decimal import Decimal
+from math import ceil
 
 
 class ProductFrontendAPIView(APIView):
@@ -168,73 +174,114 @@ class ProductBackendAPIView(APIView):
 class ProductTestAPIView(APIView):
     def get(self, request):
         # set sort fileds map
-        prod_seller_fields = {
-            'price': 'price',
-            '-price': '-price',
-            'discount': 'discount_rate',
-            '-discount': '-discount_rate'
-        }
-        prod_fields = {
+        sort_fields = {
             'id': 'id',
             '-id': '-id',
             'name': 'name',
             '-name': '-name',
             'brand': 'brand',
-            '-brand': '-brand'
+            '-brand': '-brand',
+            'price': 'min_price',
+            '-price': '-min_price',
+            'discount': 'min_discount_rate',
+            '-discount': '-min_discount_rate'
         }
+
         # Input for search
         search = request.GET.get("search")
 
         # Input for sort[brand, price, name]
         sort = request.GET.get("sort")
+        # Input for filter[brand, price range, category, date range, seller]
+        filter_brand = request.GET.get("filter_brand")
+        filter_price_min = request.GET.get("filter_price_min")
+        filter_price_max = request.GET.get("filter_price_max")
+        filter_category = request.GET.get("filter_category")
+        filter_seller = request.GET.get("filter_seller")
 
-        # empty products
         products = {}
-        # if sort is on productSeller field
-        if (sort in prod_seller_fields):
-            subquery = Subquery(ProductSeller.objects.filter(
-                product=OuterRef('pk')).order_by('price').values(prod_seller_fields[sort].lstrip('-'))[:1])
-            # search products by 'search' and get each of them's min priced productSeller.
-            # then sort resulting products by 'sort' on productSeller's field
-            products = Product.objects.annotate(
-                min_seller=Subquery(ProductSeller.objects.filter(
-                    product=OuterRef('pk')).order_by('price').values('id')[:1]),
-                sort_field=subquery
-            ).filter(name__icontains=search).order_by('sort_field')
-        # else if sort is on product field
-        elif (sort in prod_fields):
-            # search products by 'search' and get each of them's min priced productSeller.
-            # then sort resulting products by 'sort' on product's field
-            products = Product.objects.annotate(
-                min_seller=Subquery(ProductSeller.objects.filter(
-                    product=OuterRef('pk')).order_by('price').values('id')[:1])
-            ).filter(name__icontains=search).order_by(prod_fields[sort])
 
-        # to mock serializer.data look
-        serializer = {"data": []}
-        serializer["data"] = create_response_data(products)
+        min_price_seller = ProductSeller.objects.filter(
+            product=OuterRef('pk')
+        ).order_by('price')
 
-        # for page i guess
-        total_count = 1
-        return Response({"data": serializer["data"], "total_count": total_count})
+        products = Product.objects.annotate(
+            min_price_original_price=(
+                min_price_seller.values('original_price')[:1]),
+            min_price_discount=(
+                min_price_seller.values('discount')[:1]),
+            min_price_discount_rate=(
+                min_price_seller.values('discount_rate')[:1]),
+            min_price=(min_price_seller.values('price')[:1]),
+            min_price_seller_id=(
+                min_price_seller.values('seller')[:1]),
+            min_price_seller_product_url=(
+                min_price_seller.values('product_url')[:1]),
+            min_price_seller_business_name=(
+                min_price_seller.values('seller__business_name')[:1]),
+            min_price_in_stock=(
+                min_price_seller.values('in_stock')[:1]),
+            min_price_img_array=(
+                min_price_seller.values('img_array')[:1]),
+        )
 
+        query = Q(name__icontains=search)
 
-def create_response_data(products):
-    response_data = []
-    for product in products:
-        product_data = {}
-        for field, value in product.__dict__.items():
-            if not field.startswith('_'):
-                product_data[field] = value
+        if filter_brand:
+            query &= self.build_query_from_list(
+                filter_brand, 'brand')
+        if filter_category:
+            query &= self.build_query_from_list(
+                filter_category, 'category')
 
-        min_price_product_seller = ProductSeller.objects.filter(
-            id=product.min_seller).first()
-        if min_price_product_seller:
-            product_seller_data = {}
-            for field, value in min_price_product_seller.__dict__.items():
-                if not field.startswith('_'):
-                    product_seller_data[field] = value
-            product_data['product_seller'] = product_seller_data
+        if filter_seller:
+            query &= self.build_query_from_list(
+                filter_seller, 'min_price_seller_business_name')
 
-        response_data.append(product_data)
-    return response_data
+        if filter_price_min:
+            print(Decimal(filter_price_min))
+            query &= Q(min_price__gte=Decimal(
+                filter_price_min))
+
+        if filter_price_max:
+            query &= Q(min_price__lte=Decimal(
+                filter_price_max))
+        products = products.filter(query).order_by(sort_fields[sort])
+        data = []
+        for product in products:
+            product_data = model_to_dict(product)
+            product_data.update({
+                'min_price_original_price': product.min_price_original_price,
+                'min_price_discount': product.min_price_discount,
+                'min_price_discount_rate': product.min_price_discount_rate,
+                'min_price': product.min_price,
+                'min_price_seller_id': product.min_price_seller_id,
+                'min_price_seller_product_url': product.min_price_seller_product_url,
+                'min_price_seller_business_name': product.min_price_seller_business_name,
+                'min_price_in_stock': product.min_price_in_stock,
+                'min_price_img_array': product.min_price_img_array,
+            })
+            data.append(product_data)
+
+        # Pagination
+
+        page = int(request.GET.get("page")) if request.GET.get("page") else 1
+        per_page = (
+            int(request.GET.get("per_page")) if request.GET.get(
+                "per_page") else 10
+        )
+        start = (page - 1) * per_page
+        end = start + per_page
+        total_count = ceil(len(data) / per_page)
+        paginated_data = data[start:end]
+
+        return Response({"data": paginated_data, "total_count": total_count})
+
+    def build_query_from_list(self, _param, field):
+        _query = Q()
+        _list = _param.split(',')
+        for keyword in _list:
+            keyword = keyword.strip()
+            _query |= Q(
+                **{f"{field}__icontains": keyword})
+        return _query
