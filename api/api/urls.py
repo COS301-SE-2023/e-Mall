@@ -19,8 +19,7 @@ from django.contrib import admin
 # from seller.views import SellerViewSet
 # from staff.views import StaffViewSet
 from consumer.views import ConsumerViewSet
-from product.views import *
-from productseller.views import *
+
 
 from rest_framework import routers
 from django.urls import path, include
