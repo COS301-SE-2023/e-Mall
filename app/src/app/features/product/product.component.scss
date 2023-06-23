@@ -210,6 +210,7 @@ padding: 0;
 .filters{
   margin-top: 30px;
   padding-top: 20px;
+  //width: 100px;
 }
 
 .filter{
@@ -220,12 +221,17 @@ padding: 0;
    background-color: white;
 }
 
+.selected {
+  border: 2px solid black;
+}
+
 .only-in-stock{
   border-radius: 8px;
   text-align: center;
   padding:10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   background-color: white;
+  //margin-left: 50px;
 }
 
 .only-in-stock i{
@@ -260,10 +266,10 @@ padding: 0;
   border-radius: 8px;
   text-align: center;
   padding:10px;
-  margin-left: 40px;
+  //margin-left: 40px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   background-color: white;
-  border: none;
+  //border: none;
   width: 200px;
 }
 
@@ -454,11 +460,14 @@ padding: 0;
 .reviews{
   border-top: 1px solid rgb(220,220,220);
   //margin-bottom: 10%;
-  margin-top: 5%;
+  //margin-top: 5%;
   background-color: white;
   height: 630px;
 
 }
+
+
+
 
 .reviews h3{
   margin-top: 30px;
@@ -615,7 +624,8 @@ padding: 0;
   border-top: 1px solid rgb(220,220,220);
   //margin-top: 5%;
   background-color: white;
-  height: 630px;
+  height: 600px;
+  padding-right: 10%;
 }
 
 .full-product-info h3{
