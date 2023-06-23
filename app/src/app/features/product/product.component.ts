@@ -18,6 +18,7 @@ export class ProductComponent implements OnInit {
   product$: Observable<IProduct> | undefined;
   sellers$: Observable<IProductSeller[]> | undefined;
   currency$: Observable<string> | undefined;
+  inStock!: string;
 
   currencyCode = 'ZAR';
 
@@ -50,7 +51,7 @@ export class ProductComponent implements OnInit {
     console.log(id);
     if (id) {
       this.product$ = this.productService.getProductData(id);
-      this.sellers$ = this.productService.getSellerList(id);
+      this.sellers$ = this.productService.getSellerList(id, 'default');
       this.currency$ = of('ZAR');
       this.product$?.subscribe((res: IProduct) => {
         console.log('getProductData');
@@ -78,11 +79,10 @@ export class ProductComponent implements OnInit {
 
     return imgList[0];
   }
-
-  onlyInStockToggler() {
-    this.divClicked = !this.divClicked;
-
-    console.log("only in stock clicked!");
-
+  onSortOptionChange(): void {
+    this.sellers$ = this.productService.getSellerList(
+      this.prod_id,
+      this.inStock
+    );
   }
 }

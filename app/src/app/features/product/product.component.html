@@ -31,8 +31,6 @@
                 <img [src]="img" alt="Product Image" class="img-fluid w-100" />
               </div>
             </div>
-            
-
           </div>
 
           <div class="col-sm-4 col-md-4 col-lg-4 main-img-container">
@@ -62,10 +60,11 @@
               class="upper-product-info-small-container"
               *ngIf="product$ | async as product">
               <h2>{{ product.name }}</h2>
-              <h4>{{product.brand}}</h4>
+              <h4>{{ product.brand }}</h4>
               <p>{{ product.description }}</p>
               <p>
-                Compare prices from <b>{{ product.min_price }} {{currencyCode}}</b>
+                Compare prices from
+                <b>{{ product.min_price }} {{ currencyCode }}</b>
               </p>
             </div>
           </div>
@@ -125,23 +124,39 @@
                       <mat-panel-title >
                         <mat-card-title class="seller-name">{{seller.business_name}}</mat-card-title>
                       </mat-panel-title>
-                      <mat-panel-description>
-                        
-                      </mat-panel-description>
+                      <mat-panel-description> </mat-panel-description>
                     </mat-expansion-panel-header>
                   </mat-expansion-panel>
                   <mat-card-header class="seller-product-name-price">
                     <div class="card-title-container">
-                      <mat-card-title class="product-name"><a routerLink = "{{seller.product_url}}">{{ seller.product_name }}</a></mat-card-title>
-                      <div [ngClass]="{'in-stock-boxes': seller.in_stock, 'out-of-stock-boxes': !seller.in_stock}" matTooltipPosition="above" aria-label="Example tooltip">
-                        <i class="fa-sharp fa-solid fa-boxes-stacked in-stock-box"></i>
-                        <i *ngIf="seller.in_stock" class="fa-sharp fa-solid fa-check in-stock-tick" matTooltip="in stock"></i>
-                        <i *ngIf="!seller.in_stock" class="fa-sharp fa-solid fa-x in-stock-x" matTooltip="out of stock"></i>
+                      <mat-card-title class="product-name"
+                        ><a routerLink="{{ seller.product_url }}">{{
+                          seller.product_name
+                        }}</a></mat-card-title
+                      >
+                      <div
+                        [ngClass]="{
+                          'in-stock-boxes': seller.in_stock,
+                          'out-of-stock-boxes': !seller.in_stock
+                        }"
+                        matTooltipPosition="above"
+                        aria-label="Example tooltip">
+                        <i
+                          class="fa-sharp fa-solid fa-boxes-stacked in-stock-box"></i>
+                        <i
+                          *ngIf="seller.in_stock"
+                          class="fa-sharp fa-solid fa-check in-stock-tick"
+                          matTooltip="in stock"></i>
+                        <i
+                          *ngIf="!seller.in_stock"
+                          class="fa-sharp fa-solid fa-x in-stock-x"
+                          matTooltip="out of stock"></i>
                       </div>
-                      <mat-card-title class="product-price"> {{ seller.price }} {{currencyCode}}</mat-card-title>
+                      <mat-card-title class="product-price">
+                        {{ seller.price }} {{ currencyCode }}</mat-card-title
+                      >
                     </div>
                   </mat-card-header>
-                  
                 </mat-accordion>
                 </div>
                 
@@ -205,94 +220,97 @@
 
           <div class="row review-row">
             <div class="col-sm-3 col-md-3 col-lg-3 reviews-cols">
-                <div class="card review-card" style="width: 18rem;">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-sm-2 col-md-2 col-lg-2">
-                        <div class="S-div">
-                          <span class="initial">S</span>
-                        </div>
-                      </div>
-                      <div class="col-sm-6 col-md-6 col-lg-6">
-                        <div class="reviewer-name">
-                          <h6 class="card-title">Samukelo</h6>
-                          <p>2 months ago</p>
-                        </div>
-                      </div>
-                      <div class="col-sm-4 col-md-4 col-lg-4 ">
-                        <div class="reviewer-star-container">
-                          <span><i class="fa-solid fa-star reviewer-star"></i></span
-                          ><b>3</b>
-                        </div>
+              <div class="card review-card" style="width: 18rem">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-2 col-md-2 col-lg-2">
+                      <div class="S-div">
+                        <span class="initial">S</span>
                       </div>
                     </div>
-                    <p class="card-text">
-                      I'm really impressed with this product. It exceeded my
-                      expectations and works flawlessly!
-                    </p>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                      <div class="reviewer-name">
+                        <h6 class="card-title">Samukelo</h6>
+                        <p>2 months ago</p>
+                      </div>
+                    </div>
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                      <div class="reviewer-star-container">
+                        <span
+                          ><i class="fa-solid fa-star reviewer-star"></i></span
+                        ><b>3</b>
+                      </div>
+                    </div>
                   </div>
+                  <p class="card-text">
+                    I'm really impressed with this product. It exceeded my
+                    expectations and works flawlessly!
+                  </p>
                 </div>
+              </div>
             </div>
 
             <div class="col-sm-3 col-md-3 col-lg-3 reviews-cols">
-                <div class="card review-card" style="width: 18rem;">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-sm-2 col-md-2 col-lg-2">
-                        <div class="J-div">
-                          <span class="initial">J</span>
-                        </div>
-                      </div>
-                      <div class="col-sm-6 col-md-6 col-lg-6">
-                        <div class="reviewer-name">
-                          <h6 class="card-title">Jane</h6>
-                          <p>1 month ago</p>
-                        </div>
-                      </div>
-                      <div class="col-sm-4 col-md-4 col-lg-4 ">
-                        <div class="reviewer-star-container">
-                          <span><i class="fa-solid fa-star reviewer-star"></i></span
-                          ><b>5</b>
-                        </div>
+              <div class="card review-card" style="width: 18rem">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-2 col-md-2 col-lg-2">
+                      <div class="J-div">
+                        <span class="initial">J</span>
                       </div>
                     </div>
-                    <p class="card-text">
-                      I've been using this product for a while now, and I can't
-                      imagine my life without it. Highly recommended!
-                    </p>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                      <div class="reviewer-name">
+                        <h6 class="card-title">Jane</h6>
+                        <p>1 month ago</p>
+                      </div>
+                    </div>
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                      <div class="reviewer-star-container">
+                        <span
+                          ><i class="fa-solid fa-star reviewer-star"></i></span
+                        ><b>5</b>
+                      </div>
+                    </div>
                   </div>
+                  <p class="card-text">
+                    I've been using this product for a while now, and I can't
+                    imagine my life without it. Highly recommended!
+                  </p>
                 </div>
+              </div>
             </div>
 
             <div class="col-sm-3 col-md-3 col-lg-3 reviews-cols">
-                <div class="card review-card" style="width: 18rem;">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-sm-2 col-md-2 col-lg-2">
-                        <div class="SD-div">
-                          <span class="initial">SD</span>
-                        </div>
-                      </div>
-                      <div class="col-sm-6 col-md-6 col-lg-6">
-                        <div class="reviewer-name">
-                          <h6 class="card-title">Sam Day</h6>
-                          <p>4 months ago</p>
-                        </div>
-                      </div>
-                      <div class="col-sm-4 col-md-4 col-lg-4 ">
-                        <div class="reviewer-star-container">
-                          <span><i class="fa-solid fa-star reviewer-star"></i></span
-                          ><b>4</b>
-                        </div>
+              <div class="card review-card" style="width: 18rem">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-2 col-md-2 col-lg-2">
+                      <div class="SD-div">
+                        <span class="initial">SD</span>
                       </div>
                     </div>
-                    <p class="card-text">
-                      I've tried several similar products, but this one stands out
-                      from the rest. It's reliable, easy to use, and delivers
-                      consistent results.
-                    </p>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                      <div class="reviewer-name">
+                        <h6 class="card-title">Sam Day</h6>
+                        <p>4 months ago</p>
+                      </div>
+                    </div>
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                      <div class="reviewer-star-container">
+                        <span
+                          ><i class="fa-solid fa-star reviewer-star"></i></span
+                        ><b>4</b>
+                      </div>
+                    </div>
                   </div>
+                  <p class="card-text">
+                    I've tried several similar products, but this one stands out
+                    from the rest. It's reliable, easy to use, and delivers
+                    consistent results.
+                  </p>
                 </div>
+              </div>
             </div>
           </div>
 
@@ -311,8 +329,6 @@
         </div>
       -->
 
-        
-
         <!--
         <div *ngIf="product">
           <h1>{{ product[0].brand }}</h1>
@@ -320,7 +336,7 @@
         </div>
       -->
 
-      <app-footer></app-footer>
+        <app-footer></app-footer>
       </div>
     </div>
   </body>
