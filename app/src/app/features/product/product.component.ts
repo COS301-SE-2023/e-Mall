@@ -13,7 +13,7 @@ import { ProductService } from '@app/services/product/product.service';
   styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent implements OnInit {
-  @Input() id!: number;
+  @Input() prod_id!: number;
 
   product$: Observable<IProduct> | undefined;
   sellers$: Observable<IProductSeller[]> | undefined;
@@ -44,8 +44,8 @@ export class ProductComponent implements OnInit {
   }*/
 
   ngOnInit() {
-    const id = this.id;
-
+    const id = this.prod_id;
+    console.log(id);
     if (id) {
       this.product$ = this.productService.getProductData(id);
       this.sellers$ = this.productService.getSellerList(id);
