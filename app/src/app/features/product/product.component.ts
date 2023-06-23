@@ -21,9 +21,11 @@ export class ProductComponent implements OnInit {
 
   currencyCode = 'ZAR';
 
+
   //expandedStates: Map<string, boolean> = new Map<string, boolean>();
 
   selected: FormControl;
+  divClicked = false;
 
   constructor(private productService: ProductService) {
     this.selected = new FormControl('default');
@@ -75,5 +77,12 @@ export class ProductComponent implements OnInit {
       return 'https://www.incredible.co.za/media/catalog/product/cache/7ce9addd40d23ee411c2cc726ad5e7ed/s/c/screenshot_2022-05-03_142633.jpg';
 
     return imgList[0];
+  }
+
+  onlyInStockToggler() {
+    this.divClicked = !this.divClicked;
+
+    console.log("only in stock clicked!");
+
   }
 }
