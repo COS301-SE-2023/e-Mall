@@ -93,18 +93,18 @@ $font_type_5: 600 1em/1.39 'Poppins', Helvetica, Arial, serif;
   pointer-events: none;
   background-color: transparent;
 }
-.search-results{
-margin-top: 1rem;
-margin-left: 0.5rem;
+.search-results {
+  margin-top: 1rem;
+  margin-left: 0.5rem;
 }
 
-.filter-menu{
+.filter-menu {
   float: left;
-  width: 250px;
+  width: 225px;
   margin-left: 1rem;
 }
 
-.filter-title{
+.filter-title {
   font-size: 1.5rem;
   font-weight: 600;
   margin-top: 1rem;
@@ -112,7 +112,7 @@ margin-left: 0.5rem;
   margin-left: 1rem;
 }
 
-.slider{
+.slider {
   width: 190px;
 }
 .footer {
@@ -143,18 +143,22 @@ margin-left: 0.5rem;
   margin-left: auto;
   margin-right: auto;
 }
-.search-results-container{
+.search-results-container {
   margin-top: 1rem;
+  // margin-right: 0.5rem;
 }
-.sort-panel{
-  margin-left: 80rem;
+.sort-panel {
+  margin-left: 87%;
+  // margin-right: 0.25rem;
+  margin-bottom: 0.25rem;
+  opacity: 75%;
 }
 
-.product-card-no{
+.product-card-no {
   margin-top: 4.5rem;
   margin-left: 12rem;
   margin: 0 0 1rem 0;
-  border: 1px solid #ccc;
+  // border: 1px solid #ccc;
   border-radius: 0.25rem;
   padding: 1rem;
   cursor: pointer;
@@ -165,7 +169,7 @@ margin-left: 0.5rem;
   margin-top: 4.5rem;
   margin-left: 2rem;
   margin: 0 0 1rem 0;
-  border: 1px solid #ccc;
+  // border: 1px solid #ccc;
   border-radius: 0.25rem;
   padding: 1rem;
   cursor: pointer;
@@ -181,4 +185,5 @@ margin-left: 0.5rem;
 .mat-paginator {
   margin-left: 12rem;
   display: flex;
-  justify-content: center;}
+  justify-content: center;
+}

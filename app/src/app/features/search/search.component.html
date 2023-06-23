@@ -17,248 +17,207 @@
       <div class="search-results">
         <h1>Search Results</h1>
         <p>Products found: {{ (searchResults$ | async)?.length }}</p>
-        <mat-expansion-panel class="sort-panel">
-          <mat-expansion-panel-header>
-            <mat-panel-title> Sort by </mat-panel-title>
-          </mat-expansion-panel-header>
-          <mat-radio-group class>
-            <mat-radio-button value="Lowest Price">Lowest price</mat-radio-button>
-            <mat-radio-button value="Highest Price">Highest price</mat-radio-button>
-            <mat-radio-button value="Name">Name</mat-radio-button>
-            <mat-radio-button value="Price drop">Price drop</mat-radio-button>
-          </mat-radio-group>
-        </mat-expansion-panel>
+        <!-- <div class="sort-panel"> -->
+        <mat-form-field class="sort-panel">
+          <mat-label>Sort Options</mat-label>
+          <mat-select
+            [(value)]="selectedSortOption"
+            (selectionChange)="onSortOptionChange()">
+            <mat-option value="">Default</mat-option>
+            <mat-option value="-price">Lowest price</mat-option>
+            <mat-option value="price">Highest price</mat-option>
+            <mat-option value="name">Name(A-Z)</mat-option>
+            <mat-option value="-name">Name(Z-A)</mat-option>
+            <mat-option value="discount">Price drop</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- </div> -->
 
         <mat-divider></mat-divider>
-       <!--filter-->
-       
-       <mat-accordion class="filter-menu" multi>
-        <h2 class="filter-title">Filter</h2>
-        <!-- Brand -->
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Brand
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <!-- Content for Brand panel -->
-          <mat-checkbox *ngFor="let brand of brandOptions" [checked]="selectedBrands.includes(brand)" [value]="brand">{{ brand }}</mat-checkbox>
+        <!--filter-->
+
+        <mat-accordion class="filter-menu" multi>
+          <h2 class="filter-title">Filter</h2>
+          <!-- Brand -->
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Brand </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content for Brand panel -->
+            <mat-checkbox
+              *ngFor="let brand of brandOptions"
+              [value]="brand"
+              (change)="
+                onFilterOptionChange('filter_brand', brand, $event.checked)
+              "
+              >{{ brand }}
+            </mat-checkbox>
+
+            <!-- ... -->
+          </mat-expansion-panel>
 
           <!-- ... -->
-        </mat-expansion-panel>
-      
-        <!-- Category -->
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Category
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <!-- Content for Category panel -->
-          <mat-checkbox [(ngModel)]="categoryElectronics">Electronics</mat-checkbox>
-          <mat-checkbox [(ngModel)]="categoryClothing">Clothing</mat-checkbox>
-          <mat-checkbox [(ngModel)]="categoryHomeAndKitchen">Home and Kitchen</mat-checkbox>
-          <mat-checkbox [(ngModel)]="categoryHealthAndBeauty">Health and Beauty</mat-checkbox>
-          <mat-checkbox [(ngModel)]="categorySportsAndOutdoors">Sports and Outdoors</mat-checkbox>
-          <mat-checkbox [(ngModel)]="categoryToysAndGames">Toys and Games</mat-checkbox>
-          <mat-checkbox [(ngModel)]="categoryBooks">Books</mat-checkbox>
-          <mat-checkbox [(ngModel)]="categoryFoodAndBeverages">Food and Beverages</mat-checkbox>
-          <!-- ... -->
-        </mat-expansion-panel>
-      
-        <!-- Seller -->
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Seller
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <!-- Content for Seller panel -->
-
-          <mat-checkbox *ngFor="let seller of sellerOptions" [checked]="selectedSellers.includes(seller)" [value]="seller">{{ seller }}</mat-checkbox>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Category </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content for Category panel -->
+            <mat-checkbox
+              *ngFor="let category of categoryOptions"
+              [value]="category"
+              (change)="
+                onFilterOptionChange(
+                  'filter_category',
+                  category,
+                  $event.checked
+                )
+              "
+              >{{ category }}
+            </mat-checkbox>
+          </mat-expansion-panel>
 
           <!-- ... -->
-        </mat-expansion-panel>
-      
-        <!-- Price -->
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Price
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <!-- Content for Price panel -->
-          <mat-slider class="slider" showTickMarks>
-            <input matSliderStartThumb>
-            <input matSliderEndThumb>
-          </mat-slider>
-          <!-- ... -->
-        </mat-expansion-panel>
-      
-        <!-- Inventory -->
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Inventory
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <!-- Content for Inventory panel -->
-          <mat-slide-toggle [aria-label]="min_price_in_stock? 'Disable in-stock filter' : 'Enable in-stock filter'">
-            Show only in stock
-          </mat-slide-toggle>          
-          <!-- ... -->
-        </mat-expansion-panel>
 
-        <!--Sale-->
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Sale
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <!-- Content for discount panel -->
-          <mat-radio-group>
-            <mat-radio-button value="50">50% or more</mat-radio-button>
-            <mat-radio-button value="25">25% or more</mat-radio-button>
-            <mat-radio-button value="10">10% or more</mat-radio-button>
-            <mat-radio-button value="5">5% or more</mat-radio-button>
-          </mat-radio-group>
-          <!-- ... -->
-        </mat-expansion-panel>
-      </mat-accordion>
-      
-      
+          <!-- Price -->
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Price </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content for Price panel -->
+            <input
+              type="number"
+              [(ngModel)]="minPrice$"
+              placeholder="Minimum Price"
+              (ngModelChange)="
+                onFilterOptionChange('filter_min_price', minPrice$, true)
+              " />
 
+            <p></p>
+            <input
+              type="number"
+              [(ngModel)]="maxPrice$"
+              placeholder="Maximum Price"
+              (ngModelChange)="
+                onFilterOptionChange('filter_max_price', $event, true)
+              " />
 
-       <!--products-->
-            <div class="product-card">
-              <ng-container *ngIf="searchResults$ | async as products">
-                <div class="row">
-                  <div
-                    class="col-md-3"
-                    *ngFor="let product of products; let i = index">
-                    <mat-card
-                      class="product-card"
-                      (click)="goToProductPage(product.id)">
-                      <img
-                        mat-card-image
-                        [src]="getOneImg(product?.min_price_img_array)"
-                        alt="Product Image"
-                        class="product-image" />
-                      <mat-card-content>
-                        <mat-card-title>{{ product.name }}</mat-card-title>
-                        <mat-card-subtitle>{{
-                          product.category
-                        }}</mat-card-subtitle>
-                        <mat-card-title
-                          >R {{ product.min_price }}</mat-card-title
-                        >
-                      </mat-card-content>
-                      <mat-card-actions>
-                        <mat-icon
-                          mat-icon-button
-                          color="warn"
-                          aria-label="Example icon button with a heart icon">
-                          <mat-icon>favorite</mat-icon>
-                        </mat-icon>
-                      </mat-card-actions>
-                    </mat-card>
-                    <!-- </mat-sidenav-content> -->
-                    <!-- </mat-sidenav-container> -->
+            <!-- ... -->
+          </mat-expansion-panel>
 
-                    <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
-                    <div
-                      class="col-md-1"
-                      *ngIf="(i + 1) % 4 === 0 && products.length > 4"></div>
-                  </div>
-                </div>
-              </ng-container>
-              <!--paginator-->
-              <div class="mat-paginator">
-                <mat-paginator></mat-paginator>
-              </div>
-              
+          <!-- Inventory -->
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Inventory </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content for Inventory panel -->
+            <mat-slide-toggle
+              [(ngModel)]="isChecked"
+              [aria-label]="
+                min_price_in_stock
+                  ? 'Disable in-stock filter'
+                  : 'Enable in-stock filter'
+              "
+              (change)="
+                onFilterOptionChange(
+                  'filter_in_stock',
+                  isChecked,
+                  $event.checked
+                )
+              ">
+              Show only in stock
+            </mat-slide-toggle>
+            <!-- ... -->
+          </mat-expansion-panel>
 
-              <!--end of paginator-->
+          <!-- Seller -->
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Seller </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- Content for Seller panel -->
 
+            <mat-checkbox
+              *ngFor="let seller of sellerOptions"
+              [value]="seller"
+              (change)="
+                onFilterOptionChange('filter_seller', seller, $event.checked)
+              "
+              >{{ seller }}</mat-checkbox
+            >
+
+            <!-- ... -->
+          </mat-expansion-panel>
+        </mat-accordion>
+
+        <!--products-->
+        <div class="product-card">
+          <ng-container *ngIf="searchResults$ | async as products">
+            <div class="row">
               <div
-                class="search-results-container"
-                *ngIf="(searchResults$ | async)?.length === 0">
-                <div class="product-card-no">
-                  <!-- <img src="path/to/placeholder-image" alt="No Product Found" /> -->
-                  <h3>No Products Found</h3>
-                  <p>
-                    The product you have searched for was not found. Please try
-                    again.
-                  </p>
-                </div>
+                class="col-md-3"
+                *ngFor="let product of products; let i = index">
+                <mat-card
+                  class="product-card"
+                  (click)="goToProductPage(product.id)">
+                  <img
+                    mat-card-image
+                    [src]="getOneImg(product?.min_price_img_array)"
+                    alt="Product Image"
+                    class="product-image" />
+                  <mat-card-content>
+                    <mat-card-title>{{ product.name }}</mat-card-title>
+                    <mat-card-subtitle>{{
+                      product.category
+                    }}</mat-card-subtitle>
+                    <mat-card-title>R {{ product.min_price }}</mat-card-title>
+                  </mat-card-content>
+                  <mat-card-actions>
+                    <mat-icon
+                      mat-icon-button
+                      color="warn"
+                      aria-label="Example icon button with a heart icon">
+                      <mat-icon>favorite</mat-icon>
+                    </mat-icon>
+                  </mat-card-actions>
+                </mat-card>
+                <!-- </mat-sidenav-content> -->
+                <!-- </mat-sidenav-container> -->
+
+                <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
+                <div
+                  class="col-md-1"
+                  *ngIf="(i + 1) % 4 === 0 && products.length > 4"></div>
               </div>
             </div>
+          </ng-container>
 
-            <!-- <footer class="footer">
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-3">
-                    <img
-                      class="welcomeMsg_logo_footer"
-                      src="assets/images/logo.png"
-                      alt="e-Mall logo" />
-                  </div>
-                  <div class="col-md-3">
-                    <h5>e-Mall</h5>
-                    <ul class="list-unstyled">
-                      <li><a routerLink="/construction">About us</a></li>
-                      <li><a routerLink="/construction">Contact</a></li>
-                    </ul>
-                  </div>
-                  <div class="col-md-3">
-                    <h5>Learn More</h5>
-                    <ul class="list-unstyled">
-                      <li><a routerLink="/sign-up">Get started</a></li>
-                      <li><a routerLink="/construction">Our App</a></li>
-                      <li>
-                        <a routerLink="/construction">Policies and privacy</a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="col-md-3">
-                    <h5>Partners & Advertisers</h5>
-                    <ul class="list-unstyled">
-                      <li><a routerLink="/register">Register your shop</a></li>
-                      <li>
-                        <a routerLink="/construction">Merchant Dashboard</a>
-                      </li>
-                      <li><a routerlink="/construction">Avertising</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="row icons">
-                  <div class="col-md-3">
-                    <p>Copyright © 2023 e-Mall</p>
-                  </div>
+          <div
+            class="search-results-container"
+            *ngIf="(searchResults$ | async)?.length === 0">
+            <div class="product-card-no">
+              <!-- <img src="path/to/placeholder-image" alt="No Product Found" /> -->
+              <h3>No Products Found</h3>
+              <p>
+                The product you have searched for was not found. Please try
+                again.
+              </p>
+            </div>
+          </div>
+          <!--paginator-->
+          <div class="mat-paginator">
+            <ng-container *ngIf="searchResults$ | async as products">
+              <mat-paginator
+                [length]="totalSearchCount$ | async"
+                [pageSizeOptions]="[10, 20, 50, 100]"
+                aria-label="Select page"
+                [pageIndex]="currentPage$ | async"
+                [pageSize]="itemsPerPage$ | async"
+                (page)="onPageChange($event)"></mat-paginator>
+            </ng-container>
+          </div>
 
-                  <div class="col-md-3"></div>
-                  <div class="col-md-3">
-                    <a routerLink="#"
-                      ><i
-                        class="fa fa-facebook-square fa-2x"
-                        aria-hidden="true"></i
-                    ></a>
-                  </div>
-                  <div class="col-md-3">
-                    <a routerLink="#"
-                      ><i
-                        class="fa fa-linkedin-square fa-2x"
-                        aria-hidden="true"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </footer> -->
-            <!-- </div> -->
-            <!-- </main> -->
-            <!-- </body> -->
-            <!-- </html> -->
+          <!--end of paginator-->
+        </div>
       </div>
     </main>
     <app-footer></app-footer>
