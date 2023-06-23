@@ -23,7 +23,7 @@ import { FooterModule } from '@shared/components/footer/footer.module';
     MatSelectModule,
     MatExpansionModule,
     NavbarModule,
-    FooterModule,
+    FooterModule
   ],
   exports: [ProductComponent],
 })

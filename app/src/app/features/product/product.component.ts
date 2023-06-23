@@ -21,12 +21,12 @@ export class ProductComponent implements OnInit {
 
   currencyCode = 'ZAR';
 
-  expandedStates: Map<string, boolean> = new Map<string, boolean>();
+  //expandedStates: Map<string, boolean> = new Map<string, boolean>();
 
   selected: FormControl;
 
   constructor(private productService: ProductService) {
-    this.selected = new FormControl('lowestPrice');
+    this.selected = new FormControl('default');
   }
 
   /*
