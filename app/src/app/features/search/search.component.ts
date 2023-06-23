@@ -190,11 +190,11 @@ export class SearchComponent implements OnInit {
         if (existingoptionindex > -1) {
           // If the filter option already exists, update it by appending the new value
           const existingoption = this.filterOptions[existingoptionindex];
-          const existingvalues = existingoption.split('=')[1].split(',');
+          const existingvalues = existingoption.split('=')[1].split(',,,');
           existingvalues.push(value);
           this.filterOptions[
             existingoptionindex
-          ] = `${filter_type}=${existingvalues.join(',')}`;
+          ] = `${filter_type}=${existingvalues.join(',,,')}`;
         } else {
           // If the filter option doesn't exist, add it as a new option
           this.filterOptions.push(`${filter_type}=${value}`);
@@ -206,7 +206,7 @@ export class SearchComponent implements OnInit {
         );
         if (existingoptionindex > -1) {
           const existingoption = this.filterOptions[existingoptionindex];
-          const existingvalues = existingoption.split('=')[1].split(',');
+          const existingvalues = existingoption.split('=')[1].split(',,,');
           const valueindex = existingvalues.indexOf(value);
           if (valueindex > -1) {
             existingvalues.splice(valueindex, 1);
@@ -215,7 +215,7 @@ export class SearchComponent implements OnInit {
             } else {
               this.filterOptions[
                 existingoptionindex
-              ] = `${filter_type}=${existingvalues.join(',')}`;
+              ] = `${filter_type}=${existingvalues.join(',,,')}`;
             }
           }
         }
