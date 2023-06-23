@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { HttpClientModule } from '@angular/common/http';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
@@ -21,10 +21,13 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
+import { ProductService } from '@app/services/product/product.service';
+import { AuthService } from '@app/services/auth/auth.service';
 
 @NgModule({
   declarations: [HomeComponent],
   imports: [
+    HttpClientModule,
     CommonModule,
     HomeRoutingModule,
     NgbCarouselModule,
@@ -47,6 +50,7 @@ import { MatRadioModule } from '@angular/material/radio';
     ReactiveFormsModule,
     MatRadioModule,
   ],
+  providers: [ProductService, AuthService],
   exports: [HomeComponent],
 })
 export class HomeModule {}

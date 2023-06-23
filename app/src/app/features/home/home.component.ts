@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
-import { AuthService } from '@app/services/auth/auth.service';
+//import { AuthService } from '@app/services/auth/auth.service';
 import { ProductService } from '@app/services/product/product.service';
 import { IProduct } from '@app/models/product/product.interface';
 import { Observable } from 'rxjs';
+
+
 
 @Component({
   selector: 'app-home',
@@ -17,7 +19,7 @@ export class HomeComponent {
   images = [944, 1011, 984].map(n => `https://picsum.photos/id/${n}/900/500`);
   // isAuthenticated$;
   constructor(
-    private authService: AuthService,
+   // private authService: AuthService,
     private router: Router,
     private productService: ProductService
   ) {
