@@ -32,6 +32,10 @@
       "dom"
     ]
   },
+  "include": [
+    "src/**/*.ts",
+    "src/polyfills.ts"
+  ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
