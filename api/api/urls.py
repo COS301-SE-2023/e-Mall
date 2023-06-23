@@ -18,8 +18,7 @@ from django.contrib import admin
 # from seller.views import SellerViewSet
 # from staff.views import StaffViewSet
 from consumer.views import ConsumerViewSet
-from product.views import *
-from productseller.views import *
+
 
 from rest_framework import routers
 from django.urls import path, include
@@ -36,5 +35,5 @@ urlpatterns = [
     path('api/seller/', include('seller.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path("api/products/", include("product.urls")),
-    path("api/prodcutseller/", include("productseller.urls")),
+    path("api/productseller/", include("productseller.urls")),
 ]

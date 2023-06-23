@@ -4,7 +4,7 @@ import { ProductComponent } from './product.component';
 
 const routes: Routes = [
   // { path: '', pathMatch: 'full', component: HomeComponent },
-  { path: ':id', pathMatch: 'full', component: ProductComponent },
+  { path: ':prod_id', pathMatch: 'full', component: ProductComponent },
 ];
 
 @NgModule({
