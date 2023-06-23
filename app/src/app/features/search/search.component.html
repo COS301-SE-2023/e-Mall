@@ -206,8 +206,8 @@
                 [length]="totalSearchCount$ | async"
                 [pageSizeOptions]="[10, 20, 50, 100]"
                 aria-label="Select page"
-                [pageIndex]="currentPage$ | async"
-                [pageSize]="itemsPerPage$ | async"
+                [pageIndex]="currentPage"
+                [pageSize]="itemsPerPage"
                 (page)="onPageChange($event)"></mat-paginator>
             </ng-container>
           </div>

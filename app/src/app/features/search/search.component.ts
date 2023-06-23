@@ -39,10 +39,10 @@ export class SearchComponent implements OnInit, OnDestroy {
   filterOptions: string[] = []; // Stores the selected filter options
   selectedSortOption!: string;
   isChecked!: boolean;
-  currentPage$ = new BehaviorSubject<number>(0);
+  currentPage!: number;
   maxPrice$: Observable<number> | null = null;
   minPrice$: Observable<number> | null = null;
-  itemsPerPage$ = new BehaviorSubject<number>(10);
+  itemsPerPage!: number;
   totalSearchCount$: Observable<number> | undefined;
 
   ////J fix for min , max price
@@ -67,8 +67,8 @@ export class SearchComponent implements OnInit, OnDestroy {
           this.searchQuery,
           this.filterOptions,
           this.selectedSortOption,
-          this.currentPage$.value,
-          this.itemsPerPage$.value
+          this.currentPage,
+          this.itemsPerPage
         )
         .subscribe(result => {
           this.searchResults$ = of(result.products);
@@ -176,8 +176,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   onPageChange(event: PageEvent) {
-    this.currentPage$.next(event.pageIndex + 1);
-    this.itemsPerPage$.next(event.pageSize);
+    this.currentPage = event.pageIndex;
+    this.itemsPerPage = event.pageSize;
     console.log('Page size: ' + event.pageSize);
     console.log('Page index: ' + event.pageIndex);
     // this.updateQueryParams();
@@ -186,8 +186,8 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.searchQuery,
         this.filterOptions,
         this.selectedSortOption,
-        this.currentPage$.value,
-        this.itemsPerPage$.value
+        this.currentPage,
+        this.itemsPerPage
       )
       .subscribe(result => {
         this.searchResults$ = of(result.products);
@@ -273,6 +273,10 @@ export class SearchComponent implements OnInit, OnDestroy {
       console.log('a ', filteroption);
 
       if (value == null) {
+        // Remove the filter option if checked is false
+        this.filterOptions = this.filterOptions.filter(
+          option => !option.startsWith(`${filter_type}=`)
+        );
         console.log('if value is null: ' + this.filterOptions);
         // Remove the filter option if checked is false
 
@@ -290,20 +294,22 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.filterOptions = this.filterOptions.filter(
           option => !option.startsWith(`${filter_type}=`)
         );
-        console.log('should be empty: ' + this.filterOptions);
+        // console.log('should be empty: ' + this.filterOptions);
         // Add the new filter option
         this.filterOptions.push(filteroption);
-        console.log('should be min_price: ' + this.filterOptions);
+        // console.log('should be min_price: ' + this.filterOptions);
       }
     }
-    console.log(
-      'filter Options after all filters applied: ' + this.filterOptions
-    );
+    // console.log(
+    //   'filter Options after all filters applied: ' + this.filterOptions
+    // );
     this.productService
       .searchProducts(
         this.searchQuery,
         this.filterOptions,
-        this.selectedSortOption
+        this.selectedSortOption,
+        this.currentPage,
+        this.itemsPerPage
       )
       .subscribe(result => {
         this.searchResults$ = of(result.products);

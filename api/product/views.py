@@ -263,11 +263,11 @@ class ProductTestAPIView(APIView):
 
         # Pagination
 
-        page = int(request.GET.get("page")) if request.GET.get("page") else 1
+        page = int(request.GET.get("page")) if request.GET.get("page") else 0
         per_page = (
             int(request.GET.get("per_page")) if request.GET.get("per_page") else 10
         )
-        start = (page - 1) * per_page
+        start = (page) * per_page
         end = start + per_page
         total_count = len(data)
         paginated_data = data[start:end]
