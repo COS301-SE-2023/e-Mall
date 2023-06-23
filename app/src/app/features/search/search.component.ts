@@ -1,20 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '@app/services/product/product.service';
 import { IProduct } from '@app/models/product/product.interface';
 import { Router, NavigationExtras } from '@angular/router';
 import { tap } from 'rxjs/operators';
-import { Observable, map, of, BehaviorSubject } from 'rxjs';
+import {
+  Observable,
+  map,
+  of,
+  BehaviorSubject,
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+  pipe,
+  filter,
+} from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { result } from 'cypress/types/lodash';
 import { ChangeDetectorRef } from '@angular/core';
-import { filter } from 'cypress/types/bluebird';
+import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
   searchQuery!: string;
   searchResults$: Observable<IProduct[]> | undefined;
   isAuthenticated!: boolean;
@@ -34,6 +45,13 @@ export class SearchComponent implements OnInit {
   itemsPerPage$ = new BehaviorSubject<number>(10);
   totalSearchCount$: Observable<number> | undefined;
 
+  ////J fix for min , max price
+  minInputController = new FormControl();
+  maxInputController = new FormControl();
+  minInputControllerSub = new Subscription();
+  maxInputControllerSub = new Subscription();
+
+  /////
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
@@ -103,6 +121,20 @@ export class SearchComponent implements OnInit {
             .subscribe();
         });
     });
+    this.minInputControllerSub = this.minInputController.valueChanges
+      .pipe(debounceTime(1500), distinctUntilChanged())
+      .subscribe(val =>
+        this.onFilterOptionChange('filter_price_min', val, true)
+      );
+    this.maxInputControllerSub = this.maxInputController.valueChanges
+      .pipe(debounceTime(1500), distinctUntilChanged())
+      .subscribe(val =>
+        this.onFilterOptionChange('filter_price_max', val, true)
+      );
+  }
+  ngOnDestroy(): void {
+    this.minInputControllerSub.unsubscribe();
+    this.maxInputControllerSub.unsubscribe();
   }
 
   //
@@ -238,15 +270,21 @@ export class SearchComponent implements OnInit {
       filter_type === 'filter_price_max'
     ) {
       const filteroption = `${filter_type}=${value}`;
+      console.log('a ', filteroption);
 
       if (value == null) {
         console.log('if value is null: ' + this.filterOptions);
         // Remove the filter option if checked is false
+
+        console.log('b ', filteroption);
+        console.log('b ', this.filterOptions);
         const index = this.filterOptions.indexOf(filteroption);
         if (index > -1) {
           this.filterOptions.splice(index, 1);
         }
       } else {
+        console.log('c ', filteroption);
+
         console.log('should be a min_price: ' + this.filterOptions);
         // // Remove any existing filter option with the same filter type
         this.filterOptions = this.filterOptions.filter(

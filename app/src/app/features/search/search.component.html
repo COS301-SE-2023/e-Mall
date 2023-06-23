@@ -88,20 +88,14 @@
             <!-- Content for Price panel -->
             <input
               type="number"
-              [(ngModel)]="minPrice$"
               placeholder="Minimum Price"
-              (onSubmit)="
-                onFilterOptionChange('filter_price_min', minPrice$, true)
-              " />
+              [formControl]="minInputController" />
 
             <p></p>
             <input
               type="number"
-              [(ngModel)]="maxPrice$"
               placeholder="Maximum Price"
-              (ngModelChange)="
-                onFilterOptionChange('filter_price_max', $event, true)
-              " />
+              [formControl]="maxInputController" />
 
             <!-- ... -->
           </mat-expansion-panel>
