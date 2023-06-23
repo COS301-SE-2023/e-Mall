@@ -281,7 +281,7 @@ class ProductTestAPIView(APIView):
 
     def build_query_from_list(self, _param, field):
         _query = Q()
-        _list = _param.split(',')
+        _list = _param.split(',,,')
         for keyword in _list:
             keyword = keyword.strip()
             _query |= Q(
