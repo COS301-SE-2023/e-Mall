@@ -23,7 +23,7 @@ class ProductSellerBackendAPIView(APIView):
 
         # input for sort[price, discount]
         sort = request.GET.get("sort")
-        filter_in_stock = request.Get.get("filter_in_stock")
+        filter_in_stock = request.GET.get("filter_in_stock")
 
         if (sort is None):
             sort = "price"

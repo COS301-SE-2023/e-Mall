@@ -163,7 +163,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   onSortOptionChange(): void {
     this.productService
-      .searchProducts(this.searchQuery, null, this.selectedSortOption)
+      .searchProducts(this.searchQuery, this.filterOptions, this.selectedSortOption, this.currentPage, this.itemsPerPage)
       .subscribe(result => {
         this.searchResults$ = of(result.products);
         this.totalSearchCount$ = of(result.totalCount);
