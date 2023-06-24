@@ -10,7 +10,7 @@
     <link href="search.component.scss" rel="stylesheet" />
   </head>
 
-  <body>
+  <body class ="body">
     <app-navbar></app-navbar>
 
     <main class="landing main">
@@ -163,7 +163,7 @@
 
         <!--products-->
         <div class="product-card">
-          <ng-container *ngIf="searchResults$ | async as products">
+          <ng-container *ngIf="searchResults$ | async as products"> 
             <div class="row">
               <div
                 class="col-md-3"
@@ -184,8 +184,6 @@
                     <mat-card-title class ="product-price">R {{ product.min_price }}</mat-card-title>
                   </mat-card-content>
                 </mat-card>
-                <!-- </mat-sidenav-content> -->
-                <!-- </mat-sidenav-container> -->
 
                 <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
                 <div
@@ -199,29 +197,32 @@
             class="search-results-container"
             *ngIf="(searchResults$ | async)?.length === 0">
             <div class="product-card-no">
-              <!-- <img src="path/to/placeholder-image" alt="No Product Found" /> -->
               <h3>No Products Found</h3>
               <p>
                 Sorry, we couldn't find any products matching your search query. Please try again with a different keyword or refine your search criteria.
               </p>
+              <img src="assets\images\no-image.png" alt="No Product Found" class="nimage"/>
+              
             </div>
           </div>
+
+
         </div>
       </div>
+      
     </main>
-    
+    <div class="mat-paginator">
+      <ng-container *ngIf="searchResults$ | async as products">
+        <mat-paginator
+          [length]="totalSearchCount$ | async"
+          [pageSizeOptions]="[10, 20, 50, 100]"
+          aria-label="Select page"
+          [pageIndex]="currentPage"
+          [pageSize]="itemsPerPage"
+          (page)="onPageChange($event)"></mat-paginator>
+      </ng-container>
+    </div>
+    <app-footer></app-footer>
   </body>
-  
-  <div class="mat-paginator">
-    <ng-container *ngIf="searchResults$ | async as products">
-      <mat-paginator
-        [length]="totalSearchCount$ | async"
-        [pageSizeOptions]="[10, 20, 50, 100]"
-        aria-label="Select page"
-        [pageIndex]="currentPage"
-        [pageSize]="itemsPerPage"
-        (page)="onPageChange($event)"></mat-paginator>
-    </ng-container>
-  </div>
-  <app-footer></app-footer>
 </html>
+
