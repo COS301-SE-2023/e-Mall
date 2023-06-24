@@ -165,16 +165,8 @@
                     <mat-card-subtitle>{{
                       product.category
                     }}</mat-card-subtitle>
-                    <mat-card-title>R {{ product.min_price }}</mat-card-title>
+                    <mat-card-title class ="product-price">R {{ product.min_price }}</mat-card-title>
                   </mat-card-content>
-                  <mat-card-actions>
-                    <mat-icon
-                      mat-icon-button
-                      color="warn"
-                      aria-label="Example icon button with a heart icon">
-                      <mat-icon>favorite</mat-icon>
-                    </mat-icon>
-                  </mat-card-actions>
                 </mat-card>
                 <!-- </mat-sidenav-content> -->
                 <!-- </mat-sidenav-container> -->
@@ -194,8 +186,7 @@
               <!-- <img src="path/to/placeholder-image" alt="No Product Found" /> -->
               <h3>No Products Found</h3>
               <p>
-                The product you have searched for was not found. Please try
-                searching another phrase or word.
+                Sorry, we couldn't find any products matching your search query. Please try again with a different keyword or refine your search criteria.
               </p>
             </div>
           </div>
