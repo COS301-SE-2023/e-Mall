@@ -146,7 +146,11 @@
         </mat-accordion>
 
         <!--products-->
+
         <div class="product-card">
+          <div style="display: flex; justify-content: center; align-items: center;"*ngIf="(searchResults$ | async)===null">
+            <mat-spinner></mat-spinner>
+          </div>
           <ng-container *ngIf="searchResults$ | async as products">
             <div class="row">
               <div
