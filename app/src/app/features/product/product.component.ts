@@ -18,7 +18,6 @@ export class ProductComponent implements OnInit {
   product$: Observable<IProduct> | undefined;
   sellers$: Observable<IProductSeller[]> | undefined;
   currency$: Observable<string> | undefined;
-  inStock!: string;
 
   currencyCode = 'ZAR';
 
@@ -82,7 +81,7 @@ export class ProductComponent implements OnInit {
   onSortOptionChange(): void {
     this.sellers$ = this.productService.getSellerList(
       this.prod_id,
-      this.inStock
+      'true'
     );
   }
 }
