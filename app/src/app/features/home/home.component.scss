@@ -39,7 +39,10 @@ h3{
     border-radius: 0.25rem;
     padding: 1rem;
     cursor: pointer;
-
-    height: 350px;
-    width: 100%;
+   // min-width: 100px;
+    height: 300px;
+    width: 200px;
+  }
+  .carousel-caption{
+    color: $color_type_4;
   }
