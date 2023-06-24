@@ -84,4 +84,11 @@ export class ProductComponent implements OnInit {
       'true'
     );
   }
+
+  onlyInStockToggler() {
+
+    this.divClicked = !this.divClicked;
+
+    console.log( "only in stock Clicked!");
+  }
 }
