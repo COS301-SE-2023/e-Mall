@@ -48,8 +48,8 @@
                           aria-label="Example icon button with a heart icon">
                           <mat-icon>favorite</mat-icon>
                         </button>-->
-                        <div class="min-price-discount">
-                          <span class="badge bg-primary">discount</span>
+                        <div class="min-price-discount_rate" *ngIf="product$ | async as product"  matTooltipPosition="above" aria-label=" tooltip">
+                          <span class="badge bg-danger discount_rate_badge" matTooltip="product discout rate">-{{product.min_price_discount_rate}} %</span>
                         </div>
                       </mat-card-actions>
                     </mat-card>
@@ -140,7 +140,7 @@
                           'out-of-stock-boxes': !seller.in_stock
                         }"
                         matTooltipPosition="above"
-                        aria-label="Example tooltip">
+                        aria-label=" tooltip">
                         <i
                           class="fa-sharp fa-solid fa-boxes-stacked in-stock-box"></i>
                         <i
