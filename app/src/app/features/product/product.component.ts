@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Component, Input, OnInit } from '@angular/core';
 import { IProductSeller } from '@app/models/product/product-seller.interface';
 
@@ -75,5 +76,11 @@ export class ProductComponent implements OnInit {
       return 'https://www.incredible.co.za/media/catalog/product/cache/7ce9addd40d23ee411c2cc726ad5e7ed/s/c/screenshot_2022-05-03_142633.jpg';
 
     return imgList[0];
+  }
+  scroll(el: HTMLElement) {
+    const navbareight = 50; // Replace with the actual height of your navbar
+    const y = el.getBoundingClientRect().top + window.scrollY - navbareight;
+    window.scrollTo({ top: y });
+    // el.scrollIntoView();
   }
 }
