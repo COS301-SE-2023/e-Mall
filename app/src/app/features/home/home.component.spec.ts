@@ -68,7 +68,7 @@ describe('HomeComponent', () => {
         ReactiveFormsModule,
         MatRadioModule,
       ],
-      providers: [ProductService, {
+      providers: [ProductService, AuthService, {
         provide: ActivatedRoute,
         useValue: {
           /* Mock or stub properties/methods you need here */
