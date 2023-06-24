@@ -16,7 +16,7 @@ export class HomeComponent {
   popProducts$: Observable<IProduct[]> | undefined;
   forYouProducts$: Observable<IProduct[]> | undefined;
   isAuthenticated = false;
-  images = [944, 1011, 984].map(n => `https://picsum.photos/id/${n}/900/500`);
+  images="assets/images/comingSoon.jpg";
   // isAuthenticated$;
   constructor(
    // private authService: AuthService,
