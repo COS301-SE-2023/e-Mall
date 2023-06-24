@@ -20,7 +20,7 @@
           You searched for: <strong>{{ searchQuery }}</strong>
         </p>
         <!-- <div class="sort-panel"> -->
-        <mat-form-field class="sort-panel">
+        <!-- <mat-form-field class="sort-panel">
           <mat-label>Sort Options</mat-label>
           <mat-select
             [(value)]="selectedSortOption"
@@ -31,10 +31,25 @@
             <mat-option value="-price">Highest price</mat-option>
             <mat-option value="name">Name(A-Z)</mat-option>
             <mat-option value="-name">Name(Z-A)</mat-option>
-            <!-- <mat-option value="discount">Price drop</mat-option> -->
           </mat-select>
-        </mat-form-field>
-        <!-- </div> -->
+        </mat-form-field> -->
+
+
+        <div class="dropdown">
+          <button class="dropbtn">
+            <mat-label>Sort Options</mat-label>
+            <mat-select
+              [(value)]="selectedSortOption"
+              (selectionChange)="onSortOptionChange()"
+              class="custom-select">
+              <mat-option value="">Default</mat-option>
+              <mat-option value="price">Lowest price</mat-option>
+              <mat-option value="-price">Highest price</mat-option>
+              <mat-option value="name">Name(A-Z)</mat-option>
+              <mat-option value="-name">Name(Z-A)</mat-option>
+            </mat-select>
+          </button>
+        </div>
 
         <mat-divider></mat-divider>
         <!--filter-->

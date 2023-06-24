@@ -147,11 +147,14 @@ $font_type_5: 600 1em/1.39 'Poppins', Helvetica, Arial, serif;
   margin-top: 1rem;
   // margin-right: 0.5rem;
 }
-.sort-panel {
+.dropbtn {
   margin-left: 85%;
-  // margin-right: 0.25rem;
-  margin-bottom: 0.25rem;
-  opacity: 75%;
+  opacity: 100%;
+  background-color: #ffffff;
+  border: 0.0000001px solid #ccc;
+  border-radius: 10px;
+  padding: 8px;
+  width: 150px;
 }
 
 .product-card-no {
