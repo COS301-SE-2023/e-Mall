@@ -22,7 +22,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         } else {
           err_message = `Error Code: ${error.status}\nMessage: ${error.message}`;
         }
-        window.alert(err_message);
+        console.log(err_message);
         return throwError(() => new Error(err_message));
       })
     );

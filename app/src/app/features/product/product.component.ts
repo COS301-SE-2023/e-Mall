@@ -21,7 +21,6 @@ export class ProductComponent implements OnInit {
 
   currencyCode = 'ZAR';
 
-
   //expandedStates: Map<string, boolean> = new Map<string, boolean>();
 
   selected: FormControl;
@@ -47,19 +46,10 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     const id = this.prod_id;
-    console.log(id);
     if (id) {
       this.product$ = this.productService.getProductData(id);
       this.sellers$ = this.productService.getSellerList(id, 'default');
       this.currency$ = of('ZAR');
-      this.product$?.subscribe((res: IProduct) => {
-        console.log('getProductData');
-        console.log(res);
-      });
-      this.sellers$?.subscribe((res: IProductSeller[]) => {
-        console.log('getSellerList');
-        console.log(res);
-      });
     }
   }
   getImgs(imgList?: string[]): string[] {
@@ -78,17 +68,12 @@ export class ProductComponent implements OnInit {
 
     return imgList[0];
   }
-  onSortOptionChange(): void {
-    this.sellers$ = this.productService.getSellerList(
-      this.prod_id,
-      'true'
-    );
-  }
-
   onlyInStockToggler() {
-
     this.divClicked = !this.divClicked;
 
-    console.log( "only in stock Clicked!");
+    this.sellers$ = this.productService.getSellerList(
+      this.prod_id,
+      this.divClicked.toString()
+    );
   }
 }

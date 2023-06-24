@@ -23,9 +23,7 @@ export class ProductService {
     inStock: string
   ): Observable<IProductSeller[]> {
     const url = `${this.apiUrl}productseller/backend?prod_id=${id}`;
-    console.log('inStock: ' + inStock);
     if (inStock == 'true') {
-      console.log('ifworking: ' + inStock);
       return this.http.get<IProductSeller[]>(url + '&filter_in_stock=true');
     } else {
       return this.http.get<IProductSeller[]>(url);
