@@ -162,8 +162,12 @@
         </mat-accordion>
 
         <!--products-->
+
         <div class="product-card">
-          <ng-container *ngIf="searchResults$ | async as products"> 
+          <div style="display: flex; justify-content: center; align-items: center;"*ngIf="(searchResults$ | async)===null">
+            <mat-spinner></mat-spinner>
+          </div>
+          <ng-container *ngIf="searchResults$ | async as products">
             <div class="row">
               <div
                 class="col-md-3"
@@ -183,6 +187,7 @@
                     }}</mat-card-subtitle>
                     <mat-card-title class ="product-price">R {{ product.min_price }}</mat-card-title>
                   </mat-card-content>
+
                 </mat-card>
 
                 <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
