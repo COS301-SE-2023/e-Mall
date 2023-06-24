@@ -2,7 +2,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ProductService } from '@app/services/product/product.service';
 import { of } from 'rxjs';
 import { IProduct } from '@app/models/product/product.interface';
@@ -160,11 +159,15 @@ describe('HomeComponent', () => {
     });
   });
 
-  it('should navigate to search results on search', () => {
-    router.navigate(['/search-results']).then(() => {
-      expect(router.url).toBe('/search-results');
-    });
+it('should navigate to search results on search', async () => {
+  spyOn(router, 'navigate').and.returnValue(Promise.resolve(true));
+
+  await component.search('search query');
+
+  expect(router.navigate).toHaveBeenCalledWith(['/search-results'], {
+    queryParams: { search: 'search query' },
   });
+});
 
   it('should navigate to product page on click', () => {
     const productId = 1;
