@@ -111,7 +111,7 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="">Prices</a>
+                <a class="nav-link" (click)="scroll(comp_products)">Prices</a>
               </li>
               <!--<li class="nav-item">
                 <a class="nav-link">Statistics</a>
@@ -205,10 +205,13 @@
             </li>
           </ul>-->
 
+<div #comp_products id="comp_products"></div>
         <ng-container *ngIf="sellers$ | async as sellers">
           <ul class="seller-list">
             <li *ngFor="let seller of sellers">
-              <div class="container-fluid comp-products">
+              <div
+              
+               class="container-fluid comp-products">
                 <mat-accordion>
                   <mat-expansion-panel hideToggle>
                     <mat-expansion-panel-header>
