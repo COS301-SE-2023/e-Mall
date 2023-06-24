@@ -22,6 +22,7 @@ import { AboutModule } from './features/about/about.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
     HomeModule,
     ConstructionModule,
     ProductModule,
@@ -34,7 +35,6 @@ import { AboutModule } from './features/about/about.module';
     ContactModule,
     NotFoundModule,
     AboutModule,
-    AppRoutingModule,
   ],
 
   providers: [httpInterceptorProviders],

@@ -31,7 +31,6 @@ export class HomeComponent {
   }
 
   ngOnInit(): void {
-    
     this.fetchforYouProducts();
     this.fetchPopProducts();
   }
@@ -47,8 +46,8 @@ export class HomeComponent {
   }
 
   fetchforYouProducts() {
-    //Need to implement AI algo 
-    //Mock data below 
+    //Need to implement AI algo
+    //Mock data below
     this.forYouProducts$ = this.productService.getForYouProducts();
     this.forYouProducts$?.subscribe((res: IProduct[]) => {
       console.log('getProductList');
@@ -70,9 +69,9 @@ export class HomeComponent {
     const navigationextras: NavigationExtras = {
       queryParams: { prod_id: prod_id },
     };
-    console.log(prod_id);
+    // console.log(prod_id);
 
-    this.router.navigate(['products', prod_id], navigationextras);
+    this.router.navigate(['products'], navigationextras);
   }
 
   getOneImg(imgList?: string[]) {
