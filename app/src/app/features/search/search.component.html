@@ -207,7 +207,7 @@
             </div>
           </div>
           <!--paginator-->
-          <div class="mat-paginator">
+          <!-- <div class="mat-paginator">
             <ng-container *ngIf="searchResults$ | async as products">
               <mat-paginator
                 [length]="totalSearchCount$ | async"
@@ -217,12 +217,25 @@
                 [pageSize]="itemsPerPage"
                 (page)="onPageChange($event)"></mat-paginator>
             </ng-container>
-          </div>
+          </div> -->
 
           <!--end of paginator-->
         </div>
       </div>
     </main>
-    <app-footer></app-footer>
+    
   </body>
+  
+  <div class="mat-paginator">
+    <ng-container *ngIf="searchResults$ | async as products">
+      <mat-paginator
+        [length]="totalSearchCount$ | async"
+        [pageSizeOptions]="[10, 20, 50, 100]"
+        aria-label="Select page"
+        [pageIndex]="currentPage"
+        [pageSize]="itemsPerPage"
+        (page)="onPageChange($event)"></mat-paginator>
+    </ng-container>
+  </div>
+  <app-footer></app-footer>
 </html>
