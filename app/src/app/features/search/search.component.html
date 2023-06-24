@@ -24,7 +24,8 @@
           <mat-label>Sort Options</mat-label>
           <mat-select
             [(value)]="selectedSortOption"
-            (selectionChange)="onSortOptionChange()">
+            (selectionChange)="onSortOptionChange()"
+            class="custom-select">
             <mat-option value="">Default</mat-option>
             <mat-option value="price">Lowest price</mat-option>
             <mat-option value="-price">Highest price</mat-option>
