@@ -183,9 +183,9 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: |
-            api/coverage.xml
-            app/karma/lcov.info
-            app/cypress/coverage.xml
+            ./api/coverage.xml
+            ./app/karma/lcov.info
+            ./app/cypress/coverage.xml
 
   cypress-e2e:
     name: Cypress E2E Test
