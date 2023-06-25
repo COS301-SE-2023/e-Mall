@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -14,13 +15,14 @@ describe('RegisterComponent', () => {
   let authService: AuthService;
   let router: Router;
 
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule,
+      imports: [
+        RouterTestingModule,
         HttpClientModule,
         FormsModule,
-        ReactiveFormsModule,],
+        ReactiveFormsModule,
+      ],
       declarations: [SellerRegisterComponent],
       providers: [AuthService],
     }).compileComponents();

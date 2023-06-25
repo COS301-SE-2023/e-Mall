@@ -1,11 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SearchComponent } from './search.component';
 import { Router } from '@angular/router';
-import { IProduct } from '@app/models/product/product.interface';
-import { ProductService } from '@app/services/product/product.service';
-import { of } from 'rxjs';
 
 import { SearchRoutingModule as SearchRoutingModule } from './search-routing.module';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -36,8 +34,8 @@ describe('SearchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: 
-      [BrowserAnimationsModule,
+      imports: [
+        BrowserAnimationsModule,
         RouterTestingModule,
         CommonModule,
         SearchRoutingModule,
@@ -75,8 +73,7 @@ describe('SearchComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
-/*
+  /*
   it('should navigate to product page with correct navigation extras', () => {
     const prodId = 123;
     const navigationExtras = {
@@ -315,5 +312,4 @@ describe('SearchComponent', () => {
     fixture.detectChanges();
     expect(component.categoryClothing).toBe(true);
   });*/
-
 });

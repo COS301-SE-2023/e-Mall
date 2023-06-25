@@ -10,6 +10,7 @@ didnt test yet. add to index.ts if needed
 */
 @Injectable()
 export class HttpsReplaceInterceptor implements HttpInterceptor {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     // clone request and replace 'http://' with 'https://' at the same time
     const secure = req.clone({
