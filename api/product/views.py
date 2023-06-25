@@ -181,8 +181,8 @@ class ProductTestAPIView(APIView):
             "-brand": "-brand",
             "price": "min_price",
             "-price": "-min_price",
-            "discount": "min_discount_rate",
-            "-discount": "-min_discount_rate",
+            "discount": "min_price_discount_rate",
+            "-discount": "-min_price_discount_rate",
         }
 
         # Input for search

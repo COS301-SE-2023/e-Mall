@@ -18,9 +18,16 @@ export class ProductService {
     const url = `${this.apiUrl}products/frontend?prod_id=${id}`;
     return this.http.get<IProduct>(url);
   }
-  public getSellerList(id: number): Observable<IProductSeller[]> {
+  public getSellerList(
+    id: number,
+    inStock: string
+  ): Observable<IProductSeller[]> {
     const url = `${this.apiUrl}productseller/backend?prod_id=${id}`;
-    return this.http.get<IProductSeller[]>(url);
+    if (inStock == 'true') {
+      return this.http.get<IProductSeller[]>(url + '&filter_in_stock=true');
+    } else {
+      return this.http.get<IProductSeller[]>(url);
+    }
   }
 
   public getPopProducts(): Observable<IProduct[]> {

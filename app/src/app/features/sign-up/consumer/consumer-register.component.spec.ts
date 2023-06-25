@@ -10,18 +10,23 @@ import { of } from 'rxjs';
 describe('ConsumerRegisterComponent', () => {
   let component: ConsumerRegisterComponent;
   let fixture: ComponentFixture<ConsumerRegisterComponent>;
-  let authService: jasmine.SpyObj<AuthService>;
+  // let authService: jasmine.SpyObj<AuthService>;
 
   beforeEach(async () => {
     const authServiceSpy = jasmine.createSpyObj('AuthService', ['signUp']);
 
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientModule, FormsModule, ReactiveFormsModule],
+      imports: [
+        RouterTestingModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+      ],
       declarations: [ConsumerRegisterComponent],
       providers: [{ provide: AuthService, useValue: authServiceSpy }],
     }).compileComponents();
 
-    authService = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
+    // authService = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
   });
 
   beforeEach(() => {
@@ -70,49 +75,55 @@ describe('ConsumerRegisterComponent', () => {
     expect(authService.signUp).not.toHaveBeenCalled();
     expect(routerSpy).not.toHaveBeenCalled();
   });
-*//*
+
+*/
+  /*
   it('should display error messages for required fields', () => {
     const emailControl = component.signUpForm.get('email');
     const passwordControl = component.signUpForm.get('password');
     const cpasswordControl = component.signUpForm.get('cpassword');
 
-    emailControl?.setValue('');
-    passwordControl?.setValue('');
-    cpasswordControl?.setValue('');
 
-    component.onSubmit();
+  //   emailControl?.setValue('');
+  //   passwordControl?.setValue('');
+  //   cpasswordControl?.setValue('');
 
-    expect(emailControl?.errors?.['required']).toBeTruthy();
-    expect(passwordControl?.errors?.['required']).toBeTruthy();
-    expect(cpasswordControl?.errors?.['required']).toBeTruthy();
+  //   component.onSubmit();
 
-    const errorMessageElements = fixture.nativeElement.querySelectorAll('.errorMsg');
-    expect(errorMessageElements.length).toBe(3);
-  });
+  //   expect(emailControl?.errors?.['required']).toBeTruthy();
+  //   expect(passwordControl?.errors?.['required']).toBeTruthy();
+  //   expect(cpasswordControl?.errors?.['required']).toBeTruthy();
 
-  it('should display error message for invalid email', () => {
-    const emailControl = component.signUpForm.get('email');
+  //   const errorMessageElements =
+  //     fixture.nativeElement.querySelectorAll('.errorMsg');
+  //   expect(errorMessageElements.length).toBe(3);
+  // });
 
-    emailControl?.setValue('invalid-email');
+  // it('should display error message for invalid email', () => {
+  //   const emailControl = component.signUpForm.get('email');
 
-    component.onSubmit();
+  //   emailControl?.setValue('invalid-email');
 
-    expect(emailControl?.errors?.['email']).toBeTruthy();
+  //   component.onSubmit();
 
-    const errorMessageElement = fixture.nativeElement.querySelector('.errorMsg');
-    expect(errorMessageElement.textContent).toContain('Invalid email address');
-  });
+  //   expect(emailControl?.errors?.['email']).toBeTruthy();
 
-  it('should display error message for password mismatch', () => {
-    const passwordControl = component.signUpForm.get('password');
-    const cpasswordControl = component.signUpForm.get('cpassword');
+  //   const errorMessageElement =
+  //     fixture.nativeElement.querySelector('.errorMsg');
+  //   expect(errorMessageElement.textContent).toContain('Invalid email address');
+  // });
 
-    passwordControl?.setValue('password1');
-    cpasswordControl?.setValue('password2');
+  // it('should display error message for password mismatch', () => {
+  //   const passwordControl = component.signUpForm.get('password');
+  //   const cpasswordControl = component.signUpForm.get('cpassword');
 
-    component.onSubmit();
+  //   passwordControl?.setValue('password1');
+  //   cpasswordControl?.setValue('password2');
 
-    expect(cpasswordControl?.errors?.['passwordMismatch']).toBeTruthy();
+  //   component.onSubmit();
+
+  //   expect(cpasswordControl?.errors?.['passwordMismatch']).toBeTruthy();
+
 
     const errorMessageElement = fixture.nativeElement.querySelector('.errorMsg');
     expect(errorMessageElement.textContent).toContain('Password and Confirm Password do not match');

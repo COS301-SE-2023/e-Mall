@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
 
 import { AuthService } from '@app/services/auth/auth.service';
 import { Router } from '@angular/router';
@@ -16,13 +21,14 @@ describe('SignInComponent', () => {
   let authService: AuthService;
   let router: Router;
 
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule,
+      imports: [
+        RouterTestingModule,
         HttpClientModule,
         FormsModule,
-        ReactiveFormsModule,],
+        ReactiveFormsModule,
+      ],
       declarations: [SignInComponent],
       providers: [AuthService],
     }).compileComponents();
@@ -39,7 +45,6 @@ describe('SignInComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  
   it('should initialize the signInForm with empty values', () => {
     expect(component.signInForm.value).toEqual({
       email: '',
@@ -99,4 +104,5 @@ describe('SignInComponent', () => {
     );
   });*/
   
+
 });

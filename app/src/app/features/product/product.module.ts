@@ -10,6 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [ProductComponent],
@@ -23,7 +25,9 @@ import { FooterModule } from '@shared/components/footer/footer.module';
     MatSelectModule,
     MatExpansionModule,
     NavbarModule,
-    FooterModule
+    FooterModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule
   ],
   exports: [ProductComponent],
 })
