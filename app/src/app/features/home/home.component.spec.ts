@@ -175,7 +175,7 @@ it('should navigate to search results on search', async () => {
 
     component.goToProductPage(productId);
 
-    expect(router.navigate).toHaveBeenCalledWith(['products', productId], {
+    expect(router.navigate).toHaveBeenCalledWith(['products'], {
       queryParams: { prod_id: productId },
     });
   });
