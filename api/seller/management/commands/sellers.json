@@ -1,0 +1,17 @@
+{
+  "1": {
+    "business_name": "Makro",
+    "business_type": "Retailer",
+    "website": "https://www.makro.co.za"
+  },
+  "2": {
+    "business_name": "Amazon",
+    "business_type": "Retailer",
+    "website": "https://www.amazon.co.uk"
+  },
+  "3": {
+    "business_name": "Takealot",
+    "business_type": "Retailer",
+    "website": "https://www.takealot.com"
+  }
+}
