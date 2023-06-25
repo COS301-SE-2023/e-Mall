@@ -13,13 +13,10 @@ class Product(models.Model):
         ("sports and outdoors", "Sports and Outdoors"),
         ("toys and games", "Toys and Games"),
         ("books", "Books"),
-        ("food and beverages", "Food and Beverages"),
     ]
 
     id = models.AutoField(primary_key=True)
-    min_price_img_array = ArrayField(
-        models.CharField(max_length=200), verbose_name="Image URL"
-    )
+    min_price_img_array = ArrayField(models.CharField(), verbose_name="Image URL")
     name = models.CharField(max_length=100)
     description = models.TextField()
     brand = models.CharField(max_length=100, default="")
@@ -28,9 +25,7 @@ class Product(models.Model):
     )
     min_price = models.DecimalField(max_digits=7, decimal_places=2, default=000.00)
     min_price_seller_id = models.UUIDField(default=uuid.uuid4, editable=False)
-    min_price_seller_product_url = models.URLField(
-        max_length=200, verbose_name="Seller URL"
-    )
+    min_price_seller_product_url = models.URLField(verbose_name="Seller URL")
     min_price_seller_business_name = models.CharField(max_length=100, default="")
     min_price_in_stock = models.BooleanField(default=True)
     min_price_discount = models.BooleanField(default=False)

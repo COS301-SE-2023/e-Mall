@@ -27,7 +27,9 @@
     "app:e2e": "start cmd /k \"cypress open\"",
     "lint": "ng lint",
     "api:deletemigrations": "powershell -Command \"Get-ChildItem -Path ../api/ -Filter *.py -Recurse | Where-Object { $_.FullName -like '*\\migrations\\*' -and $_.Name -ne '__init__.py' } | Remove-Item\"",
-    "api:mockdata": "yarn api:populateproducts&& yarn api:populatesellers && yarn api:populateproductsellers && yarn api:populateproductsellers && yarn api:populateproductsellers"
+    "api:mockdata": "yarn api:populateproducts&& yarn api:populatesellers && yarn api:populateproductsellers",
+    "api:mockprodsellers": "yarn api:populateproducts && yarn api:populateproductsellers",
+    "api:deletemockdata": "yarn api:depopulateproducts && yarn api:depopulatesellers && yarn api:depopulateproductsellers"
   },
   "private": true,
   "dependencies": {

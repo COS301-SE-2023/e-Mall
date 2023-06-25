@@ -5,6 +5,8 @@ from productseller.models import ProductSeller
 from product.models import Product
 from seller.models import Seller
 from decimal import Decimal, ROUND_DOWN
+import os
+import json
 
 fake = Faker()
 
@@ -16,29 +18,44 @@ def generate_fake_input(select_list):
 
 class Command(BaseCommand):
     def handle(self, *args: Any, **options: Any) -> Optional[str]:
-        for _ in range(20):
-            discount_rate = Decimal(fake.random.uniform(0, 0.99)).quantize(
-                Decimal("0.00"), rounding=ROUND_DOWN
-            )
-            original_price = Decimal(fake.random_int(min=10, max=1000))
+        last_product_id = Product.objects.last().id
+        current_product_id = last_product_id - 2
+        print("last product",last_product_id)
+        print("current id",current_product_id)
+        seller_uuids = Seller.objects.values_list("id", flat=True)
+        print(seller_uuids)
 
-            discounted_price = original_price * (Decimal(1) - discount_rate)
+        json_file = "productsellers.json"
+        script_directory = os.path.dirname(
+            __file__
+        )  # Get the directory of the current script
+        file_path = os.path.join(
+            script_directory, json_file
+        )  # Create the absolute path to the JSON file
 
-            # Round the discounted price to two decimal places
-            discounted_price = discounted_price.quantize(
-                Decimal("0.00"), rounding=ROUND_DOWN
-            )
-            productseller = ProductSeller(
-                product=generate_fake_input(Product.objects.all()),
-                seller=generate_fake_input(Seller.objects.all()),
-                price=discounted_price,
-                discount=original_price - discounted_price,
-                discount_rate=discount_rate,
-                original_price=original_price,
-                product_url=fake.url(),
-                in_stock=fake.boolean(),
-                img_array=[fake.image_url() for _ in range(3)],
-                product_name=fake.name(),
-            )
-            productseller.save()
-        self.stdout.write(self.style.SUCCESS("Productseller's created successfully"))
+        with open(file_path) as file:
+            data = json.load(file)
+
+        for key, productseller_data in data.items():
+            for current_product_id in range(int(current_product_id), last_product_id+1):
+                for i in range(0,3):
+                    seller_uuid = seller_uuids[i]
+                    product = Product.objects.get(id=current_product_id)
+                    uuid_str = str(seller_uuid)
+                    seller = Seller.objects.get(id=uuid_str)
+                    print(uuid_str)
+                    print(product.id)
+                    # Create the ProductSeller object and assign the fields from the JSON data
+                    productseller = ProductSeller(
+                        product=product,
+                        seller=seller,
+                        original_price=productseller_data["original_price"],
+                        price=productseller_data["price"],
+                        discount=productseller_data["discount"],
+                        discount_rate=productseller_data["discount_rate"],
+                        product_url=productseller_data["product_url"],
+                        in_stock=productseller_data["in_stock"],
+                        img_array=productseller_data["img_array"],
+                    )
+                    productseller.save()
+                current_product_id += 1
