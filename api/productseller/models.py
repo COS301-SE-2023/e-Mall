@@ -11,9 +11,9 @@ class ProductSeller(models.Model):
     price = models.DecimalField(max_digits=7, decimal_places=2, default=0.00)
     discount = models.DecimalField(max_digits=7, decimal_places=2, default=0.00)
     discount_rate = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
-    product_url = models.URLField(verbose_name="Product URL")
+    product_url = models.URLField(max_length=1000, verbose_name="Product URL")
     in_stock = models.BooleanField(default=True)
-    img_array = models.JSONField(default=list)
+    img_array = models.JSONField(max_length=1000, default=list)
     business_name = models.CharField(max_length=100, default="")
     product_name = models.CharField(default="")
 

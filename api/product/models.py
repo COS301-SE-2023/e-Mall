@@ -16,17 +16,19 @@ class Product(models.Model):
     ]
 
     id = models.AutoField(primary_key=True)
-    min_price_img_array = ArrayField(models.CharField(), verbose_name="Image URL")
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    brand = models.CharField(max_length=100, default="")
-    category = models.CharField(
-        max_length=100, choices=CATEGORY_CHOICES, default="electronics"
+    min_price_img_array = ArrayField(
+        models.CharField(max_length=1000), verbose_name="Image URL"
     )
+    name = models.CharField()
+    description = models.TextField()
+    brand = models.CharField(default="")
+    category = models.CharField(choices=CATEGORY_CHOICES, default="electronics")
     min_price = models.DecimalField(max_digits=7, decimal_places=2, default=000.00)
     min_price_seller_id = models.UUIDField(default=uuid.uuid4, editable=False)
-    min_price_seller_product_url = models.URLField(verbose_name="Seller URL")
-    min_price_seller_business_name = models.CharField(max_length=100, default="")
+    min_price_seller_product_url = models.URLField(
+        max_length=1000, verbose_name="Seller URL"
+    )
+    min_price_seller_business_name = models.CharField(default="")
     min_price_in_stock = models.BooleanField(default=True)
     min_price_discount = models.BooleanField(default=False)
     min_price_discount_rate = models.DecimalField(max_digits=3, decimal_places=2)
