@@ -145,6 +145,11 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
+      - run: |
+          ls -a ~/
+          ls -a ~/.sonar
+          ls -a ~/.sonar/cache
+
       - name: SonarCloud scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
@@ -182,9 +187,9 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: |
-            coverage.xml
-            lcov.info
+          # files: |
+          #   coverage.xml
+          #   lcov.info
 
   cypress-e2e:
     name: Cypress E2E Test
