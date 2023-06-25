@@ -146,9 +146,7 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar
 
       - run: |
-          ls -a ~/
-          ls -a ~/.sonar
-          ls -a ~/.sonar/cache
+          find / -type d -name .sonar
 
       - name: SonarCloud scan
         uses: SonarSource/sonarcloud-github-action@master
