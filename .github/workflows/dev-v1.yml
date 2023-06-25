@@ -138,16 +138,6 @@ jobs:
       - name: Change pytest report source
         run: sed -i "s|<source>\/api</source>|<source>api\/<\/source>|g" api/coverage.xml
 
-      - name: Cache SonarCloud Scanner
-        uses: actions/cache@v3
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-
-      - run: |
-          find / -type d -name .sonar
-
       - name: SonarCloud scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
