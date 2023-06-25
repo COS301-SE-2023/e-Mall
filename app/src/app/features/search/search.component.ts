@@ -1,26 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ProductService } from '@app/services/product/product.service';
 import { IProduct } from '@app/models/product/product.interface';
-import { Router, NavigationExtras } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import {
   Observable,
-  map,
   of,
-  BehaviorSubject,
   debounceTime,
   distinctUntilChanged,
-  switchMap,
-  pipe,
-  filter,
+  Subscription,
 } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
-import { result } from 'cypress/types/lodash';
-import { ChangeDetectorRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
-
 @Component({
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
@@ -165,7 +156,13 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   onSortOptionChange(): void {
     this.productService
-      .searchProducts(this.searchQuery, this.filterOptions, this.selectedSortOption, this.currentPage, this.itemsPerPage)
+      .searchProducts(
+        this.searchQuery,
+        this.filterOptions,
+        this.selectedSortOption,
+        this.currentPage,
+        this.itemsPerPage
+      )
       .subscribe(result => {
         this.searchResults$ = of(result.products);
         this.totalSearchCount$ = of(result.totalCount);
@@ -209,6 +206,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   //   });
   // }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onFilterOptionChange(filter_type: string, value: any, checked: boolean) {
     if (
       filter_type === 'filter_category' ||

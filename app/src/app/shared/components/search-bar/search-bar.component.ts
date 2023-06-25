@@ -1,20 +1,15 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  ChangeDetectorRef,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
   ViewChild,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { of } from 'rxjs';
-import { distinctUntilChanged, Subscription, Observable } from 'rxjs';
-import { debounceTime } from 'rxjs';
-import { filter } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { IProduct } from '@app/models/product/product.interface';
 import { faker } from '@faker-js/faker';
-import { switchMap } from 'rxjs';
 import { NavigationExtras, Router } from '@angular/router';
 @Component({
   selector: 'app-search-bar',

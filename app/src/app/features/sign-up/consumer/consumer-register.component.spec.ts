@@ -5,7 +5,6 @@ import { AuthService } from '@app/services/auth/auth.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { of } from 'rxjs';
 
 describe('ConsumerRegisterComponent', () => {
   let component: ConsumerRegisterComponent;
