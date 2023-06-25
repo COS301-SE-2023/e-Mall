@@ -20,10 +20,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 
-
-
-
-
 @NgModule({
   declarations: [SearchComponent],
   imports: [
