@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - develop
-      - JY/00/quality_gate_check
 
   pull_request:
     branches:
