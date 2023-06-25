@@ -16,6 +16,7 @@ import { SignOutModule } from './features/sign-out/sign-out.module';
 import { FooterModule } from './shared/components/footer/footer.module';
 import { ContactModule } from './features/contact/contact.module';
 import { AboutModule } from './features/about/about.module';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +36,7 @@ import { AboutModule } from './features/about/about.module';
     ContactModule,
     NotFoundModule,
     AboutModule,
+    MatTooltipModule
   ],
 
   providers: [httpInterceptorProviders],

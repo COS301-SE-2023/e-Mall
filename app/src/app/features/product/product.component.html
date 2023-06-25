@@ -21,6 +21,9 @@
     <div class="container-fluid body-container">
       <div class="container-fluid prices" id="prices">
         <div class="row product-img-info-container">
+          <!--<div *ngIf="(product$ | async) === null">
+            <mat-spinner></mat-spinner>
+          </div>-->
           <div class="col-sm-4 col-md-4 col-lg-4 mini-imgs-container">
             <div
               class="mini-imgs-small-container"
@@ -35,29 +38,30 @@
 
           <div class="col-sm-4 col-md-4 col-lg-4 main-img-container">
             <mat-card class="product-card">
-              <img
-                mat-card-image
-                [src]="getOneImg((product$ | async)?.min_price_img_array)"
-                alt="Product Image"
-                class="product-image" />
-              <mat-card-actions>
-                <!--<button
-                          mat-icon-button
-                          color="warm"
-                          aria-label="Example icon button with a heart icon">
-                          <mat-icon>favorite</mat-icon>
-                        </button>-->
+              <div class="position-relative">
+                <img
+                  mat-card-image
+                  [src]="getOneImg((product$ | async)?.min_price_img_array)"
+                  alt="Product Image"
+                  class="product-image" />
                 <div
                   class="min-price-discount_rate"
-                  *ngIf="product$ | async as product"
-                  matTooltipPosition="above"
-                  aria-label=" tooltip">
+                  *ngIf="product$ | async as product">
                   <span
                     class="badge bg-danger discount_rate_badge"
-                    matTooltip="product discout rate"
-                    >-{{ product.min_price_discount_rate }} %</span
-                  >
+                    matTooltip="Product discount rate"
+                    *ngIf="product.min_price_discount_rate !== 0">
+                    -{{ product.min_price_discount_rate }}%
+                  </span>
                 </div>
+              </div>
+              <mat-card-actions>
+                <!--<button
+                  mat-icon-button
+                  color="warm"
+                  aria-label="Example icon button with a heart icon">
+                  <mat-icon>favorite</mat-icon>
+                </button>-->
               </mat-card-actions>
             </mat-card>
           </div>
@@ -71,7 +75,7 @@
               <p>{{ product.description }}</p>
               <p>
                 Compare prices from
-                <b>{{ product.min_price }} {{ currencyCode }}</b>
+                <b>R{{ product.min_price }}</b>
               </p>
             </div>
           </div>
@@ -104,9 +108,9 @@
                   >Product information</a
                 >
               </li>
-              <li class="nav-item">
+              <!--<li class="nav-item">
                 <a class="nav-link">Reviews & tests</a>
-              </li>
+              </li>-->
             </ul>
           </div>
         </nav>
@@ -140,35 +144,49 @@
                       </mat-panel-title>
                       <mat-panel-description> </mat-panel-description>
                     </mat-expansion-panel-header>
+                    <div
+                      *ngIf="seller.in_stock"
+                      style="color: green; margin-top: 20px">
+                      <i class="fa-sharp fa-solid fa-boxes-stacked in-stock-box"
+                        ><span style="margin-left: 10px">In stock</span></i
+                      >
+                    </div>
+                    <div
+                      *ngIf="!seller.in_stock"
+                      style="color: red; margin-top: 20px">
+                      <i class="fa-sharp fa-solid fa-boxes-stacked"
+                        ><span style="margin-left: 10px">Out of stock</span></i
+                      >
+                    </div>
                   </mat-expansion-panel>
                   <mat-card-header class="seller-product-name-price">
-                    <div class="card-title-container">
-                      <mat-card-title class="product-name"
-                        ><a routerLink="{{ seller.product_url }}">{{
+                    <div class="container-fluid card-title-container">
+                      <mat-card-title class="product-name">
+                        <a routerLink="{{ seller.product_url }}">{{
                           seller.product_name
-                        }}</a></mat-card-title
-                      >
-                      <div
-                        [ngClass]="{
-                          'in-stock-boxes': seller.in_stock,
-                          'out-of-stock-boxes': !seller.in_stock
-                        }"
-                        matTooltipPosition="above"
-                        aria-label="Example tooltip">
-                        <i
-                          class="fa-sharp fa-solid fa-boxes-stacked in-stock-box"></i>
-                        <i
-                          *ngIf="seller.in_stock"
-                          class="fa-sharp fa-solid fa-check in-stock-tick"
-                          matTooltip="in stock"></i>
-                        <i
-                          *ngIf="!seller.in_stock"
-                          class="fa-sharp fa-solid fa-x in-stock-x"
-                          matTooltip="out of stock"></i>
+                        }}</a>
+                      </mat-card-title>
+                      <div class="right-section">
+                        <div
+                          class="in-stock-container"
+                          [ngClass]="{
+                            'in-stock-boxes': seller.in_stock,
+                            'out-of-stock-boxes': !seller.in_stock
+                          }"
+                          matTooltipPosition="above"
+                          aria-label="Example tooltip">
+                          <i
+                            class="fa-sharp fa-solid fa-boxes-stacked in-stock-box"></i>
+                          <i
+                            *ngIf="seller.in_stock"
+                            class="fa-sharp fa-solid fa-check in-stock-tick"
+                            matTooltip="in stock"></i>
+                          <i
+                            *ngIf="!seller.in_stock"
+                            class="fa-sharp fa-solid fa-x in-stock-x"
+                            matTooltip="out of stock"></i>
+                        </div>
                       </div>
-                      <mat-card-title class="product-price">
-                        {{ seller.price }} {{ currencyCode }}</mat-card-title
-                      >
                     </div>
                   </mat-card-header>
                 </mat-accordion>
