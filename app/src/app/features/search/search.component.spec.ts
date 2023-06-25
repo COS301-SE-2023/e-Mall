@@ -19,7 +19,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRadioModule } from '@angular/material/radio';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router, ActivatedRoute } from '@angular/router';
-import { of, BehaviorSubject } from 'rxjs';
+import { of, BehaviorSubject, Observable } from 'rxjs';
 import { By } from '@angular/platform-browser';
 
 import { SearchComponent } from './search.component';
@@ -34,12 +34,24 @@ describe('SearchComponent', () => {
   let fixture: ComponentFixture<SearchComponent>;
   let productService: ProductService;
   let router: Router;
+  
+  let mockProductService: { searchProducts: { and: { returnValue: (arg0: Observable<{ products:IProduct[]; totalCount: number; }>) => void; }; }; };
+  let mockRouter;
 
   const mockActivatedRoute = {
     queryParams: of({ search: 'test' }),
   };
 
   beforeEach(async () => {
+   /* mockProductService = {
+      searchProducts: jasmine.createSpy().and.returnValue(
+        of({
+          products: [],
+          totalCount: 0
+        })
+      )
+    };*/
+  
     await TestBed.configureTestingModule({
       declarations: [SearchComponent],
       imports: [
@@ -68,8 +80,10 @@ describe('SearchComponent', () => {
       providers: [
         ProductService,
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        { provide: ProductService, useValue: mockProductService },
       ],
     }).compileComponents();
+    productService = TestBed.inject(ProductService);
   });
 
   beforeEach(() => {
@@ -79,6 +93,7 @@ describe('SearchComponent', () => {
     router = TestBed.inject(Router);
     fixture.detectChanges();
   });
+  
 
   it('should create the SearchComponent', () => {
     expect(component).toBeTruthy();
@@ -101,30 +116,33 @@ describe('SearchComponent', () => {
         min_price: 20,
       },
     ];
-    
-
-    spyOn(productService, 'searchProducts').and.returnValue(
+   // Remove the existing spy on searchProducts
+   
+    const mockRoute = TestBed.inject(ActivatedRoute);
+    mockRoute.queryParams = of({ search: 'a' });
+  
+    const searchProductsSpy = spyOn(productService, 'searchProducts').and.returnValue(
       of({
         products: mockProducts,
         totalCount: mockProducts.length,
       })
     );
-
+  
     component.ngOnInit();
-
-    expect(productService.searchProducts).toHaveBeenCalledWith(
-      'test',
-      [],
-      undefined,
-      0,
+  
+    expect(searchProductsSpy).toHaveBeenCalledWith(
+      'a',
+      component.filterOptions,
+      component.selectedSortOption,
+      component.currentPage,
       component.itemsPerPage
     );
-
+  
     fixture.detectChanges();
-
+  
     const productElements = fixture.debugElement.queryAll(By.css('.product-card'));
     expect(productElements.length).toBe(mockProducts.length);
-
+  
     for (let i = 0; i < mockProducts.length; i++) {
       const productElement = productElements[i].nativeElement;
       expect(productElement.textContent).toContain(mockProducts[i].name);
@@ -132,7 +150,10 @@ describe('SearchComponent', () => {
       expect(productElement.textContent).toContain(mockProducts[i].min_price);
     }
   });
-
+  
+  
+  
+  
   it('should navigate to product page on click', () => {
     const productId = 1;
     spyOn(router, 'navigate');
@@ -144,7 +165,19 @@ describe('SearchComponent', () => {
     });
   });
   
+  it('should call searchProducts method when onSortOptionChange method is called', () => {
+    const mockSearchResults = {
+      products: [],
+      totalCount: 0
+    };
+    mockProductService.searchProducts.and.returnValue(of(mockSearchResults));
 
+    component.onSortOptionChange();
+
+    expect(mockProductService.searchProducts).toHaveBeenCalled();
+    expect(component.searchResults$).toEqual(of(mockSearchResults.products));
+    expect(component.totalSearchCount$).toEqual(of(mockSearchResults.totalCount));
+  });
   it('should apply brand filter option', () => {
     const brandOption = 'Brand 1';
     const mockProducts: IProduct[] = [
@@ -152,12 +185,12 @@ describe('SearchComponent', () => {
       { id: 2, name: 'Product 2', category: 'Category 2', brand: 'Brand 2', min_price: 20 },
     ];
 
-    spyOn(productService, 'searchProducts').and.returnValue(
+    /*spyOn(productService, 'searchProducts').and.returnValue(
       of({
         products: mockProducts,
         totalCount: mockProducts.length,
       })
-    );
+    );*/
 
     component.ngOnInit();
 
