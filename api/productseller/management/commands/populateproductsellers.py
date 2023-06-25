@@ -5,8 +5,6 @@ from productseller.models import ProductSeller
 from product.models import Product
 from seller.models import Seller
 from decimal import Decimal, ROUND_DOWN
-import os
-import json
 
 fake = Faker()
 
@@ -18,51 +16,29 @@ def generate_fake_input(select_list):
 
 class Command(BaseCommand):
     def handle(self, *args: Any, **options: Any) -> Optional[str]:
-        last_product_id = Product.objects.last().id
-        current_product_id = last_product_id - 28
-        seller_uuids = Seller.objects.values_list("id", flat=True)
+        for _ in range(20):
+            discount_rate = Decimal(fake.random.uniform(0, 0.99)).quantize(
+                Decimal("0.00"), rounding=ROUND_DOWN
+            )
+            original_price = Decimal(fake.random_int(min=10, max=1000))
 
-        json_file = "productsellers.json"
-        script_directory = os.path.dirname(
-            __file__
-        )  # Get the directory of the current script
-        file_path = os.path.join(
-            script_directory, json_file
-        )  # Create the absolute path to the JSON file
+            discounted_price = original_price * (Decimal(1) - discount_rate)
 
-        with open(file_path) as file:
-            data = json.load(file)
-
-        items = list(data.keys())
-        x = 0
-        i = 0
-        for current_product_id in range(int(current_product_id), last_product_id + 1):
-            product = Product.objects.get(id=current_product_id)
-            # Iterate over items in batches of three
-            batch_keys = items[i : i + 3]  # Get the keys for the current batch
-            i += 3
-            if len(batch_keys) < 3:
-                break  # Break the loop if less than three JSON objects are processed
-
-            for key in batch_keys:
-                productseller_data = data[key]
-                seller_uuid = seller_uuids[x]
-                x += 1
-                uuid_str = str(seller_uuid)
-                seller = Seller.objects.get(id=uuid_str)
-                # Create the ProductSeller object and assign the fields from the JSON data
-                productseller = ProductSeller(
-                    product=product,
-                    seller=seller,
-                    original_price=productseller_data["original_price"],
-                    price=productseller_data["price"],
-                    discount=productseller_data["discount"],
-                    discount_rate=productseller_data["discount_rate"],
-                    product_url=productseller_data["product_url"],
-                    in_stock=productseller_data["in_stock"],
-                    img_array=productseller_data["img_array"],
-                )
-                productseller.save()
-                if x >= len(seller_uuids):
-                    x = 0  # Reset counter if we reach the end of seller_uuids
-        self.stdout.write(self.style.SUCCESS("Productsellers populated"))
+            # Round the discounted price to two decimal places
+            discounted_price = discounted_price.quantize(
+                Decimal("0.00"), rounding=ROUND_DOWN
+            )
+            productseller = ProductSeller(
+                product=generate_fake_input(Product.objects.all()),
+                seller=generate_fake_input(Seller.objects.all()),
+                price=discounted_price,
+                discount=original_price - discounted_price,
+                discount_rate=discount_rate,
+                original_price=original_price,
+                product_url=fake.url(),
+                in_stock=fake.boolean(),
+                img_array=[fake.image_url() for _ in range(3)],
+                product_name=fake.name(),
+            )
+            productseller.save()
+        self.stdout.write(self.style.SUCCESS("Productseller's created successfully"))

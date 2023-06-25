@@ -10,7 +10,7 @@
     <link href="search.component.scss" rel="stylesheet" />
   </head>
 
-  <body class ="body">
+  <body>
     <app-navbar></app-navbar>
 
     <main class="landing main">
@@ -20,36 +20,21 @@
           You searched for: <strong>{{ searchQuery }}</strong>
         </p>
         <!-- <div class="sort-panel"> -->
-        <!-- <mat-form-field class="sort-panel">
+        <mat-form-field class="sort-panel">
           <mat-label>Sort Options</mat-label>
           <mat-select
             [(value)]="selectedSortOption"
-            (selectionChange)="onSortOptionChange()"
-            class="custom-select">
+            (selectionChange)="onSortOptionChange()">
             <mat-option value="">Default</mat-option>
             <mat-option value="price">Lowest price</mat-option>
             <mat-option value="-price">Highest price</mat-option>
+            <mat-option value="discount">Discount</mat-option>
             <mat-option value="name">Name(A-Z)</mat-option>
             <mat-option value="-name">Name(Z-A)</mat-option>
+            <!-- <mat-option value="discount">Price drop</mat-option> -->
           </mat-select>
-        </mat-form-field> -->
-
-
-        <div class="dropdown">
-          <button class="dropbtn">
-            <mat-label>Sort Options</mat-label>
-            <mat-select
-              [(value)]="selectedSortOption"
-              (selectionChange)="onSortOptionChange()"
-              class="custom-select">
-              <mat-option value="">Default</mat-option>
-              <mat-option value="price">Lowest price</mat-option>
-              <mat-option value="-price">Highest price</mat-option>
-              <mat-option value="name">Name(A-Z)</mat-option>
-              <mat-option value="-name">Name(Z-A)</mat-option>
-            </mat-select>
-          </button>
-        </div>
+        </mat-form-field>
+        <!-- </div> -->
 
         <mat-divider></mat-divider>
         <!--filter-->
@@ -162,11 +147,7 @@
         </mat-accordion>
 
         <!--products-->
-
         <div class="product-card">
-          <div style="display: flex; justify-content: center; align-items: center;"*ngIf="(searchResults$ | async)===null">
-            <mat-spinner></mat-spinner>
-          </div>
           <ng-container *ngIf="searchResults$ | async as products">
             <div class="row">
               <div
@@ -185,10 +166,19 @@
                     <mat-card-subtitle>{{
                       product.category
                     }}</mat-card-subtitle>
-                    <mat-card-title class ="product-price">R {{ product.min_price }}</mat-card-title>
+                    <mat-card-title>R {{ product.min_price }}</mat-card-title>
                   </mat-card-content>
-
+                  <mat-card-actions>
+                    <mat-icon
+                      mat-icon-button
+                      color="warn"
+                      aria-label="Example icon button with a heart icon">
+                      <mat-icon>favorite</mat-icon>
+                    </mat-icon>
+                  </mat-card-actions>
                 </mat-card>
+                <!-- </mat-sidenav-content> -->
+                <!-- </mat-sidenav-container> -->
 
                 <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
                 <div
@@ -202,32 +192,31 @@
             class="search-results-container"
             *ngIf="(searchResults$ | async)?.length === 0">
             <div class="product-card-no">
+              <!-- <img src="path/to/placeholder-image" alt="No Product Found" /> -->
               <h3>No Products Found</h3>
               <p>
-                Sorry, we couldn't find any products matching your search query. Please try again with a different keyword or refine your search criteria.
+                The product you have searched for was not found. Please try
+                searching another phrase or word.
               </p>
-              <img src="assets\images\no-image.png" alt="No Product Found" class="nimage"/>
-              
             </div>
           </div>
+          <!--paginator-->
+          <div class="mat-paginator">
+            <ng-container *ngIf="searchResults$ | async as products">
+              <mat-paginator
+                [length]="totalSearchCount$ | async"
+                [pageSizeOptions]="[10, 20, 50, 100]"
+                aria-label="Select page"
+                [pageIndex]="currentPage"
+                [pageSize]="itemsPerPage"
+                (page)="onPageChange($event)"></mat-paginator>
+            </ng-container>
+          </div>
 
-
+          <!--end of paginator-->
         </div>
       </div>
-      
     </main>
-    <div class="mat-paginator">
-      <ng-container *ngIf="searchResults$ | async as products">
-        <mat-paginator
-          [length]="totalSearchCount$ | async"
-          [pageSizeOptions]="[10, 20, 50, 100]"
-          aria-label="Select page"
-          [pageIndex]="currentPage"
-          [pageSize]="itemsPerPage"
-          (page)="onPageChange($event)"></mat-paginator>
-      </ng-container>
-    </div>
     <app-footer></app-footer>
   </body>
 </html>
-

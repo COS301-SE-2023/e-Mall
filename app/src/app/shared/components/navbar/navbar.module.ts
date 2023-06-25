@@ -10,13 +10,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { SearchBarModule } from '@shared/components/search-bar/search-bar.module';
 import { ViewSizeModule } from '@shared/directives/view-size/view-size.module';
-import { HttpClientModule } from '@angular/common/http';
-//import { AuthService } from '@app/services/auth/auth.service';
 
 @NgModule({
   declarations: [NavbarComponent],
   imports: [
-    HttpClientModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -29,7 +26,6 @@ import { HttpClientModule } from '@angular/common/http';
     MatFormFieldModule,
     MatInputModule,
   ],
-  //providers: [AuthService],
   exports: [NavbarComponent],
 })
 export class NavbarModule {}
