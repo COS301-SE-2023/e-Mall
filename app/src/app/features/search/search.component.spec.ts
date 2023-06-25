@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -25,7 +26,7 @@ import { By } from '@angular/platform-browser';
 import { SearchComponent } from './search.component';
 import { ProductService } from '@app/services/product/product.service';
 import { IProduct } from '@app/models/product/product.interface';
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule } from '@angular/common/http';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
 
@@ -34,8 +35,16 @@ describe('SearchComponent', () => {
   let fixture: ComponentFixture<SearchComponent>;
   let productService: ProductService;
   let router: Router;
-  
-  let mockProductService: { searchProducts: { and: { returnValue: (arg0: Observable<{ products:IProduct[]; totalCount: number; }>) => void; }; }; };
+
+  let mockProductService: {
+    searchProducts: {
+      and: {
+        returnValue: (
+          arg0: Observable<{ products: IProduct[]; totalCount: number }>
+        ) => void;
+      };
+    };
+  };
   let mockRouter;
 
   const mockActivatedRoute = {
@@ -43,7 +52,7 @@ describe('SearchComponent', () => {
   };
 
   beforeEach(async () => {
-   /* mockProductService = {
+    /* mockProductService = {
       searchProducts: jasmine.createSpy().and.returnValue(
         of({
           products: [],
@@ -51,7 +60,7 @@ describe('SearchComponent', () => {
         })
       )
     };*/
-  
+
     await TestBed.configureTestingModule({
       declarations: [SearchComponent],
       imports: [
@@ -93,13 +102,12 @@ describe('SearchComponent', () => {
     router = TestBed.inject(Router);
     fixture.detectChanges();
   });
-  
 
   it('should create the SearchComponent', () => {
     expect(component).toBeTruthy();
   });
 
- /* it('should fetch and display search results on initialization', () => {
+  /* it('should fetch and display search results on initialization', () => {
     const mockProducts: IProduct[] = [
       {
         id: 1,
@@ -152,8 +160,7 @@ describe('SearchComponent', () => {
   });
   
   */
-  
-  
+
   it('should navigate to product page on click', () => {
     const productId = 1;
     spyOn(router, 'navigate');
@@ -525,38 +532,28 @@ describe('SearchComponent', () => {
   });
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatRadioModule } from '@angular/material/radio';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Router, ActivatedRoute } from '@angular/router';
+import { of, BehaviorSubject, Observable } from 'rxjs';
+import { By } from '@angular/platform-browser';
+
 import { SearchComponent } from './search.component';
 import { Router } from '@angular/router';
 import { IProduct } from '@app/models/product/product.interface';
@@ -592,8 +589,8 @@ describe('SearchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: 
-      [BrowserAnimationsModule,
+      imports: [
+        BrowserAnimationsModule,
         RouterTestingModule,
         CommonModule,
         SearchRoutingModule,

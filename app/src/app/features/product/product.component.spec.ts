@@ -1,9 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProductComponent } from './product.component';
 import { ProductService } from '@app/services/product/product.service';
-import { Observable, of } from 'rxjs';
-import { IProductSeller } from '@app/models/product/product-seller.interface';
 import { CommonModule } from '@angular/common';
 import { ProductRoutingModule } from './product-routing.module';
 import { MatIconModule } from '@angular/material/icon';

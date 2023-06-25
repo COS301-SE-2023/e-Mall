@@ -141,7 +141,7 @@ $font_type_5: 600 1em/1.39 'Poppins', Helvetica, Arial, serif;
 .product-card-no {
   margin-top: 4.5rem;
   margin-left: 12rem;
-  margin: 0 0 1rem 0;
+  // margin: 0 0 1rem 0; # commented out coz sonarCloud
   // border: 1px solid #ccc;
   border-radius: 0.25rem;
   padding: 1rem;
@@ -152,7 +152,7 @@ $font_type_5: 600 1em/1.39 'Poppins', Helvetica, Arial, serif;
 .product-card {
   margin-top: 4.5rem;
   margin-left: 2rem;
-  margin: 0 0 1rem 0;
+  // margin: 0 0 1rem 0; # commented out coz sonarCloud
   // border: 1px solid #ccc;
   border-radius: 0.25rem;
   padding: 1rem;
