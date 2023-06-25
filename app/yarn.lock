@@ -8640,9 +8640,9 @@ jsprim@^2.0.2:
     json-schema "0.4.0"
     verror "1.10.0"
 
-karma-chrome-launcher@~3.2.0:
+karma-chrome-launcher@^3.2.0:
   version "3.2.0"
-  resolved "https://registry.npmjs.org/karma-chrome-launcher/-/karma-chrome-launcher-3.2.0.tgz"
+  resolved "https://registry.yarnpkg.com/karma-chrome-launcher/-/karma-chrome-launcher-3.2.0.tgz#eb9c95024f2d6dfbb3748d3415ac9b381906b9a9"
   integrity sha512-rE9RkUPI7I9mAxByQWkGJFXfFD6lE4gC5nPuZdobf/QdTEJI6EU4yIay/cfU/xV4ZxlM5JiTv7zWYgA64NpS5Q==
   dependencies:
     which "^1.2.1"
@@ -11735,7 +11735,7 @@ which@2.0.2, which@^2.0.1, which@^2.0.2:
 
 which@^1.2.1:
   version "1.3.1"
-  resolved "https://registry.npmjs.org/which/-/which-1.3.1.tgz"
+  resolved "https://registry.yarnpkg.com/which/-/which-1.3.1.tgz#a45043d54f5805316da8d62f9f50918d3da70b0a"
   integrity sha512-HxJdYWq1MTIQbJ3nw0cqssHoTNU267KlrDuGZ1WYlxDStUtKUhOaJmh112/TZmHxxUfuJqPXSOm7tDyas0OSIQ==
   dependencies:
     isexe "^2.0.0"
