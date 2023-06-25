@@ -2,9 +2,8 @@ name: dev-v1
 
 on:
   push:
-    branches-ignore:
-      - master
-      - develop
+    branches:
+      - "*test"
 env:
   node_version: v18.16.0
 
