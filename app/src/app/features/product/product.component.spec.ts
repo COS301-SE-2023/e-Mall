@@ -4,7 +4,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProductComponent } from './product.component';
 import { ProductService } from '@app/services/product/product.service';
 import { CommonModule } from '@angular/common';
-
 import { ProductRoutingModule } from './product-routing.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
@@ -14,8 +13,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 describe('ProductComponent', () => {
   let component: ProductComponent;
   let fixture: ComponentFixture<ProductComponent>;
@@ -48,6 +47,7 @@ describe('ProductComponent', () => {
         },
       ],
     }).compileComponents();
+
     router = TestBed.inject(Router);
   });
 
@@ -61,10 +61,10 @@ describe('ProductComponent', () => {
   it('should create the ProductComponent', () => {
     expect(component).toBeTruthy();
   });
-
-  /*
+/*
   it('should fetch product data and seller list on initialization', () => {
-    const productData = {  id: 1,
+    const productData = {
+      id: 1,
       min_price_img_array: ['image1.jpg', 'image2.jpg'],
       name: 'Product 1',
       description: 'Description 1',
@@ -79,28 +79,34 @@ describe('ProductComponent', () => {
       min_price_discount_rate: 0.5,
       min_price_original_price: 20,
       created_at: '2023-06-01',
-      updated_at: '2023-06-02', };
-      const sellerList: IProductSeller[] = [{ id: 1, product: null, seller: null }, { id: 2, product: null, seller: null }];
+      updated_at: '2023-06-02',
+    };
+    const sellerList: IProductSeller[] = [
+      { id: 1, product: 'Product1', seller: 'Seller1' },
+      { id: 2, product: 'Product2', seller: 'Seller2' },
+    ];
 
-    jest.spyOn(productService, 'getProductData').mockReturnValueOnce(of(productData));
-    jest.spyOn(productService, 'getSellerList').mockReturnValueOnce(of(sellerList));
+    spyOn(productService, 'getProductData').and.returnValue(of(productData));
+    spyOn(productService, 'getSellerList').and.returnValue(of(sellerList));
 
     component.ngOnInit();
 
-    expect(productService.getProductData).toHaveBeenCalledWith(component.id);
-    expect(productService.getSellerList).toHaveBeenCalledWith(component.id);
+    expect(productService.getProductData).toHaveBeenCalledWith(component.prod_id);
+    expect(productService.getSellerList).toHaveBeenCalledWith(component.prod_id);
     expect(component.product$).toEqual(of(productData));
     expect(component.sellers$).toEqual(of(sellerList));
   });
 
   it('should display product information', () => {
+    const id = 1;
     const productName = 'Product Name';
     const brand = 'Brand';
+    const category = 'Category';
     const description = 'Product Description';
     const minPrice = 100;
     const currencyCode = 'ZAR';
 
-    component.product$ = of({ name: productName, brand, description, min_price: minPrice });
+    component.product$ = of({ id, name: productName, brand, category, description, min_price: minPrice });
     component.currencyCode = currencyCode;
 
     fixture.detectChanges();
@@ -114,12 +120,12 @@ describe('ProductComponent', () => {
     expect(brandElement.textContent).toContain(brand);
     expect(descriptionElement.textContent).toContain(description);
     expect(minPriceElement.textContent).toContain(`${minPrice} ${currencyCode}`);
-  });
-
+  });*/
+/*
   it('should display seller list', () => {
     const sellers = [
-      { id: 1, business_name: 'Seller 1', price: 50, in_stock: true },
-      { id: 2, business_name: 'Seller 2', price: 60, in_stock: false }
+      { id: 1, business_name: 'Seller 1', price: 50, in_stock: true, product:'Product1', seller:'Seller1' },
+      { id: 2, business_name: 'Seller 2', price: 60, in_stock: false,product:'Product2', seller:'Seller2' },
     ];
 
     component.sellers$ = of(sellers);
@@ -133,22 +139,22 @@ describe('ProductComponent', () => {
     expect(sellerElements.length).toEqual(sellers.length);
     expect(priceElements.length).toEqual(sellers.length);
     expect(inStockElements.length).toEqual(sellers.length);
-  });
-
+  });*/
+/*
   it('should navigate to the seller product page on seller name click', () => {
     const sellerId = 1;
     const sellerProductUrl = `/seller/${sellerId}`;
 
-    component.sellers$ = of([{ id: sellerId, product_url: sellerProductUrl }]);
+    component.sellers$ = of([{ id: sellerId, product_url: sellerProductUrl,product:'Product1', seller:'Seller1' }]);
 
     fixture.detectChanges();
 
     const sellerNameLink = fixture.nativeElement.querySelector('.seller-name a');
 
-    const navigateByUrlSpy = jest.spyOn(component['router'], 'navigateByUrl');
+    spyOn(router, 'navigateByUrl');
 
     sellerNameLink.click();
 
-    expect(navigateByUrlSpy).toHaveBeenCalledWith(sellerProductUrl);
+    expect(router.navigateByUrl).toHaveBeenCalledWith(sellerProductUrl);
   });*/
 });

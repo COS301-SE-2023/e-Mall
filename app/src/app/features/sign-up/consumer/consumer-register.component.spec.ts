@@ -44,7 +44,7 @@ describe('ConsumerRegisterComponent', () => {
     expect(component.signUpForm.get('password')).toBeDefined();
     expect(component.signUpForm.get('cpassword')).toBeDefined();
   });
-
+/*
   it('should navigate to home page on successful form submission', () => {
     const email = 'test@example.com';
     const password = 'password';
@@ -55,16 +55,16 @@ describe('ConsumerRegisterComponent', () => {
       cpassword: password,
     });
 
-    /*spyOn(authService, 'signUp').and.returnValue(of({}));
+    spyOn(authService, 'signUp').and.returnValue(of({}));
 
     const routerSpy = spyOn(component.router, 'navigate');
 
     component.onSubmit();
 
     expect(authService.signUp).toHaveBeenCalledWith(email, password);
-    expect(routerSpy).toHaveBeenCalledWith(['/']);*/
-  });
-  /*
+    expect(routerSpy).toHaveBeenCalledWith(['/']);
+  });*/
+/*
   it('should not navigate to home page on form submission with invalid form', () => {
     spyOn(authService, 'signUp').and.returnValue(of({}));
     const routerSpy = spyOn(component.router, 'navigate');
@@ -74,11 +74,14 @@ describe('ConsumerRegisterComponent', () => {
     expect(authService.signUp).not.toHaveBeenCalled();
     expect(routerSpy).not.toHaveBeenCalled();
   });
+
 */
-  // it('should display error messages for required fields', () => {
-  //   const emailControl = component.signUpForm.get('email');
-  //   const passwordControl = component.signUpForm.get('password');
-  //   const cpasswordControl = component.signUpForm.get('cpassword');
+  /*
+  it('should display error messages for required fields', () => {
+    const emailControl = component.signUpForm.get('email');
+    const passwordControl = component.signUpForm.get('password');
+    const cpasswordControl = component.signUpForm.get('cpassword');
+
 
   //   emailControl?.setValue('');
   //   passwordControl?.setValue('');
@@ -120,10 +123,8 @@ describe('ConsumerRegisterComponent', () => {
 
   //   expect(cpasswordControl?.errors?.['passwordMismatch']).toBeTruthy();
 
-  //   const errorMessageElement =
-  //     fixture.nativeElement.querySelector('.errorMsg');
-  //   expect(errorMessageElement.textContent).toContain(
-  //     'Password and Confirm Password do not match'
-  //   );
-  // });
+
+    const errorMessageElement = fixture.nativeElement.querySelector('.errorMsg');
+    expect(errorMessageElement.textContent).toContain('Password and Confirm Password do not match');
+  });*/
 });
