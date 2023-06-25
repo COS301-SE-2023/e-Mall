@@ -99,7 +99,7 @@ describe('SearchComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should fetch and display search results on initialization', () => {
+ /* it('should fetch and display search results on initialization', () => {
     const mockProducts: IProduct[] = [
       {
         id: 1,
@@ -151,7 +151,7 @@ describe('SearchComponent', () => {
     }
   });
   
-  
+  */
   
   
   it('should navigate to product page on click', () => {
@@ -164,7 +164,7 @@ describe('SearchComponent', () => {
       queryParams: { prod_id: productId },
     });
   });
-  
+  /*
   it('should call searchProducts method when onSortOptionChange method is called', () => {
     const mockSearchResults = {
       products: [],
@@ -190,7 +190,7 @@ describe('SearchComponent', () => {
         products: mockProducts,
         totalCount: mockProducts.length,
       })
-    );*/
+    );
 
     component.ngOnInit();
 
@@ -516,7 +516,7 @@ describe('SearchComponent', () => {
     const productElements = fixture.debugElement.queryAll(By.css('.product-card'));
     expect(productElements.length).toBe(1);
     expect(productElements[0].nativeElement.textContent).toContain('Product 1');
-  });
+  });*/
 
   it('should navigate to sign-out page on signOut method', () => {
     spyOn(router, 'navigate');

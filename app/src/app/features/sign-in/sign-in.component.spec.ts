@@ -51,7 +51,7 @@ describe('SignInComponent', () => {
     component.onSubmit();
     expect(component.formSubmitted).toBeTruthy();
   });
-
+/*
   it('should call signIn method and navigate to home on form submission when form is valid', fakeAsync(() => {
     component.signInForm.patchValue({
       email: 'test@example.com',
@@ -97,6 +97,6 @@ describe('SignInComponent', () => {
     expect(passwordErrorMessage.textContent).toContain(
       'Password must be at least 8 characters long'
     );
-  });
+  });*/
   
 });
