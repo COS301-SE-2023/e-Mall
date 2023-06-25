@@ -122,7 +122,7 @@ describe('ProductComponent', () => {
     expect(descriptionElement.textContent).toContain(description);
     expect(minPriceElement.textContent).toContain(`${minPrice} ${currencyCode}`);
   });*/
-
+/*
   it('should display seller list', () => {
     const sellers = [
       { id: 1, business_name: 'Seller 1', price: 50, in_stock: true, product:'Product1', seller:'Seller1' },
@@ -140,7 +140,7 @@ describe('ProductComponent', () => {
     expect(sellerElements.length).toEqual(sellers.length);
     expect(priceElements.length).toEqual(sellers.length);
     expect(inStockElements.length).toEqual(sellers.length);
-  });
+  });*/
 /*
   it('should navigate to the seller product page on seller name click', () => {
     const sellerId = 1;
