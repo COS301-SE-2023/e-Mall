@@ -61,6 +61,7 @@ jobs:
         run: yarn lint && yarn build
 
       - name: Frontend unit tests
+        working-directory: ./app
         run: yarn ng test --code-coverage
 
       - name: Upload coverage report
