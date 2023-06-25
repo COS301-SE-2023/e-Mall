@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - develop
-      - JY/00/front_unit_test_to_cicd
 
   pull_request:
     branches:
