@@ -7,11 +7,12 @@ export default defineConfig({
       // implement node event listeners here
     },
     baseUrl: 'http://localhost:4200',
-    reporter: 'cypress-sonarqube-reporter',
+    reporter: 'mocha-junit-reporter',
+    // video: false,
     reporterOptions: {
-      outputDir: './coverage',
-      overwrite: true,
-      mergeFileName: 'coverage.xml',
+      mochaFile: 'coverage/cypress/coverage.xml',
+      // video: false,
+      // quiet: true,
       // see "Reporter Options" section
     },
   },
