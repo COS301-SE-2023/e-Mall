@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Component, Input, OnInit } from '@angular/core';
 import { IProductSeller } from '@app/models/product/product-seller.interface';
 
@@ -24,7 +25,6 @@ export class ProductComponent implements OnInit {
   //expandedStates: Map<string, boolean> = new Map<string, boolean>();
 
   selected: FormControl;
-  divClicked = false;
 
   constructor(private productService: ProductService) {
     this.selected = new FormControl('default');
@@ -46,10 +46,19 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     const id = this.prod_id;
+    console.log(id);
     if (id) {
       this.product$ = this.productService.getProductData(id);
-      this.sellers$ = this.productService.getSellerList(id, 'default');
+      this.sellers$ = this.productService.getSellerList(id);
       this.currency$ = of('ZAR');
+      this.product$?.subscribe((res: IProduct) => {
+        console.log('getProductData');
+        console.log(res);
+      });
+      this.sellers$?.subscribe((res: IProductSeller[]) => {
+        console.log('getSellerList');
+        console.log(res);
+      });
     }
   }
   getImgs(imgList?: string[]): string[] {
@@ -68,12 +77,10 @@ export class ProductComponent implements OnInit {
 
     return imgList[0];
   }
-  onlyInStockToggler() {
-    this.divClicked = !this.divClicked;
-
-    this.sellers$ = this.productService.getSellerList(
-      this.prod_id,
-      this.divClicked.toString()
-    );
+  scroll(el: HTMLElement) {
+    const navbareight = 50; // Replace with the actual height of your navbar
+    const y = el.getBoundingClientRect().top + window.scrollY - navbareight;
+    window.scrollTo({ top: y });
+    // el.scrollIntoView();
   }
 }

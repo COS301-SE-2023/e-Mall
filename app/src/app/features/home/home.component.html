@@ -23,7 +23,7 @@
       <ngb-carousel *ngIf="images">
         <ng-template ngbSlide>
           <div class="picsum-img-wrapper">
-            <img [src]="images[0]" alt="Random first slide" />
+            <img [src]="images" alt="Random first slide" />
           </div>
           <div class="carousel-caption">
             <h3>Advertiser 1</h3>
@@ -32,7 +32,7 @@
         </ng-template>
         <ng-template ngbSlide>
           <div class="picsum-img-wrapper">
-            <img [src]="images[1]" alt="Random second slide" />
+            <img [src]="images" alt="Random second slide" />
           </div>
           <div class="carousel-caption">
             <h3>Advertiser 2</h3>
@@ -41,7 +41,7 @@
         </ng-template>
         <ng-template ngbSlide>
           <div class="picsum-img-wrapper">
-            <img [src]="images[2]" alt="Random third slide" />
+            <img [src]="images" alt="Random third slide" />
           </div>
           <div class="carousel-caption">
             <h3>Advertiser 3</h3>
@@ -74,11 +74,6 @@
                   <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
                   <mat-card-title>R {{ product.min_price }}</mat-card-title>
                 </mat-card-content>
-                <mat-card-actions>
-                  <mat-icon mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
-                    <mat-icon>favorite</mat-icon>
-                  </mat-icon>
-                </mat-card-actions>
               </mat-card>
             </div>
           </div>
@@ -94,31 +89,20 @@
                   <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
                   <mat-card-title>R {{ product.min_price }}</mat-card-title>
                 </mat-card-content>
-                <mat-card-actions>
-                  <mat-icon mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
-                    <mat-icon>favorite</mat-icon>
-                  </mat-icon>
-                </mat-card-actions>
               </mat-card>
             </div>
           </div>
         </ng-template>
         <ng-template ngbSlide>
           <div class="row">
-            <div class="col-md-3" *ngFor="let product of products.slice(8, 12); let i = index">
-              <mat-card class="product-card" (click)="goToProductPage(product.id)">
-                <img mat-card-image [src]="getOneImg(product?.min_price_img_array)" alt="Product Image"
-                  class="product-image" />
+            <div class="col-md-6" *ngFor="let product of products.slice(8, 12); let i = index">
+              <mat-card class="product-card" *ngIf="products.length > (i + 8)" (click)="goToProductPage(product.id)">
+                <img mat-card-image [src]="getOneImg(product?.min_price_img_array)" alt="Product Image" class="product-image" />
                 <mat-card-content>
                   <mat-card-title>{{ product.name }}</mat-card-title>
                   <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
                   <mat-card-title>R {{ product.min_price }}</mat-card-title>
                 </mat-card-content>
-                <mat-card-actions>
-                  <mat-icon mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
-                    <mat-icon>favorite</mat-icon>
-                  </mat-icon>
-                </mat-card-actions>
               </mat-card>
             </div>
           </div>
@@ -147,11 +131,6 @@
                   <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
                   <mat-card-title>R {{ product.min_price }}</mat-card-title>
                 </mat-card-content>
-                <mat-card-actions>
-                  <mat-icon mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
-                    <mat-icon>favorite</mat-icon>
-                  </mat-icon>
-                </mat-card-actions>
               </mat-card>
             </div>
           </div>
@@ -167,18 +146,13 @@
                   <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
                   <mat-card-title>R {{ product.min_price }}</mat-card-title>
                 </mat-card-content>
-                <mat-card-actions>
-                  <mat-icon mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
-                    <mat-icon>favorite</mat-icon>
-                  </mat-icon>
-                </mat-card-actions>
               </mat-card>
             </div>
           </div>
         </ng-template>
         <ng-template ngbSlide>
           <div class="row">
-            <div class="col-md-3" *ngFor="let product of products.slice(8, 12); let i = index">
+            <div class="col-md-6" *ngFor="let product of products.slice(8, 10); let i = index">
               <mat-card class="product-card" (click)="goToProductPage(product.id)">
                 <img mat-card-image [src]="getOneImg(product?.min_price_img_array)" alt="Product Image"
                   class="product-image" />
@@ -187,11 +161,6 @@
                   <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
                   <mat-card-title>R {{ product.min_price }}</mat-card-title>
                 </mat-card-content>
-                <mat-card-actions>
-                  <mat-icon mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
-                    <mat-icon>favorite</mat-icon>
-                  </mat-icon>
-                </mat-card-actions>
               </mat-card>
             </div>
           </div>

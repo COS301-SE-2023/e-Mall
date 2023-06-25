@@ -45,6 +45,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   itemsPerPage!: number;
   totalSearchCount$: Observable<number> | undefined;
 
+  loading = true;
+
   ////J fix for min , max price
   minInputController = new FormControl();
   maxInputController = new FormControl();
@@ -163,7 +165,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   onSortOptionChange(): void {
     this.productService
-      .searchProducts(this.searchQuery, this.filterOptions, this.selectedSortOption, this.currentPage, this.itemsPerPage)
+      .searchProducts(this.searchQuery, null, this.selectedSortOption)
       .subscribe(result => {
         this.searchResults$ = of(result.products);
         this.totalSearchCount$ = of(result.totalCount);
