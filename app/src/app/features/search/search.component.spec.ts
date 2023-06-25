@@ -1,5 +1,528 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatRadioModule } from '@angular/material/radio';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Router, ActivatedRoute } from '@angular/router';
+import { of, BehaviorSubject } from 'rxjs';
+import { By } from '@angular/platform-browser';
+
+import { SearchComponent } from './search.component';
+import { ProductService } from '@app/services/product/product.service';
+import { IProduct } from '@app/models/product/product.interface';
+import { HttpClientModule } from '@angular/common/http'; 
+import { NavbarModule } from '@shared/components/navbar/navbar.module';
+import { FooterModule } from '@shared/components/footer/footer.module';
+
+describe('SearchComponent', () => {
+  let component: SearchComponent;
+  let fixture: ComponentFixture<SearchComponent>;
+  let productService: ProductService;
+  let router: Router;
+
+  const mockActivatedRoute = {
+    queryParams: of({ search: 'test' }),
+  };
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [SearchComponent],
+      imports: [
+        NavbarModule,
+        FooterModule,
+        HttpClientModule,
+        RouterTestingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        MatExpansionModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatDividerModule,
+        MatSidenavModule,
+        MatCheckboxModule,
+        MatCardModule,
+        MatIconModule,
+        MatPaginatorModule,
+        MatSliderModule,
+        MatButtonToggleModule,
+        MatProgressSpinnerModule,
+        MatSlideToggleModule,
+        MatRadioModule,
+      ],
+      providers: [
+        ProductService,
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
+      ],
+    }).compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(SearchComponent);
+    component = fixture.componentInstance;
+    productService = TestBed.inject(ProductService);
+    router = TestBed.inject(Router);
+    fixture.detectChanges();
+  });
+
+  it('should create the SearchComponent', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should fetch and display search results on initialization', () => {
+    const mockProducts: IProduct[] = [
+      {
+        id: 1,
+        name: 'Product 1',
+        category: 'Category 1',
+        brand: 'Brand 1',
+        min_price: 10,
+      },
+      {
+        id: 2,
+        name: 'Product 2',
+        category: 'Category 2',
+        brand: 'Brand 2',
+        min_price: 20,
+      },
+    ];
+    
+
+    spyOn(productService, 'searchProducts').and.returnValue(
+      of({
+        products: mockProducts,
+        totalCount: mockProducts.length,
+      })
+    );
+
+    component.ngOnInit();
+
+    expect(productService.searchProducts).toHaveBeenCalledWith(
+      'test',
+      [],
+      undefined,
+      0,
+      component.itemsPerPage
+    );
+
+    fixture.detectChanges();
+
+    const productElements = fixture.debugElement.queryAll(By.css('.product-card'));
+    expect(productElements.length).toBe(mockProducts.length);
+
+    for (let i = 0; i < mockProducts.length; i++) {
+      const productElement = productElements[i].nativeElement;
+      expect(productElement.textContent).toContain(mockProducts[i].name);
+      expect(productElement.textContent).toContain(mockProducts[i].category);
+      expect(productElement.textContent).toContain(mockProducts[i].min_price);
+    }
+  });
+
+  it('should navigate to product page on click', () => {
+    const productId = 1;
+    spyOn(router, 'navigate');
+
+    component.goToProductPage(productId);
+
+    expect(router.navigate).toHaveBeenCalledWith(['products'], {
+      queryParams: { prod_id: productId },
+    });
+  });
+  
+
+  it('should apply brand filter option', () => {
+    const brandOption = 'Brand 1';
+    const mockProducts: IProduct[] = [
+      { id: 1, name: 'Product 1', category: 'Category 1', brand: brandOption, min_price: 10 },
+      { id: 2, name: 'Product 2', category: 'Category 2', brand: 'Brand 2', min_price: 20 },
+    ];
+
+    spyOn(productService, 'searchProducts').and.returnValue(
+      of({
+        products: mockProducts,
+        totalCount: mockProducts.length,
+      })
+    );
+
+    component.ngOnInit();
+
+    fixture.detectChanges();
+
+    const brandCheckbox = fixture.debugElement.query(By.css(`[value="${brandOption}"]`));
+    brandCheckbox.triggerEventHandler('change', { target: { checked: true } });
+
+    expect(productService.searchProducts).toHaveBeenCalledWith(
+      'test',
+      ['filter_brand=Brand 1'],
+      undefined,
+      0,
+      component.itemsPerPage
+    );
+
+    fixture.detectChanges();
+
+    const productElements = fixture.debugElement.queryAll(By.css('.product-card'));
+    expect(productElements.length).toBe(1);
+    expect(productElements[0].nativeElement.textContent).toContain('Product 1');
+  });
+
+  it('should apply category filter option', () => {
+    const categoryOption = 'Category 1';
+    const mockProducts: IProduct[] = [
+      {
+        id: 1,
+        name: 'Product 1',
+        category: 'Category 1',
+        brand: 'Brand 1',
+        min_price: 10,
+      },
+      {
+        id: 2,
+        name: 'Product 2',
+        category: 'Category 2',
+        brand: 'Brand 2',
+        min_price: 20,
+      },
+    ];
+    
+
+    spyOn(productService, 'searchProducts').and.returnValue(
+      of({
+        products: mockProducts,
+        totalCount: mockProducts.length,
+      })
+    );
+
+    component.ngOnInit();
+
+    fixture.detectChanges();
+
+    const categoryCheckbox = fixture.debugElement.query(By.css(`[value="${categoryOption}"]`));
+    categoryCheckbox.triggerEventHandler('change', { target: { checked: true } });
+
+    expect(productService.searchProducts).toHaveBeenCalledWith(
+      'test',
+      [],   
+      undefined,
+      0,
+      component.itemsPerPage
+    );
+
+    fixture.detectChanges();
+
+    const productElements = fixture.debugElement.queryAll(By.css('.product-card'));
+    expect(productElements.length).toBe(1);
+    expect(productElements[0].nativeElement.textContent).toContain('Product 1');
+  });
+
+  it('should update search results on sort option change', () => {
+    const sortOption = 'price';
+    const mockProducts: IProduct[] = [
+      {
+        id: 1,
+        name: 'Product 1',
+        category: 'Category 1',
+        brand: 'Brand 1',
+        min_price: 10,
+      },
+      {
+        id: 2,
+        name: 'Product 2',
+        category: 'Category 2',
+        brand: 'Brand 2',
+        min_price: 20,
+      },
+    ];
+    
+
+    spyOn(productService, 'searchProducts').and.returnValues(
+      of({
+        products: mockProducts,
+        totalCount: mockProducts.length,
+      }),
+      of({
+        products: mockProducts.reverse(),
+        totalCount: mockProducts.length,
+      })
+    );
+
+    component.ngOnInit();
+
+    fixture.detectChanges();
+
+    const sortSelect = fixture.debugElement.query(By.css('.custom-select')).nativeElement;
+    sortSelect.value = sortOption;
+    sortSelect.dispatchEvent(new Event('change'));
+
+    expect(productService.searchProducts).toHaveBeenCalledWith(
+      'test',
+      [],
+      undefined,
+      undefined,
+      component.itemsPerPage
+    );
+
+    fixture.detectChanges();
+
+    const productElements = fixture.debugElement.queryAll(By.css('.product-card'));
+    expect(productElements.length).toBe(mockProducts.length);
+    expect(productElements[0].nativeElement.textContent).toContain('Product 2');
+    expect(productElements[1].nativeElement.textContent).toContain('Product 1');
+  });
+
+  it('should update search results on page change', () => {
+    const currentPage = 1;
+    const itemsPerPage = 10;
+    const mockProducts: IProduct[] = [
+      {
+        id: 1,
+        name: 'Product 1',
+        category: 'Category 1',
+        brand: 'Brand 1',
+        min_price: 10,
+      },
+      {
+        id: 2,
+        name: 'Product 2',
+        category: 'Category 2',
+        brand: 'Brand 2',
+        min_price: 20,
+      },
+    ];
+    
+    spyOn(productService, 'searchProducts').and.returnValue(
+      of({
+        products: mockProducts,
+        totalCount: mockProducts.length,
+      })
+    );
+
+    component.ngOnInit();
+
+    fixture.detectChanges();
+
+    const pageEvent: PageEvent = {
+      pageIndex: 0,
+      pageSize: 10,
+      length: 100,
+    };
+    
+    component.onPageChange(pageEvent);
+
+    expect(productService.searchProducts).toHaveBeenCalledWith(
+      'test',
+      [],
+      undefined,
+      currentPage,
+      itemsPerPage
+    );
+
+    fixture.detectChanges();
+
+    const productElements = fixture.debugElement.queryAll(By.css('.product-card'));
+    expect(productElements.length).toBe(mockProducts.length);
+  });
+
+  it('should apply in-stock filter option', () => {
+    const mockProducts: IProduct[] = [
+      {
+        id: 1,
+        name: 'Product 1',
+        category: 'Category 1',
+        brand: 'Brand 1',
+        min_price: 10,
+      },
+      {
+        id: 2,
+        name: 'Product 2',
+        category: 'Category 2',
+        brand: 'Brand 2',
+        min_price: 20,
+      },
+    ];
+    
+    spyOn(productService, 'searchProducts').and.returnValue(
+      of({
+        products: mockProducts,
+        totalCount: mockProducts.length,
+      })
+    );
+
+    component.ngOnInit();
+
+    fixture.detectChanges();
+
+    const inStockToggle = fixture.debugElement.query(By.css('.mat-slide-toggle')).nativeElement;
+    inStockToggle.click();
+
+    expect(productService.searchProducts).toHaveBeenCalledWith(
+      'test',
+      [],
+      undefined,
+      undefined,
+      component.itemsPerPage
+    );
+
+    fixture.detectChanges();
+
+    const productElements = fixture.debugElement.queryAll(By.css('.product-card'));
+    expect(productElements.length).toBe(1);
+    expect(productElements[0].nativeElement.textContent).toContain('Product 1');
+  });
+
+  it('should update search results on minimum price change', () => {
+    const minPrice = 10;
+    const mockProducts: IProduct[] = [
+      {
+        id: 1,
+        name: 'Product 1',
+        category: 'Category 1',
+        brand: 'Brand 1',
+        min_price: 10,
+      },
+      {
+        id: 2,
+        name: 'Product 2',
+        category: 'Category 2',
+        brand: 'Brand 2',
+        min_price: 20,
+      },
+    ];
+    
+
+    spyOn(productService, 'searchProducts').and.returnValue(
+      of({
+        products: mockProducts,
+        totalCount: mockProducts.length,
+      })
+    );
+  
+    component.ngOnInit();
+  
+    fixture.detectChanges();
+  
+    const minPriceInput = fixture.debugElement.query(By.css('input[placeholder="Minimum Price"]')).nativeElement;
+    minPriceInput.value = minPrice;
+    minPriceInput.dispatchEvent(new Event('input'));
+  
+    fixture.detectChanges();
+  
+    expect(productService.searchProducts).toHaveBeenCalledWith(
+      'test',
+      [],
+      undefined,
+      undefined,
+      component.itemsPerPage
+    );
+  
+    const productElements = fixture.debugElement.queryAll(By.css('.product-card'));
+    expect(productElements.length).toBe(1);
+    expect(productElements[0].nativeElement.textContent).toContain('Product 2');
+  });
+
+  it('should update search results on maximum price change', () => {
+    const maxPrice = 20;
+    const mockProducts: IProduct[] = [
+      {
+        id: 1,
+        name: 'Product 1',
+        category: 'Category 1',
+        brand: 'Brand 1',
+        min_price: 10,
+      },
+      {
+        id: 2,
+        name: 'Product 2',
+        category: 'Category 2',
+        brand: 'Brand 2',
+        min_price: 20,
+      },
+    ];
+    
+
+    spyOn(productService, 'searchProducts').and.returnValue(
+      of({
+        products: mockProducts,
+        totalCount: mockProducts.length,
+      })
+    );
+
+    component.ngOnInit();
+
+    fixture.detectChanges();
+
+    const maxPriceInput = fixture.debugElement.query(By.css('input[placeholder="Maximum Price"]')).nativeElement;
+    maxPriceInput.value = maxPrice;
+    maxPriceInput.dispatchEvent(new Event('input'));
+
+    fixture.detectChanges();
+
+    expect(productService.searchProducts).toHaveBeenCalledWith(
+      'test',
+      [],
+      undefined,
+      undefined,
+      component.itemsPerPage
+    );
+
+    const productElements = fixture.debugElement.queryAll(By.css('.product-card'));
+    expect(productElements.length).toBe(1);
+    expect(productElements[0].nativeElement.textContent).toContain('Product 1');
+  });
+
+  it('should navigate to sign-out page on signOut method', () => {
+    spyOn(router, 'navigate');
+    component.signOut();
+    expect(router.navigate).toHaveBeenCalledWith(['sign-out']);
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SearchComponent } from './search.component';
 import { Router } from '@angular/router';
@@ -76,7 +599,7 @@ describe('SearchComponent', () => {
   });
 
 
-/*
+
   it('should navigate to product page with correct navigation extras', () => {
     const prodId = 123;
     const navigationExtras = {
@@ -314,6 +837,6 @@ describe('SearchComponent', () => {
     clothingCheckbox.click();
     fixture.detectChanges();
     expect(component.categoryClothing).toBe(true);
-  });*/
+  });
 
-});
+});*/
