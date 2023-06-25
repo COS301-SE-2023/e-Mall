@@ -69,6 +69,7 @@ Key features of our Agile approach during this project include:
 ## Documentation
 
 ### How to run the project
+
 - [Instructions](https://github.com/COS301-SE-2023/e-Mall/wiki/How-to-run-the-project-locally)
 
 ### Software Requirements Specification

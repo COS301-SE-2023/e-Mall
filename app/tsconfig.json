@@ -1,9 +1,9 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": true,
   "compilerOptions": {
     "baseUrl": "src",
     "paths":{
+      "@shared/*":["app/shared/*"],
       "@app/*":["app/*"],
       "@service/*":["app/services/*"],
       "@models/*":["app/models/*"],
@@ -15,10 +15,11 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
+    "esModuleInterop": true,
     "moduleResolution": "node",
     "importHelpers": true,
     "resolveJsonModule": true,
@@ -31,6 +32,10 @@
       "dom"
     ]
   },
+  "include": [
+    "src/**/*.ts",
+    "src/polyfills.ts"
+  ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,

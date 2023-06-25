@@ -1,1 +1,154 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use 'sass:map';
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+$custom-tilt-palette: (
+  50: #e6f8f7,
+  100: #c1ede9,
+  200: #99e3dc,
+  300: #72d7cd,
+  400: #58cbbf,
+  500: #4cc0b2,
+  600: #47b1a3,
+  700: #40a091,
+  800: #3b8f81,
+  900: #327163,
+  A100:#FFFFFF,
+  A200:#E0FEFF,
+  A400:#ADFBFF,
+  A700:#94FAFF,
+  contrast: (50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #000000,
+    700 : #000000,
+    800 : #000000,
+    900 : #000000,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+$custom-green-palette: (
+  50: #dff5ea,
+  100:#b2e5cb,
+  200: #7cd3aa,
+  300: #39c28a,
+  400: #00b473,
+  500: #00a65c,
+  600: #009852,
+  700: #008645,
+  800: #007539,
+  900: #005624,
+  A100 : #a8ffc3,
+  A200 : #75ff9f,
+  A400 : #42ff7c,
+  A700 : #29ff6a,
+  contrast: (50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+$custom-red-palette: (
+  50 : #fcebe9,
+  100 : #f6cdc7,
+  200 : #f1aca2,
+  300 : #eb8b7d,
+  400 : #e67261,
+  500 : #e25945,
+  600 : #df513e,
+  700 : #da4836,
+  800 : #d63e2e,
+  900 : #cf2e1f,
+  A100 : #ffffff,
+  A200 : #ffd6d3,
+  A400 : #ffa7a0,
+  A700 : #ff8f86,
+  contrast: (50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+$tilt-primary: mat.define-palette($custom-tilt-palette, 100, 50, 300);
+$tilt-accent: mat.define-palette($custom-green-palette, 200, 50, 600);
+// The warn palette is optional (defaults to red).
+$tilt-warn: mat.define-palette($custom-red-palette, 600);
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+// $app-primary: mat.define-palette(mat.$indigo-palette);
+// $app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$app-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$app-theme: mat.define-light-theme((
+  color: (
+    primary: $tilt-primary,
+    accent: $tilt-accent,
+    warn: $tilt-warn,
+  )
+));
+$color-config: mat.get-color-config($app-theme);
+$primary-palette: map.get($color-config, 'primary');
+$accent-palette: map.get($color-config, 'accent');
+$warn-palette: map.get($color-config, 'warn');
+// $is-dark-theme: map.get($color-config, 'is-dark');
+
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($app-theme);
+
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%;}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import '~bootstrap/dist/css/bootstrap.css';
+
+
+.dense-1 {
+  @include mat.all-component-densities(-1);
+}
+.dense-2 {
+  @include mat.all-component-densities(-2);
+}
+.dense-3 {
+  @include mat.all-component-densities(-3);
+}
