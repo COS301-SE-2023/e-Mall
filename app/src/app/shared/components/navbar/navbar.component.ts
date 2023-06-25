@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit } from '@angular/core';
-//import { AuthService } from '@app/services/auth/auth.service';
+import { AuthService } from '@app/services/auth/auth.service';
 import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
@@ -11,15 +11,12 @@ import { Router, NavigationExtras } from '@angular/router';
 export class NavbarComponent implements OnInit {
   isAuthenticated = false;
   isCategoryOpened = false;
-  //private authService: AuthService,
-  constructor( private router: Router) {}
-
+  constructor(private authService: AuthService, private router: Router) {}
   ngOnInit(): void {
-   /*this.authService.isAuthenticated().subscribe(isAuthenticated => {
+    this.authService.isAuthenticated().subscribe(isAuthenticated => {
       this.isAuthenticated = isAuthenticated;
       console.log('Home [Auth]: ', isAuthenticated);
-    });*/
-    console.log('Navbar')
+    });
   }
   search(searchQuery: string): void {
     // Create the navigation extras object with the search query as a parameter

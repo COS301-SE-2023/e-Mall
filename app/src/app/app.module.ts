@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
 import { httpInterceptorProviders } from '@app/shared/interceptors/index';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeModule } from './features/home/home.module';
@@ -13,6 +14,7 @@ import { SignInModule } from './features/sign-in/sign-in.module';
 import { SellerRegisterModule } from './features/sign-up/seller/seller-register.module';
 import { ConsumerRegisterModule } from './features/sign-up/consumer/consumer-register.module';
 import { SignOutModule } from './features/sign-out/sign-out.module';
+import { NavbarModule } from './shared/components/navbar/navbar.module';
 import { FooterModule } from './shared/components/footer/footer.module';
 import { ContactModule } from './features/contact/contact.module';
 import { AboutModule } from './features/about/about.module';
@@ -21,6 +23,7 @@ import { AboutModule } from './features/about/about.module';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HomeModule,
@@ -31,6 +34,7 @@ import { AboutModule } from './features/about/about.module';
     SellerRegisterModule,
     ConsumerRegisterModule,
     SignOutModule,
+    NavbarModule,
     FooterModule,
     ContactModule,
     NotFoundModule,

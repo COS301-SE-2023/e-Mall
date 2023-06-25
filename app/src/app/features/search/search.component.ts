@@ -45,8 +45,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   itemsPerPage!: number;
   totalSearchCount$: Observable<number> | undefined;
 
-  loading = true;
-
   ////J fix for min , max price
   minInputController = new FormControl();
   maxInputController = new FormControl();
