@@ -2,8 +2,8 @@ name: master-v1
 
 on:
   push:
-    branches:
-      - master
+    # branches:
+    #   - master
 
   pull_request:
     branches:
