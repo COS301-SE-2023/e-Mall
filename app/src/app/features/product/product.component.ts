@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Component, Input, OnInit } from '@angular/core';
 import { IProductSeller } from '@app/models/product/product-seller.interface';
 
