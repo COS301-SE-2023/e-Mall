@@ -31,8 +31,6 @@ const routes: Routes = [
   { path: 'policies-and-privacy', redirectTo: '/construction' },
   { path: 'seller/dashboard', redirectTo: '/construction' },
   { path: 'ads', redirectTo: '/construction' },
-
-  // { path: 'products', component: ProductComponent },
   { path: '**', component: NotFoundComponent },
 ];
 @NgModule({
