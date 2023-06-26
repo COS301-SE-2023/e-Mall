@@ -89,5 +89,4 @@ def register(request):
 @api_view(['POST'])
 # @permission_classes([AllowAny])
 def auth_test(request):
-    print('auth_test: ', request)
     return Response({'message': 'auth success'}, status=status.HTTP_201_CREATED)
