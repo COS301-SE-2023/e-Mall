@@ -44,17 +44,12 @@
                   [src]="getOneImg((product$ | async)?.min_price_img_array)"
                   alt="Product Image"
                   class="product-image" />
-                <div
-                  class="min-price-discount_rate"
-                  *ngIf="product$ | async as product">
-                  <span
-                    class="badge bg-danger discount_rate_badge"
-                    matTooltip="Product discount rate"
-                    *ngIf="product.min_price_discount_rate !== 0">
-                    -{{ product.min_price_discount_rate }}%
-                  </span>
-                </div>
-              </div>
+                  <div class="min-price-discount_rate" *ngIf="product$ | async as product">
+                    <span class="badge bg-danger discount_rate_badge" matTooltip="Product discount rate" *ngIf="product.min_price_discount_rate !== 0">
+                      -{{ product.min_price_discount_rate }}%
+                    </span>
+                  </div>
+              </div> 
               <mat-card-actions>
                 <!--<button
                   mat-icon-button
@@ -186,6 +181,9 @@
                             class="fa-sharp fa-solid fa-x in-stock-x"
                             matTooltip="out of stock"></i>
                         </div>
+                        <mat-card-title class="product-price">
+                          R{{ seller.price }}
+                        </mat-card-title>
                       </div>
                     </div>
                   </mat-card-header>
