@@ -1,4 +1,5 @@
-//navbar unit tests
+/* eslint-disable @typescript-eslint/naming-convention */
+//navbar integration tests
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CommonModule } from '@angular/common';
@@ -14,10 +15,12 @@ import { SearchBarModule } from '@shared/components/search-bar/search-bar.module
 import { ViewSizeModule } from '@shared/directives/view-size/view-size.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavigationExtras, Router } from '@angular/router';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
+  let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -42,15 +45,8 @@ describe('NavbarComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(NavbarComponent);
     component = fixture.componentInstance;
+    router = TestBed.inject(Router);
     fixture.detectChanges();
-  });
-
-  it('should create the component', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should initialize isAuthenticated to false', () => {
-    expect(component.isAuthenticated).toBeFalse();
   });
 
   it('should toggle the category status', () => {
@@ -64,37 +60,41 @@ describe('NavbarComponent', () => {
   });
 
   it('should navigate to search results page with search query', () => {
-    const routerspy = spyOn(component['router'], 'navigate');
+    const searchQuery = 'test query';
+    const navigationExtras: NavigationExtras = {
+      queryParams: { search: searchQuery },
+    };
+    const routerNavigateSpy = spyOn(router, 'navigate');
 
-    component.search('test query');
+    component.search(searchQuery);
 
-    expect(routerspy).toHaveBeenCalledWith(['/search-results'], {
-      queryParams: { search: 'test query' },
-    });
+    expect(routerNavigateSpy).toHaveBeenCalledWith(['/search-results'], navigationExtras);
   });
 
   it('should navigate to sign-in page', () => {
-    const routerspy = spyOn(component['router'], 'navigate');
+    const routerNavigateSpy = spyOn(router, 'navigate');
 
     component.signIn();
 
-    expect(routerspy).toHaveBeenCalledWith(['sign-in']);
+    expect(routerNavigateSpy).toHaveBeenCalledWith(['sign-in']);
   });
 
   it('should navigate to sign-out page', () => {
-    const routerspy = spyOn(component['router'], 'navigate');
+    const routerNavigateSpy = spyOn(router, 'navigate');
 
     component.signOut();
 
-    expect(routerspy).toHaveBeenCalledWith(['sign-out']);
+    expect(routerNavigateSpy).toHaveBeenCalledWith(['sign-out']);
   });
 
   it('should navigate to a specified page', () => {
-    const routerspy = spyOn(component['router'], 'navigate');
     const page = 'home';
+    const routerNavigateSpy = spyOn(router, 'navigate');
 
     component.redirect(page);
 
-    expect(routerspy).toHaveBeenCalledWith([`/${page}`]);
+    expect(routerNavigateSpy).toHaveBeenCalledWith([`/${page}`]);
   });
+
+
 });
