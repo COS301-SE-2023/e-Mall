@@ -14,6 +14,9 @@ import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IProduct } from '@app/models/product/product.interface';
+import { of } from 'rxjs';
+import { IProductSeller } from '@app/models/product/product-seller.interface';
 
 describe('ProductComponent', () => {
   let component: ProductComponent;
@@ -23,6 +26,7 @@ describe('ProductComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      declarations: [ProductComponent],
       imports: [
         BrowserAnimationsModule,
         CommonModule,
@@ -36,7 +40,6 @@ describe('ProductComponent', () => {
         NavbarModule,
         FooterModule,
       ],
-      declarations: [ProductComponent],
       providers: [
         ProductService,
         {
@@ -61,9 +64,8 @@ describe('ProductComponent', () => {
   it('should create the ProductComponent', () => {
     expect(component).toBeTruthy();
   });
-/*
-  it('should fetch product data and seller list on initialization', () => {
-    const productData = {
+  it('should fetch productData on initialization', () => {
+    const mockProduct: IProduct = {
       id: 1,
       min_price_img_array: ['image1.jpg', 'image2.jpg'],
       name: 'Product 1',
@@ -81,23 +83,73 @@ describe('ProductComponent', () => {
       created_at: '2023-06-01',
       updated_at: '2023-06-02',
     };
+
+    spyOn(productService, 'getProductData').and.returnValue(of(mockProduct));
+    component.prod_id = 1;
+    component.ngOnInit();
+
+    expect(productService.getProductData).toHaveBeenCalledWith(
+      component.prod_id
+    );
+    expect(component.product$).toBeDefined();
+    component.product$?.subscribe(product => {
+      expect(product).toEqual(mockProduct);
+    });
+  });
+  it('should fetch SellerList on initialization', () => {
     const sellerList: IProductSeller[] = [
       { id: 1, product: 'Product1', seller: 'Seller1' },
       { id: 2, product: 'Product2', seller: 'Seller2' },
     ];
 
-    spyOn(productService, 'getProductData').and.returnValue(of(productData));
     spyOn(productService, 'getSellerList').and.returnValue(of(sellerList));
-
+    component.prod_id = 1;
     component.ngOnInit();
 
-    expect(productService.getProductData).toHaveBeenCalledWith(component.prod_id);
-    expect(productService.getSellerList).toHaveBeenCalledWith(component.prod_id);
-    expect(component.product$).toEqual(of(productData));
-    expect(component.sellers$).toEqual(of(sellerList));
+    expect(productService.getSellerList).toHaveBeenCalledWith(
+      component.prod_id,
+      'default'
+    );
+    expect(component.product$).toBeDefined();
+    component.sellers$?.subscribe(product => {
+      expect(product).toEqual(sellerList);
+    });
+  });
+  it('should display seller list', () => {
+    const sellers = [
+      {
+        id: 1,
+        business_name: 'Seller 1',
+        price: 50,
+        in_stock: true,
+        product: 'Product1',
+        seller: 'Seller1',
+      },
+      {
+        id: 2,
+        business_name: 'Seller 2',
+        price: 60,
+        in_stock: false,
+        product: 'Product2',
+        seller: 'Seller2',
+      },
+    ];
+
+    component.sellers$ = of(sellers);
+
+    fixture.detectChanges();
+
+    const sellerElements =
+      fixture.nativeElement.querySelectorAll('.seller-name');
+    //  const priceElements = fixture.nativeElement.querySelectorAll('.product-price');
+    //const inStockElements = fixture.nativeElement.querySelectorAll('.in-stock-box');
+
+    expect(sellerElements.length).toEqual(sellers.length);
+    //  expect(priceElements.length).toEqual(sellers.length);
+    //expect(inStockElements.length).toEqual(sellers.length);
   });
 
-  it('should display product information', () => {
+  /*  it('should display product information', () => {
     const id = 1;
     const productName = 'Product Name';
     const brand = 'Brand';
@@ -121,26 +173,7 @@ describe('ProductComponent', () => {
     expect(descriptionElement.textContent).toContain(description);
     expect(minPriceElement.textContent).toContain(`${minPrice} ${currencyCode}`);
   });*/
-/*
-  it('should display seller list', () => {
-    const sellers = [
-      { id: 1, business_name: 'Seller 1', price: 50, in_stock: true, product:'Product1', seller:'Seller1' },
-      { id: 2, business_name: 'Seller 2', price: 60, in_stock: false,product:'Product2', seller:'Seller2' },
-    ];
-
-    component.sellers$ = of(sellers);
-
-    fixture.detectChanges();
-
-    const sellerElements = fixture.nativeElement.querySelectorAll('.seller-name');
-    const priceElements = fixture.nativeElement.querySelectorAll('.product-price');
-    const inStockElements = fixture.nativeElement.querySelectorAll('.in-stock-box');
-
-    expect(sellerElements.length).toEqual(sellers.length);
-    expect(priceElements.length).toEqual(sellers.length);
-    expect(inStockElements.length).toEqual(sellers.length);
-  });*/
-/*
+  /*
   it('should navigate to the seller product page on seller name click', () => {
     const sellerId = 1;
     const sellerProductUrl = `/seller/${sellerId}`;
