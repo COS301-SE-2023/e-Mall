@@ -89,15 +89,3 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-
-      - name: Change pytest report source
-        run: sed -i "s|<source>\/api</source>|<source>api\/<\/source>|g" api/coverage.xml
-
-      - name: Change karma report source
-        run: sed -i 's/src\\app/app\\src\\app/g' app/coverage/karma/lcov.info
-
-      - name: SonarCloud scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
