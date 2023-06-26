@@ -1,6 +1,11 @@
+from rest_framework.test import APITestCase
+from consumer.views import ConsumerViewSet
 import pytest
 from consumer.models import Consumer
 from faker import Faker
+from rest_framework import permissions
+from auth.permissions import CognitoPermission
+
 fake = Faker()
 
 
@@ -33,3 +38,20 @@ def test_consumer_instance(
     else:
         with pytest.raises(Exception):
             consumer_factory(username=username, email=email)
+
+
+class ConsumerViewSetTestCase(APITestCase):
+    def setUp(self):
+        self.view = ConsumerViewSet()
+
+    def test_get_permissions_create_action(self):
+        self.view.action = 'create'
+        permission_instances = self.view.get_permissions()
+        self.assertEqual(len(permission_instances), 1)
+        self.assertIsInstance(permission_instances[0], permissions.AllowAny)
+
+    def test_get_permissions_non_create_action(self):
+        self.view.action = 'list'
+        permission_instances = self.view.get_permissions()
+        self.assertEqual(len(permission_instances), 1)
+        self.assertIsInstance(permission_instances[0], CognitoPermission)
