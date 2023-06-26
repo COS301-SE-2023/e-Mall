@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - "**_test"
+      - "**_tests"
+      - "**_testing"
 env:
   node_version: v18.16.0
 
