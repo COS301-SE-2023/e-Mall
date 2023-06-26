@@ -4,7 +4,6 @@
 
 <div align="center">
 
-![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/COS301-SE-2023/e-Mall)
 [![codecov](https://codecov.io/github/COS301-SE-2023/e-Mall/branch/develop/graph/badge.svg?token=30QP7VAW2W)](https://codecov.io/github/COS301-SE-2023/e-Mall)
 ![Build](https://github.com/COS301-SE-2023/e-Mall/actions/workflows/master-v1.yml/badge.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2023_e-Mall&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=COS301-SE-2023_e-Mall)
