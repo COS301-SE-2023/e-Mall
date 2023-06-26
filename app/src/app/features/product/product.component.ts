@@ -50,10 +50,6 @@ export class ProductComponent implements OnInit {
     if (id) {
       this.product$ = this.productService.getProductData(id);
       this.sellers$ = this.productService.getSellerList(id, 'default');
-
-      this.sellers$.subscribe((val: any) => {
-        console.log(val);
-      });
       this.currency$ = of('ZAR');
     }
   }
