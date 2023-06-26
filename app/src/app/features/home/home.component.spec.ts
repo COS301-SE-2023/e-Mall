@@ -1,6 +1,6 @@
 
 /* eslint-disable @typescript-eslint/naming-convention */
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+/*import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ProductService } from '@app/services/product/product.service';
@@ -72,7 +72,6 @@ describe('HomeComponent', () => {
       providers: [ProductService, AuthService, {
         provide: ActivatedRoute,
         useValue: {
-          /* Mock or stub properties/methods you need here */
         },
       },],
     }).compileComponents();
@@ -179,5 +178,40 @@ it('should navigate to search results on search', async () => {
     expect(router.navigate).toHaveBeenCalledWith(['products'], {
       queryParams: { prod_id: productId },
     });
+  });
+});*/
+
+import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HomeComponent } from './home.component';
+
+describe('HomeComponent', () => {
+  let component: HomeComponent;
+  let httpTestingController: HttpTestingController;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [HomeComponent]
+    });
+
+    component = TestBed.inject(HomeComponent);
+    httpTestingController = TestBed.inject(HttpTestingController);
+  });
+
+  afterEach(() => {
+    httpTestingController.verify();
+  });
+
+  it('should make an API call on page load', () => {
+    const mockResponse = { /* mock response data */ };
+
+    component.ngOnInit();
+
+    const req = httpTestingController.expectOne('http://localhost:3000/api/products/backend?search=a');
+    expect(req.request.method).toEqual('GET');
+    const req2 = httpTestingController.expectOne('http://localhost:3000/api/products/backend?search=f');
+    expect(req2.request.method).toEqual('GET');
+    req.flush(mockResponse);
   });
 });
