@@ -152,3 +152,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .dense-3 {
   @include mat.all-component-densities(-3);
 }
+
+@font-face {
+  font-family: airbone;
+  src: url(assets/fonts/airbone/Airborne-MOdr.ttf) format("opentype");
+}

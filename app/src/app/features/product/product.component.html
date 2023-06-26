@@ -71,7 +71,9 @@
             <div
               class="upper-product-info-small-container"
               *ngIf="product$ | async as product">
-              <h2>{{ product.name }}</h2>
+              <h2 style="font-family: airbone, Arial, Helvetica, sans-serif">
+                {{ product.name }}
+              </h2>
               <h4>{{ product.brand }}</h4>
               <p>{{ product.description }}</p>
               <p>
