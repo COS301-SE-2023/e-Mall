@@ -62,7 +62,7 @@ class ProductBackendAPIView(APIView):
         )
 
         # Default
-        products = any
+        products = Product.objects.all()
 
         # Searching the DB and returning the relevant products based on the search query
         if search:
@@ -143,9 +143,7 @@ class ProductBackendAPIView(APIView):
 
         # Sorting
         # all in asc order(small to big)
-        if sort == "price":
-            products = products.order_by("productseller__price")
-        elif sort == "name":
+        if sort == "name":
             products = products.order_by("name")
         elif sort == "-price":
             # sort by desc order(big to small)
@@ -155,6 +153,8 @@ class ProductBackendAPIView(APIView):
         elif sort == "discount":
             print("passing here")
             products = products.order_by("-productseller__discount_rate")
+        else:
+            products = products.order_by("productseller__price")
 
         # Pagination
         serializer = ProductSerializer(products, many=True)
@@ -187,7 +187,9 @@ class ProductTestAPIView(APIView):
         }
 
         # Input for search
-        search = request.GET.get("search")
+        search = request.GET.get("search", "")
+        if search == "":
+            return Response({"data": [], "total_count": 0})
 
         # Input for sort[brand, price, name]
         sort = request.GET.get("sort")
@@ -268,12 +270,10 @@ class ProductTestAPIView(APIView):
         # Pagination
 
         page = int(request.GET.get("page")) if request.GET.get("page") else 0
-        print("a", request.GET.get("per_page"))
         per_page = (
             int(request.GET.get("per_page")) if request.GET.get(
                 "per_page") else 10
         )
-        print("b", per_page)
         start = (page) * per_page
         end = start + per_page
         total_count = len(data)
