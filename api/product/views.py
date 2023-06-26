@@ -1,3 +1,4 @@
+from django.http import HttpResponseBadRequest
 from django.shortcuts import render
 
 # Create your views here.
@@ -49,8 +50,8 @@ class ProductBackendAPIView(APIView):
         filter_price_min = request.GET.get("filter_price_min")
         filter_price_max = request.GET.get("filter_price_max")
         filter_category = request.GET.get("filter_category")
-        filter_date_min = request.GET.get("filter_date_min")
-        filter_date_max = request.GET.get("filter_date_max")
+        # filter_date_min = request.GET.get("filter_date_min")
+        # filter_date_max = request.GET.get("filter_date_max")
         filter_seller = request.GET.get("filter_seller")
         filter_in_stock = request.GET.get("filter_in_stock")
 
@@ -113,16 +114,16 @@ class ProductBackendAPIView(APIView):
 
             filters &= category_filters
 
-        if filter_date_min and filter_date_max:
-            date_min = parse_date(filter_date_min)
-            date_max = parse_date(filter_date_max)
-            filters &= Q(created_at__gte=date_min, created_at__lte=date_max)
-        elif filter_date_min:
-            date_min = parse_date(filter_date_min)
-            filters &= Q(created_at__gte=date_min)
-        elif filter_date_max:
-            date_max = parse_date(filter_date_max)
-            filters &= Q(created_at__lte=date_max)
+        # if filter_date_min and filter_date_max:
+        #     date_min = parse_date(filter_date_min)
+        #     date_max = parse_date(filter_date_max)
+        #     filters &= Q(created_at__gte=date_min, created_at__lte=date_max)
+        # elif filter_date_min:
+        #     date_min = parse_date(filter_date_min)
+        #     filters &= Q(created_at__gte=date_min)
+        # elif filter_date_max:
+        #     date_max = parse_date(filter_date_max)
+        #     filters &= Q(created_at__lte=date_max)
         if filter_seller:
             seller_values = filter_seller.split(
                 ","
@@ -132,7 +133,7 @@ class ProductBackendAPIView(APIView):
 
             for seller_value in seller_values:
                 seller_filters |= Q(
-                    productseller__seller__icontains=seller_value.strip()
+                    productseller__seller__business_name__icontains=seller_value.strip()
                 )  # Apply seller filter for each seller value
 
             filters &= seller_filters
@@ -151,7 +152,6 @@ class ProductBackendAPIView(APIView):
         elif sort == "-name":
             products = products.order_by("-name")
         elif sort == "discount":
-            print("passing here")
             products = products.order_by("-productseller__discount_rate")
         else:
             products = products.order_by("productseller__price")
@@ -202,6 +202,17 @@ class ProductTestAPIView(APIView):
         filter_category = request.GET.get("filter_category")
         filter_seller = request.GET.get("filter_seller")
         filter_in_stock = request.GET.get("filter_in_stock")
+        if filter_price_min and filter_price_max:
+            _min = 0
+            _max = 0
+            try:
+                _min = int(filter_price_min)
+                _max = int(filter_price_max)
+            except ValueError:
+                _min = float(filter_price_min)
+                _max = float(filter_price_max)
+            if _min > _max:
+                return HttpResponseBadRequest('invalid price range')
 
         products = {}
 
@@ -239,7 +250,6 @@ class ProductTestAPIView(APIView):
             )
 
         if filter_price_min:
-            print(Decimal(filter_price_min))
             query &= Q(min_price__gte=Decimal(filter_price_min))
 
         if filter_price_max:
@@ -274,6 +284,7 @@ class ProductTestAPIView(APIView):
             int(request.GET.get("per_page")) if request.GET.get(
                 "per_page") else 10
         )
+
         start = (page) * per_page
         end = start + per_page
         total_count = len(data)

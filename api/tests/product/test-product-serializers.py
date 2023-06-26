@@ -40,3 +40,8 @@ class ProductSerializerTestCase(APITestCase):
         self.assertEqual(data['min_price_original_price'], 100)
         self.assertEqual(data['min_price_img_array'], [
                          'https://example.com/image1.jpg', 'https://example.com/image2.jpg'])
+
+    def test_get_min_price_seller_id(self):
+        serializer = ProductSerializer(instance=self.product)
+        seller_id = serializer.get_min_price_seller_id(self.product)
+        self.assertEqual(seller_id, self.seller.id)

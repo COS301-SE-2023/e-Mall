@@ -22,8 +22,10 @@ class Product(models.Model):
     name = models.CharField()
     description = models.TextField()
     brand = models.CharField(default="")
-    category = models.CharField(choices=CATEGORY_CHOICES, default="electronics")
-    min_price = models.DecimalField(max_digits=7, decimal_places=2, default=000.00)
+    category = models.CharField(
+        choices=CATEGORY_CHOICES, default="electronics")
+    min_price = models.DecimalField(
+        max_digits=7, decimal_places=2, default=000.00)
     min_price_seller_id = models.UUIDField(default=uuid.uuid4, editable=False)
     min_price_seller_product_url = models.URLField(
         max_length=1000, verbose_name="Seller URL"
@@ -31,15 +33,18 @@ class Product(models.Model):
     min_price_seller_business_name = models.CharField(default="")
     min_price_in_stock = models.BooleanField(default=True)
     min_price_discount = models.BooleanField(default=False)
-    min_price_discount_rate = models.DecimalField(max_digits=3, decimal_places=2)
-    min_price_original_price = models.DecimalField(max_digits=7, decimal_places=2)
+    min_price_discount_rate = models.DecimalField(
+        max_digits=3, decimal_places=2)
+    min_price_original_price = models.DecimalField(
+        max_digits=7, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def get_minimum_price(self):
         productsellers = self.productseller_set.all()
         if productsellers.exists():
-            min_price = productsellers.aggregate(models.Min("price"))["price__min"]
+            min_price = productsellers.aggregate(
+                models.Min("price"))["price__min"]
             productseller = productsellers.filter(price=min_price).first()
             return (
                 min_price,
