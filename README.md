@@ -74,13 +74,13 @@ Key features of our Agile approach during this project include:
 ### Software Requirements Specification
 
 - [SRS V1](https://drive.google.com/file/d/1xYJfWMI8LHSDu71Z_4f4M5lmC0sm7LC7/view?usp=share_link)
-- [SRS V2](https://drive.google.com/file/d/1O_zjfsFCpV5V17NZM9OG02uwljBLO9lz/view?usp=sharing)
+- [SRS V2](https://drive.google.com/file/d/17sjF_ug5B2UOm4882mR8pB-XNJYRdQlR/view?usp=sharing)
 
 ### Architecture
 - [Architecture Document](https://drive.google.com/file/d/1bqVY1dhNnN6TRFIE9gbgmBwtZRpwdSxe/view?usp=sharing)
 
 ### Coding Standards
-- [Coding Standards Document]([https://drive.google.com/file/d/1O_zjfsFCpV5V17NZM9OG02uwljBLO9lz/view?usp=sharing](https://drive.google.com/file/d/1PSxej1cXmVsGjtHcWc3-ent6uTmSJMlR/view?usp=sharing))
+- [Coding Standards Document](https://drive.google.com/file/d/1PSxej1cXmVsGjtHcWc3-ent6uTmSJMlR/view?usp=sharing)
 
 ### Deployment
 
