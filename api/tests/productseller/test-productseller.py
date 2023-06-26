@@ -1,10 +1,10 @@
 import pytest
 from faker import Faker
 from django.test import TestCase
-from .factories import ProductSellerFactory
-from .factories import ProductFactory
-from .factories import SellerFactory
-from .factories import SellerFactory
+from tests.factories import ProductSellerFactory
+from tests.factories import ProductFactory
+from tests.factories import SellerFactory
+from tests.factories import SellerFactory
 from product.models import Product
 from seller.models import Seller
 
