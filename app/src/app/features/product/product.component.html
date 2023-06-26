@@ -274,29 +274,15 @@
 
             <div *ngIf="product$ | async as product">
               <p>
-                Lowest price for {{ product.brand }} is
+                Lowest price for {{ product.name }} is
                 <b>R{{ product.min_price }}</b> this is currrently the lowest
                 price out of {{ sellers.length }} stores
               </p>
 
               <p>
-                <b>{{ product.brand }}</b>
+                <b>{{ product.name }}</b>
               </p>
               <p>{{ product.description }}</p>
-              <p>
-                {{ product.brand }} is just the thing you need to listen to your
-                favorite podcast. They connect cord-free via Bluetooth and with
-                active noise cancelling you get some peace and quiet in the busy
-                office landscape.
-              </p>
-              <ul>
-                <li>Active noise cancelling</li>
-                <li>Completely wireless design</li>
-                <li>Connects wirelessly</li>
-                <li>Six hours of battery life</li>
-                <li>Built-in microphone for phone calls</li>
-                <li>Simple design</li>
-              </ul>
             </div>
           </ng-container>
         </div>
