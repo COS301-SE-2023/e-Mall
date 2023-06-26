@@ -15,12 +15,13 @@
       integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
       crossorigin="anonymous" />
   </head>
-
+  <app-navbar></app-navbar>
   <body>
-    <app-navbar></app-navbar>
     <div class="container-fluid body-container">
       <div class="container-fluid prices" id="prices">
-        <div class="row product-img-info-container">
+        <div
+          class="row product-img-info-container"
+          style="margin-left: 10px; margin-right: 10px">
           <!--<div *ngIf="(product$ | async) === null">
             <mat-spinner></mat-spinner>
           </div>-->
@@ -44,17 +45,12 @@
                   [src]="getOneImg((product$ | async)?.min_price_img_array)"
                   alt="Product Image"
                   class="product-image" />
-                <div
-                  class="min-price-discount_rate"
-                  *ngIf="product$ | async as product">
-                  <span
-                    class="badge bg-danger discount_rate_badge"
-                    matTooltip="Product discount rate"
-                    *ngIf="product.min_price_discount_rate !== 0">
-                    -{{ product.min_price_discount_rate }}%
-                  </span>
-                </div>
-              </div>
+                  <div class="min-price-discount_rate" *ngIf="product$ | async as product">
+                    <span class="badge bg-danger discount_rate_badge" matTooltip="Product discount rate" *ngIf="product.min_price_discount_rate !== 0">
+                      -{{ product.min_price_discount_rate }}%
+                    </span>
+                  </div>
+              </div> 
               <mat-card-actions>
                 <!--<button
                   mat-icon-button
@@ -84,7 +80,8 @@
 
       <div class="container-fluid lower-body-container">
         <nav
-          class="navbar navbar-expand-lg navbar-light bg-light sticky-top lowerNav">
+          class="navbar navbar-expand-lg navbar-light bg-light sticky-top lowerNav"
+          style="padding-left: 40px">
           <button
             class="navbar-toggler"
             type="button"
@@ -98,7 +95,12 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" (click)="scroll(comp_products)">Prices</a>
+                <a
+                  style="padding-right: 15px"
+                  class="nav-link"
+                  (click)="scroll(comp_products)"
+                  >Prices</a
+                >
               </li>
               <!--<li class="nav-item">
                 <a class="nav-link">Statistics</a>
@@ -115,7 +117,7 @@
           </div>
         </nav>
 
-        <div class="container-fluid filters">
+        <div class="container-fluid filters" style="margin-left: 20px">
           <div class="row">
             <div class="col-sm-2 col-md-2 col-lg-2">
               <button
@@ -131,7 +133,7 @@
 
         <div #comp_products id="comp_products"></div>
         <ng-container *ngIf="sellers$ | async as sellers">
-          <ul class="seller-list">
+          <ul style="padding-left: 20px" class="seller-list">
             <li *ngFor="let seller of sellers">
               <div class="container-fluid comp-products">
                 <mat-accordion>
@@ -146,14 +148,14 @@
                     </mat-expansion-panel-header>
                     <div
                       *ngIf="seller.in_stock"
-                      style="color: green; margin-top: 20px">
+                      style="color: green; margin-top: 20px; font-size: small">
                       <i class="fa-sharp fa-solid fa-boxes-stacked in-stock-box"
                         ><span style="margin-left: 10px">In stock</span></i
                       >
                     </div>
                     <div
                       *ngIf="!seller.in_stock"
-                      style="color: red; margin-top: 20px">
+                      style="color: red; margin-top: 20px; font-size: small">
                       <i class="fa-sharp fa-solid fa-boxes-stacked"
                         ><span style="margin-left: 10px">Out of stock</span></i
                       >
@@ -162,7 +164,7 @@
                   <mat-card-header class="seller-product-name-price">
                     <div class="container-fluid card-title-container">
                       <mat-card-title class="product-name">
-                        <a routerLink="{{ seller.product_url }}">{{
+                        <a href="{{ seller.product_url }}">{{
                           seller.product_name
                         }}</a>
                       </mat-card-title>
@@ -186,6 +188,9 @@
                             class="fa-sharp fa-solid fa-x in-stock-x"
                             matTooltip="out of stock"></i>
                         </div>
+                        <mat-card-title class="product-price">
+                          R{{ seller.price }}
+                        </mat-card-title>
                       </div>
                     </div>
                   </mat-card-header>
@@ -267,6 +272,7 @@
           </div>
         </div> -->
         <div
+          style="padding-left: 30px; padding-right: 30px"
           #product_info
           class="container-fluid full-product-info"
           id="full-product-info">
@@ -276,29 +282,15 @@
 
             <div *ngIf="product$ | async as product">
               <p>
-                Lowest price for {{ product.brand }} is
+                Lowest price for {{ product.name }} is
                 <b>R{{ product.min_price }}</b> this is currrently the lowest
                 price out of {{ sellers.length }} stores
               </p>
 
               <p>
-                <b>{{ product.brand }}</b>
+                <b>{{ product.name }}</b>
               </p>
               <p>{{ product.description }}</p>
-              <p>
-                {{ product.brand }} is just the thing you need to listen to your
-                favorite podcast. They connect cord-free via Bluetooth and with
-                active noise cancelling you get some peace and quiet in the busy
-                office landscape.
-              </p>
-              <ul>
-                <li>Active noise cancelling</li>
-                <li>Completely wireless design</li>
-                <li>Connects wirelessly</li>
-                <li>Six hours of battery life</li>
-                <li>Built-in microphone for phone calls</li>
-                <li>Simple design</li>
-              </ul>
             </div>
           </ng-container>
         </div>
@@ -439,10 +431,9 @@
           <h1>{{ product[0].brand }}</h1>
           <img [src]="product[0].img" alt="Product Image">
         </div>
-      -->
-
-        <app-footer></app-footer>
-      </div>
+        
+      --></div>
     </div>
+    <app-footer></app-footer>
   </body>
 </html>
