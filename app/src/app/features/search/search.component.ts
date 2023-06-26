@@ -55,6 +55,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params['search'];
       console.log('filter options' + this.filterOptions);
+      this.selectedSortOption = 'price';
       this.productService
         .searchProducts(
           this.searchQuery,
