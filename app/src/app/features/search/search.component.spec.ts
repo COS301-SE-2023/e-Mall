@@ -200,4 +200,50 @@ describe('SearchComponent', () => {
     component.signOut();
     expect(router.navigate).toHaveBeenCalledWith(['sign-out']);
   });
+
+  it('should return the first image URL when imgList is provided', () => {
+    const imgList = ['image1.jpg', 'image2.jpg', 'image3.jpg'];
+    const result = component.getOneImg(imgList);
+    expect(result).toEqual('image1.jpg');
+  });
+  
+  it('should return a default image URL when imgList is not provided or empty', () => {
+    const result = component.getOneImg();
+    expect(result).toEqual('https://www.incredible.co.za/media/catalog/product/cache/7ce9addd40d23ee411c2cc726ad5e7ed/s/c/screenshot_2022-05-03_142633.jpg');
+  });
+
+  it('should add the filter option when checked is true', () => {
+    component.filterOptions = [];
+    const filter_type = 'filter_category';
+    const value = 'electronics';
+    const checked = true;
+  
+    component.onFilterOptionChange(filter_type, value, checked);
+  
+    expect(component.filterOptions).toEqual(['filter_category=electronics']);
+  });
+  
+  it('should update the existing filter option when checked is true', () => {
+    component.filterOptions = ['filter_category=electronics'];
+    const filter_type = 'filter_category';
+    const value = 'books';
+    const checked = true;
+  
+    component.onFilterOptionChange(filter_type, value, checked);
+  
+    expect(component.filterOptions).toEqual(['filter_category=electronics,,,books']);
+  });
+  
+  it('should remove the value from the filter option when checked is false', () => {
+    // Initial values
+    component.filterOptions = ['filter_category=electronics,,,books'];
+    const filter_type = 'filter_category';
+    const value = 'books';
+    const checked = false;
+  
+    component.onFilterOptionChange(filter_type, value, checked);
+    expect(component.filterOptions).toEqual(['filter_category=electronics']);
+  });
+  
+  
 });
