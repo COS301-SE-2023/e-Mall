@@ -59,8 +59,7 @@ margin-right: 30px;
 }
 
 .body-container{
-  padding: 0;
-  padding: 0;
+  padding: 0;// change this padding to an amount that is suitable, maybe 20/30px 
 }
 
 .product-img-info-container{
@@ -291,7 +290,7 @@ background-color: $color_type_8;
 .comp-products{
   border-radius: 12px;
   margin-top: 20px;
-  width: 82%;
+  width: 82%;// try changing this width to something smaller for the seller listing to be smaller
   margin-left: 10px;
   padding: 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
