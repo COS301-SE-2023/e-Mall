@@ -3,7 +3,7 @@ name: dev-v1
 on:
   push:
     branches:
-      - "*test"
+      - "**_test"
 env:
   node_version: v18.16.0
 
