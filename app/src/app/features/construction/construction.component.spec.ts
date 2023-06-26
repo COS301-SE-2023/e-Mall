@@ -1,11 +1,10 @@
+// construction unit tests
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ConstructionComponent } from './construction.component';
-
 import { CommonModule } from '@angular/common';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
 import { ConstructionRoutingModule } from './construction-routing.module';
-
 import { ActivatedRoute } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 describe('ConstructionComponent', () => {
@@ -48,7 +47,5 @@ describe('ConstructionComponent', () => {
     const headingel = compiled.querySelector('h1');
     expect(headingel.textContent).toContain('Coming Soon');
   });
-
-  // Add more test cases as needed
 
 });
