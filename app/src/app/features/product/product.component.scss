@@ -615,19 +615,20 @@ background-color: $color_type_8;
   margin-top: 30px;
 }
 
-.full-product-info{
+#full-product-info{
   border-top: 1px solid rgb(220,220,220);
   //margin-top: 5%;
   background-color: white;
   height: 600px;
-  padding-right: 10%;
+  padding-right: 25% !important;
+  border: 1px solid rgb(220,220,220);
 }
 
-.full-product-info h3{
+#full-product-info h3{
   margin-top: 30px;
 }
 
-.full-product-info p {
+#full-product-info p {
   margin-top: 40px;
 }
 
