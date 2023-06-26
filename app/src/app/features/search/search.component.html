@@ -10,7 +10,7 @@
     <link href="search.component.scss" rel="stylesheet" />
   </head>
 
-  <body class ="body">
+  <body class="body">
     <app-navbar></app-navbar>
 
     <main class="landing main">
@@ -19,8 +19,6 @@
         <p>
           You searched for: <strong>{{ searchQuery }}</strong>
         </p>
-
-
 
         <div class="dropdown">
           <button class="dropbtn">
@@ -89,28 +87,35 @@
             <mat-expansion-panel-header>
               <mat-panel-title> Price </mat-panel-title>
             </mat-expansion-panel-header>
-              <input
+            <input
               type="number"
               placeholder="Minimum Price"
-              [formControl]="minInputController" 
+              [formControl]="minInputController"
               min="0"
               inputmode="numeric"
               pattern="[0-9]+"
-              (input)="checkInputValidity(minInputController)"/>
+              (input)="checkInputValidity(minInputController)" />
 
-              <p *ngIf="minInputController.invalid && minInputController.dirty" class = "error-message">Please enter a positive number</p>
+            <p
+              *ngIf="minInputController.invalid && minInputController.dirty"
+              class="error-message">
+              Please enter a positive number
+            </p>
 
-              <input
+            <input
               type="number"
               placeholder="Maximum Price"
-              [formControl]="maxInputController" 
+              [formControl]="maxInputController"
               min="0"
               inputmode="numeric"
               pattern="[0-9]+"
-              (input)="checkInputValidity(maxInputController)"/>
+              (input)="checkInputValidity(maxInputController)" />
 
-              <p *ngIf="maxInputController.invalid && maxInputController.dirty" class = "error-messag">Please enter a positive number</p>
-
+            <p
+              *ngIf="maxInputController.invalid && maxInputController.dirty"
+              class="error-messag">
+              Please enter a positive number
+            </p>
           </mat-expansion-panel>
 
           <!-- Inventory -->
@@ -161,30 +166,41 @@
         <!--products-->
 
         <div class="product-card">
-          <div style="display: flex; justify-content: center; align-items: center;"*ngIf="(searchResults$ | async)===null">
+          <div
+            style="display: flex; justify-content: center; align-items: center"
+            *ngIf="(searchResults$ | async) === null">
             <mat-spinner></mat-spinner>
           </div>
           <ng-container *ngIf="searchResults$ | async as products">
-            <div class="row">
+            <div class="row" style="grid-auto-rows: auto">
               <div
-                class="col-md-3"
+                class="col-md-3 col-12"
+                style="grid-auto-columns: auto; min-width: 300px"
                 *ngFor="let product of products; let i = index">
                 <mat-card
                   class="product-card"
+                  style="
+                    height: 95%;
+                    max-width: 300px;
+                    min-width: 250px;
+                    aspect-ratio: 3/4;
+                  "
                   (click)="goToProductPage(product.id)">
                   <img
                     mat-card-image
                     [src]="getOneImg(product?.min_price_img_array)"
                     alt="Product Image"
-                    class="product-image" />
+                    class="product-image"
+                    style="object-fit: scale-down" />
                   <mat-card-content>
                     <mat-card-title>{{ product.name }}</mat-card-title>
                     <mat-card-subtitle>{{
                       product.category
                     }}</mat-card-subtitle>
-                    <mat-card-title class ="product-price">R {{ product.min_price }}</mat-card-title>
+                    <mat-card-title class="product-price"
+                      >R {{ product.min_price }}</mat-card-title
+                    >
                   </mat-card-content>
-
                 </mat-card>
 
                 <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
@@ -201,17 +217,20 @@
             <div class="product-card-no">
               <h3>No Products Found</h3>
               <p>
-                Sorry, we couldn't find any products matching "<strong>{{ searchQuery }}</strong>". Please try again with a different keyword or refine your search criteria.
+                Sorry, we couldn't find any products matching "<strong>{{
+                  searchQuery
+                }}</strong
+                >". Please try again with a different keyword or refine your
+                search criteria.
               </p>
-              <img src="assets\images\no-image.jpeg" alt="No Product Found" class="nimage"/>
-              
+              <img
+                src="assets\images\no-image.jpeg"
+                alt="No Product Found"
+                class="nimage" />
             </div>
           </div>
-
-
         </div>
       </div>
-      
     </main>
     <div class="mat-paginator">
       <ng-container *ngIf="searchResults$ | async as products">
@@ -227,4 +246,3 @@
     <app-footer></app-footer>
   </body>
 </html>
-

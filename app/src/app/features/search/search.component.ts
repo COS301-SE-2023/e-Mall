@@ -265,7 +265,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.filterOptions = this.filterOptions.filter(
           option => !option.startsWith(`${filter_type}=`)
         );
-      
+
         // Remove the filter option if checked is false
 
         const index = this.filterOptions.indexOf(filteroption);
@@ -296,10 +296,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
   checkInputValidity(formControl: FormControl) {
     if (formControl.value < 0) {
-      formControl.setErrors({ 'negativeNumber': true });
+      formControl.setErrors({ negativeNumber: true });
     } else {
       formControl.setErrors(null);
     }
   }
-  
 }
