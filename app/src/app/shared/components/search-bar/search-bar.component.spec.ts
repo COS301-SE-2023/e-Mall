@@ -68,7 +68,6 @@ it('should call search method when search icon is clicked', () => {
   expect(component.search).toHaveBeenCalled();
 });
 
-// Add more test cases...
 
 
   
