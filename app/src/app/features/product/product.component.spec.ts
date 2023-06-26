@@ -172,6 +172,25 @@ describe('ProductComponent', () => {
     expect(brandElement.textContent).toContain(brand);
     expect(descriptionElement.textContent).toContain(description);
   });
+    it('should toggle divClicked and update sellers$', () => {
+    // Mock the productService.getSellerList method
+    spyOn(productService, 'getSellerList');
+  
+    // Initial values
+    component.divClicked = false;
+    component.prod_id = 1;
+  
+    // Call the onlyInStockToggler method
+    component.onlyInStockToggler();
+  
+    // Verify that divClicked has been toggled
+    expect(component.divClicked).toBe(true);
+  
+    // Verify that the productService.getSellerList method was called with the correct arguments
+    expect(productService.getSellerList).toHaveBeenCalledWith(1, 'true');
+  });
+  
+  // Add more test cases...
   
   /*
   it('should navigate to the seller product page on seller name click', () => {
