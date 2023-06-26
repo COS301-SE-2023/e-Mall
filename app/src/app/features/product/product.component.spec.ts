@@ -149,7 +149,7 @@ describe('ProductComponent', () => {
     //expect(inStockElements.length).toEqual(sellers.length);
   });
 
-  /*  it('should display product information', () => {
+    it('should display product information', () => {
     const id = 1;
     const productName = 'Product Name';
     const brand = 'Brand';
@@ -163,16 +163,16 @@ describe('ProductComponent', () => {
 
     fixture.detectChanges();
 
-    const productNameElement = fixture.nativeElement.querySelector('.product-name');
+    const productNameElement = fixture.nativeElement.querySelector('h2');
     const brandElement = fixture.nativeElement.querySelector('h4');
     const descriptionElement = fixture.nativeElement.querySelector('p');
-    const minPriceElement = fixture.nativeElement.querySelector('.product-price');
+    const minPriceElement = fixture.nativeElement.querySelector('product-price');
 
     expect(productNameElement.textContent).toContain(productName);
     expect(brandElement.textContent).toContain(brand);
     expect(descriptionElement.textContent).toContain(description);
-    expect(minPriceElement.textContent).toContain(`${minPrice} ${currencyCode}`);
-  });*/
+  });
+  
   /*
   it('should navigate to the seller product page on seller name click', () => {
     const sellerId = 1;
