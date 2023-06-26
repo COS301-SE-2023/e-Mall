@@ -36,7 +36,7 @@ describe('SearchComponent', () => {
   let productService: ProductService;
   let router: Router;
   let activatedRoute: ActivatedRoute;
-  
+
   beforeEach(async () => {
     const mockProductService = {
       searchProducts: jasmine.createSpy('searchProducts').and.returnValue(
@@ -114,41 +114,104 @@ describe('SearchComponent', () => {
     fixture.detectChanges();
   });
 
-
   it('should create the SearchComponent', () => {
     expect(component).toBeTruthy();
   });
-  it('should add the filter option when checked is true', () => {
-    component.filterOptions = [];
-    const filter_type = 'filter_category';
-    const value = 'electronics';
-    const checked = true;
-  
-    component.onFilterOptionChange(filter_type, value, checked);
-  
-    expect(component.filterOptions).toEqual(['filter_category=electronics']);
-  });
-  it('should remove the value from the filter option when checked is false', () => {
-    // Initial values
-    component.filterOptions = ['filter_category=electronics,,,books'];
-    const filter_type = 'filter_category';
-    const value = 'books';
-    const checked = false;
-  
-    component.onFilterOptionChange(filter_type, value, checked);
-    expect(component.filterOptions).toEqual(['filter_category=electronics']);
-  });
-  
-  it('should update the existing filter option when checked is true', () => {
-    component.filterOptions = ['filter_category=electronics'];
-    const filter_type = 'filter_category';
-    const value = 'books';
-    const checked = true;
-  
-    component.onFilterOptionChange(filter_type, value, checked);
-  
-    expect(component.filterOptions).toEqual(['filter_category=electronics,,,books']);
+
+  it('should fetch search results on initialization', () => {
+    expect(productService.searchProducts).toHaveBeenCalledWith(
+      'a',
+      [],
+      undefined,
+      undefined,
+      undefined
+    );
+
+    expect(component.searchResults$).toBeTruthy();
+    expect(component.totalSearchCount$).toBeTruthy();
+
+    component.searchResults$?.subscribe((results: IProduct[]) => {
+      expect(results.length).toBe(1);
+
+      const productElement = fixture.debugElement.query(
+        By.css('.product-card')
+      ).nativeElement;
+      expect(productElement.textContent).toContain('Product 1');
+    });
   });
 
-  
+  it('should navigate to product page on click', () => {
+    const productId = 1;
+    spyOn(router, 'navigate');
+
+    component.goToProductPage(productId);
+
+    expect(router.navigate).toHaveBeenCalledWith(['products'], {
+      queryParams: { prod_id: productId },
+    });
+  });
+
+  it('should update filter options and fetch search results on filter change', () => {
+    component.onFilterOptionChange('filter_category', 'Category 1', true);
+
+    expect(component.filterOptions).toContain('filter_category=Category 1');
+
+    expect(productService.searchProducts).toHaveBeenCalledWith(
+      'a',
+      component.filterOptions,
+      undefined,
+      undefined,
+      undefined
+    );
+  });
+
+  it('should update sort option and fetch search results on sort change', () => {
+    component.selectedSortOption = 'name_asc';
+    spyOn(component, 'onSortOptionChange').and.callThrough();
+
+    component.onSortOptionChange();
+
+    expect(component.onSortOptionChange).toHaveBeenCalled();
+    expect(productService.searchProducts).toHaveBeenCalledWith(
+      'a',
+      [],
+      'name_asc',
+      undefined,
+      undefined
+    );
+  });
+
+  it('should update current page and fetch search results on page change', () => {
+    const pageEvent: PageEvent = { pageIndex: 1, pageSize: 10, length: 20 };
+
+    component.onPageChange(pageEvent);
+
+    expect(component.currentPage).toBe(1);
+    expect(component.itemsPerPage).toBe(10);
+    expect(productService.searchProducts).toHaveBeenCalledWith(
+      'a',
+      [],
+      undefined,
+      1,
+      10
+    );
+  });
+  it('should navigate to sign-out page on signOut method', () => {
+    spyOn(router, 'navigate');
+    component.signOut();
+    expect(router.navigate).toHaveBeenCalledWith(['sign-out']);
+  });
+
+  it('should return the first image URL when imgList is provided', () => {
+    const imgList = ['image1.jpg', 'image2.jpg', 'image3.jpg'];
+    const result = component.getOneImg(imgList);
+    expect(result).toEqual('image1.jpg');
+  });
+
+  it('should return a default image URL when imgList is not provided or empty', () => {
+    const result = component.getOneImg();
+    expect(result).toEqual(
+      'https://www.incredible.co.za/media/catalog/product/cache/7ce9addd40d23ee411c2cc726ad5e7ed/s/c/screenshot_2022-05-03_142633.jpg'
+    );
+  });
 });

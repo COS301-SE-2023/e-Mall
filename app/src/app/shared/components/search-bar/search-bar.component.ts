@@ -25,7 +25,7 @@ export class SearchBarComponent {
   searchInputPreviousText: string;
   placeHolder: string;
   // opened: boolean;
-  searchHistories: string[]; // for user search history. implemented later
+  // searchHistories: string[]; // for user search history. implemented later
   // suggestions: IProduct[];
   suggestions$ = new Observable<IProduct[]>();
   keyEventSubscription: Subscription = new Subscription();
@@ -36,7 +36,7 @@ export class SearchBarComponent {
   constructor(private router: Router) {
     this.placeHolder = 'What are you looking for?';
     // this.opened = false; //for mobile
-    this.searchHistories = ['one', 'two', 'three']; //mock data
+    // this.searchHistories = ['one', 'two', 'three']; //mock data
     // this.suggestions = [];
     this.isSearching = false;
     this.isSuggesting = false;

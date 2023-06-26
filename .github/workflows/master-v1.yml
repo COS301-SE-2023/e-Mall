@@ -1,9 +1,9 @@
 name: master-v1
 
 on:
-  # push:
-  # branches:
-  #   - master
+  push:
+    branches:
+      - master
 
   pull_request:
     branches:
@@ -59,7 +59,7 @@ jobs:
         working-directory: ./app
         run: yarn lint && yarn build
 
-      - name: Frontend unit tests
+      - name: Frontend unit and integration tests
         working-directory: ./app
         run: yarn ng test --code-coverage --browsers ChromeHeadless
 
@@ -96,7 +96,7 @@ jobs:
         run: |
           chmod +x api/docker-entrypoint.sh && docker-compose up -d
 
-      - name: Backend unit tests
+      - name: Backend tests
         working-directory: api
         run: docker-compose exec -T api pytest
 
