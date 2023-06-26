@@ -1,26 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ProductService } from '@app/services/product/product.service';
 import { IProduct } from '@app/models/product/product.interface';
-import { Router, NavigationExtras } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import {
   Observable,
-  map,
   of,
-  BehaviorSubject,
   debounceTime,
   distinctUntilChanged,
-  switchMap,
-  pipe,
-  filter,
+  Subscription,
 } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
-import { result } from 'cypress/types/lodash';
-import { ChangeDetectorRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
-
 @Component({
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
@@ -165,7 +156,13 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   onSortOptionChange(): void {
     this.productService
-      .searchProducts(this.searchQuery, this.filterOptions, this.selectedSortOption, this.currentPage, this.itemsPerPage)
+      .searchProducts(
+        this.searchQuery,
+        this.filterOptions,
+        this.selectedSortOption,
+        this.currentPage,
+        this.itemsPerPage
+      )
       .subscribe(result => {
         this.searchResults$ = of(result.products);
         this.totalSearchCount$ = of(result.totalCount);
@@ -182,7 +179,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.itemsPerPage = event.pageSize;
     console.log('Page size: ' + event.pageSize);
     console.log('Page index: ' + event.pageIndex);
-    // this.updateQueryParams();
     this.productService
       .searchProducts(
         this.searchQuery,
@@ -198,17 +194,8 @@ export class SearchComponent implements OnInit, OnDestroy {
         console.log(result.totalCount);
       });
   }
-  // updateQueryParams() {
-  //   this.router.navigate([], {
-  //     queryParams: {
-  //       page: this.currentPage$.value,
-  //       per_page: this.itemsPerPage$.value,
-  //     },
-  //     queryParamsHandling: 'merge',
-  //     replaceUrl: true,
-  //   });
-  // }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onFilterOptionChange(filter_type: string, value: any, checked: boolean) {
     if (
       filter_type === 'filter_category' ||
@@ -272,39 +259,28 @@ export class SearchComponent implements OnInit, OnDestroy {
       filter_type === 'filter_price_max'
     ) {
       const filteroption = `${filter_type}=${value}`;
-      console.log('a ', filteroption);
 
       if (value == null) {
         // Remove the filter option if checked is false
         this.filterOptions = this.filterOptions.filter(
           option => !option.startsWith(`${filter_type}=`)
         );
-        console.log('if value is null: ' + this.filterOptions);
+      
         // Remove the filter option if checked is false
 
-        console.log('b ', filteroption);
-        console.log('b ', this.filterOptions);
         const index = this.filterOptions.indexOf(filteroption);
         if (index > -1) {
           this.filterOptions.splice(index, 1);
         }
       } else {
-        console.log('c ', filteroption);
-
-        console.log('should be a min_price: ' + this.filterOptions);
         // // Remove any existing filter option with the same filter type
         this.filterOptions = this.filterOptions.filter(
           option => !option.startsWith(`${filter_type}=`)
         );
-        // console.log('should be empty: ' + this.filterOptions);
         // Add the new filter option
         this.filterOptions.push(filteroption);
-        // console.log('should be min_price: ' + this.filterOptions);
       }
     }
-    // console.log(
-    //   'filter Options after all filters applied: ' + this.filterOptions
-    // );
     this.productService
       .searchProducts(
         this.searchQuery,
@@ -318,4 +294,12 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.totalSearchCount$ = of(result.totalCount);
       });
   }
+  checkInputValidity(formControl: FormControl) {
+    if (formControl.value < 0) {
+      formControl.setErrors({ 'negativeNumber': true });
+    } else {
+      formControl.setErrors(null);
+    }
+  }
+  
 }

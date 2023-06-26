@@ -1,48 +1,85 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SearchComponent } from './search.component';
-import { Router } from '@angular/router';
-import { IProduct } from '@app/models/product/product.interface';
-import { ProductService } from '@app/services/product/product.service';
-import { of } from 'rxjs';
-
-import { SearchRoutingModule as SearchRoutingModule } from './search-routing.module';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { NavbarModule } from '@shared/components/navbar/navbar.module';
-import { FooterModule } from '@shared/components/footer/footer.module';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
-import { CommonModule } from '@angular/common';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Router, ActivatedRoute } from '@angular/router';
+import { of, BehaviorSubject, Observable } from 'rxjs';
+import { By } from '@angular/platform-browser';
+
+import { SearchComponent } from './search.component';
+import { ProductService } from '@app/services/product/product.service';
+import { IProduct } from '@app/models/product/product.interface';
+import { HttpClientModule } from '@angular/common/http';
+import { NavbarModule } from '@shared/components/navbar/navbar.module';
+import { FooterModule } from '@shared/components/footer/footer.module';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
   let fixture: ComponentFixture<SearchComponent>;
+  let productService: ProductService;
   let router: Router;
-
+  let activatedRoute: ActivatedRoute;
+  
   beforeEach(async () => {
+    const mockProductService = {
+      searchProducts: jasmine.createSpy('searchProducts').and.returnValue(
+        of({
+          products: [
+            {
+              id: 1,
+              min_price_img_array: ['image1.jpg', 'image2.jpg'],
+              name: 'Product 1',
+              description: 'Description 1',
+              brand: 'Brand 1',
+              category: 'Category 1',
+              min_price: 10,
+              min_price_seller_id: 'seller1',
+              min_price_seller_product_url: 'seller1.com/product1',
+              min_price_seller_business_name: 'Seller 1',
+              min_price_in_stock: true,
+              min_price_discount: 5,
+              min_price_discount_rate: 0.5,
+              min_price_original_price: 20,
+              created_at: '2023-06-01',
+              updated_at: '2023-06-02',
+            },
+          ],
+          totalCount: 1,
+        })
+      ),
+    };
+
+    const mockActivatedRoute = {
+      queryParams: of({ search: 'a' }),
+    };
+
     await TestBed.configureTestingModule({
-      imports: 
-      [BrowserAnimationsModule,
-        RouterTestingModule,
-        CommonModule,
-        SearchRoutingModule,
+      declarations: [SearchComponent],
+      imports: [
         NavbarModule,
         FooterModule,
+        HttpClientModule,
+        RouterTestingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        BrowserAnimationsModule,
         MatExpansionModule,
         MatFormFieldModule,
         MatSelectModule,
@@ -56,264 +93,157 @@ describe('SearchComponent', () => {
         MatButtonToggleModule,
         MatProgressSpinnerModule,
         MatSlideToggleModule,
-        FormsModule,
-        ReactiveFormsModule,
         MatRadioModule,
       ],
-      declarations: [SearchComponent],
+      providers: [
+        ProductService,
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        { provide: ProductService, useValue: mockProductService },
+      ],
     }).compileComponents();
+    productService = TestBed.inject(ProductService);
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchComponent);
     component = fixture.componentInstance;
+    productService = TestBed.inject(ProductService);
     router = TestBed.inject(Router);
+    activatedRoute = TestBed.inject(ActivatedRoute);
+
     fixture.detectChanges();
   });
 
-  it('should create the HomeComponent', () => {
+
+  it('should create the SearchComponent', () => {
     expect(component).toBeTruthy();
   });
+  it('should fetch search results on initialization', () => {
+    expect(productService.searchProducts).toHaveBeenCalledWith(
+      'a',
+      [],
+      undefined,
+      undefined,
+      undefined
+    );
 
+    expect(component.searchResults$).toBeTruthy();
+    expect(component.totalSearchCount$).toBeTruthy();
 
-/*
-  it('should navigate to product page with correct navigation extras', () => {
-    const prodId = 123;
-    const navigationExtras = {
-      queryParams: { prod_id: prodId },
-    };
-    const navigateSpy = spyOn(router, 'navigate');
+    component.searchResults$?.subscribe((results: IProduct[]) => {
+      expect(results.length).toBe(1);
 
-    component.goToProductPage(prodId);
-
-    expect(navigateSpy).toHaveBeenCalledWith(['products', prodId], navigationExtras);
-  });
-
-  it('should initialize searchQuery and subscribe to searchResults$', () => {
-    const searchQuery = 'test';
-    const mockProducts: IProduct[] = [
-      {
-        id: 1,
-        min_price_img_array: ['image1.jpg', 'image2.jpg'],
-        name: 'Product 1',
-        description: 'Description 1',
-        brand: 'Brand 1',
-        category: 'Category 1',
-        min_price: 10,
-        min_price_seller_id: 'seller1',
-        min_price_seller_product_url: 'seller1.com/product1',
-        min_price_seller_business_name: 'Seller 1',
-        min_price_in_stock: true,
-        min_price_discount: 5,
-        min_price_discount_rate: 0.5,
-        min_price_original_price: 20,
-        created_at: '2023-06-01',
-        updated_at: '2023-06-02'
-      },
-      {
-        id: 2,
-        min_price_img_array: ['image3.jpg', 'image4.jpg'],
-        name: 'Product 2',
-        description: 'Description 2',
-        brand: 'Brand 2',
-        category: 'Category 2',
-        min_price: 15,
-        min_price_seller_id: 'seller2',
-        min_price_seller_product_url: 'seller2.com/product2',
-        min_price_seller_business_name: 'Seller 2',
-        min_price_in_stock: false,
-        min_price_discount: 0,
-        min_price_discount_rate: 0,
-        min_price_original_price: 15,
-        created_at: '2023-06-03',
-        updated_at: '2023-06-04'
-      },
-      {
-        id: 3,
-        min_price_img_array: ['image5.jpg', 'image6.jpg'],
-        name: 'Product 3',
-        description: 'Description 3',
-        brand: 'Brand 3',
-        category: 'Category 3',
-        min_price: 25,
-        min_price_seller_id: 'seller3',
-        min_price_seller_product_url: 'seller3.com/product3',
-        min_price_seller_business_name: 'Seller 3',
-        min_price_in_stock: true,
-        min_price_discount: 10,
-        min_price_discount_rate: 0.4,
-        min_price_original_price: 35,
-        created_at: '2023-06-05',
-        updated_at: '2023-06-06'
-      }
-    ];
-
-    const productService = TestBed.inject(ProductService);
-    spyOn(productService, 'searchProducts').and.returnValue(of(mockProducts));
-
-    fixture.ngZone?.run(() => {
-      router.navigate([{ search: searchQuery }]);
-      fixture.detectChanges();
-
-      expect(component.searchQuery).toEqual(searchQuery);
-      expect(productService.searchProducts).toHaveBeenCalledWith(searchQuery);
-      component.searchResults$?.subscribe((results) => {
-        expect(results).toEqual(mockProducts);
-      });
+      const productElement = fixture.debugElement.query(By.css('.product-card')).nativeElement;
+      expect(productElement.textContent).toContain('Product 1');
     });
   });
 
-  it('should populate brandOptions array based on search results', () => {
-    const mockProducts: IProduct[] = [
-      {
-        id: 1,
-        min_price_img_array: ['image1.jpg', 'image2.jpg'],
-        name: 'Product 1',
-        description: 'Description 1',
-        brand: 'Brand 1',
-        category: 'Category 1',
-        min_price: 10,
-        min_price_seller_id: 'seller1',
-        min_price_seller_product_url: 'seller1.com/product1',
-        min_price_seller_business_name: 'Seller 1',
-        min_price_in_stock: true,
-        min_price_discount: 5,
-        min_price_discount_rate: 0.5,
-        min_price_original_price: 20,
-        created_at: '2023-06-01',
-        updated_at: '2023-06-02'
-      },
-      {
-        id: 2,
-        min_price_img_array: ['image3.jpg', 'image4.jpg'],
-        name: 'Product 2',
-        description: 'Description 2',
-        brand: 'Brand 2',
-        category: 'Category 2',
-        min_price: 15,
-        min_price_seller_id: 'seller2',
-        min_price_seller_product_url: 'seller2.com/product2',
-        min_price_seller_business_name: 'Seller 2',
-        min_price_in_stock: false,
-        min_price_discount: 0,
-        min_price_discount_rate: 0,
-        min_price_original_price: 15,
-        created_at: '2023-06-03',
-        updated_at: '2023-06-04'
-      },
-      {
-        id: 3,
-        min_price_img_array: ['image5.jpg', 'image6.jpg'],
-        name: 'Product 3',
-        description: 'Description 3',
-        brand: 'Brand 3',
-        category: 'Category 3',
-        min_price: 25,
-        min_price_seller_id: 'seller3',
-        min_price_seller_product_url: 'seller3.com/product3',
-        min_price_seller_business_name: 'Seller 3',
-        min_price_in_stock: true,
-        min_price_discount: 10,
-        min_price_discount_rate: 0.4,
-        min_price_original_price: 35,
-        created_at: '2023-06-05',
-        updated_at: '2023-06-06'
-      }
-    ];
+  it('should navigate to product page on click', () => {
+    const productId = 1;
+    spyOn(router, 'navigate');
 
-    spyOn(component.searchResults$ as any, 'pipe').and.returnValue(of(mockProducts));
+    component.goToProductPage(productId);
 
-    component.ngOnInit();
-
-    expect(component.brandOptions).toEqual(['Brand 1', 'Brand 2', 'Brand 3']);
+    expect(router.navigate).toHaveBeenCalledWith(['products'], {
+      queryParams: { prod_id: productId },
+    });
   });
 
-  it('should populate sellerOptions array based on search results', () => {
-    const mockProducts: IProduct[] = [
-      {
-        id: 1,
-        min_price_img_array: ['image1.jpg', 'image2.jpg'],
-        name: 'Product 1',
-        description: 'Description 1',
-        brand: 'Brand 1',
-        category: 'Category 1',
-        min_price: 10,
-        min_price_seller_id: 'seller1',
-        min_price_seller_product_url: 'seller1.com/product1',
-        min_price_seller_business_name: 'Seller 1',
-        min_price_in_stock: true,
-        min_price_discount: 5,
-        min_price_discount_rate: 0.5,
-        min_price_original_price: 20,
-        created_at: '2023-06-01',
-        updated_at: '2023-06-02'
-      },
-      {
-        id: 2,
-        min_price_img_array: ['image3.jpg', 'image4.jpg'],
-        name: 'Product 2',
-        description: 'Description 2',
-        brand: 'Brand 2',
-        category: 'Category 2',
-        min_price: 15,
-        min_price_seller_id: 'seller2',
-        min_price_seller_product_url: 'seller2.com/product2',
-        min_price_seller_business_name: 'Seller 2',
-        min_price_in_stock: false,
-        min_price_discount: 0,
-        min_price_discount_rate: 0,
-        min_price_original_price: 15,
-        created_at: '2023-06-03',
-        updated_at: '2023-06-04'
-      },
-      {
-        id: 3,
-        min_price_img_array: ['image5.jpg', 'image6.jpg'],
-        name: 'Product 3',
-        description: 'Description 3',
-        brand: 'Brand 3',
-        category: 'Category 3',
-        min_price: 25,
-        min_price_seller_id: 'seller3',
-        min_price_seller_product_url: 'seller3.com/product3',
-        min_price_seller_business_name: 'Seller 3',
-        min_price_in_stock: true,
-        min_price_discount: 10,
-        min_price_discount_rate: 0.4,
-        min_price_original_price: 35,
-        created_at: '2023-06-05',
-        updated_at: '2023-06-06'
-      }
-    ];
+  
+  it('should update filter options and fetch search results on filter change', () => {
+    component.onFilterOptionChange('filter_category', 'Category 1', true);
 
-    spyOn(component.searchResults$ as any, 'pipe').and.returnValue(of(mockProducts));
+    expect(component.filterOptions).toContain('filter_category=Category 1');
 
-    component.ngOnInit();
-
-    expect(component.sellerOptions).toEqual(['Seller 1', 'Seller 2', 'Seller 3']);
+    expect(productService.searchProducts).toHaveBeenCalledWith(
+      'a',
+      component.filterOptions,
+      undefined,
+      undefined,
+      undefined
+    );
   });
 
-  it('should navigate to the product page when a product card is clicked', () => {
-    const prodId = 123;
-    const navigateSpy = spyOn(router, 'navigate');
+  it('should update sort option and fetch search results on sort change', () => {
+    component.selectedSortOption = 'name_asc';
+    spyOn(component, 'onSortOptionChange').and.callThrough();
 
-    component.goToProductPage(prodId);
+    component.onSortOptionChange();
 
-    expect(navigateSpy).toHaveBeenCalledWith(['products', prodId], jasmine.any(Object));
+    expect(component.onSortOptionChange).toHaveBeenCalled();
+    expect(productService.searchProducts).toHaveBeenCalledWith(
+      'a',
+      [],
+      'name_asc',
+      undefined,
+      undefined
+    );
   });
 
-  it('should update category flags when category checkboxes are selected', () => {
-    const categoryCheckboxes = fixture.nativeElement.querySelectorAll('.category-checkbox');
-    const electronicsCheckbox = categoryCheckboxes[0] as HTMLInputElement;
-    const clothingCheckbox = categoryCheckboxes[1] as HTMLInputElement;
+  it('should update current page and fetch search results on page change', () => {
+    const pageEvent: PageEvent = { pageIndex: 1, pageSize: 10, length: 20 };
 
-    electronicsCheckbox.click();
-    fixture.detectChanges();
-    expect(component.categoryElectronics).toBe(true);
+    component.onPageChange(pageEvent);
 
-    clothingCheckbox.click();
-    fixture.detectChanges();
-    expect(component.categoryClothing).toBe(true);
-  });*/
+    expect(component.currentPage).toBe(1);
+    expect(component.itemsPerPage).toBe(10);
+    expect(productService.searchProducts).toHaveBeenCalledWith(
+      'a',
+      [],
+      undefined,
+      1,
+      10
+    );
+  });
+  it('should navigate to sign-out page on signOut method', () => {
+    spyOn(router, 'navigate');
+    component.signOut();
+    expect(router.navigate).toHaveBeenCalledWith(['sign-out']);
+  });
 
+  it('should return the first image URL when imgList is provided', () => {
+    const imgList = ['image1.jpg', 'image2.jpg', 'image3.jpg'];
+    const result = component.getOneImg(imgList);
+    expect(result).toEqual('image1.jpg');
+  });
+  
+  it('should return a default image URL when imgList is not provided or empty', () => {
+    const result = component.getOneImg();
+    expect(result).toEqual('https://www.incredible.co.za/media/catalog/product/cache/7ce9addd40d23ee411c2cc726ad5e7ed/s/c/screenshot_2022-05-03_142633.jpg');
+  });
+
+  it('should add the filter option when checked is true', () => {
+    component.filterOptions = [];
+    const filter_type = 'filter_category';
+    const value = 'electronics';
+    const checked = true;
+  
+    component.onFilterOptionChange(filter_type, value, checked);
+  
+    expect(component.filterOptions).toEqual(['filter_category=electronics']);
+  });
+  
+  it('should update the existing filter option when checked is true', () => {
+    component.filterOptions = ['filter_category=electronics'];
+    const filter_type = 'filter_category';
+    const value = 'books';
+    const checked = true;
+  
+    component.onFilterOptionChange(filter_type, value, checked);
+  
+    expect(component.filterOptions).toEqual(['filter_category=electronics,,,books']);
+  });
+  
+  it('should remove the value from the filter option when checked is false', () => {
+    // Initial values
+    component.filterOptions = ['filter_category=electronics,,,books'];
+    const filter_type = 'filter_category';
+    const value = 'books';
+    const checked = false;
+  
+    component.onFilterOptionChange(filter_type, value, checked);
+    expect(component.filterOptions).toEqual(['filter_category=electronics']);
+  });
+  
+  
 });

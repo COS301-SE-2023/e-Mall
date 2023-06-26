@@ -34,12 +34,11 @@ h3{
   .product-card {
     margin-top: 4.5rem;
     margin-left: 2rem;
-    margin: 0 0 1rem 0;
+    // margin: 0 0 1rem 0; # commented out coz sonarCloud
     border: 1px solid #ccc;
     border-radius: 0.25rem;
     padding: 1rem;
     cursor: pointer;
-   // min-width: 100px;
     height: 300px;
     width: 200px;
   }

@@ -5,21 +5,19 @@ import { ProductService } from '@app/services/product/product.service';
 import { IProduct } from '@app/models/product/product.interface';
 import { Observable } from 'rxjs';
 
-
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   popProducts$: Observable<IProduct[]> | undefined;
   forYouProducts$: Observable<IProduct[]> | undefined;
   isAuthenticated = false;
-  images="assets/images/comingSoon.jpg";
+  images = 'assets/images/comingSoon.jpg';
   // isAuthenticated$;
   constructor(
-   // private authService: AuthService,
+    // private authService: AuthService,
     private router: Router,
     private productService: ProductService
   ) {

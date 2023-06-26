@@ -19,21 +19,7 @@
         <p>
           You searched for: <strong>{{ searchQuery }}</strong>
         </p>
-        <!-- <div class="sort-panel"> -->
-        <!-- <mat-form-field class="sort-panel">
-          <mat-label>Sort Options</mat-label>
-          <mat-select
-            [(value)]="selectedSortOption"
-            (selectionChange)="onSortOptionChange()"
-            class="custom-select">
-            <mat-option value="">Default</mat-option>
-            <mat-option value="price">Lowest price</mat-option>
-            <mat-option value="-price">Highest price</mat-option>
-            <mat-option value="discount">Discount</mat-option>
-            <mat-option value="name">Name(A-Z)</mat-option>
-            <mat-option value="-name">Name(Z-A)</mat-option>
-          </mat-select>
-        </mat-form-field> -->
+
 
 
         <div class="dropdown">
@@ -43,9 +29,10 @@
               [(value)]="selectedSortOption"
               (selectionChange)="onSortOptionChange()"
               class="custom-select">
-              <mat-option value="">Default</mat-option>
+              <!-- <mat-option value="">Default</mat-option> -->
               <mat-option value="price">Lowest price</mat-option>
               <mat-option value="-price">Highest price</mat-option>
+              <mat-option value="discount">Discount</mat-option>
               <mat-option value="name">Name(A-Z)</mat-option>
               <mat-option value="-name">Name(Z-A)</mat-option>
             </mat-select>
@@ -102,19 +89,28 @@
             <mat-expansion-panel-header>
               <mat-panel-title> Price </mat-panel-title>
             </mat-expansion-panel-header>
-            <!-- Content for Price panel -->
-            <input
+              <input
               type="number"
               placeholder="Minimum Price"
-              [formControl]="minInputController" />
+              [formControl]="minInputController" 
+              min="0"
+              inputmode="numeric"
+              pattern="[0-9]+"
+              (input)="checkInputValidity(minInputController)"/>
 
-            <p></p>
-            <input
+              <p *ngIf="minInputController.invalid && minInputController.dirty" class = "error-message">Please enter a positive number</p>
+
+              <input
               type="number"
               placeholder="Maximum Price"
-              [formControl]="maxInputController" />
+              [formControl]="maxInputController" 
+              min="0"
+              inputmode="numeric"
+              pattern="[0-9]+"
+              (input)="checkInputValidity(maxInputController)"/>
 
-            <!-- ... -->
+              <p *ngIf="maxInputController.invalid && maxInputController.dirty" class = "error-messag">Please enter a positive number</p>
+
           </mat-expansion-panel>
 
           <!-- Inventory -->
@@ -205,9 +201,9 @@
             <div class="product-card-no">
               <h3>No Products Found</h3>
               <p>
-                Sorry, we couldn't find any products matching your search query. Please try again with a different keyword or refine your search criteria.
+                Sorry, we couldn't find any products matching "<strong>{{ searchQuery }}</strong>". Please try again with a different keyword or refine your search criteria.
               </p>
-              <img src="assets\images\no-image.png" alt="No Product Found" class="nimage"/>
+              <img src="assets\images\no-image.jpeg" alt="No Product Found" class="nimage"/>
               
             </div>
           </div>

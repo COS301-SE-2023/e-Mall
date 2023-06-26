@@ -1,3 +1,4 @@
+from django.http import HttpResponseBadRequest
 from django.shortcuts import render
 
 # Create your views here.
@@ -8,7 +9,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Product
-from .serializers import ProductSerializer, ProductFilterSerializer
+from .serializers import ProductSerializer
 import math
 from django.utils.dateparse import parse_date
 from rest_framework.pagination import PageNumberPagination
@@ -49,19 +50,20 @@ class ProductBackendAPIView(APIView):
         filter_price_min = request.GET.get("filter_price_min")
         filter_price_max = request.GET.get("filter_price_max")
         filter_category = request.GET.get("filter_category")
-        filter_date_min = request.GET.get("filter_date_min")
-        filter_date_max = request.GET.get("filter_date_max")
+        # filter_date_min = request.GET.get("filter_date_min")
+        # filter_date_max = request.GET.get("filter_date_max")
         filter_seller = request.GET.get("filter_seller")
         filter_in_stock = request.GET.get("filter_in_stock")
 
         # Pagination
         page = int(request.GET.get("page")) if request.GET.get("page") else 0
         per_page = (
-            int(request.GET.get("per_page")) if request.GET.get("per_page") else 10
+            int(request.GET.get("per_page")) if request.GET.get(
+                "per_page") else 10
         )
 
         # Default
-        products = any
+        products = Product.objects.all()
 
         # Searching the DB and returning the relevant products based on the search query
         if search:
@@ -112,16 +114,16 @@ class ProductBackendAPIView(APIView):
 
             filters &= category_filters
 
-        if filter_date_min and filter_date_max:
-            date_min = parse_date(filter_date_min)
-            date_max = parse_date(filter_date_max)
-            filters &= Q(created_at__gte=date_min, created_at__lte=date_max)
-        elif filter_date_min:
-            date_min = parse_date(filter_date_min)
-            filters &= Q(created_at__gte=date_min)
-        elif filter_date_max:
-            date_max = parse_date(filter_date_max)
-            filters &= Q(created_at__lte=date_max)
+        # if filter_date_min and filter_date_max:
+        #     date_min = parse_date(filter_date_min)
+        #     date_max = parse_date(filter_date_max)
+        #     filters &= Q(created_at__gte=date_min, created_at__lte=date_max)
+        # elif filter_date_min:
+        #     date_min = parse_date(filter_date_min)
+        #     filters &= Q(created_at__gte=date_min)
+        # elif filter_date_max:
+        #     date_max = parse_date(filter_date_max)
+        #     filters &= Q(created_at__lte=date_max)
         if filter_seller:
             seller_values = filter_seller.split(
                 ","
@@ -131,7 +133,7 @@ class ProductBackendAPIView(APIView):
 
             for seller_value in seller_values:
                 seller_filters |= Q(
-                    productseller__seller__icontains=seller_value.strip()
+                    productseller__seller__business_name__icontains=seller_value.strip()
                 )  # Apply seller filter for each seller value
 
             filters &= seller_filters
@@ -142,9 +144,7 @@ class ProductBackendAPIView(APIView):
 
         # Sorting
         # all in asc order(small to big)
-        if sort == "price":
-            products = products.order_by("productseller__price")
-        elif sort == "name":
+        if sort == "name":
             products = products.order_by("name")
         elif sort == "-price":
             # sort by desc order(big to small)
@@ -152,8 +152,9 @@ class ProductBackendAPIView(APIView):
         elif sort == "-name":
             products = products.order_by("-name")
         elif sort == "discount":
-            print("passing here")
             products = products.order_by("-productseller__discount_rate")
+        else:
+            products = products.order_by("productseller__price")
 
         # Pagination
         serializer = ProductSerializer(products, many=True)
@@ -186,7 +187,9 @@ class ProductTestAPIView(APIView):
         }
 
         # Input for search
-        search = request.GET.get("search")
+        search = request.GET.get("search", "")
+        if search == "":
+            return Response({"data": [], "total_count": 0})
 
         # Input for sort[brand, price, name]
         sort = request.GET.get("sort")
@@ -199,6 +202,17 @@ class ProductTestAPIView(APIView):
         filter_category = request.GET.get("filter_category")
         filter_seller = request.GET.get("filter_seller")
         filter_in_stock = request.GET.get("filter_in_stock")
+        if filter_price_min and filter_price_max:
+            _min = 0
+            _max = 0
+            try:
+                _min = int(filter_price_min)
+                _max = int(filter_price_max)
+            except ValueError:
+                _min = float(filter_price_min)
+                _max = float(filter_price_max)
+            if _min > _max:
+                return HttpResponseBadRequest('invalid price range')
 
         products = {}
 
@@ -207,12 +221,15 @@ class ProductTestAPIView(APIView):
         ).order_by("price")
 
         products = Product.objects.annotate(
-            min_price_original_price=(min_price_seller.values("original_price")[:1]),
+            min_price_original_price=(
+                min_price_seller.values("original_price")[:1]),
             min_price_discount=(min_price_seller.values("discount")[:1]),
-            min_price_discount_rate=(min_price_seller.values("discount_rate")[:1]),
+            min_price_discount_rate=(
+                min_price_seller.values("discount_rate")[:1]),
             min_price=(min_price_seller.values("price")[:1]),
             min_price_seller_id=(min_price_seller.values("seller")[:1]),
-            min_price_seller_product_url=(min_price_seller.values("product_url")[:1]),
+            min_price_seller_product_url=(
+                min_price_seller.values("product_url")[:1]),
             min_price_seller_business_name=(
                 min_price_seller.values("seller__business_name")[:1]
             ),
@@ -233,7 +250,6 @@ class ProductTestAPIView(APIView):
             )
 
         if filter_price_min:
-            print(Decimal(filter_price_min))
             query &= Q(min_price__gte=Decimal(filter_price_min))
 
         if filter_price_max:
@@ -264,11 +280,11 @@ class ProductTestAPIView(APIView):
         # Pagination
 
         page = int(request.GET.get("page")) if request.GET.get("page") else 0
-        print("a", request.GET.get("per_page"))
         per_page = (
-            int(request.GET.get("per_page")) if request.GET.get("per_page") else 10
+            int(request.GET.get("per_page")) if request.GET.get(
+                "per_page") else 10
         )
-        print("b", per_page)
+
         start = (page) * per_page
         end = start + per_page
         total_count = len(data)

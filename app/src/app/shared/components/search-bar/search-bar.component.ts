@@ -1,20 +1,15 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  ChangeDetectorRef,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
   ViewChild,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { of } from 'rxjs';
-import { distinctUntilChanged, Subscription, Observable } from 'rxjs';
-import { debounceTime } from 'rxjs';
-import { filter } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { IProduct } from '@app/models/product/product.interface';
 import { faker } from '@faker-js/faker';
-import { switchMap } from 'rxjs';
 import { NavigationExtras, Router } from '@angular/router';
 @Component({
   selector: 'app-search-bar',
@@ -30,7 +25,7 @@ export class SearchBarComponent {
   searchInputPreviousText: string;
   placeHolder: string;
   // opened: boolean;
-  searchHistories: string[]; // for user search history. implemented later
+  // searchHistories: string[]; // for user search history. implemented later
   // suggestions: IProduct[];
   suggestions$ = new Observable<IProduct[]>();
   keyEventSubscription: Subscription = new Subscription();
@@ -41,7 +36,7 @@ export class SearchBarComponent {
   constructor(private router: Router) {
     this.placeHolder = 'What are you looking for?';
     // this.opened = false; //for mobile
-    this.searchHistories = ['one', 'two', 'three']; //mock data
+    // this.searchHistories = ['one', 'two', 'three']; //mock data
     // this.suggestions = [];
     this.isSearching = false;
     this.isSuggesting = false;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
@@ -58,6 +59,7 @@ export class ProductService {
     let url = `${this.apiUrl}products/test?search=${query}`;
     // filterOptions = { };
     if (filterOptions) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       for (const [key, value] of Object.entries(filterOptions)) {
         url += '&' + value;
       }
