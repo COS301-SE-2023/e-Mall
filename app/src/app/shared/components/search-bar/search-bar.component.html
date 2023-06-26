@@ -30,9 +30,6 @@
       <mat-icon>close</mat-icon>
     </button>
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="search()">
-      <mat-option *ngFor="let option of searchHistories" [value]="option">
-        {{ option }}
-      </mat-option>
       <mat-option
         *ngFor="let option of suggestions$ | async"
         [value]="option.name">
