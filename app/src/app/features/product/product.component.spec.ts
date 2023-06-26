@@ -1,3 +1,4 @@
+//product unit tests
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -45,7 +46,6 @@ describe('ProductComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            /* Mock or stub properties/methods you need here */
           },
         },
       ],
@@ -173,25 +173,16 @@ describe('ProductComponent', () => {
     expect(descriptionElement.textContent).toContain(description);
   });
     it('should toggle divClicked and update sellers$', () => {
-    // Mock the productService.getSellerList method
     spyOn(productService, 'getSellerList');
   
-    // Initial values
     component.divClicked = false;
     component.prod_id = 1;
-  
-    // Call the onlyInStockToggler method
     component.onlyInStockToggler();
-  
-    // Verify that divClicked has been toggled
     expect(component.divClicked).toBe(true);
-  
-    // Verify that the productService.getSellerList method was called with the correct arguments
     expect(productService.getSellerList).toHaveBeenCalledWith(1, 'true');
   });
   
-  // Add more test cases...
-  
+
   /*
   it('should navigate to the seller product page on seller name click', () => {
     const sellerId = 1;
