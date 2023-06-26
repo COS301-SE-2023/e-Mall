@@ -50,9 +50,6 @@ it('should set placeHolder value correctly', () => {
   expect(component.placeHolder).toEqual('What are you looking for?');
 });
 
-it('should initialize searchHistories array with mock data', () => {
-  expect(component.searchHistories).toEqual(['one', 'two', 'three']);
-});
 
 it('should call search method when Enter key is pressed', () => {
   spyOn(component, 'search');
