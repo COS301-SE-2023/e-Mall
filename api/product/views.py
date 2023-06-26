@@ -151,7 +151,6 @@ class ProductBackendAPIView(APIView):
         elif sort == "-name":
             products = products.order_by("-name")
         elif sort == "discount":
-            print("passing here")
             products = products.order_by("-productseller__discount_rate")
         else:
             products = products.order_by("productseller__price")
@@ -239,7 +238,6 @@ class ProductTestAPIView(APIView):
             )
 
         if filter_price_min:
-            print(Decimal(filter_price_min))
             query &= Q(min_price__gte=Decimal(filter_price_min))
 
         if filter_price_max:
@@ -274,6 +272,7 @@ class ProductTestAPIView(APIView):
             int(request.GET.get("per_page")) if request.GET.get(
                 "per_page") else 10
         )
+
         start = (page) * per_page
         end = start + per_page
         total_count = len(data)
