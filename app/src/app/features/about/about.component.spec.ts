@@ -40,12 +40,14 @@ describe('AboutComponent', () => {
     expect(component).toBeTruthy();
   });
 
+//Unit Test
   it('should display the correct title', () => {
     const compiled = fixture.nativeElement;
     const titleelement = compiled.querySelector('h2');
     expect(titleelement.textContent).toContain('About Us');
   });
 
+  //Unit Test
   it('should display the correct description', () => {
     const compiled = fixture.nativeElement;
     const descrelement = compiled.querySelector('.text p');
@@ -53,7 +55,5 @@ describe('AboutComponent', () => {
       'E-mall is an online platform that allows verified sellers to list their products and enables customers to easily view and compare similar products across multiple websites.';
     expect(descrelement.textContent).toContain(expecteddescr);
   });
-
-  // Add more test cases as needed
 
 });
