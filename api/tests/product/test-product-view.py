@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from decimal import Decimal
 from django.test import TestCase
 from rest_framework.test import APITestCase, APIRequestFactory
@@ -6,6 +7,7 @@ from productseller.models import ProductSeller
 from seller.models import Seller
 from product.views import ProductBackendAPIView, ProductTestAPIView
 from rest_framework.test import APIClient
+from django.utils import timezone
 
 
 class ProductBackendAPIViewTestCase(APITestCase):
@@ -95,8 +97,48 @@ class ProductBackendAPIViewTestCase(APITestCase):
         self.assertEqual(len(data), 1)
         self.assertEqual(data[0]['name'], 'Test Product 1')
 
+    def test_filter_products_by_brand(self):
+        response = self.client.get(
+            '/api/products/backend/?search=test&filter_brand=Brand%201')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data['data']), 1)
+        self.assertEqual(response.data['data'][0]['brand'], 'Test Brand 1')
+
+    def test_filter_products_by_price_range(self):
+        response = self.client.get(
+            '/api/products/backend/?search=test&filter_price_min=80&filter_price_max=100')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data['data']), 1)
+        self.assertAlmostEqual(
+            response.data['data'][0]['min_price'], Decimal(90.00))
+
+    def test_filter_products_by_category(self):
+        response = self.client.get(
+            '/api/products/backend/?search=test&filter_category=Category%201')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data['data']), 1)
+        self.assertEqual(response.data['data'][0]
+                         ['category'], 'Test Category 1')
+
+    # def test_filter_products_by_date_range(self):
+    #     date_min = timezone.now().strftime('%Y-%m-%d')
+    #     date_max = (timezone.now() + timedelta(days=7)
+    #                 ).strftime('%Y-%m-%d')
+
+        # response = self.client.get(
+        #     f'/api/products/backend/?search=test&filter_date_min={date_min}&filter_date_max={date_max}')
+        # self.assertEqual(response.status_code, 200)
+        # self.assertEqual(len(response.data['data']), 2)
+
+    def test_filter_products_by_seller(self):
+        response = self.client.get(
+            f'/api/products/backend/?search=test&filter_seller={self.seller1.business_name}')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data['data']), 1)
+
     def test_pagination(self):
-        response = self.client.get('/api/products/backend/?page=1&per_page=1')
+        response = self.client.get(
+            '/api/products/backend/?search=test&page=1&per_page=1')
         self.assertEqual(response.status_code, 200)
         data = response.data['data']
         self.assertEqual(len(data), 1)
