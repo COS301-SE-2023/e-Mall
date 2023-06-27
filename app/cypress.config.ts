@@ -24,4 +24,5 @@ export default defineConfig({
       // see "Reporter Options" section
     },
   },
+  trashAssetsBeforeRuns: true,
 });
