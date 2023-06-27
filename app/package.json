@@ -29,7 +29,12 @@
     "api:deletemigrations": "powershell -Command \"Get-ChildItem -Path ../api/ -Filter *.py -Recurse | Where-Object { $_.FullName -like '*\\migrations\\*' -and $_.Name -ne '__init__.py' } | Remove-Item\"",
     "api:mockdata": "yarn api:populateproducts&& yarn api:populatesellers && yarn api:populateproductsellers",
     "api:mockprodsellers": "yarn api:populateproducts && yarn api:populateproductsellers",
-    "api:deletemockdata": "yarn api:depopulateproducts && yarn api:depopulatesellers && yarn api:depopulateproductsellers"
+    "api:deletemockdata": "yarn api:depopulateproducts && yarn api:depopulatesellers && yarn api:depopulateproductsellers",
+    "preapi:test": "yarn api:deletemockdata && yarn api:mockdata",
+    "cypress:open": "yarn cypress open",
+    "precypress:open": "yarn api:deletemockdata && yarn api:mockdata",
+    "cypress:run" : "yarn cypress run",
+    "precypress:run": "docker-compose exec -T api python manage.py populateproducts && docker-compose exec -T api python manage.py populatesellers && docker-compose exec -T api python manage.py populateproductsellers"
   },
   "private": true,
   "dependencies": {
@@ -73,6 +78,7 @@
     "@typescript-eslint/eslint-plugin": "5.59.11",
     "@typescript-eslint/parser": "5.59.11",
     "cypress": "^12.15.0",
+    "cypress-network-idle": "^1.14.2",
     "cypress-sonarqube-reporter": "^1.12.0",
     "eslint": "^8.43.0",
     "eslint-config-prettier": "^8.8.0",

@@ -77,7 +77,7 @@ jobs:
           echo "[Angular] waiting for server..."
           timeout 3m bash -c 'until $(curl --output /dev/null --silent --head --fail http://localhost:4200); do sleep 5; done'
           echo "[Angular] server is up!"  
-          yarn cypress run --config video=false
+          yarn cypress:run --config video=false
 
       - name: Frontend unit and integration tests
         working-directory: ./app
