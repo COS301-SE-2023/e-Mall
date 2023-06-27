@@ -100,7 +100,7 @@ $font_type_5: 600 1em/1.39 'Poppins', Helvetica, Arial, serif;
 
 .filter-menu {
   float: left;
-  width: 225px;
+  width: 200px;
   margin-left: 1rem;
 }
 
@@ -215,6 +215,10 @@ $font_type_5: 600 1em/1.39 'Poppins', Helvetica, Arial, serif;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+app-footer {
+  height: 0px;
 }
 
 html {
