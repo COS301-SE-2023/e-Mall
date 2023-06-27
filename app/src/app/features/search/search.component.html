@@ -48,16 +48,16 @@
               <mat-panel-title> Brand </mat-panel-title>
             </mat-expansion-panel-header>
             <!-- Content for Brand panel -->
+            
+            <div *ngFor="let brand of brandOptions">
             <mat-checkbox
-              *ngFor="let brand of brandOptions"
               [value]="brand"
               (change)="
                 onFilterOptionChange('filter_brand', brand, $event.checked)
               "
               >{{ brand }}
             </mat-checkbox>
-
-            <!-- ... -->
+            </div>
           </mat-expansion-panel>
 
           <!-- ... -->
