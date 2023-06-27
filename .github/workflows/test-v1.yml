@@ -79,11 +79,11 @@ jobs:
           echo "[Angular] server is up!"  
           yarn cypress run --config video=false
 
-      - name: Frontend unit tests
+      - name: Frontend unit and integration tests
         working-directory: ./app
         run: yarn ng test --code-coverage --browsers ChromeHeadless
 
-      - name: Backend unit tests
+      - name: Backend tests
         working-directory: api
         run: docker-compose exec -T api pytest
 

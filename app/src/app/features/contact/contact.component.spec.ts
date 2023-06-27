@@ -1,13 +1,11 @@
+//contact unit tests
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ContactComponent } from './contact.component';
-
 import { CommonModule } from '@angular/common';
-
 import { ContactRoutingModule } from './contact-routing.module';
 import { NavbarModule } from '../../shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
-
 import { ActivatedRoute } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 

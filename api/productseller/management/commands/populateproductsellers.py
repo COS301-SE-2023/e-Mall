@@ -39,7 +39,7 @@ class Command(BaseCommand):
         for current_product_id in range(int(current_product_id), last_product_id + 1):
             product = Product.objects.get(id=current_product_id)
             # Iterate over items in batches of three
-            batch_keys = items[i : i + 3]  # Get the keys for the current batch
+            batch_keys = items[i: i + 3]  # Get the keys for the current batch
             i += 3
             if len(batch_keys) < 3:
                 break  # Break the loop if less than three JSON objects are processed
@@ -61,6 +61,7 @@ class Command(BaseCommand):
                     product_url=productseller_data["product_url"],
                     in_stock=productseller_data["in_stock"],
                     img_array=productseller_data["img_array"],
+                    product_name=product.name,
                 )
                 productseller.save()
                 if x >= len(seller_uuids):

@@ -1,10 +1,8 @@
+// about unit tests
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AboutComponent } from './about.component';
-
 import { CommonModule } from '@angular/common';
-
 import { AboutRoutingModule } from './about-routing.module';
-
 import { FooterModule } from '@shared/components/footer/footer.module';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { ActivatedRoute } from '@angular/router';
