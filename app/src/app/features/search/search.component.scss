@@ -216,8 +216,7 @@ $font_type_5: 600 1em/1.39 'Poppins', Helvetica, Arial, serif;
   display: flex;
   flex-direction: column;
 }
-footer{
-  margin-top: auto;
-  margin-bottom: 0;
-  height: 200px;
+
+html {
+  scroll-behavior: smooth;
 }
