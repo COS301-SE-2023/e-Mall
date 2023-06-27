@@ -32,7 +32,9 @@
     "api:deletemockdata": "yarn api:depopulateproducts && yarn api:depopulatesellers && yarn api:depopulateproductsellers",
     "preapi:test": "yarn api:deletemockdata && yarn api:mockdata",
     "cypress:open": "yarn cypress open",
-    "precypress:open": "yarn api:deletemockdata && yarn api:mockdata"
+    "precypress:open": "yarn api:deletemockdata && yarn api:mockdata",
+    "cypress:run" : "yarn cypress run",
+    "precypress:run": "yarn api:deletemockdata && yarn api:mockdata"
   },
   "private": true,
   "dependencies": {
