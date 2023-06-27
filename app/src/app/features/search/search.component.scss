@@ -210,3 +210,17 @@ $font_type_5: 600 1em/1.39 'Poppins', Helvetica, Arial, serif;
   color:red;
   font-size: small;
 }
+
+.body{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+app-footer {
+  height: 0px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
