@@ -89,7 +89,6 @@ Key features of our Agile approach during this project include:
 ## Project Management
 
 - [Jira](https://ss-e-mall.atlassian.net/jira/software/projects/SS/boards/1)
-- [Management Document](https://www.overleaf.com/5939438223ybcvjtpqxhwc)
 - [Project Board](https://github.com/orgs/COS301-SE-2023/projects/3)
 - [CI/CD GitHub Actions](https://github.com/COS301-SE-2023/e-Mall/actions)
 - [Project Planner](https://docs.google.com/spreadsheets/d/1cKHBTqjqsKePxTVy1imEWQKJXY_DCV7f/edit?usp=sharing&ouid=103477676275821978134&rtpof=true&sd=true)
