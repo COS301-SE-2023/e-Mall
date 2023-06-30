@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ViewSizeModule } from '@shared/directives/view-size/view-size.module';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [SearchBarComponent],
@@ -21,6 +22,7 @@ import { ViewSizeModule } from '@shared/directives/view-size/view-size.module';
     MatFormFieldModule,
     MatInputModule,
     MatAutocompleteModule,
+    IonicModule,
   ],
   exports: [SearchBarComponent],
 })

@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ConsumerRegisterComponent } from './consumer-register.component';
+import { ConsumerRegisterComponent } from '@app/features/sign-up/consumer/consumer-register.component';
 import { AuthService } from '@app/services/auth/auth.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 
 describe('ConsumerRegisterComponent', () => {
   let component: ConsumerRegisterComponent;
@@ -20,6 +21,7 @@ describe('ConsumerRegisterComponent', () => {
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
+        IonicModule,
       ],
       declarations: [ConsumerRegisterComponent],
       providers: [{ provide: AuthService, useValue: authServiceSpy }],
@@ -44,7 +46,7 @@ describe('ConsumerRegisterComponent', () => {
     expect(component.signUpForm.get('password')).toBeDefined();
     expect(component.signUpForm.get('cpassword')).toBeDefined();
   });
-/*
+  /*
   it('should navigate to home page on successful form submission', () => {
     const email = 'test@example.com';
     const password = 'password';
@@ -64,7 +66,7 @@ describe('ConsumerRegisterComponent', () => {
     expect(authService.signUp).toHaveBeenCalledWith(email, password);
     expect(routerSpy).toHaveBeenCalledWith(['/']);
   });*/
-/*
+  /*
   it('should not navigate to home page on form submission with invalid form', () => {
     spyOn(authService, 'signUp').and.returnValue(of({}));
     const routerSpy = spyOn(component.router, 'navigate');

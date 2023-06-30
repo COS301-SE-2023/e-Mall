@@ -1,13 +1,14 @@
 //contact unit tests
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ContactComponent } from './contact.component';
+import { ContactComponent } from '@app/features/contact/contact.component';
 import { CommonModule } from '@angular/common';
-import { ContactRoutingModule } from './contact-routing.module';
-import { NavbarModule } from '../../shared/components/navbar/navbar.module';
+import { ContactRoutingModule } from '@app/features/contact/contact-routing.module';
+import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
 import { ActivatedRoute } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IonicModule } from '@ionic/angular';
 
 describe('ContactComponent', () => {
   let component: ContactComponent;
@@ -15,8 +16,15 @@ describe('ContactComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BrowserAnimationsModule,CommonModule, ContactRoutingModule, NavbarModule, FooterModule],
-      declarations: [ContactComponent], 
+      imports: [
+        BrowserAnimationsModule,
+        CommonModule,
+        ContactRoutingModule,
+        NavbarModule,
+        FooterModule,
+        IonicModule,
+      ],
+      declarations: [ContactComponent],
       providers: [
         {
           provide: ActivatedRoute,
@@ -44,7 +52,6 @@ describe('ContactComponent', () => {
     expect(headingel.textContent).toContain('Fill the form.');
   });
 
-  
   it('should display "Send Message" button', () => {
     // Create a div element with the specified styles
     const div = document.createElement('div');
@@ -89,7 +96,9 @@ describe('ContactComponent', () => {
     document.body.appendChild(div);
 
     // Find the submit input element in the document
-    const submitButton = document.querySelector('.btn-primary') as HTMLInputElement;
+    const submitButton = document.querySelector(
+      '.btn-primary'
+    ) as HTMLInputElement;
 
     // Assert that the submit button exists
     expect(submitButton).toBeTruthy();
@@ -124,7 +133,9 @@ describe('ContactComponent', () => {
     document.body.appendChild(form);
 
     // Find the first name input element in the document
-    const firstNameInputElement = document.querySelector('#fname') as HTMLInputElement;
+    const firstNameInputElement = document.querySelector(
+      '#fname'
+    ) as HTMLInputElement;
 
     // Assert that the first name input exists
     expect(firstNameInputElement).toBeTruthy();
@@ -155,7 +166,9 @@ describe('ContactComponent', () => {
     document.body.appendChild(form);
 
     // Find the last name input element in the document
-    const lastNameInputElement = document.querySelector('#lname') as HTMLInputElement;
+    const lastNameInputElement = document.querySelector(
+      '#lname'
+    ) as HTMLInputElement;
 
     // Assert that the last name input exists
     expect(lastNameInputElement).toBeTruthy();
@@ -186,12 +199,13 @@ describe('ContactComponent', () => {
     document.body.appendChild(form);
 
     // Find the last name input element in the document
-    const lastNameInputElement = document.querySelector('#email') as HTMLInputElement;
+    const lastNameInputElement = document.querySelector(
+      '#email'
+    ) as HTMLInputElement;
 
     // Assert that the last name input exists
     expect(lastNameInputElement).toBeTruthy();
     // Assert that the last name input has the correct placeholder
     expect(lastNameInputElement.placeholder).toEqual('Email');
   });
-
 });

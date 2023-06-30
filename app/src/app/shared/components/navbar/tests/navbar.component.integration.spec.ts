@@ -3,7 +3,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from './navbar.component';
+import { NavbarComponent } from '@shared/components/navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,6 +16,7 @@ import { ViewSizeModule } from '@shared/directives/view-size/view-size.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationExtras, Router } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -24,8 +25,10 @@ describe('NavbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientModule,
-        BrowserAnimationsModule, 
+      imports: [
+        RouterTestingModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -37,6 +40,7 @@ describe('NavbarComponent', () => {
         MatMenuModule,
         MatFormFieldModule,
         MatInputModule,
+        IonicModule,
       ],
       declarations: [NavbarComponent],
     }).compileComponents();
@@ -68,7 +72,10 @@ describe('NavbarComponent', () => {
 
     component.search(searchQuery);
 
-    expect(routerNavigateSpy).toHaveBeenCalledWith(['/search-results'], navigationExtras);
+    expect(routerNavigateSpy).toHaveBeenCalledWith(
+      ['/search-results'],
+      navigationExtras
+    );
   });
 
   it('should navigate to sign-in page', () => {
@@ -95,6 +102,4 @@ describe('NavbarComponent', () => {
 
     expect(routerNavigateSpy).toHaveBeenCalledWith([`/${page}`]);
   });
-
-
 });

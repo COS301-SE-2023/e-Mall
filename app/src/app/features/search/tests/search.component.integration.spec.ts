@@ -23,12 +23,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { of, BehaviorSubject, Observable } from 'rxjs';
 import { By } from '@angular/platform-browser';
 
-import { SearchComponent } from './search.component';
+import { SearchComponent } from '../search.component';
 import { ProductService } from '@app/services/product/product.service';
 import { IProduct } from '@app/models/product/product.interface';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
+import { IonicModule } from '@ionic/angular';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -94,6 +95,7 @@ describe('SearchComponent', () => {
         MatProgressSpinnerModule,
         MatSlideToggleModule,
         MatRadioModule,
+        IonicModule,
       ],
       providers: [
         ProductService,
@@ -128,7 +130,7 @@ describe('SearchComponent', () => {
     );
 
     expect(component.searchResults$).toBeTruthy();
-   // expect(component.totalSearchCount$).toBeTruthy();
+    // expect(component.totalSearchCount$).toBeTruthy();
 
     component.searchResults$?.subscribe((results: IProduct[]) => {
       expect(results.length).toBe(1);

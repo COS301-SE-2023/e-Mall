@@ -2,10 +2,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, Input } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { ProductComponent } from './product.component';
+import { ProductComponent } from '@app/features/product/product.component';
 import { ProductService } from '@app/services/product/product.service';
 import { CommonModule } from '@angular/common';
-import { ProductRoutingModule } from './product-routing.module';
+import { ProductRoutingModule } from '../product-routing.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
@@ -17,22 +17,27 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IProduct } from '@app/models/product/product.interface';
 import { IProductSeller } from '@app/models/product/product-seller.interface';
+import { IonicModule } from '@ionic/angular';
 
 // Mock ProductService
 class MockProductService {
   getProductData(): Observable<any> {
-    return of({ /* mock product data */ });
+    return of({
+      /* mock product data */
+    });
   }
 
   getSellerList(): Observable<any> {
-    return of({ /* mock seller list data */ });
+    return of({
+      /* mock seller list data */
+    });
   }
 }
 
 // Mock Child Component
 @Component({
   selector: 'app-some-child-component',
-  template: ''
+  template: '',
 })
 class MockChildComponent {
   @Input() prod_id: number | undefined;
@@ -57,17 +62,16 @@ describe('ProductComponent', () => {
         MatExpansionModule,
         NavbarModule,
         FooterModule,
+        IonicModule,
       ],
       providers: [
         ProductService,
         {
           provide: ActivatedRoute,
-          useValue: {
-          },
+          useValue: {},
         },
       ],
     }).compileComponents();
-
   });
 
   beforeEach(() => {
@@ -75,7 +79,6 @@ describe('ProductComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -85,16 +88,18 @@ describe('ProductComponent', () => {
     spyOn(component['productService'], 'getProductData').and.callThrough();
     spyOn(component['productService'], 'getSellerList').and.callThrough();
 
-    component.prod_id = 123; 
+    component.prod_id = 123;
     component.ngOnInit();
 
-    expect(component['productService'].getProductData).toHaveBeenCalledWith(123);
-    expect(component['productService'].getSellerList).toHaveBeenCalledWith(123, 'default');
+    expect(component['productService'].getProductData).toHaveBeenCalledWith(
+      123
+    );
+    expect(component['productService'].getSellerList).toHaveBeenCalledWith(
+      123,
+      'default'
+    );
     expect(component.product$).toBeDefined();
     expect(component.sellers$).toBeDefined();
     expect(component.currency$).toBeDefined();
   });
-
-  
-
 });

@@ -23,12 +23,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { of, BehaviorSubject, Observable } from 'rxjs';
 import { By } from '@angular/platform-browser';
 
-import { SearchComponent } from './search.component';
+import { SearchComponent } from '../search.component';
 import { ProductService } from '@app/services/product/product.service';
 import { IProduct } from '@app/models/product/product.interface';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
+import { IonicModule } from '@ionic/angular';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -36,7 +37,7 @@ describe('SearchComponent', () => {
   let productService: ProductService;
   let router: Router;
   let activatedRoute: ActivatedRoute;
-  
+
   beforeEach(async () => {
     const mockProductService = {
       searchProducts: jasmine.createSpy('searchProducts').and.returnValue(
@@ -73,6 +74,7 @@ describe('SearchComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [SearchComponent],
       imports: [
+        IonicModule,
         NavbarModule,
         FooterModule,
         HttpClientModule,
@@ -114,7 +116,6 @@ describe('SearchComponent', () => {
     fixture.detectChanges();
   });
 
-
   it('should create the SearchComponent', () => {
     expect(component).toBeTruthy();
   });
@@ -123,9 +124,9 @@ describe('SearchComponent', () => {
     const filter_type = 'filter_category';
     const value = 'electronics';
     const checked = true;
-  
+
     component.onFilterOptionChange(filter_type, value, checked);
-  
+
     expect(component.filterOptions).toEqual(['filter_category=electronics']);
   });
   it('should remove the value from the filter option when checked is false', () => {
@@ -134,21 +135,21 @@ describe('SearchComponent', () => {
     const filter_type = 'filter_category';
     const value = 'books';
     const checked = false;
-  
+
     component.onFilterOptionChange(filter_type, value, checked);
     expect(component.filterOptions).toEqual(['filter_category=electronics']);
   });
-  
+
   it('should update the existing filter option when checked is true', () => {
     component.filterOptions = ['filter_category=electronics'];
     const filter_type = 'filter_category';
     const value = 'books';
     const checked = true;
-  
-    component.onFilterOptionChange(filter_type, value, checked);
-  
-    expect(component.filterOptions).toEqual(['filter_category=electronics,,,books']);
-  });
 
-  
+    component.onFilterOptionChange(filter_type, value, checked);
+
+    expect(component.filterOptions).toEqual([
+      'filter_category=electronics,,,books',
+    ]);
+  });
 });

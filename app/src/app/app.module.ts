@@ -17,6 +17,9 @@ import { FooterModule } from './shared/components/footer/footer.module';
 import { ContactModule } from './features/contact/contact.module';
 import { AboutModule } from './features/about/about.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { RouteReuseStrategy } from '@angular/router';
+import { NavbarModule } from '@shared/components/navbar/navbar.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,22 +27,23 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    IonicModule.forRoot(),
     HomeModule,
-    ConstructionModule,
     ProductModule,
-    SearchModule,
     SignInModule,
     SellerRegisterModule,
     ConsumerRegisterModule,
     SignOutModule,
     FooterModule,
-    ContactModule,
-    NotFoundModule,
+    NavbarModule,
     AboutModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
 
-  providers: [httpInterceptorProviders],
+  providers: [
+    httpInterceptorProviders,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
-import { PendingComponent } from './features/pending/pending.component';
 import { ConstructionComponent } from './features/construction/construction.component';
 // import { ProductComponent } from './features/product/product.component';
+import { AboutModule } from './features/about/about.module';
 import { SearchComponent } from './features/search/search.component';
 import { NotFoundComponent } from '@app/features/not-found/not-found.component';
 import { SellerRegisterComponent } from './features/sign-up/seller/seller-register.component';
@@ -17,21 +17,48 @@ import { ProductComponent } from './features/product/product.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'construction', component: ConstructionComponent },
-  { path: 'search-results', component: SearchComponent },
-  { path: 'pending', component: PendingComponent },
+  {
+    path: 'construction',
+    loadChildren: () =>
+      import('@app/features/construction/construction.module').then(
+        m => m.ConstructionModule
+      ),
+  },
+  {
+    path: 'search-results',
+    loadChildren: () =>
+      import('@app/features/search/search.module').then(m => m.SearchModule),
+  },
+  {
+    path: 'pending',
+    loadChildren: () =>
+      import('@app/features/pending/pending.module').then(m => m.PendingModule),
+  },
   { path: 'register', component: SellerRegisterComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-out', component: SignOutComponent },
-  { path: 'search-results', component: SearchComponent },
   { path: 'sign-up', component: ConsumerRegisterComponent },
-  { path: 'about', component: AboutComponent },
-  { path: 'contact', component: ContactComponent },
+  {
+    path: 'about',
+    loadChildren: () =>
+      import('@app/features/about/about.module').then(m => m.AboutModule),
+  },
+  {
+    path: 'contact',
+    loadChildren: () =>
+      import('@app/features/contact/contact.module').then(m => m.ContactModule),
+  },
   { path: 'products', component: ProductComponent },
   { path: 'policies-and-privacy', redirectTo: '/construction' },
   { path: 'seller/dashboard', redirectTo: '/construction' },
   { path: 'ads', redirectTo: '/construction' },
-  { path: '**', component: NotFoundComponent },
+  {
+    path: '**',
+    loadChildren: () =>
+      import('@app/features/not-found/not-found.module').then(
+        m => m.NotFoundModule
+      ),
+  },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes, { bindToComponentInputs: true })],

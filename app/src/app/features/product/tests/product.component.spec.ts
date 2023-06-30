@@ -2,10 +2,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ProductComponent } from './product.component';
+import { ProductComponent } from '@app/features/product/product.component';
 import { ProductService } from '@app/services/product/product.service';
 import { CommonModule } from '@angular/common';
-import { ProductRoutingModule } from './product-routing.module';
+import { ProductRoutingModule } from '../product-routing.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IProduct } from '@app/models/product/product.interface';
 import { of } from 'rxjs';
 import { IProductSeller } from '@app/models/product/product-seller.interface';
+import { IonicModule } from '@ionic/angular';
 
 describe('ProductComponent', () => {
   let component: ProductComponent;
@@ -40,18 +41,22 @@ describe('ProductComponent', () => {
         MatExpansionModule,
         NavbarModule,
         FooterModule,
+        IonicModule,
       ],
       providers: [
         ProductService,
         {
           provide: ActivatedRoute,
-          useValue: {
-          },
+          useValue: {},
         },
       ],
     }).compileComponents();
 
     router = TestBed.inject(Router);
+    fixture = TestBed.createComponent(ProductComponent);
+    component = fixture.componentInstance;
+    productService = TestBed.inject(ProductService);
+    fixture.detectChanges();
   });
 
   beforeEach(() => {
@@ -149,7 +154,7 @@ describe('ProductComponent', () => {
     //expect(inStockElements.length).toEqual(sellers.length);
   });
 
-    it('should display product information', () => {
+  it('should display product information', () => {
     const id = 1;
     const productName = 'Product Name';
     const brand = 'Brand';
@@ -158,7 +163,14 @@ describe('ProductComponent', () => {
     const minPrice = 100;
     const currencyCode = 'ZAR';
 
-    component.product$ = of({ id, name: productName, brand, category, description, min_price: minPrice });
+    component.product$ = of({
+      id,
+      name: productName,
+      brand,
+      category,
+      description,
+      min_price: minPrice,
+    });
     component.currencyCode = currencyCode;
 
     fixture.detectChanges();
@@ -166,22 +178,22 @@ describe('ProductComponent', () => {
     const productNameElement = fixture.nativeElement.querySelector('h2');
     const brandElement = fixture.nativeElement.querySelector('h4');
     const descriptionElement = fixture.nativeElement.querySelector('p');
-    const minPriceElement = fixture.nativeElement.querySelector('product-price');
+    const minPriceElement =
+      fixture.nativeElement.querySelector('product-price');
 
     expect(productNameElement.textContent).toContain(productName);
     expect(brandElement.textContent).toContain(brand);
     expect(descriptionElement.textContent).toContain(description);
   });
-    it('should toggle divClicked and update sellers$', () => {
+  it('should toggle divClicked and update sellers$', () => {
     spyOn(productService, 'getSellerList');
-  
+
     component.divClicked = false;
     component.prod_id = 1;
     component.onlyInStockToggler();
     expect(component.divClicked).toBe(true);
     expect(productService.getSellerList).toHaveBeenCalledWith(1, 'true');
   });
-  
 
   /*
   it('should navigate to the seller product page on seller name click', () => {

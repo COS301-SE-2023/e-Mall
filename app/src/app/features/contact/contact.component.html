@@ -1,112 +1,96 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<ion-content>
+  <div
+    class="row justify-content-center"
+    style="
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-content: center;
+      align-items: center;
+      vertical-align: middle;
+      align-self: center;
+      width: 100%;
+      height: 100%;
+      gap: 10px;
+    ">
+    <div style="height: 100px"></div>
+    <div class="col-md-10" style="height: 500px">
+      <div class="row align-items-center">
+        <div class="col-lg-7 mb-5 mb-lg-0">
+          <h2 class="mb-5">Fill the form.</h2>
 
-    <title>Contact Form #2</title>
-  </head>
-  <body>
-    <app-navbar></app-navbar>
-    <div
-      class="row justify-content-center"
-      style="
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-content: center;
-        align-items: center;
-        vertical-align: middle;
-        align-self: center;
-        width: 100%;
-        height: 100%;
-        gap: 10px;
-      ">
-      <div style="height: 100px"></div>
-      <div class="col-md-10" style="height: 500px">
-        <div class="row align-items-center">
-          <div class="col-lg-7 mb-5 mb-lg-0">
-            <h2 class="mb-5">
-              Fill the form.
-            </h2>
+          <form
+            class="border-right pr-5 mb-5"
+            method="post"
+            id="contactForm"
+            name="contactForm">
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="fname"
+                  id="fname"
+                  placeholder="First name" />
+              </div>
+              <div class="col-md-6 form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="lname"
+                  id="lname"
+                  placeholder="Last name" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="email"
+                  id="email"
+                  placeholder="Email" />
+              </div>
+            </div>
 
-            <form
-              class="border-right pr-5 mb-5"
-              method="post"
-              id="contactForm"
-              name="contactForm">
-              <div class="row">
-                <div class="col-md-6 form-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="fname"
-                    id="fname"
-                    placeholder="First name" />
-                </div>
-                <div class="col-md-6 form-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="lname"
-                    id="lname"
-                    placeholder="Last name" />
-                </div>
+            <div class="row">
+              <div class="col-md-12 form-group">
+                <textarea
+                  class="form-control"
+                  name="message"
+                  id="message"
+                  cols="30"
+                  rows="7"
+                  placeholder="Write your message"></textarea>
               </div>
-              <div class="row">
-                <div class="col-md-12 form-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="email"
-                    id="email"
-                    placeholder="Email" />
-                </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <input
+                  type="submit"
+                  value="Send Message"
+                  class="btn btn-primary rounded-0 py-2 px-4"
+                  style="background-color: black" />
               </div>
+            </div>
+          </form>
 
-              <div class="row">
-                <div class="col-md-12 form-group">
-                  <textarea
-                    class="form-control"
-                    name="message"
-                    id="message"
-                    cols="30"
-                    rows="7"
-                    placeholder="Write your message"></textarea>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <input
-                    type="submit"
-                    value="Send Message"
-                    class="btn btn-primary rounded-0 py-2 px-4"
-                    style="background-color: black" />
-                </div>
-              </div>
-            </form>
-
-            <div id="form-message-warning mt-4"></div>
-            <!-- <div id="form-message-success">
+          <div id="form-message-warning mt-4"></div>
+          <!-- <div id="form-message-success">
               Your message was sent, thank you!
             </div> -->
-          </div>
-          <div class="col-lg-4 ml-auto">
-           <!-- <h3 class="mb-4">Let's talk about everything.</h3>
+        </div>
+        <div class="col-lg-4 ml-auto">
+          <!-- <h3 class="mb-4">Let's talk about everything.</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil
               deleniti itaque similique magni. Magni, laboriosam perferendis
               maxime!
             </p>-->
-            <!-- <p><a href="#">Read more</a></p> -->
-          </div>
+          <!-- <p><a href="#">Read more</a></p> -->
         </div>
       </div>
-      <div style="flex-grow: 1"></div>
     </div>
-  </body>
-  <app-footer></app-footer>
-</html>
+    <div style="flex-grow: 1"></div>
+  </div>
+</ion-content>

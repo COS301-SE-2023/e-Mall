@@ -2,13 +2,14 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SellerRegisterComponent } from './seller-register.component';
+import { SellerRegisterComponent } from '@app/features/sign-up/seller/seller-register.component';
 
 import { AuthService } from '@app/services/auth/auth.service';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 describe('RegisterComponent', () => {
   let component: SellerRegisterComponent;
   let fixture: ComponentFixture<SellerRegisterComponent>;
@@ -22,6 +23,7 @@ describe('RegisterComponent', () => {
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
+        IonicModule,
       ],
       declarations: [SellerRegisterComponent],
       providers: [AuthService],

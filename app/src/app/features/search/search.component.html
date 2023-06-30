@@ -1,18 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Search Results</title>
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css"
-      rel="stylesheet" />
-    <link href="search.component.scss" rel="stylesheet" />
-  </head>
-
-  <body class="body">
-    <app-navbar></app-navbar>
-
+<ion-content>
+  <div class="body">
     <main class="landing main">
       <div class="search-results">
         <h1>Search Results</h1>
@@ -48,15 +35,15 @@
               <mat-panel-title> Brand </mat-panel-title>
             </mat-expansion-panel-header>
             <!-- Content for Brand panel -->
-            
+
             <div *ngFor="let brand of brandOptions">
-            <mat-checkbox
-              [value]="brand"
-              (change)="
-                onFilterOptionChange('filter_brand', brand, $event.checked)
-              "
-              >{{ brand }}
-            </mat-checkbox>
+              <mat-checkbox
+                [value]="brand"
+                (change)="
+                  onFilterOptionChange('filter_brand', brand, $event.checked)
+                "
+                >{{ brand }}
+              </mat-checkbox>
             </div>
           </mat-expansion-panel>
 
@@ -232,7 +219,7 @@
         </div>
       </div>
     </main>
-    <br><br>
+    <br /><br />
     <div class="mat-paginator">
       <ng-container *ngIf="searchResults$ | async as products">
         <mat-paginator
@@ -244,7 +231,5 @@
           (page)="onPageChange($event)"></mat-paginator>
       </ng-container>
     </div>
-    <br><br>
-    <app-footer></app-footer>
-  </body>
-</html>
+  </div>
+</ion-content>

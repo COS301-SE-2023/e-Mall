@@ -1,6 +1,6 @@
-//search bar integration test
+//search bar unit tests
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SearchBarComponent } from './search-bar.component';
+import { SearchBarComponent } from '@shared/components/search-bar/search-bar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
@@ -38,32 +38,7 @@ describe('SearchBarComponent', () => {
     fixture.detectChanges();
   });
 
-
-it('should initialize searchInputController with an empty string', () => {
-  expect(component.searchInputController.value).toEqual('');
-});
-
-it('should set placeHolder value correctly', () => {
-  expect(component.placeHolder).toEqual('What are you looking for?');
-});
-
-
-it('should call search method when Enter key is pressed', () => {
-  spyOn(component, 'search');
-  const event = { code: 'Enter' };
-  component.keyDownFunction(event);
-  expect(component.search).toHaveBeenCalled();
-});
-
-it('should call search method when search icon is clicked', () => {
-  spyOn(component, 'search');
-  component.searchInputController.setValue('example');
-  component.searchIconFunction();
-  expect(component.search).toHaveBeenCalled();
-});
-
-
-
-  
-
+  it('should create the search bar component', () => {
+    expect(component).toBeTruthy();
+  });
 });

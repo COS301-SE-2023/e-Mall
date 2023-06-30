@@ -9,12 +9,13 @@ import {
 
 import { AuthService } from '@app/services/auth/auth.service';
 import { Router } from '@angular/router';
-import { SignInComponent } from './sign-in.component';
+import { SignInComponent } from '@app/features/sign-in/sign-in.component';
 
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 
 describe('SignInComponent', () => {
   let component: SignInComponent;
@@ -29,6 +30,7 @@ describe('SignInComponent', () => {
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
+        IonicModule,
       ],
       declarations: [SignInComponent],
       providers: [AuthService],
@@ -57,7 +59,7 @@ describe('SignInComponent', () => {
     component.onSubmit();
     expect(component.formSubmitted).toBeTruthy();
   });
-/*
+  /*
   it('should call signIn method and navigate to home on form submission when form is valid', fakeAsync(() => {
     component.signInForm.patchValue({
       email: 'test@example.com',
@@ -104,6 +106,4 @@ describe('SignInComponent', () => {
       'Password must be at least 8 characters long'
     );
   });*/
-  
-
 });

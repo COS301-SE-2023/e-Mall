@@ -1,9 +1,10 @@
 //not found unit tests
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NotFoundComponent } from './not-found.component';
+import { NotFoundComponent } from '@app/features/not-found/not-found.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
 
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
@@ -12,7 +13,7 @@ describe('NotFoundComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [NotFoundComponent],
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, IonicModule],
     }).compileComponents();
   });
 
@@ -39,14 +40,17 @@ describe('NotFoundComponent', () => {
 
     const backButton = fixture.nativeElement.querySelector('a');
     backButton.click();
-    
-    expect(router.navigateByUrl).toHaveBeenCalledWith(jasmine.stringMatching(/\/home/), {
-      skipLocationChange: false,
-      replaceUrl: false,
-      state: undefined
-    });
+
+    expect(router.navigateByUrl).toHaveBeenCalledWith(
+      jasmine.stringMatching(/\/home/),
+      {
+        skipLocationChange: false,
+        replaceUrl: false,
+        state: undefined,
+      }
+    );
   });
-  
+
   it('should display "404" as the heading', () => {
     // Create a div element with the specified classes
     const div = document.createElement('div');
@@ -88,13 +92,11 @@ describe('NotFoundComponent', () => {
     document.body.appendChild(div);
 
     // Find the heading element in the document
-    const headingElement = document.querySelector('.notfound-404 h1') as HTMLAnchorElement;
+    const headingElement = document.querySelector(
+      '.notfound-404 h1'
+    ) as HTMLAnchorElement;
 
     // Assert that the heading text is "404"
-    expect(headingElement.textContent).toEqual('404') ;
+    expect(headingElement.textContent).toEqual('404');
   });
-
-  
-
-   
 });

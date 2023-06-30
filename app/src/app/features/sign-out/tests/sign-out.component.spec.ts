@@ -7,10 +7,11 @@ import {
   tick,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SignOutComponent } from './sign-out.component';
+import { SignOutComponent } from '@app/features/sign-out/sign-out.component';
 import { AuthService } from '@app/services/auth/auth.service';
 import { Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { IonicModule } from '@ionic/angular';
 
 describe('SignOutComponent', () => {
   let component: SignOutComponent;
@@ -20,7 +21,7 @@ describe('SignOutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientModule],
+      imports: [RouterTestingModule, HttpClientModule, IonicModule],
       declarations: [SignOutComponent],
       providers: [AuthService],
     }).compileComponents();
@@ -44,7 +45,7 @@ describe('SignOutComponent', () => {
     component.ngOnInit();
     expect(authService.signOut).toHaveBeenCalled();
   });
-/*
+  /*
   it('should redirect to home page after countdown', fakeAsync(() => {
     component.ngOnInit();
     tick(1000); // Simulate a 1-second interval
