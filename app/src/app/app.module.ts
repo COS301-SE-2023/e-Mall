@@ -20,6 +20,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { RouteReuseStrategy } from '@angular/router';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
+import { NgxsModule } from '@ngxs/store';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { environment } from 'environments/env';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +31,15 @@ import { NavbarModule } from '@shared/components/navbar/navbar.module';
     BrowserAnimationsModule,
     AppRoutingModule,
     IonicModule.forRoot(),
+    NgxsModule.forRoot([]),
+    NgxsLoggerPluginModule.forRoot({
+      // Do not collapse log groups
+      collapsed: true,
+      // Do not log in production mode
+      disabled: environment.production,
+      // Do not log SomeAction
+      // filter: action => getActionTypeFromInstance(action) !== SomeAction.type
+    }),
     HomeModule,
     ProductModule,
     SignInModule,

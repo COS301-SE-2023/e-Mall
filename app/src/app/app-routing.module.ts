@@ -1,17 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
-import { ConstructionComponent } from './features/construction/construction.component';
-// import { ProductComponent } from './features/product/product.component';
-import { AboutModule } from './features/about/about.module';
-import { SearchComponent } from './features/search/search.component';
-import { NotFoundComponent } from '@app/features/not-found/not-found.component';
 import { SellerRegisterComponent } from './features/sign-up/seller/seller-register.component';
 import { ConsumerRegisterComponent } from './features/sign-up/consumer/consumer-register.component';
 import { SignInComponent } from './features/sign-in/sign-in.component';
 import { SignOutComponent } from './features/sign-out/sign-out.component';
-import { ContactComponent } from './features/contact/contact.component';
-import { AboutComponent } from './features/about/about.component';
 import { ProductComponent } from './features/product/product.component';
 
 const routes: Routes = [
