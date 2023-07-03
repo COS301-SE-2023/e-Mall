@@ -66,7 +66,28 @@ class ProductSellerDashboardAPIView(APIView):
         )
 
         # Filtering of the products
-        productseller = ProductSeller.objects.filter(seller__business_name=seller_name)
+        filters = Q(seller__business_name=seller_name)
+
+        if filter_in_stock:
+            filters &= Q(in_stock=filter_in_stock)
+        if filter_category:
+            categories_values = filter_category.split(
+                ",,,"
+            )  # Split the filter_categories value by comma
+
+            category_filters = Q()  # Create a separate Q object for category filters
+
+            for category_value in categories_values:
+                category_filters |= Q(product__category=category_value)
+
+            filters &= category_filters
+
+        if filter_price_min:
+            filters &= Q(price__gte=filter_price_min)
+        if filter_price_max:
+            filters &= Q(price__lte=filter_price_max)
+
+        productseller = ProductSeller.objects.filter(filters)
 
         # sorting
         if sort == "price":
@@ -92,7 +113,3 @@ class ProductSellerDashboardAPIView(APIView):
 
         serializer = ProductSellerSerializer(paginated_products, many=True)
         return Response({"data": serializer.data, "total_count": total_count})
-
-        # productseller = ProductSeller.objects.filter(seller__business_name=seller_name)
-        # serializer = ProductSellerSerializer(productseller, many=True)
-        # return Response(serializer.data)
