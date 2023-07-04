@@ -23,7 +23,18 @@ import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { environment } from 'environments/env';
-
+import {
+  NavigationActionTiming,
+  NgxsRouterPluginModule,
+} from '@ngxs/router-plugin';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsFormPluginModule } from '@ngxs/form-plugin';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { NgxsActionsExecutingModule } from '@ngxs-labs/actions-executing';
+import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
+import { AuthModule } from './services/auth/auth.module';
+import { ErrorModule } from './shared/error/error.module';
+import { NgxsResetPluginModule } from 'ngxs-reset-plugin';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -40,6 +51,19 @@ import { environment } from 'environments/env';
       // Do not log SomeAction
       // filter: action => getActionTypeFromInstance(action) !== SomeAction.type
     }),
+    NgxsRouterPluginModule.forRoot({
+      navigationActionTiming: NavigationActionTiming.PostActivation,
+    }),
+    NgxsReduxDevtoolsPluginModule.forRoot({
+      disabled: environment.production,
+    }),
+    NgxsFormPluginModule.forRoot(),
+    NgxsStoragePluginModule.forRoot(),
+    NgxsActionsExecutingModule.forRoot(),
+    NgxsDispatchPluginModule.forRoot(),
+    NgxsResetPluginModule.forRoot(),
+    AuthModule,
+    ErrorModule,
     HomeModule,
     ProductModule,
     SignInModule,
@@ -53,6 +77,7 @@ import { environment } from 'environments/env';
   ],
 
   providers: [
+    { provide: 'API_URL', useValue: environment.apiUrl },
     httpInterceptorProviders,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],

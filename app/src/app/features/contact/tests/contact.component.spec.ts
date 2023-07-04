@@ -41,7 +41,12 @@ describe('ContactComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+  afterEach(() => {
+    // Find the form element
+    const form = document.querySelector('form');
 
+    // Remove the form element and its parent div from the body of the document
+  });
   it('should create the ContactComponent', () => {
     expect(component).toBeTruthy();
   });
@@ -108,6 +113,9 @@ describe('ContactComponent', () => {
     if (submitButton) {
       expect(submitButton.value).toEqual('Send Message');
     }
+    if (div) {
+      document.body.removeChild(div);
+    }
   });
 
   it('should display the first name input field', () => {
@@ -141,6 +149,9 @@ describe('ContactComponent', () => {
     expect(firstNameInputElement).toBeTruthy();
     // Assert that the first name input has the correct placeholder
     expect(firstNameInputElement.placeholder).toEqual('First name');
+    if (form) {
+      document.body.removeChild(form);
+    }
   });
 
   it('should display the last name input field', () => {
@@ -174,6 +185,9 @@ describe('ContactComponent', () => {
     expect(lastNameInputElement).toBeTruthy();
     // Assert that the last name input has the correct placeholder
     expect(lastNameInputElement.placeholder).toEqual('Last name');
+    if (form) {
+      document.body.removeChild(form);
+    }
   });
 
   it('should display the email input field', () => {
@@ -207,5 +221,8 @@ describe('ContactComponent', () => {
     expect(lastNameInputElement).toBeTruthy();
     // Assert that the last name input has the correct placeholder
     expect(lastNameInputElement.placeholder).toEqual('Email');
+    if (form) {
+      document.body.removeChild(form);
+    }
   });
 });

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ConsumerRegisterComponent } from '@app/features/sign-up/consumer/consumer-register.component';
-import { AuthService } from '@app/services/auth/auth.service';
+import { AuthService } from '@app/services/auth/service/auth.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

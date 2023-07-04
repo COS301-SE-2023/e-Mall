@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 export class HomeComponent implements OnInit {
   popProducts$: Observable<IProduct[]> | undefined;
   forYouProducts$: Observable<IProduct[]> | undefined;
-  isAuthenticated = false;
+  // isAuthenticated = false;
   images = 'assets/images/comingSoon.jpg';
   // isAuthenticated$;
   constructor(

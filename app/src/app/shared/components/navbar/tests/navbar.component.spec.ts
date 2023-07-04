@@ -15,15 +15,24 @@ import { ViewSizeModule } from '@shared/directives/view-size/view-size.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicModule } from '@ionic/angular';
-
+import { AuthState } from '@app/services/auth/state/auth.state';
+import { NgxsModule, Store } from '@ngxs/store';
+import { AuthModule } from '@app/services/auth/auth.module';
+import { AuthFacade } from '@app/services/auth/auth.facade';
+import { AuthService } from '@app/services/auth/service/auth.service';
+import { fakeAsync, tick } from '@angular/core/testing';
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
+  // let store: Store;
+  // let authFacade: AuthFacade;
+  // let authService: AuthService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
+        NgxsModule.forRoot(),
         HttpClientModule,
         BrowserAnimationsModule,
         CommonModule,
@@ -38,14 +47,17 @@ describe('NavbarComponent', () => {
         MatFormFieldModule,
         MatInputModule,
         IonicModule,
+        AuthModule,
       ],
       declarations: [NavbarComponent],
+      providers: [],
     }).compileComponents();
   });
-
+  // store = TestBed.inject(Store);
   beforeEach(() => {
     fixture = TestBed.createComponent(NavbarComponent);
     component = fixture.componentInstance;
+    // authService = TestBed.inject(AuthService);
     fixture.detectChanges();
   });
 
@@ -53,8 +65,11 @@ describe('NavbarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize isAuthenticated to false', () => {
-    expect(component.isAuthenticated).toBeFalse();
+  it('should return null when user is not authenticated', done => {
+    component.isAuthenticated.subscribe(val => {
+      expect(val).toBeNull();
+      done();
+    });
   });
 
   it('should toggle the category status', () => {

@@ -1,9 +1,9 @@
 export interface IConsumerForm {
-  username: string;
+  username?: string;
   email: string;
-  password: string;
+  password?: string;
   type: string;
-  verificatn_code?: string;
+  verification_code?: string;
 }
 export interface IConsumerProfile {
   username: string;

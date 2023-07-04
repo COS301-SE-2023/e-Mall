@@ -29,12 +29,12 @@
       <button
         mat-button
         class="toolbar-button"
-        *ngIf="!isAuthenticated"
+        *ngIf="(isAuthenticated | async) === null"
         (click)="signIn()">
         Sign in
       </button>
       <button
-        *ngIf="isAuthenticated"
+        *ngIf="(isAuthenticated | async) !== null"
         class="btn btn-outline-dark my-2 my-sm-0 ms-auto"
         type="submit"
         (click)="signOut()">

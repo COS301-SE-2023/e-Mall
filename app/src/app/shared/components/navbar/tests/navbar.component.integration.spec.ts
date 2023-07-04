@@ -17,8 +17,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationExtras, Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { AuthModule } from '@app/services/auth/auth.module';
+import { AuthState } from '@app/services/auth/state/auth.state';
+import { NgxsModule } from '@ngxs/store';
 
-describe('NavbarComponent', () => {
+describe('NavbarComponentIntegration', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
   let router: Router;
@@ -27,6 +30,7 @@ describe('NavbarComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
+        NgxsModule.forRoot([AuthState]),
         HttpClientModule,
         BrowserAnimationsModule,
         CommonModule,
@@ -41,6 +45,7 @@ describe('NavbarComponent', () => {
         MatFormFieldModule,
         MatInputModule,
         IonicModule,
+        AuthModule,
       ],
       declarations: [NavbarComponent],
     }).compileComponents();

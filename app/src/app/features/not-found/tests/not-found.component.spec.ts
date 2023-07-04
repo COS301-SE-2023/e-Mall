@@ -5,6 +5,7 @@ import { NotFoundComponent } from '@app/features/not-found/not-found.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { NotFoundModule } from '../not-found.module';
 
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
@@ -12,8 +13,8 @@ describe('NotFoundComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [NotFoundComponent],
-      imports: [RouterTestingModule, IonicModule],
+      declarations: [],
+      imports: [IonicModule, NotFoundModule, RouterTestingModule],
     }).compileComponents();
   });
 
@@ -98,5 +99,8 @@ describe('NotFoundComponent', () => {
 
     // Assert that the heading text is "404"
     expect(headingElement.textContent).toEqual('404');
+    if (div) {
+      document.body.removeChild(div);
+    }
   });
 });

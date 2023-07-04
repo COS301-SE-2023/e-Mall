@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '@app/services/auth/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { AuthFacade } from '@app/services/auth/auth.facade';
 
 @Component({
   selector: 'app-sign-in',
@@ -16,7 +16,7 @@ export class SignInComponent implements OnInit, OnDestroy {
   private subs: Subscription = new Subscription();
   constructor(
     private router: Router,
-    private AuthService: AuthService,
+    private authFacade: AuthFacade,
     private formBuilder: FormBuilder
   ) {
     this.loading = false;
@@ -56,11 +56,15 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
   public signIn(): void {
-    this.subs = this.AuthService.signIn(
+    this.authFacade.signIn(
       this.getFormValue('email'),
       this.getFormValue('password')
-    ).subscribe(() => {
-      this.router.navigate(['/home']);
-    });
+    );
+    // this.subs = this.AuthService.signIn(
+    //   this.getFormValue('email'),
+    //   this.getFormValue('password')
+    // ).subscribe(() => {
+    //   this.router.navigate(['/home']);
+    // });
   }
 }

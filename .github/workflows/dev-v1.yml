@@ -61,7 +61,7 @@ jobs:
 
       - name: Frontend unit and integration tests
         working-directory: ./app
-        run: yarn ng test --code-coverage --browsers ChromeHeadless
+        run: yarn ng test --code-coverage --browsers ChromeHeadless --watch=false
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v2

@@ -19,7 +19,7 @@ import { FormControl } from '@angular/forms';
 export class SearchComponent implements OnInit, OnDestroy {
   searchQuery!: string;
   searchResults$: Observable<IProduct[]> | undefined;
-  isAuthenticated!: boolean;
+  // isAuthenticated!: boolean;
   min_price_in_stock!: number;
   brandOptions: string[] = []; // Populate this array with the brand names based on your search results
   sellerOptions: string[] = []; // Populate this array with the seller names based on your search results

@@ -37,11 +37,7 @@
           {
             "selector": "variable",
             "modifiers": ["const"],
-            "format": ["camelCase"],
-            "custom": {
-              "regex": "^[A-Z]+$|^[a-z]+$",
-              "match": true
-            }
+            "format": ["camelCase", "UPPER_CASE", "lowercase"]
           },
           {
             "selector": "class",

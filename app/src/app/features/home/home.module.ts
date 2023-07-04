@@ -20,7 +20,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { ProductService } from '@app/services/product/product.service';
-import { AuthService } from '@app/services/auth/auth.service';
+import { AuthService } from '@app/services/auth/service/auth.service';
 import { IonicModule } from '@ionic/angular';
 
 @NgModule({
