@@ -47,7 +47,9 @@ describe('ProductComponent', () => {
         ProductService,
         {
           provide: ActivatedRoute,
-          useValue: {},
+          useValue: {
+            queryParamMap: of(new Map([['prod_id', '123']])),
+          },
         },
       ],
     }).compileComponents();

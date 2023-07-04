@@ -11,11 +11,14 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { IonicModule } from '@ionic/angular';
+import { NgxsModule } from '@ngxs/store';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [ProductComponent],
   imports: [
     CommonModule,
+    NgxsModule.forFeature(),
     ProductRoutingModule,
     FormsModule,
     ReactiveFormsModule,

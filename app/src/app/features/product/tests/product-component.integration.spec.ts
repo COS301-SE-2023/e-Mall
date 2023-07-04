@@ -42,7 +42,7 @@ class MockChildComponent {
   @Input() prod_id: number | undefined;
 }
 
-describe('ProductComponent', () => {
+describe('ProductComponentIntegration', () => {
   let component: ProductComponent;
   let fixture: ComponentFixture<ProductComponent>;
 
@@ -67,7 +67,9 @@ describe('ProductComponent', () => {
         ProductService,
         {
           provide: ActivatedRoute,
-          useValue: {},
+          useValue: {
+            queryParamMap: of(new Map([['prod_id', '123']])),
+          },
         },
       ],
     }).compileComponents();
@@ -77,6 +79,10 @@ describe('ProductComponent', () => {
     fixture = TestBed.createComponent(ProductComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    // component.ngOnInit();
+  });
+  afterEach(() => {
+    component.ngOnDestroy();
   });
 
   it('should create', () => {
@@ -91,10 +97,10 @@ describe('ProductComponent', () => {
     component.ngOnInit();
 
     expect(component['productService'].getProductData).toHaveBeenCalledWith(
-      123
+      component.prod_id
     );
     expect(component['productService'].getSellerList).toHaveBeenCalledWith(
-      123,
+      component.prod_id,
       'default'
     );
     expect(component.product$).toBeDefined();

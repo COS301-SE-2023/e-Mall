@@ -13,7 +13,9 @@ export class ProductService {
   currentProductId$: number | undefined;
   private apiUrl = 'http://localhost:3000/api/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    console.log('product service initialized');
+  }
 
   public getProductData(id: number): Observable<IProduct> {
     const url = `${this.apiUrl}products/frontend?prod_id=${id}`;

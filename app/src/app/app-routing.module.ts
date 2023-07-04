@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
 import { SellerRegisterComponent } from './features/sign-up/seller/seller-register.component';
 import { ConsumerRegisterComponent } from './features/sign-up/consumer/consumer-register.component';
 import { SignInComponent } from './features/sign-in/sign-in.component';
 import { SignOutComponent } from './features/sign-out/sign-out.component';
 import { ProductComponent } from './features/product/product.component';
+import { ProductModule } from './features/product/product.module';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -41,7 +42,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('@app/features/contact/contact.module').then(m => m.ContactModule),
   },
-  { path: 'products', component: ProductComponent },
+  {
+    path: 'products',
+    component: ProductComponent,
+  },
   { path: 'policies-and-privacy', redirectTo: '/construction' },
   { path: 'seller/dashboard', redirectTo: '/construction' },
   { path: 'ads', redirectTo: '/construction' },
@@ -54,7 +58,9 @@ const routes: Routes = [
   },
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { bindToComponentInputs: true })],
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
