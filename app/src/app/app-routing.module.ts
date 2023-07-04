@@ -6,7 +6,6 @@ import { ConsumerRegisterComponent } from './features/sign-up/consumer/consumer-
 import { SignInComponent } from './features/sign-in/sign-in.component';
 import { SignOutComponent } from './features/sign-out/sign-out.component';
 import { ProductComponent } from './features/product/product.component';
-import { ProductModule } from './features/product/product.module';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
