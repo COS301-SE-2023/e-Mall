@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Component, Input, OnInit } from '@angular/core';
-import { IProductSeller } from '@app/models/product/product-seller.interface';
+import { IProductSeller } from '@shared/models/product/product-seller.interface';
 
 import { Observable, of } from 'rxjs';
 
 import { FormControl } from '@angular/forms';
-import { IProduct } from '@app/models/product/product.interface';
-import { ProductService } from '@app/services/product/product.service';
+import { IProduct } from '@shared/models/product/product.interface';
+import { ProductService } from '@shared/servicies/product/product.service';
 
 @Component({
   selector: 'app-product',

@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProductComponent } from '@app/features/product/product.component';
-import { ProductService } from '@app/services/product/product.service';
+import { ProductService } from '@shared/servicies/product/product.service';
 import { CommonModule } from '@angular/common';
 import { ProductRoutingModule } from '../product-routing.module';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,9 +15,9 @@ import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { IProduct } from '@app/models/product/product.interface';
+import { IProduct } from '@shared/models/product/product.interface';
 import { of } from 'rxjs';
-import { IProductSeller } from '@app/models/product/product-seller.interface';
+import { IProductSeller } from '@shared/models/product/product-seller.interface';
 import { IonicModule } from '@ionic/angular';
 
 describe('ProductComponent', () => {

@@ -3,14 +3,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
-import { ISellerForm } from '@app/models/seller/seller.interface';
+import { ISellerForm } from '@shared/models/seller/seller.interface';
 import { Amplify, Auth } from 'aws-amplify';
 
-import { environment } from '../../../../environments/env';
+import { environment } from '../../../../../environments/env';
 import { Router } from '@angular/router';
 import { IConsumerForm } from '../../../models/consumer/consumer.interface';
-import { IUser } from '../model/user.interface';
-import { IError } from '@shared/error/model/error.interface';
+import { IUser } from '../models/user.interface';
+import { IError } from '@shared/features/error/models/error.interface';
 @Injectable()
 export class AuthService {
   base_url = 'http://localhost:3000/api/'; // change in deployment

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { ProductService } from '@app/services/product/product.service';
-import { IProduct } from '@app/models/product/product.interface';
+import { ProductService } from '@shared/servicies/product/product.service';
+import { IProduct } from '@shared/models/product/product.interface';
 import { tap } from 'rxjs/operators';
 import {
   Observable,

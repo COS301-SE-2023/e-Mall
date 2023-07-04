@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthFacade } from '@app/services/auth/auth.facade';
+import { AuthFacade } from '@shared/features/auth/services/auth.facade';
 
 @Component({
   selector: 'app-sign-out',

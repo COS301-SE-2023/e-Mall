@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 import { Select } from '@ngxs/store';
-import * as ErrorActions from './state/error.action';
-import { ErrorSelectors } from './state/error.selector';
+import * as ErrorActions from '../states/error.action';
+import { ErrorSelectors } from '../states/error.selector';
 import { Observable } from 'rxjs';
-import { IError } from './model/error.interface';
+import { IError } from '../models/error.interface';
 
 @Injectable()
 export class ErrorFacade {

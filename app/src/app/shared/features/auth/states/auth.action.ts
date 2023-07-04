@@ -1,6 +1,6 @@
 // import { ISellerForm } from '@app/models/seller/seller.interface';
 
-import { IUser } from '../model/user.interface';
+import { IUser } from '../models/user.interface';
 
 export class SetCurrentUser {
   static readonly type = '[Auth] Sign In Success';

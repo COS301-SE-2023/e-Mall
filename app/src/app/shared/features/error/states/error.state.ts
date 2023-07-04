@@ -1,6 +1,6 @@
 import { State, Action, StateContext } from '@ngxs/store';
 import { SetError, ClearError } from './error.action';
-import { IError } from '../model/error.interface';
+import { IError } from '../models/error.interface';
 import { Injectable } from '@angular/core';
 
 export interface ErrorStateModel {

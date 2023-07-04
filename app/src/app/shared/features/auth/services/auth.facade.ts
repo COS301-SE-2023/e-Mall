@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { AuthSelectors } from './state/auth.selector';
-import { IUser } from './model/user.interface';
-import { AuthService } from './service/auth.service';
-import * as AuthActions from './state/auth.action';
-import { ISellerForm } from '@app/models/seller/seller.interface';
+import { AuthSelectors } from '../states/auth.selector';
+import { IUser } from '../models/user.interface';
+import { AuthService } from './auth.service';
+import * as AuthActions from '../states/auth.action';
+import { ISellerForm } from '@shared/models/seller/seller.interface';
 import { Navigate } from '@ngxs/router-plugin';
-import { SetError } from '@shared/error/state/error.action';
-import { IConsumerForm } from '@app/models/consumer/consumer.interface';
-import { IError } from '@shared/error/model/error.interface';
+import { SetError } from '@shared/features/error/states/error.action';
+import { IConsumerForm } from '@shared/models/consumer/consumer.interface';
+import { IError } from '@shared/features/error/models/error.interface';
 import { StateResetAll, StateClear } from 'ngxs-reset-plugin';
 
 @Injectable()

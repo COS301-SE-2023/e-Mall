@@ -1,4 +1,4 @@
-import { IError } from '../model/error.interface';
+import { IError } from '../models/error.interface';
 
 export class SetError {
   static readonly type = '[Error] Set Error';

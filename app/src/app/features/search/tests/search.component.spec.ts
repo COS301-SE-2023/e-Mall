@@ -24,8 +24,8 @@ import { of, BehaviorSubject, Observable } from 'rxjs';
 import { By } from '@angular/platform-browser';
 
 import { SearchComponent } from '../search.component';
-import { ProductService } from '@app/services/product/product.service';
-import { IProduct } from '@app/models/product/product.interface';
+import { ProductService } from '@shared/servicies/product/product.service';
+import { IProduct } from '@shared/models/product/product.interface';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';

@@ -1,6 +1,6 @@
 import { Selector } from '@ngxs/store';
 import { ErrorState, ErrorStateModel } from './error.state';
-import { IError } from '../model/error.interface';
+import { IError } from '../models/error.interface';
 
 export class ErrorSelectors {
   @Selector([ErrorState])

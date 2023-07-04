@@ -8,13 +8,13 @@ import {
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SignOutComponent } from '@app/features/sign-out/sign-out.component';
-import { AuthService } from '@app/services/auth/service/auth.service';
+import { AuthService } from '@shared/features/auth/services/auth.service';
 import { Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
-import { AuthModule } from '@app/services/auth/auth.module';
+import { AuthModule } from '@shared/features/auth/auth.module';
 import { NgxsModule } from '@ngxs/store';
-import { AuthFacade } from '@app/services/auth/auth.facade';
+import { AuthFacade } from '@shared/features/auth/services/auth.facade';
 
 describe('SignOutComponent', () => {
   let component: SignOutComponent;

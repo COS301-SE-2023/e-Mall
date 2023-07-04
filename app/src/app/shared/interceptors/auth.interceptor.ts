@@ -7,7 +7,7 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AuthFacade } from '@app/services/auth/auth.facade';
+import { AuthFacade } from '@shared/features/auth/services/auth.facade';
 import { Observable, switchMap, catchError, throwError } from 'rxjs';
 @Injectable()
 export class AuthHttpInterceptor implements HttpInterceptor {

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { AuthFacade } from '@app/services/auth/auth.facade';
+import { AuthFacade } from '@shared/features/auth/services/auth.facade';
 
 @Component({
   selector: 'app-sign-in',

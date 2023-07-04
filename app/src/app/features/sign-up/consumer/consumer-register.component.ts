@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 // import { PublicService } from '@app/services/public.service';
 // import { Router} from '@angular/router';
 
-import { AuthService } from '@app/services/auth/service/auth.service';
+import { AuthService } from '@shared/features/auth/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({

@@ -7,7 +7,7 @@ import {
   tick,
 } from '@angular/core/testing';
 
-import { AuthService } from '@app/services/auth/service/auth.service';
+import { AuthService } from '@shared/features/auth/services/auth.service';
 import { Router } from '@angular/router';
 import { SignInComponent } from '@app/features/sign-in/sign-in.component';
 
@@ -16,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { AuthModule } from '@app/services/auth/auth.module';
+import { AuthModule } from '@shared/features/auth/auth.module';
 import { NgxsModule } from '@ngxs/store';
 
 describe('SignInComponent', () => {

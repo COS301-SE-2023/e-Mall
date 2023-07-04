@@ -2,8 +2,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
-import { IProduct } from '@app/models/product/product.interface';
-import { IProductSeller } from '@app/models/product/product-seller.interface';
+import { IProduct } from '@shared/models/product/product.interface';
+import { IProductSeller } from '@shared/models/product/product-seller.interface';
 
 @Injectable({
   providedIn: 'root',

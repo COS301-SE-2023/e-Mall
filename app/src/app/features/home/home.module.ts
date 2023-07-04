@@ -19,8 +19,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
-import { ProductService } from '@app/services/product/product.service';
-import { AuthService } from '@app/services/auth/service/auth.service';
+import { ProductService } from '@shared/servicies/product/product.service';
+import { AuthService } from '@shared/features/auth/services/auth.service';
 import { IonicModule } from '@ionic/angular';
 
 @NgModule({
