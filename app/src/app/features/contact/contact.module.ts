@@ -3,12 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { ContactRoutingModule } from './contact-routing.module';
 import { ContactComponent } from './contact.component';
-import { NavbarModule } from '../../shared/components/navbar/navbar.module';
-import { FooterModule } from '@shared/components/footer/footer.module';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [ContactComponent],
-  imports: [CommonModule, ContactRoutingModule, NavbarModule, FooterModule],
+  imports: [CommonModule, ContactRoutingModule, IonicModule],
   exports: [ContactComponent],
 })
 export class ContactModule {}

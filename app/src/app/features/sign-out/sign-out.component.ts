@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '@app/services/auth/auth.service';
+import { AuthFacade } from '@shared/features/auth/services/auth.facade';
 
 @Component({
   selector: 'app-sign-out',
@@ -11,16 +11,15 @@ import { AuthService } from '@app/services/auth/auth.service';
 export class SignOutComponent implements OnInit, OnDestroy {
   countdown: number;
   intervalId: any;
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private authFacade: AuthFacade) {
     this.countdown = 5;
     // this.user = {} as ISellerForm;
   }
   ngOnInit(): void {
-    this.signOut();
     this.intervalId = setInterval(() => {
       this.countdown--;
       if (this.countdown === 0) {
-        this.router.navigate(['/home']);
+        this.signOut();
       }
     }, 1000);
   }
@@ -28,6 +27,6 @@ export class SignOutComponent implements OnInit, OnDestroy {
     clearInterval(this.intervalId);
   }
   signOut() {
-    this.authService.signOut();
+    this.authFacade.signOut();
   }
 }

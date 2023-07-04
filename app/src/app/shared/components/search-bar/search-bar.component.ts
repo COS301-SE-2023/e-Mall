@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, of, Subscription } from 'rxjs';
-import { IProduct } from '@app/models/product/product.interface';
+import { IProduct } from '@shared/models/product/product.interface';
 import { faker } from '@faker-js/faker';
 import { NavigationExtras, Router } from '@angular/router';
 @Component({

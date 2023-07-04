@@ -7,24 +7,27 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '@app/services/auth/auth.service';
+import { AuthFacade } from '@shared/features/auth/services/auth.facade';
 import { Observable, switchMap, catchError, throwError } from 'rxjs';
 @Injectable()
 export class AuthHttpInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private AuthFacade: AuthFacade) {}
   intercept(
     req: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     const authHeader = req.headers.get('Authorization');
     if (authHeader) {
-      return this.authService.getAccessTokenCognito().pipe(
-        switchMap(jwtToken => {
-          const authReq = req.clone({
-            headers: req.headers.set('Authorization', `Bearer ${jwtToken}`),
-          });
-          return next.handle(authReq);
+      return this.AuthFacade.getCurrentUser().pipe(
+        switchMap(user => {
+          if (user) {
+            const authReq = req.clone({
+              headers: req.headers.set('Authorization', `Bearer ${user.token}`),
+            });
+            return next.handle(authReq);
+          } else {
+            throw new Error('Token not found');
+          }
         }),
         catchError((error: HttpErrorResponse) => {
           if (error.status === 401) {

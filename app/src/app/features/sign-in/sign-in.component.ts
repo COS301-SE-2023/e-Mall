@@ -1,21 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '@app/services/auth/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { AuthFacade } from '@shared/features/auth/services/auth.facade';
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent implements OnInit, OnDestroy {
   loading: boolean;
   signInForm!: FormGroup;
   formSubmitted = false;
-
+  private subs: Subscription = new Subscription();
   constructor(
     private router: Router,
-    private AuthService: AuthService,
+    private authFacade: AuthFacade,
     private formBuilder: FormBuilder
   ) {
     this.loading = false;
@@ -30,6 +31,11 @@ export class SignInComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
+  }
+  ngOnDestroy() {
+    if (this.subs) {
+      this.subs.unsubscribe();
+    }
   }
 
   get f() {
@@ -50,11 +56,15 @@ export class SignInComponent implements OnInit {
   }
 
   public signIn(): void {
-    this.AuthService.signIn(
+    this.authFacade.signIn(
       this.getFormValue('email'),
       this.getFormValue('password')
-    ).subscribe(() => {
-      this.router.navigate(['/home']);
-    });
+    );
+    // this.subs = this.AuthService.signIn(
+    //   this.getFormValue('email'),
+    //   this.getFormValue('password')
+    // ).subscribe(() => {
+    //   this.router.navigate(['/home']);
+    // });
   }
 }

@@ -1,26 +1,22 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnInit } from '@angular/core';
-//import { AuthService } from '@app/services/auth/auth.service';
+import { Component } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
+import { AuthFacade } from '@shared/features/auth/services/auth.facade';
+import { IUser } from '@shared/features/auth/models/user.interface';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit {
-  isAuthenticated = false;
+export class NavbarComponent {
+  isAuthenticated: Observable<IUser | null>;
   isCategoryOpened = false;
-  //private authService: AuthService,
-  constructor( private router: Router) {}
-
-  ngOnInit(): void {
-   /*this.authService.isAuthenticated().subscribe(isAuthenticated => {
-      this.isAuthenticated = isAuthenticated;
-      console.log('Home [Auth]: ', isAuthenticated);
-    });*/
-    console.log('Navbar')
+  constructor(private router: Router, private authFacade: AuthFacade) {
+    this.isAuthenticated = this.authFacade.getCurrentUser();
   }
+
   search(searchQuery: string): void {
     // Create the navigation extras object with the search query as a parameter
     const navigationextras: NavigationExtras = {

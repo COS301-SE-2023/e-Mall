@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ISellerForm } from '@app/models/seller/seller.interface';
-import { AuthService } from '@app/services/auth/auth.service';
+import { ISellerForm } from '@shared/models/seller/seller.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthFacade } from '@shared/features/auth/services/auth.facade';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +19,7 @@ export class SellerRegisterComponent implements OnInit {
   // constructor(private router: Router, ) {
   constructor(
     private router: Router,
-    private authService: AuthService,
+    private authFacade: AuthFacade,
     private formBuilder: FormBuilder
   ) {
     this.loading = false;
@@ -96,10 +96,7 @@ export class SellerRegisterComponent implements OnInit {
       password: this.getFormValue('password'),
     };
     // this.authService.sellerSignUp(data);
-    this.authService.sellerSignUp(data).subscribe(data => {
-      console.log('data: ', data);
-      this.router.navigate(['/pending']);
-    });
+    this.authFacade.signUp(data);
   }
 
   /* public confirmSignUp(): void {
