@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { AuthFacade } from '@shared/features/auth/services/auth.facade';
 import { IUser } from '@shared/features/auth/models/user.interface';

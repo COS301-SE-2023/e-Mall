@@ -37,7 +37,11 @@
           {
             "selector": "variable",
             "modifiers": ["const"],
-            "format": ["camelCase", "UPPER_CASE", "lowercase"]
+            "format": null,
+            "custom":{
+              "regex":"^(?:[a-z][a-zA-Z]*|[A-Z]+|[a-z]+)$",
+              "match": true
+            }
           },
           {
             "selector": "class",

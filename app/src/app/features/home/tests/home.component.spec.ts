@@ -6,13 +6,11 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { HomeComponent } from '@app/features/home/home.component';
-import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let httpTestingController: HttpTestingController;
-  let router: Router;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -22,8 +20,6 @@ describe('HomeComponent', () => {
 
     component = TestBed.inject(HomeComponent);
     httpTestingController = TestBed.inject(HttpTestingController);
-
-    router = TestBed.inject(Router);
   });
 
   afterEach(() => {

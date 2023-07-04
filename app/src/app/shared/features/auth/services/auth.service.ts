@@ -59,6 +59,7 @@ export class AuthService {
         return this.cognitoSignUp(form.email, password!, form.type);
       })
       .then(res => {
+        //TODO: need to see what is returned from cognito
         const user: IUser = {
           email: form.email,
           token: '1',

@@ -41,12 +41,7 @@ describe('ContactComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-  afterEach(() => {
-    // Find the form element
-    const form = document.querySelector('form');
 
-    // Remove the form element and its parent div from the body of the document
-  });
   it('should create the ContactComponent', () => {
     expect(component).toBeTruthy();
   });

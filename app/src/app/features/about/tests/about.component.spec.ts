@@ -7,7 +7,6 @@ import { FooterModule } from '@shared/components/footer/footer.module';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { ActivatedRoute } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler';
 import { IonicModule } from '@ionic/angular';
 
 describe('AboutComponent', () => {

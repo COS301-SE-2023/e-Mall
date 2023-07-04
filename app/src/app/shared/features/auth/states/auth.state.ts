@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { Action, State, StateContext } from '@ngxs/store';
 import { AuthService } from '../services/auth.service';
 import { IUser } from '../models/user.interface';
 import * as AuthActions from './auth.action';
-import { Navigate } from '@ngxs/router-plugin';
 
 export interface AuthStateModel {
   user: IUser | null;

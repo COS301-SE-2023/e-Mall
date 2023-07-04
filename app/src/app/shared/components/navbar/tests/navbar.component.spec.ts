@@ -15,18 +15,11 @@ import { ViewSizeModule } from '@shared/directives/view-size/view-size.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicModule } from '@ionic/angular';
-import { AuthState } from '@shared/features/auth/states/auth.state';
-import { NgxsModule, Store } from '@ngxs/store';
+import { NgxsModule } from '@ngxs/store';
 import { AuthModule } from '@shared/features/auth/auth.module';
-import { AuthFacade } from '@shared/features/auth/services/auth.facade';
-import { AuthService } from '@shared/features/auth/services/auth.service';
-import { fakeAsync, tick } from '@angular/core/testing';
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
-  // let store: Store;
-  // let authFacade: AuthFacade;
-  // let authService: AuthService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
