@@ -82,3 +82,26 @@ class ProductSellerProdUpdateAPIView(APIView):
 
         except ProductSeller.DoesNotExist:
             return JsonResponse({"error": "ProductSeller not found"}, status=404)
+
+class ProductSellerProdDeleteAPIView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        prod_id = request.data.get("prod_id")
+        seller_name = request.data.get("seller_name")
+        try:
+            # Fetch the ProductSeller object based on prod_id and seller_name
+            productseller = ProductSeller.objects.get(
+                seller__business_name=seller_name, product__id=prod_id
+            )
+
+            # Delete the ProductSeller object
+            productseller.delete()
+
+            # Return a success response
+            return JsonResponse(
+                {"message": "ProductSeller deleted successfully"}
+            )
+
+        except ProductSeller.DoesNotExist:
+            return JsonResponse({"error": "ProductSeller not found"}, status=404)
