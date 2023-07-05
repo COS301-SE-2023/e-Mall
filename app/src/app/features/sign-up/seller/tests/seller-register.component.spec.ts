@@ -4,16 +4,16 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SellerRegisterComponent } from '@app/features/sign-up/seller/seller-register.component';
 
-import { AuthService } from '@shared/features/auth/services/auth.service';
+import { AuthService } from '@app/features/auth/services/auth.service';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { AuthFacade } from '@shared/features/auth/services/auth.facade';
-import { AuthModule } from '@shared/features/auth/auth.module';
+import { AuthFacade } from '@app/features/auth/services/auth.facade';
+import { AuthModule } from '@app/features/auth/auth.module';
 import { NgxsModule, Store } from '@ngxs/store';
-import { AuthState } from '@shared/features/auth/states/auth.state';
+import { AuthState } from '@app/features/auth/states/auth.state';
 describe('RegisterComponent', () => {
   let component: SellerRegisterComponent;
   let fixture: ComponentFixture<SellerRegisterComponent>;

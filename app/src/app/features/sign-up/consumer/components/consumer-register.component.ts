@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 // import { PublicService } from '@app/services/public.service';
 // import { Router} from '@angular/router';
 
-import { AuthService } from '@shared/features/auth/services/auth.service';
+import { AuthService } from '@app/features/auth/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -15,7 +15,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ConsumerRegisterComponent implements OnInit {
   loading: boolean;
   isConfirm: boolean;
-
+  registerForm!: FormGroup;
   //   user: any;
   // user: ISellerForm;
 

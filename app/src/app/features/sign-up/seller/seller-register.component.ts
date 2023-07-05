@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ISellerForm } from '@shared/models/seller/seller.interface';
+import { ISellerForm } from '@features/sign-up/seller/models/seller.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthFacade } from '@shared/features/auth/services/auth.facade';
+import { AuthFacade } from '@app/features/auth/services/auth.facade';
 
 @Component({
   selector: 'app-register',
