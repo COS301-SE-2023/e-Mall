@@ -51,8 +51,6 @@ const routes: Routes = [
     component: ProductComponent,
   },
   { path: 'policies-and-privacy', redirectTo: '/construction' },
-  { path: 'seller-dashboard',  loadChildren: () =>
-  import('@app/features/seller-dashboard/seller-dashboard.module').then(m => m.SellerDashboardModule),},
   { path: 'ads', redirectTo: '/construction' },
   {
     path: '**',
