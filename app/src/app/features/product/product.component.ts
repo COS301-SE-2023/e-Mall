@@ -1,20 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Component, Input, OnInit } from '@angular/core';
-import { IProductSeller } from '@app/models/product/product-seller.interface';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { IProductSeller } from '@shared/models/product/product-seller.interface';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 
 import { FormControl } from '@angular/forms';
-import { IProduct } from '@app/models/product/product.interface';
-import { ProductService } from '@app/services/product/product.service';
+import { IProduct } from '@shared/models/product/product.interface';
+import { ProductService } from '@shared/servicies/product/product.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss'],
 })
-export class ProductComponent implements OnInit {
-  @Input() prod_id!: number;
+export class ProductComponent implements OnInit, OnDestroy {
+  prod_id: number;
 
   product$: Observable<IProduct> | undefined;
   sellers$: Observable<IProductSeller[]> | undefined;
@@ -26,9 +27,32 @@ export class ProductComponent implements OnInit {
 
   selected: FormControl;
   divClicked = false;
-
-  constructor(private productService: ProductService) {
+  private paramMapSubscription: Subscription;
+  constructor(
+    private productService: ProductService,
+    private route: ActivatedRoute
+  ) {
     this.selected = new FormControl('default');
+    this.paramMapSubscription = new Subscription();
+    this.prod_id = -1;
+  }
+  ngOnInit(): void {
+    this.paramMapSubscription = this.route.queryParamMap.subscribe(params => {
+      const id = params.get('prod_id');
+      if (id) {
+        this.prod_id = +id;
+        this.product$ = this.productService.getProductData(this.prod_id);
+        this.sellers$ = this.productService.getSellerList(
+          this.prod_id,
+          'default'
+        );
+        this.currency$ = of('ZAR');
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.paramMapSubscription.unsubscribe();
   }
 
   /*
@@ -45,14 +69,6 @@ export class ProductComponent implements OnInit {
     return this.isExpanded(seller) ? 'Collapse panel' : 'Expand panel';
   }*/
 
-  ngOnInit() {
-    const id = this.prod_id;
-    if (id) {
-      this.product$ = this.productService.getProductData(id);
-      this.sellers$ = this.productService.getSellerList(id, 'default');
-      this.currency$ = of('ZAR');
-    }
-  }
   getImgs(imgList?: string[]): string[] {
     //remove following when no need to have mock data
     if (!imgList || imgList.length <= 1)

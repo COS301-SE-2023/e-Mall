@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 //import { AuthService } from '@app/services/auth/auth.service';
-import { ProductService } from '@app/services/product/product.service';
-import { IProduct } from '@app/models/product/product.interface';
+import { ProductService } from '@shared/servicies/product/product.service';
+import { IProduct } from '@shared/models/product/product.interface';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 export class HomeComponent implements OnInit {
   popProducts$: Observable<IProduct[]> | undefined;
   forYouProducts$: Observable<IProduct[]> | undefined;
-  isAuthenticated = false;
+  // isAuthenticated = false;
   images = 'assets/images/comingSoon.jpg';
   // isAuthenticated$;
   constructor(

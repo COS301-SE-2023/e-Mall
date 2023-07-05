@@ -5,7 +5,9 @@ from productseller.models import ProductSeller
 from product.models import Product
 from django.urls import reverse
 from rest_framework import status
+
 import json
+
 
 
 class ProductSellerFrontendAPIViewTestCase(APITestCase):
@@ -164,6 +166,7 @@ class ProductSellerBackendAPIViewTestCase(APITestCase):
         self.assertEqual(response.data[0]["discount_rate"], "0.10")
 
 
+
 class ProductSellerProdUpdateAPIViewTestCase(APITestCase):
     def setUp(self):
         self.client = APIClient()
@@ -229,3 +232,61 @@ class ProductSellerProdDeleteAPIViewTestCase(APITestCase):
         self.assertEqual(
             response_data["message"], "ProductSeller deleted successfully"
         )
+
+class ProductSellerDashboardAPIViewTestCase(APITestCase):
+    def setUp(self):
+        self.url = reverse("sellerdashboard")
+
+    def test_get_products_with_default_seller_name(self):
+        client = APIClient()
+        response = client.get(self.url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # Add more assertions to validate the response data as needed
+
+    def test_get_products_with_custom_seller_name(self):
+        client = APIClient()
+        response = client.get(self.url, {"seller_name": "Takealot"})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # Add more assertions to validate the response data as needed
+
+    def test_get_products_with_search(self):
+        client = APIClient()
+        response = client.get(self.url, {"search": "product_name"})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # Add more assertions to validate the response data as needed
+
+    def test_get_products_with_numeric_search(self):
+        client = APIClient()
+        response = client.get(self.url, {"search": "123"})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # Add more assertions to validate the response data as needed
+
+    def test_get_products_with_sorting(self):
+        client = APIClient()
+        response = client.get(self.url, {"sort": "price"})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # Add more assertions to validate the response data as needed
+
+    def test_get_products_with_filtering(self):
+        client = APIClient()
+        response = client.get(
+            self.url,
+            {"filter_in_stock": "True", "filter_category": "category1,,,category2"},
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # Add more assertions to validate the response data as needed
+
+    def test_get_products_with_pagination(self):
+        client = APIClient()
+        response = client.get(self.url, {"page": 1, "per_page": 5})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # Add more assertions to validate the response data as needed
+
+    def test_get_products_with_price_filter(self):
+        client = APIClient()
+        response = client.get(
+            self.url, {"filter_price_min": 10, "filter_price_max": 100}
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # Add more assertions to validate the response data as needed
+

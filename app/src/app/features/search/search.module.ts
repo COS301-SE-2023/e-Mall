@@ -12,21 +12,18 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { NavbarModule } from '@shared/components/navbar/navbar.module';
-import { FooterModule } from '@shared/components/footer/footer.module';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [SearchComponent],
   imports: [
     CommonModule,
     SearchRoutingModule,
-    NavbarModule,
-    FooterModule,
     MatExpansionModule,
     MatFormFieldModule,
     MatSelectModule,
@@ -43,6 +40,7 @@ import { MatRadioModule } from '@angular/material/radio';
     FormsModule,
     ReactiveFormsModule,
     MatRadioModule,
+    IonicModule,
   ],
   exports: [SearchComponent],
 })

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { ProductService } from '@app/services/product/product.service';
-import { IProduct } from '@app/models/product/product.interface';
+import { ProductService } from '@shared/servicies/product/product.service';
+import { IProduct } from '@shared/models/product/product.interface';
 import { tap } from 'rxjs/operators';
 import {
   Observable,
@@ -19,7 +19,7 @@ import { FormControl } from '@angular/forms';
 export class SearchComponent implements OnInit, OnDestroy {
   searchQuery!: string;
   searchResults$: Observable<IProduct[]> | undefined;
-  isAuthenticated!: boolean;
+  // isAuthenticated!: boolean;
   min_price_in_stock!: number;
   brandOptions: string[] = []; // Populate this array with the brand names based on your search results
   sellerOptions: string[] = []; // Populate this array with the seller names based on your search results
