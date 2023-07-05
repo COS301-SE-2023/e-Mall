@@ -5,35 +5,35 @@
 </ion-header>
 
 <ion-content>
-  <div class="todays-sales">
-    <h3>Advertiser 1</h3>
-    <ion-card>
+  <div class="todays-sales" style="padding-top: 50px;">
+
+    <ion-card style="background-color: #E598C4;">
       <ion-card-header>
         <ion-icon name="cart"></ion-icon>
         <ion-card-title>Products Clicked</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <h2>{{ productsClicked }}</h2>
+        <h1>{{ productsClicked }}</h1>
       </ion-card-content>
     </ion-card>
 
-    <ion-card>
+    <ion-card style="background-color: #E5BB68;">
       <ion-card-header>
         <ion-icon name="globe"></ion-icon>
         <ion-card-title>Website Clicks</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <h2>{{ websiteClicks }}</h2>
+        <h1>{{ websiteClicks }}</h1>
       </ion-card-content>
     </ion-card>
 
-    <ion-card>
+    <ion-card style="background-color: #A7DF82;">
       <ion-card-header>
         <ion-icon name="heart"></ion-icon>
         <ion-card-title>Favourited</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <h2>{{ favourited }}</h2>
+        <h1>{{ favourited }}</h1>
       </ion-card-content>
     </ion-card>
   </div>
@@ -42,7 +42,7 @@
     <canvas id="product-clicks-chart"></canvas>
   </div>
 
-  <div class="product-performance">
+  <div class="product-performance" style="padding-bottom: 100px;">
     <canvas id="product-performance-chart"></canvas>
   </div>
 </ion-content>
