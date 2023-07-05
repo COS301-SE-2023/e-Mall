@@ -12,11 +12,13 @@ import { ConsumerRegisterModule } from './features/sign-up/consumer/consumer-reg
 import { SignOutModule } from './features/sign-out/sign-out.module';
 import { FooterModule } from './shared/components/footer/footer.module';
 import { AboutModule } from './features/about/about.module';
+import { SalesModule } from './features/sales/sales.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { RouteReuseStrategy } from '@angular/router';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { NgxsModule } from '@ngxs/store';
+import { SellerDashboardModule } from './features/seller-dashboard/seller-dashboard.module';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { environment } from 'environments/env';
 import {
@@ -69,6 +71,9 @@ import { NgxsResetPluginModule } from 'ngxs-reset-plugin';
     FooterModule,
     NavbarModule,
     AboutModule,
+    
+    SalesModule,
+    SellerDashboardModule,
     MatTooltipModule,
   ],
 

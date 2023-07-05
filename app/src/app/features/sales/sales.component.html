@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Seller Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="todays-sales">
+    <h3>Advertiser 1</h3>
+    <ion-card>
+      <ion-card-header>
+        <ion-icon name="cart"></ion-icon>
+        <ion-card-title>Products Clicked</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <h2>{{ productsClicked }}</h2>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-icon name="globe"></ion-icon>
+        <ion-card-title>Website Clicks</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <h2>{{ websiteClicks }}</h2>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-icon name="heart"></ion-icon>
+        <ion-card-title>Favourited</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <h2>{{ favourited }}</h2>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div class="product-graph">
+    <canvas id="product-clicks-chart"></canvas>
+  </div>
+
+  <div class="product-performance">
+    <canvas id="product-performance-chart"></canvas>
+  </div>
+</ion-content>
