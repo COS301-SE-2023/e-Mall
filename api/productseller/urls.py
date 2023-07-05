@@ -3,6 +3,6 @@ from .views import ProductSellerFrontendAPIView, ProductSellerBackendAPIView, Pr
 urlpatterns = [
     path("frontend/", ProductSellerFrontendAPIView.as_view()),
     path("backend/", ProductSellerBackendAPIView.as_view()),
-    path("produpdate/", ProductSellerProdUpdateAPIView.as_view()),
-    path("proddelete/", ProductSellerProdDeleteAPIView.as_view()),
+    path("produpdate/", ProductSellerProdUpdateAPIView.as_view(),name="produpdate"),
+    path("proddelete/", ProductSellerProdDeleteAPIView.as_view(),name="proddelete"),
 ]
