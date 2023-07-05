@@ -50,6 +50,8 @@ class ProductSellerDashboardAPIView(APIView):
             if request.GET.get("seller_name")
             else "Takealot"
         )
+        # Input for search
+        search = request.GET.get("search")
         # sorting options[price, discount, name]
         sort = request.GET.get("sort")
 
@@ -67,6 +69,13 @@ class ProductSellerDashboardAPIView(APIView):
 
         # Filtering of the products
         filters = Q(seller__business_name=seller_name)
+
+        # searching
+        if search:
+            if search.isnumeric():
+                filters &= Q(product__id=search)
+            else:
+                filters &= Q(product__name__icontains=search)
 
         if filter_in_stock:
             filters &= Q(in_stock=filter_in_stock)
