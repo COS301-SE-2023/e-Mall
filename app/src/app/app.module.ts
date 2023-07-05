@@ -18,7 +18,6 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { RouteReuseStrategy } from '@angular/router';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { NgxsModule } from '@ngxs/store';
-import { SellerDashboardModule } from './features/seller-dashboard/seller-dashboard.module';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { environment } from 'environments/env';
 import {
@@ -73,7 +72,6 @@ import { NgxsResetPluginModule } from 'ngxs-reset-plugin';
     AboutModule,
     
     SalesModule,
-    SellerDashboardModule,
     MatTooltipModule,
   ],
 
