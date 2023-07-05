@@ -4,8 +4,14 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import ProductSeller
 from .serializers import ProductSellerSerializer
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
+from rest_framework.permissions import AllowAny
+
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 
 # Create your views here.
@@ -43,6 +49,67 @@ class ProductSellerBackendAPIView(APIView):
         return Response(serializer.data)
 
 
+
+class ProductSellerProdUpdateAPIView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        prod_id = request.data.get("prod_id")
+        seller_name = request.data.get("seller_name")
+        try:
+            # Fetch the ProductSeller object based on prod_id and seller_name
+            productseller = ProductSeller.objects.get(
+                seller__business_name=seller_name, product__id=prod_id
+            )
+
+            # Update the fields of the ProductSeller object
+            productseller.original_price = request.data.get(
+                "original_price", productseller.original_price
+            )
+            productseller.price = request.data.get("price", productseller.price)
+            productseller.discount = request.data.get(
+                "discount", productseller.discount
+            )
+            productseller.discount_rate = request.data.get(
+                "discount_rate", productseller.discount_rate
+            )
+            productseller.in_stock = request.data.get(
+                "in_stock", productseller.in_stock
+            )
+
+            # Save the updated ProductSeller object
+            productseller.save()
+
+            # Return a success response
+            return JsonResponse(
+                {"message": "ProductSeller details updated successfully"}
+            )
+
+        except ProductSeller.DoesNotExist:
+            return JsonResponse({"error": "ProductSeller not found"}, status=404)
+
+class ProductSellerProdDeleteAPIView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        prod_id = request.data.get("prod_id")
+        seller_name = request.data.get("seller_name")
+        try:
+            # Fetch the ProductSeller object based on prod_id and seller_name
+            productseller = ProductSeller.objects.get(
+                seller__business_name=seller_name, product__id=prod_id
+            )
+
+            # Delete the ProductSeller object
+            productseller.delete()
+
+            # Return a success response
+            return JsonResponse(
+                {"message": "ProductSeller deleted successfully"}
+            )
+
+        except ProductSeller.DoesNotExist:
+            return JsonResponse({"error": "ProductSeller not found"}, status=404)
 class ProductSellerDashboardAPIView(APIView):
     def get(self, request):
         seller_name = (
@@ -122,3 +189,4 @@ class ProductSellerDashboardAPIView(APIView):
 
         serializer = ProductSellerSerializer(paginated_products, many=True)
         return Response({"data": serializer.data, "total_count": total_count})
+

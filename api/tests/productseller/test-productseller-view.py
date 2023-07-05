@@ -6,6 +6,9 @@ from product.models import Product
 from django.urls import reverse
 from rest_framework import status
 
+import json
+
+
 
 class ProductSellerFrontendAPIViewTestCase(APITestCase):
     def setUp(self):
@@ -163,6 +166,73 @@ class ProductSellerBackendAPIViewTestCase(APITestCase):
         self.assertEqual(response.data[0]["discount_rate"], "0.10")
 
 
+
+class ProductSellerProdUpdateAPIViewTestCase(APITestCase):
+    def setUp(self):
+        self.client = APIClient()
+        self.seller = Seller.objects.create(
+            business_name="Test Seller"
+        )  # Create a test seller
+        self.product = Product.objects.create(
+            name="Test Product"
+        )  # Create a test product
+        self.product_seller = ProductSeller.objects.create(
+            seller=self.seller,  # Assign the created seller to the product seller
+            product=self.product,  # Assign the created product to the product seller
+            original_price=100,
+            price=90,
+            discount=10,
+            discount_rate=0.1,
+            in_stock=True,
+        )
+
+    def test_update_product_seller(self):
+        data = {
+            "prod_id": self.product.id,
+            "seller_name": self.seller.business_name,
+            "original_price": 200,
+            "price": 180,
+            "discount": 20,
+            "discount_rate": 0.1,
+            "in_stock": False,
+        }
+        response = self.client.post(reverse("produpdate"), data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(
+            response_data["message"], "ProductSeller details updated successfully"
+        )
+
+
+class ProductSellerProdDeleteAPIViewTestCase(APITestCase):
+    def setUp(self):
+        self.client = APIClient()
+        self.seller = Seller.objects.create(business_name="Test Seller")  # Create a test seller
+        self.product = Product.objects.create(name="Test Product")  # Create a test product
+        self.product_seller = ProductSeller.objects.create(
+            seller=self.seller,  # Assign the created seller to the product seller
+            product=self.product,  # Assign the created product to the product seller
+            original_price=100,
+            price=90,
+            discount=10,
+            discount_rate=0.1,
+            in_stock=True,
+        )
+
+    def test_delete_product_seller(self):
+        data = {
+            "prod_id": self.product.id,
+            "seller_name": self.seller.business_name,
+        }
+        response = self.client.post(
+            reverse("proddelete"), data, format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(
+            response_data["message"], "ProductSeller deleted successfully"
+        )
+
 class ProductSellerDashboardAPIViewTestCase(APITestCase):
     def setUp(self):
         self.url = reverse("sellerdashboard")
@@ -219,3 +289,4 @@ class ProductSellerDashboardAPIViewTestCase(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # Add more assertions to validate the response data as needed
+
