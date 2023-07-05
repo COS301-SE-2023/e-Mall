@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 // import { PublicService } from '@app/services/public.service';
 // import { Router} from '@angular/router';
 
-import { AuthService } from '@app/features/auth/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthFacade } from '@features/auth/services/auth.facade';
 
 @Component({
   selector: 'app-consumer-register',
@@ -15,34 +15,32 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ConsumerRegisterComponent implements OnInit {
   loading: boolean;
   isConfirm: boolean;
+  user: any;
   registerForm!: FormGroup;
-  //   user: any;
-  // user: ISellerForm;
-
-  //   constructor(private router: Router, private pService: PublicService) {
-
-  // user: IUser;
-  signUpForm!: FormGroup;
   formSubmitted = false;
-
+  // constructor(private router: Router, ) {
   constructor(
     private router: Router,
-    private cognitoService: AuthService,
+    private authFacade: AuthFacade,
     private formBuilder: FormBuilder
   ) {
     this.loading = false;
     this.isConfirm = false;
-    // this.user = { showPassword: false };
-
+    this.user = { showPassword: false };
     // this.user = {} as ISellerForm;
   }
 
   ngOnInit() {
-    this.signUpForm = this.formBuilder.group(
+    this.registerForm = this.formBuilder.group(
       {
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(8)]],
         cpassword: ['', Validators.required],
+        website: ['', Validators.required],
+        feed: [''],
+        typeOfBusiness: ['', Validators.required],
+        catalogSize: ['', Validators.required],
+        sizeOfBusiness: ['', Validators.required],
       },
       {
         validators: this.passwordMatchValidator,
@@ -51,14 +49,17 @@ export class ConsumerRegisterComponent implements OnInit {
   }
 
   get f() {
-    return this.signUpForm.controls;
+    return this.registerForm.controls;
   }
 
   onSubmit() {
     // Handle form submission
-    if (this.signUpForm.valid) {
+    if (this.registerForm.valid) {
       console.log('Form submitted');
-      this.router.navigate(['/']);
+
+      //console.log(this.registerForm.value);
+      // this.router.navigate(['/pending'])
+      this.signUp();
     } else {
       console.log('Form is invalid!');
       this.formSubmitted = true;
@@ -76,20 +77,28 @@ export class ConsumerRegisterComponent implements OnInit {
       formGroup.get('cpassword')?.setErrors(null);
     }
   }
-
+  private getFormValue(field: string) {
+    return this.registerForm.controls[field].value;
+  }
   public signUp(): void {
-    /*  this.loading = true;
-    this.cognitoService
-      .signUp(this.user)
-      .then(() => {
-        this.loading = false;
-        this.isConfirm = true;
-      })
-      .catch(() => {
-        this.loading = false;
-      });*/
-
-    this.router.navigate(['/home']);
+    //      this.loading = true;
+    // const data: ISellerForm = {
+    //   // username: this.getFormValue('email').split('@')[0],
+    //   email: this.getFormValue('email'),
+    //   type: 'seller',
+    //   // reg_no: '123456023452',
+    //   // business_name: 'Test2 Business',
+    //   business_type: this.getFormValue('typeOfBusiness'),
+    //   catalogue_size: this.getFormValue('catalogSize'),
+    //   no_employees: this.getFormValue('sizeOfBusiness'),
+    //   // status: 'PENDING',
+    //   // is_verified: false,
+    //   website: this.getFormValue('website'),
+    //   feed_url: this.getFormValue('feed'),
+    //   password: this.getFormValue('password'),
+    // };
+    // this.authService.sellerSignUp(data);
+    // this.authFacade.signUp(data);
   }
 
   /* public confirmSignUp(): void {
@@ -97,7 +106,7 @@ export class ConsumerRegisterComponent implements OnInit {
     this.cognitoService
       .confirmSignUp(this.user)
       .then(() => {
-        this.router.navigate(['/signIn']);
+        this.router.navigate(['/register2']);
       })
       .catch(() => {
         this.loading = false;

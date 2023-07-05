@@ -19,6 +19,7 @@ import { IProduct } from '@shared/models/product/product.interface';
 import { of } from 'rxjs';
 import { IProductSeller } from '@shared/models/product/product-seller.interface';
 import { IonicModule } from '@ionic/angular';
+import { NgxsModule } from '@ngxs/store';
 
 describe('ProductComponent', () => {
   let component: ProductComponent;
@@ -39,6 +40,7 @@ describe('ProductComponent', () => {
         MatCardModule,
         MatSelectModule,
         MatExpansionModule,
+        NgxsModule.forRoot([]),
         NavbarModule,
         FooterModule,
         IonicModule,

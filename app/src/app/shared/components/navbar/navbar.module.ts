@@ -13,6 +13,8 @@ import { ViewSizeModule } from '@shared/directives/view-size/view-size.module';
 import { HttpClientModule } from '@angular/common/http';
 //import { AuthService } from '@app/services/auth/auth.service';
 import { IonicModule } from '@ionic/angular';
+import { AuthModule } from '@features/auth/auth.module';
+import { NgxsModule } from '@ngxs/store';
 
 @NgModule({
   declarations: [NavbarComponent],
@@ -30,6 +32,7 @@ import { IonicModule } from '@ionic/angular';
     MatFormFieldModule,
     MatInputModule,
     IonicModule,
+    AuthModule,
   ],
   //providers: [AuthService],
   exports: [NavbarComponent],

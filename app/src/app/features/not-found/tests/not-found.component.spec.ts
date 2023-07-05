@@ -3,9 +3,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NotFoundComponent } from '@app/features/not-found/not-found.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { NotFoundModule } from '../not-found.module';
+import { NgxsModule } from '@ngxs/store';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { By } from '@angular/platform-browser';
 
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
@@ -14,7 +17,13 @@ describe('NotFoundComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [],
-      imports: [IonicModule, NotFoundModule, RouterTestingModule],
+      imports: [
+        // IonicModule,
+        BrowserAnimationsModule,
+        NgxsModule.forRoot([]),
+        RouterTestingModule,
+        NotFoundModule,
+      ],
     }).compileComponents();
   });
 
@@ -38,9 +47,10 @@ describe('NotFoundComponent', () => {
   it('should navigate to the homepage on button click', () => {
     const router = TestBed.inject(Router);
     spyOn(router, 'navigateByUrl');
+    const debugEl = fixture.debugElement;
+    const backButton = debugEl.query(By.css('a[routerLink="/home"]'));
 
-    const backButton = fixture.nativeElement.querySelector('a');
-    backButton.click();
+    backButton.nativeElement.click();
 
     expect(router.navigateByUrl).toHaveBeenCalledWith(
       jasmine.stringMatching(/\/home/),

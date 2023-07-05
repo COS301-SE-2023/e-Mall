@@ -8,6 +8,7 @@ import { ConstructionRoutingModule } from '@app/features/construction/constructi
 import { ActivatedRoute } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicModule } from '@ionic/angular';
+import { NgxsModule } from '@ngxs/store';
 describe('ConstructionComponent', () => {
   let component: ConstructionComponent;
   let fixture: ComponentFixture<ConstructionComponent>;
@@ -17,6 +18,7 @@ describe('ConstructionComponent', () => {
       imports: [
         BrowserAnimationsModule,
         CommonModule,
+        NgxsModule.forRoot([]),
         ConstructionRoutingModule,
         NavbarModule,
         FooterModule,

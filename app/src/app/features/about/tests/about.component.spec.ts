@@ -8,6 +8,8 @@ import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { ActivatedRoute } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicModule } from '@ionic/angular';
+import { AuthModule } from '../../auth/auth.module';
+import { NgxsModule } from '@ngxs/store';
 
 describe('AboutComponent', () => {
   let component: AboutComponent;
@@ -18,6 +20,7 @@ describe('AboutComponent', () => {
       imports: [
         BrowserAnimationsModule,
         CommonModule,
+        NgxsModule.forRoot([]),
         AboutRoutingModule,
         NavbarModule,
         FooterModule,
