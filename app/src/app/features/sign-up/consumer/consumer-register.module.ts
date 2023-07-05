@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ConsumerRegisterRoutingModule } from './consumer-register-routing.module';
-import { ConsumerRegisterComponent } from './consumer-register.component';
+import { ConsumerRegisterComponent } from './components/consumer-register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 

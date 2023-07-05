@@ -7,8 +7,8 @@ import {
 } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { ErrorFacade } from '@shared/features/error/services/error.facade';
-import { IError } from '@shared/features/error/models/error.interface';
+import { ErrorFacade } from '@app/features/error/services/error.facade';
+import { IError } from '@app/features/error/models/error.interface';
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
   constructor(private errorFacade: ErrorFacade) {}

@@ -6,11 +6,11 @@ import { AuthSelectors } from '../states/auth.selector';
 import { IUser } from '../models/user.interface';
 import { AuthService } from './auth.service';
 import * as AuthActions from '../states/auth.action';
-import { ISellerForm } from '@shared/models/seller/seller.interface';
+import { ISellerForm } from '@features/sign-up/seller/models/seller.interface';
 import { Navigate } from '@ngxs/router-plugin';
-import { SetError } from '@shared/features/error/states/error.action';
-import { IConsumerForm } from '@shared/models/consumer/consumer.interface';
-import { IError } from '@shared/features/error/models/error.interface';
+import { SetError } from '@app/features/error/states/error.action';
+import { IConsumerForm } from '@features/sign-up/consumer/models/consumer.interface';
+import { IError } from '@app/features/error/models/error.interface';
 import { StateResetAll, StateClear } from 'ngxs-reset-plugin';
 
 @Injectable()

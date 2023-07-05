@@ -17,8 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationExtras, Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { AuthModule } from '@shared/features/auth/auth.module';
-import { AuthState } from '@shared/features/auth/states/auth.state';
+import { AuthModule } from '@app/features/auth/auth.module';
+import { AuthState } from '@app/features/auth/states/auth.state';
 import { NgxsModule } from '@ngxs/store';
 
 describe('NavbarComponentIntegration', () => {

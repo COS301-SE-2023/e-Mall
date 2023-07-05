@@ -30,6 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
 import { IonicModule } from '@ionic/angular';
+import { NgxsModule } from '@ngxs/store';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -75,6 +76,7 @@ describe('SearchComponent', () => {
       declarations: [SearchComponent],
       imports: [
         IonicModule,
+        NgxsModule.forRoot([]),
         NavbarModule,
         FooterModule,
         HttpClientModule,

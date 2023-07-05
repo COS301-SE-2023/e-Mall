@@ -28,16 +28,17 @@ import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsActionsExecutingModule } from '@ngxs-labs/actions-executing';
 import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
-import { AuthModule } from './shared/features/auth/auth.module';
-import { ErrorModule } from './shared/features/error/error.module';
+import { AuthModule } from './features/auth/auth.module';
+import { ErrorModule } from './features/error/error.module';
 import { NgxsResetPluginModule } from 'ngxs-reset-plugin';
+import { customPageAnimation } from '@shared/animations/custom.animation';
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({ navAnimation: customPageAnimation }),
     NgxsModule.forRoot([]),
     NgxsLoggerPluginModule.forRoot({
       // Do not collapse log groups
