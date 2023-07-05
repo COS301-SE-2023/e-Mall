@@ -12,7 +12,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
-import { RouterModule } from '@angular/router';
+import { NavbarModule } from '@shared/components/navbar/navbar.module';
+import { FooterModule } from '@shared/components/footer/footer.module';
 
 @NgModule({
   declarations: [ProductComponent],
@@ -29,6 +30,8 @@ import { RouterModule } from '@angular/router';
     MatProgressSpinnerModule,
     MatTooltipModule,
     IonicModule,
+    NavbarModule,
+    FooterModule,
   ],
   exports: [ProductComponent],
 })

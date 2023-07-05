@@ -31,13 +31,14 @@ import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
 import { AuthModule } from './features/auth/auth.module';
 import { ErrorModule } from './features/error/error.module';
 import { NgxsResetPluginModule } from 'ngxs-reset-plugin';
+import { customPageAnimation } from '@shared/animations/custom.animation';
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({ navAnimation: customPageAnimation }),
     NgxsModule.forRoot([]),
     NgxsLoggerPluginModule.forRoot({
       // Do not collapse log groups

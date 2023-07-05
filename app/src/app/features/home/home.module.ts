@@ -23,6 +23,8 @@ import { ProductService } from '@shared/servicies/product/product.service';
 import { AuthService } from '@app/features/auth/services/auth.service';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
+import { NavbarModule } from '@shared/components/navbar/navbar.module';
+import { FooterModule } from '@shared/components/footer/footer.module';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -49,6 +51,8 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     MatRadioModule,
     IonicModule,
+    NavbarModule,
+    FooterModule,
   ],
   providers: [ProductService, AuthService],
   exports: [HomeComponent],

@@ -18,6 +18,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { IonicModule } from '@ionic/angular';
+import { NavbarModule } from '@shared/components/navbar/navbar.module';
+import { FooterModule } from '@shared/components/footer/footer.module';
 
 @NgModule({
   declarations: [SearchComponent],
@@ -41,6 +43,8 @@ import { IonicModule } from '@ionic/angular';
     ReactiveFormsModule,
     MatRadioModule,
     IonicModule,
+    NavbarModule,
+    FooterModule,
   ],
   exports: [SearchComponent],
 })
