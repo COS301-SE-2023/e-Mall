@@ -110,6 +110,7 @@ class ProductSellerProdDeleteAPIView(APIView):
 
         except ProductSeller.DoesNotExist:
             return JsonResponse({"error": "ProductSeller not found"}, status=404)
+        
 class ProductSellerDashboardAPIView(APIView):
     def get(self, request):
         seller_name = (
