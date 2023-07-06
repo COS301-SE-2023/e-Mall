@@ -32,6 +32,7 @@ import { AuthModule } from './features/auth/auth.module';
 import { ErrorModule } from './features/error/error.module';
 import { NgxsResetPluginModule } from 'ngxs-reset-plugin';
 import { customPageAnimation } from '@shared/animations/custom.animation';
+import { InventoryModule } from '@features/inventory/inventory.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -71,6 +72,7 @@ import { customPageAnimation } from '@shared/animations/custom.animation';
     NavbarModule,
     AboutModule,
     MatTooltipModule,
+    InventoryModule,
   ],
 
   providers: [

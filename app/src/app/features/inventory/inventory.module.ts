@@ -19,6 +19,7 @@ import { IonicModule } from '@ionic/angular';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
 import { InventoryComponent } from './inventory.component';
+import { InventoryRoutingModule } from './inventory-routing.module';
 
 @NgModule({
   declarations: [InventoryComponent],
@@ -43,7 +44,8 @@ import { InventoryComponent } from './inventory.component';
     IonicModule,
     NavbarModule,
     FooterModule,
+    InventoryRoutingModule,
   ],
   exports: [InventoryComponent],
 })
-export class SearchModule {}
+export class InventoryModule {}

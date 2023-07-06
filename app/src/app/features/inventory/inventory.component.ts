@@ -13,5 +13,10 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./inventory.component.scss']
 })
 export class InventoryComponent {
+  constructor(
+    private route: ActivatedRoute,
+    private productService: ProductService,
+    private router: Router
+  ) {}
   // add logic here
 }

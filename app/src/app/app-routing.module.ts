@@ -6,6 +6,7 @@ import { ConsumerRegisterComponent } from '@features/sign-up/consumer/components
 import { SignInComponent } from './features/sign-in/sign-in.component';
 import { SignOutComponent } from './features/sign-out/sign-out.component';
 import { ProductComponent } from './features/product/product.component';
+import { InventoryComponent } from '@features/inventory/inventory.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-out', component: SignOutComponent },
   { path: 'sign-up', component: ConsumerRegisterComponent },
+  { path: 'inventory', component: InventoryComponent},
   {
     path: 'about',
     loadChildren: () =>
