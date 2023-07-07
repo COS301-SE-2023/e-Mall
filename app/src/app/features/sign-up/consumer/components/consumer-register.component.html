@@ -1,116 +1,149 @@
-<ion-content class="ion-padding">
-  <div class="container-fluid same-height d-flex">
-    <div class="row no-gutters">
-      <div class="col-md-6 col-lg-6 d-flex align-items-stretch">
-        <div class="card flex-grow-1 smaller-container">
-          <div class="text-center">
-            <!--<h1>e-Mall</h1>-->
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-align-items-center ion-justify-content-center">
+      <ion-col>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <!-- <ion-item lines="none"> -->
+          <ion-text style="text-align: center">
             <h2>Register your Business Today!</h2>
-          </div>
+          </ion-text>
+          <!-- </ion-item> -->
 
-          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-            <div class="form-group">
-              <div class="mb-3">
-                <input
-                  type="email"
-                  class="form-control"
-                  id="email"
-                  placeholder="Email Address*"
-                  formControlName="email" />
+          <div class="input-error-box-wrapper">
+            <div class="input-error-box">
+              <ion-input
+                type="email"
+                label="Email"
+                placeholder="example@emall.com"
+                labelPlacement="floating"
+                fill="outline"
+                formControlName="email"
+                required="true"></ion-input>
+
+              <div class="error-container">
                 <div
-                  *ngIf="f['email'].touched && f['email'].invalid"
-                  class="text-danger">
-                  <div class="errorMsg" *ngIf="f['email'].errors?.['required']">
-                    Email is required
-                  </div>
-                  <div class="errorMsg" *ngIf="f['email'].errors?.['email']">
-                    Invalid email address
-                  </div>
+                  class="error-message"
+                  *ngIf="
+                    getFormControl('email')?.invalid &&
+                    (getFormControl('email')?.dirty ||
+                      getFormControl('email')?.touched)
+                  ">
+                  <ion-text color="danger" size="small"
+                    >Invalid email address</ion-text
+                  >
                 </div>
-              </div>
-
-              <div class="mb-3">
-                <input
-                  type="Password"
-                  class="form-control"
-                  id="password"
-                  placeholder="Password*"
-                  formControlName="password" />
-                <div
-                  *ngIf="f['password'].touched && f['password'].invalid"
-                  class="text-danger">
-                  <div
-                    class="errorMsg"
-                    *ngIf="f['password'].errors?.['required']">
-                    Password is required
-                  </div>
-                  <div
-                    class="errorMsg"
-                    *ngIf="f['password'].errors?.['minlength']">
-                    Password must be at least 8 characters long
-                  </div>
-                </div>
-              </div>
-
-              <div class="mb-3">
-                <input
-                  type="Password"
-                  class="form-control"
-                  id="cpassword"
-                  placeholder="Confirm Password*"
-                  formControlName="cpassword" />
-                <div
-                  *ngIf="f['cpassword'].touched && f['cpassword'].invalid"
-                  class="text-danger">
-                  <div
-                    class="errorMsg"
-                    *ngIf="f['cpassword'].errors?.['required']">
-                    Confirm Password is required
-                  </div>
-                  <div
-                    class="errorMsg"
-                    *ngIf="f['cpassword'].errors?.['passwordMismatch'] && f['cpassword'].value !== ''">
-                    Password and Confirm Password do not match
-                  </div>
-                </div>
-              </div>
-
-              <div
-                class="text-danger errorMsg"
-                *ngIf="!registerForm.valid && formSubmitted">
-                Form invalid. Please fill in all required fields.
-              </div>
-
-              <button type="submit" class="btn btn-lg btn-block">Submit</button>
-
-              <div class="have-acc">
-                <p style="margin-top: 20px">
-                  already have an account?
-                  <span><a routerLink="/sign-in">Sign In</a></span>
-                </p>
               </div>
             </div>
-          </form>
-        </div>
-      </div>
 
-      <div class="col-md-6 col-lg-6 d-flex align-items-stretch">
-        <div
-          class="container welcomeMsg_container flex-grow-1 smaller-container"
-          id="welcomeMsg">
-          <h1 class="welcomeMsg-words-top">
-            Welcome to SA's leading comparison service for
-            <span class="welcomeMsg-words-top">online shopping</span>
+            <div class="input-error-box">
+              <ion-input
+                type="password"
+                label="Password"
+                formControlName="password"
+                labelPlacement="floating"
+                fill="outline"
+                (ionFocus)="focus(true)"
+                (ionBlur)="focus(false)">
+              </ion-input>
+
+              <div class="error-container">
+                <ng-container
+                  *ngFor="let validation of passwordErrors.password">
+                  <ng-container
+                    *ngIf="
+                      passwordFocused &&
+                      (getFormControl('password')?.dirty ||
+                        getFormControl('password')?.touched)
+                    ">
+                    <div
+                      class="success-message"
+                      *ngIf="
+                        !getFormControl('password')?.hasError(validation.type)
+                      ">
+                      <ion-icon
+                        size="small"
+                        color="success"
+                        name="information-circle-outline"></ion-icon>
+                      <ion-text color="success" size="small">{{
+                        validation.message
+                      }}</ion-text>
+                    </div>
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        getFormControl('password')?.hasError(validation.type)
+                      ">
+                      <ion-icon
+                        size="small"
+                        color="danger"
+                        name="information-circle-outline"></ion-icon>
+                      <ion-text color="danger" size="small">{{
+                        validation.message
+                      }}</ion-text>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="input-error-box">
+              <ion-input
+                type="password"
+                label="Confirm password"
+                labelPlacement="floating"
+                formControlName="cpassword"
+                fill="outline"
+                required="true"
+                minlength="8">
+              </ion-input>
+
+              <div class="error-container">
+                <div
+                  class="error-message"
+                  *ngIf="
+                    getFormControl('cpassword')?.invalid &&
+                    (getFormControl('cpassword')?.dirty ||
+                      getFormControl('cpassword')?.touched)
+                  ">
+                  <ion-text color="danger" size="small"
+                    >Password does not match</ion-text
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="submit-button">
+            <ion-button type="submit">Submit</ion-button>
+          </div>
+          <ion-item class="text-center">
+            <ion-text id="already-have-acc-text"
+              >Already have an account?</ion-text
+            >
+            <ion-text color="success">
+              <a routerLink="/sign-in">Sign In</a>
+            </ion-text>
+          </ion-item>
+        </form>
+      </ion-col>
+
+      <ion-col *viewSize="'desktop'" class="side-pannel">
+        <div>
+          <h1 class="welcome-header">
+            Welcome to SA's leading<br />comparison service for
+            <div class="welcome-header-accent">online shopping</div>
           </h1>
-          <img
-            class="welcomeMsg_logo"
+
+          <ion-img
+            id="logo"
             src="assets/images/logo.png"
-            alt="e-Mall logo" />
-          <h3 class="welcomeMsg-words-bottom">
+            alt="E-Mall"></ion-img>
+
+          <h3 class="welcome-footer">
             Discover<br />Compare<br />Shop<br />E-Mall Has It All!
           </h3>
         </div>
-      </div>
-    </div>
-  </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
