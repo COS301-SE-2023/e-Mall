@@ -1,43 +1,44 @@
-
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+.content {
+  margin-left: 220px;
+}
+.todays-sales {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  h1 {
+    font-size: 60px;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 20px;
   }
-  .todays-sales {
+  ion-card {
+    flex: 1;
+    margin-right: 10px;
+    min-height: 200px;
+
+    ion-card-header {
       display: flex;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    h1{
-      font-size: 150px;
-      text-align: center;
-      margin-top: 15px;
-      margin-bottom: 20px;
-    }
-      ion-card {
-        flex: 1;
+      align-items: center;
+      margin-top: 20px;
+      ion-card-title {
+        font-size: 30px;
+      }
+      ion-icon {
+        margin-bottom: 20px;
         margin-right: 10px;
-        min-height: 300px;
-        
-        ion-card-header {
-          display: flex;
-          align-items: center;
-          margin-top: 20px;
-          ion-card-title{
-            font-size: 40px;
-          }
-          ion-icon {
-            margin-bottom: 20px;
-            margin-right: 10px;
-            font-size:400%;
-          }
-        }
+        font-size: 400%;
       }
     }
-    
-    .product-graph,
-    .product-performance {
-      margin-bottom: 20px;
-    }
-    
+  }
+}
+
+.product-graph,
+.product-performance {
+  margin-bottom: 20px;
+}
