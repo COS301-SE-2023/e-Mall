@@ -19,6 +19,7 @@ import { IProductSeller } from '@shared/models/product/product-seller.interface'
   templateUrl: './inventory.component.html',
   styleUrls: ['./inventory.component.scss'],
 })
+
 export class InventoryComponent implements OnInit, OnDestroy {
   sellerName!: string;
   searchQuery!: string;
@@ -264,3 +265,4 @@ export class InventoryComponent implements OnInit, OnDestroy {
     this.ProductSellerService.deleteProductSellerData(data).subscribe();
   }
 }
+
