@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
-import { Select, Store } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import * as ErrorActions from '../states/error.action';
 import { ErrorSelectors } from '../states/error.selector';
 import { Observable, map } from 'rxjs';

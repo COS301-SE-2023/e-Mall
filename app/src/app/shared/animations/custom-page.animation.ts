@@ -1,7 +1,7 @@
 import { AnimationController } from '@ionic/angular';
 const animationCtrl = new AnimationController();
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const customPageAnimation = (_: HTMLElement, opts: any) => {
-  // create root transition
   const rootTransition = animationCtrl
     .create()
     .duration(opts.duration || 250)
