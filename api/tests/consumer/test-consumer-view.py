@@ -4,7 +4,7 @@ from rest_framework import status
 from consumer.models import Consumer
 
 
-class RegisterViewTest(TestCase):
+class ConsumerViewTest(TestCase):
     def test_register(self):
         url = reverse('consumer_register')
         data = {
@@ -17,3 +17,12 @@ class RegisterViewTest(TestCase):
                          'Consumer registered successfully')
         self.assertTrue(Consumer.objects.filter(
             email='test@example.com').exists())
+
+    def test_register_invalid_data(self):
+        url = reverse('consumer_register')
+        data = {
+            'email': 'invalid-email',
+            'type': 'invalid-type'
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
