@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthFacade } from '@features/auth/services/auth.facade';
 import { IConsumerForm } from '@features/sign-up/consumer/models/consumer.interface';
 import { ErrorFacade } from '@features/error/services/error.facade';
-import { pipe, take, Subscription, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IError } from '@features/error/models/error.interface';
 @Injectable()
 export class ConsumerFacade {
@@ -17,6 +17,5 @@ export class ConsumerFacade {
   async signUp(form: IConsumerForm) {
     form.type = 'consumer';
     await this.authFacade.signUp(form);
-    console.log('signUp finished');
   }
 }

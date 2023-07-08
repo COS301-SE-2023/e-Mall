@@ -16,6 +16,7 @@
                 fill="outline"
                 formControlName="email"
                 required="true"></ion-input>
+
               <div class="error-container">
                 <div
                   class="error-message"
@@ -33,24 +34,23 @@
 
             <div class="input-error-box">
               <ion-input
+                color="primary"
                 type="password"
                 label="Password"
                 formControlName="password"
                 labelPlacement="floating"
-                fill="outline"
-                (ionFocus)="focus(true)"
-                (ionBlur)="focus(false)">
+                fill="outline">
               </ion-input>
 
               <div class="error-container">
                 <ng-container
-                  *ngFor="let validation of passwordErrors.password">
+                  *ngIf="
+                    getFormControl('password')?.invalid &&
+                    getFormControl('password')?.dirty &&
+                    getFormControl('password')?.touched
+                  ">
                   <ng-container
-                    *ngIf="
-                      getFormControl('password')?.invalid &&
-                      getFormControl('password')?.dirty &&
-                      getFormControl('password')?.touched
-                    ">
+                    *ngFor="let validation of passwordErrors.password">
                     <div
                       class="success-message"
                       *ngIf="
@@ -110,7 +110,12 @@
           </div>
 
           <div class="submit-button">
-            <ion-button id="submit-button" type="submit">Submit</ion-button>
+            <ion-button
+              id="submit-button"
+              [disabled]="registerForm.invalid"
+              type="submit"
+              >Submit</ion-button
+            >
           </div>
           <ion-item class="text-center">
             <ion-text id="already-have-acc-text"
