@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 import { IConsumerForm } from '@features/sign-up/consumer/models/consumer.interface';
 import { IUser } from '../models/user.interface';
 import { IError } from '@app/features/error/models/error.interface';
+import { Hub } from 'aws-amplify';
+
 @Injectable()
 export class AuthService {
   base_url = 'http://localhost:3000/api/'; // change in deployment
@@ -37,6 +39,7 @@ export class AuthService {
 
   public async signUp(form: ISellerForm | IConsumerForm): Promise<IUser> {
     // const code = seller.verification_code;
+
     let url = '';
     if (form.type === 'seller') {
       url = '/api/seller/register/';
@@ -49,27 +52,34 @@ export class AuthService {
     form.password = undefined;
     form.verification_code = undefined;
     const data = JSON.stringify(form);
-    return await lastValueFrom(
+    await lastValueFrom(
       this.http.post(url, data, {
         headers: new HttpHeaders().set('Content-Type', 'application/json'),
         observe: 'response',
       })
-    )
-      .then(() => {
-        return this.cognitoSignUp(form.email, password!, form.type);
-      })
-      .then(res => {
-        //TODO: need to see what is returned from cognito
-        const user: IUser = {
-          email: form.email,
-          token: '1',
-          type: form.type,
-        };
-        return user;
-      })
-      .catch(error => {
-        return error;
+    );
+
+    await this.cognitoSignUp(form.email, password!, form.type);
+    const res = await this.waitForAutoSignIn();
+
+    const user: IUser = {
+      email: form.email,
+      token: res.signInUserSession.accessToken.jwtToken,
+      type: form.type,
+    };
+    return user;
+  }
+  private waitForAutoSignIn(): any {
+    return new Promise((resolve, reject) => {
+      Hub.listen('auth', ({ payload }) => {
+        const { event } = payload;
+        if (event === 'autoSignIn') {
+          resolve(payload.data);
+        } else if (event === 'autoSignIn_failure') {
+          reject(new IError(400, 'Error in signup'));
+        }
       });
+    });
   }
 
   // private sellerSignUpDB(seller: ISellerForm): Observable<unknown> {
@@ -80,7 +90,6 @@ export class AuthService {
   //     observe: 'response',
   //   });
   // }
-
   private async cognitoSignUp(
     email: string,
     password: string,
@@ -90,6 +99,9 @@ export class AuthService {
       username: email,
       password: password,
       attributes: { 'custom:type': type },
+      autoSignIn: {
+        enabled: true,
+      },
     });
   }
 

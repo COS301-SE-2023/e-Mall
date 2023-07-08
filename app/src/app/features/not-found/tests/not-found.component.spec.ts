@@ -3,8 +3,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NotFoundComponent } from '@app/features/not-found/not-found.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Router, RouterModule } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { Router } from '@angular/router';
 import { NotFoundModule } from '../not-found.module';
 import { NgxsModule } from '@ngxs/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

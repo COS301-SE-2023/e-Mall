@@ -34,7 +34,8 @@
     "cypress:open": "yarn cypress open",
     "precypress:open": "yarn api:deletemockdata && yarn api:mockdata",
     "cypress:run": "yarn cypress run",
-    "precypress:run": "docker-compose exec -T api python manage.py populateproducts && docker-compose exec -T api python manage.py populatesellers && docker-compose exec -T api python manage.py populateproductsellers"
+    "precypress:run": "docker-compose exec -T api python manage.py populateproducts && docker-compose exec -T api python manage.py populatesellers && docker-compose exec -T api python manage.py populateproductsellers",
+    "app:test": "yarn lint&&yarn ng test --code-coverage"
   },
   "private": true,
   "dependencies": {

@@ -14,7 +14,6 @@ import { HttpClientModule } from '@angular/common/http';
 //import { AuthService } from '@app/services/auth/auth.service';
 import { IonicModule } from '@ionic/angular';
 import { AuthModule } from '@features/auth/auth.module';
-import { NgxsModule } from '@ngxs/store';
 
 @NgModule({
   declarations: [NavbarComponent],
