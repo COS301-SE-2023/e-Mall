@@ -3,12 +3,9 @@
     <ion-row class="ion-align-items-center ion-justify-content-center">
       <ion-col>
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-          <!-- <ion-item lines="none"> -->
           <ion-text style="text-align: center">
             <h2>Register your Business Today!</h2>
           </ion-text>
-          <!-- </ion-item> -->
-
           <div class="input-error-box-wrapper">
             <div class="input-error-box">
               <ion-input
@@ -19,14 +16,13 @@
                 fill="outline"
                 formControlName="email"
                 required="true"></ion-input>
-
               <div class="error-container">
                 <div
                   class="error-message"
                   *ngIf="
                     getFormControl('email')?.invalid &&
-                    (getFormControl('email')?.dirty ||
-                      getFormControl('email')?.touched)
+                    getFormControl('email')?.dirty &&
+                    getFormControl('email')?.touched
                   ">
                   <ion-text color="danger" size="small"
                     >Invalid email address</ion-text
@@ -51,9 +47,9 @@
                   *ngFor="let validation of passwordErrors.password">
                   <ng-container
                     *ngIf="
-                      passwordFocused &&
-                      (getFormControl('password')?.dirty ||
-                        getFormControl('password')?.touched)
+                      getFormControl('password')?.invalid &&
+                      getFormControl('password')?.dirty &&
+                      getFormControl('password')?.touched
                     ">
                     <div
                       class="success-message"
@@ -102,8 +98,8 @@
                   class="error-message"
                   *ngIf="
                     getFormControl('cpassword')?.invalid &&
-                    (getFormControl('cpassword')?.dirty ||
-                      getFormControl('cpassword')?.touched)
+                    getFormControl('cpassword')?.dirty &&
+                    getFormControl('cpassword')?.touched
                   ">
                   <ion-text color="danger" size="small"
                     >Password does not match</ion-text
@@ -114,7 +110,7 @@
           </div>
 
           <div class="submit-button">
-            <ion-button type="submit">Submit</ion-button>
+            <ion-button id="submit-button" type="submit">Submit</ion-button>
           </div>
           <ion-item class="text-center">
             <ion-text id="already-have-acc-text"

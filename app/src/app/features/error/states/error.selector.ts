@@ -1,10 +1,10 @@
 import { Selector } from '@ngxs/store';
 import { ErrorState, ErrorStateModel } from './error.state';
-import { IError } from '../models/error.interface';
+import { of } from 'rxjs';
 
 export class ErrorSelectors {
   @Selector([ErrorState])
-  static getError(state: ErrorStateModel, key: string): IError | null {
-    return state.errors[key];
+  static getError(state: ErrorStateModel) {
+    return (key: string) => state.errors[key];
   }
 }

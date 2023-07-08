@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { ViewSizeModule } from '@shared/directives/view-size/view-size.module';
 import { AuthModule } from '@app/features/auth/auth.module';
 import { ConsumerFacade } from './services/consumer.facade';
+import { ToastModule } from '@shared/components/toast/toast.module';
 
 @NgModule({
   declarations: [ConsumerRegisterComponent],
@@ -19,6 +20,7 @@ import { ConsumerFacade } from './services/consumer.facade';
     IonicModule,
     AuthModule,
     ViewSizeModule,
+    ToastModule,
   ],
   exports: [ConsumerRegisterComponent],
   providers: [ConsumerFacade],

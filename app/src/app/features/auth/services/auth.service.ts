@@ -55,7 +55,7 @@ export class AuthService {
         observe: 'response',
       })
     )
-      .then(() => {
+      .then(res => {
         return this.cognitoSignUp(form.email, password!, form.type);
       })
       .then(res => {
@@ -68,7 +68,7 @@ export class AuthService {
         return user;
       })
       .catch(error => {
-        return error;
+        throw error;
       });
   }
 

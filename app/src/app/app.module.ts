@@ -31,7 +31,7 @@ import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
 import { AuthModule } from './features/auth/auth.module';
 import { ErrorModule } from './features/error/error.module';
 import { NgxsResetPluginModule } from 'ngxs-reset-plugin';
-import { customPageAnimation } from '@shared/animations/custom.animation';
+import { customPageAnimation } from '@shared/animations/custom-page.animation';
 @NgModule({
   declarations: [AppComponent],
   imports: [
