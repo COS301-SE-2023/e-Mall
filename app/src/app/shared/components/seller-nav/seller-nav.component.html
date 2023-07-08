@@ -1,0 +1,28 @@
+
+<ion-nav class="sticky-nav">
+    <ion-list>
+      <ion-item>
+        <ion-label>e-Mall</ion-label>
+      </ion-item>
+      <ion-item (click)="navigateTo('sales')">
+        <ion-icon name="analytics" slot="start"></ion-icon>
+        <ion-label>Sales</ion-label>
+      </ion-item>
+      <ion-item (click)="navigateTo('construction')"> 
+        <ion-icon name="basket" slot="start"></ion-icon>
+        <ion-label>Products</ion-label>
+      </ion-item>
+      <ion-item (click)="navigateTo('construction')"> 
+        <ion-icon name="chatbubbles" slot="start"></ion-icon>
+        <ion-label>Messages</ion-label>
+      </ion-item>
+      <ion-item (click)="navigateTo('construction')"> 
+        <ion-icon name="settings" slot="start"></ion-icon>
+        <ion-label>Settings</ion-label>
+      </ion-item>
+      <ion-item > 
+        <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+        <ion-label>Sign out</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-nav>

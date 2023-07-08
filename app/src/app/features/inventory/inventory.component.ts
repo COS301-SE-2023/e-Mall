@@ -6,6 +6,7 @@ import { tap } from 'rxjs/operators';
 import { Observable, of, debounceTime, distinctUntilChanged, Subscription,} from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { FormControl } from '@angular/forms';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-inventory',
@@ -13,10 +14,19 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./inventory.component.scss']
 })
 export class InventoryComponent {
+
+  options = ['ALL', 'In Stock', 'Out of Stock'];
+  selectedOption= "";
+
+  selectOption(option: string) {
+    this.selectedOption = option;
+    // Add your logic here for handling the selected option
+  }
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
   ) {}
   // add logic here
 }

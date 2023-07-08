@@ -1,0 +1,48 @@
+.sticky-nav,
+.sticky-nav ion-list {
+  background-color: #C1FEFA;
+}
+
+.sticky-nav {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 205px;
+  z-index: 999;
+}
+
+.sticky-nav ion-list {
+  padding-top: 20px;
+}
+
+.sticky-nav ion-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  color: #333;
+  --ion-background-color: transparent; /* Remove the background color of the item */
+  --ion-item-background-color: transparent; /* Remove the background color of the item */
+  --ion-item-box-shadow: none; /* Remove the box shadow */
+  --ion-item-border-radius: 0; /* Remove the border radius */
+  transition: background-color 0.3s ease; /* Add transition for smooth color change */
+}
+
+.sticky-nav ion-item:hover {
+  background-color: #87ebd4; /* Set the desired background color when hovering */
+}
+
+.sticky-nav ion-item ion-icon,
+.sticky-nav ion-item ion-label {
+  background-color: transparent; /* Set the background color of the icon and label to transparent */
+}
+
+.sticky-nav ion-item ion-label {
+  margin-left: 10px;
+}
+
+ion-item.active {
+  --background: #f0f0f0;
+}
+

@@ -13,7 +13,7 @@ import { SignOutModule } from './features/sign-out/sign-out.module';
 import { FooterModule } from './shared/components/footer/footer.module';
 import { AboutModule } from './features/about/about.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { IonicModule, IonicRouteStrategy, MenuController } from '@ionic/angular';
 import { RouteReuseStrategy } from '@angular/router';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { NgxsModule } from '@ngxs/store';
@@ -33,6 +33,7 @@ import { ErrorModule } from './features/error/error.module';
 import { NgxsResetPluginModule } from 'ngxs-reset-plugin';
 import { customPageAnimation } from '@shared/animations/custom.animation';
 import { InventoryModule } from '@features/inventory/inventory.module';
+import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -73,6 +74,7 @@ import { InventoryModule } from '@features/inventory/inventory.module';
     AboutModule,
     MatTooltipModule,
     InventoryModule,
+    SellerNavModule,
   ],
 
   providers: [
