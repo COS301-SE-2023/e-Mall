@@ -6,6 +6,7 @@ import { ConsumerFacade } from '../services/consumer.facade';
 import { ConsumerRegisterComponent } from '../components/consumer-register.component';
 import { ToastComponent } from '@shared/components/toast/toast.component';
 import { IConsumerForm } from '../models/consumer.interface';
+import { of } from 'rxjs';
 describe('ConsumerModule', () => {
   let component: ConsumerRegisterComponent;
   let fixture: ComponentFixture<ConsumerRegisterComponent>;
@@ -43,7 +44,7 @@ describe('ConsumerModule', () => {
     consumerFacade = TestBed.inject(ConsumerFacade);
     loadingController = TestBed.inject(LoadingController);
     toast = TestBed.inject(ToastComponent);
-
+    (consumerFacade.getError as jasmine.Spy).and.returnValue(of({}));
     // Mock the LoadingController.create method
     (loadingController.create as jasmine.Spy).and.returnValue(
       Promise.resolve({
@@ -72,6 +73,10 @@ describe('ConsumerModule', () => {
       };
       expect(consumerFacade.signUp).toHaveBeenCalledWith(form);
     });
+    it('should get a form control', () => {
+      const control = component.getFormControl('email');
+      expect(control).toBeTruthy();
+    });
   });
 
   describe('ConsumerFacade', () => {
@@ -83,6 +88,10 @@ describe('ConsumerModule', () => {
       };
       await consumerFacade.signUp(form);
       expect(consumerFacade.signUp).toHaveBeenCalledWith(form);
+    });
+    it('should get an error', () => {
+      const error = consumerFacade.getError();
+      expect(error).toBeTruthy();
     });
   });
 });
