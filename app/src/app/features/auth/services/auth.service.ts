@@ -59,7 +59,7 @@ export class AuthService {
     };
     return user;
   }
-  private waitForAutoSignIn(): any {
+  waitForAutoSignIn(): any {
     return new Promise((resolve, reject) => {
       Hub.listen('auth', ({ payload }) => {
         const { event } = payload;
@@ -72,7 +72,7 @@ export class AuthService {
     });
   }
 
-  private async cognitoSignUp(
+  async cognitoSignUp(
     email: string,
     password: string,
     type: string

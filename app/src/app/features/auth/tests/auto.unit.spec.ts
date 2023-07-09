@@ -1,18 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { TestBed } from '@angular/core/testing';
 import { NgxsModule, Store } from '@ngxs/store';
-import { of } from 'rxjs';
 import { AuthFacade } from '../services/auth.facade';
 import { AuthService } from '../services/auth.service';
 import { AuthState } from '../states/auth.state';
 import * as AuthActions from '../states/auth.action';
 import { IUser } from '../models/user.interface';
 import { IError } from '@app/features/error/models/error.interface';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Amplify, Auth, Hub } from 'aws-amplify';
+import { Auth, Hub } from 'aws-amplify';
 import {
   ISignUpResult,
   CognitoUser,
@@ -157,110 +157,61 @@ describe('AuthModule', () => {
       });
     });
 
-    // it('should sign up a seller', async () => {
-    //   const form = {
-    //     email: 'test@example.com',
-    //     password: 'testpassword',
-    //     type: 'seller',
-    //   };
-    //   // (http.post as jasmine.Spy).calls.reset();
+    it('should sign up a user with Cognito', async () => {
+      const email = 'test@example.com';
+      const password = 'testpassword';
+      const type = 'seller';
+      spyOn(Auth, 'signUp').and.returnValue(
+        Promise.resolve<ISignUpResult>({
+          user: new CognitoUser({
+            Username: email,
+            Pool: new CognitoUserPool({
+              UserPoolId: 'us-east-1_testpool',
+              ClientId: 'testclient',
+            }),
+          }),
+          userConfirmed: true,
+          userSub: 'testsub',
+          codeDeliveryDetails: {
+            AttributeName: 'email',
+            DeliveryMedium: 'EMAIL',
+            Destination: email,
+          },
+        })
+      );
 
-    //   // spyOn(http, 'post').and.returnValue(of({}));
-    //   spyOn(Auth, 'signUp').and.callFake(() =>
-    //     Promise.resolve<ISignUpResult>({
-    //       user: new CognitoUser({
-    //         Username: form.email,
-    //         Pool: new CognitoUserPool({
-    //           UserPoolId: 'us-east-1_testpool',
-    //           ClientId: 'testclient',
-    //         }),
-    //       }),
-    //       userConfirmed: true,
-    //       userSub: 'testsub',
-    //       codeDeliveryDetails: {
-    //         AttributeName: 'email',
-    //         DeliveryMedium: 'EMAIL',
-    //         Destination: form.email,
-    //       },
-    //     })
-    //   );
-    //   // (http.post as jasmine.Spy).calls.reset();
-    //   const hubListenSpy = jasmine.createSpyObj('Hub', ['listen']);
-    //   hubListenSpy.listen.and.callFake((channel: any, callback: any) => {
-    //     if (channel === 'auth' && typeof callback === 'function') {
-    //       setTimeout(() => {
-    //         callback({
-    //           payload: {
-    //             event: 'autoSignIn',
-    //             data: {
-    //               signInUserSession: { accessToken: { jwtToken: 'testtoken' } },
-    //             },
-    //           },
-    //         });
-    //       }, 0);
-    //     }
-    //     return () => {};
-    //   });
-    //   (authService as any).Hub = hubListenSpy;
-    //   const user = await authService.signUp(form);
-    //   expect(user).toEqual({
-    //     email: form.email,
-    //     token: 'testtoken',
-    //     type: form.type,
-    //   });
-    // });
+      await authService.cognitoSignUp(email, password, type);
+      expect(Auth.signUp).toHaveBeenCalledWith({
+        username: email,
+        password,
+        attributes: { 'custom:type': type },
+        autoSignIn: {
+          enabled: true,
+        },
+      });
+    });
+    it('should wait for auto sign in', async () => {
+      spyOn(Hub, 'listen').and.callFake(
+        (channel: string | RegExp, callback?: any) => {
+          if (channel === 'auth' && typeof callback === 'function') {
+            callback({
+              payload: {
+                event: 'autoSignIn',
+                data: {
+                  signInUserSession: { accessToken: { jwtToken: 'testtoken' } },
+                },
+              },
+            });
+          }
+          return () => {};
+        }
+      );
 
-    // it('should sign up a consumer', async () => {
-    //   const form = {
-    //     email: 'test@example.com',
-    //     password: 'testpassword',
-    //     type: 'consumer',
-    //   };
-
-    //   // spyOn(http, 'post').and.returnValue(of({}));
-    //   spyOn(Auth, 'signUp').and.callFake(() =>
-    //     Promise.resolve<ISignUpResult>({
-    //       user: new CognitoUser({
-    //         Username: form.email,
-    //         Pool: new CognitoUserPool({
-    //           UserPoolId: 'us-east-1_testpool',
-    //           ClientId: 'testclient',
-    //         }),
-    //       }),
-    //       userConfirmed: true,
-    //       userSub: 'testsub',
-    //       codeDeliveryDetails: {
-    //         AttributeName: 'email',
-    //         DeliveryMedium: 'EMAIL',
-    //         Destination: form.email,
-    //       },
-    //     })
-    //   );
-    //   const hubListenSpy = jasmine.createSpyObj('Hub', ['listen']);
-    //   hubListenSpy.listen.and.callFake((channel: any, callback: any) => {
-    //     if (channel === 'auth' && typeof callback === 'function') {
-    //       setTimeout(() => {
-    //         callback({
-    //           payload: {
-    //             event: 'autoSignIn',
-    //             data: {
-    //               signInUserSession: { accessToken: { jwtToken: 'testtoken' } },
-    //             },
-    //           },
-    //         });
-    //       }, 0);
-    //     }
-    //     return () => {};
-    //   });
-    //   (authService as any).Hub = hubListenSpy;
-
-    //   const user = await authService.signUp(form);
-    //   expect(user).toEqual({
-    //     email: form.email,
-    //     token: 'testtoken',
-    //     type: form.type,
-    //   });
-    // });
+      const result = await authService.waitForAutoSignIn();
+      expect(result).toEqual({
+        signInUserSession: { accessToken: { jwtToken: 'testtoken' } },
+      });
+    });
 
     it('should handle sign up errors', async () => {
       const form = {
