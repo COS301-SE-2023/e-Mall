@@ -1,65 +1,66 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-title>Products</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar>
+    <ion-title>Products</ion-title>
+  </ion-toolbar>
+</ion-header>
 <app-seller-nav></app-seller-nav>
 
 <ion-content>
-    <div class="title-row">
-        <div
-          class="title"
-          *ngFor="let option of options"
-          [class.selected]="option === selectedOption"
-          (click)="selectOption(option)"
-        >
-          {{ option }}
-        </div>
-      </div>
+  <div class="title-row">
+    <div
+      class="title"
+      *ngFor="let option of options"
+      [class.selected]="option === selectedOption"
+      (click)="selectOption(option)">
+      {{ option }}
+    </div>
+  </div>
 
-      <mat-divider class="divider"></mat-divider>
+  <mat-divider class="divider"></mat-divider>
 
-    <div class=" search-sort-container">
+  <div class="search-sort-container">
     <!-- Search functionality -->
     <div class="search-bar">
-        <ion-searchbar class="search-box" placeholder="Search products..."></ion-searchbar>
+      <ion-searchbar
+        class="search-box"
+        placeholder="Search products..."
+        onsubmit="onSearch()"></ion-searchbar>
     </div>
     <!-- End of search  -->
 
     <!-- Sort functionality -->
+
     <div class="sort-bar">
-        <div class="title-box">Sort by:</div>
-        <select class="sort-box" [(ngModel)]="selectedOption">
-          <option value="Top Sales">Top Sales</option>
-          <option value="Lowest Sales">Lowest Sales</option>
-          <option value="Most Sold">Most Sold</option>
-          <option value="Name (A-Z)">Name (A-Z)</option>
-          <option value="Name (Z-A)">Name (Z-A)</option>
-          <option value="Price">Price</option>
-        </select>
-      </div>
+      <div class="title-box">Sort by:</div>
+      <select
+        class="sort-box"
+        [(ngModel)]="selectedSortOption"
+        (selectionchange)="onSortOptionChange()">
+        <option value="name">Name (A-Z)</option>
+        <option value="-name">Name (Z-A)</option>
+        <option value="price">Lowest Price</option>
+        <option value="-price">Highest Price</option>
+        <option value="-discount">Highest Discount</option>
+        <option value="discount">Lowest Disocunt</option>
+      </select>
+    </div>
     <!-- End of Sort functionality -->
-    </div>
+  </div>
 
-
-     <div class="container">
-      <ion-list lines="full">
-        <ion-item>
-          <ion-grid>
-            <ion-row>
-              <ion-col size="3"><b>Product ID</b></ion-col>
-              <ion-col size="3"><b>Name</b></ion-col>
-              <ion-col size="2"><b>Inventory</b></ion-col>
-              <ion-col size="2"><b>Products Sold</b></ion-col>
-              <ion-col size="1"><b>Price</b></ion-col>
-              <ion-col size="1"><b>Sales</b></ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-      </ion-list>
-    </div>
-  </ion-content>
-  
-  
-
-  
+  <div class="container">
+    <ion-list lines="full">
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3"><b>Product ID</b></ion-col>
+            <ion-col size="3"><b>Name</b></ion-col>
+            <ion-col size="2"><b>Inventory</b></ion-col>
+            <ion-col size="2"><b>Products Sold</b></ion-col>
+            <ion-col size="1"><b>Price</b></ion-col>
+            <ion-col size="1"><b>Sales</b></ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

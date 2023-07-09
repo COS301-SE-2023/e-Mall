@@ -1,8 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { IProduct } from '@shared/models/product/product.interface';
 import { tap } from 'rxjs/operators';
-import { Observable, of, debounceTime, distinctUntilChanged, Subscription,} from 'rxjs';
+import {
+  Observable,
+  of,
+  debounceTime,
+  distinctUntilChanged,
+  Subscription,
+} from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { FormControl } from '@angular/forms';
 import { ProductSellerService } from '@shared/servicies/productseller/productseller.service';
@@ -15,7 +20,6 @@ import { ProductService } from '@shared/servicies/product/product.service';
   styleUrls: ['./inventory.component.scss'],
 })
 export class InventoryComponent {
-
   options = ['All', 'In Stock', 'Out of Stock'];
   searchQuery!: string;
   searchResults$: Observable<IProductSeller[]> | undefined;
@@ -46,41 +50,46 @@ export class InventoryComponent {
   minInputControllerSub = new Subscription();
   maxInputControllerSub = new Subscription();
 
-
   selectOption(option: string) {
     this.selectedOption = option;
   }
-
-
-
 
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
     private router: Router,
-    private ProductSellerService: ProductSellerService,
+    private ProductSellerService: ProductSellerService
   ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.sellerName = params['seller_name'];
-      this.ProductSellerService.getProductSellerData(this.sellerName).subscribe(
-        result => {
-          this.searchResults$ = of(result.products);
-          this.totalSearchCount$ = of(result.totalCount);
-          this.searchResults$
-            .pipe(
-              tap((products: IProductSeller[]) => {
-                const categories = new Set<string>();
-                products.forEach(product => {
-                  categories.add(product.product_category);
-                });
-                this.categoryOptions = Array.from(categories);
-              })
-            )
-            .subscribe();
-        }
-      );
+      this.ProductSellerService.getProductSellerData(
+        'Takealot',
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      ).subscribe(result => {
+        this.searchResults$ = of(result.products);
+        this.totalSearchCount$ = of(result.totalCount);
+        console.log('totalSearchCount$');
+        console.log(result.totalCount);
+        console.log('searchResults$');
+        console.log(result.products);
+        this.searchResults$
+          .pipe(
+            tap((products: IProductSeller[]) => {
+              const categories = new Set<string>();
+              products.forEach(product => {
+                categories.add(product.product_category);
+              });
+              this.categoryOptions = Array.from(categories);
+            })
+          )
+          .subscribe();
+      });
     });
     this.minInputControllerSub = this.minInputController.valueChanges
       .pipe(debounceTime(1500), distinctUntilChanged())
@@ -100,6 +109,7 @@ export class InventoryComponent {
   }
 
   onSortOptionChange(): void {
+    console.log('onSortOptionChange');
     this.ProductSellerService.getProductSellerData(
       this.searchQuery,
       undefined,
@@ -241,14 +251,15 @@ export class InventoryComponent {
   }
 
   onSearch(query: any) {
+    console.log('onSearch');
     this.searchQuery = query;
     this.ProductSellerService.getProductSellerData(
       undefined,
       this.searchQuery,
-      this.filterOptions,
-      this.selectedSortOption,
-      this.currentPage,
-      this.itemsPerPage
+      undefined,
+      undefined,
+      undefined,
+      undefined
     ).subscribe(result => {
       this.searchResults$ = of(result.products);
       this.totalSearchCount$ = of(result.totalCount);
@@ -270,4 +281,3 @@ export class InventoryComponent {
     this.ProductSellerService.deleteProductSellerData(data).subscribe();
   }
 }
-
