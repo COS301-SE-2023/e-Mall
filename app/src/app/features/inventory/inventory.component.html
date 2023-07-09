@@ -25,7 +25,8 @@
         <ion-searchbar
           class="search-box"
           placeholder="Search products..."
-          onsubmit="onSearch()"></ion-searchbar>
+          [(ngModel)]="searchQuery"
+          (keydown)="keyDownFunction($event)"></ion-searchbar>
       </div>
       <!-- End of search  -->
 
@@ -55,14 +56,39 @@
             <ion-row>
               <ion-col size="3"><b>Product ID</b></ion-col>
               <ion-col size="3"><b>Name</b></ion-col>
-              <ion-col size="2"><b>Inventory</b></ion-col>
-              <ion-col size="2"><b>Products Sold</b></ion-col>
-              <ion-col size="1"><b>Price</b></ion-col>
-              <ion-col size="1"><b>Sales</b></ion-col>
+              <ion-col size="2"><b>Inventory Status</b></ion-col>
+              <ion-col size="2"><b>Original Price</b></ion-col>
+              <ion-col size="1"><b>Discount Rate</b></ion-col>
+              <ion-col size="1"><b>Current Price</b></ion-col>
             </ion-row>
           </ion-grid>
         </ion-item>
+        <ng-container *ngIf="searchResults$ | async as productsellers">
+          <ion-item *ngFor="let product of productsellers">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="3">{{ product.product }}</ion-col>
+                <ion-col size="3">{{ product.product_name }}</ion-col>
+                <ion-col size="2">{{ product.in_stock }}</ion-col>
+                <ion-col size="2">R {{ product.original_price }}</ion-col>
+                <ion-col size="1">{{ product.discount_rate }}</ion-col>
+                <ion-col size="1">R {{ product.price }}</ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ng-container>
       </ion-list>
     </div>
+  </div>
+  <div class="mat-paginator">
+    <ng-container *ngIf="searchResults$ | async as products">
+      <mat-paginator
+        [length]="totalSearchCount$ | async"
+        [pageSizeOptions]="[10, 20, 50, 100]"
+        aria-label="Select page"
+        [pageIndex]="currentPage"
+        [pageSize]="itemsPerPage"
+        (page)="onPageChange($event)"></mat-paginator>
+    </ng-container>
   </div>
 </ion-content>

@@ -22,11 +22,10 @@ export class ProductSellerService {
     page?: any,
     per_page?: any
   ): Observable<{ products: IProductSeller[]; totalCount: number }> {
-    let url = `${this.apiUrl}productseller/sellerdashboard?`;
-    if (name != undefined) {
-      url += `seller_name=${name}`;
-    } else if (search != undefined) {
-      url += `search=${search}`;
+    let url = `${this.apiUrl}productseller/sellerdashboard?seller_name=${name}`;
+
+    if (search != undefined) {
+      url += `&search=${search}`;
     }
 
     if (filterOptions) {
@@ -48,7 +47,7 @@ export class ProductSellerService {
     return this.http.get(url).pipe(
       map((res: any) => ({
         products: res['data'] as IProductSeller[],
-        totalCount: res['totalCount'] as number,
+        totalCount: res['total_count'] as number,
       }))
     );
   }

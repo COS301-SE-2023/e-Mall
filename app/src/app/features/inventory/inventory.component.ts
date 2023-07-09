@@ -23,6 +23,7 @@ export class InventoryComponent {
   options = ['All', 'In Stock', 'Out of Stock'];
   searchQuery!: string;
   searchResults$: Observable<IProductSeller[]> | undefined;
+  searchInputController = new FormControl('');
   // isAuthenticated!: boolean;
   min_price_in_stock!: number;
   brandOptions: string[] = []; // Populate this array with the brand names based on your search results
@@ -108,7 +109,7 @@ export class InventoryComponent {
     this.maxInputControllerSub.unsubscribe();
   }
 
-   onSortOptionChange(): void {
+  onSortOptionChange(): void {
     console.log('onSortOptionChange');
     this.ProductSellerService.getProductSellerData(
       this.sellerName,
@@ -250,11 +251,9 @@ export class InventoryComponent {
     });
   }
 
-  onSearch(query: any) {
-    console.log('onSearch');
-    this.searchQuery = query;
+  onSearch() {
     this.ProductSellerService.getProductSellerData(
-      undefined,
+      this.sellerName,
       this.searchQuery,
       undefined,
       undefined,
@@ -263,7 +262,18 @@ export class InventoryComponent {
     ).subscribe(result => {
       this.searchResults$ = of(result.products);
       this.totalSearchCount$ = of(result.totalCount);
+      console.log('totalSearchCount$');
+      console.log(result.totalCount);
+      console.log('searchResults$');
+      console.log(result.products);
     });
+  }
+
+  keyDownFunction(event: any) {
+    if (event.code === 'Enter') {
+      //search call
+      this.onSearch();
+    }
   }
 
   onProductUpdate() {
