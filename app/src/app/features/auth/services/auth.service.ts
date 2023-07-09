@@ -86,13 +86,6 @@ export class AuthService {
       },
     });
   }
-
-  public async confirmSignUp(
-    email: string,
-    verificatn_code: string
-  ): Promise<unknown> {
-    return Auth.confirmSignUp(email, verificatn_code);
-  }
   public async signOut(): Promise<unknown> {
     return await Auth.signOut();
   }
