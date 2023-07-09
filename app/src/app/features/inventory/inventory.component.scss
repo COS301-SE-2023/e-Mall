@@ -47,12 +47,14 @@ ion-header {
         display: flex;
         align-items: center;
         padding: 8px;
+        min-width: 800px;
+        margin-right: 30rem;
       }
       
       .search-box {
-        margin-left: 12rem;
+        margin-left: 13rem;
         flex-grow: 1;
-        max-width: 500px;
+        max-width: 700px;
         border-radius: 60px;
       }
       
@@ -62,6 +64,11 @@ ion-header {
         padding: 8px;
         max-width: 280px;
         float: right;
+      }
+
+      .search-sort-container {
+        display: flex;
+        align-items: center;
       }
 
 

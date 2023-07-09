@@ -17,6 +17,7 @@
         </div>
       </div>
 
+    <div class=" search-sort-container">
     <!-- Search functionality -->
     <div class="search-bar">
         <ion-searchbar class="search-box" placeholder="Search products..."></ion-searchbar>
@@ -25,16 +26,19 @@
 
     <!-- Sort functionality -->
     <div class="sort-bar">
-        <ion-select class="sort-box" placeholder="Sort by" [(ngModel)]="selectedOption">
-            <ion-select-option value="Product ID">Product ID</ion-select-option>
-            <ion-select-option value="Name">Name</ion-select-option>
-            <ion-select-option value="Inventory">Inventory</ion-select-option>
-            <ion-select-option value="Products Sold">Products Sold</ion-select-option>
-            <ion-select-option value="Price">Price</ion-select-option>
-            <ion-select-option value="Sales">Sales</ion-select-option>
-          </ion-select>
-    </div>
+        <div class="title-box">Sort by:</div>
+        <select class="sort-box" [(ngModel)]="selectedOption">
+          <option value="Top Sales">Top Sales</option>
+          <option value="Lowest Sales">Lowest Sales</option>
+          <option value="Most Sold">Most Sold</option>
+          <option value="Name (A-Z)">Name (A-Z)</option>
+          <option value="Name (Z-A)">Name (Z-A)</option>
+          <option value="Price">Price</option>
+        </select>
+      </div>
     <!-- End of Sort functionality -->
+    </div>
+
 
      <div class="container">
       <ion-list lines="full">
