@@ -113,7 +113,7 @@ export class InventoryComponent {
     console.log('onSortOptionChange');
     this.ProductSellerService.getProductSellerData(
       this.sellerName,
-      undefined,
+      this.searchQuery,
       this.filterOptions,
       this.selectedSortOption,
       this.currentPage,
@@ -251,22 +251,38 @@ export class InventoryComponent {
     });
   }
 
+  onSearchInputChange() {
+    if (!this.searchQuery) {
+      // Call a function or perform an action when the search input is empty
+      this.resetSearch();
+    }
+  }
+
+  resetSearch() {
+    // Reset the search query and perform any necessary actions
+    this.searchQuery = '';
+    // Call the function or perform an action to handle the reset
+    this.ngOnInit();
+  }
+
   onSearch() {
-    this.ProductSellerService.getProductSellerData(
-      this.sellerName,
-      this.searchQuery,
-      undefined,
-      undefined,
-      undefined,
-      undefined
-    ).subscribe(result => {
-      this.searchResults$ = of(result.products);
-      this.totalSearchCount$ = of(result.totalCount);
-      console.log('totalSearchCount$');
-      console.log(result.totalCount);
-      console.log('searchResults$');
-      console.log(result.products);
-    });
+    if (this.searchQuery) {
+      this.ProductSellerService.getProductSellerData(
+        this.sellerName,
+        this.searchQuery,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      ).subscribe(result => {
+        this.searchResults$ = of(result.products);
+        this.totalSearchCount$ = of(result.totalCount);
+        console.log('totalSearchCount$');
+        console.log(result.totalCount);
+        console.log('searchResults$');
+        console.log(result.products);
+      });
+    }
   }
 
   keyDownFunction(event: any) {

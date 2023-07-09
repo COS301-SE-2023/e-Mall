@@ -26,6 +26,7 @@
           class="search-box"
           placeholder="Search products..."
           [(ngModel)]="searchQuery"
+          (ionchange)="onSearchInputChange()"
           (keydown)="keyDownFunction($event)"></ion-searchbar>
       </div>
       <!-- End of search  -->
