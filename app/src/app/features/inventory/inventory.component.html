@@ -54,8 +54,8 @@
         <ion-item>
           <ion-grid>
             <ion-row>
-              <ion-col size="3"><b>Product ID</b></ion-col>
-              <ion-col size="3"><b>Name</b></ion-col>
+              <ion-col size="1"><b>Product ID</b></ion-col>
+              <ion-col size="5"><b>Name</b></ion-col>
               <ion-col size="2"><b>Inventory Status</b></ion-col>
               <ion-col size="2"><b>Original Price</b></ion-col>
               <ion-col size="1"><b>Discount Rate</b></ion-col>
@@ -67,8 +67,8 @@
           <ion-item *ngFor="let product of productsellers">
             <ion-grid>
               <ion-row>
-                <ion-col size="3">{{ product.product }}</ion-col>
-                <ion-col size="3">{{ product.product_name }}</ion-col>
+                <ion-col size="1">{{ product.product }}</ion-col>
+                <ion-col size="5">{{ product.product_name }}</ion-col>
                 <ion-col size="2">{{ product.in_stock }}</ion-col>
                 <ion-col size="2">R {{ product.original_price }}</ion-col>
                 <ion-col size="1">{{ product.discount_rate }}</ion-col>

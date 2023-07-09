@@ -46,7 +46,7 @@ ion-header {
         align-items: center;
         padding: 8px;
         min-width: 800px;
-        margin-right: 15rem;
+        margin-right: 13rem;
         margin-left: 1rem;
         border-radius: 20px;
       }
@@ -72,12 +72,19 @@ ion-header {
 
       .inventory-container{
         margin-top: 10px;
-        margin-left: 13rem;
+        margin-left: 13.5rem;
         margin-right: 1rem;
         box-sizing: border-box;
         border-radius: 60px;
         background-color: #f2f2f2;
         padding: 10px;
+      }
+
+      .mat-paginator {
+        margin-left: 12rem;
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: center;
       }
 
 
