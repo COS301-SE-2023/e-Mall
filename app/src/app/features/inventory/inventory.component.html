@@ -6,51 +6,49 @@
 <app-seller-nav></app-seller-nav>
 
 <ion-content>
-<div class="inventory-container">
+  <div class="inventory-container">
     <div class="title-row">
-        <div
-          class="title"
-          *ngFor="let option of options"
-          [class.selected]="option === selectedOption"
-          (click)="selectOption(option)"
-        >
-          {{ option }}
-        </div>
+      <div
+        class="title"
+        *ngFor="let option of options"
+        [class.selected]="option === selectedOption"
+        (click)="selectOption(option)">
+        {{ option }}
       </div>
-
-  <mat-divider class="divider"></mat-divider>
-
-  <div class="search-sort-container">
-    <!-- Search functionality -->
-    <div class="search-bar">
-      <ion-searchbar
-        class="search-box"
-        placeholder="Search products..."
-        onsubmit="onSearch()"></ion-searchbar>
     </div>
-    <!-- End of search  -->
 
-    <!-- Sort functionality -->
+    <mat-divider class="divider"></mat-divider>
 
-    <div class="sort-bar">
-      <div class="title-box">Sort by:</div>
-      <select
-        class="sort-box"
-        [(ngModel)]="selectedSortOption"
-        (selectionchange)="onSortOptionChange()">
-        <option value="name">Name (A-Z)</option>
-        <option value="-name">Name (Z-A)</option>
-        <option value="price">Lowest Price</option>
-        <option value="-price">Highest Price</option>
-        <option value="-discount">Highest Discount</option>
-        <option value="discount">Lowest Disocunt</option>
-      </select>
+    <div class="search-sort-container">
+      <!-- Search functionality -->
+      <div class="search-bar">
+        <ion-searchbar
+          class="search-box"
+          placeholder="Search products..."
+          onsubmit="onSearch()"></ion-searchbar>
+      </div>
+      <!-- End of search  -->
+
+      <!-- Sort functionality -->
+
+      <div class="sort-bar">
+        <div class="title-box">Sort by:</div>
+        <select
+          class="sort-box"
+          [(ngModel)]="selectedSortOption"
+          (selectionchange)="onSortOptionChange()">
+          <option value="name">Name (A-Z)</option>
+          <option value="-name">Name (Z-A)</option>
+          <option value="price">Lowest Price</option>
+          <option value="-price">Highest Price</option>
+          <option value="-discount">Highest Discount</option>
+          <option value="discount">Lowest Disocunt</option>
+        </select>
+      </div>
+      <!-- End of Sort functionality -->
     </div>
-    <!-- End of Sort functionality -->
-  </div>
 
-
-     <div class="container">
+    <div class="container">
       <ion-list lines="full">
         <ion-item>
           <ion-grid>
@@ -66,9 +64,5 @@
         </ion-item>
       </ion-list>
     </div>
-    </div>
-  </ion-content>
-  
-  
-
-  
+  </div>
+</ion-content>

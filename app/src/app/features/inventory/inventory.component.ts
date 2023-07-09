@@ -41,7 +41,6 @@ export class InventoryComponent {
   totalSearchCount$: Observable<number> | undefined;
   sellerName!: string;
   selectedOption!: string;
-
   loading = true;
 
   ////J fix for min , max price
@@ -63,9 +62,10 @@ export class InventoryComponent {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.sellerName = params['seller_name'];
+      // this.sellerName = params['seller_name'];
+      this.sellerName = 'Takealot';
       this.ProductSellerService.getProductSellerData(
-        'Takealot',
+        this.sellerName,
         undefined,
         undefined,
         undefined,
@@ -108,10 +108,10 @@ export class InventoryComponent {
     this.maxInputControllerSub.unsubscribe();
   }
 
-  onSortOptionChange(): void {
+   onSortOptionChange(): void {
     console.log('onSortOptionChange');
     this.ProductSellerService.getProductSellerData(
-      this.searchQuery,
+      this.sellerName,
       undefined,
       this.filterOptions,
       this.selectedSortOption,
