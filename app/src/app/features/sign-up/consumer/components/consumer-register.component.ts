@@ -46,7 +46,12 @@ export class ConsumerRegisterComponent {
       translucent: true,
     });
     await loading.present();
-    const form: IConsumerForm = this.registerForm.value;
+    const { email, password } = this.registerForm.value;
+    const form: IConsumerForm = {
+      email,
+      password,
+      type: 'consumer',
+    };
     await this.consumerFacade.signUp(form);
     loading.dismiss();
     this.toast.presentErrorToast(this.consumerFacade.getError());

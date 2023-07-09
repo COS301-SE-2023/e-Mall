@@ -1,5 +1,3 @@
-// import { ISellerForm } from '@app/models/seller/seller.interface';
-
 import { IUser } from '../models/user.interface';
 
 export class SetCurrentUser {
@@ -10,7 +8,3 @@ export class SetCurrentUser {
 export class SignOutAction {
   static readonly type = '[Auth] Sign Out';
 }
-// export class SellerSignUpAction {
-//   static readonly type = '[Auth] Seller Sign Up';
-//   constructor(public sellerForm: ISellerForm) {}
-// }

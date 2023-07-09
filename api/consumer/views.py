@@ -13,8 +13,9 @@ from faker import Faker
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def register(request):
-    request.data['username'] = Faker().user_name()[:15]
-    serializer = ConsumerSerializer(data=request.data)
+    data = request.data.copy()
+    data['username'] = Faker().user_name()[:15]
+    serializer = ConsumerSerializer(data=data)
     if not serializer.is_valid():
         for field, error in serializer.errors.items():
             print(f"Error in field {field}: {error}")

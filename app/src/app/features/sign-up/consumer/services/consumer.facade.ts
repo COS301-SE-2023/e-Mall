@@ -15,7 +15,6 @@ export class ConsumerFacade {
   }
 
   async signUp(form: IConsumerForm) {
-    form.type = 'consumer';
     await this.authFacade.signUp(form);
   }
 }
