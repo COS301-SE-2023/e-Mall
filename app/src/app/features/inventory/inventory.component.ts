@@ -2,17 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { IProduct } from '@shared/models/product/product.interface';
 import { tap } from 'rxjs/operators';
-import {
-  Observable,
-  of,
-  debounceTime,
-  distinctUntilChanged,
-  Subscription,
-} from 'rxjs';
+import { Observable, of, debounceTime, distinctUntilChanged, Subscription,} from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { FormControl } from '@angular/forms';
 import { ProductSellerService } from '@shared/servicies/productseller/productseller.service';
 import { IProductSeller } from '@shared/models/product/product-seller.interface';
+import { ProductService } from '@shared/servicies/product/product.service';
 
 @Component({
   selector: 'app-inventory',
@@ -20,12 +15,50 @@ import { IProductSeller } from '@shared/models/product/product-seller.interface'
   styleUrls: ['./inventory.component.scss'],
 })
 export class InventoryComponent {
+
+  options = ['All', 'In Stock', 'Out of Stock'];
+  searchQuery!: string;
+  searchResults$: Observable<IProductSeller[]> | undefined;
+  // isAuthenticated!: boolean;
+  min_price_in_stock!: number;
+  brandOptions: string[] = []; // Populate this array with the brand names based on your search results
+  sellerOptions: string[] = []; // Populate this array with the seller names based on your search results
+  categoryOptions: string[] = []; // Populate this array with the category names based on your search results
+  priceRange: number[] = [0, 100]; // Initial price range
+  minPrice!: number; // Minimum price value
+  maxPrice!: number; // Maximum price value
+  filterOptions: string[] = []; // Stores the selected filter options
+  selectedSortOption!: string;
+  isChecked!: boolean;
+  currentPage!: number;
+  maxPrice$: Observable<number> | null = null;
+  minPrice$: Observable<number> | null = null;
+  itemsPerPage!: number;
+  totalSearchCount$: Observable<number> | undefined;
+  sellerName!: string;
+  selectedOption!: string;
+
+  loading = true;
+
+  ////J fix for min , max price
+  minInputController = new FormControl();
+  maxInputController = new FormControl();
+  minInputControllerSub = new Subscription();
+  maxInputControllerSub = new Subscription();
+
+
+  selectOption(option: string) {
+    this.selectedOption = option;
+  }
+
+
+
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
     private router: Router,
     private ProductSellerService: ProductSellerService,
-    private router: Router
   ) {}
 
   ngOnInit(): void {
