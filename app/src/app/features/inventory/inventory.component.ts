@@ -78,17 +78,6 @@ export class InventoryComponent {
       ).subscribe(result => {
         this.searchResults$ = of(result.products);
         this.totalSearchCount$ = of(result.totalCount);
-        this.searchResults$
-          .pipe(
-            tap((products: IProductSeller[]) => {
-              const categories = new Set<string>();
-              products.forEach(product => {
-                categories.add(product.product_category);
-              });
-              this.categoryOptions = Array.from(categories);
-            })
-          )
-          .subscribe();
       });
     });
     this.minInputControllerSub = this.minInputController.valueChanges
