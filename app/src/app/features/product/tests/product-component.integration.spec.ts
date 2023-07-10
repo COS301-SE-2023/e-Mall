@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 //product integration tests
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, Input } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 import { ProductComponent } from '@app/features/product/product.component';
 import { ProductService } from '@shared/servicies/product/product.service';
 import { CommonModule } from '@angular/common';
@@ -18,30 +17,6 @@ import { ActivatedRoute } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
-
-// Mock ProductService
-class MockProductService {
-  getProductData(): Observable<any> {
-    return of({
-      /* mock product data */
-    });
-  }
-
-  getSellerList(): Observable<any> {
-    return of({
-      /* mock seller list data */
-    });
-  }
-}
-
-// Mock Child Component
-@Component({
-  selector: 'app-some-child-component',
-  template: '',
-})
-class MockChildComponent {
-  @Input() prod_id: number | undefined;
-}
 
 describe('ProductComponentIntegration', () => {
   let component: ProductComponent;

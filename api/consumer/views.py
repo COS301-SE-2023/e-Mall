@@ -1,20 +1,25 @@
-# from django.shortcuts import render
-from rest_framework import viewsets
 from .serializers import ConsumerSerializer
 from .models import Consumer
-from rest_framework import permissions
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
 
-# Create your views here.
+from rest_framework.permissions import AllowAny
+from rest_framework import status
+
+# temporary import
+from faker import Faker
 
 
-class ConsumerViewSet(viewsets.ModelViewSet):
-    queryset = Consumer.objects.all()
-    serializer_class = ConsumerSerializer
-    http_method_names = ['get', 'post']
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def register(request):
+    data = request.data.copy()
+    data['username'] = Faker().user_name()[:15]
+    serializer = ConsumerSerializer(data=data)
+    if not serializer.is_valid():
+        for field, error in serializer.errors.items():
+            print(f"Error in field {field}: {error}")
+    serializer.is_valid(raise_exception=True)
+    serializer.save()
 
-    def get_permissions(self):
-        if self.action == 'create':
-            permission_classes = [permissions.AllowAny]
-        else:
-            permission_classes = self.permission_classes
-        return [permission() for permission in permission_classes]
+    return Response({'message': 'Consumer registered successfully'}, status=status.HTTP_201_CREATED)

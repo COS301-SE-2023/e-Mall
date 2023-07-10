@@ -11,8 +11,7 @@ import { Navigate } from '@ngxs/router-plugin';
 import { SetError } from '@app/features/error/states/error.action';
 import { IConsumerForm } from '@features/sign-up/consumer/models/consumer.interface';
 import { IError } from '@app/features/error/models/error.interface';
-import { StateResetAll, StateClear } from 'ngxs-reset-plugin';
-
+import * as ErrorActions from '@features/error/states/error.action';
 @Injectable()
 export class AuthFacade {
   @Select(AuthSelectors.currentUser)
@@ -24,7 +23,11 @@ export class AuthFacade {
   async signIn(email: string, password: string) {
     try {
       const user = await this.authService.signIn(email, password);
-      return [new AuthActions.SetCurrentUser(user), new Navigate(['home'])];
+      return [
+        new AuthActions.SetCurrentUser(user),
+        new ErrorActions.ClearError('auth'),
+        new Navigate(['home']),
+      ];
     } catch (error) {
       return new SetError('auth', error as IError);
     }
@@ -33,11 +36,18 @@ export class AuthFacade {
   async signUp(form: ISellerForm | IConsumerForm) {
     try {
       const user = await this.authService.signUp(form);
-      new AuthActions.SetCurrentUser(user);
       if (form.type === 'seller') {
-        return new Navigate(['pending']);
+        return [
+          new AuthActions.SetCurrentUser(user),
+          new ErrorActions.ClearError('auth'),
+          new Navigate(['pending']),
+        ];
       }
-      return new Navigate(['home']);
+      return [
+        new AuthActions.SetCurrentUser(user),
+        new ErrorActions.ClearError('auth'),
+        new Navigate(['home']),
+      ];
     } catch (error) {
       return new SetError('auth', error as IError);
     }
@@ -46,26 +56,13 @@ export class AuthFacade {
   async signOut() {
     try {
       await this.authService.signOut();
-      return [
-        //new StateResetAll(); //enable this only if needed
-        new AuthActions.SignOutAction(),
-        new Navigate(['home']),
-      ];
+      return [new AuthActions.SignOutAction(), new Navigate(['home'])];
     } catch (error) {
       return new SetError('auth', error as IError);
     }
   }
 
-  async confirmSignUp(email: string, verification_code: string) {
-    return await this.authService.confirmSignUp(email, verification_code);
-  }
   getCurrentUser(): Observable<IUser | null> {
     return this.currentUser$;
   }
-  // async getAccessToken(): Observable<IUser| null> {
-  //   if (this.currentUser$) {
-  //     const user = await lastValueFrom(this.currentUser$);
-  //     return d ;
-  //   }
-  // }
 }

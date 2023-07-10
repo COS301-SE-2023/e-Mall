@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
-import { Select } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import * as ErrorActions from '../states/error.action';
 import { ErrorSelectors } from '../states/error.selector';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { IError } from '../models/error.interface';
 
 @Injectable()
 export class ErrorFacade {
-  @Select(ErrorSelectors.getError)
-  error$!: Observable<IError>;
-
+  constructor(private store: Store) {}
+  getError$(key: string): Observable<IError | null> {
+    return this.store.select(ErrorSelectors.getError).pipe(map(fn => fn(key)));
+  }
   @Dispatch()
   setError(key: string, error: IError) {
     return new ErrorActions.SetError(key, error);

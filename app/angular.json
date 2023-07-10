@@ -17,6 +17,22 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "lodash",
+              "url",
+              "buffer",
+              "ulid",
+              "uuid",
+              "camelcase-keys",
+              "buffer",
+              "events",
+              "@aws-crypto/sha256-browser",
+              "isomorphic-unfetch",
+              "js-cookie",
+              "cookie",
+              "fast-xml-parser",
+              "@aws-crypto/crc32"
+            ],
             "outputPath": "dist/app",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -213,11 +229,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "src/polyfills.ts",
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["src/polyfills.ts", "zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -249,18 +261,13 @@
             ],
             "karmaConfig": "karma.conf.js",
             "codeCoverage": true,
-            "codeCoverageExclude": [
-              "app/shared/**/*"
-            ]
+            "codeCoverageExclude": ["app/shared/**/*"]
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         },
         "ionic-cordova-serve": {
@@ -292,8 +299,6 @@
   },
   "cli": {
     "analytics": false,
-    "schematicCollections": [
-      "@angular-eslint/schematics"
-    ]
+    "schematicCollections": ["@angular-eslint/schematics"]
   }
 }
