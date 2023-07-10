@@ -1,9 +1,13 @@
 
-<ion-nav class="sticky-nav">
-    <ion-list>
-      <ion-item>
-        <ion-label>e-Mall</ion-label>
+<ion-nav class="side-nav">
+  <ion-item style="display: flex;
+      width: 286px;
+      padding: 0px 20px;
+      align-items: flex-start;
+      gap: 20px;">
+        <ion-title>e-Mall</ion-title>
       </ion-item>
+    <ion-list>
       <ion-item (click)="navigateTo('sales')">
         <ion-icon name="analytics" slot="start"></ion-icon>
         <ion-label>Sales</ion-label>
@@ -24,5 +28,8 @@
         <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
         <ion-label>Sign out</ion-label>
       </ion-item>
-    </ion-list>
+    </ion-list>    
+  </ion-nav>
+  <ion-nav class="top-nav">
+      <ion-title>Hello user</ion-title> 
   </ion-nav>

@@ -12,6 +12,7 @@ import { ConsumerRegisterModule } from './features/sign-up/consumer/consumer-reg
 import { SignOutModule } from './features/sign-out/sign-out.module';
 import { FooterModule } from './shared/components/footer/footer.module';
 import { AboutModule } from './features/about/about.module';
+import { SalesModule } from './features/sales/sales.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { IonicModule, IonicRouteStrategy, MenuController } from '@ionic/angular';
 import { RouteReuseStrategy } from '@angular/router';
@@ -72,6 +73,8 @@ import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module
     FooterModule,
     NavbarModule,
     AboutModule,
+    
+    SalesModule,
     MatTooltipModule,
     InventoryModule,
     SellerNavModule,
