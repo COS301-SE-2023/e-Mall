@@ -48,13 +48,13 @@ ion-header {
         min-width: 800px;
         margin-right: 13rem;
         margin-left: 1rem;
-        border-radius: 20px;
       }
       
       .search-box {
         flex-grow: 1;
         max-width: 700px;
-        border-radius: 60px;
+        //border-radius: 60px;
+        
       }
       
       .sort-bar{
@@ -63,6 +63,10 @@ ion-header {
         padding: 8px;
         max-width: 280px;
         float: right;
+
+        border-radius: 12px;
+        border: 1px solid var(--c-1-d, #D1D1D1);
+        background: var(--c-1-white, #F7F9F9);
       }
 
       .search-sort-container {
