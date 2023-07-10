@@ -52,6 +52,9 @@ export class InventoryComponent {
 
   selectOption(option: string) {
     this.selectedOption = option;
+    if (option === 'All') {
+      this.onFilterOptionChange('filter_in_stock', undefined, false);
+    } else this.onFilterOptionChange('filter_in_stock', option, true);
   }
 
   constructor(
@@ -75,10 +78,6 @@ export class InventoryComponent {
       ).subscribe(result => {
         this.searchResults$ = of(result.products);
         this.totalSearchCount$ = of(result.totalCount);
-        console.log('totalSearchCount$');
-        console.log(result.totalCount);
-        console.log('searchResults$');
-        console.log(result.products);
         this.searchResults$
           .pipe(
             tap((products: IProductSeller[]) => {
@@ -199,45 +198,24 @@ export class InventoryComponent {
         }
       }
     } else if (filter_type === 'filter_in_stock') {
-      const filteroption = `${filter_type}=true`; // Set the filter option as "filter_in_stock=true"
+      let filteroption = `${filter_type}=`; // Set the filter option as "filter_in_stock=true"
+      if (value == 'In Stock') {
+        filteroption += `True`;
+      } else if (value == 'Out of Stock') {
+        filteroption += `False`;
+      }
 
       if (checked) {
         // Add the filter option if checked is true
+        this.filterOptions = [];
         this.filterOptions.push(filteroption);
       } else {
         // Remove the filter option if checked is false
-        const index = this.filterOptions.indexOf(filteroption);
-        if (index > -1) {
-          this.filterOptions.splice(index, 1);
-        }
-      }
-    } else if (
-      filter_type === 'filter_price_min' ||
-      filter_type === 'filter_price_max'
-    ) {
-      const filteroption = `${filter_type}=${value}`;
-
-      if (value == null) {
-        // Remove the filter option if checked is false
-        this.filterOptions = this.filterOptions.filter(
-          option => !option.startsWith(`${filter_type}=`)
-        );
-
-        // Remove the filter option if checked is false
-
-        const index = this.filterOptions.indexOf(filteroption);
-        if (index > -1) {
-          this.filterOptions.splice(index, 1);
-        }
-      } else {
-        // // Remove any existing filter option with the same filter type
-        this.filterOptions = this.filterOptions.filter(
-          option => !option.startsWith(`${filter_type}=`)
-        );
-        // Add the new filter option
-        this.filterOptions.push(filteroption);
+        this.filterOptions = [];
       }
     }
+    console.log('filterOptions');
+    console.log(this.filterOptions);
     this.ProductSellerService.getProductSellerData(
       this.sellerName,
       undefined,
@@ -252,7 +230,7 @@ export class InventoryComponent {
   }
 
   onSearchInputChange() {
-    if (!this.searchQuery) {
+    if (this.searchQuery === '') {
       // Call a function or perform an action when the search input is empty
       this.resetSearch();
     }
