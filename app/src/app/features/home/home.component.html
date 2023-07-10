@@ -65,20 +65,7 @@
             <div
               class="col-md-3"
               *ngFor="let product of products.slice(0, 4); let i = index">
-              <mat-card
-                class="product-card"
-                (click)="goToProductPage(product.id)">
-                <img
-                  mat-card-image
-                  [src]="getOneImg(product?.min_price_img_array)"
-                  alt="Product Image"
-                  class="product-image" />
-                <mat-card-content>
-                  <mat-card-title>{{ product.name }}</mat-card-title>
-                  <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
-                  <mat-card-title>R {{ product.min_price }}</mat-card-title>
-                </mat-card-content>
-              </mat-card>
+              <app-product-card (click)="goToProductPage(product.id)"[product]="{ imageUrl: getOneImg(product?.min_price_img_array), name:product.name , category:product.category,price: product.min_price }"></app-product-card>
             </div>
           </div>
         </ng-template>
@@ -87,20 +74,7 @@
             <div
               class="col-md-3"
               *ngFor="let product of products.slice(4, 8); let i = index">
-              <mat-card
-                class="product-card"
-                (click)="goToProductPage(product.id)">
-                <img
-                  mat-card-image
-                  [src]="getOneImg(product?.min_price_img_array)"
-                  alt="Product Image"
-                  class="product-image" />
-                <mat-card-content>
-                  <mat-card-title>{{ product.name }}</mat-card-title>
-                  <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
-                  <mat-card-title>R {{ product.min_price }}</mat-card-title>
-                </mat-card-content>
-              </mat-card>
+              <app-product-card (click)="goToProductPage(product.id)"[product]="{ imageUrl: getOneImg(product?.min_price_img_array), name:product.name , category:product.category,price: product.min_price }"></app-product-card>
             </div>
           </div>
         </ng-template>
@@ -109,21 +83,7 @@
             <div
               class="col-md-6"
               *ngFor="let product of products.slice(8, 12); let i = index">
-              <mat-card
-                class="product-card"
-                *ngIf="products.length > i + 8"
-                (click)="goToProductPage(product.id)">
-                <img
-                  mat-card-image
-                  [src]="getOneImg(product?.min_price_img_array)"
-                  alt="Product Image"
-                  class="product-image" />
-                <mat-card-content>
-                  <mat-card-title>{{ product.name }}</mat-card-title>
-                  <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
-                  <mat-card-title>R {{ product.min_price }}</mat-card-title>
-                </mat-card-content>
-              </mat-card>
+              <app-product-card (click)="goToProductPage(product.id)"[product]="{ imageUrl: getOneImg(product?.min_price_img_array), name:product.name , category:product.category,price: product.min_price }"></app-product-card>
             </div>
           </div>
         </ng-template>
@@ -151,20 +111,8 @@
             <div
               class="col-md-3"
               *ngFor="let product of products.slice(0, 4); let i = index">
-              <mat-card
-                class="product-card"
-                (click)="goToProductPage(product.id)">
-                <img
-                  mat-card-image
-                  [src]="getOneImg(product?.min_price_img_array)"
-                  alt="Product Image"
-                  class="product-image" />
-                <mat-card-content>
-                  <mat-card-title>{{ product.name }}</mat-card-title>
-                  <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
-                  <mat-card-title>R {{ product.min_price }}</mat-card-title>
-                </mat-card-content>
-              </mat-card>
+              <app-product-card (click)="goToProductPage(product.id)"[product]="{ imageUrl: getOneImg(product?.min_price_img_array), name:product.name , category:product.category,price: product.min_price }"></app-product-card>
+         
             </div>
           </div>
         </ng-template>
@@ -173,20 +121,7 @@
             <div
               class="col-md-3"
               *ngFor="let product of products.slice(4, 8); let i = index">
-              <mat-card
-                class="product-card"
-                (click)="goToProductPage(product.id)">
-                <img
-                  mat-card-image
-                  [src]="getOneImg(product?.min_price_img_array)"
-                  alt="Product Image"
-                  class="product-image" />
-                <mat-card-content>
-                  <mat-card-title>{{ product.name }}</mat-card-title>
-                  <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
-                  <mat-card-title>R {{ product.min_price }}</mat-card-title>
-                </mat-card-content>
-              </mat-card>
+              <app-product-card (click)="goToProductPage(product.id)"[product]="{ imageUrl: getOneImg(product?.min_price_img_array), name:product.name , category:product.category,price: product.min_price }"></app-product-card>
             </div>
           </div>
         </ng-template>
@@ -195,27 +130,13 @@
             <div
               class="col-md-6"
               *ngFor="let product of products.slice(8, 10); let i = index">
-              <mat-card
-                class="product-card"
-                (click)="goToProductPage(product.id)">
-                <img
-                  mat-card-image
-                  [src]="getOneImg(product?.min_price_img_array)"
-                  alt="Product Image"
-                  class="product-image" />
-                <mat-card-content>
-                  <mat-card-title>{{ product.name }}</mat-card-title>
-                  <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
-                  <mat-card-title>R {{ product.min_price }}</mat-card-title>
-                </mat-card-content>
-              </mat-card>
+              <app-product-card (click)="goToProductPage(product.id)"[product]="{ imageUrl: getOneImg(product?.min_price_img_array), name:product.name , category:product.category,price: product.min_price }"></app-product-card>
             </div>
           </div>
         </ng-template>
       </ngb-carousel>
     </div>
   </div>
-
   <br /><br />
 </ion-content>
 <app-footer></app-footer>

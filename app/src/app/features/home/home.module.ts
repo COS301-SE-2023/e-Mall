@@ -25,36 +25,38 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
+import { ProductCardModule } from "../../shared/components/product-card/product-card.module";
 
 @NgModule({
-  declarations: [HomeComponent],
-  imports: [
-    HttpClientModule,
-    CommonModule,
-    RouterModule,
-    HomeRoutingModule,
-    NgbCarouselModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatDividerModule,
-    MatSidenavModule,
-    MatCheckboxModule,
-    MatCardModule,
-    MatIconModule,
-    MatPaginatorModule,
-    MatSliderModule,
-    MatButtonToggleModule,
-    MatProgressSpinnerModule,
-    MatSlideToggleModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatRadioModule,
-    IonicModule,
-    NavbarModule,
-    FooterModule,
-  ],
-  providers: [ProductService, AuthService],
-  exports: [HomeComponent],
+    declarations: [HomeComponent],
+    providers: [ProductService, AuthService],
+    exports: [HomeComponent],
+    imports: [
+        HttpClientModule,
+        CommonModule,
+        RouterModule,
+        HomeRoutingModule,
+        NgbCarouselModule,
+        MatExpansionModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatDividerModule,
+        MatSidenavModule,
+        MatCheckboxModule,
+        MatCardModule,
+        MatIconModule,
+        MatPaginatorModule,
+        MatSliderModule,
+        MatButtonToggleModule,
+        MatProgressSpinnerModule,
+        MatSlideToggleModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatRadioModule,
+        IonicModule,
+        NavbarModule,
+        FooterModule,
+        ProductCardModule
+    ]
 })
 export class HomeModule {}
