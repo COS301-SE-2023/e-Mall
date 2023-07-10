@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SellerRegisterComponent } from '@app/features/sign-up/seller/seller-register.component';
+import { SellerRegisterComponent } from '../components/seller-register.component';
 
 import { AuthService } from '@app/features/auth/services/auth.service';
 import { Router } from '@angular/router';
@@ -14,6 +14,12 @@ import { AuthFacade } from '@app/features/auth/services/auth.facade';
 import { AuthModule } from '@app/features/auth/auth.module';
 import { NgxsModule, Store } from '@ngxs/store';
 import { AuthState } from '@app/features/auth/states/auth.state';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { ViewSizeModule } from '@shared/directives/view-size/view-size.module';
+import { ToastModule } from '@shared/components/toast/toast.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 describe('RegisterComponent', () => {
   let component: SellerRegisterComponent;
   let fixture: ComponentFixture<SellerRegisterComponent>;
@@ -29,9 +35,15 @@ describe('RegisterComponent', () => {
         RouterTestingModule,
         HttpClientModule,
         FormsModule,
+        BrowserAnimationsModule,
         ReactiveFormsModule,
         IonicModule,
         AuthModule,
+        MatStepperModule,
+        MatButtonModule,
+        MatIconModule,
+        ViewSizeModule,
+        ToastModule,
       ],
       declarations: [SellerRegisterComponent],
       providers: [AuthFacade],

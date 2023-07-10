@@ -1,0 +1,351 @@
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-align-items-center ion-justify-content-center">
+      <ion-col class="left-pannel">
+        <ion-text>
+          <h2>Register your Business Today!</h2>
+        </ion-text>
+
+        <mat-stepper linear #stepper labelPosition="bottom">
+          <ng-template matStepperIcon="edit"> </ng-template>
+          <ng-template matStepperIcon="done">
+            <mat-icon>done</mat-icon>
+          </ng-template>
+          <ng-template matStepperIcon="error"
+            ><mat-icon>error_outline</mat-icon>
+          </ng-template>
+          <ng-template matStepperIcon="number"> </ng-template>
+          <mat-step [stepControl]="registerFormFirst">
+            <form [formGroup]="registerFormFirst">
+              <div class="input-error-box-wrapper">
+                <div class="input-error-box">
+                  <ion-input
+                    type="email"
+                    label="Email"
+                    placeholder="example@emall.com"
+                    labelPlacement="floating"
+                    fill="outline"
+                    formControlName="email"
+                    required="true"
+                    (ionFocus)="onInputFocus(0)"></ion-input>
+
+                  <div class="error-container">
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        focus[0] &&
+                        getFormControl(registerFormFirst, 'email')?.invalid &&
+                        getFormControl(registerFormFirst, 'email')?.dirty &&
+                        getFormControl(registerFormFirst, 'email')?.touched
+                      ">
+                      <ion-text color="danger" size="small"
+                        >Invalid email address</ion-text
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="input-error-box">
+                  <ion-input
+                    color="primary"
+                    type="password"
+                    label="Password"
+                    formControlName="password"
+                    labelPlacement="floating"
+                    fill="outline"
+                    (ionFocus)="onInputFocus(1)">
+                  </ion-input>
+
+                  <div class="error-container">
+                    <ng-container
+                      *ngIf="
+                        focus[1] &&
+                        getFormControl(registerFormFirst, 'password')
+                          ?.invalid &&
+                        getFormControl(registerFormFirst, 'password')?.dirty &&
+                        getFormControl(registerFormFirst, 'password')?.touched
+                      ">
+                      <ng-container
+                        *ngFor="let validation of passwordErrors.password">
+                        <div
+                          class="success-message"
+                          *ngIf="
+                            !getFormControl(
+                              registerFormFirst,
+                              'password'
+                            )?.hasError(validation.type)
+                          ">
+                          <ion-icon
+                            size="small"
+                            color="success"
+                            name="information-circle-outline"></ion-icon>
+                          <ion-text color="success" size="small">{{
+                            validation.message
+                          }}</ion-text>
+                        </div>
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            getFormControl(
+                              registerFormFirst,
+                              'password'
+                            )?.hasError(validation.type)
+                          ">
+                          <ion-icon
+                            size="small"
+                            color="danger"
+                            name="information-circle-outline"></ion-icon>
+                          <ion-text color="danger" size="small">{{
+                            validation.message
+                          }}</ion-text>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <div class="input-error-box">
+                  <ion-input
+                    type="password"
+                    label="Confirm password"
+                    labelPlacement="floating"
+                    formControlName="cpassword"
+                    fill="outline"
+                    required="true"
+                    minlength="8"
+                    (ionFocus)="onInputFocus(2)">
+                  </ion-input>
+
+                  <div class="error-container">
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        focus[2] &&
+                        getFormControl(registerFormFirst, 'cpassword')
+                          ?.invalid &&
+                        getFormControl(registerFormFirst, 'cpassword')?.dirty &&
+                        getFormControl(registerFormFirst, 'cpassword')?.touched
+                      ">
+                      <ion-text color="danger" size="small"
+                        >Password does not match</ion-text
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="step-button">
+                <button
+                  [disabled]="registerFormFirst.invalid"
+                  mat-raised-button
+                  color="primary"
+                  matStepperNext>
+                  Next
+                </button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="registerFormSecond">
+            <form [formGroup]="registerFormSecond">
+              <div class="input-error-box-wrapper">
+                <div class="input-error-box">
+                  <ion-input
+                    type="url"
+                    label="Website"
+                    placeholder="http://www.example.com"
+                    labelPlacement="floating"
+                    fill="outline"
+                    formControlName="website"
+                    required="true"
+                    maxlength="200"
+                    (ionFocus)="onInputFocus(0)"></ion-input>
+
+                  <div class="error-container">
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        focus[0] &&
+                        getFormControl(registerFormSecond, 'website')
+                          ?.invalid &&
+                        getFormControl(registerFormSecond, 'website')?.dirty &&
+                        getFormControl(registerFormSecond, 'website')?.touched
+                      ">
+                      <ion-text color="danger" size="small"
+                        >Invalid website address</ion-text
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="input-error-box">
+                  <ion-input
+                    type="url"
+                    label="Feed"
+                    placeholder="http://www.example.com"
+                    labelPlacement="floating"
+                    fill="outline"
+                    formControlName="feed"
+                    required="false"
+                    maxlength="200"
+                    (ionFocus)="onInputFocus(1)"></ion-input>
+
+                  <div class="error-container">
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        focus[1] &&
+                        getFormControl(registerFormSecond, 'website')
+                          ?.invalid &&
+                        getFormControl(registerFormSecond, 'website')?.dirty &&
+                        getFormControl(registerFormSecond, 'website')?.touched
+                      ">
+                      <ion-text color="danger" size="small"
+                        >Invalid feed address</ion-text
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="input-error-box">
+                  <ion-input
+                    type="text"
+                    label="Business Type"
+                    placeholder="Retailer"
+                    labelPlacement="floating"
+                    fill="outline"
+                    formControlName="typeOfBusiness"
+                    required="true"
+                    maxlength="100"
+                    (ionFocus)="onInputFocus(2)"></ion-input>
+
+                  <div class="error-container">
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        focus[2] &&
+                        getFormControl(registerFormSecond, 'website')
+                          ?.invalid &&
+                        getFormControl(registerFormSecond, 'website')?.dirty &&
+                        getFormControl(registerFormSecond, 'website')?.touched
+                      ">
+                      <ion-text color="danger" size="small"
+                        >Business type is required</ion-text
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="step-button">
+                <button mat-raised-button color="primary" matStepperPrevious>
+                  Previous
+                </button>
+
+                <button
+                  [disabled]="registerFormSecond.invalid"
+                  mat-raised-button
+                  color="primary"
+                  matStepperNext>
+                  Next
+                </button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="registerFormThird">
+            <form [formGroup]="registerFormThird">
+              <div class="input-error-box-wrapper">
+                <div class="input-error-box">
+                  <ion-input
+                    type="number"
+                    label="Catalog Size"
+                    placeholder="100"
+                    labelPlacement="floating"
+                    fill="outline"
+                    formControlName="catalogSize"
+                    required="true"
+                    (ionFocus)="onInputFocus(0)"></ion-input>
+
+                  <div class="error-container">
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        focus[0] &&
+                        getFormControl(registerFormThird, 'website')?.invalid &&
+                        getFormControl(registerFormThird, 'website')?.dirty &&
+                        getFormControl(registerFormThird, 'website')?.touched
+                      ">
+                      <ion-text color="danger" size="small"
+                        >Catalog size is required</ion-text
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="input-error-box">
+                  <ion-input
+                    type="number"
+                    label="Business Size"
+                    placeholder="No. of employees"
+                    labelPlacement="floating"
+                    fill="outline"
+                    formControlName="sizeOfBusiness"
+                    required="true"
+                    (ionFocus)="onInputFocus(1)"></ion-input>
+
+                  <div class="error-container">
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        focus[1] &&
+                        getFormControl(registerFormThird, 'website')?.invalid &&
+                        getFormControl(registerFormThird, 'website')?.dirty &&
+                        getFormControl(registerFormThird, 'website')?.touched
+                      ">
+                      <ion-text color="danger" size="small"
+                        >Business size required</ion-text
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="input-error-box"></div>
+              </div>
+              <div class="submit-button">
+                <ion-button
+                  id="submit-button"
+                  [disabled]="registerFormThird.invalid"
+                  type="button"
+                  (click)="onSubmit()"
+                  >Submit</ion-button
+                >
+              </div>
+            </form>
+          </mat-step>
+        </mat-stepper>
+        <!-- </ion-item> -->
+        <ion-item class="text-center">
+          <ion-text id="already-have-acc-text"
+            >Already have an account?</ion-text
+          >
+          <ion-text color="primary">
+            <a routerLink="/sign-in">Sign In</a>
+          </ion-text>
+        </ion-item>
+      </ion-col>
+
+      <ion-col *viewSize="'desktop'" class="side-pannel">
+        <div>
+          <h1 class="welcome-header">
+            Welcome to SA's leading<br />comparison service for
+            <div class="welcome-header-accent">online shopping</div>
+          </h1>
+
+          <ion-img
+            id="logo"
+            src="assets/images/logo.png"
+            alt="E-Mall"></ion-img>
+
+          <h3 class="welcome-footer">
+            Discover<br />Compare<br />Shop<br />E-Mall Has It All!
+          </h3>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
