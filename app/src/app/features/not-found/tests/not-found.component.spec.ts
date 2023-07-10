@@ -39,7 +39,7 @@ describe('NotFoundComponent', () => {
   it('should display the correct error message', () => {
     const errorMessageElement = fixture.nativeElement.querySelector('p');
     const expectedErrorMessage =
-      'The page you are looking for might have been removed had its name changed or is temporarily unavailable.';
+      'The page you are looking for might have been removed, had its name changed or is temporarily unavailable.';
     expect(errorMessageElement.textContent).toContain(expectedErrorMessage);
   });
 

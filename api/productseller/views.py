@@ -110,13 +110,11 @@ class ProductSellerProdDeleteAPIView(APIView):
 
         except ProductSeller.DoesNotExist:
             return JsonResponse({"error": "ProductSeller not found"}, status=404)
+        
 class ProductSellerDashboardAPIView(APIView):
     def get(self, request):
-        seller_name = (
-            request.GET.get("seller_name")
-            if request.GET.get("seller_name")
-            else "Takealot"
-        )
+        seller_name = request.GET.get("seller_name")
+        print("Seller name",seller_name)
         # Input for search
         search = request.GET.get("search")
         # sorting options[price, discount, name]

@@ -1,0 +1,107 @@
+ion-header {
+    ion-toolbar {
+      --color: #333;
+      padding: 14px;
+      
+    }
+}
+  
+    ion-title {
+      font-size: 22px;
+      font-weight: bold;
+      margin-left: 12rem;
+      --color:#333;
+    }
+
+    .container {
+        //max-width: px; /* Set the maximum width as needed */
+        padding: 30px; /* Add padding around the container */
+        border-radius: 10px; /* Apply rounded corners */
+      }
+
+      .title-row {
+        margin-top: 10px;
+        max-width: 280px;
+        display: flex;
+      }
+      
+      .title {
+        flex-grow: 1;
+        text-align: center;
+        cursor: pointer;
+        color: gray;
+        width: 40px;
+        font-size: 17px;
+        text-decoration: none;
+      }
+      
+      .title.selected {
+        color: black;
+        text-decoration: underline;
+      }
+
+
+      .search-bar {
+        display: flex;
+        align-items: center;
+        padding: 8px;
+        min-width: 800px;
+        margin-right: 13rem;
+        margin-left: 1rem;
+      }
+      
+      .search-box {
+        flex-grow: 1;
+        max-width: 700px;
+        //border-radius: 60px;
+        
+      }
+      
+      .sort-bar{
+        display: flex;
+        align-items: center;
+        padding: 8px;
+        max-width: 280px;
+        float: right;
+
+        border-radius: 12px;
+        border: 1px solid var(--c-1-d, #D1D1D1);
+        background: var(--c-1-white, #F7F9F9);
+      }
+
+      .sort-box {
+        border:none;
+      }
+
+      .search-sort-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .inventory-container{
+        margin-top: 10px;
+        margin-left: 13.5rem;
+        margin-right: 1rem;
+        box-sizing: border-box;
+        border-radius: 60px;
+        background-color: var(--c-1-white, #F7F9F9);
+        padding: 10px;
+      }
+
+      .mat-paginator {
+        margin-left: 12rem;
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: center;
+      }
+
+      .col-title {
+        background: var(--c-5-e, #ECF6F6);
+      }
+
+
+      
+      
+      
+  
+  

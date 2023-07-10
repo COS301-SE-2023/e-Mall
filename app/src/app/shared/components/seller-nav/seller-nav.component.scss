@@ -1,5 +1,6 @@
 
 
+
 .top-nav,.side-nav,
 .side-nav ion-list {
   background-color: #ecf6f6;
@@ -42,6 +43,7 @@ align-items: center;
   --ion-item-border-radius: 0; /* Remove the border radius */
   transition: background-color 0.3s ease; /* Add transition for smooth color change */
 }
+
 
 .side-nav ion-item:hover {
   background-color: #37d0d6; /* Set the desired background color when hovering */

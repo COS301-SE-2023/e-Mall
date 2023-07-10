@@ -14,7 +14,7 @@ import { FooterModule } from './shared/components/footer/footer.module';
 import { AboutModule } from './features/about/about.module';
 import { SalesModule } from './features/sales/sales.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { IonicModule, IonicRouteStrategy, MenuController } from '@ionic/angular';
 import { RouteReuseStrategy } from '@angular/router';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { NgxsModule } from '@ngxs/store';
@@ -33,6 +33,8 @@ import { AuthModule } from './features/auth/auth.module';
 import { ErrorModule } from './features/error/error.module';
 import { NgxsResetPluginModule } from 'ngxs-reset-plugin';
 import { customPageAnimation } from '@shared/animations/custom-page.animation';
+import { InventoryModule } from './features/inventory/inventory.module';
+import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -74,6 +76,8 @@ import { customPageAnimation } from '@shared/animations/custom-page.animation';
     
     SalesModule,
     MatTooltipModule,
+    InventoryModule,
+    SellerNavModule,
   ],
 
   providers: [
