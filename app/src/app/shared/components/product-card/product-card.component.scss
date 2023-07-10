@@ -1,6 +1,6 @@
 ion-card {
   display: flex;
-  width: 200px;
+  width: 240px;
   height: 330px;
   padding: 16px;
   flex-direction: column;
@@ -19,7 +19,7 @@ ion-card {
   background: var(--c-5-e, #ecf6f6);
   ion-label {
     color: var(--c-5-a, #37d0d6);
-    font-family: Poppins;
+    font-family: Poppins,sans-serif;
     font-size: 12px;
     font-style: normal;
     font-weight: 600;
@@ -28,7 +28,7 @@ ion-card {
 }
 ion-img {
   object-fit: cover !important;
-  width: 168px;
+  width: 208px;
   height: 180px;
   flex-shrink: 0;
 }
@@ -36,22 +36,22 @@ ion-img {
 ion-card-content {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: 16px;
   align-self: stretch;
-  text-align: left;
+  justify-content: center;
 
   ion-card-title {
     color: var(--c-1-a, #151515);
-    font-family: Poppins;
+    font-family: Poppins,sans-serif;
     font-size: 15px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    text-align: center;
   }
   h4 {
     color: var(--c-1-a, #151515);
-    font-family: Poppins;
+    font-family: Poppins,sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 600;
@@ -59,10 +59,11 @@ ion-card-content {
   }
   p {
     color: var(--c-1-b, #575757);
-    font-family: Open Sans;
+    font-family: 'Open Sans',sans-serif;
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    text-align: center;
   }
 }
