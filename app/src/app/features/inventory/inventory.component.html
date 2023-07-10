@@ -57,11 +57,11 @@
           <ion-grid>
             <ion-row class="col-title">
               <ion-col size="1"><b>Product ID</b></ion-col>
-              <ion-col size="5"><b>Name</b></ion-col>
+              <ion-col size="4"><b>Name</b></ion-col>
               <ion-col size="2"><b>Inventory Status</b></ion-col>
               <ion-col size="2"><b>Original Price</b></ion-col>
               <ion-col size="1"><b>Discount Rate</b></ion-col>
-              <ion-col size="1"><b>Current Price</b></ion-col>
+              <ion-col size="2"><b>Current Price</b></ion-col>
             </ion-row>
           </ion-grid>
         </ion-item>
@@ -70,11 +70,11 @@
             <ion-grid>
               <ion-row>
                 <ion-col size="1">{{ product.product }}</ion-col>
-                <ion-col size="5">{{ product.product_name }}</ion-col>
+                <ion-col size="4">{{ product.product_name }}</ion-col>
                 <ion-col size="2">{{ product.in_stock }}</ion-col>
                 <ion-col size="2">R {{ product.original_price }}</ion-col>
                 <ion-col size="1">{{ product.discount_rate }}</ion-col>
-                <ion-col size="1">R {{ product.price }}</ion-col>
+                <ion-col size="2">R {{ product.price }}</ion-col>
               </ion-row>
             </ion-grid>
           </ion-item>
