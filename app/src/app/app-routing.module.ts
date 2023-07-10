@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
 import { SellerRegisterComponent } from '@features/sign-up/seller/components/seller-register.component';
 import { ConsumerRegisterComponent } from '@features/sign-up/consumer/components/consumer-register.component';
-import { SignInComponent } from './features/sign-in/sign-in.component';
+import { SignInComponent } from './features/sign-in/components/sign-in.component';
 import { SignOutComponent } from './features/sign-out/sign-out.component';
 import { ProductComponent } from './features/product/product.component';
 

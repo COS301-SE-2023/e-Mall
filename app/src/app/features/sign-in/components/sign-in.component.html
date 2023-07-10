@@ -1,0 +1,99 @@
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-align-items-center ion-justify-content-center">
+      <ion-col>
+        <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+          <ion-text style="text-align: center">
+            <h2>Sign In</h2>
+          </ion-text>
+          <div class="input-error-box-wrapper">
+            <div class="input-error-box">
+              <ion-input
+                type="email"
+                label="Email"
+                placeholder="example@emall.com"
+                labelPlacement="floating"
+                fill="outline"
+                formControlName="email"
+                required="true"></ion-input>
+
+              <div class="error-container">
+                <div
+                  class="error-message"
+                  *ngIf="
+                    getFormControl('email')?.invalid &&
+                    getFormControl('email')?.dirty &&
+                    getFormControl('email')?.touched
+                  ">
+                  <ion-text color="danger" size="small"
+                    >Invalid email address format</ion-text
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="input-error-box">
+              <ion-input
+                color="primary"
+                type="password"
+                label="Password"
+                formControlName="password"
+                labelPlacement="floating"
+                fill="outline">
+              </ion-input>
+
+              <div class="error-container">
+                <div
+                  class="error-message"
+                  *ngIf="
+                    getFormControl('password')?.invalid &&
+                    getFormControl('password')?.dirty &&
+                    getFormControl('password')?.touched
+                  ">
+                  <ion-text color="danger" size="small">
+                    Invalid password format
+                  </ion-text>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="submit-button">
+            <ion-button
+              id="submit-button"
+              [disabled]="signInForm.invalid"
+              type="submit"
+              >Sign In</ion-button
+            >
+          </div>
+          <ion-item class="text-center">
+            <ion-text id="already-have-acc-text"
+              >Does not have an account yet?</ion-text
+            >
+            <ion-text color="success">
+              <a routerLink="/sign-up">Sign Up</a>
+            </ion-text>
+          </ion-item>
+        </form>
+      </ion-col>
+
+      <ion-col *viewSize="'desktop'" class="side-pannel">
+        <div>
+          <h1 class="welcome-header">
+            Welcome to SA's leading<br />comparison service for
+            <div class="welcome-header-accent">online shopping</div>
+          </h1>
+
+          <ion-img
+            id="logo"
+            src="assets/images/logo.png"
+            alt="E-Mall"></ion-img>
+
+          <h3 class="welcome-footer">
+            Discover<br />Compare<br />Shop<br />E-Mall Has It All!
+          </h3>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -5,8 +5,9 @@ describe('sign in', () => {
     cy.visit('/');
     cy.contains('Sign in').click();
     cy.url().should('include', '/sign-in');
-    cy.get('input[id=email').type(users.user1.email);
-    cy.get('input[id=password').type(`${users.user1.password}{enter}`);
+    cy.get('ion-input[type=email').type(users.user1.email);
+    cy.get('ion-input[type=password').type(`${users.user1.password}{enter}`);
+    cy.get('ion-button[type=submit').click();
     cy.url().should('include', '/home');
   });
 });

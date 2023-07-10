@@ -12,7 +12,6 @@ describe('ConsumerModule', () => {
   let fixture: ComponentFixture<ConsumerRegisterComponent>;
   let consumerFacade: ConsumerFacade;
   let loadingController: LoadingController;
-  let toast: ToastComponent;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -43,7 +42,7 @@ describe('ConsumerModule', () => {
     component = fixture.componentInstance;
     consumerFacade = TestBed.inject(ConsumerFacade);
     loadingController = TestBed.inject(LoadingController);
-    toast = TestBed.inject(ToastComponent);
+
     (consumerFacade.getError as jasmine.Spy).and.returnValue(of({}));
     // Mock the LoadingController.create method
     (loadingController.create as jasmine.Spy).and.returnValue(
