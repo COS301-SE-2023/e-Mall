@@ -11,5 +11,5 @@ export interface IProductSeller {
   seller: string;
   product_name?: string;
   business_name?: string;
-  product_category: string;
+  product_category?: string;
 }
