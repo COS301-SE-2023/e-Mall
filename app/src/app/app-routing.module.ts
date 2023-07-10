@@ -37,6 +37,11 @@ const routes: Routes = [
       import('@app/features/about/about.module').then(m => m.AboutModule),
   },
   {
+    path: 'sales',
+    loadChildren: () =>
+      import('@app/features/sales/sales.module').then(m => m.SalesModule),
+  },
+  {
     path: 'contact',
     loadChildren: () =>
       import('@app/features/contact/contact.module').then(m => m.ContactModule),
@@ -46,7 +51,6 @@ const routes: Routes = [
     component: ProductComponent,
   },
   { path: 'policies-and-privacy', redirectTo: '/construction' },
-  { path: 'seller/dashboard', redirectTo: '/construction' },
   { path: 'ads', redirectTo: '/construction' },
   {
     path: '**',

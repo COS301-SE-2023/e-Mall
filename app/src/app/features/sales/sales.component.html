@@ -1,0 +1,67 @@
+<app-seller-nav></app-seller-nav>
+<ion-content>
+  <div class="content">
+
+    <div class="todays-sales">
+
+      <ion-card class="summary">
+        <div style="display: flex;
+        padding: 10px;
+        align-items: flex-start;
+        align-self: stretch;">
+          <h2>This Month</h2>
+        </div>
+
+        <div style="display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        align-self: stretch;">
+          <ion-card style="background-color: #FFE2E5;">
+            <ion-card-header>
+              <ion-icon name="cart" style="background-color: #FA5A7D;"></ion-icon>
+              <ion-card-title>Products Clicked</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <h1>{{ productsClicked }}</h1>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card style="background-color: #FFF4DE;">
+            <ion-card-header>
+              <ion-icon name="globe" style="background-color:#FF947A;"></ion-icon>
+              <ion-card-title>Website Clicks</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <h1>{{ websiteClicks }}</h1>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card style="background-color: #DCFCE7;">
+            <ion-card-header>
+              <ion-icon name="heart" style="background-color: #3CD856;"></ion-icon>
+              <ion-card-title>Favourited</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <h1>{{ favourited }}</h1>
+            </ion-card-content>
+          </ion-card>
+
+        </div>
+      </ion-card>
+    </div>
+    <div style="display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    align-self: stretch;">
+      <div class="product-graph">
+        <canvas id="product-clicks-chart"></canvas>
+      </div>
+
+      <div class="product-performance" style="padding-bottom: 100px;">
+        <canvas id="product-performance-chart"></canvas>
+      </div>
+    </div>
+  </div>
+</ion-content>
