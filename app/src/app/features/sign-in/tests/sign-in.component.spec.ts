@@ -1,113 +1,91 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
-import {
-  ComponentFixture,
-  TestBed,
-  fakeAsync,
-  tick,
-} from '@angular/core/testing';
-
-import { AuthService } from '@app/features/auth/services/auth.service';
-import { Router } from '@angular/router';
-import { SignInComponent } from '@app/features/sign-in/sign-in.component';
-
-import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientModule } from '@angular/common/http';
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-import { AuthModule } from '@app/features/auth/auth.module';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { SignInComponent } from '../components/sign-in.component';
+import { SignInFacade } from '../services/sign-in.facade';
+import { LoadingController } from '@ionic/angular';
+import { ToastComponent } from '@shared/components/toast/toast.component';
+import { SignInModule } from '../sign-in.module';
 import { NgxsModule } from '@ngxs/store';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SignInComponent', () => {
   let component: SignInComponent;
   let fixture: ComponentFixture<SignInComponent>;
-  let authService: AuthService;
-  let router: Router;
+  let signInFacade: SignInFacade;
 
   beforeEach(async () => {
+    const loadingSpy = jasmine.createSpyObj('loading', ['present', 'dismiss']);
+    const loadingControllerSpy = jasmine.createSpyObj('LoadingController', [
+      'create',
+    ]);
+    loadingControllerSpy.create.and.returnValue(Promise.resolve(loadingSpy));
+
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
-        NgxsModule.forRoot(),
+        SignInModule,
+        NgxsModule.forRoot([]),
         HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-        IonicModule,
-        AuthModule,
+        RouterTestingModule,
       ],
-      declarations: [SignInComponent],
-      providers: [AuthService],
+      providers: [
+        {
+          provide: SignInFacade,
+          useValue: jasmine.createSpyObj('SignInFacade', [
+            'signIn',
+            'getError',
+          ]),
+        },
+        { provide: LoadingController, useValue: loadingControllerSpy },
+        {
+          provide: ToastComponent,
+          useValue: jasmine.createSpyObj('ToastComponent', [
+            'presentErrorToast',
+          ]),
+        },
+      ],
     }).compileComponents();
 
-    router = TestBed.inject(Router);
-  });
-  beforeEach(() => {
     fixture = TestBed.createComponent(SignInComponent);
     component = fixture.componentInstance;
-    authService = TestBed.inject(AuthService);
+    signInFacade = TestBed.inject(SignInFacade);
     fixture.detectChanges();
   });
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize the signInForm with empty values', () => {
-    expect(component.signInForm.value).toEqual({
-      email: '',
-      password: '',
+  describe('onSubmit', () => {
+    it('should call signIn method if form is valid', () => {
+      spyOn(component, 'signIn');
+      component.signInForm.setValue({
+        email: 'test@test.com',
+        password: 'password!Q1',
+      });
+      component.onSubmit();
+      expect(component.signIn).toHaveBeenCalled();
+    });
+
+    it('should not call signIn method if form is invalid', () => {
+      spyOn(component, 'signIn');
+      component.signInForm.setValue({ email: '', password: '' });
+      component.onSubmit();
+      expect(component.signIn).not.toHaveBeenCalled();
     });
   });
 
-  it('should set formSubmitted to true on form submission when form is invalid', () => {
-    component.onSubmit();
-    expect(component.formSubmitted).toBeTruthy();
-  });
-  /*
-  it('should call signIn method and navigate to home on form submission when form is valid', fakeAsync(() => {
-    component.signInForm.patchValue({
-      email: 'test@example.com',
-      password: 'password123',
+  describe('signIn', () => {
+    it('should call signIn method of signInFacade with email and password', async () => {
+      component.signInForm.setValue({
+        email: 'test@test.com',
+        password: 'password!Q1',
+      });
+      await component.signIn();
+      expect(signInFacade.signIn).toHaveBeenCalledWith(
+        'test@test.com',
+        'password!Q1'
+      );
     });
-    component.onSubmit();
-    expect(authService.signIn).toHaveBeenCalledWith(
-      'test@example.com',
-      'password123'
-    );
-    tick();
-    expect(router.navigate).toHaveBeenCalledWith(['/home']);
-  }));
-
-  it('should display error messages for invalid email and password', () => {
-    const emailInput: HTMLInputElement = fixture.nativeElement.querySelector(
-      '#email'
-    );
-    const passwordInput: HTMLInputElement = fixture.nativeElement.querySelector(
-      '#password'
-    );
-    const submitButton: HTMLButtonElement = fixture.nativeElement.querySelector(
-      'button[type="submit"]'
-    );
-
-    emailInput.value = 'invalid-email';
-    passwordInput.value = 'short';
-    emailInput.dispatchEvent(new Event('input'));
-    passwordInput.dispatchEvent(new Event('input'));
-
-    fixture.detectChanges();
-
-    submitButton.click();
-
-    const emailErrorMessage = fixture.nativeElement.querySelector(
-      '#email + .text-danger'
-    );
-    const passwordErrorMessage = fixture.nativeElement.querySelector(
-      '#password + .text-danger'
-    );
-
-    expect(emailErrorMessage.textContent).toContain('Invalid email address');
-    expect(passwordErrorMessage.textContent).toContain(
-      'Password must be at least 8 characters long'
-    );
-  });*/
+  });
 });
