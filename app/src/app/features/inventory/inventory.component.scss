@@ -69,6 +69,10 @@ ion-header {
         background: var(--c-1-white, #F7F9F9);
       }
 
+      .sort-box {
+        border:none;
+      }
+
       .search-sort-container {
         display: flex;
         align-items: center;
@@ -80,7 +84,7 @@ ion-header {
         margin-right: 1rem;
         box-sizing: border-box;
         border-radius: 60px;
-        background-color: #f2f2f2;
+        background-color: var(--c-1-white, #F7F9F9);
         padding: 10px;
       }
 
@@ -89,6 +93,10 @@ ion-header {
         margin-bottom: 1rem;
         display: flex;
         justify-content: center;
+      }
+
+      .col-title {
+        background: var(--c-5-e, #ECF6F6);
       }
 
 
