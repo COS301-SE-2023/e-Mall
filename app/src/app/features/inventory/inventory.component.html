@@ -26,6 +26,7 @@
           class="search-box"
           placeholder="Search products..."
           [(ngModel)]="searchQuery"
+          (keyup)="onSearchInputChange()"
           (keydown)="keyDownFunction($event)"></ion-searchbar>
       </div>
       <!-- End of search  -->
@@ -37,13 +38,13 @@
         <select
           class="sort-box"
           [(ngModel)]="selectedSortOption"
-          (selectionchange)="onSortOptionChange()">
+          (ngModelChange)="onSortOptionChange()">
           <option value="name">Name (A-Z)</option>
           <option value="-name">Name (Z-A)</option>
           <option value="price">Lowest Price</option>
           <option value="-price">Highest Price</option>
-          <option value="-discount">Highest Discount</option>
-          <option value="discount">Lowest Disocunt</option>
+          <option value="discount">Highest Discount</option>
+          <option value="-discount">Lowest Disocunt</option>
         </select>
       </div>
       <!-- End of Sort functionality -->
