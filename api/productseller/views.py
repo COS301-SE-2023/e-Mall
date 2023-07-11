@@ -13,7 +13,6 @@ from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
-
 # Create your views here.
 class ProductSellerFrontendAPIView(APIView):
     def get(self, request):
@@ -49,7 +48,6 @@ class ProductSellerBackendAPIView(APIView):
         return Response(serializer.data)
 
 
-
 class ProductSellerProdUpdateAPIView(APIView):
     permission_classes = [AllowAny]
 
@@ -77,6 +75,14 @@ class ProductSellerProdUpdateAPIView(APIView):
                 "in_stock", productseller.in_stock
             )
 
+            productseller.product_name = request.data.get(
+                "product_name", productseller.product_name
+            )
+
+            # productseller.product_category = request.data.get(
+            #     "product_category", productseller.product_category
+            # )
+
             # Save the updated ProductSeller object
             productseller.save()
 
@@ -87,6 +93,7 @@ class ProductSellerProdUpdateAPIView(APIView):
 
         except ProductSeller.DoesNotExist:
             return JsonResponse({"error": "ProductSeller not found"}, status=404)
+
 
 class ProductSellerProdDeleteAPIView(APIView):
     permission_classes = [AllowAny]
@@ -104,17 +111,16 @@ class ProductSellerProdDeleteAPIView(APIView):
             productseller.delete()
 
             # Return a success response
-            return JsonResponse(
-                {"message": "ProductSeller deleted successfully"}
-            )
+            return JsonResponse({"message": "ProductSeller deleted successfully"})
 
         except ProductSeller.DoesNotExist:
             return JsonResponse({"error": "ProductSeller not found"}, status=404)
-        
+
+
 class ProductSellerDashboardAPIView(APIView):
     def get(self, request):
         seller_name = request.GET.get("seller_name")
-        print("Seller name",seller_name)
+        print("Seller name", seller_name)
         # Input for search
         search = request.GET.get("search")
         # sorting options[price, discount, name]
@@ -187,4 +193,3 @@ class ProductSellerDashboardAPIView(APIView):
 
         serializer = ProductSellerSerializer(paginated_products, many=True)
         return Response({"data": serializer.data, "total_count": total_count})
-
