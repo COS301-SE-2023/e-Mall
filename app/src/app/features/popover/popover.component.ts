@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { PopovereditComponent } from '../popoveredit/popoveredit.component';
-import { ComponentFactoryResolver, ComponentRef, ViewChild, ViewContainerRef } from '@angular/core';
 
 
 @Component({
