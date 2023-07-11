@@ -111,8 +111,7 @@ h1{
 h2{
     color: #000;
 
-/* S1/Default */
-font-family: Poppins;
+font-family: Poppins,sans-serif;
 font-size: 32px;
 font-style: normal;
 font-weight: 600;
@@ -125,7 +124,7 @@ p{
     color: var(--c-1-a, #151515);
 
 /* Body/Default */
-font-family: 'Open Sans';
+font-family: 'Open Sans',sans-serif;
 font-size: 14px;
 font-style: normal;
 font-weight: 400;
