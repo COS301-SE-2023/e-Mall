@@ -6,5 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['product-card.component.scss']
 })
 export class ProductCardComponent {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() product: any;
 }

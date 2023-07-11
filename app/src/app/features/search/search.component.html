@@ -10,7 +10,7 @@
               <p>You searched for: <strong>{{ searchQuery }}</strong></p>
             </div>
           </div>
-          
+
           <div class="dropdown">
             <button class="dropbtn">
               <mat-label>Sort Options</mat-label>
@@ -82,7 +82,7 @@
               Please enter a positive number
             </p>
           </mat-expansion-panel>
-
+          
           <!-- Inventory -->
           <mat-expansion-panel>
             <mat-expansion-panel-header>
@@ -153,17 +153,17 @@
           </div>
         </div>
       </div>
-    <br /><br />
-    <div class="mat-paginator">
-      <ng-container *ngIf="searchResults$ | async as products">
-        <mat-paginator [length]="totalSearchCount$ | async" [pageSizeOptions]="[10, 20, 50, 100]"
-          aria-label="Select page" [pageIndex]="currentPage" [pageSize]="itemsPerPage"
-          (page)="onPageChange($event)"></mat-paginator>
-      </ng-container>
-    </div>
-    
-  </main>
+      <br /><br />
+      <div class="mat-paginator">
+        <ng-container *ngIf="searchResults$ | async as products">
+          <mat-paginator [length]="totalSearchCount$ | async" [pageSizeOptions]="[10, 20, 50, 100]"
+            aria-label="Select page" [pageIndex]="currentPage" [pageSize]="itemsPerPage"
+            (page)="onPageChange($event)"></mat-paginator>
+        </ng-container>
+      </div>
+
+    </main>
   </div>
-  
+
 </ion-content>
 <app-footer></app-footer>
