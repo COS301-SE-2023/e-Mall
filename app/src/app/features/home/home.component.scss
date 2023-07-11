@@ -23,25 +23,9 @@ $font_type_5: 600 1em/1.39 'Poppins', Helvetica, Arial, serif;
 h3{
   font-size: 40px;
 }
-  .product-image {
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    width: 100%;
-  height: 150px;
-  }
 
-  .product-card {
-    margin-top: 4.5rem;
-    margin-left: 2rem;
-    // margin: 0 0 1rem 0; # commented out coz sonarCloud
-    border: 1px solid #ccc;
-    border-radius: 0.25rem;
-    padding: 1rem;
-    cursor: pointer;
-    height: 300px;
-    width: 200px;
-  }
+
+
   .carousel-caption{
     color: $color_type_4;
   }

@@ -20,32 +20,34 @@ import { MatRadioModule } from '@angular/material/radio';
 import { IonicModule } from '@ionic/angular';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
+import { ProductCardModule } from "../../shared/components/product-card/product-card.module";
 
 @NgModule({
-  declarations: [SearchComponent],
-  imports: [
-    CommonModule,
-    SearchRoutingModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatDividerModule,
-    MatSidenavModule,
-    MatCheckboxModule,
-    MatCardModule,
-    MatIconModule,
-    MatPaginatorModule,
-    MatSliderModule,
-    MatButtonToggleModule,
-    MatProgressSpinnerModule,
-    MatSlideToggleModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatRadioModule,
-    IonicModule,
-    NavbarModule,
-    FooterModule,
-  ],
-  exports: [SearchComponent],
+    declarations: [SearchComponent],
+    exports: [SearchComponent],
+    imports: [
+        CommonModule,
+        SearchRoutingModule,
+        MatExpansionModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatDividerModule,
+        MatSidenavModule,
+        MatCheckboxModule,
+        MatCardModule,
+        MatIconModule,
+        MatPaginatorModule,
+        MatSliderModule,
+        MatButtonToggleModule,
+        MatProgressSpinnerModule,
+        MatSlideToggleModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatRadioModule,
+        IonicModule,
+        NavbarModule,
+        FooterModule,
+        ProductCardModule
+    ]
 })
 export class SearchModule {}
