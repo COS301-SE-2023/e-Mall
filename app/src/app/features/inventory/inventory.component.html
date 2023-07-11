@@ -73,7 +73,7 @@
           </ion-grid>
         </ion-item>
         <ng-container *ngIf="searchResults$ | async as productsellers">
-          <ion-item *ngFor="let product of productsellers">
+          <ion-item *ngFor="let product of productsellers" (click)="selectProduct(product)">
             <ion-grid>
               <ion-row>
                 <ion-col size="1">{{ product.product }}</ion-col>

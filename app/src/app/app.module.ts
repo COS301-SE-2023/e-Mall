@@ -35,6 +35,7 @@ import { NgxsResetPluginModule } from 'ngxs-reset-plugin';
 import { customPageAnimation } from '@shared/animations/custom-page.animation';
 import { InventoryModule } from './features/inventory/inventory.module';
 import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module';
+import { PopoverModule } from './features/popover/popover.module';  
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -78,6 +79,7 @@ import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module
     MatTooltipModule,
     InventoryModule,
     SellerNavModule,
+    PopoverModule,
   ],
 
   providers: [

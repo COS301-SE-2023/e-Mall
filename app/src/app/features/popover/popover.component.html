@@ -1,33 +1,40 @@
-<ion-header>
+<ion-content class="popcontent">
+  <ion-header>
     <ion-toolbar>
-  
-  <ion-title>Product Details</ion-title>
-      <ion-buttons slot="end">
-        <ion-button (click)="dismissModal()">
-          <ion-icon name="close"></ion-icon>
-        </ion-button>
-      </ion-buttons>
+      <ion-title>Product Details</ion-title>
     </ion-toolbar>
   </ion-header>
-  
-  <ion-content>
-    <ion-list>
-      <ion-item>
-        <ion-label>Name:</ion-label>
-        <ion-text>{{ product.product_name }}</ion-text>
-      </ion-item>
-      
-      <ion-item>
-        <ion-label>Inventory Status:</ion-label>
-        <ion-text>{{ product.in_stock }}</ion-text>
-      </ion-item>
-  
-      <!-- Display other product details -->
-    </ion-list>
-  
-    <div class="buttons">
-      <ion-button (click)="editProduct()">Edit</ion-button>
-      <ion-button (click)="deleteProduct()">Delete</ion-button>
+  <ion-list>
+    <ion-item>
+      <ion-label>Name:</ion-label>
+      <ion-text>{{ product.product_name }}</ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Product Category:</ion-label>
+      <ion-text>{{ product.product_category }}</ion-text>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Inventory Status:</ion-label>
+      <ion-text>{{ product.in_stock }}</ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Original Price:</ion-label>
+      <ion-text>R {{ product.original_price }}</ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Discount Rate:</ion-label>
+      <ion-text>{{ product.discount_rate }}</ion-text>
+    </ion-item>
+
+    <!-- Display other product details -->
+  </ion-list>
+
+  <div class="buttons">
+      <ion-button class="editbtn" (click)="editProduct()">Edit</ion-button>
+      <ion-button color="danger" (click)="deleteProduct()">Delete</ion-button>
     </div>
-  </ion-content>
-  
+</ion-content>
