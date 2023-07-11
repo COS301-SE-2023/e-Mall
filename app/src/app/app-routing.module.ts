@@ -32,7 +32,7 @@ const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-out', component: SignOutComponent },
   { path: 'sign-up', component: ConsumerRegisterComponent },
-  { path: 'inventory', component: InventoryComponent},
+  { path: 'inventory', component: InventoryComponent },
   {
     path: 'about',
     loadChildren: () =>
@@ -48,19 +48,24 @@ const routes: Routes = [
     loadChildren: () =>
       import('@app/features/contact/contact.module').then(m => m.ContactModule),
   },
+  // {
+  //   path: '',
+  //   component: ProductComponent,
+  // },
   {
     path: 'products',
-    component: ProductComponent,
+    loadChildren: () =>
+      import('@app/features/product/product.module').then(m => m.ProductModule),
   },
   { path: 'policies-and-privacy', redirectTo: '/construction' },
   { path: 'ads', redirectTo: '/construction' },
-  {
-    path: '**',
-    loadChildren: () =>
-      import('@app/features/not-found/not-found.module').then(
-        m => m.NotFoundModule
-      ),
-  },
+  // {
+  //   path: '**',
+  //   loadChildren: () =>
+  //     import('@app/features/not-found/not-found.module').then(
+  //       m => m.NotFoundModule
+  //     ),
+  // },
 ];
 @NgModule({
   imports: [

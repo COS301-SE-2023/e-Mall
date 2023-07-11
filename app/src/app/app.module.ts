@@ -14,7 +14,11 @@ import { FooterModule } from './shared/components/footer/footer.module';
 import { AboutModule } from './features/about/about.module';
 import { SalesModule } from './features/sales/sales.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { IonicModule, IonicRouteStrategy, MenuController } from '@ionic/angular';
+import {
+  IonicModule,
+  IonicRouteStrategy,
+  MenuController,
+} from '@ionic/angular';
 import { RouteReuseStrategy } from '@angular/router';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { NgxsModule } from '@ngxs/store';
@@ -40,7 +44,6 @@ import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
     IonicModule.forRoot({ navAnimation: customPageAnimation }),
     NgxsModule.forRoot([]),
     NgxsLoggerPluginModule.forRoot({
@@ -65,19 +68,20 @@ import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module
     AuthModule,
     ErrorModule,
     HomeModule,
-    ProductModule,
+    // ProductModule,
     SignInModule,
     SellerRegisterModule,
     ConsumerRegisterModule,
     SignOutModule,
-    FooterModule,
-    NavbarModule,
-    AboutModule,
-    
-    SalesModule,
+    // FooterModule,
+    // NavbarModule,
+    // AboutModule,
+
+    // SalesModule,
     MatTooltipModule,
     InventoryModule,
     SellerNavModule,
+    AppRoutingModule,
   ],
 
   providers: [
