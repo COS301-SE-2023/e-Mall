@@ -23,6 +23,7 @@ import { InventoryRoutingModule } from './inventory-routing.module';
 import { SellerNavComponent } from '@shared/components/seller-nav/seller-nav.component';
 import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module';
 
+
 @NgModule({
   declarations: [InventoryComponent],
   imports: [
