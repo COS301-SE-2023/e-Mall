@@ -297,4 +297,3 @@ export class InventoryComponent {
     return await popover.present();
 }
 }
-
