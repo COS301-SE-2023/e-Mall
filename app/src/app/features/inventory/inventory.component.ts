@@ -13,6 +13,8 @@ import { FormControl } from '@angular/forms';
 import { ProductSellerService } from '@shared/servicies/productseller/productseller.service';
 import { IProductSeller } from '@shared/models/product/product-seller.interface';
 import { ProductService } from '@shared/servicies/product/product.service';
+import { IonRefresher} from '@ionic/angular';
+import { ScrollDetail } from '@ionic/core';
 
 @Component({
   selector: 'app-inventory',
@@ -49,6 +51,17 @@ export class InventoryComponent {
   maxInputController = new FormControl();
   minInputControllerSub = new Subscription();
   maxInputControllerSub = new Subscription();
+
+  //refresher
+  handleRefresh(event: any) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      window.location.reload();
+      event.target.complete();
+    }, 2000);
+  }
+
+
 
   selectOption(option: string) {
     this.selectedOption = option;

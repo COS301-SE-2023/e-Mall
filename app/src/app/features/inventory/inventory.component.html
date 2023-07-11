@@ -3,10 +3,17 @@
     <ion-title>Products</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <app-seller-nav></app-seller-nav>
 
+
+
 <ion-content>
+
   <div class="inventory-container">
+    <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
     <div class="title-row">
       <div
         class="title"
