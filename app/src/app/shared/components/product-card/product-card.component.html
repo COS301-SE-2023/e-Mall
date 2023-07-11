@@ -1,6 +1,6 @@
 <ion-card>
     <div class="discount-tag">
-        <ion-label>{{ product.discount }}%</ion-label>
+        <ion-label *ngIf="product.discount>0.5">-{{ product.discount }}%</ion-label>
     </div>
     <ion-img [src]="product.imageUrl"></ion-img>
     <ion-card-content>
