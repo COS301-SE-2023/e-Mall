@@ -28,6 +28,7 @@ export class SalesComponent implements OnInit {
 
   createProductClicksChart() {
     const productClicksCanvas = document.getElementById('product-clicks-chart') as HTMLCanvasElement;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const productClicksChart = new Chart(productClicksCanvas, {
       type: 'bar',
       data: {
@@ -58,6 +59,7 @@ export class SalesComponent implements OnInit {
 
   createProductPerformanceChart() {
     const productPerformanceCanvas = document.getElementById('product-performance-chart') as HTMLCanvasElement;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const productPerformanceChart = new Chart(productPerformanceCanvas, {
       type: 'bar',
       data: {
