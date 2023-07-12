@@ -8,6 +8,6 @@ describe('sign in', () => {
     cy.get('ion-input[type=email').type(users.user1.email);
     cy.get('ion-input[type=password').type(`${users.user1.password}{enter}`);
     cy.get('ion-button[type=submit').click();
-    cy.url().should('include', '/home');
+    cy.url().should('include', '/');
   });
 });
