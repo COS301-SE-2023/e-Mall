@@ -78,7 +78,7 @@
 
 }
 
-ion-content {
+ion-content.global-ion-content {
     display: flex;
     flex-direction: column;
     --offset-bottom: auto !important;
@@ -86,7 +86,7 @@ ion-content {
     overflow: auto;
     scrollbar-width: none
 }
-::-webkit-scrollbar {
+ion-content::-webkit-scrollbar {
     display: none;
 }
 
