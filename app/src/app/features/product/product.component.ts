@@ -53,55 +53,61 @@ export class ProductComponent implements OnInit, OnDestroy {
         this.currency$ = of('ZAR');
       }
     });
-    this.prodClickAnalyticss();
+    this.prodClickAnalytics();
   }
 
-  prodClickAnalyticss(): void {
+  prodClickAnalytics(): void {
+    console.log('prod click');
     this.consumer_id = 'c7c700c9-a5b4-4600-bd8d-a24bd355bd46';
     if (this.product$) {
       this.product$.subscribe(product => {
         this.product_name = product.name;
         this.product_category = product.category;
-      });
-    }
-    if (this.sellers$) {
-      this.sellers$.subscribe(sellers => {
-        this.seller_name = sellers[0].business_name;
-      });
-    }
 
-    const data = {
-      seller: this.seller_name,
-      product: this.product_name,
-      product_category: this.product_category,
-      consumer_id: this.consumer_id,
-      event_type: 'product_click',
-      metadata: null,
-    };
-    this.analytics.createAnalyticsData(data);
+        if (this.sellers$) {
+          this.sellers$.subscribe(sellers => {
+            if (sellers.length > 0) {
+              this.seller_name = sellers[0].business_name;
+
+              const data = {
+                seller: this.seller_name,
+                product: this.product_name,
+                product_category: this.product_category,
+                consumer_id: this.consumer_id,
+                event_type: 'product_click',
+                metadata: null,
+              };
+              console.log(data);
+
+              this.analytics.createAnalyticsData(data);
+            }
+          });
+        }
+      });
+    }
   }
 
-  linkClickAnalyticss(seller_name: string): void {
+  linkClickAnalytics(seller_name: string): void {
+    console.log('link click');
     this.consumer_id = 'c7c700c9-a5b4-4600-bd8d-a24bd355bd46';
     if (this.product$) {
       this.product$.subscribe(product => {
         this.product_name = product.name;
         this.product_category = product.category;
+
+        const data = {
+          seller: seller_name,
+          product: this.product_name,
+          product_category: this.product_category,
+          consumer_id: this.consumer_id,
+          event_type: 'link_click',
+          metadata: null,
+        };
+        console.log(data);
+        this.analytics.createAnalyticsData(data);
       });
     }
-    this.seller_name = seller_name;
-
-    const data = {
-      seller: this.seller_name,
-      product: this.product_name,
-      product_category: this.product_category,
-      consumer_id: this.consumer_id,
-      event_type: 'link_click',
-      metadata: null,
-    };
-    this.analytics.createAnalyticsData(data);
   }
-
   ngOnDestroy(): void {
     this.paramMapSubscription.unsubscribe();
   }

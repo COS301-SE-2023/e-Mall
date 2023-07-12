@@ -48,8 +48,8 @@ class CreateProductAnalyticsAPIView(APIView):
     def post(self, request):
         try:
             analytics = Analytics(
-                seller=request.data.get("seller_name"),
-                product=request.data.get("product_name"),
+                seller=request.data.get("seller"),
+                product=request.data.get("product"),
                 product_category=request.data.get("product_category"),
                 consumer_id=request.data.get("consumer_id"),
                 event_type=request.data.get("event_type"),
