@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
+import { AboutModule } from '../about.module';
 
 describe('AboutComponent', () => {
   let component: AboutComponent;
@@ -24,6 +25,7 @@ describe('AboutComponent', () => {
         NavbarModule,
         FooterModule,
         IonicModule,
+        AboutModule,
       ],
       declarations: [AboutComponent],
       providers: [
