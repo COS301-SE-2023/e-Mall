@@ -20,6 +20,7 @@ import { of } from 'rxjs';
 import { IProductSeller } from '@shared/models/product/product-seller.interface';
 import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
+import { ProductModule } from '../product.module';
 
 describe('ProductComponent', () => {
   let component: ProductComponent;
@@ -44,6 +45,7 @@ describe('ProductComponent', () => {
         NavbarModule,
         FooterModule,
         IonicModule,
+        ProductModule,
       ],
       providers: [
         ProductService,

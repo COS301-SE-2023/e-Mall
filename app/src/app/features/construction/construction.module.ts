@@ -5,6 +5,7 @@ import { ConstructionRoutingModule } from './construction-routing.module';
 import { IonicModule } from '@ionic/angular';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
+import { RouteBreadcrumbModule } from '@shared/components/breadcrumbs/route-breadcrumb/route-breadcrumb.module';
 
 @NgModule({
   declarations: [ConstructionComponent],
@@ -14,6 +15,7 @@ import { FooterModule } from '@shared/components/footer/footer.module';
     IonicModule,
     NavbarModule,
     FooterModule,
+    RouteBreadcrumbModule,
   ],
   exports: [ConstructionComponent],
 })

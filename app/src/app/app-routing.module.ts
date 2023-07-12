@@ -5,7 +5,6 @@ import { SellerRegisterComponent } from '@features/sign-up/seller/components/sel
 import { ConsumerRegisterComponent } from '@features/sign-up/consumer/components/consumer-register.component';
 import { SignInComponent } from './features/sign-in/components/sign-in.component';
 import { SignOutComponent } from './features/sign-out/sign-out.component';
-import { ProductComponent } from './features/product/product.component';
 import { InventoryComponent } from '@features/inventory/inventory.component';
 
 const routes: Routes = [
@@ -32,7 +31,7 @@ const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-out', component: SignOutComponent },
   { path: 'sign-up', component: ConsumerRegisterComponent },
-  { path: 'inventory', component: InventoryComponent},
+  { path: 'inventory', component: InventoryComponent },
   {
     path: 'about',
     loadChildren: () =>
@@ -48,9 +47,14 @@ const routes: Routes = [
     loadChildren: () =>
       import('@app/features/contact/contact.module').then(m => m.ContactModule),
   },
+  // {
+  //   path: '',
+  //   component: ProductComponent,
+  // },
   {
     path: 'products',
-    component: ProductComponent,
+    loadChildren: () =>
+      import('@app/features/product/product.module').then(m => m.ProductModule),
   },
   { path: 'policies-and-privacy', redirectTo: '/construction' },
   { path: 'ads', redirectTo: '/construction' },
