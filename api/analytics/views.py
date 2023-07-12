@@ -14,10 +14,10 @@ class ProductAnalyticsAPIView(APIView):
     def get(self, request):
         seller_name = request.GET.get("seller_name")
         link_clicks = Analytics.objects.filter(
-            seller__business_name=seller_name, event_type="link_click"
+            seller=seller_name, event_type="link_click"
         ).count()
         product_clicks = Analytics.objects.filter(
-            seller__business_name=seller_name, event_type="product_click"
+            seller=seller_name, event_type="product_click"
         ).count()
         response_data = {"product clicks": product_clicks, "link clicks": link_clicks}
         return Response(response_data)
@@ -28,16 +28,14 @@ class AllProductAnalyticsAPIView(APIView):
         seller_name = request.GET.get("seller_name")
 
         product_clicks = (
-            Analytics.objects.filter(
-                seller__business_name=seller_name, event_type="product_click"
-            )
-            .values("product__name")
+            Analytics.objects.filter(seller=seller_name, event_type="product_click")
+            .values("product")
             .annotate(clicks=Count("id"))
-            .order_by("product__name")
+            .order_by("product")
         )
 
         response_data = [
-            {"product": item["product__name"], "clicks": item["clicks"]}
+            {"product name": item["product"], "clicks": item["clicks"]}
             for item in product_clicks
         ]
 
@@ -50,9 +48,10 @@ class CreateProductAnalyticsAPIView(APIView):
     def post(self, request):
         try:
             analytics = Analytics(
-                seller=request.data.get("seller_id"),
-                product=request.data.get("product_id"),
-                consumer=request.data.get("consumer_id"),
+                seller=request.data.get("seller_name"),
+                product=request.data.get("product_name"),
+                product_category=request.data.get("product_category"),
+                consumer_id=request.data.get("consumer_id"),
                 event_type=request.data.get("event_type"),
                 metadata=request.data.get("metadata"),
             )

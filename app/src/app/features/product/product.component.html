@@ -154,9 +154,11 @@
                 <mat-card-header class="seller-product-name-price">
                   <div class="container-fluid card-title-container">
                     <mat-card-title class="product-name">
-                      <a href="{{ seller.product_url }}">{{
-                        seller.product_name
-                      }}</a>
+                      <a
+                        href="{{ seller.product_url }}"
+                        onclick="linkClickAnalyticss(seller.business_name)"
+                        >{{ seller.product_name }}</a
+                      >
                     </mat-card-title>
                     <div class="right-section">
                       <div

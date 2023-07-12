@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { IProductSeller } from '@shared/models/product/product-seller.interface';
-
 import { Observable, of, Subscription } from 'rxjs';
 
 import { FormControl } from '@angular/forms';
 import { IProduct } from '@shared/models/product/product.interface';
 import { ProductService } from '@shared/servicies/product/product.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 
 @Component({
   selector: 'app-product',
@@ -16,10 +16,13 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class ProductComponent implements OnInit, OnDestroy {
   prod_id: number;
-
+  consumer_id!: string;
   product$: Observable<IProduct> | undefined;
   sellers$: Observable<IProductSeller[]> | undefined;
   currency$: Observable<string> | undefined;
+  seller_name!: string | undefined;
+  product_name!: string;
+  product_category!: string;
 
   currencyCode = 'ZAR';
 
@@ -30,7 +33,8 @@ export class ProductComponent implements OnInit, OnDestroy {
   private paramMapSubscription: Subscription;
   constructor(
     private productService: ProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private analytics: AnalyticsService
   ) {
     this.selected = new FormControl('default');
     this.paramMapSubscription = new Subscription();
@@ -49,6 +53,53 @@ export class ProductComponent implements OnInit, OnDestroy {
         this.currency$ = of('ZAR');
       }
     });
+    this.prodClickAnalyticss();
+  }
+
+  prodClickAnalyticss(): void {
+    this.consumer_id = 'c7c700c9-a5b4-4600-bd8d-a24bd355bd46';
+    if (this.product$) {
+      this.product$.subscribe(product => {
+        this.product_name = product.name;
+        this.product_category = product.category;
+      });
+    }
+    if (this.sellers$) {
+      this.sellers$.subscribe(sellers => {
+        this.seller_name = sellers[0].business_name;
+      });
+    }
+
+    const data = {
+      seller: this.seller_name,
+      product: this.product_name,
+      product_category: this.product_category,
+      consumer_id: this.consumer_id,
+      event_type: 'product_click',
+      metadata: null,
+    };
+    this.analytics.createAnalyticsData(data);
+  }
+
+  linkClickAnalyticss(seller_name: string): void {
+    this.consumer_id = 'c7c700c9-a5b4-4600-bd8d-a24bd355bd46';
+    if (this.product$) {
+      this.product$.subscribe(product => {
+        this.product_name = product.name;
+        this.product_category = product.category;
+      });
+    }
+    this.seller_name = seller_name;
+
+    const data = {
+      seller: this.seller_name,
+      product: this.product_name,
+      product_category: this.product_category,
+      consumer_id: this.consumer_id,
+      event_type: 'link_click',
+      metadata: null,
+    };
+    this.analytics.createAnalyticsData(data);
   }
 
   ngOnDestroy(): void {

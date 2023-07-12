@@ -9,7 +9,6 @@ class AnalyticsAdmin(admin.ModelAdmin):
     list_display = [
         "seller",
         "product",
-        "consumer",
         "event_type",
         "event_date",
         "metadata",
