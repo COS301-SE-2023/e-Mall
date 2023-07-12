@@ -60,12 +60,16 @@ describe('SellerNavComponent', () => {
     const salesItem = items[1];
     salesItem.click();
     expect(component.navigateTo).toHaveBeenCalledWith('sales');
+    const productItem = items[2];
+    productItem.click();
+    expect(component.navigateTo).toHaveBeenCalledWith('inventory');
+    
   });
 
   it('should navigate to the correct route when an item is clicked', () => {
     const items = fixture.nativeElement.querySelectorAll('ion-item');
-    const productsItem = items[2];
-    productsItem.click();
+    const messagesItem = items[3];
+    messagesItem.click();
     expect(router.navigate).toHaveBeenCalledWith(['/construction']);
   });
 });
