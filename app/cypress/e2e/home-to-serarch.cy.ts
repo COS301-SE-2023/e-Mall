@@ -44,10 +44,10 @@ describe('visit home and search', () => {
     cy.contains('Seller')
       .click({ force: true })
       .then(() => {
-        cy.contains('Smith LLC').click({ force: true });
+        cy.contains('Amazon').click({ force: true });
       });
-    cy.get('app-product-card').should('have.length', 1);
-    cy.contains('Evans-Knapp').click({ force: true });
-    cy.get('app-product-card').should('have.length', 3);
+    cy.get('app-product-card').should('have.length', 7);
+    cy.contains('Amazon').click({ force: true });
+    cy.get('app-product-card').should('have.length', 10);
   });
 });
