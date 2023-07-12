@@ -1,7 +1,7 @@
 <ng-template #breadcrumbTemplate let-routerState="routerState">
   <ng-container
     *ngFor="let crumb of routeBreadcrumbFacade.getBreadcrumbs(routerState)">
-    <ion-breadcrumb href="{{ crumb.url }}"
+    <ion-breadcrumb routerLink="{{ crumb.url }}"
       >{{ crumb.label }}
       <ion-icon slot="separator" name="chevron-forward-outline"></ion-icon>
     </ion-breadcrumb>

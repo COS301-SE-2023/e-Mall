@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { NotFoundRoutingModule } from './not-found-routing.module';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
-import { RouteBreadcrumbModule } from '../../shared/components/breadcrumbs/route-breadcrumb/route-breadcrumb.module';
 
 @NgModule({
   declarations: [NotFoundComponent],
@@ -18,7 +17,6 @@ import { RouteBreadcrumbModule } from '../../shared/components/breadcrumbs/route
     IonicModule,
     NavbarModule,
     FooterModule,
-    RouteBreadcrumbModule,
   ],
   exports: [NotFoundComponent],
 })

@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
 import { RouteBreadcrumbModule } from '../../shared/components/breadcrumbs/route-breadcrumb/route-breadcrumb.module';
-import { ConstructionModule } from '@features/construction/construction.module';
 
 @NgModule({
   declarations: [AboutComponent],
@@ -18,7 +17,6 @@ import { ConstructionModule } from '@features/construction/construction.module';
     NavbarModule,
     FooterModule,
     RouteBreadcrumbModule,
-    ConstructionModule,
   ],
   exports: [AboutComponent],
 })

@@ -59,13 +59,13 @@ const routes: Routes = [
   },
   { path: 'policies-and-privacy', redirectTo: '/construction' },
   { path: 'ads', redirectTo: '/construction' },
-  // {
-  //   path: '**',
-  //   loadChildren: () =>
-  //     import('@app/features/not-found/not-found.module').then(
-  //       m => m.NotFoundModule
-  //     ),
-  // },
+  {
+    path: '**',
+    loadChildren: () =>
+      import('@app/features/not-found/not-found.module').then(
+        m => m.NotFoundModule
+      ),
+  },
 ];
 @NgModule({
   imports: [

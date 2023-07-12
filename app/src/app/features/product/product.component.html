@@ -1,5 +1,9 @@
 <app-navbar></app-navbar>
 <ion-content>
+  <ng-container *ngIf="product$ | async as product">
+    <app-category-breadcrumb
+      [categoryList]="product.category"></app-category-breadcrumb>
+  </ng-container>
   <div class="container-fluid body-container">
     <div class="container-fluid prices" id="prices">
       <div
