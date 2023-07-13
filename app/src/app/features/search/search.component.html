@@ -142,7 +142,7 @@
                       price: product.min_price
                     }"></app-product-card>
                   <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
-                  <div class="col-md-1" *ngIf="(i + 1) % 4 === 0 && products.length > 4"></div>
+                  <div class="col-md-1" *ngIf="(i + 1) % 4 === 0 && products.length > 4 && (i + 1) !== products.length"></div>
                 </div>
               </div>
             </ng-container>
