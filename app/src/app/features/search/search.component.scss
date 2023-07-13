@@ -151,3 +151,10 @@ min-width: 150px;
 html {
   scroll-behavior: smooth;
 }
+
+ion-range {
+  --bar-background: #EBEBEB;
+  --bar-background-active: #37D0D6;
+  --bar-height: 6px;
+  --bar-border-radius: 8px;
+}
