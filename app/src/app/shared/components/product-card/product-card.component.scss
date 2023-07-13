@@ -9,12 +9,12 @@ ion-card {
   position: relative;
 }
 .discount-tag {
-  position: absolute; /* Position the discount tag */
+  position: absolute; 
   display: inline-flex;
   padding: 0px 8px;
   align-items: center;
   gap: 10px;
-  z-index: 1; /* Ensure the tag appears above the image */
+  z-index: 100; 
   border-radius: 12px;
   background: var(--c-5-e, #ecf6f6);
   ion-label {
@@ -41,6 +41,9 @@ ion-card-content {
   justify-content: center;
 
   ion-card-title {
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
     color: var(--c-1-a, #151515);
     font-family: Poppins,sans-serif;
     font-size: 15px;
@@ -66,4 +69,5 @@ ion-card-content {
     line-height: normal;
     text-align: center;
   }
+  
 }
