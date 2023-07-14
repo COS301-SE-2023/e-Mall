@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { Observable, of, Subscription } from 'rxjs';
@@ -63,7 +65,7 @@ export class SalesComponent implements OnInit {
           (item: { [x: string]: any }) => item['percentage']
         );
       });
-      // this.createCategoryPercentageChart();
+       this.createCategoryPercentageChart();
     });
 
     Chart.register(...registerables);
@@ -135,4 +137,40 @@ export class SalesComponent implements OnInit {
       },
     });
   }
+
+
+  createCategoryPercentageChart() {
+
+    const CategoryPercentageCanvas = document.getElementById(
+      'product-clicks-chart'
+    ) as HTMLCanvasElement;
+
+
+    const CategoryPercentageChart = new Chart(CategoryPercentageCanvas, {
+      type: 'bar',
+      data: {
+        labels: this.labels,
+        datasets: [
+          {
+            label: 'Category Percentage',
+            data: this.categoryPercentage,
+            backgroundColor: 'rgba(75, 192, 192, 0.5)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 10,
+            },
+          },
+        },
+      },
+    });
+  }
+
 }
