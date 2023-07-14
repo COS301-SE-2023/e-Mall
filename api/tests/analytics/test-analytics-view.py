@@ -112,3 +112,59 @@ class ConversionRateAPIViewTest(TestCase):
             {"product_name": "product2", "conversion_rate": 100},
         ]
         self.assertEqual(response.data, expected_data)
+
+
+class CategoryPercentageAPIViewTest(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+        self.url = reverse("categorypercentage")
+        self.seller_name = "example_seller"
+        self.consumer = Consumer.objects.create(username="consumer")
+
+        # Create test data
+        Analytics.objects.create(
+            seller=self.seller_name,
+            event_type="product_click",
+            consumer_id=self.consumer.id,
+            product_category="category1",
+        )
+        Analytics.objects.create(
+            seller=self.seller_name,
+            event_type="product_click",
+            consumer_id=self.consumer.id,
+            product_category="category2",
+        )
+        Analytics.objects.create(
+            seller=self.seller_name,
+            event_type="product_click",
+            consumer_id=self.consumer.id,
+            product_category="category2",
+        )
+        Analytics.objects.create(
+            seller=self.seller_name,
+            event_type="product_click",
+            consumer_id=self.consumer.id,
+            product_category="category3",
+        )
+
+    def test_category_percentage_api_view(self):
+        response = self.client.get(self.url, {"seller_name": self.seller_name})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 3)  # Expecting 3 categories
+
+        # Verify the percentage calculation for each category
+        category1_data = next(
+            item for item in response.data if item["category"] == "category1"
+        )
+        self.assertAlmostEqual(category1_data["percentage"], 25.0)
+
+        category2_data = next(
+            item for item in response.data if item["category"] == "category2"
+        )
+        self.assertAlmostEqual(category2_data["percentage"], 50.0)
+
+        category3_data = next(
+            item for item in response.data if item["category"] == "category3"
+        )
+        self.assertAlmostEqual(category3_data["percentage"], 25.0)

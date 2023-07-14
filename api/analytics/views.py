@@ -89,3 +89,31 @@ class ConversionRateAPIView(APIView):
                 {"product_name": product["product"], "conversion_rate": conversion_rate}
             )
         return Response(response_data)
+
+class categoryPercentageAPIView(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request):
+        seller_name = request.GET.get("seller_name")
+        
+        # Get the total number of product clicks for the seller
+        total_product_clicks = Analytics.objects.filter(
+            seller=seller_name,
+            event_type="product_click"
+        ).count()
+        
+        # Get the category clicks and their count for the seller
+        category_clicks = Analytics.objects.filter(
+            seller=seller_name,
+            event_type="product_click"
+        ).values('product_category').annotate(count=Count('product_category'))
+        
+        # Calculate the percentage for each category
+        response_data = []
+        for category in category_clicks:
+            percentage = (category['count'] / total_product_clicks) * 100
+            response_data.append({
+                'category': category['product_category'],
+                'percentage': percentage
+            })
+        
+        return Response(response_data)

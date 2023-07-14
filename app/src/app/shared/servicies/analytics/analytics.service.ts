@@ -27,6 +27,11 @@ export class AnalyticsService {
     return this.http.get<any>(url);
   }
 
+  public getCategoryPercentage(seller_name: string): Observable<any> {
+    const url = `${this.apiUrl}analytics/categorypercentage?seller_name=${seller_name}`;
+    return this.http.get<any>(url);
+  }
+
   public createAnalyticsData(data: object): void {
     const url = `${this.apiUrl}analytics/createproductanalytics/`;
     this.http.post(url, data).subscribe({

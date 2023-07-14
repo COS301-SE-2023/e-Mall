@@ -15,9 +15,12 @@ export class SalesComponent implements OnInit {
   favourited = 0;
   productClicksData$: Observable<any> | undefined;
   conversionRateData$: Observable<any> | undefined;
+  categoryPercentageData$: Observable<any> | undefined;
   clicks!: number[];
   labels!: string[];
   conversionRate!: number[];
+  categories!: string[];
+  categoryPercentage!: number[];
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(private analytics: AnalyticsService) {}
@@ -50,10 +53,18 @@ export class SalesComponent implements OnInit {
       this.createProductPerformanceChart();
     });
 
-    // // Dummy data for demonstration
-    // this.productsClicked = 100;
-    // this.websiteClicks = 50;
-    // this.favourited = 20;
+    this.analytics.getCategoryPercentage(this.sellerName).subscribe(data => {
+      this.categoryPercentageData$ = of(data);
+      this.categoryPercentageData$.subscribe(data => {
+        this.categories = data.map(
+          (item: { [x: string]: any }) => item['category']
+        );
+        this.categoryPercentage = data.map(
+          (item: { [x: string]: any }) => item['percentage']
+        );
+      });
+      // this.createCategoryPercentageChart();
+    });
 
     Chart.register(...registerables);
   }
