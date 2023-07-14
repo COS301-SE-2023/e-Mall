@@ -29,6 +29,7 @@ import { IProduct } from '@shared/models/product/product.interface';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
+import { ProductCardModule } from '@shared/components/product-card/product-card.module';
 import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
 
@@ -77,6 +78,7 @@ describe('SearchComponent', () => {
       imports: [
         NavbarModule,
         FooterModule,
+        ProductCardModule,
         HttpClientModule,
         NgxsModule.forRoot([]),
         RouterTestingModule,

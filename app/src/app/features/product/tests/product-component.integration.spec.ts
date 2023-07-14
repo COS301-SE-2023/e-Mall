@@ -17,6 +17,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
+import { ProductModule } from '../product.module';
 
 describe('ProductComponentIntegration', () => {
   let component: ProductComponent;
@@ -39,6 +40,7 @@ describe('ProductComponentIntegration', () => {
         NavbarModule,
         FooterModule,
         IonicModule,
+        ProductModule,
       ],
       providers: [
         ProductService,

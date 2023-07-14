@@ -7,56 +7,12 @@ import {
   TemplateRef,
   ViewContainerRef,
   OnDestroy,
+  ChangeDetectorRef,
 } from '@angular/core';
-import {
-  BreakpointObserver,
-  Breakpoints,
-  BreakpointState,
-} from '@angular/cdk/layout';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs';
-// @Directive({
-//   selector: '[media]',
-// })
-// export class MediaDirective {
-//   @Input() set media(query: string) {
-//     if (this.removeListener) this.removeListener();
-//     this.setListener(query);
-//   }
-//   private hasView = false;
-//   private removeListener: (() => void) | undefined;
-
-//   constructor(
-//     private readonly viewContainer: ViewContainerRef,
-//     private readonly template: TemplateRef<any>
-//   ) {}
-
-//   private setListener(query: string) {
-//     const mediaQueryList = window.matchMedia(query);
-//     const listener = (event: any) => {
-//       if (event.matches && !this.hasView) {
-//         this.hasView = true;
-//         this.viewContainer.createEmbeddedView(this.template);
-//       }
-//       if (!event.matches && this.hasView) {
-//         this.hasView = false;
-//         this.viewContainer.clear();
-//       }
-//     };
-//     listener(mediaQueryList);
-//     mediaQueryList.addEventListener('change', listener);
-//     this.removeListener = () =>
-//       mediaQueryList.removeEventListener('change', listener);
-//   }
-// }
-type Size = 'mobile' | 'desktop';
-
-const config = {
-  mobile: [Breakpoints.Small, Breakpoints.XSmall],
-  desktop: [Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge],
-};
-
+import { Size, config } from './utils/view-size.util';
 @Directive({
-  // standalone: true,
   selector: '[viewSize]',
 })
 export class ViewSizeDirective implements OnDestroy {
@@ -72,14 +28,17 @@ export class ViewSizeDirective implements OnDestroy {
   constructor(
     private observer: BreakpointObserver,
     private vcRef: ViewContainerRef,
-    private templateRef: TemplateRef<any>
+    private templateRef: TemplateRef<any>,
+    private cd: ChangeDetectorRef
   ) {}
 
   updateView = ({ matches }: BreakpointState) => {
     if (matches && !this.vcRef.length) {
       this.vcRef.createEmbeddedView(this.templateRef);
+      this.cd.markForCheck();
     } else if (!matches && this.vcRef.length) {
       this.vcRef.clear();
+      this.cd.markForCheck();
     }
   };
 

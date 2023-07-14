@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component } from '@angular/core';
 
-import { Router, NavigationExtras } from '@angular/router';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-seller-nav',

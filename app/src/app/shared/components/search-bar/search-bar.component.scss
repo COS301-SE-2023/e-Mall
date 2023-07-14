@@ -48,6 +48,14 @@
 // }
 .search-bar input{
     // height: 4px;
+    color: var(--c-1-c, #a9a9a9);
+
+  /* Body/Default */
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 // ::ng-deep .mat-form-field{

@@ -1,11 +1,13 @@
-
 .custom-footer {
-    margin-top: 0px !important;
-    padding-left: 45px;
-    padding-right: 45px;
-    height: auto;
-    margin-bottom: 0px !important;
+  margin-top: 0px !important;
+  padding-left: 45px;
+  padding-right: 45px;
+  margin-bottom: 0px !important;
 }
-.custom-footer-nav{
-    flex-wrap: nowrap;
+.custom-footer-nav {
+  flex-wrap: nowrap;
+}
+.custom-footer-wrapper {
+  margin-top: 1rem;
+  height: fit-content;
 }
