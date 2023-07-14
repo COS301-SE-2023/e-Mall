@@ -156,7 +156,7 @@
                     <mat-card-title class="product-name">
                       <a
                         href="{{ seller.product_url }}"
-                        onclick="linkClickAnalytics(seller.business_name)"
+                        (click)="linkClickAnalytics(seller.business_name)"
                         >{{ seller.product_name }}</a
                       >
                     </mat-card-title>

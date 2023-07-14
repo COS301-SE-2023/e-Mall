@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, map, Observer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -22,8 +22,19 @@ export class AnalyticsService {
     return this.http.get<any>(url);
   }
 
-  public createAnalyticsData(data: object): Observable<any> {
-    const url = `${this.apiUrl}analytics/createproductanalytics`;
-    return this.http.post<any>(url, data);
+  public createAnalyticsData(data: object): void {
+    const url = `${this.apiUrl}analytics/createproductanalytics/`;
+    this.http.post(url, data).subscribe({
+      next: response => {
+        // Handle the response
+        console.log(response);
+        // Perform any additional actions
+      },
+      error: error => {
+        // Handle the error
+        console.log(error);
+        // Perform any additional error handling
+      },
+    });
   }
 }

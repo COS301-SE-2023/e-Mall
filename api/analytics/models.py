@@ -6,8 +6,8 @@ import uuid
 
 
 class Analytics(models.Model):
-    seller = models.CharField(max_length=100, default="")
-    product = models.CharField(max_length=100, default="")
+    seller = models.CharField(default="")
+    product = models.CharField(default="")
     product_category = models.CharField(max_length=100, default="")
     consumer_id = models.UUIDField(default=uuid.uuid4, editable=False)
     event_type = models.CharField(max_length=100, default="")

@@ -57,7 +57,6 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   prodClickAnalytics(): void {
-    console.log('prod click');
     this.consumer_id = 'c7c700c9-a5b4-4600-bd8d-a24bd355bd46';
     if (this.product$) {
       this.product$.subscribe(product => {
@@ -77,7 +76,6 @@ export class ProductComponent implements OnInit, OnDestroy {
                 event_type: 'product_click',
                 metadata: null,
               };
-              console.log(data);
 
               this.analytics.createAnalyticsData(data);
             }
@@ -87,8 +85,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     }
   }
 
-  linkClickAnalytics(seller_name: string): void {
-    console.log('link click');
+  linkClickAnalytics(seller_name: string | undefined): void {
     this.consumer_id = 'c7c700c9-a5b4-4600-bd8d-a24bd355bd46';
     if (this.product$) {
       this.product$.subscribe(product => {
@@ -103,7 +100,6 @@ export class ProductComponent implements OnInit, OnDestroy {
           event_type: 'link_click',
           metadata: null,
         };
-        console.log(data);
         this.analytics.createAnalyticsData(data);
       });
     }
