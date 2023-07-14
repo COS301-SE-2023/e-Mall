@@ -70,9 +70,11 @@ export class SalesComponent implements OnInit {
   }
 
   createProductClicksChart() {
+
     const productClicksCanvas = document.getElementById(
       'product-clicks-chart'
     ) as HTMLCanvasElement;
+
 
     const productClicksChart = new Chart(productClicksCanvas, {
       type: 'bar',
@@ -102,9 +104,11 @@ export class SalesComponent implements OnInit {
   }
 
   createProductPerformanceChart() {
+
     const productPerformanceCanvas = document.getElementById(
       'product-performance-chart'
     ) as HTMLCanvasElement;
+
     const productPerformanceChart = new Chart(productPerformanceCanvas, {
       type: 'bar',
       data: {

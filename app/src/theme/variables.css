@@ -6,7 +6,7 @@
 /* https://ionicframework.com/docs/theming/color-generator */
 
 :root {
-    --ion-color-primary: #37d0d6;
+    --ion-color-primary: #ECF6F6;
     --ion-color-primary-rgb: 55, 208, 214;
     --ion-color-primary-contrast: #000000;
     --ion-color-primary-contrast-rgb: 0, 0, 0;
@@ -78,6 +78,29 @@
 
 }
 
+ion-content.global-ion-content {
+    display: flex;
+    flex-direction: column;
+    --offset-bottom: auto !important;
+    --overflow: hidden;
+    overflow: auto;
+    scrollbar-width: none
+}
+ion-content::-webkit-scrollbar {
+    display: none;
+}
+
+.ion-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    min-height: 90vh;
+    width: 100%;
+    padding: 2px 2px;
+    background: #fff;
+}
+
 .error-toast{
     --background: var(--ion-color-danger);
     --width: fit-content;
@@ -98,3 +121,34 @@
     --background: var(--ion-color-primary) !important;
     background-color: var(--ion-color-primary) !important;
 }
+h1{
+    color: #000;
+    /* Title */
+    font-family: Poppins,sans-serif;
+    font-size: 100px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 140%;
+}
+
+h2{
+    color: #000;
+
+font-family: Poppins,sans-serif;
+font-size: 32px;
+font-style: normal;
+font-weight: 600;
+line-height: 140%;
+
+}
+
+
+p{
+    color: var(--c-1-a, #151515);
+
+/* Body/Default */
+font-family: 'Open Sans',sans-serif;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;}

@@ -3,7 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './about.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', component: AboutComponent },
+  {
+    path: '',
+    pathMatch: 'full',
+    component: AboutComponent,
+  },
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
