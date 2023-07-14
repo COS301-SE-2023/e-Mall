@@ -126,69 +126,46 @@
           </div>
         </div>
 
-
-      <div #comp_products id="comp_products"></div>
-      <ng-container *ngIf="sellers$ | async as sellers">
-        <ul style="padding-left: 20px" class="seller-list">
-          <li *ngFor="let seller of sellers">
-            <div class="container-fluid comp-products">
-              <mat-accordion>
-                <mat-expansion-panel hideToggle>
-                  <mat-expansion-panel-header>
-                    <mat-panel-title>
-                      <mat-card-title class="seller-name">{{
-                        seller.business_name
-                      }}</mat-card-title>
-                    </mat-panel-title>
-                    <mat-panel-description> </mat-panel-description>
-                  </mat-expansion-panel-header>
-                  <div
-                    *ngIf="seller.in_stock"
-                    style="color: green; margin-top: 20px; font-size: small">
-                    <i class="fa-sharp fa-solid fa-boxes-stacked in-stock-box"
-                      ><span style="margin-left: 10px">In stock</span></i
-                    >
-                  </div>
-                  <div
-                    *ngIf="!seller.in_stock"
-                    style="color: red; margin-top: 20px; font-size: small">
-                    <i class="fa-sharp fa-solid fa-boxes-stacked out-stock-box"
-                      ><span style="margin-left: 10px">Out of stock</span></i
-                    >
-                  </div>
-                </mat-expansion-panel>
-                <mat-card-header class="seller-product-name-price">
-                  <div class="container-fluid card-title-container">
-                    <mat-card-title class="product-name">
-                      <a
-                        href="{{ seller.product_url }}"
-                        (click)="linkClickAnalytics(seller.business_name)"
-                        >{{ seller.product_name }}</a
-                      >
-                    </mat-card-title>
-                    <div class="right-section">
-                      <div
-                        class="in-stock-container"
-                        [ngClass]="{
-                          'in-stock-boxes': seller.in_stock,
-                          'out-of-stock-boxes': !seller.in_stock
-                        }"
-                        matTooltipPosition="above"
-                        aria-label="Example tooltip">
-                        <i
-                          class="fa-sharp fa-solid fa-boxes-stacked in-stock-box"></i>
-                        <i
-                          *ngIf="seller.in_stock"
-                          class="fa-sharp fa-solid fa-check in-stock-tick"
-                          matTooltip="in stock"></i>
-                        <i
-                          *ngIf="!seller.in_stock"
-                          class="fa-sharp fa-solid fa-x in-stock-x"
-                          matTooltip="out of stock"></i>
-                      </div>
-                      <mat-card-title class="product-price">
-                        R{{ seller.price }}
-
+        <div #comp_products id="comp_products"></div>
+        <ng-container *ngIf="sellers$ | async as sellers">
+          <ul style="padding-left: 20px" class="seller-list">
+            <li *ngFor="let seller of sellers">
+              <div class="container-fluid comp-products">
+                <mat-accordion>
+                  <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <mat-card-title class="seller-name">{{
+                          seller.business_name
+                        }}</mat-card-title>
+                      </mat-panel-title>
+                      <mat-panel-description></mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div
+                      *ngIf="seller.in_stock"
+                      style="color: green; margin-top: 20px; font-size: small">
+                      <i
+                        class="fa-sharp fa-solid fa-boxes-stacked in-stock-box">
+                        <span style="margin-left: 10px">In stock</span>
+                      </i>
+                    </div>
+                    <div
+                      *ngIf="!seller.in_stock"
+                      style="color: red; margin-top: 20px; font-size: small">
+                      <i
+                        class="fa-sharp fa-solid fa-boxes-stacked out-stock-box">
+                        <span style="margin-left: 10px">Out of stock</span>
+                      </i>
+                    </div>
+                  </mat-expansion-panel>
+                  <mat-card-header class="seller-product-name-price">
+                    <div class="container-fluid card-title-container">
+                      <mat-card-title class="product-name">
+                        <a
+                          href="{{ seller.product_url }}"
+                          (click)="linkClickAnalytics(seller.business_name)">
+                          {{ seller.product_name }}
+                        </a>
                       </mat-card-title>
                       <div class="right-section">
                         <div
@@ -213,6 +190,30 @@
                         <mat-card-title class="product-price">
                           R{{ seller.price }}
                         </mat-card-title>
+                        <div class="right-section">
+                          <div
+                            class="in-stock-container"
+                            [ngClass]="{
+                              'in-stock-boxes': seller.in_stock,
+                              'out-of-stock-boxes': !seller.in_stock
+                            }"
+                            matTooltipPosition="above"
+                            aria-label="Example tooltip">
+                            <i
+                              class="fa-sharp fa-solid fa-boxes-stacked in-stock-box"></i>
+                            <i
+                              *ngIf="seller.in_stock"
+                              class="fa-sharp fa-solid fa-check in-stock-tick"
+                              matTooltip="in stock"></i>
+                            <i
+                              *ngIf="!seller.in_stock"
+                              class="fa-sharp fa-solid fa-x in-stock-x"
+                              matTooltip="out of stock"></i>
+                          </div>
+                          <mat-card-title class="product-price">
+                            R{{ seller.price }}
+                          </mat-card-title>
+                        </div>
                       </div>
                     </div>
                   </mat-card-header>
@@ -221,6 +222,7 @@
             </li>
           </ul>
         </ng-container>
+
         <!--<div
             *ngFor="let seller of sellers"
             class="container-fluid comp-products">
