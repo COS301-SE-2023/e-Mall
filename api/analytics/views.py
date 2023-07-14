@@ -19,7 +19,7 @@ class ProductAnalyticsAPIView(APIView):
         product_clicks = Analytics.objects.filter(
             seller=seller_name, event_type="product_click"
         ).count()
-        response_data = {"product clicks": product_clicks, "link clicks": link_clicks}
+        response_data = {"product_clicks": product_clicks, "link_clicks": link_clicks}
         return Response(response_data)
 
 
@@ -35,7 +35,7 @@ class AllProductAnalyticsAPIView(APIView):
         )
 
         response_data = [
-            {"product name": item["product"], "clicks": item["clicks"]}
+            {"product_name": item["product"], "clicks": item["clicks"]}
             for item in product_clicks
         ]
 
@@ -62,3 +62,30 @@ class CreateProductAnalyticsAPIView(APIView):
 
         except Exception as e:
             return Response({"message": str(e)}, status=400)
+
+
+class ConversionRateAPIView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        seller_name = request.GET.get("seller_name")
+        products = (
+            Analytics.objects.filter(seller=seller_name).values("product").distinct()
+        )
+        response_data = []
+        for product in products:
+            product_clicks = Analytics.objects.filter(
+                seller=seller_name,
+                event_type="product_click",
+                product=product["product"],
+            ).count()
+            link_clicks = Analytics.objects.filter(
+                seller=seller_name, event_type="link_click", product=product["product"]
+            ).count()
+            conversion_rate = 0
+            if link_clicks > 0:
+                conversion_rate = (product_clicks / link_clicks) * 100
+            response_data.append(
+                {"product_name": product["product"], "conversion_rate": conversion_rate}
+            )
+        return Response(response_data)
