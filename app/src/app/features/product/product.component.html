@@ -190,30 +190,6 @@
                         <mat-card-title class="product-price">
                           R{{ seller.price }}
                         </mat-card-title>
-                        <div class="right-section">
-                          <div
-                            class="in-stock-container"
-                            [ngClass]="{
-                              'in-stock-boxes': seller.in_stock,
-                              'out-of-stock-boxes': !seller.in_stock
-                            }"
-                            matTooltipPosition="above"
-                            aria-label="Example tooltip">
-                            <i
-                              class="fa-sharp fa-solid fa-boxes-stacked in-stock-box"></i>
-                            <i
-                              *ngIf="seller.in_stock"
-                              class="fa-sharp fa-solid fa-check in-stock-tick"
-                              matTooltip="in stock"></i>
-                            <i
-                              *ngIf="!seller.in_stock"
-                              class="fa-sharp fa-solid fa-x in-stock-x"
-                              matTooltip="out of stock"></i>
-                          </div>
-                          <mat-card-title class="product-price">
-                            R{{ seller.price }}
-                          </mat-card-title>
-                        </div>
                       </div>
                     </div>
                   </mat-card-header>
