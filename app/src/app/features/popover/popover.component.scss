@@ -4,3 +4,12 @@
     fill: var(--c-5-d, #B9E6E8);
 }
 
+.editbtn{
+    margin-right: 10px;
+}
+
+.buttons{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;
+}
