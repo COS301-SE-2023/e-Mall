@@ -59,6 +59,11 @@ const routes: Routes = [
   { path: 'policies-and-privacy', redirectTo: '/construction' },
   { path: 'ads', redirectTo: '/construction' },
   {
+    path: 'profile',
+    loadChildren: () =>
+      import('@app/features/profile/profile.module').then(m => m.ProfileModule),
+  },
+  {
     path: '**',
     loadChildren: () =>
       import('@app/features/not-found/not-found.module').then(

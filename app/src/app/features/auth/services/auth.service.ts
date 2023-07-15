@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, take } from 'rxjs';
 import { ISellerForm } from '@features/sign-up/seller/models/seller.interface';
 import { Amplify, Auth, Hub } from 'aws-amplify';
 import { environment } from '../../../../environments/env';
@@ -43,10 +43,12 @@ export class AuthService {
     form.verification_code = undefined;
     const data = JSON.stringify(form);
     await lastValueFrom(
-      this.http.post(url, data, {
-        headers: new HttpHeaders().set('Content-Type', 'application/json'),
-        observe: 'response',
-      })
+      this.http
+        .post(url, data, {
+          headers: new HttpHeaders().set('Content-Type', 'application/json'),
+          observe: 'response',
+        })
+        .pipe(take(1))
     );
 
     await this.cognitoSignUp(form.email, password!, form.type);
