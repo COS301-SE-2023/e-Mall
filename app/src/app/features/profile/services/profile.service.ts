@@ -1,14 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Injectable } from '@angular/core';
-import {
-  firstValueFrom,
-  lastValueFrom,
-  shareReplay,
-  take,
-  tap,
-  timeout,
-} from 'rxjs';
+import { lastValueFrom, shareReplay, take } from 'rxjs';
 import { IConsumerProfile } from '../models/consumer-profile.interface';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ISellerProfile } from '../models/seller-profile.interface';

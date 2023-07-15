@@ -88,7 +88,18 @@ export class AuthService {
       },
     });
   }
-  public async signOut(): Promise<unknown> {
+  async signOut(): Promise<unknown> {
     return await Auth.signOut();
+  }
+  async refreshAccessToken(): Promise<string> {
+    // refresh the session
+    await Auth.currentAuthenticatedUser({ bypassCache: true });
+    // get the current session
+    const session = await Auth.currentSession();
+    // get the new access token
+    const newAccessToken = session.getAccessToken().getJwtToken();
+    // update your application state with the new access token
+    // ...
+    return newAccessToken;
   }
 }

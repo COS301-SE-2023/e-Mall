@@ -4,7 +4,7 @@ import { IError } from '@features/error/models/error.interface';
 import { SetError } from '@features/error/states/error.action';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 import { Select } from '@ngxs/store';
-import { Observable, shareReplay, take, tap } from 'rxjs';
+import { Observable, shareReplay, tap } from 'rxjs';
 import { IConsumerProfile } from '../models/consumer-profile.interface';
 import { ISellerProfile } from '../models/seller-profile.interface';
 import { ProfileSelectors } from '../states/profile.selector';
@@ -46,8 +46,6 @@ export class ProfileFacade {
     return new SetError('profile', error as IError);
   }
   getProfile(): Observable<ISellerProfile | IConsumerProfile | null> {
-    console.log('getProfile', this.profile$);
-
     return this.profile$.pipe(
       tap(async profile => {
         if (profile == null) {
