@@ -17,6 +17,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
 import { AuthModule } from '@app/features/auth/auth.module';
+import { ProfileModule } from '@features/profile/profile.module';
+import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
@@ -26,6 +28,7 @@ describe('NavbarComponent', () => {
       imports: [
         RouterTestingModule,
         NgxsModule.forRoot(),
+        NgxsDispatchPluginModule.forRoot(),
         HttpClientModule,
         BrowserAnimationsModule,
         CommonModule,
@@ -41,6 +44,7 @@ describe('NavbarComponent', () => {
         MatInputModule,
         IonicModule,
         AuthModule,
+        ProfileModule,
       ],
       declarations: [NavbarComponent],
       providers: [],

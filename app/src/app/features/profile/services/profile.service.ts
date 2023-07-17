@@ -28,4 +28,20 @@ export class ProfileService {
     )) as HttpResponse<ISellerProfile | IConsumerProfile | null>;
     return res.body;
   }
+  async updateProfile(
+    data: any
+  ): Promise<ISellerProfile | IConsumerProfile | null> {
+    const url = `${this.apiUrl}update/`;
+    const res = (await lastValueFrom(
+      this.http
+        .post(url, data, {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+          observe: 'response',
+        })
+        .pipe(take(1), shareReplay(1))
+    )) as HttpResponse<ISellerProfile | IConsumerProfile | null>;
+    return res.body;
+  }
 }

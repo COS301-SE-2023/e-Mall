@@ -6,12 +6,15 @@ import { ProfileService } from './services/profile.service';
 import { ProfileFacade } from './services/profile.facade';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './components/profile.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [ProfileComponent],
   imports: [
     CommonModule,
     NgxsModule.forFeature([ProfileState]),
+    FormsModule,
+    ReactiveFormsModule,
     ProfileRoutingModule,
   ],
   exports: [ProfileComponent],

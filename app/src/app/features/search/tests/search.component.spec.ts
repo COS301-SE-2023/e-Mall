@@ -10,7 +10,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -20,18 +20,18 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRadioModule } from '@angular/material/radio';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router, ActivatedRoute } from '@angular/router';
-import { of, BehaviorSubject, Observable } from 'rxjs';
-import { By } from '@angular/platform-browser';
+import { of } from 'rxjs';
 
 import { SearchComponent } from '../search.component';
 import { ProductService } from '@shared/servicies/product/product.service';
-import { IProduct } from '@shared/models/product/product.interface';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
 import { ProductCardModule } from '@shared/components/product-card/product-card.module';
 import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
+import { AuthModule } from '../../auth/auth.module';
+import { ProfileModule } from '@features/profile/profile.module';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -100,6 +100,8 @@ describe('SearchComponent', () => {
         MatProgressSpinnerModule,
         MatSlideToggleModule,
         MatRadioModule,
+        AuthModule,
+        ProfileModule,
       ],
       providers: [
         ProductService,
