@@ -16,7 +16,7 @@ import { ProductService } from '@shared/servicies/product/product.service';
 import { IonRefresher } from '@ionic/angular';
 import { ScrollDetail } from '@ionic/core';
 import { PopoverController } from '@ionic/angular';
-import { PopoverComponent } from '@features/popover/popover.component';
+import { PopovereditComponent } from '../popoveredit/popoveredit.component';
 
 @Component({
   selector: 'app-inventory',
@@ -29,31 +29,43 @@ export class InventoryComponent {
   searchResults$: Observable<IProductSeller[]> | undefined;
   searchInputController = new FormControl('');
   // isAuthenticated!: boolean;
-  min_price_in_stock!: number;
-  brandOptions: string[] = []; // Populate this array with the brand names based on your search results
-  sellerOptions: string[] = []; // Populate this array with the seller names based on your search results
   categoryOptions: string[] = []; // Populate this array with the category names based on your search results
-  priceRange: number[] = [0, 100]; // Initial price range
-  minPrice!: number; // Minimum price value
-  maxPrice!: number; // Maximum price value
   filterOptions: string[] = []; // Stores the selected filter options
   selectedSortOption!: string;
   isChecked!: boolean;
   currentPage!: number;
-  maxPrice$: Observable<number> | null = null;
-  minPrice$: Observable<number> | null = null;
   itemsPerPage!: number;
   totalSearchCount$: Observable<number> | undefined;
   sellerName!: string;
   selectedOption!: string;
   loading = true;
 
-  ////J fix for min , max price
-  minInputController = new FormControl();
-  maxInputController = new FormControl();
-  minInputControllerSub = new Subscription();
-  maxInputControllerSub = new Subscription();
+  constructor(
+    private route: ActivatedRoute,
+    private productService: ProductService,
+    private router: Router,
+    private ProductSellerService: ProductSellerService,
+    private popoverController: PopoverController
+  ) {}
 
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      // this.sellerName = params['seller_name'];
+      this.sellerName = 'Takealot';
+      this.selectedSortOption = 'name';
+      this.ProductSellerService.getProductSellerData(
+        this.sellerName,
+        undefined,
+        undefined,
+        this.selectedSortOption,
+        undefined,
+        undefined
+      ).subscribe(result => {
+        this.searchResults$ = of(result.products);
+        this.totalSearchCount$ = of(result.totalCount);
+      });
+    });
+  }
   //refresher
   handleRefresh(event: any) {
     setTimeout(() => {
@@ -68,47 +80,6 @@ export class InventoryComponent {
     if (option === 'All') {
       this.onFilterOptionChange('filter_in_stock', undefined, false);
     } else this.onFilterOptionChange('filter_in_stock', option, true);
-  }
-
-  constructor(
-    private route: ActivatedRoute,
-    private productService: ProductService,
-    private router: Router,
-    private ProductSellerService: ProductSellerService,
-    private popoverController: PopoverController
-  ) {}
-
-  ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      // this.sellerName = params['seller_name'];
-      this.sellerName = 'Takealot';
-      this.ProductSellerService.getProductSellerData(
-        this.sellerName,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined
-      ).subscribe(result => {
-        this.searchResults$ = of(result.products);
-        this.totalSearchCount$ = of(result.totalCount);
-      });
-    });
-    this.minInputControllerSub = this.minInputController.valueChanges
-      .pipe(debounceTime(1500), distinctUntilChanged())
-      .subscribe(val =>
-        this.onFilterOptionChange('filter_price_min', val, true)
-      );
-    this.maxInputControllerSub = this.maxInputController.valueChanges
-      .pipe(debounceTime(1500), distinctUntilChanged())
-      .subscribe(val =>
-        this.onFilterOptionChange('filter_price_max', val, true)
-      );
-  }
-
-  ngOnDestroy(): void {
-    this.minInputControllerSub.unsubscribe();
-    this.maxInputControllerSub.unsubscribe();
   }
 
   onSortOptionChange(): void {
@@ -134,8 +105,6 @@ export class InventoryComponent {
   onPageChange(event: PageEvent) {
     this.currentPage = event.pageIndex;
     this.itemsPerPage = event.pageSize;
-    console.log('Page size: ' + event.pageSize);
-    console.log('Page index: ' + event.pageIndex);
     this.ProductSellerService.getProductSellerData(
       this.sellerName,
       undefined,
@@ -217,8 +186,6 @@ export class InventoryComponent {
         this.filterOptions = [];
       }
     }
-    console.log('filterOptions');
-    console.log(this.filterOptions);
     this.ProductSellerService.getProductSellerData(
       this.sellerName,
       undefined,
@@ -258,10 +225,6 @@ export class InventoryComponent {
       ).subscribe(result => {
         this.searchResults$ = of(result.products);
         this.totalSearchCount$ = of(result.totalCount);
-        console.log('totalSearchCount$');
-        console.log(result.totalCount);
-        console.log('searchResults$');
-        console.log(result.products);
       });
     }
   }
@@ -275,7 +238,7 @@ export class InventoryComponent {
 
   async selectProduct(product: any) {
     const popover = await this.popoverController.create({
-      component: PopoverComponent,
+      component: PopovereditComponent,
       componentProps: {
         product: product,
       },

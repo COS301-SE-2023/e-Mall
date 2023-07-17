@@ -22,7 +22,10 @@
 
     <ion-item>
       <ion-label>Discount Rate:</ion-label>
-      <ion-input type="number" [(ngModel)]="discount_rate"></ion-input>
+      <ion-input
+        type="number"
+        [(ngModel)]="discount_rate"
+        step="0.01"></ion-input>
     </ion-item>
 
     <!-- Add other input fields for other product details -->
@@ -30,6 +33,6 @@
 
   <div class="buttons">
     <ion-button class="savebtn" (click)="saveChanges()">Save</ion-button>
-    <ion-button color="danger" (click)="cancelEdit()">Cancel</ion-button>
+    <ion-button color="danger" (click)="deleteProduct()">Delete</ion-button>
   </div>
 </ion-content>

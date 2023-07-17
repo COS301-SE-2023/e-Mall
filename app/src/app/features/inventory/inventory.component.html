@@ -6,10 +6,7 @@
 
 <app-seller-nav></app-seller-nav>
 
-
-
 <ion-content>
-
   <div class="inventory-container">
     <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
       <ion-refresher-content></ion-refresher-content>
@@ -27,7 +24,6 @@
     <mat-divider class="divider"></mat-divider>
 
     <div class="search-sort-container">
-  
       <!-- Search functionality -->
       <div class="search-bar">
         <ion-searchbar
@@ -73,12 +69,16 @@
           </ion-grid>
         </ion-item>
         <ng-container *ngIf="searchResults$ | async as productsellers">
-          <ion-item *ngFor="let product of productsellers" (click)="selectProduct(product)">
+          <ion-item
+            *ngFor="let product of productsellers"
+            (click)="selectProduct(product)">
             <ion-grid>
               <ion-row>
                 <ion-col size="1">{{ product.product }}</ion-col>
                 <ion-col size="4">{{ product.product_name }}</ion-col>
-                <ion-col size="2">{{ product.in_stock ? 'In Stock' : 'Out of Stock'}}</ion-col>
+                <ion-col size="2">{{
+                  product.in_stock ? 'In Stock' : 'Out of Stock'
+                }}</ion-col>
                 <ion-col size="2">R {{ product.original_price }}</ion-col>
                 <ion-col size="1">{{ product.discount_rate }}</ion-col>
                 <ion-col size="2">R {{ product.price }}</ion-col>

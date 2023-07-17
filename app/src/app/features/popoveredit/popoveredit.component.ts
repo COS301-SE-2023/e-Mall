@@ -38,9 +38,18 @@ export class PopovereditComponent {
     };
     this.ProductSellerService.updateProductSellerData(data);
     this.popoverController.dismiss();
+    location.reload();
   }
 
-  cancelEdit() {
+  deleteProduct() {
+    // Implement the logic to delete the selected product
+    const data = {
+      prod_id: this.product.product,
+      seller_name: this.seller_name,
+    };
+    console.log(data);
+    this.ProductSellerService.deleteProductSellerData(data);
     this.popoverController.dismiss();
+    location.reload();
   }
 }

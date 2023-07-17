@@ -11,6 +11,7 @@ from rest_framework.permissions import AllowAny
 
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from decimal import Decimal
 
 
 # Create your views here.
@@ -52,6 +53,27 @@ class ProductSellerProdUpdateAPIView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
+        def calculate_current_price(original_price, discount_rate):
+            """
+            Calculates the current price based on the original price and discount rate.
+            """
+            original_price = Decimal(original_price)
+            discount_rate = Decimal(discount_rate)
+
+            discount = original_price * (discount_rate / 100)
+            current_price = original_price - discount
+            return current_price
+
+        def calculate_discount_value(original_price, discount_rate):
+            """
+            Calculates the discount value based on the original price and discount rate.
+            """
+            original_price = Decimal(original_price)
+            discount_rate = Decimal(discount_rate)
+
+            discount = original_price * (discount_rate / 100)
+            return discount
+
         prod_id = request.data.get("prod_id")
         seller_name = request.data.get("seller_name")
         try:
@@ -64,9 +86,13 @@ class ProductSellerProdUpdateAPIView(APIView):
             productseller.original_price = request.data.get(
                 "original_price", productseller.original_price
             )
-            productseller.price = request.data.get("price", productseller.price)
-            productseller.discount = request.data.get(
-                "discount", productseller.discount
+
+            # Calculate the current price and discount value
+            productseller.price = calculate_current_price(
+                productseller.original_price, productseller.discount_rate
+            )
+            productseller.discount = calculate_discount_value(
+                productseller.original_price, productseller.discount_rate
             )
             productseller.discount_rate = request.data.get(
                 "discount_rate", productseller.discount_rate
@@ -132,12 +158,6 @@ class ProductSellerDashboardAPIView(APIView):
         filter_price_min = request.GET.get("filter_price_min")
         filter_price_max = request.GET.get("filter_price_max")
 
-        # Pagination
-        page = int(request.GET.get("page")) if request.GET.get("page") else 0
-        per_page = (
-            int(request.GET.get("per_page")) if request.GET.get("per_page") else 10
-        )
-
         # Filtering of the products
         filters = Q(seller__business_name=seller_name)
 
@@ -184,6 +204,10 @@ class ProductSellerDashboardAPIView(APIView):
             productseller = productseller.order_by("-product__name")
 
         # Pagination
+        page = int(request.GET.get("page")) if request.GET.get("page") else 0
+        per_page = (
+            int(request.GET.get("per_page")) if request.GET.get("per_page") else 10
+        )
         paginator = Paginator(productseller, per_page)
         total_count = paginator.count
         try:
