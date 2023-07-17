@@ -1,26 +1,41 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
-import { HttpClientTestingModule } from '@angular/common/http/testing'; // Import HttpClientTestingModule
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { SalesComponent } from '@features/sales/sales.component';
+import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { of } from 'rxjs';
 import { SellerNavComponent } from '@shared/components/seller-nav/seller-nav.component';
-import { SalesComponent } from '@app/features/sales/sales.component';
+
+import { IonicModule } from '@ionic/angular';
 
 describe('SalesComponent', () => {
   let component: SalesComponent;
   let fixture: ComponentFixture<SalesComponent>;
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  let analyticsService: AnalyticsService;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
       declarations: [SalesComponent, SellerNavComponent],
-      imports: [IonicModule.forRoot(), HttpClientTestingModule], // Add HttpClientTestingModule
+      imports: [IonicModule.forRoot(),HttpClientTestingModule],
+      providers: [AnalyticsService],
     }).compileComponents();
+  }));
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(SalesComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    analyticsService = TestBed.inject(AnalyticsService);
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should set sellerName and retrieve analytics data on component initialization', () => {
+    const mockAnalyticsData = { product_clicks: 10, link_clicks: 20 };
+    spyOn(analyticsService, 'getAnalyticsData').and.returnValue(of(mockAnalyticsData));
+
+    fixture.detectChanges();
+
+    expect(component.sellerName).toBe('Amazon');
+    expect(component.productsClicked).toBe(mockAnalyticsData.product_clicks);
+    expect(component.websiteClicks).toBe(mockAnalyticsData.link_clicks);
   });
 
   it('should have productsClicked, websiteClicks, and favourited properties', () => {
@@ -36,23 +51,29 @@ describe('SalesComponent', () => {
     expect(subCards.length).toBe(3);
   });
 
-  it('should render the correct values in the subcards', () => {
-    const subCards = fixture.nativeElement.querySelectorAll('ion-card');
-    const productsClickedCard = subCards[0];
-    const websiteClicksCard = subCards[1];
-    const favouritedCard = subCards[2];
-    const productsClickedValue = productsClickedCard.querySelector('h1').textContent;
-    const websiteClicksValue = websiteClicksCard.querySelector('h1').textContent;
-    const favouritedValue = favouritedCard.querySelector('h1').textContent;
-    expect(productsClickedValue).toBe(component.productsClicked.toString());
-    expect(websiteClicksValue).toBe(component.websiteClicks.toString());
-    expect(favouritedValue).toBe(component.favourited.toString());
-  });
+  it('should render the correct values in the subcards', waitForAsync(() => {
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+
+      const subCards = fixture.nativeElement.querySelectorAll('ion-card');
+      const productsClickedCard = subCards[1];
+      const websiteClicksCard = subCards[2];
+      const favouritedCard = subCards[3];
+      const productsClickedValue = productsClickedCard.querySelector('h1').textContent;
+      const websiteClicksValue = websiteClicksCard.querySelector('h1').textContent;
+      const favouritedValue = favouritedCard.querySelector('h1').textContent;
+      expect(productsClickedValue).toBe('0');
+      expect(websiteClicksValue).toBe('0');
+      expect(favouritedValue).toBe('0');
+    });
+  }));
 
   it('should render two charts', () => {
     const productClicksChart = fixture.nativeElement.querySelector('#product-clicks-chart');
     const productPerformanceChart = fixture.nativeElement.querySelector('#product-performance-chart');
+    const categoryPercentageChart = fixture.nativeElement.querySelector('#categoryPercentage-chart');
     expect(productClicksChart).toBeTruthy();
     expect(productPerformanceChart).toBeTruthy();
+    expect(categoryPercentageChart).toBeTruthy();
   });
 });

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit } from '@angular/core';
@@ -65,18 +66,16 @@ export class SalesComponent implements OnInit {
           (item: { [x: string]: any }) => item['percentage']
         );
       });
-       this.createCategoryPercentageChart();
+      this.createCategoryPercentageChart();
     });
 
     Chart.register(...registerables);
   }
 
   createProductClicksChart() {
-
     const productClicksCanvas = document.getElementById(
       'product-clicks-chart'
     ) as HTMLCanvasElement;
-
 
     const productClicksChart = new Chart(productClicksCanvas, {
       type: 'bar',
@@ -93,6 +92,12 @@ export class SalesComponent implements OnInit {
         ],
       },
       options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Product Clicks',
+          },
+        },
         scales: {
           y: {
             beginAtZero: true,
@@ -101,12 +106,12 @@ export class SalesComponent implements OnInit {
             },
           },
         },
+        responsive: true,
       },
     });
   }
 
   createProductPerformanceChart() {
-
     const productPerformanceCanvas = document.getElementById(
       'product-performance-chart'
     ) as HTMLCanvasElement;
@@ -126,6 +131,12 @@ export class SalesComponent implements OnInit {
         ],
       },
       options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Product Performance',
+          },
+        },
         scales: {
           y: {
             beginAtZero: true,
@@ -134,19 +145,17 @@ export class SalesComponent implements OnInit {
             },
           },
         },
+        responsive: true,
       },
     });
   }
 
-
   createCategoryPercentageChart() {
-
-    const CategoryPercentageCanvas = document.getElementById(
-      'product-clicks-chart'
+    const categoryPercentageCanvas = document.getElementById(
+      'categoryPercentage-chart'
     ) as HTMLCanvasElement;
 
-
-    const CategoryPercentageChart = new Chart(CategoryPercentageCanvas, {
+    const categoryPercentageChart = new Chart(categoryPercentageCanvas, {
       type: 'bar',
       data: {
         labels: this.labels,
@@ -161,6 +170,12 @@ export class SalesComponent implements OnInit {
         ],
       },
       options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Category Percentage',
+          },
+        },
         scales: {
           y: {
             beginAtZero: true,
@@ -169,8 +184,8 @@ export class SalesComponent implements OnInit {
             },
           },
         },
+        responsive: true,
       },
     });
   }
-
 }

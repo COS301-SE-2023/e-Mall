@@ -28,13 +28,13 @@ describe('PendingComponent', () => {
 
   it('should display the title', () => {
     const messageelement = fixture.nativeElement.querySelector(
-      '.section1__hero_title'
+      'h1'
     );
     expect(messageelement.textContent).toContain('Verification Pending');
   });
   it('should display the message', () => {
     const messageelement =
-      fixture.nativeElement.querySelector('.section1__title');
+      fixture.nativeElement.querySelector('h2');
     expect(messageelement.textContent).toContain(
       'Thank you for registering! We will review your application soon'
     );

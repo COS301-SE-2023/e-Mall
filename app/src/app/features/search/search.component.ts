@@ -7,12 +7,16 @@ import { tap } from 'rxjs/operators';
 import {
   Observable,
   of,
-  debounceTime,
-  distinctUntilChanged,
-  Subscription,
 } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
+interface RangeValue {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  value: any;
+  lower: number;
+  upper: number;
+}
+
 @Component({
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
@@ -40,10 +44,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   loading = true;
 
   ////J fix for min , max price
-  minInputController = new FormControl();
-  maxInputController = new FormControl();
-  minInputControllerSub = new Subscription();
-  maxInputControllerSub = new Subscription();
+
+  priceRangeGroup;
 
   /////
   constructor(
@@ -51,9 +53,14 @@ export class SearchComponent implements OnInit, OnDestroy {
     private productService: ProductService,
     private router: Router,
     private analytics: AnalyticsService
-  ) {}
+  ) { this.priceRangeGroup = new FormGroup({
+    lower: new FormControl(0),
+    upper: new FormControl(5000)
+  });}
 
   ngOnInit(): void {
+    this.minPrice=0;
+    this.maxPrice=5000;
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params['search'];
       console.log('filter options' + this.filterOptions);
@@ -117,24 +124,16 @@ export class SearchComponent implements OnInit, OnDestroy {
             .subscribe();
         });
     });
-    this.minInputControllerSub = this.minInputController.valueChanges
-      .pipe(debounceTime(1500), distinctUntilChanged())
-      .subscribe(val =>
-        this.onFilterOptionChange('filter_price_min', val, true)
-      );
-    this.maxInputControllerSub = this.maxInputController.valueChanges
-      .pipe(debounceTime(1500), distinctUntilChanged())
-      .subscribe(val =>
-        this.onFilterOptionChange('filter_price_max', val, true)
-      );
+     
   }
   ngOnDestroy(): void {
-    this.minInputControllerSub.unsubscribe();
-    this.maxInputControllerSub.unsubscribe();
+    console.log();
   }
 
   //
-
+  pinFormatter(value: number) {
+    return `R${value}`;
+  }
   signOut(): void {
     this.router.navigate(['sign-out']);
   }
@@ -297,11 +296,17 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.totalSearchCount$ = of(result.totalCount);
       });
   }
-  checkInputValidity(formControl: FormControl) {
-    if (formControl.value < 0) {
-      formControl.setErrors({ negativeNumber: true });
-    } else {
-      formControl.setErrors(null);
+ 
+  onIonChange(event: Event) {
+    const rangeValue = (event as CustomEvent<RangeValue>).detail.value;
+    if (rangeValue) {
+      const lower = rangeValue.lower;
+      const upper = rangeValue.upper;
+
+      this.onFilterOptionChange('filter_price_min', lower, true);
+      this.onFilterOptionChange('filter_price_max', upper, true);
+      this.minPrice=lower;
+      this.maxPrice=upper;
     }
   }
 }

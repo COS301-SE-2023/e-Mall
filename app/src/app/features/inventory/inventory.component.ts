@@ -1,20 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Component} from '@angular/core';
+import { ActivatedRoute,  Router } from '@angular/router';
 import {
   Observable,
-  of,
-  debounceTime,
-  distinctUntilChanged,
-  Subscription,
+  of
 } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { FormControl } from '@angular/forms';
 import { ProductSellerService } from '@shared/servicies/productseller/productseller.service';
 import { IProductSeller } from '@shared/models/product/product-seller.interface';
 import { ProductService } from '@shared/servicies/product/product.service';
-import { IonRefresher } from '@ionic/angular';
-import { ScrollDetail } from '@ionic/core';
 import { PopoverController } from '@ionic/angular';
 import { PopovereditComponent } from '../popoveredit/popoveredit.component';
 
@@ -48,8 +43,9 @@ export class InventoryComponent {
     private popoverController: PopoverController
   ) {}
 
+  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe(() => {
       // this.sellerName = params['seller_name'];
       this.sellerName = 'Takealot';
       this.selectedSortOption = 'name';
@@ -75,12 +71,14 @@ export class InventoryComponent {
     }, 2000);
   }
 
+
   selectOption(option: string) {
     this.selectedOption = option;
     if (option === 'All') {
       this.onFilterOptionChange('filter_in_stock', undefined, false);
     } else this.onFilterOptionChange('filter_in_stock', option, true);
   }
+
 
   onSortOptionChange(): void {
     console.log('onSortOptionChange');

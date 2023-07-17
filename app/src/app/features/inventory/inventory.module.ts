@@ -20,7 +20,6 @@ import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
 import { InventoryComponent } from './inventory.component';
 import { InventoryRoutingModule } from './inventory-routing.module';
-import { SellerNavComponent } from '@shared/components/seller-nav/seller-nav.component';
 import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module';
 
 

@@ -1,6 +1,16 @@
+h1{
+font-size: 30px;
+}
+h3{
+  font-size: 20px;
+}
+a{
+  color: var( --ion-color-primary-shade);
+}
 ion-content {
   --background: #444;
   height: 100%;
+  padding: 20px;
 }
 ion-grid {
   --ion-grid-padding: 0px;
@@ -19,7 +29,7 @@ ion-grid {
   --ion-grid-column-padding-lg: 0px;
   --ion-grid-column-padding-xl: 0px;
   background-color: white;
-  height: 70%;
+  height: 80%;
   width: 80%;
   max-width: 870px;
   margin: auto;
@@ -71,7 +81,7 @@ form {
   margin-right: 0.4rem;
 }
 .side-pannel {
-  background-color: var(--ion-color-primary);
+  background: linear-gradient(180deg, #19B2B8 99.99%, rgba(25, 178, 184, 0.00) 100%);
   height: 100%;
   display: flex;
   align-items: center;
