@@ -3,24 +3,48 @@ import { IonicModule } from '@ionic/angular';
 import { HttpClientTestingModule } from '@angular/common/http/testing'; // Import HttpClientTestingModule
 import { SellerNavComponent } from '@shared/components/seller-nav/seller-nav.component';
 import { SalesComponent } from '@app/features/sales/sales.component';
+import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
+import { of } from 'rxjs';
 
 describe('SalesComponent', () => {
   let component: SalesComponent;
   let fixture: ComponentFixture<SalesComponent>;
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  let analyticsService: jasmine.SpyObj<AnalyticsService>;
 
   beforeEach(async () => {
+    const analyticsServiceSpy = jasmine.createSpyObj('AnalyticsService', [
+      'getAnalyticsData',
+      'getAllProducts',
+      'getConversionRate',
+      'getCategoryPercentage'
+    ]);
+
     await TestBed.configureTestingModule({
       declarations: [SalesComponent, SellerNavComponent],
       imports: [IonicModule.forRoot(), HttpClientTestingModule], // Add HttpClientTestingModule
+      providers: [
+        { provide: AnalyticsService, useValue: analyticsServiceSpy }
+      ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SalesComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    analyticsService = TestBed.inject(AnalyticsService) as jasmine.SpyObj<AnalyticsService>;
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  beforeEach(() => {
+    fixture = TestBed.createComponent(SalesComponent);
+    component = fixture.componentInstance;
+  });
+
+  it('should set sellerName and retrieve analytics data on component initialization', () => {
+    const mockAnalyticsData = { product_clicks: 10, link_clicks: 20 };
+    analyticsService.getAnalyticsData.and.returnValue(of(mockAnalyticsData));
+
+    fixture.detectChanges();
+
+    expect(component.sellerName).toBe('Amazon');
+    expect(component.productsClicked).toBe(mockAnalyticsData.product_clicks);
+    expect(component.websiteClicks).toBe(mockAnalyticsData.link_clicks);
   });
 
   it('should have productsClicked, websiteClicks, and favourited properties', () => {
@@ -52,7 +76,9 @@ describe('SalesComponent', () => {
   it('should render two charts', () => {
     const productClicksChart = fixture.nativeElement.querySelector('#product-clicks-chart');
     const productPerformanceChart = fixture.nativeElement.querySelector('#product-performance-chart');
+    const categoryPercentageChart = fixture.nativeElement.querySelector('#categoryPercentage-chart');
     expect(productClicksChart).toBeTruthy();
     expect(productPerformanceChart).toBeTruthy();
+    expect(categoryPercentageChart).toBeTruthy();
   });
 });

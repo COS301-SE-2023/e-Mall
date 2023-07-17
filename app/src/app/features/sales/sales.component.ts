@@ -66,15 +66,17 @@ export class SalesComponent implements OnInit {
           (item: { [x: string]: any }) => item['percentage']
         );
       });
-       this.createCategoryPercentageChart();
+      this.createCategoryPercentageChart();
     });
 
     Chart.register(...registerables);
   }
 
   createProductClicksChart() {
-    const productClicksCanvas = document.getElementById('product-clicks-chart') as HTMLCanvasElement;
-  
+    const productClicksCanvas = document.getElementById(
+      'product-clicks-chart'
+    ) as HTMLCanvasElement;
+
     const productClicksChart = new Chart(productClicksCanvas, {
       type: 'bar',
       data: {
@@ -108,12 +110,12 @@ export class SalesComponent implements OnInit {
       },
     });
   }
-  
+
   createProductPerformanceChart() {
     const productPerformanceCanvas = document.getElementById(
       'product-performance-chart'
     ) as HTMLCanvasElement;
-  
+
     const productPerformanceChart = new Chart(productPerformanceCanvas, {
       type: 'bar',
       data: {
@@ -147,12 +149,12 @@ export class SalesComponent implements OnInit {
       },
     });
   }
-  
+
   createCategoryPercentageChart() {
     const categoryPercentageCanvas = document.getElementById(
       'categoryPercentage-chart'
     ) as HTMLCanvasElement;
-  
+
     const categoryPercentageChart = new Chart(categoryPercentageCanvas, {
       type: 'bar',
       data: {
@@ -186,5 +188,4 @@ export class SalesComponent implements OnInit {
       },
     });
   }
-
 }
