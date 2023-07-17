@@ -6,7 +6,6 @@ import { Chart, registerables } from 'chart.js';
 import { Observable, of, Subscription } from 'rxjs';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 
-
 @Component({
   //selector: 'app-seller-dashboard',
   templateUrl: 'sales.component.html',
@@ -26,10 +25,8 @@ export class SalesComponent implements OnInit {
   categories!: string[];
   categoryPercentage!: number[];
 
-
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(private analytics: AnalyticsService) {}
-
 
   ngOnInit() {
     this.sellerName = 'Amazon';
@@ -48,7 +45,6 @@ export class SalesComponent implements OnInit {
       });
     });
 
-
     this.analytics.getConversionRate(this.sellerName).subscribe(data => {
       this.conversionRateData$ = of(data);
       this.conversionRateData$.subscribe(data => {
@@ -57,10 +53,8 @@ export class SalesComponent implements OnInit {
         );
       });
 
-
       this.createProductPerformanceChart();
     });
-
 
     this.analytics.getCategoryPercentage(this.sellerName).subscribe(data => {
       this.categoryPercentageData$ = of(data);
@@ -75,16 +69,13 @@ export class SalesComponent implements OnInit {
       this.createCategoryPercentageChart();
     });
 
-
     Chart.register(...registerables);
   }
-
 
   createProductClicksChart() {
     const productClicksCanvas = document.getElementById(
       'product-clicks-chart'
     ) as HTMLCanvasElement;
-
 
     const productClicksChart = new Chart(productClicksCanvas, {
       type: 'bar',
@@ -133,12 +124,10 @@ export class SalesComponent implements OnInit {
     });
   }
 
-
   createProductPerformanceChart() {
     const productPerformanceCanvas = document.getElementById(
       'product-performance-chart'
     ) as HTMLCanvasElement;
-
 
     const productPerformanceChart = new Chart(productPerformanceCanvas, {
       type: 'bar',
@@ -187,12 +176,10 @@ export class SalesComponent implements OnInit {
     });
   }
 
-
   createCategoryPercentageChart() {
     const categoryPercentageCanvas = document.getElementById(
       'categoryPercentage-chart'
     ) as HTMLCanvasElement;
-
 
     const categoryPercentageChart = new Chart(categoryPercentageCanvas, {
       type: 'bar',
