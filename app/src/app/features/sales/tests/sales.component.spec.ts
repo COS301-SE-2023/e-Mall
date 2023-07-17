@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import { HttpClientTestingModule } from '@angular/common/http/testing'; // Import HttpClientTestingModule
 import { SellerNavComponent } from '@shared/components/seller-nav/seller-nav.component';
 import { SalesComponent } from '@app/features/sales/sales.component';
 
@@ -9,8 +10,8 @@ describe('SalesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SalesComponent, SellerNavComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [SalesComponent, SellerNavComponent],
+      imports: [IonicModule.forRoot(), HttpClientTestingModule], // Add HttpClientTestingModule
     }).compileComponents();
 
     fixture = TestBed.createComponent(SalesComponent);
@@ -22,7 +23,7 @@ describe('SalesComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have productsClicked, websiteClicks and favourited properties', () => {
+  it('should have productsClicked, websiteClicks, and favourited properties', () => {
     expect(component.productsClicked).toBeDefined();
     expect(component.websiteClicks).toBeDefined();
     expect(component.favourited).toBeDefined();
@@ -37,9 +38,9 @@ describe('SalesComponent', () => {
 
   it('should render the correct values in the subcards', () => {
     const subCards = fixture.nativeElement.querySelectorAll('ion-card');
-    const productsClickedCard = subCards[1];
-    const websiteClicksCard = subCards[2];
-    const favouritedCard = subCards[3];
+    const productsClickedCard = subCards[0];
+    const websiteClicksCard = subCards[1];
+    const favouritedCard = subCards[2];
     const productsClickedValue = productsClickedCard.querySelector('h1').textContent;
     const websiteClicksValue = websiteClicksCard.querySelector('h1').textContent;
     const favouritedValue = favouritedCard.querySelector('h1').textContent;
