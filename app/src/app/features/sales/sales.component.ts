@@ -99,6 +99,18 @@ export class SalesComponent implements OnInit {
           },
         },
         scales: {
+          x: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1,
+              callback: (value: string | number) => {
+                const stringValue = this.labels[Number(value)].toString();
+                return stringValue.length > 10
+                  ? stringValue.slice(0, 10) + '...'
+                  : stringValue;
+              },
+            },
+          },
           y: {
             beginAtZero: true,
             ticks: {
@@ -138,6 +150,18 @@ export class SalesComponent implements OnInit {
           },
         },
         scales: {
+          x: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1,
+              callback: (value: string | number) => {
+                const stringValue = this.labels[Number(value)].toString();
+                return stringValue.length > 10
+                  ? stringValue.slice(0, 10) + '...'
+                  : stringValue;
+              },
+            },
+          },
           y: {
             beginAtZero: true,
             ticks: {
@@ -177,6 +201,18 @@ export class SalesComponent implements OnInit {
           },
         },
         scales: {
+          x: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1,
+              callback: (value: string | number) => {
+                const stringValue = this.labels[Number(value)].toString();
+                return stringValue.length > 10
+                  ? stringValue.slice(0, 10) + '...'
+                  : stringValue;
+              },
+            },
+          },
           y: {
             beginAtZero: true,
             ticks: {
