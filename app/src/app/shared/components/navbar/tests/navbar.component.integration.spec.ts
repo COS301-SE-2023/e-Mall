@@ -20,6 +20,7 @@ import { IonicModule } from '@ionic/angular';
 import { AuthModule } from '@app/features/auth/auth.module';
 import { AuthState } from '@app/features/auth/states/auth.state';
 import { NgxsModule } from '@ngxs/store';
+import { ProfileModule } from '@features/profile/profile.module';
 
 describe('NavbarComponentIntegration', () => {
   let component: NavbarComponent;
@@ -46,6 +47,7 @@ describe('NavbarComponentIntegration', () => {
         MatInputModule,
         IonicModule,
         AuthModule,
+        ProfileModule,
       ],
       declarations: [NavbarComponent],
     }).compileComponents();

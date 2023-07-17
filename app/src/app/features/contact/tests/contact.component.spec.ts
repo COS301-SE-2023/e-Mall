@@ -11,6 +11,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
 import { ContactModule } from '../contact.module';
+import { AuthModule } from '@features/auth/auth.module';
+import { ProfileModule } from '@features/profile/profile.module';
 
 describe('ContactComponent', () => {
   let component: ContactComponent;
@@ -27,6 +29,8 @@ describe('ContactComponent', () => {
         FooterModule,
         IonicModule,
         ContactModule,
+        AuthModule,
+        ProfileModule,
       ],
       declarations: [ContactComponent],
       providers: [

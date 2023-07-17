@@ -61,8 +61,16 @@ export class AuthFacade {
       return new SetError('auth', error as IError);
     }
   }
-
+  @Dispatch()
+  updateToken(token: string) {
+    return new AuthActions.UpdateToken(token);
+  }
   getCurrentUser(): Observable<IUser | null> {
     return this.currentUser$;
+  }
+  async refreshAccessToken(): Promise<string> {
+    const token = await this.authService.refreshAccessToken();
+    this.updateToken(token);
+    return token;
   }
 }

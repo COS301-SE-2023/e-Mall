@@ -14,7 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
-import { ActivatedRoute, Router,ParamMap } from '@angular/router';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IProduct } from '@shared/models/product/product.interface';
 import { of } from 'rxjs';
@@ -22,18 +22,26 @@ import { IProductSeller } from '@shared/models/product/product-seller.interface'
 import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
 import { ProductModule } from '../product.module';
+import { AuthModule } from '@features/auth/auth.module';
+import { ProfileModule } from '@features/profile/profile.module';
+
 describe('ProductComponent', () => {
   let component: ProductComponent;
   let fixture: ComponentFixture<ProductComponent>;
   let productService: ProductService;
   let router: Router;
   // eslint-disable-next-line prefer-const
-  let mockProductService = jasmine.createSpyObj('ProductService', ['getProductData', 'getSellerList']);
-  const mockAnalyticsService = jasmine.createSpyObj('AnalyticsService', ['createAnalyticsData']);
+  let mockProductService = jasmine.createSpyObj('ProductService', [
+    'getProductData',
+    'getSellerList',
+  ]);
+  const mockAnalyticsService = jasmine.createSpyObj('AnalyticsService', [
+    'createAnalyticsData',
+  ]);
   const mockActivatedRoute = {
     queryParamMap: of({
-      get: (key: string) => '1' // Assuming 'prod_id' query parameter is set to 1
-    } as ParamMap)
+      get: (key: string) => '1', // Assuming 'prod_id' query parameter is set to 1
+    } as ParamMap),
   };
 
   beforeEach(async () => {
@@ -53,13 +61,14 @@ describe('ProductComponent', () => {
         NavbarModule,
         FooterModule,
         IonicModule,
+        AuthModule,
+        ProfileModule,
         ProductModule,
       ],
       providers: [
-          { provide: ProductService, useValue: mockProductService },
-          { provide: AnalyticsService, useValue: mockAnalyticsService },
-          { provide: ActivatedRoute, useValue: mockActivatedRoute },
-        
+        { provide: ProductService, useValue: mockProductService },
+        { provide: AnalyticsService, useValue: mockAnalyticsService },
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
       ],
     }).compileComponents();
 
@@ -80,8 +89,8 @@ describe('ProductComponent', () => {
   it('should create the ProductComponent', () => {
     expect(component).toBeTruthy();
   });
-  
-  it('should fetch productData on initialization', (done) => {
+
+  it('should fetch productData on initialization', done => {
     const mockProduct: IProduct = {
       id: 1,
       min_price_img_array: ['image1.jpg', 'image2.jpg'],
@@ -100,45 +109,44 @@ describe('ProductComponent', () => {
       created_at: '2023-06-01',
       updated_at: '2023-06-02',
     };
-  
+
     mockProductService.getProductData.and.returnValue(of(mockProduct));
-  
+
     component.prod_id = 1;
     component.ngOnInit();
-  
+
     expect(mockProductService.getProductData).toHaveBeenCalledWith(
       component.prod_id
     );
     component.product$?.subscribe(product => {
       expect(product).toEqual(mockProduct);
-      done(); 
+      done();
     });
-  
+
     fixture.detectChanges();
   });
-  
-  
-  it('should fetch SellerList on initialization', (done) => {
+
+  it('should fetch SellerList on initialization', done => {
     const sellerList: IProductSeller[] = [
       { id: 1, product: 'Product1', seller: 'Seller1' },
       { id: 2, product: 'Product2', seller: 'Seller2' },
     ];
     mockProductService.getSellerList.and.returnValue(of(sellerList));
-  
+
     component.prod_id = 1;
     component.ngOnInit();
-  
+
     expect(mockProductService.getSellerList).toHaveBeenCalledWith(
       component.prod_id,
       'default'
     );
     component.sellers$?.subscribe(product => {
       expect(product).toEqual(sellerList);
-      done(); 
+      done();
     });
     fixture.detectChanges();
   });
-  
+
   it('should display seller list', () => {
     const sellers = [
       {
@@ -205,7 +213,7 @@ describe('ProductComponent', () => {
     expect(descriptionElement.textContent).toContain(description);
   });
   it('should toggle divClicked and update sellers$', () => {
-   // spyOn(productService, 'getSellerList');
+    // spyOn(productService, 'getSellerList');
 
     component.divClicked = false;
     component.prod_id = 1;
@@ -233,4 +241,3 @@ describe('ProductComponent', () => {
   });
 */
 });
-

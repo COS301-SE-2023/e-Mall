@@ -7,6 +7,9 @@ import {
 } from '@angular/common/http/testing';
 import { HomeComponent } from '@app/features/home/home.component';
 import { IonicModule } from '@ionic/angular';
+import { AuthModule } from '@features/auth/auth.module';
+import { ProfileModule } from '@features/profile/profile.module';
+import { NgxsModule } from '@ngxs/store';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -14,7 +17,13 @@ describe('HomeComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, IonicModule],
+      imports: [
+        HttpClientTestingModule,
+        NgxsModule.forRoot(),
+        IonicModule,
+        AuthModule,
+        ProfileModule,
+      ],
       providers: [HomeComponent],
     });
 
