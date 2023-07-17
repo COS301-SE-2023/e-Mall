@@ -139,30 +139,33 @@
                           seller.business_name
                         }}</mat-card-title>
                       </mat-panel-title>
-                      <mat-panel-description> </mat-panel-description>
+                      <mat-panel-description></mat-panel-description>
                     </mat-expansion-panel-header>
                     <div
                       *ngIf="seller.in_stock"
                       style="color: green; margin-top: 20px; font-size: small">
-                      <i class="fa-sharp fa-solid fa-boxes-stacked in-stock-box"
-                        ><span style="margin-left: 10px">In stock</span></i
-                      >
+                      <i
+                        class="fa-sharp fa-solid fa-boxes-stacked in-stock-box">
+                        <span style="margin-left: 10px">In stock</span>
+                      </i>
                     </div>
                     <div
                       *ngIf="!seller.in_stock"
                       style="color: red; margin-top: 20px; font-size: small">
                       <i
-                        class="fa-sharp fa-solid fa-boxes-stacked out-stock-box"
-                        ><span style="margin-left: 10px">Out of stock</span></i
-                      >
+                        class="fa-sharp fa-solid fa-boxes-stacked out-stock-box">
+                        <span style="margin-left: 10px">Out of stock</span>
+                      </i>
                     </div>
                   </mat-expansion-panel>
                   <mat-card-header class="seller-product-name-price">
                     <div class="container-fluid card-title-container">
                       <mat-card-title class="product-name">
-                        <a href="{{ seller.product_url }}">{{
-                          seller.product_name
-                        }}</a>
+                        <a
+                          href="{{ seller.product_url }}"
+                          (click)="linkClickAnalytics(seller.business_name)">
+                          {{ seller.product_name }}
+                        </a>
                       </mat-card-title>
                       <div class="right-section">
                         <div
@@ -195,6 +198,7 @@
             </li>
           </ul>
         </ng-container>
+
         <!--<div
             *ngFor="let seller of sellers"
             class="container-fluid comp-products">
