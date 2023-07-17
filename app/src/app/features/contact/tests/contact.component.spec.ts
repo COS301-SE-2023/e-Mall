@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
+import { ContactModule } from '../contact.module';
 
 describe('ContactComponent', () => {
   let component: ContactComponent;
@@ -25,6 +26,7 @@ describe('ContactComponent', () => {
         NavbarModule,
         FooterModule,
         IonicModule,
+        ContactModule,
       ],
       declarations: [ContactComponent],
       providers: [

@@ -1,195 +1,205 @@
 <app-navbar></app-navbar>
-<ion-content>
-  <div class="container-fluid body-container">
-    <div class="container-fluid prices" id="prices">
-      <div
-        class="row product-img-info-container"
-        style="margin-left: 10px; margin-right: 10px">
-        <!--<div *ngIf="(product$ | async) === null">
+<ion-content class="global-ion-content">
+  <ng-container *ngIf="product$ | async as product">
+    <app-category-breadcrumb
+      [categoryList]="product.category"></app-category-breadcrumb>
+  </ng-container>
+  <div class="ion-content-wrapper">
+    <div class="container-fluid body-container">
+      <div class="container-fluid prices" id="prices">
+        <div
+          class="row product-img-info-container"
+          style="margin-left: 10px; margin-right: 10px">
+          <!--<div *ngIf="(product$ | async) === null">
             <mat-spinner></mat-spinner>
           </div>-->
-        <div class="col-sm-4 col-md-4 col-lg-4 mini-imgs-container">
-          <div
-            class="mini-imgs-small-container"
-            *ngFor="
-              let img of getImgs((product$ | async)?.min_price_img_array)
-            ">
-            <div>
-              <img [src]="img" alt="Product Image" class="img-fluid w-100" />
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-4 col-md-4 col-lg-4 main-img-container">
-          <mat-card class="product-card">
-            <div class="position-relative">
-              <img
-                mat-card-image
-                [src]="getOneImg((product$ | async)?.min_price_img_array)"
-                alt="Product Image"
-                class="product-image" />
-              <div
-                class="min-price-discount_rate"
-                *ngIf="product$ | async as product">
-                <span
-                  class="badge bg-danger discount_rate_badge"
-                  matTooltip="Product discount rate"
-                  *ngIf="product.min_price_discount_rate !== 0">
-                  -{{ product.min_price_discount_rate }}%
-                </span>
+          <div class="col-sm-4 col-md-4 col-lg-4 mini-imgs-container">
+            <div
+              class="mini-imgs-small-container"
+              *ngFor="
+                let img of getImgs((product$ | async)?.min_price_img_array)
+              ">
+              <div>
+                <img [src]="img" alt="Product Image" class="img-fluid w-100" />
               </div>
             </div>
-            <mat-card-actions>
-              <!--<button
+          </div>
+
+          <div class="col-sm-4 col-md-4 col-lg-4 main-img-container">
+            <mat-card class="product-card">
+              <div class="position-relative">
+                <img
+                  mat-card-image
+                  [src]="getOneImg((product$ | async)?.min_price_img_array)"
+                  alt="Product Image"
+                  class="product-image" />
+                <div
+                  class="min-price-discount_rate"
+                  *ngIf="product$ | async as product">
+                  <span
+                    class="badge bg-danger discount_rate_badge"
+                    matTooltip="Product discount rate"
+                    *ngIf="product.min_price_discount_rate !== 0">
+                    -{{ product.min_price_discount_rate }}%
+                  </span>
+                </div>
+              </div>
+              <mat-card-actions>
+                <!--<button
                   mat-icon-button
                   color="warm"
                   aria-label="Example icon button with a heart icon">
                   <mat-icon>favorite</mat-icon>
                 </button>-->
-            </mat-card-actions>
-          </mat-card>
-        </div>
+              </mat-card-actions>
+            </mat-card>
+          </div>
 
-        <div class="col-sm-4 col-md-4 col-lg-4 upper-product-info-container">
-          <div
-            class="upper-product-info-small-container"
-            *ngIf="product$ | async as product">
-            <h2 style="font-family: airbone, Arial, Helvetica, sans-serif">
-              {{ product.name }}
-            </h2>
-            <h4>{{ product.brand }}</h4>
-            <p>{{ product.description }}</p>
-            <p>
-              Compare prices from
-              <b>R{{ product.min_price }}</b>
-            </p>
+          <div class="col-sm-4 col-md-4 col-lg-4 upper-product-info-container">
+            <div
+              class="upper-product-info-small-container"
+              *ngIf="product$ | async as product">
+              <h2 style="font-family: airbone, Arial, Helvetica, sans-serif">
+                {{ product.name }}
+              </h2>
+              <h4>{{ product.brand }}</h4>
+              <p>{{ product.description }}</p>
+              <p>
+                Compare prices from
+                <b>R{{ product.min_price }}</b>
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="container-fluid lower-body-container">
-      <nav
-        class="navbar navbar-expand-lg navbar-light bg-light sticky-top lowerNav"
-        style="padding-left: 40px">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a
-                style="padding-right: 15px"
-                class="nav-link"
-                (click)="scroll(comp_products)"
-                >Prices</a
-              >
-            </li>
-            <!--<li class="nav-item">
+      <div class="container-fluid lower-body-container">
+        <nav
+          class="navbar navbar-expand-lg navbar-light bg-light sticky-top lowerNav"
+          style="padding-left: 40px">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a
+                  style="padding-right: 15px"
+                  class="nav-link"
+                  (click)="scroll(comp_products)"
+                  >Prices</a
+                >
+              </li>
+              <!--<li class="nav-item">
                 <a class="nav-link">Statistics</a>
               </li>-->
-            <li class="nav-item">
-              <a class="nav-link" (click)="scroll(product_info)"
-                >Product information</a
-              >
-            </li>
-            <!--<li class="nav-item">
+              <li class="nav-item">
+                <a class="nav-link" (click)="scroll(product_info)"
+                  >Product information</a
+                >
+              </li>
+              <!--<li class="nav-item">
                 <a class="nav-link">Reviews & tests</a>
               </li>-->
-          </ul>
-        </div>
-      </nav>
+            </ul>
+          </div>
+        </nav>
 
-      <div class="container-fluid filters" style="margin-left: 20px">
-        <div class="row">
-          <div class="col-sm-2 col-md-2 col-lg-2">
-            <button
-              class="only-in-stock"
-              (click)="onlyInStockToggler()"
-              [ngStyle]="{ border: divClicked ? '2px solid black' : 'none' }">
-              <span><i class="fa-solid fa-cube" aria-hidden="true"></i></span>
-              Only in stock
-            </button>
+        <div class="container-fluid filters" style="margin-left: 20px">
+          <div class="row">
+            <div class="col-sm-2 col-md-2 col-lg-2">
+              <button
+                class="only-in-stock"
+                (click)="onlyInStockToggler()"
+                [ngStyle]="{ border: divClicked ? '2px solid black' : 'none' }">
+                <span><i class="fa-solid fa-cube" aria-hidden="true"></i></span>
+                Only in stock
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div #comp_products id="comp_products"></div>
-      <ng-container *ngIf="sellers$ | async as sellers">
-        <ul style="padding-left: 20px" class="seller-list">
-          <li *ngFor="let seller of sellers">
-            <div class="container-fluid comp-products">
-              <mat-accordion>
-                <mat-expansion-panel hideToggle>
-                  <mat-expansion-panel-header>
-                    <mat-panel-title>
-                      <mat-card-title class="seller-name">{{
-                        seller.business_name
-                      }}</mat-card-title>
-                    </mat-panel-title>
-                    <mat-panel-description> </mat-panel-description>
-                  </mat-expansion-panel-header>
-                  <div
-                    *ngIf="seller.in_stock"
-                    style="color: green; margin-top: 20px; font-size: small">
-                    <i class="fa-sharp fa-solid fa-boxes-stacked in-stock-box"
-                      ><span style="margin-left: 10px">In stock</span></i
-                    >
-                  </div>
-                  <div
-                    *ngIf="!seller.in_stock"
-                    style="color: red; margin-top: 20px; font-size: small">
-                    <i class="fa-sharp fa-solid fa-boxes-stacked out-stock-box"
-                      ><span style="margin-left: 10px">Out of stock</span></i
-                    >
-                  </div>
-                </mat-expansion-panel>
-                <mat-card-header class="seller-product-name-price">
-                  <div class="container-fluid card-title-container">
-                    <mat-card-title class="product-name">
-                      <a href="{{ seller.product_url }}">{{
-                        seller.product_name
-                      }}</a>
-                    </mat-card-title>
-                    <div class="right-section">
-                      <div
-                        class="in-stock-container"
-                        [ngClass]="{
-                          'in-stock-boxes': seller.in_stock,
-                          'out-of-stock-boxes': !seller.in_stock
-                        }"
-                        matTooltipPosition="above"
-                        aria-label="Example tooltip">
-                        <i
-                          class="fa-sharp fa-solid fa-boxes-stacked in-stock-box"></i>
-                        <i
-                          *ngIf="seller.in_stock"
-                          class="fa-sharp fa-solid fa-check in-stock-tick"
-                          matTooltip="in stock"></i>
-                        <i
-                          *ngIf="!seller.in_stock"
-                          class="fa-sharp fa-solid fa-x in-stock-x"
-                          matTooltip="out of stock"></i>
-                      </div>
-                      <mat-card-title class="product-price">
-                        R{{ seller.price }}
-                      </mat-card-title>
+        <div #comp_products id="comp_products"></div>
+        <ng-container *ngIf="sellers$ | async as sellers">
+          <ul style="padding-left: 20px" class="seller-list">
+            <li *ngFor="let seller of sellers">
+              <div class="container-fluid comp-products">
+                <mat-accordion>
+                  <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <mat-card-title class="seller-name">{{
+                          seller.business_name
+                        }}</mat-card-title>
+                      </mat-panel-title>
+                      <mat-panel-description></mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div
+                      *ngIf="seller.in_stock"
+                      style="color: green; margin-top: 20px; font-size: small">
+                      <i
+                        class="fa-sharp fa-solid fa-boxes-stacked in-stock-box">
+                        <span style="margin-left: 10px">In stock</span>
+                      </i>
                     </div>
-                  </div>
-                </mat-card-header>
-              </mat-accordion>
-            </div>
-          </li>
-        </ul>
-      </ng-container>
-      <!--<div
+                    <div
+                      *ngIf="!seller.in_stock"
+                      style="color: red; margin-top: 20px; font-size: small">
+                      <i
+                        class="fa-sharp fa-solid fa-boxes-stacked out-stock-box">
+                        <span style="margin-left: 10px">Out of stock</span>
+                      </i>
+                    </div>
+                  </mat-expansion-panel>
+                  <mat-card-header class="seller-product-name-price">
+                    <div class="container-fluid card-title-container">
+                      <mat-card-title class="product-name">
+                        <a
+                          href="{{ seller.product_url }}"
+                          (click)="linkClickAnalytics(seller.business_name)">
+                          {{ seller.product_name }}
+                        </a>
+                      </mat-card-title>
+                      <div class="right-section">
+                        <div
+                          class="in-stock-container"
+                          [ngClass]="{
+                            'in-stock-boxes': seller.in_stock,
+                            'out-of-stock-boxes': !seller.in_stock
+                          }"
+                          matTooltipPosition="above"
+                          aria-label="Example tooltip">
+                          <i
+                            class="fa-sharp fa-solid fa-boxes-stacked in-stock-box"></i>
+                          <i
+                            *ngIf="seller.in_stock"
+                            class="fa-sharp fa-solid fa-check in-stock-tick"
+                            matTooltip="in stock"></i>
+                          <i
+                            *ngIf="!seller.in_stock"
+                            class="fa-sharp fa-solid fa-x in-stock-x"
+                            matTooltip="out of stock"></i>
+                        </div>
+                        <mat-card-title class="product-price">
+                          R{{ seller.price }}
+                        </mat-card-title>
+                      </div>
+                    </div>
+                  </mat-card-header>
+                </mat-accordion>
+              </div>
+            </li>
+          </ul>
+        </ng-container>
+
+        <!--<div
             *ngFor="let seller of sellers"
             class="container-fluid comp-products">
             <div class="row drop-d-sellerName-container">
@@ -210,8 +220,8 @@
             </div>
           </div>-->
 
-      <!--</ng-container>-->
-      <!--<div class="container-fluid related-products" *ngIf="products">
+        <!--</ng-container>-->
+        <!--<div class="container-fluid related-products" *ngIf="products">
           <h3>Related Products</h3>
           <div class="row">
             <div class="col-sm-3 col-md-3 col-lg-3">
@@ -261,31 +271,31 @@
             </div>
           </div>
         </div> -->
-      <div
-        style="padding-left: 30px; padding-right: 30px"
-        #product_info
-        class="container-fluid full-product-info"
-        id="full-product-info">
-        <h3>Products Information</h3>
-        <ng-container *ngIf="sellers$ | async as sellers">
-          <div *ngFor="let seller of sellers; let i = index"></div>
+        <div
+          style="padding-left: 30px; padding-right: 30px"
+          #product_info
+          class="container-fluid full-product-info"
+          id="full-product-info">
+          <h3>Products Information</h3>
+          <ng-container *ngIf="sellers$ | async as sellers">
+            <div *ngFor="let seller of sellers; let i = index"></div>
 
-          <div *ngIf="product$ | async as product">
-            <p>
-              Lowest price for {{ product.name }} is
-              <b>R{{ product.min_price }}</b> this is currrently the lowest
-              price out of {{ sellers.length }} stores
-            </p>
+            <div *ngIf="product$ | async as product">
+              <p>
+                Lowest price for {{ product.name }} is
+                <b>R{{ product.min_price }}</b> this is currrently the lowest
+                price out of {{ sellers.length }} stores
+              </p>
 
-            <p>
-              <b>{{ product.name }}</b>
-            </p>
-            <p>{{ product.description }}</p>
-          </div>
-        </ng-container>
-      </div>
+              <p>
+                <b>{{ product.name }}</b>
+              </p>
+              <p>{{ product.description }}</p>
+            </div>
+          </ng-container>
+        </div>
 
-      <!--<div class="container-fluid reviews" id="reviews">
+        <!--<div class="container-fluid reviews" id="reviews">
           <h3>Reviews</h3>
           <div class="row">
             <div class="col-sm-7 col-md-7 col-lg-7 reviews-info-container">
@@ -410,20 +420,20 @@
           </button>
         </div>-->
 
-      <!--
+        <!--
         <div class="container-fluid statistics" id="statistics">
           <h3>Statistics</h3>
         </div>
       -->
 
-      <!--
+        <!--
         <div *ngIf="product">
           <h1>{{ product[0].brand }}</h1>
           <img [src]="product[0].img" alt="Product Image">
         </div>
         
-      -->
+      --></div>
     </div>
   </div>
+  <app-footer></app-footer>
 </ion-content>
-<app-footer></app-footer>

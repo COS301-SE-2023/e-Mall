@@ -22,13 +22,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router, ActivatedRoute } from '@angular/router';
 import { of, BehaviorSubject, Observable } from 'rxjs';
 import { By } from '@angular/platform-browser';
-
+import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 import { SearchComponent } from '../search.component';
 import { ProductService } from '@shared/servicies/product/product.service';
 import { IProduct } from '@shared/models/product/product.interface';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
+import { ProductCardModule } from '@shared/components/product-card/product-card.module';
 import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
 
@@ -77,6 +78,7 @@ describe('SearchComponent', () => {
       imports: [
         NavbarModule,
         FooterModule,
+        ProductCardModule,
         HttpClientModule,
         NgxsModule.forRoot([]),
         RouterTestingModule,
@@ -103,6 +105,7 @@ describe('SearchComponent', () => {
         ProductService,
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
         { provide: ProductService, useValue: mockProductService },
+        AnalyticsService,
       ],
     }).compileComponents();
     productService = TestBed.inject(ProductService);

@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
+import { ConstructionModule } from '../construction.module';
 describe('ConstructionComponent', () => {
   let component: ConstructionComponent;
   let fixture: ComponentFixture<ConstructionComponent>;
@@ -23,6 +24,7 @@ describe('ConstructionComponent', () => {
         NavbarModule,
         FooterModule,
         IonicModule,
+        ConstructionModule,
       ],
       declarations: [ConstructionComponent],
       providers: [

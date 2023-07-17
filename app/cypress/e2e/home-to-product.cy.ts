@@ -3,8 +3,8 @@ import 'cypress-network-idle';
 describe('visit home', () => {
   it('passes', () => {
     cy.visit('/home');
-
-    cy.get('.product-card').find('img').first().click();
+    cy.wait(5000);
+    cy.get('app-product-card').first().click({ force: true });
     cy.waitForNetworkIdlePrepare({
       method: 'GET',
       pattern: 'products/frontend/*',

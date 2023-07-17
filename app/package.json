@@ -72,7 +72,8 @@
     "ngxs-reset-plugin": "^3.0.0",
     "prettier": "^2.8.8",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.1.0",
@@ -89,6 +90,7 @@
     "@ngxs/devtools-plugin": "^3.8.1",
     "@ngxs/logger-plugin": "^3.8.1",
     "@types/jasmine": "~4.3.3",
+    "@types/uuid": "^9.0.2",
     "@typescript-eslint/eslint-plugin": "5.59.11",
     "@typescript-eslint/parser": "5.59.11",
     "cypress": "^12.15.0",

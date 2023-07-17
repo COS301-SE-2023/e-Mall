@@ -5,18 +5,13 @@ import { AppComponent } from './app.component';
 import { httpInterceptorProviders } from '@app/shared/interceptors/index';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeModule } from './features/home/home.module';
-import { ProductModule } from './features/product/product.module';
 import { SignInModule } from './features/sign-in/sign-in.module';
 import { SellerRegisterModule } from './features/sign-up/seller/seller-register.module';
 import { ConsumerRegisterModule } from './features/sign-up/consumer/consumer-register.module';
 import { SignOutModule } from './features/sign-out/sign-out.module';
-import { FooterModule } from './shared/components/footer/footer.module';
-import { AboutModule } from './features/about/about.module';
-import { SalesModule } from './features/sales/sales.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { IonicModule, IonicRouteStrategy, MenuController } from '@ionic/angular';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { RouteReuseStrategy } from '@angular/router';
-import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { environment } from 'environments/env';
@@ -42,7 +37,6 @@ import { PopovereditModule } from '@features/popoveredit/popoveredit.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
     IonicModule.forRoot({ navAnimation: customPageAnimation }),
     NgxsModule.forRoot([]),
     NgxsLoggerPluginModule.forRoot({
@@ -67,22 +61,23 @@ import { PopovereditModule } from '@features/popoveredit/popoveredit.module';
     AuthModule,
     ErrorModule,
     HomeModule,
-    ProductModule,
+    // ProductModule,
     SignInModule,
     SellerRegisterModule,
     ConsumerRegisterModule,
     SignOutModule,
-    FooterModule,
-    NavbarModule,
-    AboutModule,
-    
-    SalesModule,
+    // FooterModule,
+    // NavbarModule,
+    // AboutModule,
+
+    // SalesModule,
     MatTooltipModule,
     InventoryModule,
     SellerNavModule,
     PopoverModule,
     PopovereditModule,
 
+    AppRoutingModule,
   ],
 
   providers: [

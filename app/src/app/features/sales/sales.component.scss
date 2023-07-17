@@ -15,10 +15,11 @@
 }
 
 .product-graph,
-.product-performance {
+.product-performance,.categoryPercentage-graph {
   margin-bottom: 20px;
+  padding: 20px;
 }
-.product-graph {
+.product-graph,.product-performance,.categoryPercentage-graph {
   width: 473px;
   height: 389px;
   flex-shrink: 0;
@@ -28,20 +29,21 @@
   box-shadow: 0px 4px 20px 0px rgba(238, 238, 238, 0.5);
 }
 
-.product-performance {
-  width: 371px;
-  height: 400px;
-  flex-shrink: 0;
-  border-radius: 20px;
-  border: 1px solid #f8f9fa;
-  background: #fff;
-  box-shadow: 0px 4px 20px 0px rgba(238, 238, 238, 0.5);
+.product-graph .chartjs-render-monitor .bar {
+  width: 20px;
 }
+
+.product-graph .chartjs-render-monitor .chartjs-tooltip-label {
+  white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
+
 .summary {
   margin: 10px;
   display: flex;
   width: 1114px;
-  height: 400px;
+  height: 300px;
   padding: 20px;
   flex-direction: column;
   justify-content: space-between;

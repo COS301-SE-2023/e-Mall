@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ProductService } from '@shared/servicies/product/product.service';
+import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 import { IProduct } from '@shared/models/product/product.interface';
 import { tap } from 'rxjs/operators';
 import {
@@ -48,7 +49,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private analytics: AnalyticsService
   ) {}
 
   ngOnInit(): void {
@@ -147,10 +149,10 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   goToProductPage(prod_id: number): void {
     // Create the navigation extras object with the search query as a parameter
+
     const navigationextras: NavigationExtras = {
       queryParams: { prod_id: prod_id },
     };
-    console.log(prod_id);
 
     this.router.navigate(['products'], navigationextras);
   }

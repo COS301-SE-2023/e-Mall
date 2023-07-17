@@ -4,6 +4,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProductComponent } from '@app/features/product/product.component';
 import { ProductService } from '@shared/servicies/product/product.service';
+import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 import { CommonModule } from '@angular/common';
 import { ProductRoutingModule } from '../product-routing.module';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,19 +14,27 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router,ParamMap } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IProduct } from '@shared/models/product/product.interface';
 import { of } from 'rxjs';
 import { IProductSeller } from '@shared/models/product/product-seller.interface';
 import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
-
+import { ProductModule } from '../product.module';
 describe('ProductComponent', () => {
   let component: ProductComponent;
   let fixture: ComponentFixture<ProductComponent>;
   let productService: ProductService;
   let router: Router;
+  // eslint-disable-next-line prefer-const
+  let mockProductService = jasmine.createSpyObj('ProductService', ['getProductData', 'getSellerList']);
+  const mockAnalyticsService = jasmine.createSpyObj('AnalyticsService', ['createAnalyticsData']);
+  const mockActivatedRoute = {
+    queryParamMap: of({
+      get: (key: string) => '1' // Assuming 'prod_id' query parameter is set to 1
+    } as ParamMap)
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -44,15 +53,13 @@ describe('ProductComponent', () => {
         NavbarModule,
         FooterModule,
         IonicModule,
+        ProductModule,
       ],
       providers: [
-        ProductService,
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            queryParamMap: of(new Map([['prod_id', '123']])),
-          },
-        },
+          { provide: ProductService, useValue: mockProductService },
+          { provide: AnalyticsService, useValue: mockAnalyticsService },
+          { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        
       ],
     }).compileComponents();
 
@@ -73,7 +80,8 @@ describe('ProductComponent', () => {
   it('should create the ProductComponent', () => {
     expect(component).toBeTruthy();
   });
-  it('should fetch productData on initialization', () => {
+  
+  it('should fetch productData on initialization', (done) => {
     const mockProduct: IProduct = {
       id: 1,
       min_price_img_array: ['image1.jpg', 'image2.jpg'],
@@ -92,38 +100,45 @@ describe('ProductComponent', () => {
       created_at: '2023-06-01',
       updated_at: '2023-06-02',
     };
-
-    spyOn(productService, 'getProductData').and.returnValue(of(mockProduct));
+  
+    mockProductService.getProductData.and.returnValue(of(mockProduct));
+  
     component.prod_id = 1;
     component.ngOnInit();
-
-    expect(productService.getProductData).toHaveBeenCalledWith(
+  
+    expect(mockProductService.getProductData).toHaveBeenCalledWith(
       component.prod_id
     );
-    expect(component.product$).toBeDefined();
     component.product$?.subscribe(product => {
       expect(product).toEqual(mockProduct);
+      done(); 
     });
+  
+    fixture.detectChanges();
   });
-  it('should fetch SellerList on initialization', () => {
+  
+  
+  it('should fetch SellerList on initialization', (done) => {
     const sellerList: IProductSeller[] = [
       { id: 1, product: 'Product1', seller: 'Seller1' },
       { id: 2, product: 'Product2', seller: 'Seller2' },
     ];
-
-    spyOn(productService, 'getSellerList').and.returnValue(of(sellerList));
+    mockProductService.getSellerList.and.returnValue(of(sellerList));
+  
     component.prod_id = 1;
     component.ngOnInit();
-
-    expect(productService.getSellerList).toHaveBeenCalledWith(
+  
+    expect(mockProductService.getSellerList).toHaveBeenCalledWith(
       component.prod_id,
       'default'
     );
-    expect(component.product$).toBeDefined();
     component.sellers$?.subscribe(product => {
       expect(product).toEqual(sellerList);
+      done(); 
     });
+    fixture.detectChanges();
   });
+  
   it('should display seller list', () => {
     const sellers = [
       {
@@ -190,7 +205,7 @@ describe('ProductComponent', () => {
     expect(descriptionElement.textContent).toContain(description);
   });
   it('should toggle divClicked and update sellers$', () => {
-    spyOn(productService, 'getSellerList');
+   // spyOn(productService, 'getSellerList');
 
     component.divClicked = false;
     component.prod_id = 1;
@@ -215,5 +230,7 @@ describe('ProductComponent', () => {
     sellerNameLink.click();
 
     expect(router.navigateByUrl).toHaveBeenCalledWith(sellerProductUrl);
-  });*/
+  });
+*/
 });
+

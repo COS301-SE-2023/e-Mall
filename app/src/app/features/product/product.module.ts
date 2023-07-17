@@ -14,6 +14,7 @@ import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
+import { CategoryBreadcrumbModule } from '../../shared/components/breadcrumbs/category-breadcrumb/category-breadcrumb.module';
 
 @NgModule({
   declarations: [ProductComponent],
@@ -32,6 +33,7 @@ import { FooterModule } from '@shared/components/footer/footer.module';
     IonicModule,
     NavbarModule,
     FooterModule,
+    CategoryBreadcrumbModule,
   ],
   exports: [ProductComponent],
 })
