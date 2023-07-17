@@ -51,7 +51,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
     private analytics: AnalyticsService
   ) { this.priceRangeGroup = new FormGroup({
     lower: new FormControl(0),

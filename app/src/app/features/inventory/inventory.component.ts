@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Component} from '@angular/core';
+import { ActivatedRoute,  Router } from '@angular/router';
 import {
   Observable,
   of,
@@ -64,8 +64,9 @@ export class InventoryComponent {
     private ProductSellerService: ProductSellerService
   ) {}
 
+  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe(() => {
       // this.sellerName = params['seller_name'];
       this.sellerName = 'Takealot';
       this.ProductSellerService.getProductSellerData(
@@ -92,6 +93,7 @@ export class InventoryComponent {
       );
   }
 
+  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
   ngOnDestroy(): void {
     this.minInputControllerSub.unsubscribe();
     this.maxInputControllerSub.unsubscribe();

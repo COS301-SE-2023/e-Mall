@@ -14,24 +14,21 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
-import { ActivatedRoute, Router,ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { IProduct } from '@shared/models/product/product.interface';
 import { of } from 'rxjs';
-import { IProductSeller } from '@shared/models/product/product-seller.interface';
 import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
 import { ProductModule } from '../product.module';
 describe('ProductComponent', () => {
   let component: ProductComponent;
   let fixture: ComponentFixture<ProductComponent>;
-  let productService: ProductService;
-  let router: Router;
   // eslint-disable-next-line prefer-const
   let mockProductService = jasmine.createSpyObj('ProductService', ['getProductData', 'getSellerList']);
   const mockAnalyticsService = jasmine.createSpyObj('AnalyticsService', ['createAnalyticsData']);
   const mockActivatedRoute = {
     queryParamMap: of({
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       get: (key: string) => '1' // Assuming 'prod_id' query parameter is set to 1
     } as ParamMap)
   };
@@ -63,17 +60,14 @@ describe('ProductComponent', () => {
       ],
     }).compileComponents();
 
-    router = TestBed.inject(Router);
     fixture = TestBed.createComponent(ProductComponent);
     component = fixture.componentInstance;
-    productService = TestBed.inject(ProductService);
     fixture.detectChanges();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ProductComponent);
     component = fixture.componentInstance;
-    productService = TestBed.inject(ProductService);
     fixture.detectChanges();
   });
   afterEach(() => {
