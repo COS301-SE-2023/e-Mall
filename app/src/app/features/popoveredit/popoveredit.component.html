@@ -1,0 +1,38 @@
+<ion-content>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Product Details</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list>
+    <ion-item>
+      <ion-label>Name:</ion-label>
+      <ion-input [(ngModel)]="name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Inventory Status:</ion-label>
+      <ion-toggle [(ngModel)]="inventory_status"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Original Price:</ion-label>
+      <ion-input type="number" [(ngModel)]="original_price"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Discount Rate:</ion-label>
+      <ion-input
+        type="number"
+        [(ngModel)]="discount_rate"
+        step="0.01"></ion-input>
+    </ion-item>
+
+    <!-- Add other input fields for other product details -->
+  </ion-list>
+
+  <div class="buttons">
+    <ion-button class="savebtn" (click)="saveChanges()">Save</ion-button>
+    <ion-button color="danger" (click)="deleteProduct()">Delete</ion-button>
+  </div>
+</ion-content>

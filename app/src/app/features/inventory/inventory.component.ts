@@ -13,6 +13,10 @@ import { FormControl } from '@angular/forms';
 import { ProductSellerService } from '@shared/servicies/productseller/productseller.service';
 import { IProductSeller } from '@shared/models/product/product-seller.interface';
 import { ProductService } from '@shared/servicies/product/product.service';
+import { IonRefresher } from '@ionic/angular';
+import { ScrollDetail } from '@ionic/core';
+import { PopoverController } from '@ionic/angular';
+import { PopovereditComponent } from '../popoveredit/popoveredit.component';
 
 @Component({
   selector: 'app-inventory',
@@ -25,30 +29,53 @@ export class InventoryComponent {
   searchResults$: Observable<IProductSeller[]> | undefined;
   searchInputController = new FormControl('');
   // isAuthenticated!: boolean;
-  min_price_in_stock!: number;
-  brandOptions: string[] = []; // Populate this array with the brand names based on your search results
-  sellerOptions: string[] = []; // Populate this array with the seller names based on your search results
   categoryOptions: string[] = []; // Populate this array with the category names based on your search results
-  priceRange: number[] = [0, 100]; // Initial price range
-  minPrice!: number; // Minimum price value
-  maxPrice!: number; // Maximum price value
   filterOptions: string[] = []; // Stores the selected filter options
   selectedSortOption!: string;
   isChecked!: boolean;
   currentPage!: number;
-  maxPrice$: Observable<number> | null = null;
-  minPrice$: Observable<number> | null = null;
   itemsPerPage!: number;
   totalSearchCount$: Observable<number> | undefined;
   sellerName!: string;
   selectedOption!: string;
   loading = true;
 
-  ////J fix for min , max price
-  minInputController = new FormControl();
-  maxInputController = new FormControl();
-  minInputControllerSub = new Subscription();
-  maxInputControllerSub = new Subscription();
+  constructor(
+    private route: ActivatedRoute,
+    private productService: ProductService,
+    private router: Router,
+    private ProductSellerService: ProductSellerService,
+    private popoverController: PopoverController
+  ) {}
+
+  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(() => {
+      // this.sellerName = params['seller_name'];
+      this.sellerName = 'Takealot';
+      this.selectedSortOption = 'name';
+      this.ProductSellerService.getProductSellerData(
+        this.sellerName,
+        undefined,
+        undefined,
+        this.selectedSortOption,
+        undefined,
+        undefined
+      ).subscribe(result => {
+        this.searchResults$ = of(result.products);
+        this.totalSearchCount$ = of(result.totalCount);
+      });
+    });
+  }
+  //refresher
+  handleRefresh(event: any) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      window.location.reload();
+      event.target.complete();
+    }, 2000);
+  }
+
 
   selectOption(option: string) {
     this.selectedOption = option;
@@ -57,47 +84,6 @@ export class InventoryComponent {
     } else this.onFilterOptionChange('filter_in_stock', option, true);
   }
 
-  constructor(
-    private route: ActivatedRoute,
-    private productService: ProductService,
-    private router: Router,
-    private ProductSellerService: ProductSellerService
-  ) {}
-
-  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
-  ngOnInit(): void {
-    this.route.queryParams.subscribe(() => {
-      // this.sellerName = params['seller_name'];
-      this.sellerName = 'Takealot';
-      this.ProductSellerService.getProductSellerData(
-        this.sellerName,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined
-      ).subscribe(result => {
-        this.searchResults$ = of(result.products);
-        this.totalSearchCount$ = of(result.totalCount);
-      });
-    });
-    this.minInputControllerSub = this.minInputController.valueChanges
-      .pipe(debounceTime(1500), distinctUntilChanged())
-      .subscribe(val =>
-        this.onFilterOptionChange('filter_price_min', val, true)
-      );
-    this.maxInputControllerSub = this.maxInputController.valueChanges
-      .pipe(debounceTime(1500), distinctUntilChanged())
-      .subscribe(val =>
-        this.onFilterOptionChange('filter_price_max', val, true)
-      );
-  }
-
-  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
-  ngOnDestroy(): void {
-    this.minInputControllerSub.unsubscribe();
-    this.maxInputControllerSub.unsubscribe();
-  }
 
   onSortOptionChange(): void {
     console.log('onSortOptionChange');
@@ -122,8 +108,6 @@ export class InventoryComponent {
   onPageChange(event: PageEvent) {
     this.currentPage = event.pageIndex;
     this.itemsPerPage = event.pageSize;
-    console.log('Page size: ' + event.pageSize);
-    console.log('Page index: ' + event.pageIndex);
     this.ProductSellerService.getProductSellerData(
       this.sellerName,
       undefined,
@@ -205,8 +189,6 @@ export class InventoryComponent {
         this.filterOptions = [];
       }
     }
-    console.log('filterOptions');
-    console.log(this.filterOptions);
     this.ProductSellerService.getProductSellerData(
       this.sellerName,
       undefined,
@@ -246,10 +228,6 @@ export class InventoryComponent {
       ).subscribe(result => {
         this.searchResults$ = of(result.products);
         this.totalSearchCount$ = of(result.totalCount);
-        console.log('totalSearchCount$');
-        console.log(result.totalCount);
-        console.log('searchResults$');
-        console.log(result.products);
       });
     }
   }
@@ -261,18 +239,15 @@ export class InventoryComponent {
     }
   }
 
-  onProductUpdate() {
-    //Json file containing updated product data
-    const data = {
-      product_id: 1,
-    };
-    this.ProductSellerService.updateProductSellerData(data).subscribe();
-  }
+  async selectProduct(product: any) {
+    const popover = await this.popoverController.create({
+      component: PopovereditComponent,
+      componentProps: {
+        product: product,
+      },
+      translucent: true,
+    });
 
-  onProductDelete() {
-    const data = {
-      product_id: 1,
-    };
-    this.ProductSellerService.deleteProductSellerData(data).subscribe();
+    return await popover.present();
   }
 }

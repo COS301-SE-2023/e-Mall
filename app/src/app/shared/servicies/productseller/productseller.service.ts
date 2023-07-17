@@ -53,13 +53,27 @@ export class ProductSellerService {
     );
   }
 
-  public updateProductSellerData(data: object): Observable<IProductSeller> {
-    const url = `${this.apiUrl}productseller/produpdate`;
-    return this.http.post<IProductSeller>(url, data);
+  public updateProductSellerData(data: object): void {
+    const url = `${this.apiUrl}productseller/produpdate/`;
+    this.http.post(url, data).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
-  public deleteProductSellerData(data: object): Observable<IProductSeller> {
-    const url = `${this.apiUrl}productseller/proddelete`;
-    return this.http.post<IProductSeller>(url, data);
+  public deleteProductSellerData(data: object): void {
+    const url = `${this.apiUrl}productseller/proddelete/`;
+    this.http.post(url, data).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 }

@@ -1,0 +1,40 @@
+<ion-content class="popcontent">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Product Details</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list>
+    <ion-item>
+      <!-- <ion-label>Name:</ion-label> -->
+      <ion-text>{{ product.product_name }}</ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Category:</ion-label>
+      <ion-text>{{ product.product_category }}</ion-text>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Inventory Status:</ion-label>
+      <ion-text>{{ product.in_stock ? 'In Stock' : 'Out of Stock'}}</ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Original Price:</ion-label>
+      <ion-text>R {{ product.original_price }}</ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Discount Rate:</ion-label>
+      <ion-text>{{ product.discount_rate }}</ion-text>
+    </ion-item>
+
+    <!-- Display other product details -->
+  </ion-list>
+
+  <div class="buttons">
+      <ion-button class="editbtn" (click)="presentPopover($event)">Edit</ion-button>
+      <ion-button class="delbtn" color="danger" (click)="deleteProduct()">Delete</ion-button>
+    </div>
+</ion-content>

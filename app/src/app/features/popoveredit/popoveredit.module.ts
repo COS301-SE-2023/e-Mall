@@ -18,13 +18,17 @@ import { MatRadioModule } from '@angular/material/radio';
 import { IonicModule } from '@ionic/angular';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
-import { InventoryComponent } from './inventory.component';
-import { InventoryRoutingModule } from './inventory-routing.module';
+import { InventoryComponent } from '@features/inventory/inventory.component';
+import { InventoryRoutingModule } from '@features/inventory/inventory-routing.module';
+import { SellerNavComponent } from '@shared/components/seller-nav/seller-nav.component';
 import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module';
+import { PopoverComponent } from '@features/popover/popover.component';
+import { InventoryModule } from '@features/inventory/inventory.module';
+import { PopovereditComponent } from './popoveredit.component';
 
 
 @NgModule({
-  declarations: [InventoryComponent],
+  declarations: [PopovereditComponent],
   imports: [
     CommonModule,
     MatExpansionModule,
@@ -46,9 +50,9 @@ import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module
     IonicModule,
     NavbarModule,
     FooterModule,
-    InventoryRoutingModule,
+    InventoryModule,
     SellerNavModule,
   ],
-  exports: [InventoryComponent],
+  exports: [PopovereditComponent],
 })
-export class InventoryModule {}
+export class PopovereditModule {}
