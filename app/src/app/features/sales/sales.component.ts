@@ -6,6 +6,7 @@ import { Chart, registerables } from 'chart.js';
 import { Observable, of, Subscription } from 'rxjs';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 
+
 @Component({
   //selector: 'app-seller-dashboard',
   templateUrl: 'sales.component.html',
@@ -25,8 +26,10 @@ export class SalesComponent implements OnInit {
   categories!: string[];
   categoryPercentage!: number[];
 
+
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(private analytics: AnalyticsService) {}
+
 
   ngOnInit() {
     this.sellerName = 'Amazon';
@@ -45,6 +48,7 @@ export class SalesComponent implements OnInit {
       });
     });
 
+
     this.analytics.getConversionRate(this.sellerName).subscribe(data => {
       this.conversionRateData$ = of(data);
       this.conversionRateData$.subscribe(data => {
@@ -53,8 +57,10 @@ export class SalesComponent implements OnInit {
         );
       });
 
+
       this.createProductPerformanceChart();
     });
+
 
     this.analytics.getCategoryPercentage(this.sellerName).subscribe(data => {
       this.categoryPercentageData$ = of(data);
@@ -69,13 +75,16 @@ export class SalesComponent implements OnInit {
       this.createCategoryPercentageChart();
     });
 
+
     Chart.register(...registerables);
   }
+
 
   createProductClicksChart() {
     const productClicksCanvas = document.getElementById(
       'product-clicks-chart'
     ) as HTMLCanvasElement;
+
 
     const productClicksChart = new Chart(productClicksCanvas, {
       type: 'bar',
@@ -88,6 +97,7 @@ export class SalesComponent implements OnInit {
             backgroundColor: 'rgba(75, 192, 192, 0.5)',
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1,
+            borderRadius: 5,
           },
         ],
       },
@@ -99,6 +109,18 @@ export class SalesComponent implements OnInit {
           },
         },
         scales: {
+          x: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1,
+              callback: (value: string | number) => {
+                const stringValue = this.labels[Number(value)].toString();
+                return stringValue.length > 10
+                  ? stringValue.slice(0, 10) + '...'
+                  : stringValue;
+              },
+            },
+          },
           y: {
             beginAtZero: true,
             ticks: {
@@ -111,10 +133,12 @@ export class SalesComponent implements OnInit {
     });
   }
 
+
   createProductPerformanceChart() {
     const productPerformanceCanvas = document.getElementById(
       'product-performance-chart'
     ) as HTMLCanvasElement;
+
 
     const productPerformanceChart = new Chart(productPerformanceCanvas, {
       type: 'bar',
@@ -127,6 +151,7 @@ export class SalesComponent implements OnInit {
             backgroundColor: 'rgba(54, 162, 235, 0.5)',
             borderColor: 'rgba(54, 162, 235, 1)',
             borderWidth: 1,
+            borderRadius: 5,
           },
         ],
       },
@@ -138,6 +163,18 @@ export class SalesComponent implements OnInit {
           },
         },
         scales: {
+          x: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1,
+              callback: (value: string | number) => {
+                const stringValue = this.labels[Number(value)].toString();
+                return stringValue.length > 10
+                  ? stringValue.slice(0, 10) + '...'
+                  : stringValue;
+              },
+            },
+          },
           y: {
             beginAtZero: true,
             ticks: {
@@ -150,10 +187,12 @@ export class SalesComponent implements OnInit {
     });
   }
 
+
   createCategoryPercentageChart() {
     const categoryPercentageCanvas = document.getElementById(
       'categoryPercentage-chart'
     ) as HTMLCanvasElement;
+
 
     const categoryPercentageChart = new Chart(categoryPercentageCanvas, {
       type: 'bar',
@@ -163,9 +202,10 @@ export class SalesComponent implements OnInit {
           {
             label: 'Category Percentage',
             data: this.categoryPercentage,
-            backgroundColor: 'rgba(75, 192, 192, 0.5)',
-            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(0, 224, 150, 0.5)',
+            borderColor: 'rgba(0, 224, 150, 1)',
             borderWidth: 1,
+            borderRadius: 5,
           },
         ],
       },
@@ -177,6 +217,18 @@ export class SalesComponent implements OnInit {
           },
         },
         scales: {
+          x: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1,
+              callback: (value: string | number) => {
+                const stringValue = this.labels[Number(value)].toString();
+                return stringValue.length > 10
+                  ? stringValue.slice(0, 10) + '...'
+                  : stringValue;
+              },
+            },
+          },
           y: {
             beginAtZero: true,
             ticks: {
