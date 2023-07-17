@@ -24,6 +24,7 @@ import { NgxsModule } from '@ngxs/store';
 import { ProductModule } from '../product.module';
 import { AuthModule } from '@features/auth/auth.module';
 import { ProfileModule } from '@features/profile/profile.module';
+import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
 
 describe('ProductComponent', () => {
   let component: ProductComponent;
@@ -58,6 +59,7 @@ describe('ProductComponent', () => {
         MatSelectModule,
         MatExpansionModule,
         NgxsModule.forRoot([]),
+        NgxsDispatchPluginModule,
         NavbarModule,
         FooterModule,
         IonicModule,
