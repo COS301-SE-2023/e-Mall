@@ -21,6 +21,8 @@ import { IProductSeller } from '@shared/models/product/product-seller.interface'
 import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
 import { ProductModule } from '../product.module';
+import { AuthModule } from '@features/auth/auth.module';
+import { ProfileModule } from '@features/profile/profile.module';
 
 describe('ProductComponent', () => {
   let component: ProductComponent;
@@ -45,6 +47,8 @@ describe('ProductComponent', () => {
         NavbarModule,
         FooterModule,
         IonicModule,
+        AuthModule,
+        ProfileModule,
         ProductModule,
       ],
       providers: [

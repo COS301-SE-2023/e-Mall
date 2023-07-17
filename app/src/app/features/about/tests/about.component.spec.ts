@@ -10,6 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
 import { AboutModule } from '../about.module';
+import { AuthModule } from '@features/auth/auth.module';
+import { ProfileModule } from '@features/profile/profile.module';
 
 describe('AboutComponent', () => {
   let component: AboutComponent;
@@ -25,6 +27,8 @@ describe('AboutComponent', () => {
         NavbarModule,
         FooterModule,
         IonicModule,
+        AuthModule,
+        ProfileModule,
         AboutModule,
       ],
       declarations: [AboutComponent],

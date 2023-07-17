@@ -6,6 +6,7 @@ import { ConsumerRegisterComponent } from '@features/sign-up/consumer/components
 import { SignInComponent } from './features/sign-in/components/sign-in.component';
 import { SignOutComponent } from './features/sign-out/sign-out.component';
 import { InventoryComponent } from '@features/inventory/inventory.component';
+import { ProfileComponent } from '@features/profile/components/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -60,9 +61,13 @@ const routes: Routes = [
   { path: 'ads', redirectTo: '/construction' },
   {
     path: 'profile',
-    loadChildren: () =>
-      import('@app/features/profile/profile.module').then(m => m.ProfileModule),
+    component: ProfileComponent,
   },
+  // {
+  //   path: 'profile',
+  //   loadChildren: () =>
+  //     import('@app/features/profile/profile.module').then(m => m.ProfileModule),
+  // },
   {
     path: '**',
     loadChildren: () =>

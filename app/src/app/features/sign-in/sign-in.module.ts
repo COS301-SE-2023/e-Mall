@@ -5,7 +5,6 @@ import { SignInComponent } from './components/sign-in.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { SignInFacade } from './services/sign-in.facade';
-import { AuthModule } from '@features/auth/auth.module';
 import { ViewSizeModule } from '@shared/directives/view-size/view-size.module';
 import { ToastModule } from '@shared/components/toast/toast.module';
 
@@ -17,7 +16,6 @@ import { ToastModule } from '@shared/components/toast/toast.module';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    AuthModule,
     ViewSizeModule,
     ToastModule,
   ],

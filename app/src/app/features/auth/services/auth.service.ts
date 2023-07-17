@@ -19,6 +19,7 @@ export class AuthService {
   }
 
   async signIn(email: string, password: string): Promise<IUser> {
+    //TODO: add sign in check to backend db
     const cognitoUser = await Auth.signIn(email, password);
     const user: IUser = {
       email: cognitoUser.attributes.email,

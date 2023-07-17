@@ -61,10 +61,7 @@ export class AuthHttpInterceptor implements HttpInterceptor {
   }
 }
 function isTokenExpired(token: string) {
-  // decode the token
   const payload = JSON.parse(atob(token.split('.')[1]));
-  // get the expiration time
   const expirationTime = payload.exp;
-  // check if the token has expired
   return Date.now() > expirationTime * 1000;
 }

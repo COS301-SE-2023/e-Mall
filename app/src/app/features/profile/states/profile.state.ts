@@ -41,4 +41,8 @@ export class ProfileState {
       })
     );
   }
+  @Action(ProfileActions.ClearProfile)
+  signOut(ctx: StateContext<ProfileStateModel>) {
+    ctx.setState({ profile: null });
+  }
 }

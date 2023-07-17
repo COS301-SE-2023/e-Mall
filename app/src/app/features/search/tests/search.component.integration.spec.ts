@@ -32,6 +32,9 @@ import { FooterModule } from '@shared/components/footer/footer.module';
 import { ProductCardModule } from '@shared/components/product-card/product-card.module';
 import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
+import { AuthModule } from '@features/auth/auth.module';
+import { AuthFacade } from '@features/auth/services/auth.facade';
+import { ProfileModule } from '@features/profile/profile.module';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -99,10 +102,13 @@ describe('SearchComponent', () => {
         MatProgressSpinnerModule,
         MatSlideToggleModule,
         MatRadioModule,
+        AuthModule,
+        ProfileModule,
         IonicModule,
       ],
       providers: [
         ProductService,
+        AuthFacade,
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
         { provide: ProductService, useValue: mockProductService },
       ],
