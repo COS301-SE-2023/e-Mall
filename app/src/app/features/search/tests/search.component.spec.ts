@@ -232,6 +232,7 @@ describe('SearchComponent', () => {
 
       spyOn(component, 'onFilterOptionChange');
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       component.onIonChange(event as any);
 
       expect(component.onFilterOptionChange).toHaveBeenCalledWith(

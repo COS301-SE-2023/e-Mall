@@ -73,12 +73,8 @@ export class SalesComponent implements OnInit {
   }
 
   createProductClicksChart() {
-
-    const productClicksCanvas = document.getElementById(
-      'product-clicks-chart'
-    ) as HTMLCanvasElement;
-
-
+    const productClicksCanvas = document.getElementById('product-clicks-chart') as HTMLCanvasElement;
+  
     const productClicksChart = new Chart(productClicksCanvas, {
       type: 'bar',
       data: {
@@ -94,6 +90,12 @@ export class SalesComponent implements OnInit {
         ],
       },
       options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Product Clicks',
+          },
+        },
         scales: {
           y: {
             beginAtZero: true,
@@ -102,16 +104,16 @@ export class SalesComponent implements OnInit {
             },
           },
         },
+        responsive: true,
       },
     });
   }
-
+  
   createProductPerformanceChart() {
-
     const productPerformanceCanvas = document.getElementById(
       'product-performance-chart'
     ) as HTMLCanvasElement;
-
+  
     const productPerformanceChart = new Chart(productPerformanceCanvas, {
       type: 'bar',
       data: {
@@ -127,6 +129,12 @@ export class SalesComponent implements OnInit {
         ],
       },
       options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Product Performance',
+          },
+        },
         scales: {
           y: {
             beginAtZero: true,
@@ -135,19 +143,17 @@ export class SalesComponent implements OnInit {
             },
           },
         },
+        responsive: true,
       },
     });
   }
-
-
+  
   createCategoryPercentageChart() {
-
-    const CategoryPercentageCanvas = document.getElementById(
-      'product-clicks-chart'
+    const categoryPercentageCanvas = document.getElementById(
+      'categoryPercentage-chart'
     ) as HTMLCanvasElement;
-
-
-    const CategoryPercentageChart = new Chart(CategoryPercentageCanvas, {
+  
+    const categoryPercentageChart = new Chart(categoryPercentageCanvas, {
       type: 'bar',
       data: {
         labels: this.labels,
@@ -162,6 +168,12 @@ export class SalesComponent implements OnInit {
         ],
       },
       options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Category Percentage',
+          },
+        },
         scales: {
           y: {
             beginAtZero: true,
@@ -170,8 +182,10 @@ export class SalesComponent implements OnInit {
             },
           },
         },
+        responsive: true,
       },
     });
   }
+  
 
 }

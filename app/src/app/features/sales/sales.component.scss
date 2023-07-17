@@ -34,10 +34,15 @@
 }
 
 .product-graph .chartjs-render-monitor .chartjs-tooltip-label {
-  white-space: nowrap; 
-    overflow: hidden; 
-    text-overflow: ellipsis;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* Number of lines to display */
+  max-width: 100%;
 }
+
 
 .summary {
   margin: 10px;
