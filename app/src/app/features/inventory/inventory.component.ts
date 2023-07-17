@@ -3,18 +3,13 @@ import { Component} from '@angular/core';
 import { ActivatedRoute,  Router } from '@angular/router';
 import {
   Observable,
-  of,
-  debounceTime,
-  distinctUntilChanged,
-  Subscription,
+  of
 } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { FormControl } from '@angular/forms';
 import { ProductSellerService } from '@shared/servicies/productseller/productseller.service';
 import { IProductSeller } from '@shared/models/product/product-seller.interface';
 import { ProductService } from '@shared/servicies/product/product.service';
-import { IonRefresher } from '@ionic/angular';
-import { ScrollDetail } from '@ionic/core';
 import { PopoverController } from '@ionic/angular';
 import { PopovereditComponent } from '../popoveredit/popoveredit.component';
 
