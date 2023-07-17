@@ -124,37 +124,128 @@ describe('SearchComponent', () => {
   it('should create the SearchComponent', () => {
     expect(component).toBeTruthy();
   });
-  it('should add the filter option when checked is true', () => {
-    component.filterOptions = [];
-    const filter_type = 'filter_category';
-    const value = 'electronics';
-    const checked = true;
 
-    component.onFilterOptionChange(filter_type, value, checked);
+  describe('onFilterOptionChange', () => {
+    it('should add the filter option when checked is true', () => {
+      component.filterOptions = [];
+      const filter_type = 'filter_category';
+      const value = 'electronics';
+      const checked = true;
 
-    expect(component.filterOptions).toEqual(['filter_category=electronics']);
+      component.onFilterOptionChange(filter_type, value, checked);
+
+      expect(component.filterOptions).toEqual(['filter_category=electronics']);
+    });
+
+    it('should remove the value from the filter option when checked is false', () => {
+      component.filterOptions = ['filter_category=electronics,,,books'];
+      const filter_type = 'filter_category';
+      const value = 'books';
+      const checked = false;
+
+      component.onFilterOptionChange(filter_type, value, checked);
+
+      expect(component.filterOptions).toEqual(['filter_category=electronics']);
+    });
+
+    it('should update the existing filter option when checked is true', () => {
+      component.filterOptions = ['filter_category=electronics'];
+      const filter_type = 'filter_category';
+      const value = 'books';
+      const checked = true;
+
+      component.onFilterOptionChange(filter_type, value, checked);
+
+      expect(component.filterOptions).toEqual([
+        'filter_category=electronics,,,books',
+      ]);
+    });
+
+    it('should add the filter option when filter_type is filter_in_stock and checked is true', () => {
+      component.filterOptions = [];
+      const filter_type = 'filter_in_stock';
+      const checked = true;
+
+      component.onFilterOptionChange(filter_type, null, checked);
+
+      expect(component.filterOptions).toEqual(['filter_in_stock=true']);
+    });
+
+    it('should remove the filter option when filter_type is filter_in_stock and checked is false', () => {
+      component.filterOptions = ['filter_in_stock=true'];
+      const filter_type = 'filter_in_stock';
+      const checked = false;
+
+      component.onFilterOptionChange(filter_type, null, checked);
+
+      expect(component.filterOptions).toEqual([]);
+    });
+
+    it('should add the filter option when filter_type is filter_price_min or filter_price_max and value is not null', () => {
+      component.filterOptions = [];
+      const filter_type = 'filter_price_min';
+      const value = 50;
+
+      component.onFilterOptionChange(filter_type, value, true);
+
+      expect(component.filterOptions).toEqual(['filter_price_min=50']);
+
+      const filter_type2 = 'filter_price_max';
+      const value2 = 100;
+
+      component.onFilterOptionChange(filter_type2, value2, true);
+
+      expect(component.filterOptions).toEqual([
+        'filter_price_min=50',
+        'filter_price_max=100',
+      ]);
+    });
+
+    it('should remove the filter option when filter_type is filter_price_min or filter_price_max and value is null', () => {
+      component.filterOptions = ['filter_price_min=50', 'filter_price_max=100'];
+      const filter_type = 'filter_price_min';
+      const value = null;
+
+      component.onFilterOptionChange(filter_type, value, true);
+
+      expect(component.filterOptions).toEqual(['filter_price_max=100']);
+
+      const filter_type2 = 'filter_price_max';
+      const value2 = null;
+
+      component.onFilterOptionChange(filter_type2, value2, true);
+
+      expect(component.filterOptions).toEqual([]);
+    });
   });
-  it('should remove the value from the filter option when checked is false', () => {
-    // Initial values
-    component.filterOptions = ['filter_category=electronics,,,books'];
-    const filter_type = 'filter_category';
-    const value = 'books';
-    const checked = false;
 
-    component.onFilterOptionChange(filter_type, value, checked);
-    expect(component.filterOptions).toEqual(['filter_category=electronics']);
-  });
+  describe('onIonChange', () => {
+    it('should update the filter options and minPrice/maxPrice', () => {
+      const event = {
+        detail: {
+          value: {
+            lower: 50,
+            upper: 100,
+          },
+        },
+      };
 
-  it('should update the existing filter option when checked is true', () => {
-    component.filterOptions = ['filter_category=electronics'];
-    const filter_type = 'filter_category';
-    const value = 'books';
-    const checked = true;
+      spyOn(component, 'onFilterOptionChange');
 
-    component.onFilterOptionChange(filter_type, value, checked);
+      component.onIonChange(event as any);
 
-    expect(component.filterOptions).toEqual([
-      'filter_category=electronics,,,books',
-    ]);
+      expect(component.onFilterOptionChange).toHaveBeenCalledWith(
+        'filter_price_min',
+        50,
+        true
+      );
+      expect(component.onFilterOptionChange).toHaveBeenCalledWith(
+        'filter_price_max',
+        100,
+        true
+      );
+      expect(component.minPrice).toBe(50);
+      expect(component.maxPrice).toBe(100);
+    });
   });
 });
