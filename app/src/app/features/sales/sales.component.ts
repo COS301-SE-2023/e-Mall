@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { Observable, of, Subscription } from 'rxjs';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
+import { ProfileFacade } from '@features/profile/services/profile.facade';
 
 @Component({
   //selector: 'app-seller-dashboard',
@@ -21,15 +22,26 @@ export class SalesComponent implements OnInit {
   categoryPercentageData$: Observable<any> | undefined;
   clicks!: number[];
   labels!: string[];
+  conversionRateLabels!: string[];
   conversionRate!: number[];
   categories!: string[];
   categoryPercentage!: number[];
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor(private analytics: AnalyticsService) {}
+  constructor(
+    private analytics: AnalyticsService,
+    private profileFacade: ProfileFacade
+  ) {}
 
   ngOnInit() {
-    this.sellerName = 'Amazon';
+    this.profileFacade.getProfile().subscribe(profile => {
+      if (profile) {
+        if ('business_name' in profile.details) {
+          // console.log(profile.details.business_name);
+          this.sellerName = profile.details.business_name;
+        }
+      }
+    });
     this.analytics.getAnalyticsData(this.sellerName).subscribe(data => {
       this.productsClicked = data.product_clicks;
       this.websiteClicks = data.link_clicks;
@@ -51,6 +63,9 @@ export class SalesComponent implements OnInit {
         this.conversionRate = data.map(
           (item: { [x: string]: any }) => item['conversion_rate']
         );
+        this.conversionRateLabels = data.map(
+          (item: { [x: string]: any }) => item['product_name']
+        );
       });
 
       this.createProductPerformanceChart();
@@ -65,6 +80,8 @@ export class SalesComponent implements OnInit {
         this.categoryPercentage = data.map(
           (item: { [x: string]: any }) => item['percentage']
         );
+        console.log(this.categories);
+        console.log(this.categoryPercentage);
       });
       this.createCategoryPercentageChart();
     });
@@ -132,7 +149,7 @@ export class SalesComponent implements OnInit {
     const productPerformanceChart = new Chart(productPerformanceCanvas, {
       type: 'bar',
       data: {
-        labels: this.labels,
+        labels: this.conversionRateLabels,
         datasets: [
           {
             label: 'Product Performance',
@@ -184,7 +201,7 @@ export class SalesComponent implements OnInit {
     const categoryPercentageChart = new Chart(categoryPercentageCanvas, {
       type: 'bar',
       data: {
-        labels: this.labels,
+        labels: this.categories,
         datasets: [
           {
             label: 'Category Percentage',

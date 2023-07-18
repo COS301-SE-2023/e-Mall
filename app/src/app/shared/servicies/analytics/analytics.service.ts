@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,22 +13,24 @@ export class AnalyticsService {
     console.log('analytics service initialized');
   }
 
-  public getAnalyticsData(seller_name: string): Observable<any> {
+  public getAnalyticsData(seller_name: string | undefined): Observable<any> {
     const url = `${this.apiUrl}analytics/productanalytics?seller_name=${seller_name}`;
     return this.http.get<any>(url);
   }
 
-  public getAllProducts(seller_name: string): Observable<any> {
+  public getAllProducts(seller_name: string | undefined): Observable<any> {
     const url = `${this.apiUrl}analytics/allproductanalytics?seller_name=${seller_name}`;
     return this.http.get<any>(url);
   }
 
-  public getConversionRate(seller_name: string): Observable<any> {
+  public getConversionRate(seller_name: string | undefined): Observable<any> {
     const url = `${this.apiUrl}analytics/conversionrate?seller_name=${seller_name}`;
     return this.http.get<any>(url);
   }
 
-  public getCategoryPercentage(seller_name: string): Observable<any> {
+  public getCategoryPercentage(
+    seller_name: string | undefined
+  ): Observable<any> {
     const url = `${this.apiUrl}analytics/categorypercentage?seller_name=${seller_name}`;
     return this.http.get<any>(url);
   }
