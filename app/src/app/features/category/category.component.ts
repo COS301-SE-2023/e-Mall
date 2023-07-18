@@ -21,7 +21,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
   ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
+    console.log();
   }
 
   ngOnInit(): void {

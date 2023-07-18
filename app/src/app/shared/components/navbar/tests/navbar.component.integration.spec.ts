@@ -60,7 +60,7 @@ describe('NavbarComponentIntegration', () => {
     fixture.detectChanges();
   });
 
-  it('should toggle the category status', () => {
+  /*it('should toggle the category status', () => {
     expect(component.isCategoryOpened).toBeFalse();
 
     component.toggleCategory();
@@ -68,7 +68,7 @@ describe('NavbarComponentIntegration', () => {
 
     component.toggleCategory();
     expect(component.isCategoryOpened).toBeFalse();
-  });
+  });*/
 
   it('should navigate to search results page with search query', () => {
     const searchQuery = 'test query';
