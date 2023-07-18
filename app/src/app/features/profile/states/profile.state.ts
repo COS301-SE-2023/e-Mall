@@ -33,9 +33,9 @@ export class ProfileState {
     ctx.setState(
       produce(draft => {
         if (draft.profile) {
-          Object.assign(draft.profile, action.payload);
+          Object.assign(draft.profile, action.payload.profile);
         } else {
-          draft.profile = action.payload as unknown as
+          draft.profile = action.payload.profile as unknown as
             | IConsumerProfile
             | ISellerProfile;
         }
