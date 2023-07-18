@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { Observable, of, Subscription } from 'rxjs';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
+import { ProfileFacade } from '@features/profile/services/profile.facade';
 
 @Component({
   //selector: 'app-seller-dashboard',
@@ -27,10 +28,20 @@ export class SalesComponent implements OnInit {
   categoryPercentage!: number[];
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor(private analytics: AnalyticsService) {}
+  constructor(
+    private analytics: AnalyticsService,
+    private profileFacade: ProfileFacade
+  ) {}
 
   ngOnInit() {
-    this.sellerName = 'Amazon';
+    this.profileFacade.getProfile().subscribe(profile => {
+      if (profile) {
+        if ('business_name' in profile.details) {
+          // console.log(profile.details.business_name);
+          this.sellerName = profile.details.business_name;
+        }
+      }
+    });
     this.analytics.getAnalyticsData(this.sellerName).subscribe(data => {
       this.productsClicked = data.product_clicks;
       this.websiteClicks = data.link_clicks;
