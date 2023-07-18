@@ -8,6 +8,7 @@ import { SellerNavComponent } from '@shared/components/seller-nav/seller-nav.com
 import { IonicModule } from '@ionic/angular';
 import { AuthModule } from '@features/auth/auth.module';
 import { ProfileModule } from '@features/profile/profile.module';
+import { NgxsModule } from '@ngxs/store';
 
 describe('SalesComponent', () => {
   let component: SalesComponent;
@@ -17,11 +18,11 @@ describe('SalesComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [SalesComponent, SellerNavComponent,IonicModule,
-        AuthModule,
-        ProfileModule,
+      declarations: [SalesComponent, SellerNavComponent,
        ],
-      imports: [IonicModule.forRoot(),HttpClientTestingModule],
+      imports: [ NgxsModule.forRoot([]),IonicModule,
+        AuthModule,
+        ProfileModule,HttpClientTestingModule],
       providers: [AnalyticsService],
     }).compileComponents();
   }));
