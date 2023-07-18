@@ -2,16 +2,22 @@
   "1": {
     "business_name": "Makro",
     "business_type": "Retailer",
+    "email": "makro@gmail.com",
+    "username": "Makro",
     "website": "https://www.makro.co.za"
   },
   "2": {
     "business_name": "Amazon",
     "business_type": "Retailer",
+    "email": "syntax.sharks@gmail.com",
+    "username": "Amazon",
     "website": "https://www.amazon.co.uk"
   },
   "3": {
     "business_name": "Takealot",
     "business_type": "Retailer",
+    "email": "takealot@gmail.com",
+    "username": "Takealot",
     "website": "https://www.takealot.com"
   }
 }

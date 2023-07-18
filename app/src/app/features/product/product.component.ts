@@ -8,7 +8,7 @@ import { IProduct } from '@shared/models/product/product.interface';
 import { ProductService } from '@shared/servicies/product/product.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
-
+import { ProfileFacade } from '@features/profile/services/profile.facade';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -35,7 +35,8 @@ export class ProductComponent implements OnInit, OnDestroy {
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
-    private analytics: AnalyticsService
+    private analytics: AnalyticsService,
+    private profileFacade: ProfileFacade
   ) {
     this.selected = new FormControl('default');
     this.paramMapSubscription = new Subscription();
@@ -44,6 +45,12 @@ export class ProductComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.paramMapSubscription = this.route.queryParamMap.subscribe(params => {
       this.selectedImage = '';
+      this.profileFacade.getProfile().subscribe(profile => {
+        if (profile) {
+          this.consumer_id = profile.id;
+        }
+      });
+      // this.consumer_id = this.profileFacade.getProfile().id;
       const id = params.get('prod_id');
       if (id) {
         this.prod_id = +id;
