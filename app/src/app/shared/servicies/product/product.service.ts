@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, distinct, map, mergeMap, toArray } from 'rxjs';
 import { IProduct } from '@shared/models/product/product.interface';
 import { IProductSeller } from '@shared/models/product/product-seller.interface';
 
@@ -88,10 +88,12 @@ export class ProductService {
     const url = `${this.apiUrl}products/backend/?filter_category=${category}`;
     // filterOptions = { };
 
-    return this.http
-      .get(url)
-      .pipe(map((res: any) => res['data'] as IProduct[]));
+    return this.http.get(url).pipe(
+      map((res: any) => res['data'] as IProduct[]),
+      mergeMap((products: IProduct[]) => products),
+      distinct((product: IProduct) => product.id), // Assuming 'id' is the property representing the unique product ID
+      toArray() // Collect the unique products into an array
+    );
+    // Other methods for CRUD operations on products can be added here
   }
-
-  // Other methods for CRUD operations on products can be added here
 }
