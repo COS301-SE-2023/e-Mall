@@ -34,7 +34,7 @@ import { PopoverModule } from './features/popover/popover.module';
 import { PopovereditModule } from '@features/popoveredit/popoveredit.module';
 import { ProfileModule } from './features/profile/profile.module';
 import { DropdownPopoverModule } from '@shared/components/dropdown-popover/dropdown-popover.module'; // Add this line
-
+import { CategoryModule } from '@features/category/category.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -83,6 +83,7 @@ import { DropdownPopoverModule } from '@shared/components/dropdown-popover/dropd
 
     ProfileModule,
     DropdownPopoverModule,
+    CategoryModule,
     AppRoutingModule,
   ],
 

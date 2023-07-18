@@ -7,6 +7,7 @@ import { SignInComponent } from './features/sign-in/components/sign-in.component
 import { SignOutComponent } from './features/sign-out/sign-out.component';
 import { InventoryComponent } from '@features/inventory/inventory.component';
 import { ProfileComponent } from '@features/profile/components/profile.component';
+import { CategoryComponent } from '@features/category/category.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -23,6 +24,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('@app/features/search/search.module').then(m => m.SearchModule),
   },
+  { path: 'category/:category', component: CategoryComponent },
   {
     path: 'pending',
     loadChildren: () =>

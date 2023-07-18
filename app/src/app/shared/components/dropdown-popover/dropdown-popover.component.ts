@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-dropdown-popover',
   templateUrl: './dropdown-popover.component.html',
@@ -12,14 +13,15 @@ import { Router } from '@angular/router';
 export class DropdownPopoverComponent {
 
   pages = [
-    { title: 'Electronics', path: '/construction' },
-    { title: 'Sports and Outdoors', path: '/construction' },
-    { title: 'Clothing', path: '/construction' },
-    { title: 'Home and Kitchen', path: '/construction' },
-    { title: 'Health and Beauty', path: '/construction' },
-    { title: 'Toys and Games', path: '/construction' },
-    { title: 'Books', path: '/construction' }
+    { title: 'Electronics', path: '/category/Electronics' },
+    { title: 'Sports and Outdoors', path: '/category/Sports%20and%20Outdoors' },
+    { title: 'Clothing', path: '/category/Clothing' },
+    { title: 'Home and Kitchen', path: '/category/Home%20and%20Kitchen' },
+    { title: 'Health and Beauty', path: '/category/Health%20and%20Beauty' },
+    { title: 'Toys and Games', path: '/category/Toys%20and%20Games' },
+    { title: 'Books', path: '/category/Books' }
   ];
+  
 
   constructor(private router: Router, private popoverController: PopoverController) {}
 
@@ -27,6 +29,5 @@ export class DropdownPopoverComponent {
     await this.popoverController.dismiss();
     // Redirect to the selected page using the provided path
     this.router.navigate([path]);
-    console.log('Navigate to:', path);
   }
 }
