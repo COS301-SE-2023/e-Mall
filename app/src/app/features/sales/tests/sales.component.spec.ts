@@ -6,6 +6,8 @@ import { of } from 'rxjs';
 import { SellerNavComponent } from '@shared/components/seller-nav/seller-nav.component';
 
 import { IonicModule } from '@ionic/angular';
+import { AuthModule } from '@features/auth/auth.module';
+import { ProfileModule } from '@features/profile/profile.module';
 
 describe('SalesComponent', () => {
   let component: SalesComponent;
@@ -15,7 +17,10 @@ describe('SalesComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [SalesComponent, SellerNavComponent],
+      declarations: [SalesComponent, SellerNavComponent,IonicModule,
+        AuthModule,
+        ProfileModule,
+       ],
       imports: [IonicModule.forRoot(),HttpClientTestingModule],
       providers: [AnalyticsService],
     }).compileComponents();
