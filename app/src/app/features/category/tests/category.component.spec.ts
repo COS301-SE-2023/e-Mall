@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -136,6 +137,32 @@ describe('CategoryComponent', () => {
   
     expect(component.categoryProducts$).toBeDefined();
   });
+  
+  it('should set a default image URL when imgList is not provided', () => {
+    const defaultImgUrl = 'https://www.incredible.co.za/media/catalog/product/cache/7ce9addd40d23ee411c2cc726ad5e7ed/s/c/screenshot_2022-05-03_142633.jpg';
 
-  // Add more unit tests as needed
+    const imageUrl = component.getOneImg();
+    expect(imageUrl).toBe(defaultImgUrl);
+  });
+
+  it('should return the first image URL when imgList is provided', () => {
+    const imgList: string[] = [
+      'https://example.com/image1.jpg',
+      'https://example.com/image2.jpg',
+    ];
+
+    const imageUrl = component.getOneImg(imgList);
+    expect(imageUrl).toBe(imgList[0]);
+  });
+  it('should navigate to the product page with the correct prod_id', () => {
+    const prod_id = 123; // Replace with your test prod_id value
+
+    spyOn((component as any).router, 'navigate'); // Accessing private router property
+
+    component.goToProductPage(prod_id);
+
+    expect((component as any).router.navigate).toHaveBeenCalledWith(['products'], {
+      queryParams: { prod_id: prod_id },
+    });
+  });
 });

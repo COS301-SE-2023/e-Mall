@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 //product unit tests
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -227,8 +228,8 @@ describe('ProductComponent', () => {
     expect(productService.getSellerList).toHaveBeenCalledWith(1, 'true');
   });
 
-  /*
-  it('should navigate to the seller product page on seller name click', () => {
+  
+ /*it('should navigate to the seller product page on seller name click', () => {
     const sellerId = 1;
     const sellerProductUrl = `/seller/${sellerId}`;
 
@@ -292,10 +293,7 @@ describe('ProductComponent', () => {
       metadata: null,
     };
 
-    // Call the prodClickAnalytics method
     component.prodClickAnalytics();
-
-    // Expect createAnalyticsData to be called with the expected data
     expect(analyticsService.createAnalyticsData).toHaveBeenCalledWith(
       expectedData
     );
@@ -356,4 +354,87 @@ describe('ProductComponent', () => {
       expectedData
     );
   });
+
+ /* it('should scroll to the specified element', () => {
+    const dummyElement = document.createElement('div');
+    const dummyRect: DOMRect = {
+      top: 100,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      width: 0,
+      height: 0,
+      x: 0,
+      y: 0,
+      toJSON: () => ({}),
+    };
+    spyOn(dummyElement, 'getBoundingClientRect').and.returnValue(dummyRect);
+    spyOn(window, 'scrollTo');
+  
+    component.scroll(dummyElement);
+  
+    // Check if window.scrollTo is called with the correct coordinates
+    const scrollY = window.scrollY || window.pageYOffset;
+    expect(window.scrollTo).toHaveBeenCalledWith(0, Object({ top: 50 })); // You may adjust the 50 value based on your actual element height
+  });
+  
+  */
+  /*
+  it('should call createAnalyticsData with correct data when product and sellers exist', () => {
+    const sellers = [
+      {
+        id: 1,
+        business_name: 'Amazon',
+        price: 50,
+        in_stock: true,
+        product: 'Product1',
+        seller: 'Seller1',
+      },
+      {
+        id: 2,
+        business_name: 'Takealot',
+        price: 60,
+        in_stock: false,
+        product: 'Product2',
+        seller: 'Seller2',
+      },
+    ];
+
+    // Set up the expected data object for link_click event_type
+    const expectedDataLinkClick = {
+      seller: sellers[0].business_name,
+      product: 'Product Name',
+      product_category: 'Category',
+      consumer_id: 'c7c700c9-a5b4-4600-bd8d-a24bd355bd46',
+      event_type: 'link_click',
+      metadata: null,
+    };
+
+    // Call the linkClickAnalytics method
+    component.linkClickAnalytics(sellers[0].business_name);
+
+    // Expect createAnalyticsData to be called with the expected data for link_click
+    expect(analyticsService.createAnalyticsData).toHaveBeenCalledWith(
+      expectedDataLinkClick
+    );
+
+    // Set up the expected data object for product_click event_type
+    const expectedDataProductClick = {
+      seller: sellers[0].business_name,
+      product: 'Product Name',
+      product_category: 'Category',
+      consumer_id: 'c7c700c9-a5b4-4600-bd8d-a24bd355bd46',
+      event_type: 'product_click',
+      metadata: null,
+    };
+
+    // Call the prodClickAnalytics method
+    component.prodClickAnalytics();
+
+    // Expect createAnalyticsData to be called with the expected data for product_click
+    expect(analyticsService.createAnalyticsData).toHaveBeenCalledWith(
+      expectedDataProductClick
+    );
+  });
+  */
 });

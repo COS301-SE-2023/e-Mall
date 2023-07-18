@@ -13,6 +13,7 @@ import { ProfileFacade } from '@features/profile/services/profile.facade';
   styleUrls: ['sales.component.scss'],
 })
 export class SalesComponent implements OnInit {
+  public productClicksChart: Chart | undefined;
   sellerName!: string | undefined;
   productsClicked = 0;
   websiteClicks = 0;
@@ -94,7 +95,7 @@ export class SalesComponent implements OnInit {
       'product-clicks-chart'
     ) as HTMLCanvasElement;
 
-    const productClicksChart = new Chart(productClicksCanvas, {
+    this.productClicksChart = new Chart(productClicksCanvas, {
       type: 'bar',
       data: {
         labels: this.labels,

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { SalesComponent } from '@features/sales/sales.component';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
@@ -14,24 +15,28 @@ import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
 describe('SalesComponent', () => {
   let component: SalesComponent;
   let fixture: ComponentFixture<SalesComponent>;
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   let analyticsService: AnalyticsService;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [SalesComponent, SellerNavComponent,
-       ],
-      imports: [ NgxsModule.forRoot([]),IonicModule,
+      declarations: [SalesComponent, SellerNavComponent],
+      imports: [
+        NgxsModule.forRoot([]),
+        IonicModule,
         AuthModule,
-        ProfileModule,HttpClientTestingModule,NgxsDispatchPluginModule],
+        ProfileModule,
+        HttpClientTestingModule,
+        NgxsDispatchPluginModule
+      ],
       providers: [AnalyticsService],
     }).compileComponents();
+
+    analyticsService = TestBed.inject(AnalyticsService);
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SalesComponent);
     component = fixture.componentInstance;
-    analyticsService = TestBed.inject(AnalyticsService);
   });
 
   it('should set sellerName and retrieve analytics data on component initialization', () => {
@@ -45,6 +50,7 @@ describe('SalesComponent', () => {
     expect(component.websiteClicks).toBe(mockAnalyticsData.link_clicks);
   });
 
+  
   it('should have productsClicked, websiteClicks, and favourited properties', () => {
     expect(component.productsClicked).toBeDefined();
     expect(component.websiteClicks).toBeDefined();
@@ -74,8 +80,7 @@ describe('SalesComponent', () => {
       expect(favouritedValue).toBeDefined();
     });
   }));
-
-  it('should render two charts', () => {
+  it('should render three charts', () => {
     const productClicksChart = fixture.nativeElement.querySelector('#product-clicks-chart');
     const productPerformanceChart = fixture.nativeElement.querySelector('#product-performance-chart');
     const categoryPercentageChart = fixture.nativeElement.querySelector('#categoryPercentage-chart');
