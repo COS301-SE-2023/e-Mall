@@ -10,6 +10,7 @@ import { IConsumerProfile } from '../models/consumer-profile.interface';
 import { ProfileModule } from '../profile.module';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
+import { Profile } from '../models/alias-profile.interface';
 
 describe('ProfileService', () => {
   let service: ProfileService;
@@ -20,10 +21,10 @@ describe('ProfileService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        HttpClientTestingModule,
         ProfileModule,
         NgxsModule.forRoot([]),
         NgxsDispatchPluginModule,
+        HttpClientTestingModule,
       ],
       providers: [ProfileService],
     });
@@ -66,24 +67,31 @@ describe('ProfileService', () => {
   });
 
   it('should get profile', fakeAsync(() => {
-    spyOn(service, 'getProfile').and.returnValue(
-      Promise.resolve(mockSellerProfile)
-    );
     service.getProfile().then(result => {
       expect(result).toEqual(mockSellerProfile);
     });
+
+    const req = httpMock.expectOne(req => {
+      return req.url.endsWith('/api/profile/get/');
+    });
+    expect(req.request.method).toBe('POST');
+    req.flush(mockSellerProfile);
   }));
 
   it('should update profile', () => {
-    // Mock the updateProfile method
-    spyOn(service, 'updateProfile').and.returnValue(
-      Promise.resolve(mockConsumerProfile)
-    );
+    const mockProfile: Profile = {
+      id: '1',
+      email: 'test@example.com',
+      type: 'consumer',
+      details: {},
+    };
 
-    // Call the updateProfile method
-    service.updateProfile(mockConsumerProfile).then(result => {
-      // Check the result
-      expect(result).toEqual(mockConsumerProfile);
+    service.updateProfile(mockProfile).then(profile => {
+      expect(profile).toEqual(mockProfile);
     });
+
+    const req = httpMock.expectOne('/api/profile/update/');
+    expect(req.request.method).toBe('POST');
+    req.flush(mockProfile);
   });
 });

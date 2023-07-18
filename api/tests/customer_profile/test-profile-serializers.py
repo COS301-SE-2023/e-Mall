@@ -1,7 +1,10 @@
 from django.test import TestCase
 from consumer.models import Consumer
 from seller.models import Seller
-from custom_profile.serializers import ConsumerProfileSerializer, SellerProfileSerializer
+from custom_profile.serializers import (
+    ConsumerProfileSerializer,
+    SellerProfileSerializer,
+)
 from django.utils.dateformat import format
 
 
