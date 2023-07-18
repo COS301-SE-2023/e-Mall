@@ -4,9 +4,10 @@ import { IConsumerProfile } from '../models/consumer-profile.interface';
 import { ISellerProfile } from '../models/seller-profile.interface';
 import * as ProfileActions from './profile.actions';
 import produce from 'immer';
+import { Profile } from '../models/alias-profile.interface';
 
 export interface ProfileStateModel {
-  profile: IConsumerProfile | ISellerProfile | null;
+  profile: Profile;
 }
 
 @State<ProfileStateModel>({

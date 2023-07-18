@@ -20,7 +20,6 @@ import { of } from 'rxjs';
 import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
 import { ProductModule } from '../product.module';
-import { AuthFacade } from '@features/auth/services/auth.facade';
 import { AuthModule } from '../../auth/auth.module';
 import { ProfileModule } from '@features/profile/profile.module';
 

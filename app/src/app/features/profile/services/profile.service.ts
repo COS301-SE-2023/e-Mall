@@ -2,15 +2,14 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Injectable } from '@angular/core';
 import { lastValueFrom, shareReplay, take } from 'rxjs';
-import { IConsumerProfile } from '../models/consumer-profile.interface';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ISellerProfile } from '../models/seller-profile.interface';
+import { Profile } from '../models/alias-profile.interface';
 
 @Injectable()
 export class ProfileService {
   private apiUrl = '/api/profile/';
   constructor(private http: HttpClient) {}
-  async getProfile(): Promise<ISellerProfile | IConsumerProfile | null> {
+  async getProfile(): Promise<Profile> {
     const url = `${this.apiUrl}get/`;
     const res = (await lastValueFrom(
       this.http
@@ -25,12 +24,10 @@ export class ProfileService {
           }
         )
         .pipe(take(1), shareReplay(1))
-    )) as HttpResponse<ISellerProfile | IConsumerProfile | null>;
+    )) as HttpResponse<Profile>;
     return res.body;
   }
-  async updateProfile(
-    data: any
-  ): Promise<ISellerProfile | IConsumerProfile | null> {
+  async updateProfile(data: any): Promise<Profile> {
     const url = `${this.apiUrl}update/`;
     const res = (await lastValueFrom(
       this.http
@@ -41,7 +38,7 @@ export class ProfileService {
           observe: 'response',
         })
         .pipe(take(1), shareReplay(1))
-    )) as HttpResponse<ISellerProfile | IConsumerProfile | null>;
+    )) as HttpResponse<Profile>;
     return res.body;
   }
 }
