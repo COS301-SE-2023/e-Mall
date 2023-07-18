@@ -21,6 +21,7 @@ export class SalesComponent implements OnInit {
   categoryPercentageData$: Observable<any> | undefined;
   clicks!: number[];
   labels!: string[];
+  conversionRateLabels!: string[];
   conversionRate!: number[];
   categories!: string[];
   categoryPercentage!: number[];
@@ -51,6 +52,9 @@ export class SalesComponent implements OnInit {
         this.conversionRate = data.map(
           (item: { [x: string]: any }) => item['conversion_rate']
         );
+        this.conversionRateLabels = data.map(
+          (item: { [x: string]: any }) => item['product_name']
+        );
       });
 
       this.createProductPerformanceChart();
@@ -65,6 +69,8 @@ export class SalesComponent implements OnInit {
         this.categoryPercentage = data.map(
           (item: { [x: string]: any }) => item['percentage']
         );
+        console.log(this.categories);
+        console.log(this.categoryPercentage);
       });
       this.createCategoryPercentageChart();
     });
@@ -119,7 +125,7 @@ export class SalesComponent implements OnInit {
     const productPerformanceChart = new Chart(productPerformanceCanvas, {
       type: 'bar',
       data: {
-        labels: this.labels,
+        labels: this.conversionRateLabels,
         datasets: [
           {
             label: 'Product Performance',
@@ -158,7 +164,7 @@ export class SalesComponent implements OnInit {
     const categoryPercentageChart = new Chart(categoryPercentageCanvas, {
       type: 'bar',
       data: {
-        labels: this.labels,
+        labels: this.categories,
         datasets: [
           {
             label: 'Category Percentage',

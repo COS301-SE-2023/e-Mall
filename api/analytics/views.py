@@ -86,12 +86,13 @@ class ConversionRateAPIView(APIView):
             if link_clicks > 0:
                 conversion_rate = (product_clicks / link_clicks) * 100
                 conversion_rate = round(min(conversion_rate, 100), 2)
-                response_data.append(
-                    {
-                        "product_name": product["product"],
-                        "conversion_rate": conversion_rate,
-                    }
-                )
+                if conversion_rate > 0:
+                    response_data.append(
+                        {
+                            "product_name": product["product"],
+                            "conversion_rate": conversion_rate,
+                        }
+                    )
         return Response(response_data)
 
 
