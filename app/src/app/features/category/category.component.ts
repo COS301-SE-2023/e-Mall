@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 export class CategoryComponent implements OnInit, OnDestroy {
   
   categoryName!: string;
+  categoryTitle!: string;
   categoryProducts$: Observable<IProduct[]> | undefined;
 
   constructor(
@@ -24,13 +25,13 @@ export class CategoryComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-   this.route.params.subscribe(params => {
+    this.route.params.subscribe(params => {
       this.categoryName = params['category'];
+      this.categoryTitle = decodeURIComponent(decodeURIComponent(this.categoryName)); // Decode the URL twice
       this.categoryProducts$ = this.productService.getCategoryProducts(this.categoryName);
     });
 
-    
-   console.log(this.categoryProducts$);
+    console.log(this.categoryProducts$);
   }
 
   getOneImg(imgList?: string[]) {
