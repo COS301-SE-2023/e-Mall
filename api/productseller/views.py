@@ -154,9 +154,6 @@ class ProductSellerDashboardAPIView(APIView):
 
         # filter options[in stock, price, category]
         filter_in_stock = request.GET.get("filter_in_stock")
-        filter_category = request.GET.get("filter_category")
-        filter_price_min = request.GET.get("filter_price_min")
-        filter_price_max = request.GET.get("filter_price_max")
 
         # Filtering of the products
         filters = Q(seller__business_name=seller_name)
