@@ -40,7 +40,7 @@ describe('SalesComponent', () => {
 
     fixture.detectChanges();
 
-   // expect(component.sellerName).toBeDefined();
+    //expect(component.sellerName).toBeDefined();
     expect(component.productsClicked).toBe(mockAnalyticsData.product_clicks);
     expect(component.websiteClicks).toBe(mockAnalyticsData.link_clicks);
   });
