@@ -10,7 +10,7 @@ describe('ProfileState', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [NgxsModule.forRoot([ProfileState])],
+      imports: [NgxsModule.forRoot([]), NgxsModule.forFeature([ProfileState])],
     });
 
     store = TestBed.inject(Store);
