@@ -10,6 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
 import { ConstructionModule } from '../construction.module';
+import { AuthModule } from '@features/auth/auth.module';
+import { ProfileModule } from '@features/profile/profile.module';
 describe('ConstructionComponent', () => {
   let component: ConstructionComponent;
   let fixture: ComponentFixture<ConstructionComponent>;
@@ -25,6 +27,8 @@ describe('ConstructionComponent', () => {
         FooterModule,
         IonicModule,
         ConstructionModule,
+        AuthModule,
+        ProfileModule,
       ],
       declarations: [ConstructionComponent],
       providers: [

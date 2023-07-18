@@ -4,7 +4,6 @@ import { SellerRegisterRoutingModule } from './seller-register-routing.module';
 import { SellerRegisterComponent } from './components/seller-register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { AuthModule } from '@features/auth/auth.module';
 import { ViewSizeModule } from '@shared/directives/view-size/view-size.module';
 import { ToastModule } from '@shared/components/toast/toast.module';
 import { SellerFacade } from './services/seller-register.facade';
@@ -20,7 +19,6 @@ import { MatIconModule } from '@angular/material/icon';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    AuthModule,
     ViewSizeModule,
     ToastModule,
     MatStepperModule,

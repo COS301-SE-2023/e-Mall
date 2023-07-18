@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, take } from 'rxjs';
 import { ISellerForm } from '@features/sign-up/seller/models/seller.interface';
 import { Amplify, Auth, Hub } from 'aws-amplify';
 import { environment } from '../../../../environments/env';
@@ -19,6 +19,7 @@ export class AuthService {
   }
 
   async signIn(email: string, password: string): Promise<IUser> {
+    //TODO: add sign in check to backend db
     const cognitoUser = await Auth.signIn(email, password);
     const user: IUser = {
       email: cognitoUser.attributes.email,
@@ -43,10 +44,12 @@ export class AuthService {
     form.verification_code = undefined;
     const data = JSON.stringify(form);
     await lastValueFrom(
-      this.http.post(url, data, {
-        headers: new HttpHeaders().set('Content-Type', 'application/json'),
-        observe: 'response',
-      })
+      this.http
+        .post(url, data, {
+          headers: new HttpHeaders().set('Content-Type', 'application/json'),
+          observe: 'response',
+        })
+        .pipe(take(1))
     );
 
     await this.cognitoSignUp(form.email, password!, form.type);
@@ -86,7 +89,18 @@ export class AuthService {
       },
     });
   }
-  public async signOut(): Promise<unknown> {
+  async signOut(): Promise<unknown> {
     return await Auth.signOut();
+  }
+  async refreshAccessToken(): Promise<string> {
+    // refresh the session
+    await Auth.currentAuthenticatedUser({ bypassCache: true });
+    // get the current session
+    const session = await Auth.currentSession();
+    // get the new access token
+    const newAccessToken = session.getAccessToken().getJwtToken();
+    // update your application state with the new access token
+    // ...
+    return newAccessToken;
   }
 }

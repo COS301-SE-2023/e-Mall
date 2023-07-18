@@ -1,23 +1,26 @@
 <app-navbar></app-navbar>
 <ion-content class="global-ion-content">
-  <div style="
-    display: flex;
-    min-height: 500px;
-    padding: 20px 0px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    flex: 1 0 0;
-    align-self: stretch;
-  ">
-    <div style="align-items: center; text-align: center;">
-      <h1>404</h1>
-      <h2>We are sorry, Page not found!</h2>
-      <p>
-        The page you are looking for might have been removed, had its name
-        changed or is temporarily unavailable.
-      </p>
-      <a [routerLink]="['/home']">Back To Homepage</a>
+  <div class="ion-content-wrapper">
+    <div
+      style="
+        display: flex;
+        min-height: 500px;
+        padding: 20px 0px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex: 1 0 0;
+        align-self: stretch;
+      ">
+      <div style="align-items: center; text-align: center">
+        <h1>404</h1>
+        <h2>We are sorry, Page not found!</h2>
+        <p>
+          The page you are looking for might have been removed, had its name
+          changed or is temporarily unavailable.
+        </p>
+        <a [routerLink]="['/home']">Back To Homepage</a>
+      </div>
     </div>
   </div>
   <app-footer></app-footer>

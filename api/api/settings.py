@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "consumer.apps.ConsumerConfig",
     "product.apps.ProductConfig",
     "productseller.apps.ProductsellerConfig",
+    "custom_profile.apps.CustomProfileConfig",
     "analytics.apps.AnalyticsConfig",
 ]
 

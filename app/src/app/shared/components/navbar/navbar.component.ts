@@ -4,6 +4,7 @@ import { Router, NavigationExtras } from '@angular/router';
 import { AuthFacade } from '@app/features/auth/services/auth.facade';
 import { IUser } from '@app/features/auth/models/user.interface';
 import { Observable } from 'rxjs';
+import { ProfileFacade } from '@features/profile/services/profile.facade';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +14,11 @@ import { Observable } from 'rxjs';
 export class NavbarComponent {
   isAuthenticated: Observable<IUser | null>;
   isCategoryOpened = false;
-  constructor(private router: Router, private authFacade: AuthFacade) {
+  constructor(
+    private router: Router,
+    private authFacade: AuthFacade,
+    private profileFacde: ProfileFacade
+  ) {
     this.isAuthenticated = this.authFacade.getCurrentUser();
   }
 
