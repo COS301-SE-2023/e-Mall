@@ -33,6 +33,8 @@ import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module
 import { PopoverModule } from './features/popover/popover.module';
 import { PopovereditModule } from '@features/popoveredit/popoveredit.module';
 import { ProfileModule } from './features/profile/profile.module';
+import { DropdownPopoverModule } from '@shared/components/dropdown-popover/dropdown-popover.module'; // Add this line
+import { CategoryModule } from '@features/category/category.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -80,6 +82,8 @@ import { ProfileModule } from './features/profile/profile.module';
     PopovereditModule,
 
     ProfileModule,
+    DropdownPopoverModule,
+    CategoryModule,
     AppRoutingModule,
   ],
 

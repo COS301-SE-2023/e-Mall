@@ -20,7 +20,7 @@ describe('CategoryBreadcrumbFacade', () => {
     const result = service.getBreadcrumbs(categoryList);
     expect(result).toEqual([
       { label: 'Home', url: '/home' },
-      { label: 'test', url: '/home' },
+      { label: 'test', url: '/category/test' },
     ]);
   });
 
@@ -29,8 +29,8 @@ describe('CategoryBreadcrumbFacade', () => {
     const result = service.getBreadcrumbs(categoryList);
     expect(result).toEqual([
       { label: 'Home', url: '/home' },
-      { label: 'test1', url: '/home' },
-      { label: 'test2', url: '/home' },
+      { label: 'test1', url: '/category/test1' },
+      { label: 'test2', url: '/category/test2' },
     ]);
   });
 
