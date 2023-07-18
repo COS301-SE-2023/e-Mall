@@ -48,7 +48,6 @@ export class InventoryComponent {
       this.profileFacade.getProfile().subscribe(profile => {
         if (profile) {
           if ('business_name' in profile.details) {
-            console.log(profile.details.business_name);
             this.sellerName = profile.details.business_name;
           }
         }
@@ -95,11 +94,6 @@ export class InventoryComponent {
       this.searchResults$ = of(result.products);
       this.totalSearchCount$ = of(result.totalCount);
     });
-
-    this.searchResults$?.subscribe((res: IProductSeller[]) => {
-      console.log('getSortedProductList');
-      console.log(res);
-    });
   }
 
   onPageChange(event: PageEvent) {
@@ -115,8 +109,6 @@ export class InventoryComponent {
     ).subscribe(result => {
       this.searchResults$ = of(result.products);
       this.totalSearchCount$ = of(result.totalCount);
-      console.log('totalSearchCount$');
-      console.log(result.totalCount);
     });
   }
 
@@ -196,9 +188,6 @@ export class InventoryComponent {
     ).subscribe(result => {
       this.searchResults$ = of(result.products);
       this.totalSearchCount$ = of(result.totalCount);
-      console.log(this.filterOptions);
-      console.log('searchResults$');
-      console.log(result.products);
     });
   }
 

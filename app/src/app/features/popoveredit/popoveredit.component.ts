@@ -24,7 +24,6 @@ export class PopovereditComponent {
     this.profileFacade.getProfile().subscribe(profile => {
       if (profile) {
         if ('business_name' in profile.details) {
-          console.log(profile.details.business_name);
           this.seller_name = profile.details.business_name;
         }
       }
@@ -55,7 +54,6 @@ export class PopovereditComponent {
       prod_id: this.product.product,
       seller_name: this.seller_name,
     };
-    console.log(data);
     this.ProductSellerService.deleteProductSellerData(data);
     location.reload();
     this.popoverController.dismiss();
