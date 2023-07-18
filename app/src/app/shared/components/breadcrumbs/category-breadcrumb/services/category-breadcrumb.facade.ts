@@ -19,7 +19,7 @@ export class CategoryBreadcrumbFacade {
     }
     if (data)
       for (const category of data) {
-        if (category) crumbs.push({ label: category, url: '/home' });
+        if (category) crumbs.push({ label: category, url: `/category/${category}` });
       }
 
     return crumbs;
