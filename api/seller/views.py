@@ -113,10 +113,10 @@ def get_seller_info(request):
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def update_seller_info(request):
-    catalogue_size = request.data["catalogue_size"]
+    catalogue_size = int(request.data["catalogue_size"])
     website = request.data["website"]
     feed_url = request.data["feed_url"]
-    no_employees = request.data["no_employees"]
+    no_employees = int(request.data["no_employees"])
     support_email = request.data["support_email"]
     landline_number = request.data["landline_number"]
     address = request.data["address"]
