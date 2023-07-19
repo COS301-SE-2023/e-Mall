@@ -9,7 +9,6 @@ from rest_framework import status
 import json
 
 
-
 class ProductSellerFrontendAPIViewTestCase(APITestCase):
     def setUp(self):
         self.client = APIClient()
@@ -22,6 +21,16 @@ class ProductSellerFrontendAPIViewTestCase(APITestCase):
             reg_no="1234567891011",
             website="http://www.test1.com",
             feed_url="http://www.test1.com",
+            no_employees=10,
+            support_email="example@gmail.com",
+            landline_number="1234567890",
+            address="123 Main Street",
+            city="Example City",
+            postal_code="1234",
+            logo="http://www.example.com/logo",
+            instagram_link="http://www.instagram.com/example",
+            facebook_link="http://www.facebook.com/example",
+            twitter_link="http://www.twitter.com/example",
         )
 
         self.seller2 = Seller.objects.create(
@@ -31,6 +40,16 @@ class ProductSellerFrontendAPIViewTestCase(APITestCase):
             reg_no="1234567891012",
             website="http://www.test2.com",
             feed_url="http://www.test2.com",
+            no_employees=10,
+            support_email="example2@gmail.com",
+            landline_number="1234567891",
+            address="1234 Main Street",
+            city="Example City2",
+            postal_code="1235",
+            logo="http://www.example2.com/logo",
+            instagram_link="http://www.instagram.com/example2",
+            facebook_link="http://www.facebook.com/example2",
+            twitter_link="http://www.twitter.com/example2",
         )
 
         self.product1 = Product.objects.create(
@@ -88,6 +107,16 @@ class ProductSellerBackendAPIViewTestCase(APITestCase):
             reg_no="1234567891011",
             website="http://www.test1.com",
             feed_url="http://www.test1.com",
+            no_employees=10,
+            support_email="example@gmail.com",
+            landline_number="1234567890",
+            address="123 Main Street",
+            city="Example City",
+            postal_code="1234",
+            logo="http://www.example.com/logo",
+            instagram_link="http://www.instagram.com/example",
+            facebook_link="http://www.facebook.com/example",
+            twitter_link="http://www.twitter.com/example",
         )
 
         self.seller2 = Seller.objects.create(
@@ -97,6 +126,16 @@ class ProductSellerBackendAPIViewTestCase(APITestCase):
             reg_no="1234567891012",
             website="http://www.test2.com",
             feed_url="http://www.test2.com",
+            no_employees=10,
+            support_email="example2@gmail.com",
+            landline_number="1234567891",
+            address="1234 Main Street",
+            city="Example City2",
+            postal_code="1235",
+            logo="http://www.example2.com/logo",
+            instagram_link="http://www.instagram.com/example2",
+            facebook_link="http://www.facebook.com/example2",
+            twitter_link="http://www.twitter.com/example2",
         )
 
         self.product1 = Product.objects.create(
@@ -166,7 +205,6 @@ class ProductSellerBackendAPIViewTestCase(APITestCase):
         self.assertEqual(response.data[0]["discount_rate"], "0.10")
 
 
-
 class ProductSellerProdUpdateAPIViewTestCase(APITestCase):
     def setUp(self):
         self.client = APIClient()
@@ -207,8 +245,12 @@ class ProductSellerProdUpdateAPIViewTestCase(APITestCase):
 class ProductSellerProdDeleteAPIViewTestCase(APITestCase):
     def setUp(self):
         self.client = APIClient()
-        self.seller = Seller.objects.create(business_name="Test Seller")  # Create a test seller
-        self.product = Product.objects.create(name="Test Product")  # Create a test product
+        self.seller = Seller.objects.create(
+            business_name="Test Seller"
+        )  # Create a test seller
+        self.product = Product.objects.create(
+            name="Test Product"
+        )  # Create a test product
         self.product_seller = ProductSeller.objects.create(
             seller=self.seller,  # Assign the created seller to the product seller
             product=self.product,  # Assign the created product to the product seller
@@ -224,14 +266,11 @@ class ProductSellerProdDeleteAPIViewTestCase(APITestCase):
             "prod_id": self.product.id,
             "seller_name": self.seller.business_name,
         }
-        response = self.client.post(
-            reverse("proddelete"), data, format="json"
-        )
+        response = self.client.post(reverse("proddelete"), data, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         response_data = json.loads(response.content.decode("utf-8"))
-        self.assertEqual(
-            response_data["message"], "ProductSeller deleted successfully"
-        )
+        self.assertEqual(response_data["message"], "ProductSeller deleted successfully")
+
 
 class ProductSellerDashboardAPIViewTestCase(APITestCase):
     def setUp(self):
@@ -289,4 +328,3 @@ class ProductSellerDashboardAPIViewTestCase(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # Add more assertions to validate the response data as needed
-
