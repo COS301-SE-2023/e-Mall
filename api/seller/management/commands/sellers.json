@@ -4,20 +4,47 @@
     "business_type": "Retailer",
     "email": "makro@gmail.com",
     "username": "Makro",
-    "website": "https://www.makro.co.za"
+    "website": "https://www.makro.co.za",
+    "landline_number": "0860300999",
+    "support_email": "makrocare@makro.co.za",
+    "address": "Corner Stellenberg and Solomon Mahlangu drive",
+    "city": "Pretoria",
+    "postal_code": "0050",
+    "logo": "https://i.pinimg.com/originals/56/43/b0/5643b00857c859a727cdc7c690e8f5a6.jpg",
+    "instagram_link": "https://www.instagram.com/makro_sa/",
+    "facebook_link": "https://www.facebook.com/MakroSouthAfrica/",
+    "twitter_link": "https://twitter.com/makro_sa"
   },
   "2": {
     "business_name": "Amazon",
     "business_type": "Retailer",
     "email": "syntax.sharks@gmail.com",
     "username": "Amazon",
-    "website": "https://www.amazon.co.uk"
+    "website": "https://www.amazon.co.uk",
+    "landline_number": "0214670101",
+    "support_email": "primary@amazon.com",
+    "address": "Wembley Square 2, 134 Solan Rd",
+    "city": "Cape Town",
+    "postal_code": "8001",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
+    "instagram_link": "https://www.instagram.com/amazon/",
+    "facebook_link": "https://www.facebook.com/Amazon/",
+    "twitter_link": "https://twitter.com/amazon"
   },
   "3": {
     "business_name": "Takealot",
     "business_type": "Retailer",
     "email": "takealot@gmail.com",
     "username": "Takealot",
-    "website": "https://www.takealot.com"
+    "website": "https://www.takealot.com",
+    "landline_number": "0873628000",
+    "support_email": "TakealotGroupComms@takealot.com",
+    "address": "10 Rua Vasco Da Gama Plain",
+    "city": "Cape Town",
+    "postal_code": "8001",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Takealot_logo.svg",
+    "instagram_link": "https://www.instagram.com/takealotcom/",
+    "facebook_link": "https://www.facebook.com/Takealot/",
+    "twitter_link": "https://twitter.com/takealot"
   }
 }

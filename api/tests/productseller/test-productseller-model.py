@@ -15,6 +15,16 @@ class ProductSellerModelTestCase(TestCase):
             reg_no="1234567891011",
             website="http://www.test1.com",
             feed_url="http://www.test1.com",
+            no_employees=10,
+            support_email="example@gmail.com",
+            landline_number="1234567890",
+            address="123 Main Street",
+            city="Example City",
+            postal_code="1234",
+            logo="http://www.example.com/logo",
+            instagram_link="http://www.instagram.com/example",
+            facebook_link="http://www.facebook.com/example",
+            twitter_link="http://www.twitter.com/example",
         )
 
         cls.seller2 = Seller.objects.create(
@@ -24,6 +34,16 @@ class ProductSellerModelTestCase(TestCase):
             reg_no="1234567891012",
             website="http://www.test2.com",
             feed_url="http://www.test2.com",
+            no_employees=10,
+            support_email="example2@gmail.com",
+            landline_number="1234567891",
+            address="1234 Main Street",
+            city="Example City2",
+            postal_code="1245",
+            logo="http://www.example2.com/logo",
+            instagram_link="http://www.instagram.com/example2",
+            facebook_link="http://www.facebook.com/example2",
+            twitter_link="http://www.twitter.com/example2",
         )
 
         cls.product1 = Product.objects.create(
