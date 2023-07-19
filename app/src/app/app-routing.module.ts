@@ -5,7 +5,6 @@ import { SellerRegisterComponent } from '@features/sign-up/seller/components/sel
 import { ConsumerRegisterComponent } from '@features/sign-up/consumer/components/consumer-register.component';
 import { SignInComponent } from './features/sign-in/components/sign-in.component';
 import { SignOutComponent } from './features/sign-out/sign-out.component';
-import { InventoryComponent } from '@features/inventory/inventory.component';
 import { ProfileComponent } from '@features/profile/components/profile.component';
 import { CategoryComponent } from '@features/category/category.component';
 import { authGuard } from '@shared/route-guards/auth-guard/auth-guard.service';
@@ -45,7 +44,13 @@ const routes: Routes = [
     component: ConsumerRegisterComponent,
     canActivate: [routeGuard],
   },
-  { path: 'inventory', component: InventoryComponent },
+  {
+    path: 'inventory',
+    loadChildren: () =>
+      import('@app/features/inventory/inventory.module').then(
+        m => m.InventoryModule
+      ),
+  },
   {
     path: 'about',
     loadChildren: () =>

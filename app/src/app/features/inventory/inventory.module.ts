@@ -18,37 +18,27 @@ import { MatRadioModule } from '@angular/material/radio';
 import { IonicModule } from '@ionic/angular';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
-import { InventoryComponent } from './inventory.component';
+import { InventoryComponent } from './components/inventory.component';
 import { InventoryRoutingModule } from './inventory-routing.module';
 import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module';
-
+import { InventoryService } from './servicies/inventory.service';
+import { InventoryFacade } from './servicies/inventory.facade';
+import { PopovereditModule } from './components/popoveredit/popoveredit.module';
 
 @NgModule({
   declarations: [InventoryComponent],
   imports: [
     CommonModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatSelectModule,
     MatDividerModule,
-    MatSidenavModule,
-    MatCheckboxModule,
-    MatCardModule,
-    MatIconModule,
     MatPaginatorModule,
-    MatSliderModule,
-    MatButtonToggleModule,
-    MatProgressSpinnerModule,
-    MatSlideToggleModule,
     FormsModule,
     ReactiveFormsModule,
-    MatRadioModule,
     IonicModule,
-    NavbarModule,
-    FooterModule,
     InventoryRoutingModule,
     SellerNavModule,
+    PopovereditModule,
   ],
   exports: [InventoryComponent],
+  providers: [InventoryService, InventoryFacade],
 })
 export class InventoryModule {}

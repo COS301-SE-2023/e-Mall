@@ -1,13 +1,13 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
-import { ProductSellerService } from '@shared/servicies/productseller/productseller.service';
+import { InventoryService } from '@features/inventory/servicies/inventory.service';
 
 @Component({
   selector: 'app-popoveredit',
   templateUrl: './popoveredit.component.html',
   styleUrls: ['./popoveredit.component.scss'],
 })
-export class PopovereditComponent {
+export class PopovereditComponent implements OnInit {
   @Input() product: any;
   seller_name!: string;
   name!: string;
@@ -16,7 +16,7 @@ export class PopovereditComponent {
   inventory_status!: boolean;
   constructor(
     private popoverController: PopoverController,
-    private ProductSellerService: ProductSellerService
+    private ProductSellerService: InventoryService
   ) {}
 
   ngOnInit() {

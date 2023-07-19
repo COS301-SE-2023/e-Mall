@@ -1,17 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component} from '@angular/core';
-import { ActivatedRoute,  Router } from '@angular/router';
-import {
-  Observable,
-  of
-} from 'rxjs';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { FormControl } from '@angular/forms';
-import { ProductSellerService } from '@shared/servicies/productseller/productseller.service';
-import { IProductSeller } from '@shared/models/product/product-seller.interface';
+import { InventoryService } from '@features/inventory/servicies/inventory.service';
 import { ProductService } from '@shared/servicies/product/product.service';
 import { PopoverController } from '@ionic/angular';
-import { PopovereditComponent } from '../popoveredit/popoveredit.component';
+import { PopovereditComponent } from './popoveredit/popoveredit.component';
+import { IInventoryItem } from '../models/inventory-item.interface';
+import { ISearchOptions } from '../models/search-options.interface';
 
 @Component({
   selector: 'app-inventory',
@@ -21,7 +19,7 @@ import { PopovereditComponent } from '../popoveredit/popoveredit.component';
 export class InventoryComponent {
   options = ['All', 'In Stock', 'Out of Stock'];
   searchQuery!: string;
-  searchResults$: Observable<IProductSeller[]> | undefined;
+  searchResults$: Observable<IInventoryItem[]> | undefined;
   searchInputController = new FormControl('');
   // isAuthenticated!: boolean;
   categoryOptions: string[] = []; // Populate this array with the category names based on your search results
@@ -39,7 +37,7 @@ export class InventoryComponent {
     private route: ActivatedRoute,
     private productService: ProductService,
     private router: Router,
-    private ProductSellerService: ProductSellerService,
+    private ProductSellerService: InventoryService,
     private popoverController: PopoverController
   ) {}
 
@@ -49,17 +47,16 @@ export class InventoryComponent {
       // this.sellerName = params['seller_name'];
       this.sellerName = 'Takealot';
       this.selectedSortOption = 'name';
-      this.ProductSellerService.getProductSellerData(
-        this.sellerName,
-        undefined,
-        undefined,
-        this.selectedSortOption,
-        undefined,
-        undefined
-      ).subscribe(result => {
-        this.searchResults$ = of(result.products);
-        this.totalSearchCount$ = of(result.totalCount);
-      });
+      const options: ISearchOptions = {
+        name: this.sellerName,
+        sortOption: this.selectedSortOption,
+      };
+      this.ProductSellerService.getProductSellerData(options).subscribe(
+        result => {
+          this.searchResults$ = of(result.products);
+          this.totalSearchCount$ = of(result.totalCount);
+        }
+      );
     });
   }
   //refresher
@@ -71,7 +68,6 @@ export class InventoryComponent {
     }, 2000);
   }
 
-
   selectOption(option: string) {
     this.selectedOption = option;
     if (option === 'All') {
@@ -79,22 +75,24 @@ export class InventoryComponent {
     } else this.onFilterOptionChange('filter_in_stock', option, true);
   }
 
-
   onSortOptionChange(): void {
     console.log('onSortOptionChange');
-    this.ProductSellerService.getProductSellerData(
-      this.sellerName,
-      this.searchQuery,
-      this.filterOptions,
-      this.selectedSortOption,
-      this.currentPage,
-      this.itemsPerPage
-    ).subscribe(result => {
-      this.searchResults$ = of(result.products);
-      this.totalSearchCount$ = of(result.totalCount);
-    });
+    const options: ISearchOptions = {
+      name: this.sellerName,
+      search: this.searchQuery,
+      filterOptions: this.filterOptions,
+      sortOption: this.selectedSortOption,
+      page: this.currentPage,
+      per_page: this.itemsPerPage,
+    };
+    this.ProductSellerService.getProductSellerData(options).subscribe(
+      result => {
+        this.searchResults$ = of(result.products);
+        this.totalSearchCount$ = of(result.totalCount);
+      }
+    );
 
-    this.searchResults$?.subscribe((res: IProductSeller[]) => {
+    this.searchResults$?.subscribe((res: IInventoryItem[]) => {
       console.log('getSortedProductList');
       console.log(res);
     });
@@ -103,19 +101,21 @@ export class InventoryComponent {
   onPageChange(event: PageEvent) {
     this.currentPage = event.pageIndex;
     this.itemsPerPage = event.pageSize;
-    this.ProductSellerService.getProductSellerData(
-      this.sellerName,
-      undefined,
-      this.filterOptions,
-      this.selectedSortOption,
-      this.currentPage,
-      this.itemsPerPage
-    ).subscribe(result => {
-      this.searchResults$ = of(result.products);
-      this.totalSearchCount$ = of(result.totalCount);
-      console.log('totalSearchCount$');
-      console.log(result.totalCount);
-    });
+    const options: ISearchOptions = {
+      name: this.sellerName,
+      filterOptions: this.filterOptions,
+      sortOption: this.selectedSortOption,
+      page: this.currentPage,
+      per_page: this.itemsPerPage,
+    };
+    this.ProductSellerService.getProductSellerData(options).subscribe(
+      result => {
+        this.searchResults$ = of(result.products);
+        this.totalSearchCount$ = of(result.totalCount);
+        console.log('totalSearchCount$');
+        console.log(result.totalCount);
+      }
+    );
   }
 
   checkInputValidity(formControl: FormControl) {
@@ -184,17 +184,19 @@ export class InventoryComponent {
         this.filterOptions = [];
       }
     }
-    this.ProductSellerService.getProductSellerData(
-      this.sellerName,
-      undefined,
-      this.filterOptions,
-      this.selectedSortOption,
-      this.currentPage,
-      this.itemsPerPage
-    ).subscribe(result => {
-      this.searchResults$ = of(result.products);
-      this.totalSearchCount$ = of(result.totalCount);
-    });
+    const options: ISearchOptions = {
+      name: this.sellerName,
+      filterOptions: this.filterOptions,
+      sortOption: this.selectedSortOption,
+      page: this.currentPage,
+      per_page: this.itemsPerPage,
+    };
+    this.ProductSellerService.getProductSellerData(options).subscribe(
+      result => {
+        this.searchResults$ = of(result.products);
+        this.totalSearchCount$ = of(result.totalCount);
+      }
+    );
   }
 
   onSearchInputChange() {
@@ -213,17 +215,16 @@ export class InventoryComponent {
 
   onSearch() {
     if (this.searchQuery) {
-      this.ProductSellerService.getProductSellerData(
-        this.sellerName,
-        this.searchQuery,
-        undefined,
-        undefined,
-        undefined,
-        undefined
-      ).subscribe(result => {
-        this.searchResults$ = of(result.products);
-        this.totalSearchCount$ = of(result.totalCount);
-      });
+      const options: ISearchOptions = {
+        name: this.sellerName,
+        search: this.searchQuery,
+      };
+      this.ProductSellerService.getProductSellerData(options).subscribe(
+        result => {
+          this.searchResults$ = of(result.products);
+          this.totalSearchCount$ = of(result.totalCount);
+        }
+      );
     }
   }
 

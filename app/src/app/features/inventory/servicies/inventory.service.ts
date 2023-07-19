@@ -2,12 +2,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
-import { IProductSeller } from '@shared/models/product/product-seller.interface';
+import { IInventoryItem } from '@features/inventory/models/inventory-item.interface';
+import { ISearchOptions } from '@features/inventory/models/search-options.interface';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProductSellerService {
+export class InventoryService {
   currentSellerName$: string | undefined;
   private apiUrl = 'http://localhost:3000/api/';
 
@@ -16,38 +17,33 @@ export class ProductSellerService {
   }
 
   public getProductSellerData(
-    name?: string,
-    search?: string,
-    filterOptions?: any,
-    sortOption?: any,
-    page?: any,
-    per_page?: any
-  ): Observable<{ products: IProductSeller[]; totalCount: number }> {
+    options: ISearchOptions
+  ): Observable<{ products: IInventoryItem[]; totalCount: number }> {
     let url = `${this.apiUrl}productseller/sellerdashboard?seller_name=${name}`;
 
-    if (search != undefined) {
-      url += `&search=${search}`;
+    if (options.search != undefined) {
+      url += `&search=${options.search}`;
     }
 
-    if (filterOptions) {
-      for (const [value] of Object.entries(filterOptions)) {
+    if (options.filterOptions) {
+      for (const [value] of Object.entries(options.filterOptions)) {
         url += '&' + value;
       }
     }
 
-    if (sortOption) {
-      url += '&sort=' + sortOption;
+    if (options.sortOption) {
+      url += '&sort=' + options.sortOption;
     }
-    if (page) {
-      url += '&page=' + page;
+    if (options.page) {
+      url += '&page=' + options.page;
     }
-    if (per_page) {
-      url += '&per_page=' + per_page;
+    if (options.per_page) {
+      url += '&per_page=' + options.per_page;
     }
 
     return this.http.get(url).pipe(
       map((res: any) => ({
-        products: res['data'] as IProductSeller[],
+        products: res['data'] as IInventoryItem[],
         totalCount: res['total_count'] as number,
       }))
     );
