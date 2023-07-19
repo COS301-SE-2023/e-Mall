@@ -8,6 +8,8 @@ import { SignOutComponent } from './features/sign-out/sign-out.component';
 import { InventoryComponent } from '@features/inventory/inventory.component';
 import { ProfileComponent } from '@features/profile/components/profile.component';
 import { CategoryComponent } from '@features/category/category.component';
+import { authGuard } from '@shared/route-guards/auth-guard/auth-guard.service';
+import { routeGuard } from '@shared/route-guards/route-guard/route-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -29,11 +31,20 @@ const routes: Routes = [
     path: 'pending',
     loadChildren: () =>
       import('@app/features/pending/pending.module').then(m => m.PendingModule),
+    canActivate: [authGuard],
   },
-  { path: 'register', component: SellerRegisterComponent },
-  { path: 'sign-in', component: SignInComponent },
+  {
+    path: 'register',
+    component: SellerRegisterComponent,
+    canActivate: [routeGuard],
+  },
+  { path: 'sign-in', component: SignInComponent, canActivate: [routeGuard] },
   { path: 'sign-out', component: SignOutComponent },
-  { path: 'sign-up', component: ConsumerRegisterComponent },
+  {
+    path: 'sign-up',
+    component: ConsumerRegisterComponent,
+    canActivate: [routeGuard],
+  },
   { path: 'inventory', component: InventoryComponent },
   {
     path: 'about',
