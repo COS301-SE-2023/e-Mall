@@ -6,7 +6,6 @@ import {
 } from '@angular/common/http/testing';
 import { ProfileService } from '../services/profile.service';
 import { ISellerProfile } from '../models/seller-profile.interface';
-import { IConsumerProfile } from '../models/consumer-profile.interface';
 import { ProfileModule } from '../profile.module';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
@@ -16,7 +15,6 @@ describe('ProfileService', () => {
   let service: ProfileService;
   let httpMock: HttpTestingController;
   let mockSellerProfile: ISellerProfile;
-  let mockConsumerProfile: IConsumerProfile;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -47,14 +45,6 @@ describe('ProfileService', () => {
         created_at: undefined,
         modified_at: undefined,
         last_login: undefined,
-      },
-    };
-    mockConsumerProfile = {
-      id: '',
-      email: '',
-      type: '',
-      details: {
-        wishlist: undefined,
       },
     };
   });
