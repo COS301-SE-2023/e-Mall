@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 import { Select } from '@ngxs/store';
-import { Observable, firstValueFrom, lastValueFrom } from 'rxjs';
+import { Observable, firstValueFrom } from 'rxjs';
 import { AuthSelectors } from '../states/auth.selector';
 import { IUser } from '../models/user.interface';
 import { AuthService } from './auth.service';
