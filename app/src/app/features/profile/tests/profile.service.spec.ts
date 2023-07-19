@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { TestBed } from '@angular/core/testing';
+import { TestBed, fakeAsync } from '@angular/core/testing';
 import {
   HttpClientTestingModule,
   HttpTestingController,
@@ -7,6 +7,10 @@ import {
 import { ProfileService } from '../services/profile.service';
 import { ISellerProfile } from '../models/seller-profile.interface';
 import { IConsumerProfile } from '../models/consumer-profile.interface';
+import { ProfileModule } from '../profile.module';
+import { NgxsModule } from '@ngxs/store';
+import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
+import { Profile } from '../models/alias-profile.interface';
 
 describe('ProfileService', () => {
   let service: ProfileService;
@@ -16,7 +20,12 @@ describe('ProfileService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [
+        ProfileModule,
+        NgxsModule.forRoot([]),
+        NgxsDispatchPluginModule,
+        HttpClientTestingModule,
+      ],
       providers: [ProfileService],
     });
     service = TestBed.inject(ProfileService);
@@ -57,23 +66,32 @@ describe('ProfileService', () => {
     expect(service).toBeTruthy();
   });
 
-  //   it('should get profile', async () => {
-  //     const result = await service.getProfile();
-  //     expect(result).toEqual(mockSellerProfile);
-  //     const req = httpMock.expectOne(req =>
-  //       /\/api\/profile\/get\/$/.test(req.url)
-  //     );
-  //     expect(req.request.method).toBe('POST');
-  //     req.flush(mockSellerProfile);
-  //   });
+  it('should get profile', fakeAsync(() => {
+    service.getProfile().then(result => {
+      expect(result).toEqual(mockSellerProfile);
+    });
 
-  //   it('should update profile', async () => {
-  //     const result = await service.updateProfile(mockConsumerProfile);
-  //     expect(result).toEqual(mockConsumerProfile);
-  //     const req = httpMock.expectOne(req =>
-  //       /\/api\/profile\/update\/$/.test(req.url)
-  //     );
-  //     expect(req.request.method).toBe('POST');
-  //     req.flush(mockConsumerProfile);
-  //   });
+    const req = httpMock.expectOne(req => {
+      return req.url.endsWith('/api/profile/get/');
+    });
+    expect(req.request.method).toBe('POST');
+    req.flush(mockSellerProfile);
+  }));
+
+  it('should update profile', () => {
+    const mockProfile: Profile = {
+      id: '1',
+      email: 'test@example.com',
+      type: 'consumer',
+      details: {},
+    };
+
+    service.updateProfile(mockProfile).then(profile => {
+      expect(profile).toEqual(mockProfile);
+    });
+
+    const req = httpMock.expectOne('/api/profile/update/');
+    expect(req.request.method).toBe('POST');
+    req.flush(mockProfile);
+  });
 });

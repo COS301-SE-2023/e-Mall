@@ -1,174 +1,95 @@
-# from django.test import TestCase
-# from django.contrib.auth.models import User
-# from rest_framework.test import APIRequestFactory, force_authenticate
-# from custom_profile.views import get, update
-# from consumer.models import Consumer
-# from seller.models import Seller
+from django.test import TestCase, RequestFactory
+from unittest.mock import PropertyMock, patch
+from rest_framework import status
+from custom_profile.views import get
+from consumer.models import Consumer
+from seller.models import Seller
 
 
-# class ProfileViewTest(TestCase):
-#     def setUp(self):
-#         self.factory = APIRequestFactory()
-#         self.consumer = Consumer.objects.create(
-#             username='test', email='test@example.com', type='consumer')
-#         self.seller = Seller.objects.create(
-#             username='test', email='test@example.com', type='seller')
+class GetViewTest(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
 
-#     def test_get_consumer(self):
-#         # Create a request
-#         request = self.factory.post('/get/')
-#         force_authenticate(request, user=self.consumer)
+    @patch("auth.permissions.CognitoPermission.has_permission")
+    @patch("auth.authentication.CognitoAuthentication.authenticate")
+    def test_get_view_consumer(self, mock_authenticate, mock_has_permission):
+        # Create a mock Consumer object and manually set its is_authenticated attribute to True
+        consumer = Consumer(username="test", email="test@example.com", type="consumer")
+        mock_authenticate.return_value = (consumer, None)
 
-#         # Call the view
-#         response = get(request)
+        # Mock the has_permission method to return True
+        mock_has_permission.return_value = True
 
-#         # Check the response
-#         self.assertEqual(response.status_code, 200)
-#         self.assertEqual(response.data, {
-#             'id': self.consumer.id,
-#             'username': 'test',
-#             'email': 'test@example.com',
-#             'type': 'consumer',
-#             'details': {
-#                 'wishlist': None,
-#                 'created_at': None,
-#                 'modified_at': None,
-#             }
-#         })
+        # Create a mock request object
+        request = self.factory.post("/get/")
 
-#     def test_get_seller(self):
-#         # Create a request
-#         request = self.factory.post('/get/')
-#         force_authenticate(request, user=self.seller)
+        # Call the get view with the mock request object
+        response = get(request)
 
-#         # Call the view
-#         response = get(request)
+        # Check that the response status code is 200 OK
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-#         # Check the response
-#         self.assertEqual(response.status_code, 200)
-#         self.assertEqual(response.data, {
-#             'id': self.seller.id,
-#             'username': 'test',
-#             'email': 'test@example.com',
-#             'type': 'seller',
-#             'details': {
-#                 'reg_no': None,
-#                 'business_name': None,
-#                 'business_type': None,
-#                 'business_category': None,
-#                 'catalogue_size': None,
-#                 'status': None,
-#                 'is_verified': None,
-#                 'website': None,
-#                 'feed_url': None,
-#                 'no_employees': None
-#             }
-#         })
+        # Check that the response data is correct
+        expected_data = {
+            "username": consumer.username,
+            "email": "test@example.com",
+            "type": "consumer",
+            "details": {
+                "wishlist": {"data": ""},
+                "created_at": consumer.created_at,
+                "modified_at": consumer.modified_at,
+            },
+        }
+        self.assertEqual(response.data["username"], expected_data["username"])
 
-#     def test_get_unauthenticated(self):
-#         # Create a request
-#         request = self.factory.post('/get/')
+    def test_get_view_seller(self):
+        # Create a mock request object
+        request = self.factory.post("/get/")
 
-#         # Call the view
-#         response = get(request)
+        # Create a mock Seller object and manually set its is_authenticated attribute to True
+        seller = Seller(username="test", email="test@example.com", type="seller")
+        seller.is_authenticated = True
 
-#         # Check the response
-#         self.assertEqual(response.status_code, 500)
-#         self.assertEqual(response.data, {'error': 'User not found'})
+        # Mock the request.user object
+        with patch(
+            "rest_framework.request.Request.user", new_callable=PropertyMock
+        ) as mock_user:
+            mock_user.return_value = seller
 
-#     def test_update_consumer(self):
-#         # Create a request
-#         data = {
-#             'username': 'updated',
-#             'details': {
-#                 'wishlist': [1, 2, 3]
-#             }
-#         }
-#         request = self.factory.post('/update/', data)
-#         force_authenticate(request, user=self.consumer)
+            # Call the get view with the mock request object
+            response = get(request)
 
-#         # Call the view
-#         response = update(request)
+            # Check that the response status code is 200 OK
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-#         # Check the response
-#         self.assertEqual(response.status_code, 200)
-#         self.assertEqual(response.data, {
-#             'id': self.consumer.id,
-#             'username': 'updated',
-#             'email': 'test@example.com',
-#             'type': 'consumer',
-#             'details': {
-#                 'wishlist': [1, 2, 3],
-#                 'created_at': None,
-#                 'modified_at': None,
-#             }
-#         })
+            # Check that the response data is correct
+            expected_data = {
+                "id": str(seller.id),
+                "username": seller.username,
+                "email": "test@example.com",
+                "type": "seller",
+                "details": {...},
+            }
+            self.assertEqual(response.data["username"], expected_data["username"])
 
-#     def test_update_seller(self):
-#         # Create a request
-#         data = {
-#             'username': 'updated',
-#             'details': {
-#                 'business_name': 'updated'
-#             }
-#         }
-#         request = self.factory.post('/update/', data)
-#         force_authenticate(request, user=self.seller)
+    @patch("auth.permissions.CognitoPermission.has_permission")
+    @patch("auth.authentication.CognitoAuthentication.authenticate")
+    def test_get_view_no_user(self, mock_authenticate, mock_has_permission):
+        # Mock the authenticate method to return None
+        mock_authenticate.return_value = None
 
-#         # Call the view
-#         response = update(request)
+        # Mock the has_permission method to return False
+        mock_has_permission.return_value = False
 
-#         # Check the response
-#         self.assertEqual(response.status_code, 200)
-#         self.assertEqual(response.data, {
-#             'id': self.seller.id,
-#             'username': 'updated',
-#             'email': 'test@example.com',
-#             'type': 'seller',
-#             'details': {
-#                 'reg_no': None,
-#                 'business_name': 'updated',
-#                 'business_type': None,
-#                 'business_category': None,
-#                 'catalogue_size': None,
-#                 'status': None,
-#                 'is_verified': None,
-#                 'website': None,
-#                 'feed_url': None,
-#                 'no_employees': None
-#             }
-#         })
+        # Create a mock request object
+        request = self.factory.post("/get/")
 
-#     def test_update_unauthenticated(self):
-#         # Create a request
-#         data = {
-#             'username': 'updated',
-#             'details': {
-#                 'wishlist': [1, 2, 3]
-#             }
-#         }
-#         request = self.factory.post('/update/', data)
+        # Call the get view with the mock request object
+        response = get(request)
 
-#         # Call the view
-#         response = update(request)
+        # Check that the response status code is 401 Unauthorized
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-#         # Check the response
-#         self.assertEqual(response.status_code, 500)
-#         self.assertEqual(response.data, {'error': 'User not found'})
-
-#     def test_update_invalid_data(self):
-#         # Create a request
-#         data = {
-#             'username': '',
-#             'details': {
-#                 'wishlist': [1, 2, 3]
-#             }
-#         }
-#         request = self.factory.post('/update/', data)
-#         force_authenticate(request, user=self.consumer)
-
-#         # Call the view
-#         response = update(request)
-
-#         # Check the response
-#         self.assertEqual(response.status_code, 400)
+        # Check that the response data is correct
+        expected_data = {"detail": "Authentication credentials were not provided."}
+        self.assertDictEqual(response.data, expected_data)

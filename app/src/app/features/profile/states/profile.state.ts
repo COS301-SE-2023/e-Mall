@@ -4,9 +4,10 @@ import { IConsumerProfile } from '../models/consumer-profile.interface';
 import { ISellerProfile } from '../models/seller-profile.interface';
 import * as ProfileActions from './profile.actions';
 import produce from 'immer';
+import { Profile } from '../models/alias-profile.interface';
 
 export interface ProfileStateModel {
-  profile: IConsumerProfile | ISellerProfile | null;
+  profile: Profile;
 }
 
 @State<ProfileStateModel>({
@@ -32,9 +33,9 @@ export class ProfileState {
     ctx.setState(
       produce(draft => {
         if (draft.profile) {
-          Object.assign(draft.profile, action.payload);
+          Object.assign(draft.profile, action.payload.profile);
         } else {
-          draft.profile = action.payload as unknown as
+          draft.profile = action.payload.profile as unknown as
             | IConsumerProfile
             | ISellerProfile;
         }
