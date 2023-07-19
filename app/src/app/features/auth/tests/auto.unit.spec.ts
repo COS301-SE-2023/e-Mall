@@ -103,6 +103,7 @@ describe('AuthModule', () => {
 
     it('should sign out a user', async () => {
       spyOn(authService, 'signOut').and.returnValue(Promise.resolve({}));
+      spyOn(facade, 'isLoggedIn').and.returnValue(Promise.resolve(true));
       await facade.signOut();
       expect(authService.signOut).toHaveBeenCalled();
       expect(store.selectSnapshot(AuthState)).toEqual({ user: null });
@@ -111,9 +112,16 @@ describe('AuthModule', () => {
     it('should handle sign out errors', async () => {
       const error = new Error('test error');
       spyOn(authService, 'signOut').and.returnValue(Promise.reject(error));
+      spyOn(facade, 'isLoggedIn').and.returnValue(Promise.resolve(true));
       await facade.signOut();
       expect(authService.signOut).toHaveBeenCalled();
       expect(store.selectSnapshot(AuthState)).toEqual({ user: null });
+    });
+    it('should handle sign out when no logged in user', async () => {
+      spyOn(authService, 'signOut').and.returnValue(Promise.resolve({}));
+      spyOn(facade, 'isLoggedIn').and.returnValue(Promise.resolve(false));
+      await facade.signOut();
+      expect(authService.signOut).not.toHaveBeenCalled();
     });
   });
 

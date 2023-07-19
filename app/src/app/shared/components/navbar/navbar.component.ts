@@ -4,6 +4,10 @@ import { Router, NavigationExtras } from '@angular/router';
 import { AuthFacade } from '@app/features/auth/services/auth.facade';
 import { IUser } from '@app/features/auth/models/user.interface';
 import { Observable } from 'rxjs';
+import { ProfileFacade } from '@features/profile/services/profile.facade';
+import { PopoverController } from '@ionic/angular';
+import { DropdownPopoverComponent } from '@shared/components/dropdown-popover/dropdown-popover.component';
+
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +17,11 @@ import { Observable } from 'rxjs';
 export class NavbarComponent {
   isAuthenticated: Observable<IUser | null>;
   isCategoryOpened = false;
-  constructor(private router: Router, private authFacade: AuthFacade) {
+  constructor(
+    private router: Router,
+    private authFacade: AuthFacade,
+    private profileFacde: ProfileFacade,private popoverController: PopoverController
+  ) {
     this.isAuthenticated = this.authFacade.getCurrentUser();
   }
 
@@ -25,8 +33,14 @@ export class NavbarComponent {
 
     this.router.navigate(['/search-results'], navigationextras);
   }
-  toggleCategory(): void {
-    this.isCategoryOpened = !this.isCategoryOpened;
+  async toggleCategory(event: Event) {
+    const popover = await this.popoverController.create({
+      component: DropdownPopoverComponent,
+      event: event,
+      translucent: true,
+      animated: true
+    });
+    return await popover.present();
   }
 
   public signIn(): void {

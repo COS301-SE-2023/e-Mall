@@ -16,11 +16,13 @@
           <div class="col-sm-4 col-md-4 col-lg-4 mini-imgs-container">
             <div
               class="mini-imgs-small-container"
-              *ngFor="
-                let img of getImgs((product$ | async)?.min_price_img_array)
-              ">
+              *ngFor="let img of (product$ | async)?.min_price_img_array">
               <div>
-                <img [src]="img" alt="Product Image" class="img-fluid w-100" />
+                <img
+                  [src]="img"
+                  alt="Product Image"
+                  class="img-fluid w-100"
+                  (click)="selectImage(img)" />
               </div>
             </div>
           </div>
@@ -30,7 +32,11 @@
               <div class="position-relative">
                 <img
                   mat-card-image
-                  [src]="getOneImg((product$ | async)?.min_price_img_array)"
+                  [src]="
+                    selectedImage
+                      ? selectedImage
+                      : getOneImg((product$ | async)?.min_price_img_array)
+                  "
                   alt="Product Image"
                   class="product-image" />
                 <div

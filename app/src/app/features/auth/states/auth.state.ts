@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Action, State, StateContext } from '@ngxs/store';
-import { AuthService } from '../services/auth.service';
 import { IUser } from '../models/user.interface';
 import * as AuthActions from './auth.action';
+import produce from 'immer';
 
 export interface AuthStateModel {
   user: IUser | null;
@@ -16,17 +16,27 @@ export interface AuthStateModel {
 })
 @Injectable()
 export class AuthState {
-  constructor(private readonly authService: AuthService) {}
   @Action(AuthActions.SetCurrentUser)
   SetCurrentUser(
     ctx: StateContext<AuthStateModel>,
     action: AuthActions.SetCurrentUser
   ) {
-    ctx.patchState({ user: action.user });
+    ctx.setState({ user: action.user });
   }
 
   @Action(AuthActions.SignOutAction)
   signOut(ctx: StateContext<AuthStateModel>) {
-    ctx.patchState({ user: null });
+    ctx.setState({ user: null });
+  }
+  @Action(AuthActions.UpdateToken)
+  updateToken(
+    ctx: StateContext<AuthStateModel>,
+    action: AuthActions.UpdateToken
+  ) {
+    ctx.setState(
+      produce(draft => {
+        if (draft.user) draft.user.token = action.token;
+      })
+    );
   }
 }

@@ -20,17 +20,25 @@ import { of } from 'rxjs';
 import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
 import { ProductModule } from '../product.module';
-describe('ProductComponent', () => {
+import { AuthModule } from '../../auth/auth.module';
+import { ProfileModule } from '@features/profile/profile.module';
+
+describe('ProductComponentIntegration', () => {
   let component: ProductComponent;
   let fixture: ComponentFixture<ProductComponent>;
   // eslint-disable-next-line prefer-const
-  let mockProductService = jasmine.createSpyObj('ProductService', ['getProductData', 'getSellerList']);
-  const mockAnalyticsService = jasmine.createSpyObj('AnalyticsService', ['createAnalyticsData']);
+  let mockProductService = jasmine.createSpyObj('ProductService', [
+    'getProductData',
+    'getSellerList',
+  ]);
+  const mockAnalyticsService = jasmine.createSpyObj('AnalyticsService', [
+    'createAnalyticsData',
+  ]);
   const mockActivatedRoute = {
     queryParamMap: of({
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      get: (key: string) => '1' // Assuming 'prod_id' query parameter is set to 1
-    } as ParamMap)
+      get: (key: string) => '1', // Assuming 'prod_id' query parameter is set to 1
+    } as ParamMap),
   };
 
   beforeEach(async () => {
@@ -51,12 +59,13 @@ describe('ProductComponent', () => {
         FooterModule,
         IonicModule,
         ProductModule,
+        AuthModule,
+        ProfileModule,
       ],
       providers: [
-          { provide: ProductService, useValue: mockProductService },
-          { provide: AnalyticsService, useValue: mockAnalyticsService },
-          { provide: ActivatedRoute, useValue: mockActivatedRoute },
-        
+        { provide: ProductService, useValue: mockProductService },
+        { provide: AnalyticsService, useValue: mockAnalyticsService },
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
       ],
     }).compileComponents();
 
@@ -77,5 +86,4 @@ describe('ProductComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
 });

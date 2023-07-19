@@ -79,8 +79,8 @@ class Command(BaseCommand):
         for key, seller_data in data.items():
             # Access individual product attributes
             seller = Seller(
-                username=fake.user_name()[:15],
-                email=fake.email()[:30],
+                username=seller_data['username'],
+                email=seller_data['email'],
                 created_at=timezone.now(),
                 modified_at=timezone.now(),
                 last_login=timezone.now(),

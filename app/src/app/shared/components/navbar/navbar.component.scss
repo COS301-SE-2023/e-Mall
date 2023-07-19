@@ -22,8 +22,10 @@ i.arrow {
   margin-left: 20px;
   margin-right: 20px;
 }
-
-button {
+.category-label {
+  text-transform: none; /* Reset the text-transform to none */
+}
+button,.category-label  {
   color: var(--c-1-a, #151515);
 
   /* Button/Default */
@@ -48,7 +50,7 @@ button {
   flex-grow: 1;
 }
 
-.toolbar-button {
+.toolbar-button{
   flex-shrink: 0;
   height: 100%;
   font-size: medium;

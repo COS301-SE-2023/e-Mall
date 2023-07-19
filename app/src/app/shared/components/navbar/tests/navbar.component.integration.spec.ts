@@ -20,6 +20,7 @@ import { IonicModule } from '@ionic/angular';
 import { AuthModule } from '@app/features/auth/auth.module';
 import { AuthState } from '@app/features/auth/states/auth.state';
 import { NgxsModule } from '@ngxs/store';
+import { ProfileModule } from '@features/profile/profile.module';
 
 describe('NavbarComponentIntegration', () => {
   let component: NavbarComponent;
@@ -46,6 +47,7 @@ describe('NavbarComponentIntegration', () => {
         MatInputModule,
         IonicModule,
         AuthModule,
+        ProfileModule,
       ],
       declarations: [NavbarComponent],
     }).compileComponents();
@@ -58,7 +60,7 @@ describe('NavbarComponentIntegration', () => {
     fixture.detectChanges();
   });
 
-  it('should toggle the category status', () => {
+  /*it('should toggle the category status', () => {
     expect(component.isCategoryOpened).toBeFalse();
 
     component.toggleCategory();
@@ -66,7 +68,7 @@ describe('NavbarComponentIntegration', () => {
 
     component.toggleCategory();
     expect(component.isCategoryOpened).toBeFalse();
-  });
+  });*/
 
   it('should navigate to search results page with search query', () => {
     const searchQuery = 'test query';

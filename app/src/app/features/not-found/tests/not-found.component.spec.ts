@@ -8,6 +8,8 @@ import { NotFoundModule } from '../not-found.module';
 import { NgxsModule } from '@ngxs/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
+import { AuthModule } from '@features/auth/auth.module';
+import { ProfileModule } from '@features/profile/profile.module';
 
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
@@ -22,6 +24,8 @@ describe('NotFoundComponent', () => {
         NgxsModule.forRoot([]),
         RouterTestingModule,
         NotFoundModule,
+        AuthModule,
+        ProfileModule,
       ],
     }).compileComponents();
   });

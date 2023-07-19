@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 //product unit tests
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -14,7 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
-import { ActivatedRoute, Router,ParamMap } from '@angular/router';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IProduct } from '@shared/models/product/product.interface';
 import { of } from 'rxjs';
@@ -22,18 +23,28 @@ import { IProductSeller } from '@shared/models/product/product-seller.interface'
 import { IonicModule } from '@ionic/angular';
 import { NgxsModule } from '@ngxs/store';
 import { ProductModule } from '../product.module';
+import { AuthModule } from '@features/auth/auth.module';
+import { ProfileModule } from '@features/profile/profile.module';
+import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
+
 describe('ProductComponent', () => {
   let component: ProductComponent;
   let fixture: ComponentFixture<ProductComponent>;
   let productService: ProductService;
+  let analyticsService: AnalyticsService;
   let router: Router;
   // eslint-disable-next-line prefer-const
-  let mockProductService = jasmine.createSpyObj('ProductService', ['getProductData', 'getSellerList']);
-  const mockAnalyticsService = jasmine.createSpyObj('AnalyticsService', ['createAnalyticsData']);
+  let mockProductService = jasmine.createSpyObj('ProductService', [
+    'getProductData',
+    'getSellerList',
+  ]);
+  const mockAnalyticsService = jasmine.createSpyObj('AnalyticsService', [
+    'createAnalyticsData',
+  ]);
   const mockActivatedRoute = {
     queryParamMap: of({
-      get: (key: string) => '1' // Assuming 'prod_id' query parameter is set to 1
-    } as ParamMap)
+      get: (key: string) => '1', // Assuming 'prod_id' query parameter is set to 1
+    } as ParamMap),
   };
 
   beforeEach(async () => {
@@ -50,16 +61,18 @@ describe('ProductComponent', () => {
         MatSelectModule,
         MatExpansionModule,
         NgxsModule.forRoot([]),
+        NgxsDispatchPluginModule,
         NavbarModule,
         FooterModule,
         IonicModule,
+        AuthModule,
+        ProfileModule,
         ProductModule,
       ],
       providers: [
-          { provide: ProductService, useValue: mockProductService },
-          { provide: AnalyticsService, useValue: mockAnalyticsService },
-          { provide: ActivatedRoute, useValue: mockActivatedRoute },
-        
+        { provide: ProductService, useValue: mockProductService },
+        { provide: AnalyticsService, useValue: mockAnalyticsService },
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
       ],
     }).compileComponents();
 
@@ -67,6 +80,7 @@ describe('ProductComponent', () => {
     fixture = TestBed.createComponent(ProductComponent);
     component = fixture.componentInstance;
     productService = TestBed.inject(ProductService);
+    analyticsService = TestBed.inject(AnalyticsService);
     fixture.detectChanges();
   });
 
@@ -74,14 +88,15 @@ describe('ProductComponent', () => {
     fixture = TestBed.createComponent(ProductComponent);
     component = fixture.componentInstance;
     productService = TestBed.inject(ProductService);
+
     fixture.detectChanges();
   });
 
   it('should create the ProductComponent', () => {
     expect(component).toBeTruthy();
   });
-  
-  it('should fetch productData on initialization', (done) => {
+
+  it('should fetch productData on initialization', done => {
     const mockProduct: IProduct = {
       id: 1,
       min_price_img_array: ['image1.jpg', 'image2.jpg'],
@@ -100,45 +115,44 @@ describe('ProductComponent', () => {
       created_at: '2023-06-01',
       updated_at: '2023-06-02',
     };
-  
+
     mockProductService.getProductData.and.returnValue(of(mockProduct));
-  
+
     component.prod_id = 1;
     component.ngOnInit();
-  
+
     expect(mockProductService.getProductData).toHaveBeenCalledWith(
       component.prod_id
     );
     component.product$?.subscribe(product => {
       expect(product).toEqual(mockProduct);
-      done(); 
+      done();
     });
-  
+
     fixture.detectChanges();
   });
-  
-  
-  it('should fetch SellerList on initialization', (done) => {
+
+  it('should fetch SellerList on initialization', done => {
     const sellerList: IProductSeller[] = [
       { id: 1, product: 'Product1', seller: 'Seller1' },
       { id: 2, product: 'Product2', seller: 'Seller2' },
     ];
     mockProductService.getSellerList.and.returnValue(of(sellerList));
-  
+
     component.prod_id = 1;
     component.ngOnInit();
-  
+
     expect(mockProductService.getSellerList).toHaveBeenCalledWith(
       component.prod_id,
       'default'
     );
     component.sellers$?.subscribe(product => {
       expect(product).toEqual(sellerList);
-      done(); 
+      done();
     });
     fixture.detectChanges();
   });
-  
+
   it('should display seller list', () => {
     const sellers = [
       {
@@ -205,7 +219,7 @@ describe('ProductComponent', () => {
     expect(descriptionElement.textContent).toContain(description);
   });
   it('should toggle divClicked and update sellers$', () => {
-   // spyOn(productService, 'getSellerList');
+    // spyOn(productService, 'getSellerList');
 
     component.divClicked = false;
     component.prod_id = 1;
@@ -214,8 +228,8 @@ describe('ProductComponent', () => {
     expect(productService.getSellerList).toHaveBeenCalledWith(1, 'true');
   });
 
-  /*
-  it('should navigate to the seller product page on seller name click', () => {
+  
+ /*it('should navigate to the seller product page on seller name click', () => {
     const sellerId = 1;
     const sellerProductUrl = `/seller/${sellerId}`;
 
@@ -232,5 +246,195 @@ describe('ProductComponent', () => {
     expect(router.navigateByUrl).toHaveBeenCalledWith(sellerProductUrl);
   });
 */
-});
+  it('should call createAnalyticsData with correct data when product and sellers exist', () => {
+    const id = 1;
+    const productName = 'Product Name';
+    const brand = 'Brand';
+    const category = 'Category';
+    const description = 'Product Description';
+    const minPrice = 100;
+    const currencyCode = 'ZAR';
 
+    component.product$ = of({
+      id,
+      name: productName,
+      brand,
+      category,
+      description,
+      min_price: minPrice,
+    });
+    const sellers = [
+      {
+        id: 1,
+        business_name: 'Seller 1',
+        price: 50,
+        in_stock: true,
+        product: 'Product1',
+        seller: 'Seller1',
+      },
+      {
+        id: 2,
+        business_name: 'Seller 2',
+        price: 60,
+        in_stock: false,
+        product: 'Product2',
+        seller: 'Seller2',
+      },
+    ];
+
+    component.sellers$ = of(sellers);
+    // Set up the expected data object
+    const expectedData = {
+      seller: sellers[0].business_name,
+      product: 'Product Name',
+      product_category: 'Category',
+      consumer_id: 'c7c700c9-a5b4-4600-bd8d-a24bd355bd46',
+      event_type: 'product_click',
+      metadata: null,
+    };
+
+    component.prodClickAnalytics();
+    expect(analyticsService.createAnalyticsData).toHaveBeenCalledWith(
+      expectedData
+    );
+  });
+
+  it('should call createAnalyticsData with correct data when product and sellers exist', () => {
+    const id = 1;
+    const productName = 'Product Name';
+    const brand = 'Brand';
+    const category = 'Category';
+    const description = 'Product Description';
+    const minPrice = 100;
+    const currencyCode = 'ZAR';
+
+    component.product$ = of({
+      id,
+      name: productName,
+      brand,
+      category,
+      description,
+      min_price: minPrice,
+    });
+    const sellers = [
+      {
+        id: 1,
+        business_name: 'Seller 1',
+        price: 50,
+        in_stock: true,
+        product: 'Product1',
+        seller: 'Seller1',
+      },
+      {
+        id: 2,
+        business_name: 'Seller 2',
+        price: 60,
+        in_stock: false,
+        product: 'Product2',
+        seller: 'Seller2',
+      },
+    ];
+
+    component.sellers$ = of(sellers);
+    // Set up the expected data object
+    const expectedData = {
+      seller: sellers[0].business_name,
+      product: 'Product Name',
+      product_category: 'Category',
+      consumer_id: 'c7c700c9-a5b4-4600-bd8d-a24bd355bd46',
+      event_type: 'link_click',
+      metadata: null,
+    };
+
+    // Call the prodClickAnalytics method
+    component.linkClickAnalytics(sellers[0].business_name);
+
+    // Expect createAnalyticsData to be called with the expected data
+    expect(analyticsService.createAnalyticsData).toHaveBeenCalledWith(
+      expectedData
+    );
+  });
+
+ /* it('should scroll to the specified element', () => {
+    const dummyElement = document.createElement('div');
+    const dummyRect: DOMRect = {
+      top: 100,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      width: 0,
+      height: 0,
+      x: 0,
+      y: 0,
+      toJSON: () => ({}),
+    };
+    spyOn(dummyElement, 'getBoundingClientRect').and.returnValue(dummyRect);
+    spyOn(window, 'scrollTo');
+  
+    component.scroll(dummyElement);
+  
+    // Check if window.scrollTo is called with the correct coordinates
+    const scrollY = window.scrollY || window.pageYOffset;
+    expect(window.scrollTo).toHaveBeenCalledWith(0, Object({ top: 50 })); // You may adjust the 50 value based on your actual element height
+  });
+  
+  */
+  /*
+  it('should call createAnalyticsData with correct data when product and sellers exist', () => {
+    const sellers = [
+      {
+        id: 1,
+        business_name: 'Amazon',
+        price: 50,
+        in_stock: true,
+        product: 'Product1',
+        seller: 'Seller1',
+      },
+      {
+        id: 2,
+        business_name: 'Takealot',
+        price: 60,
+        in_stock: false,
+        product: 'Product2',
+        seller: 'Seller2',
+      },
+    ];
+
+    // Set up the expected data object for link_click event_type
+    const expectedDataLinkClick = {
+      seller: sellers[0].business_name,
+      product: 'Product Name',
+      product_category: 'Category',
+      consumer_id: 'c7c700c9-a5b4-4600-bd8d-a24bd355bd46',
+      event_type: 'link_click',
+      metadata: null,
+    };
+
+    // Call the linkClickAnalytics method
+    component.linkClickAnalytics(sellers[0].business_name);
+
+    // Expect createAnalyticsData to be called with the expected data for link_click
+    expect(analyticsService.createAnalyticsData).toHaveBeenCalledWith(
+      expectedDataLinkClick
+    );
+
+    // Set up the expected data object for product_click event_type
+    const expectedDataProductClick = {
+      seller: sellers[0].business_name,
+      product: 'Product Name',
+      product_category: 'Category',
+      consumer_id: 'c7c700c9-a5b4-4600-bd8d-a24bd355bd46',
+      event_type: 'product_click',
+      metadata: null,
+    };
+
+    // Call the prodClickAnalytics method
+    component.prodClickAnalytics();
+
+    // Expect createAnalyticsData to be called with the expected data for product_click
+    expect(analyticsService.createAnalyticsData).toHaveBeenCalledWith(
+      expectedDataProductClick
+    );
+  });
+  */
+});

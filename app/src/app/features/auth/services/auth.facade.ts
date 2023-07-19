@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 import { Select } from '@ngxs/store';
-import { Observable } from 'rxjs';
+import { Observable, firstValueFrom } from 'rxjs';
 import { AuthSelectors } from '../states/auth.selector';
 import { IUser } from '../models/user.interface';
 import { AuthService } from './auth.service';
@@ -16,13 +16,22 @@ import * as ErrorActions from '@features/error/states/error.action';
 export class AuthFacade {
   @Select(AuthSelectors.currentUser)
   private currentUser$!: Observable<IUser>;
-
+  private redirectUrl: string | null = null;
   constructor(private authService: AuthService) {}
 
   @Dispatch()
   async signIn(email: string, password: string) {
     try {
       const user = await this.authService.signIn(email, password);
+      if (this.redirectUrl) {
+        const actions = [
+          new AuthActions.SetCurrentUser(user),
+          new ErrorActions.ClearError('auth'),
+          new Navigate([this.redirectUrl]),
+        ];
+        this.redirectUrl = null;
+        return actions;
+      }
       return [
         new AuthActions.SetCurrentUser(user),
         new ErrorActions.ClearError('auth'),
@@ -55,14 +64,32 @@ export class AuthFacade {
   @Dispatch()
   async signOut() {
     try {
+      if (!(await this.isLoggedIn())) {
+        return new Navigate(['home']);
+      }
       await this.authService.signOut();
       return [new AuthActions.SignOutAction(), new Navigate(['home'])];
     } catch (error) {
       return new SetError('auth', error as IError);
     }
   }
-
+  @Dispatch()
+  updateToken(token: string) {
+    return new AuthActions.UpdateToken(token);
+  }
   getCurrentUser(): Observable<IUser | null> {
     return this.currentUser$;
+  }
+  async refreshAccessToken(): Promise<string> {
+    const token = await this.authService.refreshAccessToken();
+    this.updateToken(token);
+    return token;
+  }
+  async isLoggedIn(): Promise<boolean> {
+    const currentUser = await firstValueFrom(this.currentUser$);
+    return currentUser !== null;
+  }
+  setRedirectUrl(url: string): void {
+    this.redirectUrl = url;
   }
 }
