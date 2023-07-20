@@ -8,7 +8,16 @@ export class InventorySelectors {
   }
 
   @Selector([InventoryState])
-  static filters(state: InventoryStateModel) {
-    return state.filters;
+  static query(state: InventoryStateModel) {
+    return state.query;
+  }
+
+  @Selector([InventoryState])
+  static totalCount(state: InventoryStateModel) {
+    return state.totalCount;
+  }
+  @Selector([InventoryState])
+  static filter(state: InventoryStateModel) {
+    return state.query.filterOptions;
   }
 }

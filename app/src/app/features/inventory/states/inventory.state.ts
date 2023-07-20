@@ -3,16 +3,28 @@ import { Action, State, StateContext } from '@ngxs/store';
 import { ISearchOptions } from '../models/search-options.interface';
 import { IInventoryItem } from '../models/inventory-item.interface';
 import * as InventoryActions from '../states/inventory.action';
+import produce from 'immer';
+import { ResetInventoryState } from './inventory.action';
 export interface InventoryStateModel {
   products: IInventoryItem[] | null;
-  filters: ISearchOptions;
+  query: ISearchOptions;
+  totalCount: number;
 }
 
 @State<InventoryStateModel>({
   name: 'inventory',
   defaults: {
     products: null,
-    filters: {},
+    query: {
+      search: '',
+      sortOption: 'name',
+      filterOptions: {
+        filter_in_stock: 'all',
+      },
+      page: 0,
+      per_page: 10,
+    },
+    totalCount: 0,
   },
 })
 @Injectable()
@@ -22,7 +34,10 @@ export class InventoryState {
     ctx: StateContext<InventoryStateModel>,
     action: InventoryActions.SetInventory
   ) {
-    ctx.patchState({ products: action.products });
+    ctx.patchState({
+      products: action.products,
+      totalCount: action.totalCount,
+    });
   }
   @Action(InventoryActions.AddItems)
   addItems(
@@ -76,26 +91,70 @@ export class InventoryState {
       ctx.patchState({ products: updatedProducts });
     }
   }
-  @Action(InventoryActions.SetFilter)
-  setFilter(
+  @Action(InventoryActions.SetQuery)
+  setQuery(
     ctx: StateContext<InventoryStateModel>,
-    action: InventoryActions.SetFilter
+    action: InventoryActions.SetQuery
   ) {
-    ctx.patchState({ filters: action.filterOptions });
+    ctx.patchState({ query: action.query });
   }
 
-  @Action(InventoryActions.ResetFilter)
-  resetFilter(ctx: StateContext<InventoryStateModel>) {
-    ctx.patchState({ filters: {} });
+  @Action(InventoryActions.ResetQuery)
+  resetQuery(ctx: StateContext<InventoryStateModel>) {
+    ctx.patchState({ query: {} });
   }
 
-  @Action(InventoryActions.UpdateFilter)
-  updateFilter(
+  @Action(InventoryActions.UpdateQuery)
+  updateQuery(
     ctx: StateContext<InventoryStateModel>,
-    action: InventoryActions.UpdateFilter
+    action: InventoryActions.UpdateQuery
   ) {
-    const state = ctx.getState();
-    const updatedFilters = { ...state.filters, ...action.filterOptions };
-    ctx.patchState({ filters: updatedFilters });
+    ctx.setState(
+      produce((draft: InventoryStateModel) => {
+        // Update the query object
+        draft.query = {
+          ...draft.query,
+          ...action.query,
+        };
+        // if (
+        //   action.query.per_page &&
+        //   action.query.per_page !== draft.query.per_page
+        // ) {
+        //   draft.query.page = 0;
+        // }
+      })
+    );
+  }
+  @Action(InventoryActions.UpdateFilterOptions)
+  updateFilterOptions(
+    ctx: StateContext<InventoryStateModel>,
+    action: InventoryActions.UpdateFilterOptions
+  ) {
+    // Get the current state
+    ctx.setState(
+      produce((draft: InventoryStateModel) => {
+        // Update the filterOptions field of the query object
+        draft.query.filterOptions = {
+          ...draft.query.filterOptions,
+          ...action.filterOptions,
+        };
+      })
+    );
+  }
+  @Action(InventoryActions.ResetInventoryState)
+  resetInventoryState(ctx: StateContext<InventoryStateModel>) {
+    ctx.setState({
+      products: null,
+      query: {
+        search: '',
+        sortOption: 'name',
+        filterOptions: {
+          filter_in_stock: 'all',
+        },
+        page: 0,
+        per_page: 10,
+      },
+      totalCount: 0,
+    });
   }
 }

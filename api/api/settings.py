@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "productseller.apps.ProductsellerConfig",
     "custom_profile.apps.CustomProfileConfig",
     "analytics.apps.AnalyticsConfig",
+    "inventory.apps.InventoryConfig",
 ]
 
 MIDDLEWARE = [

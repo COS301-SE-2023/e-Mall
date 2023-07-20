@@ -1,51 +1,39 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map, take, lastValueFrom, tap } from 'rxjs';
 import { IInventoryItem } from '@features/inventory/models/inventory-item.interface';
 import { ISearchOptions } from '@features/inventory/models/search-options.interface';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class InventoryService {
   currentSellerName$: string | undefined;
-  private apiUrl = 'http://localhost:3000/api/';
+  private apiUrl = 'api/inventory';
 
   constructor(private http: HttpClient) {
     console.log('product seller service initialized');
   }
 
-  public getProductSellerData(
+  public async getProductSellerData(
     options: ISearchOptions
-  ): Observable<{ products: IInventoryItem[]; totalCount: number }> {
-    let url = `${this.apiUrl}productseller/sellerdashboard?seller_name=${name}`;
+  ): Promise<{ products: IInventoryItem[]; totalCount: number }> {
+    const url = `${this.apiUrl}/get/`;
 
-    if (options.search != undefined) {
-      url += `&search=${options.search}`;
-    }
-
-    if (options.filterOptions) {
-      for (const [value] of Object.entries(options.filterOptions)) {
-        url += '&' + value;
-      }
-    }
-
-    if (options.sortOption) {
-      url += '&sort=' + options.sortOption;
-    }
-    if (options.page) {
-      url += '&page=' + options.page;
-    }
-    if (options.per_page) {
-      url += '&per_page=' + options.per_page;
-    }
-
-    return this.http.get(url).pipe(
-      map((res: any) => ({
-        products: res['data'] as IInventoryItem[],
-        totalCount: res['total_count'] as number,
-      }))
+    return await lastValueFrom(
+      this.http
+        .post(url, options, {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+          observe: 'response',
+        })
+        .pipe(
+          take(1),
+          map((res: any) => ({
+            products: res.body.data as IInventoryItem[],
+            totalCount: res.body.total_count as number,
+          }))
+        )
     );
   }
 

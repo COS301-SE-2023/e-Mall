@@ -24,11 +24,14 @@ import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module
 import { InventoryService } from './servicies/inventory.service';
 import { InventoryFacade } from './servicies/inventory.facade';
 import { PopovereditModule } from './components/popoveredit/popoveredit.module';
+import { NgxsModule } from '@ngxs/store';
+import { InventoryState } from './states/inventory.state';
 
 @NgModule({
   declarations: [InventoryComponent],
   imports: [
     CommonModule,
+    NgxsModule.forFeature([InventoryState]),
     MatDividerModule,
     MatPaginatorModule,
     FormsModule,
