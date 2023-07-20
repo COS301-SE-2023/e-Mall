@@ -75,7 +75,6 @@ class ConversionRateAPIView(APIView):
         response_data = []
         for product in products:
             product_clicks = Analytics.objects.filter(
-                seller=seller_name,
                 event_type="product_click",
                 product=product["product"],
             ).count()
@@ -83,8 +82,8 @@ class ConversionRateAPIView(APIView):
                 seller=seller_name, event_type="link_click", product=product["product"]
             ).count()
             conversion_rate = 0
-            if link_clicks > 0:
-                conversion_rate = (product_clicks / link_clicks) * 100
+            if product_clicks > 0:
+                conversion_rate = (link_clicks / product_clicks) * 100
                 conversion_rate = round(min(conversion_rate, 100), 2)
                 if conversion_rate > 0:
                     response_data.append(

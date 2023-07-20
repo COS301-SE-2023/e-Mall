@@ -16,7 +16,7 @@
         class="title"
         *ngFor="let option of options"
         [class.selected]="option === selectedOption"
-        (click)="selectOption(option)">
+        (click)="selectOption(option)" >
         {{ option }}
       </div>
     </div>

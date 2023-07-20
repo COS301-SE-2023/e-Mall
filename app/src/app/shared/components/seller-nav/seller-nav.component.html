@@ -1,35 +1,39 @@
-
 <ion-nav class="side-nav">
-  <ion-item style="display: flex;
+  <ion-item
+    style="
+      display: flex;
       width: 286px;
       padding: 0px 20px;
       align-items: flex-start;
-      gap: 20px;">
-        <ion-title>e-Mall</ion-title>
-      </ion-item>
-    <ion-list>
-      <ion-item (click)="navigateTo('sales')">
-        <ion-icon name="analytics" slot="start"></ion-icon>
-        <ion-label>Sales</ion-label>
-      </ion-item>
-      <ion-item (click)="navigateTo('inventory')"> 
-        <ion-icon name="basket" slot="start"></ion-icon>
-        <ion-label>Products</ion-label>
-      </ion-item>
-      <ion-item (click)="navigateTo('construction')"> 
-        <ion-icon name="chatbubbles" slot="start"></ion-icon>
-        <ion-label>Messages</ion-label>
-      </ion-item>
-      <ion-item (click)="navigateTo('construction')"> 
-        <ion-icon name="settings" slot="start"></ion-icon>
-        <ion-label>Settings</ion-label>
-      </ion-item>
-      <ion-item > 
-        <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
-        <ion-label>Sign out</ion-label>
-      </ion-item>
-    </ion-list>    
-  </ion-nav>
-  <ion-nav class="top-nav">
-      <ion-title>Hello user</ion-title> 
-  </ion-nav>
+      gap: 20px;
+    ">
+    <ion-title>e-Mall</ion-title>
+  </ion-item>
+  <ion-list>
+    <ion-item
+      [class.active]="currentPage === 'sales'"
+      (click)="navigateTo('sales')">
+      <ion-icon name="analytics" slot="start"></ion-icon>
+      <ion-label>Analytics</ion-label>
+    </ion-item>
+    <ion-item
+      [class.active]="currentPage === 'inventory'"
+      (click)="navigateTo('inventory')">
+      <ion-icon name="basket" slot="start"></ion-icon>
+      <ion-label>Products</ion-label>
+    </ion-item>
+    <ion-item
+      [class.active]="currentPage === 'construction'"
+      (click)="navigateTo('construction')">
+      <ion-icon name="settings" slot="start"></ion-icon>
+      <ion-label>Settings</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+      <ion-label>Sign out</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-nav>
+<ion-nav class="top-nav">
+  <ion-title>Hello {{ this.username }}</ion-title>
+</ion-nav>

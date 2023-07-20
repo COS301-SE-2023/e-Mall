@@ -1,22 +1,20 @@
-
-
-
-.top-nav,.side-nav,
+.top-nav,
+.side-nav,
 .side-nav ion-list {
   background-color: #ecf6f6;
-  font-family: 'Poppins',sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 .side-nav {
   display: flex;
-width: 326px;
-min-height: 1024px;
+  width: 326px;
+  min-height: 1024px;
 
-padding: 50px 20px 254px 20px;
-flex-direction: column;
-align-items: center;
-//gap: 20px;
-//flex-shrink: 0;
+  padding: 50px 20px 254px 20px;
+  flex-direction: column;
+  align-items: center;
+  //gap: 20px;
+  //flex-shrink: 0;
   z-index: 999;
 }
 
@@ -44,11 +42,11 @@ align-items: center;
   transition: background-color 0.3s ease; /* Add transition for smooth color change */
 }
 
-
 .side-nav ion-item:hover {
   background-color: #37d0d6; /* Set the desired background color when hovering */
-  ion-label,ion-icon{
-    color: #FFF;
+  ion-label,
+  ion-icon {
+    color: #fff;
   }
 }
 
@@ -56,7 +54,7 @@ ion-title {
   color: var(--greys-blue-grey-900, #151d48);
 
   /* 3xl/Semibold */
-  font-family: 'Poppins',sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 30px;
   font-style: normal;
   font-weight: 600;
@@ -74,20 +72,28 @@ ion-title {
 }
 .side-nav ion-item ion-label {
   color: var(--c-1-a, #151515);
-font-family: 'Poppins',sans-serif;
-font-size: 18px;
-font-style: normal;
-font-weight: 600;
-line-height: normal;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
 
-.top-nav{
-display: flex;
-min-width: 1440px;
-height: 100px;
-padding: 36px 10.091px 20px 831.464px;
-justify-content: flex-end;
-align-items: right;
-flex-shrink: 0;
-z-index: 900;
+.top-nav {
+  display: flex;
+  min-width: 1440px;
+  height: 100px;
+  padding: 36px 10.091px 20px 831.464px;
+  justify-content: flex-end;
+  align-items: right;
+  flex-shrink: 0;
+  z-index: 900;
+}
+
+ion-item.active {
+  background-color: #37d0d6; /* Set the desired background color when hovering */
+  ion-label,
+  ion-icon {
+    color: #fff;
+  }
 }

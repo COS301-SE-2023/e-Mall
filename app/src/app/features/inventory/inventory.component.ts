@@ -1,10 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component} from '@angular/core';
-import { ActivatedRoute,  Router } from '@angular/router';
-import {
-  Observable,
-  of
-} from 'rxjs';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { FormControl } from '@angular/forms';
 import { ProductSellerService } from '@shared/servicies/productseller/productseller.service';
@@ -12,6 +9,7 @@ import { IProductSeller } from '@shared/models/product/product-seller.interface'
 import { ProductService } from '@shared/servicies/product/product.service';
 import { PopoverController } from '@ionic/angular';
 import { PopovereditComponent } from '../popoveredit/popoveredit.component';
+import { ProfileFacade } from '@features/profile/services/profile.facade';
 
 @Component({
   selector: 'app-inventory',
@@ -31,7 +29,7 @@ export class InventoryComponent {
   currentPage!: number;
   itemsPerPage!: number;
   totalSearchCount$: Observable<number> | undefined;
-  sellerName!: string;
+  sellerName!: string | undefined;
   selectedOption!: string;
   loading = true;
 
@@ -40,14 +38,20 @@ export class InventoryComponent {
     private productService: ProductService,
     private router: Router,
     private ProductSellerService: ProductSellerService,
-    private popoverController: PopoverController
+    private popoverController: PopoverController,
+    private profileFacade: ProfileFacade
   ) {}
 
   // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
   ngOnInit(): void {
     this.route.queryParams.subscribe(() => {
-      // this.sellerName = params['seller_name'];
-      this.sellerName = 'Takealot';
+      this.profileFacade.getProfile().subscribe(profile => {
+        if (profile) {
+          if ('business_name' in profile.details) {
+            this.sellerName = profile.details.business_name;
+          }
+        }
+      });
       this.selectedSortOption = 'name';
       this.ProductSellerService.getProductSellerData(
         this.sellerName,
@@ -71,7 +75,6 @@ export class InventoryComponent {
     }, 2000);
   }
 
-
   selectOption(option: string) {
     this.selectedOption = option;
     if (option === 'All') {
@@ -79,9 +82,7 @@ export class InventoryComponent {
     } else this.onFilterOptionChange('filter_in_stock', option, true);
   }
 
-
   onSortOptionChange(): void {
-    console.log('onSortOptionChange');
     this.ProductSellerService.getProductSellerData(
       this.sellerName,
       this.searchQuery,
@@ -92,11 +93,6 @@ export class InventoryComponent {
     ).subscribe(result => {
       this.searchResults$ = of(result.products);
       this.totalSearchCount$ = of(result.totalCount);
-    });
-
-    this.searchResults$?.subscribe((res: IProductSeller[]) => {
-      console.log('getSortedProductList');
-      console.log(res);
     });
   }
 
@@ -113,8 +109,6 @@ export class InventoryComponent {
     ).subscribe(result => {
       this.searchResults$ = of(result.products);
       this.totalSearchCount$ = of(result.totalCount);
-      console.log('totalSearchCount$');
-      console.log(result.totalCount);
     });
   }
 
