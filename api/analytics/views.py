@@ -19,7 +19,14 @@ class ProductAnalyticsAPIView(APIView):
         product_clicks = Analytics.objects.filter(
             seller=seller_name, event_type="product_click"
         ).count()
-        response_data = {"product_clicks": product_clicks, "link_clicks": link_clicks}
+        fav_clicks = Analytics.objects.filter(
+            seller=seller_name, event_type="favourited_product"
+        ).count()
+        response_data = {
+            "product_clicks": product_clicks,
+            "link_clicks": link_clicks,
+            "fav_clicks": fav_clicks,
+        }
         return Response(response_data)
 
 

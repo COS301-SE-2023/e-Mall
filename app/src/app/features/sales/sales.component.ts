@@ -46,6 +46,7 @@ export class SalesComponent implements OnInit {
     this.analytics.getAnalyticsData(this.sellerName).subscribe(data => {
       this.productsClicked = data.product_clicks;
       this.websiteClicks = data.link_clicks;
+      this.favourited = data.fav_clicks;
     });
     this.analytics.getAllProducts(this.sellerName).subscribe(data => {
       this.productClicksData$ = of(data);
@@ -175,7 +176,8 @@ export class SalesComponent implements OnInit {
             ticks: {
               stepSize: 1,
               callback: (value: string | number) => {
-                const stringValue = this.conversionRateLabels[Number(value)].toString();
+                const stringValue =
+                  this.conversionRateLabels[Number(value)].toString();
                 return stringValue.length > 10
                   ? stringValue.slice(0, 10) + '...'
                   : stringValue;
