@@ -17,6 +17,11 @@ import { ProfileFacade } from '@features/profile/services/profile.facade';
   styleUrls: ['./seller-details.component.scss'],
 })
 export class SellerDetailsComponent {
+  buttonText = 'Follow';
+
+  toggleFollow() {
+    this.buttonText = this.buttonText === 'Follow' ? 'Unfollow' : 'Follow';
+  }
   
 
   constructor(
