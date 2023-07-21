@@ -153,12 +153,14 @@ class categoryPercentageAPIView(APIView):
             Analytics.objects.filter(seller=seller_name, event_type="product_click")
             .values("product_category")
             .annotate(count=Count("product_category"))
+            .order_by("-count")
         )
 
         # Calculate the percentage for each category
         response_data = []
         for category in category_clicks:
             percentage = (category["count"] / total_product_clicks) * 100
+            percentage = round(min(percentage, 100), 2)
             response_data.append(
                 {"category": category["product_category"], "percentage": percentage}
             )
