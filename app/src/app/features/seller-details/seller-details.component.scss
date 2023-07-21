@@ -1,6 +1,30 @@
+.details-container{
+    display: flex;
+}
+
+.image{
+    width: 290px;
+    height: 250px;
+}
+
+.image-container{
+    padding: 10px;
+    width: 300px;
+    height: 265px;
+}
+
+.seller-info{
+    margin-top:0;
+    margin-left:3rem;
+}
+
+.divider{
+    width: 80rem;
+}
+
 app-footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    z-index: 100;
+    z-index: 0;
 }
