@@ -13,13 +13,20 @@
     height: 265px;
 }
 
+
 .seller-info{
-    margin-top:0;
+    margin-top:1rem;
     margin-left:3rem;
 }
 
 .divider{
     width: 80rem;
+}
+
+.button-container{
+    display: flex;
+    align-items: center;
+    margin-left:65rem;
 }
 
 app-footer {
