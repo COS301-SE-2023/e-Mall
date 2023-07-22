@@ -1,107 +1,196 @@
-ion-header {
-    ion-toolbar {
-      --color: #333;
-      padding: 14px;
-      
-    }
+.dashboard-content-wrapper {
+  background-color: #f7f9f9;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  padding-top: 100px;
+  padding-left: 328px;
 }
-  
-    ion-title {
-      font-size: 22px;
-      font-weight: bold;
-      margin-left: 12rem;
-      --color:#333;
-    }
+.dashboard-header-padding {
+  padding-left: 2rem;
+}
+.inventory-container {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  margin-left: 1rem;
+  margin-right: 2rem;
+  box-sizing: border-box;
+  border-top-left-radius: 17px;
+  border-top-right-radius: 17px;
+  border-bottom-right-radius: 17px;
+  border-bottom-left-radius: 17px;
+  background-color: var(--ion-color-dashbord-content);
+  // background-color: #ffffff;
+  padding-top: 0.4rem;
+  padding-left: 1rem;
+  padding-right: 2rem;
+  min-height: 900px;
+}
+ion-segment {
+  --background: var(--ion-color-dashbord-content);
+  width: 20rem;
+}
+ion-label {
+  margin: 0px;
+}
+ion-segment-button {
+  --indicator-color: var(--ion-color-selected);
+  min-width: max-content;
+  width: 30%;
+  font-size: medium;
+  font-weight: 500;
+  height: min-content;
+}
+/* Material Design styles */
+ion-segment-button.md {
+  --color: var(--ion-color-unselected);
+  --color-checked: var(--ion-color-selected);
+  --indicator-height: 2px;
+}
+.mat-divider {
+  margin-bottom: 25px;
+}
+.sort-search-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 65px;
+  margin-top: 35px;
+}
 
-    .container {
-        //max-width: px; /* Set the maximum width as needed */
-        padding: 30px; /* Add padding around the container */
-        border-radius: 10px; /* Apply rounded corners */
-      }
+ion-select::part(label) {
+  font-weight: 100;
+}
+ion-select::part(text) {
+  font-weight: 500;
+}
 
-      .title-row {
-        margin-top: 10px;
-        max-width: 280px;
-        display: flex;
-      }
-      
-      .title {
-        flex-grow: 1;
-        text-align: center;
-        cursor: pointer;
-        color: gray;
-        width: 40px;
-        font-size: 17px;
-        text-decoration: none;
-      }
-      
-      .title.selected {
-        color: black;
-        text-decoration: underline;
-      }
+.sort-search-wrapper ion-item::part(native),
+.sort-search-wrapper ion-list,
+.sort-search-wrapper ion-select {
+  min-height: var(--searchbar-height);
+  height: var(--searchbar-height);
+}
+.sort-searchbar-container {
+  --background: var(--ion-color-tab);
+  width: 100%;
+  --border-radius: 20px;
+  --border-style: solid;
+  --border-width: 1px;
+  height: 100%;
+}
+.searchbar-option-container,
+.sort-searchbar-container {
+  --font-size: var(--searchbar-font-size);
+  font-size: var(--searchbar-font-size);
+}
 
+.search-box {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  --background: var(--ion-color-tab);
+  --box-shadow: 0px;
+  height: 100%;
+}
+.search-bar {
+  width: 50%;
+  height: 100%;
+  min-width: 385px;
+}
+ion-list {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.searchbar-option-container {
+  --background: var(--ion-color-tab);
+  width: 100%;
+  --border-radius: 20px;
+}
+.sort-searchbar-container > ion-list {
+  width: 8rem;
+  background-color: var(--ion-color-tab);
+}
+#search-select {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.sort-wrapper {
+  background-color: var(--ion-color-tab);
+  width: 11rem;
+  height: 100%;
+}
 
-      .search-bar {
-        display: flex;
-        align-items: center;
-        padding: 8px;
-        min-width: 800px;
-        margin-right: 4rem;
-        margin-left: 1rem;
-      }
-      
-      .search-box {
-        flex-grow: 1;
-        max-width: 500px;
-        //border-radius: 60px;
-        
-      }
-      
-      .sort-bar{
-        display: flex;
-        align-items: center;
-        padding: 8px;
-        max-width: 280px;
-        float: right;
+ion-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+ion-row {
+  height: 60px;
+  font-size: small;
+  text-align: center;
+  align-items: center;
+}
+.table-header {
+  font-weight: 500;
+  background-color: var(--ion-color-primary);
+}
 
-        border-radius: 12px;
-        border: 1px solid var(--c-1-d, #D1D1D1);
-        background: var(--c-1-white, #F7F9F9);
-      }
+.stock-icon {
+  font-size: 1.8rem;
+}
+.original-price-chip,
+.discount-chip,
+.current-price-chip {
+  border: 1px solid;
+  border-radius: 6px;
+  color: var(--ion-color-reverse);
+  font-size: 0.7rem;
+  height: fit-content;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  justify-content: center;
+}
+.original-price-chip {
+  border-color: #00e58f;
+  background-color: #f0fdf4;
+  width: 5rem;
+}
 
-      .sort-box {
-        border:none;
-      }
+.discount-chip {
+  border-color: #884dff;
+  background-color: #f0fdf4;
+  width: 4rem;
+}
 
-      .search-sort-container {
-        display: flex;
-        align-items: center;
-      }
-
-      .inventory-container{
-        margin-top: 25px;
-        margin-left: 21rem;
-        margin-right: 1rem;
-        box-sizing: border-box;
-        border-radius: 60px;
-        background-color: var(--c-1-white, #F7F9F9);
-        padding: 15px;
-      }
-
-      .mat-paginator {
-        margin-left: 12rem;
-        margin-bottom: 1rem;
-        display: flex;
-        justify-content: center;
-      }
-
-      .col-title {
-        background: var(--c-5-e, #ECF6F6);
-      }
-
-
-      
-      
-      
-  
-  
+.current-price-chip {
+  border-color: #ff8900;
+  background-color: #fef6e6;
+  width: 5rem;
+}
+.truncate-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+ion-content {
+  width: calc(100% + 15px);
+}
+.search-results-container {
+  margin-top: 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.nimage {
+  width: 300px;
+  height: 300px;
+  justify-content: center;
+  opacity: 30%;
+  align-items: center;
+}

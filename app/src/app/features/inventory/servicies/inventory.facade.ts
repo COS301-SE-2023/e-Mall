@@ -50,6 +50,7 @@ export class InventoryFacade {
 
   async fetchItems(options: ISearchOptions) {
     try {
+      console.log('fetching items');
       const res = await this.inventoryService.getProductSellerData(options);
       return this.setInventory(res.products, res.totalCount);
     } catch (error) {

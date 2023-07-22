@@ -17,6 +17,7 @@ export interface InventoryStateModel {
     products: null,
     query: {
       search: '',
+      searchOption: 'name',
       sortOption: 'name',
       filterOptions: {
         filter_in_stock: 'all',
@@ -111,17 +112,10 @@ export class InventoryState {
   ) {
     ctx.setState(
       produce((draft: InventoryStateModel) => {
-        // Update the query object
         draft.query = {
           ...draft.query,
           ...action.query,
         };
-        // if (
-        //   action.query.per_page &&
-        //   action.query.per_page !== draft.query.per_page
-        // ) {
-        //   draft.query.page = 0;
-        // }
       })
     );
   }
@@ -147,6 +141,7 @@ export class InventoryState {
       products: null,
       query: {
         search: '',
+        searchOption: 'name',
         sortOption: 'name',
         filterOptions: {
           filter_in_stock: 'all',

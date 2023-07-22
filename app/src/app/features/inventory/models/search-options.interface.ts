@@ -2,6 +2,7 @@
 export interface ISearchOptions {
   name?: string;
   search?: string;
+  searchOption?: string;
   filterOptions?: any;
   sortOption?: any;
   page?: any;

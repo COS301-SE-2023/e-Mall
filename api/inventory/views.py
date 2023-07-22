@@ -24,6 +24,7 @@ def get(request):
         seller_name = "Takealot"
 
         search = request.data.get("search")
+        searchOption = request.data.get("searchOption")
 
         # sorting options[price, discount, name]
         sort_fields = {
@@ -57,9 +58,14 @@ def get(request):
         print(filters)
         # searching
         if search and len(search) > 0:
-            print("Searching")
-            if search.isnumeric():
+            print("Searching", search, searchOption)
+            if searchOption == "id":
+                if not search.isnumeric():
+                    return Response({"data": [], "total_count": 0})
+
                 filters &= Q(product__id=search)
+            elif searchOption == "category":
+                filters &= Q(product__category__icontains=search)
             else:
                 filters &= Q(product__name__icontains=search)
 
