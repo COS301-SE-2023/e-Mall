@@ -90,7 +90,7 @@ export class SalesComponent implements OnInit {
       });
       this.createCategoryPercentageChart();
     });
-    this.getSelectedProcuctData('');
+    this.getSelectedProcuctData('',false);
     Chart.register(...registerables);
   }
 
