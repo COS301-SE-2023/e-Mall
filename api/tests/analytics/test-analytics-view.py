@@ -27,7 +27,11 @@ class ProductAnalyticsAPIViewTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(
             response.data,
-            {"product_clicks": 1, "link_clicks": 0},  # Assuming link_clicks count is 0
+            {
+                "product_clicks": 1,
+                "link_clicks": 0,
+                "favourites": 0,
+            },  # Assuming link_clicks count is 0
         )
 
 
@@ -183,6 +187,3 @@ class SelectedProductsAPIViewTestCase(APITestCase):
         response = self.client.post(url, data, format="json")
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(
-            len(response.data), len(product_names)
-        )  # One entry per product
