@@ -31,7 +31,15 @@ class ProductAnalyticsAPIView(APIView):
         product_clicks = Analytics.objects.filter(
             seller=seller_name, event_type="product_click"
         ).count()
-        response_data = {"product_clicks": product_clicks, "link_clicks": link_clicks}
+        favourites = Analytics.objects.filter(
+            seller=seller_name, event_type="favourited_product"
+        ).count()
+
+        response_data = {
+            "product_clicks": product_clicks,
+            "link_clicks": link_clicks,
+            "favourites": favourites,
+        }
         return Response(response_data)
 
 
@@ -171,8 +179,12 @@ class selectedProductsAPIView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
+        seller_name = request.data.get("seller_name")
         product_names = request.data.get("product_names")
-        date_range = request.data.get("date_range")
+        if request.data.get("date_range"):
+            date_range = request.data.get("date_range")
+        else:
+            date_range = "1_year"
 
         # Define a dictionary to map date_range options to timedelta values
         date_range_options = {
@@ -193,6 +205,7 @@ class selectedProductsAPIView(APIView):
         # Query the Analytics data for the specified products and date range
         product_clicks = (
             Analytics.objects.filter(
+                seller=seller_name,
                 event_type="product_click",
                 product__in=product_names,
                 event_date__range=[start_date, end_date],
