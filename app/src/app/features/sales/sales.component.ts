@@ -90,7 +90,6 @@ export class SalesComponent implements OnInit {
       });
       this.createCategoryPercentageChart();
     });
-    this.getSelectedProcuctData('',false);
     Chart.register(...registerables);
   }
 
@@ -251,11 +250,6 @@ export class SalesComponent implements OnInit {
     });
   }
 
-  ngOnDestroy() {
-    if (this.productClicksChart) {
-      this.productClicksChart.destroy();
-    }
-  }
   getSelectedProcuctData(product_name: string, checked: boolean) {
     if (checked) {
       //TODO: check if seller is already in the list
