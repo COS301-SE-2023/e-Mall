@@ -4,10 +4,7 @@ import { ProductService } from '@shared/servicies/product/product.service';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 import { IProduct } from '@shared/models/product/product.interface';
 import { tap } from 'rxjs/operators';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { FormControl, FormGroup } from '@angular/forms';
 interface RangeValue {
@@ -53,14 +50,16 @@ export class SearchComponent implements OnInit, OnDestroy {
     private productService: ProductService,
     private router: Router,
     private analytics: AnalyticsService
-  ) { this.priceRangeGroup = new FormGroup({
-    lower: new FormControl(0),
-    upper: new FormControl(5000)
-  });}
+  ) {
+    this.priceRangeGroup = new FormGroup({
+      lower: new FormControl(0),
+      upper: new FormControl(5000),
+    });
+  }
 
   ngOnInit(): void {
-    this.minPrice=0;
-    this.maxPrice=5000;
+    this.minPrice = 0;
+    this.maxPrice = 5000;
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params['search'];
       console.log('filter options' + this.filterOptions);
@@ -124,7 +123,6 @@ export class SearchComponent implements OnInit, OnDestroy {
             .subscribe();
         });
     });
-     
   }
   ngOnDestroy(): void {
     console.log();
@@ -296,7 +294,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.totalSearchCount$ = of(result.totalCount);
       });
   }
- 
+
   onIonChange(event: Event) {
     const rangeValue = (event as CustomEvent<RangeValue>).detail.value;
     if (rangeValue) {
@@ -305,8 +303,8 @@ export class SearchComponent implements OnInit, OnDestroy {
 
       this.onFilterOptionChange('filter_price_min', lower, true);
       this.onFilterOptionChange('filter_price_max', upper, true);
-      this.minPrice=lower;
-      this.maxPrice=upper;
+      this.minPrice = lower;
+      this.maxPrice = upper;
     }
   }
 }

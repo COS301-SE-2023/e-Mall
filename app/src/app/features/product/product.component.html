@@ -152,7 +152,7 @@
                   <mat-expansion-panel hideToggle>
                     <mat-expansion-panel-header>
                       <mat-panel-title>
-                        <mat-card-title class="seller-name">{{
+                        <mat-card-title class="seller-name" (click)="goToSellerPage(seller.seller)">{{
                           seller.business_name
                         }}</mat-card-title>
                       </mat-panel-title>

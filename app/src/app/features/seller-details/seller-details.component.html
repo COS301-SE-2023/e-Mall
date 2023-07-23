@@ -1,42 +1,51 @@
 <app-navbar></app-navbar>
 <ion-content>
+  <ng-container *ngIf="seller$ | async as seller">
     <div class="details-container">
-        <div class="image-container">
-            <img class="image" src="https://picsum.photos/200/300" />
+      <div class="image-container">
+        <img class="image" src="{{ seller.logo }}" />
+      </div>
+      <div class="seller-info-container">
+        <div class="titleverified-container">
+          <div class="seller-info">
+            <h2 class="title">{{ seller.business_name }}</h2>
+          </div>
+          <div class="verified">
+            <img
+              class="verified-image"
+              style="width: 20px; height: 20px; padding: 0px; margin: 0px"
+              src="\assets\images\verified.png" />
+          </div>
         </div>
-        <div class="seller-info-container">
-        <div class ="titleverified-container">
-            <div class="seller-info">
-                <h2 class="title">Seller Name</h2>
-            </div> 
-            <div class="verified">
-                <img class="verified-image" style="width: 20px; height: 20px; padding: 0px; margin: 0px" src="\assets\images\verified.png" />
-            </div> 
-        </div>  
-            
-            <div class="button-container">
-                <ion-button class="button" color="primary" expand="block" (click)="toggleFollow()">
-                    {{ buttonText }}
-                  </ion-button>
-                <ion-button class="button" color="primary" expand="block">Visit Page</ion-button>
-            </div>
-            <mat-divider class="divider"></mat-divider>
-            <div class = "description-container">
-                <div class = "contact-container">
-                    <h3 class="title">Contact Us</h3>
-                </div>
-                <div class = "address-container">
-                    <h3 class="title">Address</h3>
-                </div>
-        
-            </div>
+
+        <div class="button-container">
+          <ion-button
+            class="button"
+            color="primary"
+            expand="block"
+            (click)="followed_seller(seller.business_name)">
+            {{ buttonText }}
+          </ion-button>
+          <ion-button class="button" color="primary" expand="block"
+            >Visit Page</ion-button
+          >
         </div>
+        <mat-divider class="divider"></mat-divider>
+        <div class="description-container">
+          <div class="contact-container">
+            <h3 class="title">Contact Us</h3>
+          </div>
+          <div class="address-container">
+            <h3 class="title">Address</h3>
+          </div>
+        </div>
+      </div>
     </div>
     <mat-divider class="divider2"></mat-divider>
 
-    <div class = "products-container">
-        <h2 class="title">Products</h2>
+    <div class="products-container">
+      <h2 class="title">Products</h2>
     </div>
-    
-<app-footer></app-footer>
+  </ng-container>
+  <app-footer></app-footer>
 </ion-content>

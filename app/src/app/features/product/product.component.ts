@@ -9,6 +9,8 @@ import { ProductService } from '@shared/servicies/product/product.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
+import { NavigationExtras, Router } from '@angular/router';
+
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -35,6 +37,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
+    private router: Router,
     private analytics: AnalyticsService,
     private profileFacade: ProfileFacade
   ) {
@@ -73,6 +76,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 
         if (this.sellers$) {
           this.sellers$.subscribe(sellers => {
+            console.log(sellers);
             if (sellers.length > 0) {
               sellers.forEach(currentseller => {
                 const data = {
@@ -224,5 +228,13 @@ export class ProductComponent implements OnInit, OnDestroy {
         }
       });
     }
+  }
+  goToSellerPage(seller_id: string): void {
+    // Create the navigation extras object with the search query as a parameter
+    const navigationextras: NavigationExtras = {
+      queryParams: { seller_id: seller_id },
+    };
+    console.log(navigationextras);
+    this.router.navigate(['seller-details'], navigationextras);
   }
 }
