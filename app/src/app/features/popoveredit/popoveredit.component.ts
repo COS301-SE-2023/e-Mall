@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { ProductSellerService } from '@shared/servicies/productseller/productseller.service';
-
+import { ProfileFacade } from '@features/profile/services/profile.facade';
 @Component({
   selector: 'app-popoveredit',
   templateUrl: './popoveredit.component.html',
@@ -9,18 +9,25 @@ import { ProductSellerService } from '@shared/servicies/productseller/productsel
 })
 export class PopovereditComponent {
   @Input() product: any;
-  seller_name!: string;
+  seller_name!: string | undefined;
   name!: string;
   original_price!: number;
   discount_rate!: number;
   inventory_status!: boolean;
   constructor(
     private popoverController: PopoverController,
-    private ProductSellerService: ProductSellerService
+    private ProductSellerService: ProductSellerService,
+    private profileFacade: ProfileFacade
   ) {}
 
   ngOnInit() {
-    this.seller_name = 'Takealot';
+    this.profileFacade.getProfile().subscribe(profile => {
+      if (profile) {
+        if ('business_name' in profile.details) {
+          this.seller_name = profile.details.business_name;
+        }
+      }
+    });
     this.name = this.product.product_name;
     this.original_price = this.product.original_price;
     this.discount_rate = this.product.discount_rate;
@@ -37,8 +44,8 @@ export class PopovereditComponent {
       in_stock: this.inventory_status,
     };
     this.ProductSellerService.updateProductSellerData(data);
-    this.popoverController.dismiss();
     location.reload();
+    this.popoverController.dismiss();
   }
 
   deleteProduct() {
@@ -47,9 +54,8 @@ export class PopovereditComponent {
       prod_id: this.product.product,
       seller_name: this.seller_name,
     };
-    console.log(data);
     this.ProductSellerService.deleteProductSellerData(data);
-    this.popoverController.dismiss();
     location.reload();
+    this.popoverController.dismiss();
   }
 }

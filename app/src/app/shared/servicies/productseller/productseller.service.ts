@@ -30,8 +30,8 @@ export class ProductSellerService {
     }
 
     if (filterOptions) {
-      for (const [value] of Object.entries(filterOptions)) {
-        url += '&' + value;
+      for (const filterOption of filterOptions) {
+        url += `&${filterOption}`;
       }
     }
 

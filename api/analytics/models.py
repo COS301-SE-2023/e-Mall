@@ -11,5 +11,5 @@ class Analytics(models.Model):
     product_category = models.CharField(max_length=100, default="")
     consumer_id = models.UUIDField(default=uuid.uuid4, editable=False)
     event_type = models.CharField(max_length=100, default="")
-    event_date = models.DateTimeField(auto_now_add=True)
+    event_date = models.DateTimeField(editable=True)
     metadata = JSONField(null=True, blank=True)

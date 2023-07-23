@@ -27,6 +27,7 @@ export class SalesComponent implements OnInit {
   conversionRate!: number[];
   categories!: string[];
   categoryPercentage!: number[];
+  productNames!: string[];
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(
@@ -46,7 +47,7 @@ export class SalesComponent implements OnInit {
     this.analytics.getAnalyticsData(this.sellerName).subscribe(data => {
       this.productsClicked = data.product_clicks;
       this.websiteClicks = data.link_clicks;
-      this.favourited = data.fav_clicks;
+      this.favourited = data.favourites;
     });
     this.analytics.getAllProducts(this.sellerName).subscribe(data => {
       this.productClicksData$ = of(data);
@@ -55,6 +56,8 @@ export class SalesComponent implements OnInit {
         this.labels = data.map(
           (item: { [x: string]: any }) => item['product_name']
         );
+        console.log(this.clicks);
+        console.log(this.labels);
         this.createProductClicksChart();
       });
     });
@@ -87,7 +90,6 @@ export class SalesComponent implements OnInit {
       });
       this.createCategoryPercentageChart();
     });
-
     Chart.register(...registerables);
   }
 
@@ -246,5 +248,25 @@ export class SalesComponent implements OnInit {
         responsive: true,
       },
     });
+  }
+
+  getSelectedProcuctData(product_name: string, checked: boolean) {
+    if (checked) {
+      //TODO: check if seller is already in the list
+      //const index =
+      if (this.productNames.indexOf(product_name) === -1) {
+        this.productNames.push(product_name);
+      }
+    }
+    if (!checked) {
+      this.productNames.splice(this.productNames.indexOf(product_name));
+    }
+    console.log(this.productNames);
+    const data = {
+      seller_name: this.sellerName,
+      product_names: this.productNames,
+    };
+    const data1 = this.analytics.getSelectedProductData(data);
+    console.log(data1);
   }
 }
