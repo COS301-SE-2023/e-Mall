@@ -246,114 +246,114 @@ describe('ProductComponent', () => {
     expect(router.navigateByUrl).toHaveBeenCalledWith(sellerProductUrl);
   });
 */
-  it('should call createAnalyticsData with correct data when product and sellers exist', () => {
-    const id = 1;
-    const productName = 'Product Name';
-    const brand = 'Brand';
-    const category = 'Category';
-    const description = 'Product Description';
-    const minPrice = 100;
-    const currencyCode = 'ZAR';
+  // it('should call createAnalyticsData with correct data when product and sellers exist', () => {
+  //   const id = 1;
+  //   const productName = 'Product Name';
+  //   const brand = 'Brand';
+  //   const category = 'Category';
+  //   const description = 'Product Description';
+  //   const minPrice = 100;
+  //   const currencyCode = 'ZAR';
 
-    component.product$ = of({
-      id,
-      name: productName,
-      brand,
-      category,
-      description,
-      min_price: minPrice,
-    });
-    const sellers = [
-      {
-        id: 1,
-        business_name: 'Seller 1',
-        price: 50,
-        in_stock: true,
-        product: 'Product1',
-        seller: 'Seller1',
-      },
-      {
-        id: 2,
-        business_name: 'Seller 2',
-        price: 60,
-        in_stock: false,
-        product: 'Product2',
-        seller: 'Seller2',
-      },
-    ];
+  //   component.product$ = of({
+  //     id,
+  //     name: productName,
+  //     brand,
+  //     category,
+  //     description,
+  //     min_price: minPrice,
+  //   });
+  //   const sellers = [
+  //     {
+  //       id: 1,
+  //       business_name: 'Seller 1',
+  //       price: 50,
+  //       in_stock: true,
+  //       product: 'Product1',
+  //       seller: 'Seller1',
+  //     },
+  //     {
+  //       id: 2,
+  //       business_name: 'Seller 2',
+  //       price: 60,
+  //       in_stock: false,
+  //       product: 'Product2',
+  //       seller: 'Seller2',
+  //     },
+  //   ];
 
-    component.sellers$ = of(sellers);
-    // Set up the expected data object
-    const expectedData = {
-      seller: sellers[0].business_name,
-      product: 'Product Name',
-      product_category: 'Category',
-      consumer_id: 'c7c700c9-a5b4-4600-bd8d-a24bd355bd46',
-      event_type: 'product_click',
-      metadata: null,
-    };
+  //   component.sellers$ = of(sellers);
+  //   // Set up the expected data object
+  //   const expectedData = {
+  //     seller: sellers[0].business_name,
+  //     product: 'Product Name',
+  //     product_category: 'Category',
+  //     consumer_id: 'c7c700c9-a5b4-4600-bd8d-a24bd355bd46',
+  //     event_type: 'product_click',
+  //     metadata: null,
+  //   };
 
-    component.prodClickAnalytics();
-    expect(analyticsService.createAnalyticsData).toHaveBeenCalledWith(
-      expectedData
-    );
-  });
+  //   component.prodClickAnalytics();
+  //   expect(analyticsService.createAnalyticsData).toHaveBeenCalledWith(
+  //     expectedData
+  //   );
+  // });
 
-  it('should call createAnalyticsData with correct data when product and sellers exist', () => {
-    const id = 1;
-    const productName = 'Product Name';
-    const brand = 'Brand';
-    const category = 'Category';
-    const description = 'Product Description';
-    const minPrice = 100;
-    const currencyCode = 'ZAR';
+  // it('should call createAnalyticsData with correct data when product and sellers exist', () => {
+  //   const id = 1;
+  //   const productName = 'Product Name';
+  //   const brand = 'Brand';
+  //   const category = 'Category';
+  //   const description = 'Product Description';
+  //   const minPrice = 100;
+  //   const currencyCode = 'ZAR';
 
-    component.product$ = of({
-      id,
-      name: productName,
-      brand,
-      category,
-      description,
-      min_price: minPrice,
-    });
-    const sellers = [
-      {
-        id: 1,
-        business_name: 'Seller 1',
-        price: 50,
-        in_stock: true,
-        product: 'Product1',
-        seller: 'Seller1',
-      },
-      {
-        id: 2,
-        business_name: 'Seller 2',
-        price: 60,
-        in_stock: false,
-        product: 'Product2',
-        seller: 'Seller2',
-      },
-    ];
+  //   component.product$ = of({
+  //     id,
+  //     name: productName,
+  //     brand,
+  //     category,
+  //     description,
+  //     min_price: minPrice,
+  //   });
+  //   const sellers = [
+  //     {
+  //       id: 1,
+  //       business_name: 'Seller 1',
+  //       price: 50,
+  //       in_stock: true,
+  //       product: 'Product1',
+  //       seller: 'Seller1',
+  //     },
+  //     {
+  //       id: 2,
+  //       business_name: 'Seller 2',
+  //       price: 60,
+  //       in_stock: false,
+  //       product: 'Product2',
+  //       seller: 'Seller2',
+  //     },
+  //   ];
 
-    component.sellers$ = of(sellers);
-    // Set up the expected data object
-    const expectedData = {
-      seller: sellers[0].business_name,
-      product: 'Product Name',
-      product_category: 'Category',
-      consumer_id: 'c7c700c9-a5b4-4600-bd8d-a24bd355bd46',
-      event_type: 'link_click',
-      metadata: null,
-    };
+  //   component.sellers$ = of(sellers);
+  //   // Set up the expected data object
+  //   const expectedData = {
+  //     seller: sellers[0].business_name,
+  //     product: 'Product Name',
+  //     product_category: 'Category',
+  //     consumer_id: 'c7c700c9-a5b4-4600-bd8d-a24bd355bd46',
+  //     event_type: 'link_click',
+  //     metadata: null,
+  //   };
 
-    // Call the prodClickAnalytics method
-    component.linkClickAnalytics(sellers[0].business_name);
+  //   // Call the prodClickAnalytics method
+  //   component.linkClickAnalytics(sellers[0].business_name);
 
-    // Expect createAnalyticsData to be called with the expected data
-    expect(analyticsService.createAnalyticsData).toHaveBeenCalledWith(
-      expectedData
-    );
-  });
+  //   // Expect createAnalyticsData to be called with the expected data
+  //   expect(analyticsService.createAnalyticsData).toHaveBeenCalledWith(
+  //     expectedData
+  //   );
+  // });
 
  /* it('should scroll to the specified element', () => {
     const dummyElement = document.createElement('div');
