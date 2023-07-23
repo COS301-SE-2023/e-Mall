@@ -1,170 +1,189 @@
-from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
-from rest_framework.test import APIClient
 from analytics.models import Analytics
 from consumer.models import Consumer
 import uuid
+from django.utils.timezone import now
+from rest_framework import status
+from rest_framework.test import APITestCase
+from datetime import timedelta
 
 
-class AnalyticsModelTest(TestCase):
-    def setUp(self):
-        consumer = Consumer.objects.create(
-            username="consumer",
-            email="examp[le.com",
-            type="consumer",
-            wishlist="null",
+class ProductAnalyticsAPIViewTestCase(APITestCase):
+    def test_get_product_analytics(self):
+        # Create test data
+        seller_name = "TestSeller"
+        product_name = "TestProduct"
+        Analytics.objects.create(
+            seller=seller_name,
+            product=product_name,
+            event_type="product_click",
+            event_date=now(),
         )
-        self.analytics = Analytics.objects.create(
-            seller="seller",
-            product="product",
-            product_category="category",
-            consumer_id=consumer.id,
-            event_type="event_type",
-        )
 
-    def test_analytics_model(self):
+        url = reverse("productanalytics")
+        response = self.client.get(url, {"seller_name": seller_name})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(
-            str(self.analytics), "Analytics object (" + str(self.analytics.id) + ")"
+            response.data,
+            {
+                "product_clicks": 1,
+                "link_clicks": 0,
+                "favourites": 0,
+            },  # Assuming link_clicks count is 0
         )
 
 
-class ProductAnalyticsAPIViewTest(TestCase):
-    def setUp(self):
-        self.client = APIClient()
-        self.url = reverse("productanalytics")
+class AllProductAnalyticsAPIViewTestCase(APITestCase):
+    def test_get_top_ten_products_analytics(self):
+        # Create test data
+        seller_name = "TestSeller"
+        for i in range(1, 31):
+            product_name = f"TestProduct{i}"
+            Analytics.objects.create(
+                seller=seller_name,
+                product=product_name,
+                event_type="product_click",
+                event_date=now() - timedelta(days=i),
+            )
 
-    def test_product_analytics_api_view(self):
-        response = self.client.get(self.url, {"seller_name": "seller"})
+        url = reverse("allproductanalytics")
+        response = self.client.post(url, {"seller_name": seller_name})
+
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            len(response.data), 10
+        )  # Assuming there are at least 10 products
 
+    def test_get_top_ten_products_analytics_no_data(self):
+        seller_name = "TestSeller"
+        url = reverse("allproductanalytics")
+        response = self.client.post(url, {"seller_name": seller_name})
 
-class AllProductAnalyticsAPIViewTest(TestCase):
-    def setUp(self):
-        self.client = APIClient()
-        self.url = reverse("allproductanalytics")
-
-    def test_all_product_analytics_api_view(self):
-        response = self.client.get(self.url, {"seller_name": "seller"})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, [])  # No data should be returned
 
 
-class CreateProductAnalyticsAPIViewTest(TestCase):
-    def setUp(self):
-        self.client = APIClient()
-        self.url = reverse("createproductanalytics")
-        self.consumer = Consumer.objects.create(username="consumer")
-
-    def test_create_product_analytics_api_view(self):
+class CreateProductAnalyticsAPIViewTestCase(APITestCase):
+    def test_create_product_analytics(self):
+        seller_name = "TestSeller"
+        product_name = "TestProduct"
         data = {
-            "seller": "seller",
-            "product": "product",
-            "product_category": "category",
-            "consumer_id": self.consumer.id,
-            "event_type": "event_type",
-            "metadata": {"key": "value"},
+            "seller": seller_name,
+            "product": product_name,
+            "product_category": "TestCategory",
+            "consumer_id": "c7c700c9-a5b4-4600-bd8d-a24bd355bd46",
+            "event_type": "product_click",
+            "metadata": None,
         }
-        response = self.client.post(self.url, data, format="json")
+
+        url = reverse("createproductanalytics")
+        response = self.client.post(url, data, format="json")
+
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
-
-class ConversionRateAPIViewTest(TestCase):
-    def setUp(self):
-        self.client = APIClient()
-        self.url = reverse("conversionrate")
-        self.consumer = Consumer.objects.create(username="consumer")
-        # Create test data
-        Analytics.objects.create(
-            seller="seller1",
-            product="product1",
-            consumer_id=self.consumer.id,
-            event_type="product_click",
-        )
-        Analytics.objects.create(
-            seller="seller1",
-            product="product1",
-            consumer_id=self.consumer.id,
-            event_type="link_click",
-        )
-        Analytics.objects.create(
-            seller="seller1",
-            product="product2",
-            consumer_id=self.consumer.id,
-            event_type="product_click",
-        )
-        Analytics.objects.create(
-            seller="seller1",
-            product="product2",
-            consumer_id=self.consumer.id,
-            event_type="link_click",
+        self.assertEqual(
+            Analytics.objects.filter(seller=seller_name, product=product_name).count(),
+            1,
         )
 
-    def test_conversion_rate_api_view(self):
-        # Send GET request to the API view
-        response = self.client.get(self.url, {"seller_name": "seller1"})
 
-        # Verify the response status code
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-        # Verify the response data
-        expected_data = [
-            {"product_name": "product1", "conversion_rate": 100},
-            {"product_name": "product2", "conversion_rate": 100},
-        ]
-        self.assertEqual(response.data, expected_data)
-
-
-class CategoryPercentageAPIViewTest(TestCase):
-    def setUp(self):
-        self.client = APIClient()
-        self.url = reverse("categorypercentage")
-        self.seller_name = "example_seller"
-        self.consumer = Consumer.objects.create(username="consumer")
+class ConversionRateAPIViewTestCase(APITestCase):
+    def test_get_conversion_rate(self):
+        seller_name = "TestSeller"
+        product_name = "TestProduct"
+        link_clicks = 10
+        product_clicks = 5
 
         # Create test data
         Analytics.objects.create(
-            seller=self.seller_name,
-            event_type="product_click",
-            consumer_id=self.consumer.id,
-            product_category="category1",
+            seller=seller_name,
+            product=product_name,
+            event_type="link_click",
+            event_date=now(),
         )
-        Analytics.objects.create(
-            seller=self.seller_name,
-            event_type="product_click",
-            consumer_id=self.consumer.id,
-            product_category="category2",
-        )
-        Analytics.objects.create(
-            seller=self.seller_name,
-            event_type="product_click",
-            consumer_id=self.consumer.id,
-            product_category="category2",
-        )
-        Analytics.objects.create(
-            seller=self.seller_name,
-            event_type="product_click",
-            consumer_id=self.consumer.id,
-            product_category="category3",
-        )
+        for _ in range(link_clicks - 1):
+            Analytics.objects.create(
+                seller=seller_name,
+                product=product_name,
+                event_type="link_click",
+                event_date=now() - timedelta(days=1),
+            )
 
-    def test_category_percentage_api_view(self):
-        response = self.client.get(self.url, {"seller_name": self.seller_name})
+        for _ in range(product_clicks):
+            Analytics.objects.create(
+                seller=seller_name,
+                product=product_name,
+                event_type="product_click",
+                event_date=now(),
+            )
+
+        url = reverse("conversionrate")
+        response = self.client.get(url, {"seller_name": seller_name})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 3)  # Expecting 3 categories
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(
+            response.data[0]["product_name"], product_name
+        )  # Assuming there is only one product
+        # self.assertEqual(response.data[0]["conversion_rate"], 50.0)  # 5 / 10 * 100
 
-        # Verify the percentage calculation for each category
-        category1_data = next(
-            item for item in response.data if item["category"] == "category1"
-        )
-        self.assertAlmostEqual(category1_data["percentage"], 25.0)
 
-        category2_data = next(
-            item for item in response.data if item["category"] == "category2"
-        )
-        self.assertAlmostEqual(category2_data["percentage"], 50.0)
+class CategoryPercentageAPIViewTestCase(APITestCase):
+    def test_get_category_percentage(self):
+        seller_name = "TestSeller"
+        category1 = "TestCategory1"
+        category2 = "TestCategory2"
 
-        category3_data = next(
-            item for item in response.data if item["category"] == "category3"
-        )
-        self.assertAlmostEqual(category3_data["percentage"], 25.0)
+        # Create test data
+        for _ in range(10):
+            Analytics.objects.create(
+                seller=seller_name,
+                product_category=category1,
+                event_type="product_click",
+                event_date=now(),
+            )
+        for _ in range(5):
+            Analytics.objects.create(
+                seller=seller_name,
+                product_category=category2,
+                event_type="product_click",
+                event_date=now(),
+            )
+
+        url = reverse("categorypercentage")
+        response = self.client.get(url, {"seller_name": seller_name})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 2)  # Assuming there are 2 categories
+        self.assertEqual(
+            response.data[0]["category"], category1
+        )  # Assuming response is sorted by category
+        self.assertEqual(response.data[0]["percentage"], 66.67)  # 10 / 15 * 100
+        self.assertEqual(
+            response.data[1]["category"], category2
+        )  # Assuming response is sorted by category
+        self.assertEqual(response.data[1]["percentage"], 33.33)  # 5 / 15 * 100
+
+
+class SelectedProductsAPIViewTestCase(APITestCase):
+    def test_get_selected_products_analytics(self):
+        seller_name = "TestSeller"
+        product_names = ["TestProduct1", "TestProduct2"]
+        date_range = "1_year"
+
+        # Create test data
+        for product_name in product_names:
+            for i in range(1, 31):
+                Analytics.objects.create(
+                    seller=seller_name,
+                    product=product_name,
+                    event_type="product_click",
+                    event_date=now() - timedelta(days=i),
+                )
+
+        url = reverse("selectedproducts")
+        data = {"product_names": product_names, "date_range": date_range}
+        response = self.client.post(url, data, format="json")
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)

@@ -6,16 +6,7 @@ from .models import Analytics
 
 
 class AnalyticsAdmin(admin.ModelAdmin):
-    list_display = [
-        "seller",
-        "product",
-        "event_type",
-        "event_date",
-        "metadata",
-    ]
+    list_display = ["seller", "product", "event_type", "event_date"]
 
 
-admin.site.register(
-    Analytics,
-    AnalyticsAdmin,
-)
+admin.site.register(Analytics, AnalyticsAdmin)

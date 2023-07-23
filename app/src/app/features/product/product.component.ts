@@ -66,7 +66,6 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   prodClickAnalytics(): void {
-    this.consumer_id = 'c7c700c9-a5b4-4600-bd8d-a24bd355bd46';
     if (this.product$) {
       this.product$.subscribe(product => {
         this.product_name = product.name;
@@ -75,18 +74,18 @@ export class ProductComponent implements OnInit, OnDestroy {
         if (this.sellers$) {
           this.sellers$.subscribe(sellers => {
             if (sellers.length > 0) {
-              this.seller_name = sellers[0].business_name;
+              sellers.forEach(currentseller => {
+                const data = {
+                  seller: currentseller.business_name,
+                  product: this.product_name,
+                  product_category: this.product_category,
+                  consumer_id: this.consumer_id,
+                  event_type: 'product_click',
+                  metadata: null,
+                };
 
-              const data = {
-                seller: this.seller_name,
-                product: this.product_name,
-                product_category: this.product_category,
-                consumer_id: this.consumer_id,
-                event_type: 'product_click',
-                metadata: null,
-              };
-
-              this.analytics.createAnalyticsData(data);
+                this.analytics.createAnalyticsData(data);
+              });
             }
           });
         }
@@ -95,7 +94,6 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   linkClickAnalytics(seller_name: string | undefined): void {
-    this.consumer_id = 'c7c700c9-a5b4-4600-bd8d-a24bd355bd46';
     if (this.product$) {
       this.product$.subscribe(product => {
         this.product_name = product.name;
@@ -156,5 +154,75 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   selectImage(image: string) {
     this.selectedImage = image;
+  }
+  followed_seller(seller: string, checked: boolean) {
+    this.profileFacade.getProfile().subscribe(profile => {
+      if (profile) {
+        if (checked) {
+          //TODO: check if seller is already in the list
+          //const index =
+          if (profile.details.followed_sellers.indexOf(seller) === -1) {
+            profile.details.followed_sellers.push(seller);
+          }
+        }
+        if (!checked) {
+          profile.details.followed_sellers.splice(
+            profile.details.followed_sellers.indexOf(seller)
+          );
+        }
+        console.log(profile.details.followed_sellers);
+
+        this.profileFacade.updateProfile(profile);
+      }
+    });
+  }
+  favourited_product(prod_id: number, checked: boolean) {
+    this.profileFacade.getProfile().subscribe(profile => {
+      if (profile) {
+        if (checked) {
+          if (profile.details.wishlist.indexOf(prod_id) === -1) {
+            profile.details.wishlist.push(prod_id);
+          }
+        }
+        if (!checked) {
+          if (profile.details.wishlist.indexOf(prod_id) !== -1) {
+            profile.details.wishlist.splice(
+              profile.details.wishlist.indexOf(prod_id)
+            );
+          }
+        }
+        console.log(profile.details.wishlist);
+        this.favClickAnalytics();
+        this.profileFacade.updateProfile(profile);
+      }
+    });
+  }
+  favClickAnalytics(): void {
+    if (this.product$) {
+      this.product$.subscribe(product => {
+        this.product_name = product.name;
+        this.product_category = product.category;
+
+        if (this.sellers$) {
+          this.sellers$.subscribe(sellers => {
+            console.log(sellers);
+            if (sellers.length > 0) {
+              sellers.forEach(currentseller => {
+                const data = {
+                  seller: currentseller.business_name,
+                  product: this.product_name,
+                  product_category: this.product_category,
+                  consumer_id: this.consumer_id,
+                  event_type: 'favourited_product',
+                  metadata: null,
+                };
+
+                this.analytics.createAnalyticsData(data);
+              });
+            }
+          });
+        }
+      });
+    }
   }
 }
