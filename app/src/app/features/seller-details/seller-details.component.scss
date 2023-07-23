@@ -37,6 +37,16 @@
     align-items: center;
 }
 
+.description-container{
+    display: flex;
+    margin-left: 1rem;
+}
+
+.address-container{
+    display: flex;
+    margin-left: 8rem;
+}
+
 app-footer {
     position: fixed;
     bottom: 0;
