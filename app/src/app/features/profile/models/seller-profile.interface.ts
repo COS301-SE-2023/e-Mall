@@ -16,5 +16,7 @@ export interface ISellerProfile {
     created_at?: string;
     modified_at?: string;
     last_login?: string;
+    wishlist?: any;
+    followed_sellers?: any;
   };
 }

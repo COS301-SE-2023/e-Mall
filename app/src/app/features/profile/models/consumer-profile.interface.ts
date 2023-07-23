@@ -4,5 +4,5 @@ export interface IConsumerProfile {
   username?: string;
   email: string;
   type: string;
-  details: { wishlist?: any };
+  details: { wishlist?: any; followed_sellers?: any };
 }

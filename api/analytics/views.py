@@ -39,6 +39,7 @@ class ProductAnalyticsAPIView(APIView):
             "product_clicks": product_clicks,
             "link_clicks": link_clicks,
             "favourites": favourites,
+
         }
         return Response(response_data)
 
