@@ -173,12 +173,15 @@ createProductClicksChart() {
   const productClicksCanvas = document.getElementById('product-clicks-chart') as HTMLCanvasElement;
 
   // Get the product names and months
+  
   const productNames = Object.keys(productData);
   const months = Object.keys(productData[productNames[0]]);
-
+  const maxProductNameLength = 10;
   // Create datasets for each product
   const datasets = productNames.map((productName) => ({
-    label: productName,
+    label: productName.length > maxProductNameLength
+    ? productName.slice(0, maxProductNameLength) + '...'
+    : productName,
     data: months.map((month) => productData[productName][month] || 0),
     borderColor: this.getRandomColor(), // Create a random border color for each line
     fill: false, // Set to false for line charts
@@ -212,7 +215,7 @@ createProductClicksChart() {
           },
           beginAtZero: true,
           ticks: {
-            stepSize: 5, // Set the step size for the y-axis ticks
+            stepSize: 5,
           },
         },
       },
