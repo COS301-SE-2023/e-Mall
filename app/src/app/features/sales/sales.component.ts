@@ -6,12 +6,31 @@ import { Chart, registerables } from 'chart.js';
 import { Observable, of, Subscription } from 'rxjs';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
+interface ProductData {
+  [productName: string]: {
+    [month: string]: number;
+  };
+}
 
+const productData: ProductData = {
+  "Corsair VENGEANCE RGB 32GB (2×16GB) DDR5 5600MHZ DRAM Memory Kit": {
+    "2023-03": 4,
+    "2023-04": 7,
+    "2023-05": 19,
+  },
+  "WILSON Traditional Soccer Ball": {
+    "2023-03": 1,
+    "2023-04": 4,
+    "2023-05": 14,
+  },
+};
 @Component({
   //selector: 'app-seller-dashboard',
   templateUrl: 'sales.component.html',
   styleUrls: ['sales.component.scss'],
 })
+
+
 export class SalesComponent implements OnInit {
   public productClicksChart: Chart | undefined;
   sellerName!: string | undefined;
@@ -28,6 +47,7 @@ export class SalesComponent implements OnInit {
   categories!: string[];
   categoryPercentage!: number[];
   productNames!: string[];
+  
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(
@@ -93,7 +113,7 @@ export class SalesComponent implements OnInit {
     Chart.register(...registerables);
   }
 
-  createProductClicksChart() {
+  /*createProductClicksChart() {
     const productClicksCanvas = document.getElementById(
       'product-clicks-chart'
     ) as HTMLCanvasElement;
@@ -143,7 +163,69 @@ export class SalesComponent implements OnInit {
         responsive: true,
       },
     });
-  }
+  }*/
+  // Modify your data to fit the format required by the line chart
+
+
+  
+
+createProductClicksChart() {
+  const productClicksCanvas = document.getElementById('product-clicks-chart') as HTMLCanvasElement;
+
+  // Get the product names and months
+  const productNames = Object.keys(productData);
+  const months = Object.keys(productData[productNames[0]]);
+
+  // Create datasets for each product
+  const datasets = productNames.map((productName) => ({
+    label: productName,
+    data: months.map((month) => productData[productName][month] || 0),
+    borderColor: this.getRandomColor(), // Create a random border color for each line
+    fill: false, // Set to false for line charts
+  }));
+
+  // Create the line chart
+  this.productClicksChart = new Chart(productClicksCanvas, {
+    type: 'line',
+    data: {
+      labels: months,
+      datasets: datasets,
+    },
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: 'Product Clicks per Month',
+        },
+      },
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: 'Months',
+          },
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'Number of Clicks',
+          },
+          beginAtZero: true,
+          ticks: {
+            stepSize: 5, // Set the step size for the y-axis ticks
+          },
+        },
+      },
+      responsive: true,
+    },
+  });
+}
+
+getRandomColor() {
+  // Generate a random color in hexadecimal format
+  return '#' + Math.floor(Math.random() * 16777215).toString(16);
+}
+
 
   createProductPerformanceChart() {
     const productPerformanceCanvas = document.getElementById(
