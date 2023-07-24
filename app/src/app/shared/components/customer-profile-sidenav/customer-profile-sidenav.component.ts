@@ -12,6 +12,12 @@ export class CustomerProfileSidenavComponent {
 
   constructor(private router: Router){}
 
+  goToCustomerProfile() {
+    
+    this.router.navigate(['/customer-profile']);
+  }
+
+
   goToWishlist() {
     
     this.router.navigate(['/wishlist']);

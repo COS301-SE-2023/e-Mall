@@ -3,7 +3,7 @@
                 
                     <div class="user-container" *ngIf=" profile">
                         <div class="user-circle-container">
-                            <b>U</b>
+                            <b>{{ profile.username.charAt(0) }}</b>
                         </div>
                         <p><b>{{ profile.username }}</b></p>
                     </div>
@@ -12,10 +12,10 @@
                         
                     <!--</ion-item>-->
 
-                    <ion-item >
+                    <ion-item (click)="goToCustomerProfile()">
                         <!--<ion-button aria-label="">-->
                             <ion-icon name="person-circle" aria-hidden="true" style="margin-right: 10px;"></ion-icon>
-                            <ion-label>User Details</ion-label>
+                            <ion-label>Account</ion-label>
                         <!--</ion-button>-->
                         
                     </ion-item>

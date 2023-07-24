@@ -5,6 +5,7 @@ import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
 import { IonicModule } from '@ionic/angular';
 import { ProductCardModule } from "@shared/components/product-card/product-card.module";
+import { CustomerProfileSidenavModule } from '@shared/components/customer-profile-sidenav/customer-profile-sidenav.module';
 
 
 
@@ -17,7 +18,8 @@ import { ProductCardModule } from "@shared/components/product-card/product-card.
     FooterModule,
     NavbarModule,
     IonicModule,
-    ProductCardModule
+    ProductCardModule,
+    CustomerProfileSidenavModule
   ]
 })
 export class WishlistModule { }

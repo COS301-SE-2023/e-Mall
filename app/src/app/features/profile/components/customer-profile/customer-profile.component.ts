@@ -23,7 +23,7 @@ export class CustomerProfileComponent {
       details: new FormControl(), 
     });
 
-    this.profile$ = this.profileFacade.getProfile();
+    this.profile$ = this.profileFacade.getProfile(); 
   
   }
 
