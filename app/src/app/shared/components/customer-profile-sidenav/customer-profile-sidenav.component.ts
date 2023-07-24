@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./customer-profile-sidenav.component.scss']
 })
 export class CustomerProfileSidenavComponent {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Input() profile: any;
 
   constructor(private router: Router){}
 

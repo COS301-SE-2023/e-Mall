@@ -2,8 +2,12 @@
 <ion-content class="global-ion-content">
     <div class="ion-content-wrapper">
         <!--<div class="container">-->
-            <app-customer-profile-sidenav></app-customer-profile-sidenav>
             
+            <div class="side-nav-container" *ngIf="profile$ | async as profile">
+                <app-customer-profile-sidenav
+                [profile]="{username: profile.username}">
+                </app-customer-profile-sidenav> 
+            </div>
         
             <div class="profile-info-container" *ngIf="profile$ | async as profile">
                 <p>{{ profile.email }}</p>
