@@ -35,6 +35,7 @@ import { PopovereditModule } from '@features/popoveredit/popoveredit.module';
 import { ProfileModule } from './features/profile/profile.module';
 import { DropdownPopoverModule } from '@shared/components/dropdown-popover/dropdown-popover.module'; // Add this line
 import { CategoryModule } from '@features/category/category.module';
+import { CustomerProfileModule } from '@features/profile/components/customer-profile/customer-profile.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -70,6 +71,7 @@ import { CategoryModule } from '@features/category/category.module';
     SellerRegisterModule,
     ConsumerRegisterModule,
     SignOutModule,
+    CustomerProfileModule,
     // FooterModule,
     // NavbarModule,
     // AboutModule,
