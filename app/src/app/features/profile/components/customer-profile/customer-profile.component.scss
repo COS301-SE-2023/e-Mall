@@ -6,10 +6,14 @@
 
 .side-nav {
   display: flex;
-width: 326px;
+    width: 326px;
 //width: 25%;
 //min-height: 1024px;
 //border: 1px solid red;
+height: 88%;
+box-shadow: 3px 0 3px rgba(0, 0, 0, 0.3);
+
+
 
 padding: 50px 20px 254px 20px;
 flex-direction: column;
