@@ -1,25 +1,31 @@
 <app-seller-nav></app-seller-nav>
 <ion-content>
   <div class="content">
-
     <div class="todays-sales">
-
       <ion-card class="summary">
-        <div style="display: flex;
-        padding: 10px;
-        align-items: flex-start;
-        align-self: stretch;">
+        <div
+          style="
+            display: flex;
+            padding: 10px;
+            align-items: flex-start;
+            align-self: stretch;
+          ">
           <h2>This Month</h2>
         </div>
 
-        <div style="display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 40px;
-        align-self: stretch;">
-          <ion-card style="background-color: #FFE2E5;">
+        <div
+          style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            align-self: stretch;
+          ">
+          <ion-card style="background-color: #ffe2e5">
             <ion-card-header>
-              <ion-icon name="cart" style="background-color: #FA5A7D;"></ion-icon>
+              <ion-icon
+                name="cart"
+                style="background-color: #fa5a7d"></ion-icon>
               <ion-card-title>Products Clicked</ion-card-title>
             </ion-card-header>
             <ion-card-content>
@@ -27,9 +33,11 @@
             </ion-card-content>
           </ion-card>
 
-          <ion-card style="background-color: #FFF4DE;">
+          <ion-card style="background-color: #fff4de">
             <ion-card-header>
-              <ion-icon name="globe" style="background-color:#FF947A;"></ion-icon>
+              <ion-icon
+                name="globe"
+                style="background-color: #ff947a"></ion-icon>
               <ion-card-title>Website Clicks</ion-card-title>
             </ion-card-header>
             <ion-card-content>
@@ -37,40 +45,75 @@
             </ion-card-content>
           </ion-card>
 
-          <ion-card style="background-color: #DCFCE7;">
+          <ion-card style="background-color: #dcfce7">
             <ion-card-header>
-              <ion-icon name="heart" style="background-color: #3CD856;"></ion-icon>
+              <ion-icon
+                name="heart"
+                style="background-color: #3cd856"></ion-icon>
               <ion-card-title>Favourited</ion-card-title>
             </ion-card-header>
             <ion-card-content>
               <h1>{{ favourited }}</h1>
             </ion-card-content>
           </ion-card>
-
         </div>
       </ion-card>
     </div>
-    <div style="display: flex;
-    justify-content:left;
-    align-items: center;
-    gap: 40px;
-    align-self: stretch;">
+    <div
+      style="
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        gap: 40px;
+        align-self: stretch;
+      ">
       <div class="product-graph">
         <canvas id="product-clicks-chart"></canvas>
       </div>
 
-      <div class="product-performance" >
+      <div class="product-performance">
         <canvas id="product-performance-chart"></canvas>
       </div>
     </div>
-    <div style="display: flex;
-    justify-content:left;
-    align-items: center;
-    gap: 40px;
-    align-self: stretch;"> 
-    <div class="categoryPercentage-graph">
-      <canvas id="categoryPercentage-chart"></canvas>
+    <div
+      style="
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        gap: 40px;
+        align-self: stretch;
+      ">
+      <div class="categoryPercentage-graph">
+        <canvas id="categoryPercentage-chart"></canvas>
+      </div>
     </div>
   </div>
+  <div class="container">
+    <ion-list lines="full">
+      <ion-item>
+        <ion-grid>
+          <ion-row class="col-title">
+            <ion-col size="1"><b>Product Name</b></ion-col>
+            <ion-col size="2"><b>Product Clicks</b></ion-col>
+            <ion-col size="2"><b>Link Clicks</b></ion-col>
+            <ion-col size="1"><b>Favourited</b></ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ng-container *ngIf="topProducts$ | async as topProducts">
+        <ion-item
+          *ngFor="let product of topProducts"
+          (click)="getSelectedProductData(product.product_name, true)">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="4">{{ product.product_name }}</ion-col>
+              <ion-col size="2"> {{ product.clicks }}</ion-col>
+              <ion-col size="1">{{ product.favourites }}</ion-col>
+              <ion-col size="2"> {{ product.link_clicks }}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ng-container>
+    </ion-list>
   </div>
 </ion-content>

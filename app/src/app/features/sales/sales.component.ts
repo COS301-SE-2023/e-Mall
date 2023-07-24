@@ -13,15 +13,15 @@ interface ProductData {
 }
 
 const productData: ProductData = {
-  "Corsair VENGEANCE RGB 32GB (2×16GB) DDR5 5600MHZ DRAM Memory Kit": {
-    "2023-03": 4,
-    "2023-04": 7,
-    "2023-05": 19,
+  'Corsair VENGEANCE RGB 32GB (2×16GB) DDR5 5600MHZ DRAM Memory Kit': {
+    '2023-03': 4,
+    '2023-04': 7,
+    '2023-05': 19,
   },
-  "WILSON Traditional Soccer Ball": {
-    "2023-03": 1,
-    "2023-04": 4,
-    "2023-05": 14,
+  'WILSON Traditional Soccer Ball': {
+    '2023-03': 1,
+    '2023-04': 4,
+    '2023-05': 14,
   },
 };
 @Component({
@@ -29,25 +29,25 @@ const productData: ProductData = {
   templateUrl: 'sales.component.html',
   styleUrls: ['sales.component.scss'],
 })
-
-
 export class SalesComponent implements OnInit {
   public productClicksChart: Chart | undefined;
   sellerName!: string | undefined;
   productsClicked = 0;
   websiteClicks = 0;
   favourited = 0;
+  topProducts$: Observable<any> | undefined;
   productClicksData$: Observable<any> | undefined;
   conversionRateData$: Observable<any> | undefined;
   categoryPercentageData$: Observable<any> | undefined;
-  clicks!: number[];
-  labels!: string[];
+  table_product_clicks!: number[];
+  table_labels!: string[];
+  table_link_clicks: number[] = [];
+  table_favourites: number[] = [];
   conversionRateLabels!: string[];
   conversionRate!: number[];
   categories!: string[];
   categoryPercentage!: number[];
   productNames!: string[];
-  
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(
@@ -72,12 +72,26 @@ export class SalesComponent implements OnInit {
     this.analytics.getAllProducts(this.sellerName).subscribe(data => {
       this.productClicksData$ = of(data);
       this.productClicksData$.subscribe(data => {
-        this.clicks = data.map((item: { [x: string]: any }) => item['clicks']);
-        this.labels = data.map(
+        this.topProducts$ = of(data);
+        this.topProducts$.subscribe(data => {
+          console.log('TOPPRODUCTS', data);
+        });
+        this.table_product_clicks = data.map(
+          (item: { [x: string]: any }) => item['clicks']
+        );
+        this.table_labels = data.map(
           (item: { [x: string]: any }) => item['product_name']
         );
-        console.log(this.clicks);
-        console.log(this.labels);
+        this.table_favourites = data.map(
+          (item: { [x: string]: any }) => item['favourites']
+        );
+        this.table_link_clicks = data.map(
+          (item: { [x: string]: any }) => item['link_clicks']
+        );
+        console.log(this.table_product_clicks);
+        console.log(this.table_favourites);
+        console.log(this.table_link_clicks);
+        console.log(this.table_labels);
         this.createProductClicksChart();
       });
     });
@@ -166,69 +180,68 @@ export class SalesComponent implements OnInit {
   }*/
   // Modify your data to fit the format required by the line chart
 
+  createProductClicksChart() {
+    const productClicksCanvas = document.getElementById(
+      'product-clicks-chart'
+    ) as HTMLCanvasElement;
 
-  
+    // Get the product names and months
 
-createProductClicksChart() {
-  const productClicksCanvas = document.getElementById('product-clicks-chart') as HTMLCanvasElement;
+    const productNames = Object.keys(productData);
+    const months = Object.keys(productData[productNames[0]]);
+    const maxProductNameLength = 10;
+    // Create datasets for each product
+    const datasets = productNames.map(productName => ({
+      label:
+        productName.length > maxProductNameLength
+          ? productName.slice(0, maxProductNameLength) + '...'
+          : productName,
+      data: months.map(month => productData[productName][month] || 0),
+      borderColor: this.getRandomColor(), // Create a random border color for each line
+      fill: false, // Set to false for line charts
+    }));
 
-  // Get the product names and months
-  
-  const productNames = Object.keys(productData);
-  const months = Object.keys(productData[productNames[0]]);
-  const maxProductNameLength = 10;
-  // Create datasets for each product
-  const datasets = productNames.map((productName) => ({
-    label: productName.length > maxProductNameLength
-    ? productName.slice(0, maxProductNameLength) + '...'
-    : productName,
-    data: months.map((month) => productData[productName][month] || 0),
-    borderColor: this.getRandomColor(), // Create a random border color for each line
-    fill: false, // Set to false for line charts
-  }));
-
-  // Create the line chart
-  this.productClicksChart = new Chart(productClicksCanvas, {
-    type: 'line',
-    data: {
-      labels: months,
-      datasets: datasets,
-    },
-    options: {
-      plugins: {
-        title: {
-          display: true,
-          text: 'Product Clicks per Month',
-        },
+    // Create the line chart
+    this.productClicksChart = new Chart(productClicksCanvas, {
+      type: 'line',
+      data: {
+        labels: months,
+        datasets: datasets,
       },
-      scales: {
-        x: {
+      options: {
+        plugins: {
           title: {
             display: true,
-            text: 'Months',
+            text: 'Product Clicks per Month',
           },
         },
-        y: {
-          title: {
-            display: true,
-            text: 'Number of Clicks',
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Months',
+            },
           },
-          beginAtZero: true,
-          ticks: {
-            stepSize: 5,
+          y: {
+            title: {
+              display: true,
+              text: 'Number of Clicks',
+            },
+            beginAtZero: true,
+            ticks: {
+              stepSize: 5,
+            },
           },
         },
+        responsive: true,
       },
-      responsive: true,
-    },
-  });
-}
+    });
+  }
 
-getRandomColor() {
-  // Generate a random color in hexadecimal format
-  return '#' + Math.floor(Math.random() * 16777215).toString(16);
-}
-
+  getRandomColor() {
+    // Generate a random color in hexadecimal format
+    return '#' + Math.floor(Math.random() * 16777215).toString(16);
+  }
 
   createProductPerformanceChart() {
     const productPerformanceCanvas = document.getElementById(
@@ -335,7 +348,7 @@ getRandomColor() {
     });
   }
 
-  getSelectedProcuctData(product_name: string, checked: boolean) {
+  getSelectedProductData(product_name: string, checked: boolean) {
     if (checked) {
       //TODO: check if seller is already in the list
       //const index =
