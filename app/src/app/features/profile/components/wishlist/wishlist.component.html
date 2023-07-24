@@ -7,7 +7,7 @@
                 
                 <ion-list>
 
-                    <ion-item >
+                    <ion-item (click)="goToCustomerProfile()">
                         <!--<ion-button aria-label="">-->
                             <ion-icon name="person-circle" aria-hidden="true" style="margin-right: 10px;"></ion-icon>
                             <ion-label>User Details</ion-label>
@@ -21,20 +21,20 @@
                       <!--</ion-button>-->
                     
                   </ion-item>
-                  <ion-item >
+                  <ion-item (click)="goToConstruction()">
                       <!--<ion-button aria-label="">-->
                           <ion-icon name="notifications" aria-hidden="true" style="margin-right: 10px;"></ion-icon>
                           <ion-label>Notifications</ion-label>
                       <!--</ion-button> -->
                   </ion-item>
-                  <ion-item > 
+                  <ion-item (click)="goToConstruction()"> 
                       <!--<ion-button aria-label="">-->
                           <ion-icon name="settings" aria-hidden="true" style="margin-right: 10px;"></ion-icon>
                           <ion-label>Settings</ion-label>
                       <!--</ion-button>-->
                     
                   </ion-item>
-                  <ion-item > 
+                  <ion-item (click)="signOut()"> 
                       <!--<ion-button aria-label="">-->
                           <ion-icon name="arrow-back-outline" aria-hidden="true" style="margin-right: 10px;"></ion-icon>
                           <ion-label>Sign Out</ion-label>

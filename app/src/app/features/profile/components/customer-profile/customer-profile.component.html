@@ -14,27 +14,29 @@
                         <!--</ion-button>-->
                         
                     </ion-item>
-                  <ion-item >
+                  <ion-item (click)="goToWishlist()">
                       <!--<ion-button aria-label="">-->
                           <ion-icon name="heart" aria-hidden="true" style="margin-right: 10px;"></ion-icon>
                           <ion-label>My Wishlist</ion-label>
                       <!--</ion-button>-->
                     
                   </ion-item>
-                  <ion-item >
+                  <ion-item (click)="goToConstruction()" >
                       <!--<ion-button aria-label="">-->
                           <ion-icon name="notifications" aria-hidden="true" style="margin-right: 10px;"></ion-icon>
                           <ion-label>Notifications</ion-label>
                       <!--</ion-button> -->
                   </ion-item>
-                  <ion-item > 
+                  <ion-item (click)="goToConstruction()"> 
                       <!--<ion-button aria-label="">-->
                           <ion-icon name="settings" aria-hidden="true" style="margin-right: 10px;"></ion-icon>
                           <ion-label>Settings</ion-label>
                       <!--</ion-button>-->
                     
                   </ion-item>
-                  <ion-item > 
+                  <ion-item 
+                    (click)="signOut()"
+                  > 
                       <!--<ion-button aria-label="">-->
                           <ion-icon name="arrow-back-outline" aria-hidden="true" style="margin-right: 10px;"></ion-icon>
                           <ion-label>Sign Out</ion-label>
