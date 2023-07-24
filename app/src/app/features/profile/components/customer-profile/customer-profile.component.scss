@@ -86,25 +86,21 @@ line-height: normal;
   }
   
 
-  .side-nav-container {
+.side-nav-container {
     flex: 1; 
     padding: 20px; 
+    //border: 1px solid green ;
+    max-width: 326px;
   }
   
-.wishlist-container {
-    flex: 1;
-    padding: 20px;
-    margin-left: 25%;
-    margin-right: 20%;
-    margin-top: 0;
-    //width: 75%;
-    //border: 1px solid green;
-  }
+.ion-content-wrapper {
+    display: flex;
+    flex-direction: row;
+    //border: 1px solid red ;
+}
 
-  .nimage {
-    width: 300px;
-    height: 300px;
-    justify-content: center;
-    opacity: 30%;
-    align-items: center;
-  }
+
+.profile-info-container {
+    flex: 1;
+    //border: 1px solid blue ;
+}
