@@ -15,7 +15,7 @@
 }
 
 .product-graph,
-.product-performance,.categoryPercentage-graph {
+.product-performance,.categoryPercentage-graph, .table {
   margin-bottom: 20px;
   padding: 20px;
 }
@@ -41,6 +41,14 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2; /* Number of lines to display */
   max-width: 100%;
+}
+.table {
+  .col-title {
+    ion-col {
+      display: flex;
+      align-items: center;
+    }
+  }
 }
 
 
