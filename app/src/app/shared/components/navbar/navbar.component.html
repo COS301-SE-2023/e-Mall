@@ -21,8 +21,8 @@
 
 
 
-      <button mat-button class="toolbar-button" (click)="redirect('about')">
-        About Us
+      <button mat-button class="toolbar-button" (click)="redirect('wishlist')">
+        Wishlist
       </button>
       <div class="navbar-spacer"></div>
       <app-search-bar class="search-bar"></app-search-bar>
@@ -34,13 +34,20 @@
         (click)="signIn()">
         Sign in
       </button>
+      <!--
       <button
         *ngIf="(isAuthenticated | async) !== null"
         class="btn btn-outline-dark my-2 my-sm-0 ms-auto"
         type="submit"
         (click)="signOut()">
         Sign Out 
-      </button>
+      </button>-->
+
+      
+      <div *ngIf="(isAuthenticated | async) !== null" style="margin-top: 5px;">
+        <ion-icon name="person-circle" aria-hidden="true" class="circular-button"></ion-icon>
+      </div>
+
     </div>
   </ion-toolbar>
 </ion-header>
