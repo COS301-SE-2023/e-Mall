@@ -10,9 +10,6 @@
 
     <ng-container *ngIf="query$ | async as query">
       <div class="inventory-container">
-        <!-- <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
-          <ion-refresher-content></ion-refresher-content>
-        </ion-refresher> -->
         <div class="title-stock-row">
           <ion-segment
             mode="md"
@@ -30,8 +27,6 @@
         <mat-divider></mat-divider>
 
         <div class="sort-search-wrapper">
-          <!-- Search functionality -->
-
           <div class="search-bar">
             <ion-item class="sort-searchbar-container">
               <ion-list>
@@ -64,11 +59,6 @@
                 (ionInput)="onSearchInputChange($event)"></ion-searchbar>
             </ion-item>
           </div>
-          <!-- End of search  -->
-
-          <!-- Sort functionality -->
-          <!-- &nbsp; -->
-          <!-- <div class="sort-bar"> -->
           <div class="sort-wrapper">
             <ion-list>
               <ion-item class="sort-searchbar-container" lines="none">
@@ -90,10 +80,7 @@
               </ion-item>
             </ion-list>
           </div>
-          <!-- </div> -->
         </div>
-
-        <!-- End of Sort functionality -->
         <ion-grid>
           <ion-row class="table-header">
             <ion-col size="1">ID</ion-col>
@@ -119,7 +106,9 @@
               </div>
             </ng-container>
             <ng-template #result>
-              <ion-row *ngFor="let product of searchResults$ | async">
+              <ion-row
+                *ngFor="let product of searchResults$ | async"
+                (click)="openModal(product)">
                 <ion-col size="1">{{ product.product }}</ion-col>
                 <ion-col size="5"
                   ><div class="truncate-text">
@@ -184,6 +173,5 @@
         </ion-grid>
       </div>
     </ng-container>
-    <!-- </ng-container> -->
   </div>
 </ion-content>

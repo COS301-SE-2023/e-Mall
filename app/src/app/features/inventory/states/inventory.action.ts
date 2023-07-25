@@ -10,9 +10,9 @@ export class AddItems {
   static readonly type = '[Inventory] Add Items';
   constructor(public products: IInventoryItem[]) {}
 }
-export class DeleteItems {
+export class DeleteItem {
   static readonly type = '[Inventory] Delete Items';
-  constructor(public products: IInventoryItem[]) {}
+  constructor(public id: number) {}
 }
 export class UpdateItem {
   static readonly type = '[Inventory] Update an Item';
@@ -20,7 +20,7 @@ export class UpdateItem {
 }
 export class UpdateItems {
   static readonly type = '[Inventory] Update Items';
-  constructor(public products: IInventoryItem[]) {}
+  constructor(public products: Partial<IInventoryItem>[]) {}
 }
 export class SetQuery {
   static readonly type = '[Inventory] Set Query';

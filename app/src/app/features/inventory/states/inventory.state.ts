@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Injectable } from '@angular/core';
 import { Action, State, StateContext } from '@ngxs/store';
 import { ISearchOptions } from '../models/search-options.interface';
@@ -5,6 +6,7 @@ import { IInventoryItem } from '../models/inventory-item.interface';
 import * as InventoryActions from '../states/inventory.action';
 import produce from 'immer';
 import { ResetInventoryState } from './inventory.action';
+import { patch, removeItem } from '@ngxs/store/operators';
 export interface InventoryStateModel {
   products: IInventoryItem[] | null;
   query: ISearchOptions;
@@ -52,46 +54,70 @@ export class InventoryState {
     ctx.patchState({ products: updatedProducts });
   }
 
-  @Action(InventoryActions.DeleteItems)
-  deleteItems(
+  @Action(InventoryActions.DeleteItem)
+  deleteItem(
     ctx: StateContext<InventoryStateModel>,
-    action: InventoryActions.DeleteItems
+    action: InventoryActions.DeleteItem
   ) {
     const state = ctx.getState();
     if (state.products) {
-      const updatedProducts = state.products.filter(
-        product => !action.products.some(p => p.id === product.id)
+      const products = [...state.products];
+      const productIndex = products.findIndex(
+        product => product.id === action.id
       );
-      ctx.patchState({ products: updatedProducts });
-    }
-  }
-  @Action(InventoryActions.UpdateItem)
-  updateItem(
-    ctx: StateContext<InventoryStateModel>,
-    action: InventoryActions.UpdateItem
-  ) {
-    const state = ctx.getState();
-    if (state.products) {
-      const updatedProducts = state.products.map(product =>
-        product.id === action.product.id ? action.product : product
-      );
-      ctx.patchState({ products: updatedProducts });
+      if (productIndex !== -1) {
+        products.splice(productIndex, 1);
+        ctx.patchState({
+          products,
+        });
+      }
     }
   }
   @Action(InventoryActions.UpdateItems)
-  updateProducts(
+  updateItems(
     ctx: StateContext<InventoryStateModel>,
     action: InventoryActions.UpdateItems
   ) {
-    const state = ctx.getState();
-    if (state.products) {
-      const updatedProducts = state.products.map(product => {
-        const updatedProduct = action.products.find(p => p.id === product.id);
-        return updatedProduct || product;
-      });
-      ctx.patchState({ products: updatedProducts });
-    }
+    ctx.setState(
+      produce((draft: InventoryStateModel) => {
+        action.products.forEach(updatedProduct => {
+          if (draft.products !== null) {
+            const productIndex = draft.products.findIndex(
+              product => product.id === updatedProduct.id
+            );
+            if (productIndex !== -1) {
+              if (updatedProduct !== null) {
+                draft.products[productIndex].discount =
+                  updatedProduct.original_price! *
+                  updatedProduct.discount_rate!;
+                draft.products[productIndex].price =
+                  updatedProduct.original_price! -
+                  draft.products[productIndex].discount!;
+              }
+              draft.products[productIndex] = {
+                ...draft.products[productIndex],
+                ...updatedProduct,
+              };
+            }
+          }
+        });
+      })
+    );
   }
+  // @Action(InventoryActions.UpdateItems)
+  // updateProducts(
+  //   ctx: StateContext<InventoryStateModel>,
+  //   action: InventoryActions.UpdateItems
+  // ) {
+  //   const state = ctx.getState();
+  //   if (state.products) {
+  //     const updatedProducts = state.products.map(product => {
+  //       const updatedProduct = action.products.find(p => p.id === product.id);
+  //       return updatedProduct || product;
+  //     });
+  //     ctx.patchState({ products: updatedProducts });
+  //   }
+  // }
   @Action(InventoryActions.SetQuery)
   setQuery(
     ctx: StateContext<InventoryStateModel>,
@@ -152,4 +178,7 @@ export class InventoryState {
       totalCount: 0,
     });
   }
+}
+function patchState(arg0: { products: any[] }) {
+  throw new Error('Function not implemented.');
 }

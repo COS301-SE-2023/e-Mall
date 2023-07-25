@@ -86,6 +86,8 @@
   /* inventory searchbar*/
   --searchbar-font-size: 14px;
   --searchbar-height: 45px;
+  /* popover */ 
+  --ion-color-clear-button: #000000;
 }
 
 ion-content.global-ion-content {
@@ -191,3 +193,32 @@ ion-popover.search-popover ion-item,ion-popover.sort-popover ion-item{
 .custom-skeleton ion-skeleton-text:last-child {
   margin-bottom: 5px;
 }
+
+ion-modal.inventory-modal{
+  --height:max-content;
+  --width: max-content;
+  --width:26rem;
+  /* position: absolute; */
+  /* display: flex !important; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* left: 50%; */
+}
+
+/* ion-modal.inventory-modal::part(backdrop) {
+  position: absolute;
+  left: -50%;
+} */
+/* ion-modal.modal-shadow {
+    display: none;
+  
+} */
+
+/* .inventory-modal .modal-wrapper { */
+  /* position: absolute; */
+  /* background-color: red; */
+  /* --offset-left: 400px; */
+  /* left: 1000px; */
+
+  /* transform: translate(-50%, -50%); */
+/* } */

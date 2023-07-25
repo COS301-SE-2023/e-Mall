@@ -24,7 +24,7 @@ def get(request):
         seller_name = "Takealot"
 
         search = request.data.get("search")
-        searchOption = request.data.get("searchOption")
+        search_option = request.data.get("searchOption")
 
         # sorting options[price, discount, name]
         sort_fields = {
@@ -58,13 +58,13 @@ def get(request):
         print(filters)
         # searching
         if search and len(search) > 0:
-            print("Searching", search, searchOption)
-            if searchOption == "id":
+            print("Searching", search, search_option)
+            if search_option == "id":
                 if not search.isnumeric():
                     return Response({"data": [], "total_count": 0})
 
                 filters &= Q(product__id=search)
-            elif searchOption == "category":
+            elif search_option == "category":
                 filters &= Q(product__category__icontains=search)
             else:
                 filters &= Q(product__name__icontains=search)
@@ -120,3 +120,59 @@ def get(request):
 
     except Exception as e:
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(["POST"])
+def update(request):
+    try:
+        _id = request.data.get("id")
+        if _id is None:
+            raise ValueError("Missing id")
+        product_seller = ProductSeller.objects.get(id=_id)
+        if product_seller is None:
+            raise ValueError("ProductSeller not found")
+        changed_fields = []
+        product_name = request.data.get("product_name")
+        if product_name is not None and product_name != product_seller.product_name:
+            product_seller.product_name = product_name
+            changed_fields.append("product_name")
+        original_price = request.data.get("original_price")
+        if (
+            original_price is not None
+            and original_price != product_seller.original_price
+        ):
+            product_seller.original_price = original_price
+            changed_fields.append("original_price")
+        discount_rate = request.data.get("discount_rate")
+        if discount_rate is not None:
+            discount_rate = Decimal(discount_rate).quantize(Decimal("0.00"))
+            if discount_rate != product_seller.discount_rate:
+                product_seller.discount_rate = discount_rate
+                changed_fields.append("discount_rate")
+                discount = original_price * discount_rate
+                price = original_price * (1 - discount_rate)
+                product_seller.discount = discount
+                changed_fields.append("discount")
+                product_seller.price = price
+                changed_fields.append("price")
+        in_stock = request.data.get("in_stock")
+        if in_stock is not None and in_stock != product_seller.in_stock:
+            product_seller.in_stock = in_stock
+            changed_fields.append("in_stock")
+        if changed_fields:
+            product_seller.full_clean()
+            product_seller.save(update_fields=changed_fields)
+        return Response({"status": "success"})
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(["POST"])
+def delete(request):
+    _id = request.data.get("id")
+    try:
+        product_seller = ProductSeller.objects.get(id=_id)
+        product_seller.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_404_NOT_FOUND)

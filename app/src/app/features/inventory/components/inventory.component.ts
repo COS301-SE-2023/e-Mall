@@ -6,6 +6,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import {
   IonContent,
   LoadingController,
+  ModalController,
   PopoverController,
 } from '@ionic/angular';
 import { PopovereditComponent } from './popoveredit/popoveredit.component';
@@ -56,7 +57,8 @@ export class InventoryComponent {
   constructor(
     private inventoryFacade: InventoryFacade,
     private popoverController: PopoverController,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    public modalController: ModalController
   ) {
     const options: ISearchOptions = {
       filterOptions: { filter_in_stock: 'all' },
@@ -64,20 +66,30 @@ export class InventoryComponent {
     this.isLoading$ = this.inventoryFacade.loading$;
     this.loading = null;
     this.isLoading$.subscribe(async isLoading => {
+      console.log(1, isLoading);
       if (isLoading !== null) {
+        // console.log(2, isLoading);
+
         if (this.loading === null) {
+          // console.log(3, isLoading);
+
           this.loading = await this.loadingController.create({
             spinner: 'dots',
             message: 'Please wait...',
             mode: 'ios',
           });
-          await this.loading.present();
+          await this.loading?.present();
         }
       } else {
+        console.log(4, this.loading);
+
         if (this.loading) {
-          await this.loading.dismiss();
-          this.loading = null;
-          this.scrollToTop();
+          // console.log(5, isLoading);
+
+          await this.loading?.dismiss().then(() => {
+            this.loading = null;
+            this.scrollToTop();
+          });
         }
       }
     });
@@ -165,5 +177,30 @@ export class InventoryComponent {
   };
   scrollToTop() {
     this.content.scrollToPoint(0, 0, 500);
+  }
+  async openModal(product: IInventoryItem) {
+    const modal = await this.modalController.create({
+      component: PopovereditComponent,
+      componentProps: {
+        product: product,
+      },
+      mode: 'ios',
+      cssClass: ['inventory-modal'],
+    });
+    return await modal.present();
+  }
+  async presentPopover(event: Event, product: IInventoryItem) {
+    const popover = await this.popoverController.create({
+      component: PopovereditComponent,
+      event: event,
+
+      translucent: true,
+      size: 'cover',
+      alignment: 'center',
+      componentProps: {
+        product: product,
+      },
+    });
+    return await popover.present();
   }
 }

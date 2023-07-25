@@ -1,15 +1,108 @@
-.popcontent{
-    width: 100%;
-    height: 100%;
-    fill: var(--c-5-d, #B9E6E8);
+// .popcontent{
+//     width: 100%;
+//     height: 100%;
+//     fill: var(--c-5-d, #B9E6E8);
+// }
+
+// .savebtn{
+//     margin-right: 10px;
+// }
+
+// .buttons{
+//     display: flex;
+//     justify-content: center; /* Center horizontally */
+//     align-items: center;
+// }
+
+.modal-container {
+  height: 100%;
+  --height: 100%;
 }
 
-.savebtn{
-    margin-right: 10px;
+.modal-container ion-item {
+  font-size: small;
+  font-weight: 500;
+  --min-height: 2rem;
+  --inner-padding-bottom: 0;
+  --inner-padding-top: 0;
+
+  //   --padding-top: 0px
+  //   --padding-bottom: 0px
+  //   --inner-padding-top: 0px;
+  //   --inner-padding-bottom: 0px;
 }
 
-.buttons{
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center;
+.modal-header {
+  margin-top: 2px;
+  font-weight: 600;
+  font-size: medium;
+}
+.modal-header-item {
+  --inner-padding-end: 0px;
+  --inner-padding-bottom: 10px !important;
+}
+.close-button {
+  --color: var(--ion-color-clear-button);
+}
+.item-padding {
+  --padding-end: 0.6rem;
+  --inner-padding-start: 0.5rem;
+}
+.item-content {
+  width: 100%;
+  max-width: 18rem;
+  min-width: 10rem;
+  max-height: 32px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  align-items: center;
+}
+.item-label {
+  width: 9rem;
+}
+ion-list {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+  //   max-height: 19rem;
+}
+.item-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  margin-top: 1.5rem;
+  margin-bottom: 1.2rem;
+}
+.item-button-spacer {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+ion-button {
+  width: 4.5rem;
+  height: 2rem;
+}
+.stock-icon {
+  font-size: 1rem;
+}
+.stock-icon-container {
+  margin-left: 1rem;
+}
+.input-container {
+  height: 32px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+ion-input {
+  width: 100%;
+  min-height: 32px !important;
+  --padding-start: 0px;
+  --padding-end: 0px;
 }

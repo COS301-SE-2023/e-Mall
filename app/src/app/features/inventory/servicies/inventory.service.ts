@@ -37,27 +37,31 @@ export class InventoryService {
     );
   }
 
-  public updateProductSellerData(data: object): void {
-    const url = `${this.apiUrl}productseller/produpdate/`;
-    this.http.post(url, data).subscribe(
-      response => {
-        console.log(response);
-      },
-      error => {
-        console.log(error);
-      }
+  public async updateProductSellerData(data: IInventoryItem): Promise<any> {
+    const url = `${this.apiUrl}/update/`;
+    return await lastValueFrom(
+      this.http
+        .post(url, data, {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+          observe: 'response',
+        })
+        .pipe(take(1))
     );
   }
 
-  public deleteProductSellerData(data: object): void {
-    const url = `${this.apiUrl}productseller/proddelete/`;
-    this.http.post(url, data).subscribe(
-      response => {
-        console.log(response);
-      },
-      error => {
-        console.log(error);
-      }
+  public async deleteProductSellerData(data: object): Promise<any> {
+    const url = `${this.apiUrl}/delete/`;
+    return await lastValueFrom(
+      this.http
+        .post(url, data, {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+          observe: 'response',
+        })
+        .pipe(take(1))
     );
   }
 }
