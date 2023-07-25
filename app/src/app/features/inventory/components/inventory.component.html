@@ -83,8 +83,8 @@
         </div>
         <ion-grid>
           <ion-row class="table-header">
-            <ion-col size="1">ID</ion-col>
-            <ion-col size="5">Name</ion-col>
+            <!-- <ion-col size="1">ID</ion-col> -->
+            <ion-col size="6">Name</ion-col>
             <ion-col size="1">Stock</ion-col>
             <ion-col size="2">Original Price (R)</ion-col>
             <ion-col size="1">Discount Rate</ion-col>
@@ -109,8 +109,8 @@
               <ion-row
                 *ngFor="let product of searchResults$ | async"
                 (click)="openModal(product)">
-                <ion-col size="1">{{ product.product }}</ion-col>
-                <ion-col size="5"
+                <!-- <ion-col size="1">{{ product.product }}</ion-col> -->
+                <ion-col size="6"
                   ><div class="truncate-text">
                     {{ product.product_name }}
                   </div></ion-col

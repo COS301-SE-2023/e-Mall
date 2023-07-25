@@ -167,16 +167,15 @@ p {
 a {
   color: var(--ion-color-primary-shade);
 }
+
+/* inventory page start*/
 ion-popover.sort-popover {
   --min-width:min-content;
-  /* margin-left: -1rem; */
-  /* --font-size: 5px; */
-  
 }
 ion-popover.search-popover {
   --min-width:min-content;
   margin-top: 12px;
-  /* margin-left: -2.5rem; */
+  margin-left: -1rem;
 }
 ion-popover.search-popover ion-item,ion-popover.sort-popover ion-item{
   font-size: var(--searchbar-font-size)
@@ -184,41 +183,10 @@ ion-popover.search-popover ion-item,ion-popover.sort-popover ion-item{
 .search-box .searchbar-input-container input {
   font-size: var(--searchbar-font-size);
 }
-/* Custom Skeleton Line Height and Margin */
-.custom-skeleton ion-skeleton-text {
-  line-height: 13px;
-  --background: #000;
-}
-
-.custom-skeleton ion-skeleton-text:last-child {
-  margin-bottom: 5px;
-}
 
 ion-modal.inventory-modal{
   --height:max-content;
   --width: max-content;
   --width:26rem;
-  /* position: absolute; */
-  /* display: flex !important; */
-  /* justify-content: center; */
-  /* align-items: center; */
-  /* left: 50%; */
 }
-
-/* ion-modal.inventory-modal::part(backdrop) {
-  position: absolute;
-  left: -50%;
-} */
-/* ion-modal.modal-shadow {
-    display: none;
-  
-} */
-
-/* .inventory-modal .modal-wrapper { */
-  /* position: absolute; */
-  /* background-color: red; */
-  /* --offset-left: 400px; */
-  /* left: 1000px; */
-
-  /* transform: translate(-50%, -50%); */
-/* } */
+/* inventory page end*/

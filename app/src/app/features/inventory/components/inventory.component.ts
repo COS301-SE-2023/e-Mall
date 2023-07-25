@@ -31,7 +31,7 @@ export class InventoryComponent {
   ];
   searchOptions = [
     { key: 'name', value: 'Name' },
-    { key: 'id', value: 'ID' },
+    // { key: 'id', value: 'ID' },
     { key: 'category', value: 'Category' },
   ];
   sortOptions = [
