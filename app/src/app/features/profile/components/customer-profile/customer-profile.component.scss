@@ -99,15 +99,24 @@ line-height: normal;
   
 .ion-content-wrapper {
     display: flex;
-    flex-direction: row;
+    //flex-direction: row;
     //border: 1px solid red ;
 }
 
 
 .profile-info-container {
-    flex: 1;
+    flex: 5;
     //border: 1px solid blue ;
+    //height: 88%;
+
+    margin-top: 0;
+    //flex-direction: column;
 }
+
+.user-info {
+  display: flex;
+}
+
 
 .user-circle-container{
   width: 80px; 
@@ -131,4 +140,23 @@ line-height: normal;
 .user-container p{
   font-size: larger;
   margin-top: 10px;
+}
+
+.user-circle-container{
+  width: 80px; 
+  height: 80px; 
+  background-color: gray; 
+  border-radius: 50%; 
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  color: white;
+  font-size: 24px;
+}
+
+.user-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+
 }

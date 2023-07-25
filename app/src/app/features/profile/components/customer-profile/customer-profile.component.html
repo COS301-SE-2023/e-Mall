@@ -10,10 +10,19 @@
             </div>
         
             <div class="profile-info-container" *ngIf="profile$ | async as profile">
-                <p>{{ profile.email }}</p>
-                <p>{{ profile.username }}</p>
-                <p>{{ profile.details }}</p>
-            </div>
+                <div class="user-info">
+                  <div class="user-container">
+                    <div class="user-circle-container">
+                      <b>{{ profile.username?.charAt(0) }}</b>
+                    </div>
+                  </div>
+                  <div class="user-details">
+                    <p>{{ profile.email }}</p>
+                    <p>{{ profile.username }}</p>
+                  </div>
+                </div>
+              </div>
+              
         <!--</div>-->
     </div>
     <app-footer></app-footer>
