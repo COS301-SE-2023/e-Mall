@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, debounceTime, map, mapTo, merge, of } from 'rxjs';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import {
   IonContent,
@@ -53,7 +53,8 @@ export class InventoryComponent {
   prev_per_page = 10;
   filter_changed = false;
   isLoading$: Observable<ActionsExecuting>;
-  loading: HTMLIonLoadingElement | null;
+  loading: HTMLIonLoadingElement | null | undefined;
+  loadingBool = of(false);
   constructor(
     private inventoryFacade: InventoryFacade,
     private popoverController: PopoverController,
@@ -65,41 +66,47 @@ export class InventoryComponent {
     };
     this.isLoading$ = this.inventoryFacade.loading$;
     this.loading = null;
-    this.isLoading$.subscribe(async isLoading => {
-      console.log(1, isLoading);
-      if (isLoading !== null) {
-        // console.log(2, isLoading);
-
-        if (this.loading === null) {
-          // console.log(3, isLoading);
-
-          this.loading = await this.loadingController.create({
-            spinner: 'dots',
-            message: 'Please wait...',
-            mode: 'ios',
-          });
-          await this.loading?.present();
-        }
+    merge(
+      this.isLoading$.pipe(map(() => true)),
+      this.isLoading$.pipe(
+        debounceTime(2000),
+        map(() => false)
+      )
+    ).subscribe(async shouldPresent => {
+      if (shouldPresent) {
+        this.presentLoading();
       } else {
-        console.log(4, this.loading);
-
-        if (this.loading) {
-          // console.log(5, isLoading);
-
-          await this.loading?.dismiss().then(() => {
-            this.loading = null;
-            this.scrollToTop();
-          });
-        }
+        this.dismissLoading();
       }
     });
+
     this.query$ = this.inventoryFacade.query$;
 
     this.inventoryFacade.updateFilter(options.filterOptions);
     this.searchResults$ = this.inventoryFacade.products$;
     this.totalSearchCount$ = this.inventoryFacade.totalCount$;
   }
+  async presentLoading() {
+    if (this.loading === null) {
+      this.loading = undefined;
+      this.loading = await this.loadingController.create({
+        spinner: 'dots',
+        message: 'Please wait...',
+        mode: 'ios',
+      });
+      await this.loading.present();
+      console.log('presenting loading');
+    }
+  }
 
+  async dismissLoading() {
+    if (this.loading) {
+      await this.loading.dismiss();
+      this.loading = null;
+      this.scrollToTop();
+      console.log('dismissed loading');
+    }
+  }
   onSearchInputChange(event: any) {
     if (event) {
       console.log(

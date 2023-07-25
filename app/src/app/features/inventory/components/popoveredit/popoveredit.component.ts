@@ -3,7 +3,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController, PopoverController } from '@ionic/angular';
-import { InventoryService } from '@features/inventory/servicies/inventory.service';
 import { IInventoryItem } from '@features/inventory/models/inventory-item.interface';
 import { InventoryFacade } from '@features/inventory/servicies/inventory.facade';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -17,11 +16,6 @@ export class PopovereditComponent implements OnInit {
   @Input() product!: IInventoryItem;
   editClicked = false;
   productForm!: FormGroup;
-  // price = '0.00';
-  // discount = '0.00';
-  // stock = 'in';
-  // name = '';
-  // category = '';
 
   constructor(
     private popoverController: PopoverController,
@@ -30,7 +24,7 @@ export class PopovereditComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.productForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(10)]],
+      name: ['', [Validators.required, Validators.minLength(2)]],
       category: [{ value: '', disabled: true }],
       price: [{ value: '0.00', disabled: true }],
       discount: [
@@ -83,14 +77,24 @@ export class PopovereditComponent implements OnInit {
         ).toFixed(2),
         in_stock: this.getFormControlValue('stock') === 'in',
       };
-      return [
-        this.inventoryFacade.updateItem(data),
-        this.modalController.dismiss(),
-      ];
+      if (!this.areEqual(this.product, data)) {
+        return [
+          this.inventoryFacade.updateItem(data),
+          this.modalController.dismiss(),
+        ];
+      } else {
+        return this.modalController.dismiss();
+      }
     }
     return;
   }
-
+  areEqual(item1: IInventoryItem, item2: IInventoryItem): boolean {
+    return (
+      item1.product_name === item2.product_name &&
+      Number(item1.discount_rate) === Number(item2.discount_rate) &&
+      item1.in_stock === item2.in_stock
+    );
+  }
   deleteProduct() {
     const data: IInventoryItem = {
       id: this.product.id,
@@ -122,15 +126,6 @@ export class PopovereditComponent implements OnInit {
       return this.setFormControlValue('discount', ret);
     }
   }
-  // onInputChange(event: any, key: string) {
-  //   if (key === 'name') {
-  //     this.name = event.detail.value;
-  //   } else if (key === 'category') {
-  //     this.category = event.detail.value;
-  //   } else if (key === 'stock') {
-  //     this.stock = event.detail.value;
-  //   }
-  // }
   getFormControl(field: string) {
     return this.productForm.get(field);
   }

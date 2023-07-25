@@ -5,8 +5,6 @@ import { ISearchOptions } from '../models/search-options.interface';
 import { IInventoryItem } from '../models/inventory-item.interface';
 import * as InventoryActions from '../states/inventory.action';
 import produce from 'immer';
-import { ResetInventoryState } from './inventory.action';
-import { patch, removeItem } from '@ngxs/store/operators';
 export interface InventoryStateModel {
   products: IInventoryItem[] | null;
   query: ISearchOptions;
@@ -104,20 +102,6 @@ export class InventoryState {
       })
     );
   }
-  // @Action(InventoryActions.UpdateItems)
-  // updateProducts(
-  //   ctx: StateContext<InventoryStateModel>,
-  //   action: InventoryActions.UpdateItems
-  // ) {
-  //   const state = ctx.getState();
-  //   if (state.products) {
-  //     const updatedProducts = state.products.map(product => {
-  //       const updatedProduct = action.products.find(p => p.id === product.id);
-  //       return updatedProduct || product;
-  //     });
-  //     ctx.patchState({ products: updatedProducts });
-  //   }
-  // }
   @Action(InventoryActions.SetQuery)
   setQuery(
     ctx: StateContext<InventoryStateModel>,
@@ -178,7 +162,4 @@ export class InventoryState {
       totalCount: 0,
     });
   }
-}
-function patchState(arg0: { products: any[] }) {
-  throw new Error('Function not implemented.');
 }

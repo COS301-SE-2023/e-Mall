@@ -69,10 +69,7 @@
         <ion-item class="item-padding" lines="none">
           <div class="item-label">Name</div>
           <div class="input-container">
-            <ion-input
-              minlength="10"
-              clearInput="true"
-              formControlName="name"></ion-input>
+            <ion-input clearInput="true" formControlName="name"></ion-input>
           </div>
         </ion-item>
         <ion-item class="item-padding" lines="none">
@@ -144,33 +141,3 @@
     </ng-template>
   </ion-list>
 </div>
-<!-- <ion-list>
-  <ion-item>
-    <ion-label>Name:</ion-label>
-    <ion-input [(ngModel)]="name"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Inventory Status:</ion-label>
-    <ion-toggle [(ngModel)]="inventory_status"></ion-toggle>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Original Price:</ion-label>
-    <ion-input type="number" [(ngModel)]="original_price"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Discount Rate:</ion-label>
-    <ion-input
-      type="number"
-      [(ngModel)]="discount_rate"
-      step="0.01"></ion-input>
-  </ion-item>
-
-</ion-list>
-
-<div class="buttons">
-  <ion-button class="savebtn" (click)="saveChanges()">Save</ion-button>
-  <ion-button color="danger" (click)="deleteProduct()">Delete</ion-button>
-</div> -->

@@ -78,8 +78,11 @@ export class InventoryFacade {
   async updateItem(data: IInventoryItem) {
     try {
       console.log('updating item');
-      await this.inventoryService.updateProductSellerData(data);
-      return this.updateStateItems([data]);
+
+      return [
+        this.updateStateItems([data]),
+        await this.inventoryService.updateProductSellerData(data),
+      ];
     } catch (error) {
       return this.setError(error);
     }
