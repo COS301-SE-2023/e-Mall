@@ -12,24 +12,13 @@ interface ProductData {
   };
 }
 
-const productData: ProductData = {
-  'Corsair VENGEANCE RGB 32GB (2×16GB) DDR5 5600MHZ DRAM Memory Kit': {
-    '2023-03': 4,
-    '2023-04': 7,
-    '2023-05': 19,
-  },
-  'WILSON Traditional Soccer Ball': {
-    '2023-03': 1,
-    '2023-04': 4,
-    '2023-05': 14,
-  },
-};
 @Component({
   //selector: 'app-seller-dashboard',
   templateUrl: 'sales.component.html',
   styleUrls: ['sales.component.scss'],
 })
 export class SalesComponent implements OnInit {
+  productPerformanceChart: any;
   public productClicksChart: Chart | undefined;
   sellerName!: string | undefined;
   productsClicked = 0;
@@ -49,7 +38,8 @@ export class SalesComponent implements OnInit {
   categoryPercentage!: number[];
   productNames!: string[];
   isChecked!: boolean;
-
+  productData: ProductData = {
+  };
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(
     private analytics: AnalyticsService,
@@ -188,19 +178,22 @@ export class SalesComponent implements OnInit {
     ) as HTMLCanvasElement;
 
     // Get the product names and months
+    if (this.productClicksChart) {
+      this.productClicksChart.destroy(); // Destroy the existing chart
+    }
 
-    const productNames = Object.keys(productData);
-    const months = Object.keys(productData[productNames[0]]);
+    const productNames = Object.keys(this.productData);
+    const months = Object.keys(this.productData[productNames[0]]);
     const maxProductNameLength = 10;
     // Create datasets for each product
-    const datasets = productNames.map(productName => ({
+    const datasets = Object.keys(this.productData).map(productName => ({
       label:
         productName.length > maxProductNameLength
           ? productName.slice(0, maxProductNameLength) + '...'
           : productName,
-      data: months.map(month => productData[productName][month] || 0),
-      borderColor: this.getRandomColor(), // Create a random border color for each line
-      fill: false, // Set to false for line charts
+      data: months.map(month => this.productData[productName][month] || 0),
+      borderColor: this.getRandomColor(),
+      fill: false,
     }));
 
     // Create the line chart
@@ -250,7 +243,7 @@ export class SalesComponent implements OnInit {
       'product-performance-chart'
     ) as HTMLCanvasElement;
 
-    const productPerformanceChart = new Chart(productPerformanceCanvas, {
+    this.productPerformanceChart = new Chart(productPerformanceCanvas, {
       type: 'bar',
       data: {
         labels: this.conversionRateLabels,
@@ -353,22 +346,28 @@ export class SalesComponent implements OnInit {
   getSelectedProductData(product_name: string, event: any) {
     this.isChecked = event.detail.checked;
     if (this.isChecked) {
-      //TODO: check if seller is already in the list
-      //const index =
       if (this.productNames.indexOf(product_name) === -1) {
         this.productNames.push(product_name);
       }
+    } else {
+      const index = this.productNames.indexOf(product_name);
+      if (index !== -1) {
+        this.productNames.splice(index, 1);
+      }
     }
-    if (!this.isChecked) {
-      this.productNames.splice(this.productNames.indexOf(product_name));
-    }
+
     const data = {
       seller_name: this.sellerName,
       product_names: this.productNames,
     };
+
     const data1 = this.analytics.getSelectedProductData(data);
+    console.log(data1);
     data1.subscribe(data => {
-      console.log(data);
+      console.log(data[product_name]);
+      this.productData[product_name]=data[product_name];
+      this.createProductClicksChart();
     });
+console.log(this.productData);
   }
 }

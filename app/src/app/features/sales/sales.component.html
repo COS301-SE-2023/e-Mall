@@ -3,8 +3,7 @@
   <div class="content">
     <div class="todays-sales">
       <ion-card class="summary">
-        <div
-          style="
+        <div style="
             display: flex;
             padding: 10px;
             align-items: flex-start;
@@ -13,8 +12,7 @@
           <h2>This Month</h2>
         </div>
 
-        <div
-          style="
+        <div style="
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,9 +21,7 @@
           ">
           <ion-card style="background-color: #ffe2e5">
             <ion-card-header>
-              <ion-icon
-                name="cart"
-                style="background-color: #fa5a7d"></ion-icon>
+              <ion-icon name="cart" style="background-color: #fa5a7d"></ion-icon>
               <ion-card-title>Products Clicked</ion-card-title>
             </ion-card-header>
             <ion-card-content>
@@ -35,9 +31,7 @@
 
           <ion-card style="background-color: #fff4de">
             <ion-card-header>
-              <ion-icon
-                name="globe"
-                style="background-color: #ff947a"></ion-icon>
+              <ion-icon name="globe" style="background-color: #ff947a"></ion-icon>
               <ion-card-title>Website Clicks</ion-card-title>
             </ion-card-header>
             <ion-card-content>
@@ -47,9 +41,7 @@
 
           <ion-card style="background-color: #dcfce7">
             <ion-card-header>
-              <ion-icon
-                name="heart"
-                style="background-color: #3cd856"></ion-icon>
+              <ion-icon name="heart" style="background-color: #3cd856"></ion-icon>
               <ion-card-title>Favourited</ion-card-title>
             </ion-card-header>
             <ion-card-content>
@@ -59,43 +51,16 @@
         </div>
       </ion-card>
     </div>
-    <div
-      style="
-        display: flex;
-        justify-content: left;
-        align-items: center;
-        gap: 40px;
-        align-self: stretch;
-      ">
-      <div class="product-graph">
-        <canvas id="product-clicks-chart"></canvas>
-      </div>
 
+    <div class="container">
+      <div class="categoryPercentage-graph">
+        <canvas id="categoryPercentage-chart"></canvas>
+      </div>
       <div class="product-performance">
         <canvas id="product-performance-chart"></canvas>
       </div>
     </div>
-    <div
-      style="
-        display: flex;
-        justify-content: left;
-        align-items: center;
-        gap: 40px;
-        align-self: stretch;
-      ">
-      <div class="categoryPercentage-graph">
-        <canvas id="categoryPercentage-chart"></canvas>
-      </div>
-    </div>
-
-    <div
-      style="
-        display: flex;
-        justify-content: right;
-        align-items: center;
-        gap: 40px;
-        align-self: stretch;
-      ">
+    <div class="container">
       <div class="table">
         <ion-list lines="full">
           <ion-item>
@@ -113,10 +78,8 @@
               <ion-grid>
                 <ion-row>
                   <ion-col size="1">
-                    <ion-checkbox
-                      (ionChange)="
-                        getSelectedProductData(product.product_name, $event)
-                      "></ion-checkbox>
+                    <ion-checkbox (ionChange)="
+                        getSelectedProductData(product.product_name, $event)"></ion-checkbox>
                   </ion-col>
                   <ion-col size="4">{{ product.product_name }}</ion-col>
                   <ion-col size="2">{{ product.clicks }}</ion-col>
@@ -129,5 +92,16 @@
         </ion-list>
       </div>
     </div>
+
+    <div class="container">
+      <div class="product-graph">
+        <canvas id="product-clicks-chart"></canvas>
+      </div>
+
+
+    </div>
+
+
+
   </div>
 </ion-content>
