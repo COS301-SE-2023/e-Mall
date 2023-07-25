@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { PopovereditComponent } from '../popoveredit/popoveredit.component';
-import { ProductSellerService } from '@shared/servicies/productseller/productseller.service';
+import { InventoryService } from '@features/inventory/servicies/inventory.service';
 
 @Component({
   selector: 'app-popover',
@@ -13,7 +13,7 @@ export class PopoverComponent {
   seller_name!: string;
   constructor(
     private popoverController: PopoverController,
-    private ProductSellerService: ProductSellerService
+    private ProductSellerService: InventoryService
   ) {}
 
   async presentPopover(ev: any) {
@@ -32,7 +32,7 @@ export class PopoverComponent {
 
   deleteProduct() {
     // Implement the logic to delete the selected product
-    this.seller_name="Takealot"
+    this.seller_name = 'Takealot';
     const data = {
       prod_id: this.product.product,
       seller_name: this.seller_name,

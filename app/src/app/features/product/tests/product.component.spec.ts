@@ -228,8 +228,7 @@ describe('ProductComponent', () => {
     expect(productService.getSellerList).toHaveBeenCalledWith(1, 'true');
   });
 
-  
- /*it('should navigate to the seller product page on seller name click', () => {
+  /*it('should navigate to the seller product page on seller name click', () => {
     const sellerId = 1;
     const sellerProductUrl = `/seller/${sellerId}`;
 
@@ -355,7 +354,7 @@ describe('ProductComponent', () => {
   //   );
   // });
 
- /* it('should scroll to the specified element', () => {
+  /* it('should scroll to the specified element', () => {
     const dummyElement = document.createElement('div');
     const dummyRect: DOMRect = {
       top: 100,

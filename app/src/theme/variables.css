@@ -34,7 +34,7 @@
   --ion-color-text-shade: #e0e0e0;
   --ion-color-text-tint: #ffffff;
 
-  --ion-color-text-reverse: #000000;
+  --ion-color-text-reverse: #d46e6e;
   --ion-color-text-reverse-rgb: 0, 0, 0;
   --ion-color-text-reverse-contrast: #ffffff;
   --ion-color-text-reverse-contrast-rgb: 255, 255, 255;
@@ -75,6 +75,19 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #cadad9;
   --ion-color-light-tint: #e9f9f8;
+
+  --ion-background-color: #ffffff;
+  
+  /* inventory */
+  --ion-color-selected: #000000;
+  --ion-color-unselected: #B3B3B3;
+  --ion-color-dashbord-content: #fff;
+  --ion-color-tab:#f7f9f9;
+  /* inventory searchbar*/
+  --searchbar-font-size: 14px;
+  --searchbar-height: 45px;
+  /* popover */ 
+  --ion-color-clear-button: #000000;
 }
 
 ion-content.global-ion-content {
@@ -88,6 +101,7 @@ ion-content.global-ion-content {
 ion-content::-webkit-scrollbar {
   display: none;
 }
+
 
 .ion-content-wrapper {
   display: flex;
@@ -153,3 +167,58 @@ p {
 a {
   color: var(--ion-color-primary-shade);
 }
+ion-popover.sort-popover {
+  --min-width:min-content;
+  /* margin-left: -1rem; */
+  /* --font-size: 5px; */
+  
+}
+ion-popover.search-popover {
+  --min-width:min-content;
+  margin-top: 12px;
+  /* margin-left: -2.5rem; */
+}
+ion-popover.search-popover ion-item,ion-popover.sort-popover ion-item{
+  font-size: var(--searchbar-font-size)
+}
+.search-box .searchbar-input-container input {
+  font-size: var(--searchbar-font-size);
+}
+/* Custom Skeleton Line Height and Margin */
+.custom-skeleton ion-skeleton-text {
+  line-height: 13px;
+  --background: #000;
+}
+
+.custom-skeleton ion-skeleton-text:last-child {
+  margin-bottom: 5px;
+}
+
+ion-modal.inventory-modal{
+  --height:max-content;
+  --width: max-content;
+  --width:26rem;
+  /* position: absolute; */
+  /* display: flex !important; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* left: 50%; */
+}
+
+/* ion-modal.inventory-modal::part(backdrop) {
+  position: absolute;
+  left: -50%;
+} */
+/* ion-modal.modal-shadow {
+    display: none;
+  
+} */
+
+/* .inventory-modal .modal-wrapper { */
+  /* position: absolute; */
+  /* background-color: red; */
+  /* --offset-left: 400px; */
+  /* left: 1000px; */
+
+  /* transform: translate(-50%, -50%); */
+/* } */
