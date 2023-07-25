@@ -48,6 +48,7 @@ export class SalesComponent implements OnInit {
   categories!: string[];
   categoryPercentage!: number[];
   productNames!: string[];
+  isChecked!: boolean;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(
@@ -56,6 +57,7 @@ export class SalesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.productNames = [];
     this.profileFacade.getProfile().subscribe(profile => {
       if (profile) {
         if ('business_name' in profile.details) {
@@ -348,23 +350,25 @@ export class SalesComponent implements OnInit {
     });
   }
 
-  getSelectedProductData(product_name: string, checked: boolean) {
-    if (checked) {
+  getSelectedProductData(product_name: string, event: any) {
+    this.isChecked = event.detail.checked;
+    if (this.isChecked) {
       //TODO: check if seller is already in the list
       //const index =
       if (this.productNames.indexOf(product_name) === -1) {
         this.productNames.push(product_name);
       }
     }
-    if (!checked) {
+    if (!this.isChecked) {
       this.productNames.splice(this.productNames.indexOf(product_name));
     }
-    console.log(this.productNames);
     const data = {
       seller_name: this.sellerName,
       product_names: this.productNames,
     };
     const data1 = this.analytics.getSelectedProductData(data);
-    console.log(data1);
+    data1.subscribe(data => {
+      console.log(data);
+    });
   }
 }
