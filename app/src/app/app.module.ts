@@ -28,10 +28,7 @@ import { AuthModule } from './features/auth/auth.module';
 import { ErrorModule } from './features/error/error.module';
 import { NgxsResetPluginModule } from 'ngxs-reset-plugin';
 import { customPageAnimation } from '@shared/animations/custom-page.animation';
-import { InventoryModule } from './features/inventory/inventory.module';
 import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module';
-import { PopoverModule } from './features/popover/popover.module';
-import { PopovereditModule } from '@features/popoveredit/popoveredit.module';
 import { ProfileModule } from './features/profile/profile.module';
 import { DropdownPopoverModule } from '@shared/components/dropdown-popover/dropdown-popover.module'; // Add this line
 import { CategoryModule } from '@features/category/category.module';
@@ -80,11 +77,7 @@ import { WishlistModule } from '@features/profile/components/wishlist/wishlist.m
 
     // SalesModule,
     MatTooltipModule,
-    InventoryModule,
     SellerNavModule,
-    PopoverModule,
-    PopovereditModule,
-
     ProfileModule,
     DropdownPopoverModule,
     CategoryModule,

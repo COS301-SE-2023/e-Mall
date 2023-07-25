@@ -4,6 +4,14 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+.container{
+  
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 40px;
+  align-self: stretch;
+}
 .content {
   margin-left: 350px;
   margin-top: 100px;
@@ -15,11 +23,11 @@
 }
 
 .product-graph,
-.product-performance,.categoryPercentage-graph {
+.product-performance,.categoryPercentage-graph, .table {
   margin-bottom: 20px;
   padding: 20px;
 }
-.product-graph,.product-performance,.categoryPercentage-graph {
+.product-performance,.categoryPercentage-graph {
   width: 473px;
   height: 389px;
   flex-shrink: 0;
@@ -28,7 +36,15 @@
   background: #fff;
   box-shadow: 0px 4px 20px 0px rgba(238, 238, 238, 0.5);
 }
-
+.product-graph{
+  width: 800px;
+  height: 500px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  border: 1px solid #f8f9fa;
+  background: #fff;
+  box-shadow: 0px 4px 20px 0px rgba(238, 238, 238, 0.5);
+}
 .product-graph .chartjs-render-monitor .bar {
   width: 20px;
 }
@@ -41,6 +57,14 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2; /* Number of lines to display */
   max-width: 100%;
+}
+.table {
+  .col-title {
+    ion-col {
+      display: flex;
+      align-items: center;
+    }
+  }
 }
 
 
