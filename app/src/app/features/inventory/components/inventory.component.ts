@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, ViewChild } from '@angular/core';
-import { Observable, debounceTime, map, mapTo, merge, of } from 'rxjs';
+import { Observable, debounceTime, map, merge, of } from 'rxjs';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import {
   IonContent,
