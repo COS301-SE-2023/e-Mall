@@ -10,7 +10,7 @@ import { CategoryComponent } from '@features/category/category.component';
 import { authGuard } from '@shared/route-guards/auth-guard/auth-guard.service';
 import { routeGuard } from '@shared/route-guards/route-guard/route-guard.service';
 import { CustomerProfileComponent } from '@features/profile/components/customer-profile/customer-profile.component';
-import { WishlistComponent } from '@features/profile/components/wishlist/wishlist.component';
+import { WishlistComponent } from '@features/wishlist/wishlist.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },

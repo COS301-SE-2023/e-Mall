@@ -33,7 +33,7 @@ import { ProfileModule } from './features/profile/profile.module';
 import { DropdownPopoverModule } from '@shared/components/dropdown-popover/dropdown-popover.module'; // Add this line
 import { CategoryModule } from '@features/category/category.module';
 import { CustomerProfileModule } from '@features/profile/components/customer-profile/customer-profile.module';
-import { WishlistModule } from '@features/profile/components/wishlist/wishlist.module';
+import { WishlistModule } from '@features/wishlist/wishlist.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [

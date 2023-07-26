@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
-import { ProfileFacade } from '../../services/profile.facade';
-import { ISellerProfile } from '../../models/seller-profile.interface';
-import { IConsumerProfile } from '../../models/consumer-profile.interface';
+import { ProfileFacade } from '../profile/services/profile.facade';
+import { ISellerProfile } from '../profile/models/seller-profile.interface';
+import { IConsumerProfile } from '../profile/models/consumer-profile.interface';
 import { Observable, of } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 import { IProduct } from '@shared/models/product/product.interface';
