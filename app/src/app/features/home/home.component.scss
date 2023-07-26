@@ -1,4 +1,3 @@
-
 $color_type_0: rgb(0, 0, 0);
 $color_type_1: rgb(124, 208, 211);
 $color_type_2: rgb(169, 169, 169);
@@ -20,10 +19,39 @@ $font_type_3: 400 14px/1.35 'Open Sans', Helvetica, Arial, serif;
 $font_type_4: 400 12px/1.33 'Open Sans', Helvetica, Arial, serif;
 $font_type_5: 600 1em/1.39 'Poppins', Helvetica, Arial, serif;
 
-h3{
+h3 {
   font-size: 40px;
 }
 
-  .carousel-caption{
-    color: $color_type_4;
-  }
+.carousel-caption {
+  color: $color_type_4;
+}
+
+.banner {
+  position: relative;
+  /* Make the banner container position relative */
+}
+
+.image-container {
+  position: relative;
+  /* Ensure the image container is positioned relative to the banner */
+}
+
+.overlay-button {
+  position: absolute;
+  /* Position the button absolutely within the image container */
+  top: 80%;
+  /* Adjust the top value to move the button vertically */
+  left: 80%;
+  transform: translate(-50%, -50%);
+  border: none;
+  cursor: pointer;
+  z-index: 99;
+  /* Make sure the button appears on top of the image */
+}
+
+ion-button {
+  --background: transparent;
+  color: white;
+  //border: 2px solid white;
+}

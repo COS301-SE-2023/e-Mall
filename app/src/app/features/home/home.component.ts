@@ -71,7 +71,11 @@ export class HomeComponent implements OnInit {
 
     this.router.navigate(['products'], navigationextras);
   }
+  async onAllClick(){
+    const path='/construction';
+    this.router.navigate([path]);
 
+}
   getOneImg(imgList?: string[]) {
     //remove following when no need to have mock data
     if (!imgList || imgList.length < 1)
