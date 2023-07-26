@@ -18,7 +18,7 @@ import { NavigationExtras, Router } from '@angular/router';
 })
 export class ProductComponent implements OnInit, OnDestroy {
   prod_id: number;
-  consumer_id!: string;
+  consumer_id!: string | null;
   product$: Observable<IProduct> | undefined;
   sellers$: Observable<IProductSeller[]> | undefined;
   currency$: Observable<string> | undefined;
@@ -53,6 +53,9 @@ export class ProductComponent implements OnInit, OnDestroy {
           this.consumer_id = profile.id;
         }
       });
+      if (this.consumer_id === undefined) {
+        this.consumer_id = null;
+      }
       // this.consumer_id = this.profileFacade.getProfile().id;
       const id = params.get('prod_id');
       if (id) {
