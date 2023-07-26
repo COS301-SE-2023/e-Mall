@@ -34,6 +34,7 @@ import { DropdownPopoverModule } from '@shared/components/dropdown-popover/dropd
 import { CategoryModule } from '@features/category/category.module';
 import { CustomerProfileModule } from '@features/profile/components/customer-profile/customer-profile.module';
 import { WishlistModule } from '@features/wishlist/wishlist.module';
+import { NavbarPopupModule } from '@shared/components/navbar-popup/navbar-popup.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -71,6 +72,7 @@ import { WishlistModule } from '@features/wishlist/wishlist.module';
     SignOutModule,
     CustomerProfileModule,
     WishlistModule,
+    NavbarPopupModule,
     // FooterModule,
     // NavbarModule,
     // AboutModule,

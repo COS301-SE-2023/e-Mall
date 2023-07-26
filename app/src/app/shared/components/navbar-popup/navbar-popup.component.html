@@ -1,0 +1,34 @@
+
+<div class="modal-container">
+
+  <ion-list mode="ios">
+    <ion-item lines="none" class="modal-header-item">
+      <ion-button
+        class="close-button"
+        shape="round"
+        mode="ios"
+        slot="end"
+        (click)="closeModal()">
+        <ion-icon size="large" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-button
+        class="close-button"
+        mode="ios"
+        slot="end"
+        (click)="goToCustomerProfile()">
+        <ion-icon size="medium" name="close-outline"></ion-icon>
+        Go to Profile
+  </ion-button>
+
+  <ion-button
+        class="close-button"
+        mode="ios"
+        slot="end"
+        (click)="signOut()">
+        <ion-icon size="large" name="close-outline"></ion-icon>
+        signOut
+  </ion-button>
+</div>

@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { PopoverController } from '@ionic/angular';
 import { DropdownPopoverComponent } from '@shared/components/dropdown-popover/dropdown-popover.component';
-
+import { ModalController } from '@ionic/angular';
+import { NavbarPopupComponent } from '@shared/components/navbar-popup/navbar-popup.component';
 
 @Component({
   selector: 'app-navbar',
@@ -20,7 +21,8 @@ export class NavbarComponent {
   constructor(
     private router: Router,
     private authFacade: AuthFacade,
-    private profileFacde: ProfileFacade,private popoverController: PopoverController
+    private profileFacde: ProfileFacade,private popoverController: PopoverController,
+    public modalController: ModalController
   ) {
     this.isAuthenticated = this.authFacade.getCurrentUser();
   }
@@ -52,5 +54,17 @@ export class NavbarComponent {
 
   public redirect(page: string): void {
     this.router.navigate([`/${page}`]);
+  }
+
+  async openModal() {
+    const modal = await this.modalController.create({
+      component: NavbarPopupComponent,
+      /*componentProps: {
+        product: product,
+      },*/
+      mode: 'ios',
+      cssClass: ['inventory-modal'],
+    });
+    return await modal.present();
   }
 }
