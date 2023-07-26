@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   popProducts$: Observable<IProduct[]> | undefined;
   forYouProducts$: Observable<IProduct[]> | undefined;
   // isAuthenticated = false;
-  images = 'assets/images/comingSoon.jpg';
+  images = 'assets/images/home_banner.png';
   // isAuthenticated$;
   constructor(
     // private authService: AuthService,
