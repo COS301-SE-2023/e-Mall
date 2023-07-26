@@ -20,7 +20,7 @@ import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
 import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module';
 import { SellerDetailsComponent } from './seller-details.component';
-
+import { ProductCardModule } from '../../shared/components/product-card/product-card.module';
 
 @NgModule({
   declarations: [SellerDetailsComponent],
@@ -46,6 +46,7 @@ import { SellerDetailsComponent } from './seller-details.component';
     NavbarModule,
     FooterModule,
     SellerNavModule,
+    ProductCardModule,
   ],
   exports: [SellerDetailsComponent],
 })

@@ -28,7 +28,8 @@
           </ion-button>
           <a href="{{ seller.website }}" target="_blank">
             <ion-button class="button" color="primary" expand="block"
-              >Visit Page</ion-button>
+              >Visit Page</ion-button
+            >
           </a>
         </div>
         <mat-divider class="divider"></mat-divider>
@@ -36,18 +37,17 @@
           <div class="contact-container">
             <h3 class="title">Contact Us</h3>
             <div class="contact">
-              <p class="email-text">{{ seller.support_email }}<br></p>
-                <p class="number-text">{{ seller.landline_number }}<br></p>
+              <p class="email-text">{{ seller.support_email }}<br /></p>
+              <p class="number-text">{{ seller.landline_number }}<br /></p>
             </div>
-
           </div>
           <div class="address-container">
             <h3 class="title">Address</h3>
-              <div class="address">
-                <p class="address-text">{{ seller.address }}<br></p>
-                  <p class="city-text">{{ seller.city }}<br></p>
-                    <p class="postal-code">{{ seller.postal_code}}</p>
-              </div>
+            <div class="address">
+              <p class="address-text">{{ seller.address }}<br /></p>
+              <p class="city-text">{{ seller.city }}<br /></p>
+              <p class="postal-code">{{ seller.postal_code }}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -77,7 +77,48 @@
 
     <div class="products-container">
       <h2 class="title">Products</h2>
-    </div>
-  </ng-container>
-  <app-footer></app-footer>
-</ion-content>
+      <div class="product-card">
+        <div
+          style="display: flex; justify-content: center; align-items: center"
+          *ngIf="(searchResults$ | async) === null">
+          <mat-spinner></mat-spinner>
+        </div>
+        <ng-container *ngIf="searchResults$ | async as products">
+          <div class="row" style="grid-auto-rows: auto">
+            <div
+              class="col-md-3 col-12"
+              style="grid-auto-columns: auto; min-width: 300px"
+              *ngFor="let product of products; let i = index">
+              <app-product-card
+                [product]="{
+                  discount: product.discount_rate,
+                  imageUrl: getOneImg(product?.img_array),
+                  name: product.product_name,
+                  price: product.price
+                }"></app-product-card>
+              <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
+              <div
+                class="col-md-1"
+                *ngIf="
+                  (i + 1) % 4 === 0 &&
+                  products.length > 4 &&
+                  i + 1 !== products.length
+                "></div>
+            </div>
+          </div>
+        </ng-container>
+        <div class="mat-paginator">
+          <ng-container *ngIf="searchResults$ | async as products">
+            <mat-paginator
+              [length]="totalSearchCount$ | async"
+              [pageSizeOptions]="[10, 20, 50, 100]"
+              aria-label="Select page"
+              [pageIndex]="currentPage"
+              [pageSize]="itemsPerPage"
+              (page)="onPageChange($event)"></mat-paginator>
+          </ng-container>
+        </div>
+      </div></div></ng-container
+></ion-content>
+<!-- <app-footer></app-footer> -->
+```

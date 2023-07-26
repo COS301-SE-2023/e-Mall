@@ -11,6 +11,7 @@ import { CategoryComponent } from '@features/category/category.component';
 import { authGuard } from '@shared/route-guards/auth-guard/auth-guard.service';
 import { routeGuard } from '@shared/route-guards/route-guard/route-guard.service';
 import { SellerDetailsComponent } from '@features/seller-details/seller-details.component';
+import { SellerDataResolver } from '@features/seller-details/seller-details-resolver';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -47,7 +48,11 @@ const routes: Routes = [
     canActivate: [routeGuard],
   },
   { path: 'inventory', component: InventoryComponent },
-  { path: 'seller-details', component: SellerDetailsComponent },
+  {
+    path: 'seller-details',
+    component: SellerDetailsComponent,
+    resolve: { sellerData: SellerDataResolver },
+  },
   {
     path: 'about',
     loadChildren: () =>
