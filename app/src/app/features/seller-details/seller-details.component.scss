@@ -53,7 +53,23 @@
     margin-left: 80rem
   }
 
+.products-container{
+    padding:30px;
+}
 
+.mat-paginator {
+    display: flex;
+    justify-content: center;
+  }
+
+ion-button{
+    border-radius: 16px;
+    --background: #37D0D6;
+    --color: #FFFFFF;
+
+    /* Shadow */
+    box-shadow: 0px 20px 50px 0px rgba(55, 69, 87, 0.10);
+}
 app-footer {
     position: fixed;
     bottom: 0;
