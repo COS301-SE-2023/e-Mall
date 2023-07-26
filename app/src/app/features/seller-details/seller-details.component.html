@@ -54,18 +54,24 @@
     <mat-divider class="divider2"></mat-divider>
 
     <div class="social-container">
-      <img
-        class="facebook-image"
-        style="width: 60px; height: 60px; padding: 10px; margin: 0px"
-        src="\assets\images\facebook.png" />
-      <img
-        class="twitter-image"
-        style="width: 60px; height: 60px; padding: 10px; margin: 0px"
-        src="\assets\images\twitter.png" />
-      <img
-        class="instagram-image"
-        style="width: 60px; height: 60px; padding: 10px; margin: 0px"
-        src="\assets\images\instagram.png" />
+      <a href="{{ seller.facebook_link }}" target="_blank">
+        <img
+          class="facebook-image"
+          style="width: 60px; height: 60px; padding: 10px; margin: 0px"
+          src="\assets\images\facebook.png" />
+      </a>
+      <a href="{{ seller.twitter_link }}" target="_blank">
+        <img
+          class="twitter-image"
+          style="width: 60px; height: 60px; padding: 10px; margin: 0px"
+          src="\assets\images\twitter.png" />
+      </a>
+      <a href="{{ seller.instagram_link }}" target="_blank">
+        <img
+          class="instagram-image"
+          style="width: 60px; height: 60px; padding: 10px; margin: 0px"
+          src="\assets\images\instagram.png" />
+      </a>
     </div>
 
     <div class="products-container">
