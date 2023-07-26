@@ -13,6 +13,7 @@ import { baseGuard } from '@shared/guards/base.guard';
 import { sellerTypeGuard } from '@shared/guards/seller-type.guard';
 import { SellerDetailsComponent } from '@features/seller-details/seller-details.component';
 import { SellerDataResolver } from '@features/seller-details/seller-details-resolver';
+import { InventoryComponent } from '@features/inventory/components/inventory.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of, Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
@@ -8,19 +8,19 @@ import { ProductSellerService } from '@shared/servicies/productseller/productsel
 import { IProductSeller } from '@shared/models/product/product-seller.interface';
 import { ProductService } from '@shared/servicies/product/product.service';
 import { PopoverController } from '@ionic/angular';
-import { PopovereditComponent } from '../popoveredit/popoveredit.component';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { ISeller } from '@shared/models/seller/seller.interface';
 import { SellerService } from '@shared/servicies/seller/seller.service';
 import { switchMap, take, tap } from 'rxjs/operators';
 import { combineLatest } from 'rxjs';
 import { SellerDataResolver } from './seller-details-resolver';
+
 @Component({
   selector: 'app-inventory',
   templateUrl: './seller-details.component.html',
   styleUrls: ['./seller-details.component.scss'],
 })
-export class SellerDetailsComponent implements OnInit {
+export class SellerDetailsComponent implements OnInit, OnDestroy {
   buttonText = 'Follow';
   seller$: Observable<ISeller> = of();
   seller_business_name!: string;
