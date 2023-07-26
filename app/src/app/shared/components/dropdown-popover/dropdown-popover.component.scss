@@ -1,19 +1,22 @@
 /* dropdown-popover.component.scss */
 
 ion-list {
-    --padding-start: 0;
-    --padding-end: 0;
-    background-color: #ecf6f6;
-    ion-item {
-        --ion-background-color: transparent; /* Remove the background color of the item */
-        --ion-item-background-color: transparent; /* Remove the background color of the item */
-      text-align: center;
-     // padding: 10px;
-     font-family: Poppins,sans-serif;
-  
-      &:not(:last-child) {
-        border-bottom: 1px solid;
-      }
+  --padding-start: 0;
+  --padding-end: 0;
+  background-color: #ecf6f6;
+
+  ion-item {
+    cursor: pointer;
+    --ion-background-color: transparent;
+    /* Remove the background color of the item */
+    --ion-item-background-color: transparent;
+    /* Remove the background color of the item */
+    text-align: center;
+    // padding: 10px;
+    font-family: Poppins, sans-serif;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid;
     }
   }
-  
+}

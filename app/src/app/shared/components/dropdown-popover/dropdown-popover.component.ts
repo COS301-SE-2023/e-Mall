@@ -1,6 +1,6 @@
 // dropdown-popover.component.ts
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
@@ -10,9 +10,9 @@ import { Router } from '@angular/router';
   templateUrl: './dropdown-popover.component.html',
   styleUrls: ['./dropdown-popover.component.scss']
 })
-export class DropdownPopoverComponent {
-
-  pages = [
+export class DropdownPopoverComponent implements OnInit {
+  parameterData: string | undefined;
+  cat_pages = [
     { title: 'Electronics', path: '/category/Electronics' },
     { title: 'Sports and Outdoors', path: '/category/Sports%20and%20Outdoors' },
     { title: 'Clothing', path: '/category/Clothing' },
@@ -21,9 +21,23 @@ export class DropdownPopoverComponent {
     { title: 'Toys and Games', path: '/category/Toys%20and%20Games' },
     { title: 'Books', path: '/category/Books' }
   ];
-  
 
-  constructor(private router: Router, private popoverController: PopoverController) {}
+  sel_pages = [
+    { title: 'Amazon', path: '/construction' },
+    { title: 'Makro', path: '/construction' },
+    { title: 'Takealot', path: '/construction' }
+  ];
+  pages = [{ title: '', path: '' }];
+
+  constructor(private router: Router, private popoverController: PopoverController) {
+
+  }
+  ngOnInit(): void {
+    if (this.parameterData === 'Cat') { this.pages = this.cat_pages; }
+    else {
+      this.pages = this.sel_pages;
+    }
+  }
 
   async onItemClicked(path: string) {
     await this.popoverController.dismiss();

@@ -38,7 +38,22 @@ export class NavbarComponent {
       component: DropdownPopoverComponent,
       event: event,
       translucent: true,
-      animated: true
+      animated: true,
+      componentProps: {
+        parameterData: 'Cat'
+      }
+    });
+    return await popover.present();
+  }
+  async toggleSellers(event: Event) {
+    const popover = await this.popoverController.create({
+      component: DropdownPopoverComponent,
+      event: event,
+      translucent: true,
+      animated: true,
+      componentProps: {
+        parameterData: 'Sel'
+      }
     });
     return await popover.present();
   }
