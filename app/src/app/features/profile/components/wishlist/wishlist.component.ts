@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { ProfileFacade } from '../../services/profile.facade';
 import { ISellerProfile } from '../../models/seller-profile.interface';
 import { IConsumerProfile } from '../../models/consumer-profile.interface';
@@ -57,11 +57,30 @@ export class WishlistComponent {
   getData(): Observable<IProduct[] | null> {
     return of(data);
   }
+
+  getOneImg(imgList?: string[]) {
+    //remove following when no need to have mock data
+    if (!imgList || imgList.length < 1)
+      return 'https://www.incredible.co.za/media/catalog/product/cache/7ce9addd40d23ee411c2cc726ad5e7ed/s/c/screenshot_2022-05-03_142633.jpg';
+
+    return imgList[0];
+  }
+
+  goToProductPage(prod_id: number): void {
+    // Create the navigation extras object with the search query as a parameter
+
+    const navigationextras: NavigationExtras = {
+      queryParams: { prod_id: prod_id },
+    };
+
+    this.router.navigate(['products'], navigationextras);
+  }
+
 }
 
 export const data: IProduct[] = [
   {
-    id: 645,
+    id: 25,
     min_price_original_price: 30,
     min_price_discount: 0,
     min_price_discount_rate: 0,
@@ -83,7 +102,7 @@ export const data: IProduct[] = [
     updated_at: '2023-07-17T15:13:07.459473Z',
   },
   {
-    id: 642,
+    id: 22,
     min_price_original_price: 46,
     min_price_discount: 0,
     min_price_discount_rate: 0,
@@ -105,7 +124,7 @@ export const data: IProduct[] = [
     updated_at: '2023-07-17T15:13:07.456264Z',
   },
   {
-    id: 643,
+    id: 23,
     min_price_original_price: 65,
     min_price_discount: 0,
     min_price_discount_rate: 0,
@@ -127,7 +146,7 @@ export const data: IProduct[] = [
     updated_at: '2023-07-17T15:13:07.457710Z',
   },
   {
-    id: 641,
+    id: 21,
     min_price_original_price: 118,
     min_price_discount: 0,
     min_price_discount_rate: 0,
@@ -149,7 +168,7 @@ export const data: IProduct[] = [
     updated_at: '2023-07-17T15:13:07.455266Z',
   },
   {
-    id: 644,
+    id: 26,
     min_price_original_price: 132,
     min_price_discount: 0,
     min_price_discount_rate: 0,
@@ -171,7 +190,7 @@ export const data: IProduct[] = [
     updated_at: '2023-07-17T15:13:07.458771Z',
   },
   {
-    id: 637,
+    id: 17,
     min_price_original_price: 135,
     min_price_discount: 0,
     min_price_discount_rate: 0,
@@ -194,7 +213,7 @@ export const data: IProduct[] = [
     updated_at: '2023-07-17T15:13:07.449506Z',
   },
   {
-    id: 647,
+    id: 27,
     min_price_original_price: 140,
     min_price_discount: 0,
     min_price_discount_rate: 0,
@@ -218,7 +237,7 @@ export const data: IProduct[] = [
     updated_at: '2023-07-17T15:13:07.461440Z',
   },
   {
-    id: 644,
+    id: 14,
     min_price_original_price: 132,
     min_price_discount: 0,
     min_price_discount_rate: 0,
@@ -240,7 +259,7 @@ export const data: IProduct[] = [
     updated_at: '2023-07-17T15:13:07.458771Z',
   },
   {
-    id: 642,
+    id: 12,
     min_price_original_price: 46,
     min_price_discount: 0,
     min_price_discount_rate: 0,
@@ -261,26 +280,5 @@ export const data: IProduct[] = [
     created_at: '2023-07-17T15:13:07.456257Z',
     updated_at: '2023-07-17T15:13:07.456264Z',
   },
-  {
-    id: 641,
-    min_price_original_price: 118,
-    min_price_discount: 0,
-    min_price_discount_rate: 0,
-    min_price: 118,
-    min_price_seller_id: 'f944186f-8587-4c07-a35d-0dd44d6747a7',
-    min_price_seller_product_url:
-      'https://www.amazon.com/Jujutsu-Kaisen-Vol-1/dp/1974710025/',
-    min_price_seller_business_name: 'Amazon',
-    min_price_in_stock: true,
-    min_price_img_array: [
-      'https://media.takealot.com/covers_isbn/9781974710027-zoom.jpg',
-    ],
-    name: 'Jujutsu Kaisen, Vol. 1 (Paperback / softback)',
-    description:
-      "Yuji Itadori is resolved to save the world from cursed demons, but he soon learns that the best way to do it is to slowly lose his humanity and become one himself!In a world where demons feed on unsuspecting humans, fragments of the legendary and feared demon Ryoma Sukuna were lost and scattered about. Should any demon consume Sukuna's body parts, the power they gain could destroy the world as we know it. Fortunately, there exists a mysterious school of Jujutsu Sorcerers who exist to protect the precarious existence of the living from the undead!",
-    brand: 'Gege Akutami',
-    category: 'books',
-    created_at: '2023-07-17T15:13:07.455259Z',
-    updated_at: '2023-07-17T15:13:07.455266Z',
-  },
+ 
 ];
