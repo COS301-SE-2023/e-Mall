@@ -34,9 +34,19 @@
         <div class="description-container">
           <div class="contact-container">
             <h3 class="title">Contact Us</h3>
+            <div class="contact">
+              <p class="email-text">{{ seller.support_email }}<br></p>
+                <p class="number-text">{{ seller.landline_number }}<br></p>
+            </div>
+
           </div>
           <div class="address-container">
             <h3 class="title">Address</h3>
+              <div class="address">
+                <p class="address-text">{{ seller.address }}<br></p>
+                  <p class="city-text">{{ seller.city }}<br></p>
+                    <p class="postal-code">{{ seller.postal_code}}</p>
+              </div>
           </div>
         </div>
       </div>

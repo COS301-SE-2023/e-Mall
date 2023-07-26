@@ -42,10 +42,12 @@
     margin-left: 1.5rem;
 }
 
-.address-container{
-    display: flex;
-    margin-left: 8rem;
-}
+
+.address-container {
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Stack the items vertically */
+    margin-left: 6rem;
+  }
 
 app-footer {
     position: fixed;
