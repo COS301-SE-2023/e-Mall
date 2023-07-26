@@ -26,9 +26,10 @@
             (click)="followed_seller(seller.business_name)">
             {{ buttonText }}
           </ion-button>
-          <ion-button class="button" color="primary" expand="block"
-            >Visit Page</ion-button
-          >
+          <a href="{{ seller.website }}" target="_blank">
+            <ion-button class="button" color="primary" expand="block"
+              >Visit Page</ion-button>
+          </a>
         </div>
         <mat-divider class="divider"></mat-divider>
         <div class="description-container">
