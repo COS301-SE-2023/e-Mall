@@ -89,6 +89,10 @@ export class AuthFacade {
     const currentUser = await firstValueFrom(this.currentUser$);
     return currentUser !== null;
   }
+  async getUserType(): Promise<string> {
+    const currentUser = await firstValueFrom(this.currentUser$);
+    return currentUser.type;
+  }
   setRedirectUrl(url: string): void {
     this.redirectUrl = url;
   }
