@@ -4,7 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
-
+import { ProductSellerService } from '@shared/servicies/product-seller/product-seller.service';
+import { IProductSeller } from '@shared/models/product/product-seller.interface';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-dropdown-popover',
   templateUrl: './dropdown-popover.component.html',
@@ -12,6 +14,7 @@ import { Router } from '@angular/router';
 })
 export class DropdownPopoverComponent implements OnInit {
   parameterData: string | undefined;
+  sellers$: Observable<IProductSeller[]> | undefined;
   cat_pages = [
     { title: 'Electronics', path: '/category/Electronics' },
     { title: 'Sports and Outdoors', path: '/category/Sports%20and%20Outdoors' },
@@ -29,13 +32,13 @@ export class DropdownPopoverComponent implements OnInit {
   ];
   pages = [{ title: '', path: '' }];
 
-  constructor(private router: Router, private popoverController: PopoverController) {
+  constructor(private router: Router, private popoverController: PopoverController, private productSellerService: ProductSellerService) {
 
   }
   ngOnInit(): void {
     if (this.parameterData === 'Cat') { this.pages = this.cat_pages; }
     else {
-      this.pages = this.sel_pages;
+      this.getSellers();
     }
   }
 
@@ -43,5 +46,9 @@ export class DropdownPopoverComponent implements OnInit {
     await this.popoverController.dismiss();
     // Redirect to the selected page using the provided path
     this.router.navigate([path]);
+  }
+  getSellers(){
+    //this.sellers$=this.productSellerService.getAllSellers();
+    this.pages=this.sel_pages;
   }
 }
