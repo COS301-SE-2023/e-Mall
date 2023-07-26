@@ -5,47 +5,62 @@ import { SellerRegisterComponent } from '@features/sign-up/seller/components/sel
 import { ConsumerRegisterComponent } from '@features/sign-up/consumer/components/consumer-register.component';
 import { SignInComponent } from './features/sign-in/components/sign-in.component';
 import { SignOutComponent } from './features/sign-out/sign-out.component';
-import { InventoryComponent } from '@features/inventory/inventory.component';
 import { ProfileComponent } from '@features/profile/components/profile.component';
 import { CategoryComponent } from '@features/category/category.component';
-import { authGuard } from '@shared/route-guards/auth-guard/auth-guard.service';
-import { routeGuard } from '@shared/route-guards/route-guard/route-guard.service';
+import { postAuthGuard } from '@shared/guards/post-auth.guard';
+import { preAuthGuard } from '@shared/guards/pre-auth.guard';
+import { baseGuard } from '@shared/guards/base.guard';
+import { sellerTypeGuard } from '@shared/guards/seller-type.guard';
 import { SellerDetailsComponent } from '@features/seller-details/seller-details.component';
 import { SellerDataResolver } from '@features/seller-details/seller-details-resolver';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent, canActivate: [baseGuard] },
   {
     path: 'construction',
     loadChildren: () =>
       import('@app/features/construction/construction.module').then(
         m => m.ConstructionModule
       ),
+    canActivate: [baseGuard],
   },
   {
     path: 'search-results',
     loadChildren: () =>
       import('@app/features/search/search.module').then(m => m.SearchModule),
+    canActivate: [baseGuard],
   },
   { path: 'category/:category', component: CategoryComponent },
   {
     path: 'pending',
     loadChildren: () =>
       import('@app/features/pending/pending.module').then(m => m.PendingModule),
-    canActivate: [authGuard],
+    canActivate: [postAuthGuard, sellerTypeGuard],
   },
   {
     path: 'register',
     component: SellerRegisterComponent,
-    canActivate: [routeGuard],
+    canActivate: [preAuthGuard],
   },
-  { path: 'sign-in', component: SignInComponent, canActivate: [routeGuard] },
-  { path: 'sign-out', component: SignOutComponent },
+  { path: 'sign-in', component: SignInComponent, canActivate: [preAuthGuard] },
+  {
+    path: 'sign-out',
+    component: SignOutComponent,
+    canActivate: [postAuthGuard],
+  },
   {
     path: 'sign-up',
     component: ConsumerRegisterComponent,
-    canActivate: [routeGuard],
+    canActivate: [preAuthGuard],
+  },
+  {
+    path: 'inventory',
+    loadChildren: () =>
+      import('@app/features/inventory/inventory.module').then(
+        m => m.InventoryModule
+      ),
+    canActivate: [postAuthGuard, sellerTypeGuard],
   },
   { path: 'inventory', component: InventoryComponent },
   {
@@ -57,25 +72,25 @@ const routes: Routes = [
     path: 'about',
     loadChildren: () =>
       import('@app/features/about/about.module').then(m => m.AboutModule),
+    canActivate: [baseGuard],
   },
   {
     path: 'sales',
     loadChildren: () =>
       import('@app/features/sales/sales.module').then(m => m.SalesModule),
+    canActivate: [postAuthGuard, sellerTypeGuard],
   },
   {
     path: 'contact',
     loadChildren: () =>
       import('@app/features/contact/contact.module').then(m => m.ContactModule),
+    canActivate: [baseGuard],
   },
-  // {
-  //   path: '',
-  //   component: ProductComponent,
-  // },
   {
     path: 'products',
     loadChildren: () =>
       import('@app/features/product/product.module').then(m => m.ProductModule),
+    canActivate: [baseGuard],
   },
   { path: 'policies-and-privacy', redirectTo: '/construction' },
   { path: 'ads', redirectTo: '/construction' },

@@ -54,19 +54,8 @@ export class AnalyticsService {
     });
   }
 
-  public getSelectedProductData(data: object): void{
+  public getSelectedProductData(data: object): Observable<any> {
     const url = `${this.apiUrl}analytics/selectedproducts/`;
-    this.http.post(url, data).subscribe({
-      next: response => {
-        // Handle the response
-        console.log(response);
-        // Perform any additional actions
-      },
-      error: error => {
-        // Handle the error
-        console.log(error);
-        // Perform any additional error handling
-      },
-    });
+    return this.http.post<any>(url, data);
   }
 }

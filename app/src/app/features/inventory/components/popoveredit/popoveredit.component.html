@@ -1,0 +1,143 @@
+<div class="modal-container">
+  <ion-list mode="ios">
+    <ion-item lines="none" class="modal-header-item">
+      <ion-text class="modal-header"> Product detail </ion-text>
+      <ion-button
+        class="close-button"
+        fill="clear"
+        shape="round"
+        mode="ios"
+        slot="end"
+        (click)="closeModal()">
+        <ion-icon size="large" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+
+    <ng-container *ngIf="!editClicked; else edit">
+      <ion-item class="item-padding" lines="none">
+        <div class="item-label">Name</div>
+        <ion-text class="item-content" [title]="product.product_name">{{
+          product.product_name
+        }}</ion-text>
+      </ion-item>
+      <ion-item class="item-padding" lines="none">
+        <div class="item-label">Category</div>
+        <ion-text
+          class="item-content"
+          [title]="
+            product.product_category?.charAt(0)!.toUpperCase() +
+            product.product_category?.slice(1)
+          "
+          >{{
+            product.product_category?.charAt(0)!.toUpperCase() +
+              product.product_category?.slice(1)
+          }}</ion-text
+        >
+      </ion-item>
+      <ion-item class="item-padding" lines="none">
+        <div class="item-label">Price (R)</div>
+        <ion-text class="item-content">{{ product.price }}</ion-text>
+      </ion-item>
+      <ion-item class="item-padding" lines="none">
+        <div class="item-label">Discount rate (%)</div>
+        <ion-text class="item-content">{{
+          product.discount_rate! * 100 | number : '2.2-2'
+        }}</ion-text>
+      </ion-item>
+      <ion-item class="item-padding" lines="none">
+        <div class="item-label">Inventory Status</div>
+
+        <ion-text class="item-content">{{
+          product.in_stock ? 'In Stock' : 'Out of Stock'
+        }}</ion-text>
+      </ion-item>
+      <ion-item class="item-padding" lines="none">
+        <div class="item-button-container">
+          <ion-button mode="ios" color="primary" (click)="editClick()"
+            >Edit</ion-button
+          >
+          <div class="item-button-spacer"></div>
+          <ion-button mode="ios" color="danger" (click)="deleteProduct()"
+            >Delete</ion-button
+          >
+        </div>
+      </ion-item>
+    </ng-container>
+
+    <ng-template #edit>
+      <form [formGroup]="productForm" (submit)="saveChanges()">
+        <ion-item class="item-padding" lines="none">
+          <div class="item-label">Name</div>
+          <div class="input-container">
+            <ion-input clearInput="true" formControlName="name"></ion-input>
+          </div>
+        </ion-item>
+        <ion-item class="item-padding" lines="none">
+          <div class="item-label">Category</div>
+          <div class="input-container">
+            <ion-input formControlName="category"></ion-input>
+          </div>
+        </ion-item>
+        <ion-item class="item-padding" lines="none">
+          <div class="item-label">Price (R)</div>
+          <div class="input-container">
+            <ion-input
+              type="number"
+              step="0.10"
+              (ionChange)="formatNumber($event, 'price')"
+              min="1"
+              inputmode="decimal"
+              formControlName="price"></ion-input>
+          </div>
+        </ion-item>
+        <ion-item class="item-padding" lines="none">
+          <div class="item-label">Discount rate (%)</div>
+          <div class="input-container">
+            <ion-input
+              clearInput="true"
+              type="number"
+              step="1.0"
+              inputmode="decimal"
+              max="100"
+              min="0"
+              formControlName="discount"></ion-input>
+          </div>
+        </ion-item>
+        <ion-item class="item-padding" lines="none">
+          <div class="item-label">Inventory Status</div>
+          <div class="item-content stock-icon-container">
+            <ion-segment mode="ios" formControlName="stock">
+              <ion-segment-button value="in">
+                <ion-icon
+                  class="stock-icon"
+                  name="checkmark"
+                  color="success"></ion-icon>
+              </ion-segment-button>
+              <ion-segment-button value="out">
+                <ion-icon
+                  class="stock-icon"
+                  name="close"
+                  color="danger"></ion-icon>
+              </ion-segment-button>
+            </ion-segment>
+          </div>
+        </ion-item>
+        <ion-item class="item-padding" lines="none">
+          <div class="item-button-container">
+            <ion-button
+              type="submit"
+              mode="ios"
+              color="primary"
+              [disabled]="!productForm.valid"
+              >Save</ion-button
+            >
+            <div class="item-button-spacer"></div>
+            <ion-button mode="ios" color="danger" (click)="deleteProduct()"
+              >Delete</ion-button
+            >
+          </div>
+        </ion-item>
+      </form>
+    </ng-template>
+  </ion-list>
+</div>
