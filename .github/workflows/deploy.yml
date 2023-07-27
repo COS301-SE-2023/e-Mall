@@ -16,13 +16,20 @@ jobs:
       - name: Create .env file
         run: |
           echo "${{ secrets.API_ENV_PROD}}" > ./api/api/.env
-          export $(cat ./api/api/.env | xargs)
+
+      - name: Dotenv Action
+        id: dotenv
+        uses: falti/dotenv-action@v1.0.4
+        with:
+          path: ./api/api/.env
+          log-variables: true
+          export-variables: true
+
       - name: Print AWS region
         run: |
           echo "AWS region: $AWS_PROD_REGION"
           echo "AWS region: ${{env.AWS_PROD_REGION}}"
           echo "DB: ${{env.DB_HOST}}"
-          cat ./api/api/.env
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@0e613a0980cbf65ed5b322eb7a1e075d28913a83
