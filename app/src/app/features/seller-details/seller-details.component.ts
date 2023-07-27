@@ -37,6 +37,7 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
   currentPage!: number;
   itemsPerPage!: number;
   totalSearchCount$: Observable<number> | undefined;
+  searchKeyword!: string;
 
   private paramMapSubscription: Subscription;
   constructor(

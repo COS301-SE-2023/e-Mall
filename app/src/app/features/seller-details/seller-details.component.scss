@@ -55,6 +55,7 @@
 
 .products-container{
     padding:30px;
+    background: var(--c-1-white, #F7F9F9);
 }
 
 .mat-paginator {
@@ -70,6 +71,15 @@ ion-button{
     /* Shadow */
     box-shadow: 0px 20px 50px 0px rgba(55, 69, 87, 0.10);
 }
+
+ion-searchbar{
+    width: 40%;
+    height: 100%;
+    min-width: 385px;
+    --border-radius: 45px;
+}
+
+
 app-footer {
     position: fixed;
     bottom: 0;

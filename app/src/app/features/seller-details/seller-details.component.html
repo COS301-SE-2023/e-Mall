@@ -73,6 +73,14 @@
 
     <div class="products-container">
       <h2 class="title">Products</h2>
+      <ion-searchbar
+                class="search-box"
+                placeholder="Search products..."
+                type="search"
+                mode="md"
+                [(ngModel)]="searchKeyword"
+                [debounce]="2000"
+                (ionInput)="onSearchInputChange()"></ion-searchbar>
       <div class="product-card">
         <div
           style="display: flex; justify-content: center; align-items: center"
