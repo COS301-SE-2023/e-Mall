@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
-import { ProductSellerService } from '@shared/servicies/product-seller/product-seller.service';
+//import { ProductSellerService } from '@shared/servicies/product-seller/product-seller.service';
 import { IProductSeller } from '@shared/models/product/product-seller.interface';
 import { Observable } from 'rxjs';
 @Component({
@@ -33,7 +33,8 @@ export class DropdownPopoverComponent implements OnInit {
   ];
   pages = [{ title: '', path: '' }];
 
-  constructor(private router: Router, private popoverController: PopoverController, private productSellerService: ProductSellerService) {
+  constructor(private router: Router, private popoverController: PopoverController, //private productSellerService: ProductSellerService
+  ) {
 
   }
   ngOnInit(): void {
