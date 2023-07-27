@@ -4,56 +4,52 @@
 <ion-content class="global-ion-content">
   <div class="ion-content-wrapper">
     <div class="body">
-      <main class="category main">
-        <div class="search-results">
-          <div class="top">
-            <div class="toptxt">
-              <h2>{{ categoryTitle }}</h2>
-            </div>
-          </div>
+      <div class="top">
+        <div class="toptxt">
+          <h2>{{ categoryTitle }}</h2>
+        </div>
+      </div>
 
-          <mat-divider></mat-divider>
-          <!--products-->
+      <mat-divider></mat-divider>
+      <!--products-->
 
-          <div class="product-card">
-            <div style="
+      <div class="product-card">
+        <div style="
                 display: flex;
                 justify-content: center;
                 align-items: center;
               " *ngIf="(categoryProducts$ | async) === null">
-              <mat-spinner></mat-spinner>
-            </div>
-            <ng-container *ngIf="categoryProducts$ | async as products">
-              <div class="row" style="grid-auto-rows: auto">
-                <div class="col-md-3 col-12" style="grid-auto-columns: auto; min-width: 300px"
-                  *ngFor="let product of products; let i = index">
-                  <app-product-card (click)="goToProductPage(product.id)" [product]="{
+          <mat-spinner></mat-spinner>
+        </div>
+        <ng-container *ngIf="categoryProducts$ | async as products">
+          <div class="row" style="grid-auto-rows: auto">
+            <div class="col-md-3 col-12" style="grid-auto-columns: auto; min-width: 300px"
+              *ngFor="let product of products; let i = index">
+              <app-product-card (click)="goToProductPage(product.id)" [product]="{
                       discount: product.min_price_discount_rate,
                       imageUrl: getOneImg(product?.min_price_img_array),
                       name: product.name,
                       category: product.category,
                       price: product.min_price
                     }"></app-product-card>
-                  <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
-                  <div class="col-md-1" *ngIf="(i + 1) % 4 === 0 && products.length > 4 && (i + 1) !== products.length"></div>
-                </div>
-              </div>
-            </ng-container>
-
-            <div class="search-results-container" *ngIf="(categoryProducts$ | async)?.length === 0">
-              <div class="product-card-no">
-                <h3>No Products Found</h3>
-                <p>
-                  Sorry, we couldn't find any products in this category. Please check back later or try searching for
-                  other categories.
-                </p>
-                <img src="assets\images\no-image.jpeg" alt="No Product Found" class="nimage" />
+              <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
+              <div class="col-md-1" *ngIf="(i + 1) % 4 === 0 && products.length > 4 && (i + 1) !== products.length">
               </div>
             </div>
           </div>
+        </ng-container>
+
+        <div class="search-results-container" *ngIf="(categoryProducts$ | async)?.length === 0">
+          <div class="product-card-no">
+            <h3>No Products Found</h3>
+            <p>
+              Sorry, we couldn't find any products in this category. Please check back later or try searching for
+              other categories.
+            </p>
+            <img src="assets\images\no-image.jpeg" alt="No Product Found" class="nimage" />
+          </div>
         </div>
-      </main>
+      </div>
     </div>
   </div>
-  <app-footer></app-footer>
 </ion-content>
