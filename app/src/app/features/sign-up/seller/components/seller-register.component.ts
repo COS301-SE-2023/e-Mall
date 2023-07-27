@@ -70,9 +70,6 @@ export class SellerRegisterComponent {
 
   onSubmit() {
     // Handle form submission
-    console.log(this.registerFormFirst.valid);
-    console.log(this.registerFormSecond.valid);
-    console.log(this.registerFormThird.valid);
     if (
       this.registerFormFirst.valid &&
       this.registerFormSecond.valid &&
@@ -113,11 +110,6 @@ export class SellerRegisterComponent {
   onInputFocus(index: number): void {
     this.focus.fill(false);
     this.focus[index] = true;
-    // console.log(this.focus[index]);
   }
 
-  // onInputBlur(index: number): void {
-  //   this.focus[index] = false;
-  //   console.log(this.focus[index]);
-  // }
 }
