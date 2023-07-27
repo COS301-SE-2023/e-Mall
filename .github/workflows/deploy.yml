@@ -8,35 +8,36 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # environment: prod
+    environment: prod
+    env:
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+      ECS_SERVICE: ${{ secrets.ECS_SERVICE }}
+      ECS_CLUSTER: ${{ secrets.ECS_CLUSTER }}
+      ECS_TASK_DEFINITION: ${{ secrets.ECS_TASK_DEFINITION }}
+
+      CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Create .env file
         run: |
-          echo "${{ secrets.API_ENV_PROD}}" > ./api/api/.env
+          echo "${{ secrets.API_ENV_PROD }}" > ./api/api/.env
 
-      - name: Dotenv Action
-        id: dotenv
-        uses: falti/dotenv-action@v1.0.4
-        with:
-          path: ./api/api/.env
-          export-variables: true
-        env:
-          AWS_REGION: ${{ steps.dotenv.outputs.AWS_PROD_REGION }}
-          ECR_REPOSITORY: ${{ steps.dotenv.outputs.ECR_REPOSITORY }}
-          ECS_SERVICE: ${{ steps.dotenv.outputs.ECS_SERVICE }}
-          ECS_CLUSTER: ${{ steps.dotenv.outputs.ECS_CLUSTER }}
-          ECS_TASK_DEFINITION: ${{ steps.dotenv.outputs.ECS_TASK_DEFINITION }}
-
-          CONTAINER_NAME: ${{ steps.dotenv.outputs.CONTAINER_NAME }}
+      #   - name: Dotenv Action
+      #     id: dotenv
+      #     uses: falti/dotenv-action@v1.0.4
+      #     with:
+      #       path: ./api/api/.env
+      #       export-variables: true
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@0e613a0980cbf65ed5b322eb7a1e075d28913a83
         with:
-          aws-access-key-id: ${{ steps.dotenv.outputs.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ steps.dotenv.outputs.AWS_SECRET_KEY }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Login to Amazon ECR
