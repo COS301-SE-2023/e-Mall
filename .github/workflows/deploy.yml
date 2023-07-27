@@ -21,6 +21,7 @@ jobs:
         run: |
           echo "AWS region: $AWS_PROD_REGION"
           echo "AWS region: ${{env.AWS_PROD_REGION}}"
+          echo "DB: ${{env.DB_HOST}}"
           cat ./api/api/.env
 
       - name: Configure AWS credentials
