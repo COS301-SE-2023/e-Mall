@@ -42,16 +42,15 @@
   transition: background-color 0.3s ease; /* Add transition for smooth color change */
 }
 
-.side-nav ion-item:hover {
+.side-nav ion-list{ion-item:hover {
+  cursor: pointer;
   background-color: #37d0d6; /* Set the desired background color when hovering */
   ion-label,
   ion-icon {
     color: #fff;
   }
-}
-
+}}
 ion-title {
-  color: var(--greys-blue-grey-900, #151d48);
 
   /* 3xl/Semibold */
   font-family: 'Poppins', sans-serif;
@@ -83,7 +82,7 @@ ion-title {
   display: flex;
   min-width: 1440px;
   height: 100px;
-  padding: 36px 10.091px 20px 831.464px;
+  padding: 36px 0px 20px 700px;
   justify-content: flex-end;
   align-items: right;
   flex-shrink: 0;
