@@ -22,10 +22,10 @@ i.arrow {
   margin-left: 20px;
   margin-right: 20px;
 }
-.category-label {
+.label {
   text-transform: none; /* Reset the text-transform to none */
 }
-button,.category-label  {
+button,.label  {
   color: var(--c-1-a, #151515);
 
   /* Button/Default */
@@ -34,6 +34,10 @@ button,.category-label  {
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+}
+.authButton{
+  margin-right: 15px;
+  color: var(--c-1-a, #151515);
 }
 .navbar-brand {
   width: 10px;
@@ -56,6 +60,7 @@ button,.category-label  {
   font-size: medium;
   font-weight: bold;
   margin-right: 2rem;
+  color: var(--c-1-a, #151515);
 }
 .search-bar {
   width: 30%;
