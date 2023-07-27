@@ -48,11 +48,13 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
+        working-directory: api
+
         run: |
           # Build a docker container and
           # push it to ECR so that it can
           # be deployed to ECS.
-          docker build -f ./api/Dockerfile.prod -t $ECR_REGISTRY/${{steps.dotenv.outputs.ECR_REPOSITORY}}:$IMAGE_TAG .
+          docker build -f ./Dockerfile.prod -t $ECR_REGISTRY/${{steps.dotenv.outputs.ECR_REPOSITORY}}:$IMAGE_TAG .
           docker push $ECR_REGISTRY/${{steps.dotenv.outputs.ECR_REPOSITORY}}:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/${{steps.dotenv.outputs.ECR_REPOSITORY}}:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
