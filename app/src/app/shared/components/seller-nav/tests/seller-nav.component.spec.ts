@@ -60,8 +60,9 @@ describe('SellerNavComponent', () => {
       fixture.detectChanges();
 
       const items = fixture.nativeElement.querySelectorAll('ion-item');
-      const salesItem = items[1];
-      const productsItem = items[2];
+      
+      const productsItem = items[1];
+      const salesItem = items[2];
       const settingsItem = items[3];
       const signOutItem = items[4];
       const salesLabel = salesItem.querySelector('ion-label').textContent;
@@ -80,10 +81,10 @@ describe('SellerNavComponent', () => {
     const items = fixture.nativeElement.querySelectorAll('ion-item');
     const salesItem = items[1];
     salesItem.click();
-    expect(component.navigateTo).toHaveBeenCalledWith('sales');
+    expect(component.navigateTo).toHaveBeenCalledWith('inventory');
     const productItem = items[2];
     productItem.click();
-    expect(component.navigateTo).toHaveBeenCalledWith('inventory');
+    expect(component.navigateTo).toHaveBeenCalledWith('sales');
   });
   
 

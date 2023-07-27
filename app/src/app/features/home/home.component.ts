@@ -38,8 +38,6 @@ export class HomeComponent implements OnInit {
     //Mock data below
     this.popProducts$ = this.productService.getPopProducts();
     this.popProducts$?.subscribe((res: IProduct[]) => {
-      console.log('getProductList');
-      console.log(res);
     });
   }
 
@@ -48,8 +46,6 @@ export class HomeComponent implements OnInit {
     //Mock data below
     this.forYouProducts$ = this.productService.getForYouProducts();
     this.forYouProducts$?.subscribe((res: IProduct[]) => {
-      console.log('getProductList');
-      console.log(res);
     });
   }
 

@@ -45,11 +45,11 @@ describe('HomeComponent', () => {
     component.ngOnInit();
 
     const req = httpTestingController.expectOne(
-      'http://localhost:3000/api/products/backend?search=a'
+      'http://localhost:3000/api/products/test?search=a'
     );
     expect(req.request.method).toEqual('GET');
     const req2 = httpTestingController.expectOne(
-      'http://localhost:3000/api/products/backend?search=f'
+      'http://localhost:3000/api/products/test?search=x'
     );
     expect(req2.request.method).toEqual('GET');
     req.flush(mockResponse);
