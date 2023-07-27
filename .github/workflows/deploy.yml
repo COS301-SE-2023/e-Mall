@@ -15,7 +15,7 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod
+          echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@0e613a0980cbf65ed5b322eb7a1e075d28913a83
