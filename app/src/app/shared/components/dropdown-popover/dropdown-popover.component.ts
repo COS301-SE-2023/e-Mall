@@ -28,7 +28,8 @@ export class DropdownPopoverComponent implements OnInit {
   sel_pages = [
     { title: 'Amazon', path: '/construction' },
     { title: 'Makro', path: '/construction' },
-    { title: 'Takealot', path: '/construction' }
+    { title: 'Takealot', path: '/construction' },
+    {title:'Become a seller', path:'/register'}
   ];
   pages = [{ title: '', path: '' }];
 
