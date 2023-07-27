@@ -29,29 +29,26 @@ h3 {
 
 .banner {
   position: relative;
-  /* Make the banner container position relative */
 }
 
 .image-container {
   position: relative;
-  /* Ensure the image container is positioned relative to the banner */
 }
 
 .overlay-button {
   position: absolute;
-  /* Position the button absolutely within the image container */
   top: 80%;
-  /* Adjust the top value to move the button vertically */
   left: 80%;
   transform: translate(-50%, -50%);
   border: none;
   cursor: pointer;
   z-index: 99;
-  /* Make sure the button appears on top of the image */
 }
 
 ion-button {
   --background: transparent;
   color: white;
-  //border: 2px solid white;
+}
+img{
+  min-height: 577px;
 }
