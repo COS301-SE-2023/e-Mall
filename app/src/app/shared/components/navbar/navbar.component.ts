@@ -56,15 +56,19 @@ export class NavbarComponent {
     this.router.navigate([`/${page}`]);
   }
 
-  async openModal() {
-    const modal = await this.modalController.create({
+  async openPopover(event: MouseEvent) {
+    const popover = await this.popoverController.create({
       component: NavbarPopupComponent,
-      /*componentProps: {
+      /* componentProps: {
         product: product,
-      },*/
+      }, */
       mode: 'ios',
-      cssClass: ['inventory-modal'],
+      cssClass: 'inventory-popover',
+      showBackdrop: true,
+      backdropDismiss: true,
+      event: event, 
+      translucent: true, 
     });
-    return await modal.present();
+    return await popover.present();
   }
 }

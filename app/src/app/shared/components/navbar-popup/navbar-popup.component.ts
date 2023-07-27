@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
-import { ModalController} from '@ionic/angular';
 import { Router } from '@angular/router';
+import { PopoverController } from '@ionic/angular';
+import { ProfileFacade } from '@features/profile/services/profile.facade';
+import { ISellerProfile } from '@features/profile/models/seller-profile.interface';
+import { IConsumerProfile } from '@features/profile/models/consumer-profile.interface';
+import { Observable } from 'rxjs';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-navbar-popup',
@@ -9,20 +14,33 @@ import { Router } from '@angular/router';
 })
 export class NavbarPopupComponent {
 
-  constructor(private modalController: ModalController, private router: Router){}
+  
+  profileForm: FormGroup;
 
-  closeModal() {
-    this.modalController.dismiss();
+  profile$: Observable<ISellerProfile | IConsumerProfile | null>;
+
+  constructor(private popoverController: PopoverController, private router: Router, public profileFacade: ProfileFacade){
+    this.profileForm = new FormGroup({
+      username: new FormControl(),
+      email: new FormControl(),
+    });
+    this.profile$ = this.profileFacade.getProfile();
+  }
+
+    
+
+  closePopOver() {
+    this.popoverController.dismiss();
   }
 
   goToCustomerProfile() {
     
     this.router.navigate(['/customer-profile']);
-    this.modalController.dismiss();
+    this.popoverController.dismiss();
   }
 
   public signOut(): void {
     this.router.navigate(['sign-out']);
-    this.modalController.dismiss();
+    this.popoverController.dismiss();
   }
 }
