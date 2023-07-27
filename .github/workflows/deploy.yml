@@ -30,6 +30,7 @@ jobs:
           echo "AWS region: $AWS_PROD_REGION"
           echo "AWS region: ${{env.AWS_PROD_REGION}}"
           echo "DB: ${{env.DB_HOST}}"
+          echo "DB: ${{ steps.dotenv.outputs.AWS_PROD_REGION }}"
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@0e613a0980cbf65ed5b322eb7a1e075d28913a83
