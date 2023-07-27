@@ -128,7 +128,7 @@ describe('ProductService', () => {
     });
 
     const req = httpTestingController.expectOne(
-      `${productService['apiUrl']}products/backend?search=a`
+      `${productService['apiUrl']}products/test?search=a`
     );
     expect(req.request.method).toEqual('GET');
     req.flush({ data: mockProducts });
@@ -179,7 +179,7 @@ describe('ProductService', () => {
     });
 
     const req = httpTestingController.expectOne(
-      `${productService['apiUrl']}products/backend?search=f`
+      `${productService['apiUrl']}products/test?search=x`
     );
     expect(req.request.method).toEqual('GET');
     req.flush({ data: mockProducts });

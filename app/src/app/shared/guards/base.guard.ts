@@ -11,7 +11,7 @@ export const baseGuard: CanActivateFn = async (route, state) => {
     (await authFacade.isLoggedIn()) &&
     (await authFacade.getUserType()) === 'seller'
   ) {
-    return router.parseUrl('/sales');
+    return router.parseUrl('/inventory');
   }
   return true;
 };
