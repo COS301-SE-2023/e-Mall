@@ -37,16 +37,12 @@ export class HomeComponent implements OnInit {
     //Need to implement AI algo
     //Mock data below
     this.popProducts$ = this.productService.getPopProducts();
-    this.popProducts$?.subscribe((res: IProduct[]) => {
-    });
   }
 
   fetchforYouProducts() {
     //Need to implement AI algo
     //Mock data below
     this.forYouProducts$ = this.productService.getForYouProducts();
-    this.forYouProducts$?.subscribe((res: IProduct[]) => {
-    });
   }
 
   search(searchQuery: string): void {
