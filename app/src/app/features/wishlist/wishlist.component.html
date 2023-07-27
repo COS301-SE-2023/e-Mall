@@ -48,12 +48,13 @@
                       <div class="row" style="grid-auto-rows: auto">
                         <div class="col-md-3 col-12" style="grid-auto-columns: auto; min-width: 300px"
                           *ngFor="let product of products; let i = index">
-                          <app-product-card (click)="goToProductPage(product.id)" [product]="{
+                          <app-product-card [product]="{
                               discount: product.min_price_discount_rate,
                               imageUrl: getOneImg(product?.min_price_img_array),
                               name: product.name,
                               category: product.category,
-                              price: product.min_price
+                              price: product.min_price,
+                              id: product.id
                             }"></app-product-card>
                           <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
                           <div class="col-md-1" *ngIf="(i + 1) % 4 === 0 && products.length > 4 && (i + 1) !== products.length"></div>

@@ -8,27 +8,33 @@
         shape="round"
         mode="ios"
         slot="end"
+        fill="clear"
         (click)="closeModal()">
         <ion-icon size="large" name="close-outline"></ion-icon>
       </ion-button>
     </ion-item>
   </ion-list>
 
-  <ion-button
-        class="close-button"
+  <div class="modal-buttons">
+    <ion-button
+        class="profile-button modal-button"
         mode="ios"
-        slot="end"
+        slot="start"
         (click)="goToCustomerProfile()">
-        <ion-icon size="medium" name="close-outline"></ion-icon>
+        <ion-icon size="large" name="person-circle"></ion-icon>
         Go to Profile
-  </ion-button>
+    </ion-button>
 
-  <ion-button
-        class="close-button"
+    <ion-button
+        class="close-button modal-button"
         mode="ios"
         slot="end"
         (click)="signOut()">
-        <ion-icon size="large" name="close-outline"></ion-icon>
+        <ion-icon size="large" name="arrow-back-outline"></ion-icon>
         signOut
-  </ion-button>
+    </ion-button>
+    
+  </div>
+
+  
 </div>
