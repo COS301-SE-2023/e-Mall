@@ -35,9 +35,9 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@0e613a0980cbf65ed5b322eb7a1e075d28913a83
         with:
-          aws-access-key-id: ${{ env.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ env.AWS_SECRET_KEY }}
-          aws-region: ${{ env.AWS_PROD_REGION }}
+          aws-access-key-id: ${{ steps.dotenv.outputs.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ steps.dotenv.outputs.AWS_SECRET_KEY }}
+          aws-region: ${{ steps.dotenv.outputs.AWS_PROD_REGION }}
 
       - name: Login to Amazon ECR
         id: login-ecr
@@ -52,22 +52,22 @@ jobs:
           # Build a docker container and
           # push it to ECR so that it can
           # be deployed to ECS.
-          docker build -f ./Dockerfile.prod -t $ECR_REGISTRY/${{env.ECR_REPOSITORY}}:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/${{env.ECR_REPOSITORY}}:$IMAGE_TAG
-          echo "image=$ECR_REGISTRY/${{env.ECR_REPOSITORY}}:$IMAGE_TAG" >> $GITHUB_OUTPUT
+          docker build -f ./Dockerfile.prod -t $ECR_REGISTRY/${{steps.dotenv.outputs.ECR_REPOSITORY}}:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/${{steps.dotenv.outputs.ECR_REPOSITORY}}:$IMAGE_TAG
+          echo "image=$ECR_REGISTRY/${{steps.dotenv.outputs.ECR_REPOSITORY}}:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@c804dfbdd57f713b6c079302a4c01db7017a36fc
         with:
-          task-definition: ${{ env.ECS_TASK_DEFINITION }}
-          container-name: ${{ env.CONTAINER_NAME }}
+          task-definition: ${{ steps.dotenv.outputs.ECS_TASK_DEFINITION }}
+          container-name: ${{ steps.dotenv.outputs.CONTAINER_NAME }}
           image: ${{ steps.build-image.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@df9643053eda01f169e64a0e60233aacca83799a
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: ${{ env.ECS_SERVICE }}
-          cluster: ${{ env.ECS_CLUSTER }}
+          service: ${{ steps.dotenv.outputs.ECS_SERVICE }}
+          cluster: ${{ steps.dotenv.outputs.ECS_CLUSTER }}
           wait-for-service-stability: true
