@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { TestBed } from '@angular/core/testing';
 import { ConsumerFacade } from './consumer.facade';
 import { AuthFacade } from '@features/auth/services/auth.facade';
