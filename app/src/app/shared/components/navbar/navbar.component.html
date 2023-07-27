@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="primary" class="navbar">
     <div class="flex-container">
-      <div>
+      <div class="toolbar-button">
         <a class="navbar-brand">
           <img
             class="navbar-logo"
@@ -11,7 +11,7 @@
         </a>
       </div>
 
-      <ion-buttons slot="start" class="dropdown-container">
+      <ion-buttons slot="start" >
         <ion-button class="toolbar-button" (click)="toggleCategory($event)">
           <span class="category-label">All Categories</span>
           <ion-icon *ngIf="!isCategoryOpened" name="chevron-down" class="arrow"></ion-icon>
@@ -19,11 +19,17 @@
         </ion-button>
       </ion-buttons>
 
-      <ion-buttons slot="start" class="dropdown-container">
+      <ion-buttons slot="start">
         <ion-button class="toolbar-button" (click)="toggleSellers($event)">
           <span class="category-label">Merchants</span>
           <ion-icon *ngIf="!isCategoryOpened" name="chevron-down" class="arrow"></ion-icon>
           <ion-icon *ngIf="isCategoryOpened" name="chevron-up" class="arrow"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+      <ion-buttons slot="start">
+        <ion-button class="toolbar-button" (click)="wishlist($event)">
+          <span class="category-label">Wishlist</span>
         </ion-button>
       </ion-buttons>
       
@@ -38,9 +44,9 @@
         Sign in
       </button>
       <button
+      mat-button
         *ngIf="(isAuthenticated | async) !== null"
-        class="btn btn-outline-dark my-2 my-sm-0 ms-auto"
-        type="submit"
+        class="toolbar-button"
         (click)="signOut()">
         Sign Out
       </button>

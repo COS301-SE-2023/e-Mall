@@ -58,6 +58,10 @@ export class NavbarComponent {
     return await popover.present();
   }
 
+   wishlist(event: Event) {
+    this.router.navigate(['/construction']);
+  }
+
   public signIn(): void {
     this.router.navigate(['sign-in']);
   }
