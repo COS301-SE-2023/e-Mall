@@ -37,7 +37,7 @@ jobs:
         with:
           aws-access-key-id: ${{ steps.dotenv.outputs.AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ steps.dotenv.outputs.AWS_SECRET_KEY }}
-          aws-region: ${{ env.AWS_PROD_REGION }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Login to Amazon ECR
         id: login-ecr
