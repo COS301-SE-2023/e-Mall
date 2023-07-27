@@ -38,13 +38,14 @@ export class SalesComponent implements OnInit {
   categoryPercentage!: number[];
   productNames!: string[];
   isChecked!: boolean;
+  objCount=0
   productData: ProductData = {
   };
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(
     private analytics: AnalyticsService,
     private profileFacade: ProfileFacade
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.productNames = [];
@@ -84,7 +85,11 @@ export class SalesComponent implements OnInit {
         console.log(this.table_favourites);
         console.log(this.table_link_clicks);
         console.log(this.table_labels);
-        this.createProductClicksChart();
+        //this.createProductClicksChart();
+
+        this.table_labels.forEach(label => {
+          this.getSelectedProductData(label);
+        });
       });
     });
 
@@ -176,9 +181,10 @@ export class SalesComponent implements OnInit {
     const productClicksCanvas = document.getElementById(
       'product-clicks-chart'
     ) as HTMLCanvasElement;
-
+    
     // Get the product names and months
     if (this.productClicksChart) {
+      this.objCount=0;
       this.productClicksChart.destroy(); // Destroy the existing chart
     }
 
@@ -192,10 +198,9 @@ export class SalesComponent implements OnInit {
           ? productName.slice(0, maxProductNameLength) + '...'
           : productName,
       data: months.map(month => this.productData[productName][month] || 0),
-      borderColor: this.getRandomColor(),
+      borderColor: this.getLineColor(),
       fill: false,
     }));
-
     // Create the line chart
     this.productClicksChart = new Chart(productClicksCanvas, {
       type: 'line',
@@ -207,7 +212,7 @@ export class SalesComponent implements OnInit {
         plugins: {
           title: {
             display: true,
-            text: 'Product Clicks per Month',
+            text: 'Top Product Clicks per Month',
           },
         },
         scales: {
@@ -233,10 +238,23 @@ export class SalesComponent implements OnInit {
     });
   }
 
-  getRandomColor() {
-    // Generate a random color in hexadecimal format
-    return '#' + Math.floor(Math.random() * 16777215).toString(16);
+  getLineColor() {
+    switch (this.objCount++) {
+      case 0:
+        return '#FFC0CB'; // Pink
+      case 1:
+        return '#0000FF'; // Blue
+      case 2:
+        return '#008000'; // Green
+      case 3:
+        return '#FF0000'; // Red
+      case 4:
+        return '#FFA500'; // Orange
+      default:
+        return '#000000'; // Black (default color)
+    }
   }
+  
 
   createProductPerformanceChart() {
     const productPerformanceCanvas = document.getElementById(
@@ -343,7 +361,7 @@ export class SalesComponent implements OnInit {
     });
   }
 
-  getSelectedProductData(product_name: string, event: any) {
+  /*getSelectedProductData(product_name: string, event: any) {
     this.isChecked = event.detail.checked;
     if (this.isChecked) {
       if (this.productNames.indexOf(product_name) === -1) {
@@ -369,5 +387,22 @@ export class SalesComponent implements OnInit {
       this.createProductClicksChart();
     });
 console.log(this.productData);
+  }*/
+
+  getSelectedProductData(product_name: string) {
+    this.productNames.push(product_name);
+    const data = {
+      seller_name: this.sellerName,
+      product_names: this.productNames,
+    };
+
+    const data1 = this.analytics.getSelectedProductData(data);
+    console.log(data1);
+    data1.subscribe(data => {
+      console.log(data[product_name]);
+      this.productData[product_name] = data[product_name];
+      this.createProductClicksChart();
+    });
+    console.log(this.productData);
   }
 }

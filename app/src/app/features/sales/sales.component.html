@@ -60,6 +60,22 @@
         <canvas id="product-performance-chart"></canvas>
       </div>
     </div>
+
+
+    <div class="container">
+      <div class="product-graph">
+        <canvas id="product-clicks-chart"></canvas>
+      </div>
+    </div>
+
+    <div style="
+            display: flex;
+            padding: 10px;
+            align-items: flex-start;
+            align-self: stretch;
+          ">
+      <h2>Top 5 Products</h2>
+    </div>
     <div class="container">
       <div class="table">
         <ion-list lines="full">
@@ -77,10 +93,7 @@
             <ion-item *ngFor="let product of topProducts">
               <ion-grid>
                 <ion-row>
-                  <ion-col size="1">
-                    <ion-checkbox (ionChange)="
-                        getSelectedProductData(product.product_name, $event)"></ion-checkbox>
-                  </ion-col>
+
                   <ion-col size="4">{{ product.product_name }}</ion-col>
                   <ion-col size="2">{{ product.clicks }}</ion-col>
                   <ion-col size="2">{{ product.favourites }}</ion-col>
@@ -93,13 +106,7 @@
       </div>
     </div>
 
-    <div class="container">
-      <div class="product-graph">
-        <canvas id="product-clicks-chart"></canvas>
-      </div>
 
-
-    </div>
 
 
 
