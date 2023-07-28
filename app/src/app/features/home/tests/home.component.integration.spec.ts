@@ -57,6 +57,15 @@ describe('HomeComponent', () => {
       queryParams: { prod_id: productId },
     });
   });
+  it('should navigate to "/construction" onAllClick()', () => {
+    spyOn(router, 'navigate');
+
+    component.onAllClick();
+
+    // Ensure that the router.navigate method is called with the correct parameter
+    expect(router.navigate).toHaveBeenCalledWith(['/construction']);
+  });
+
   it('should return the first image URL when imgList is provided', () => {
     const imgList = ['image1.jpg', 'image2.jpg', 'image3.jpg'];
     const result = component.getOneImg(imgList);
