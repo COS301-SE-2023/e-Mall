@@ -11,6 +11,10 @@ import { postAuthGuard } from '@shared/guards/post-auth.guard';
 import { preAuthGuard } from '@shared/guards/pre-auth.guard';
 import { baseGuard } from '@shared/guards/base.guard';
 import { sellerTypeGuard } from '@shared/guards/seller-type.guard';
+import { authGuard } from '@shared/route-guards/auth-guard/auth-guard.service';
+import { routeGuard } from '@shared/route-guards/route-guard/route-guard.service';
+import { CustomerProfileComponent } from '@features/profile/components/customer-profile/customer-profile.component';
+import { WishlistComponent } from '@features/wishlist/wishlist.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -89,6 +93,19 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
+  },
+  /*{
+    path: 'customer-profile',
+    loadChildren: () =>
+      import('@app/features/profile/components/customer-profile/customer-profile.module').then(m => m.CustomerProfileModule),
+  },*/
+  {
+    path: 'customer-profile',
+    component: CustomerProfileComponent
+  },
+  {
+    path: 'wishlist',
+    component: WishlistComponent
   },
   // {
   //   path: 'profile',

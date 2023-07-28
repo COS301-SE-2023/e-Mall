@@ -190,3 +190,8 @@ ion-modal.inventory-modal{
   --width:26rem;
 }
 /* inventory page end*/
+
+/*nabvar pop over*/
+.inventory-popover{
+  --width:400px;
+}
