@@ -36,9 +36,11 @@
         <button mat-button class="toolbar-button" *ngIf="(isAuthenticated | async) === null" (click)="signIn()">
           Sign in
         </button>
-        <button mat-button *ngIf="(isAuthenticated | async) !== null" class="toolbar-button" (click)="signOut()">
-          Sign Out
-        </button>
+        <div class="profile"
+         *ngIf="(isAuthenticated | async) !== null" 
+         (click)="signOut()">
+        <ion-icon name="person-circle" aria-hidden="true" class="circular-button"></ion-icon>
+      </div>
       </div>
     </div>
   </ion-toolbar>
