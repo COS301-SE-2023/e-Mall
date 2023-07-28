@@ -106,36 +106,34 @@ describe('ProductComponent', () => {
 
 
 it('should call prodClickAnalytics when product$ emits a value', fakeAsync(() => {
-  const mockProduct:  IProduct = {
-    id: 1,
-    min_price_img_array: ['image1.jpg', 'image2.jpg'],
-    name: 'Product 1',
-    description: 'Description 1',
-    brand: 'Brand 1',
-    category: 'electronics',
-    min_price: 10,
-    min_price_seller_id: 'seller1',
-    min_price_seller_product_url: 'seller1.com/product1',
-    min_price_seller_business_name: 'Seller 1',
-    min_price_in_stock: true,
-    min_price_discount: 5,
-    min_price_discount_rate: 0.5,
-    min_price_original_price: 20,
-    created_at: '2023-06-01',
-    updated_at: '2023-06-02',
-  };
-  const mockSellers: IProductSeller[] = [
-    { id: 1, product: 'Product1', seller: 'Seller1' },
-    { id: 2, product: 'Product2', seller: 'Seller2' },
-   
-  ];
+ const mockProduct:  IProduct = {
+      id: 1,
+      min_price_img_array: ['image1.jpg', 'image2.jpg'],
+      name: 'Product 1',
+      description: 'Description 1',
+      brand: 'Brand 1',
+      category: 'electronics',
+      min_price: 10,
+      min_price_seller_id: 'seller1',
+      min_price_seller_product_url: 'seller1.com/product1',
+      min_price_seller_business_name: 'Seller 1',
+      min_price_in_stock: true,
+      min_price_discount: 5,
+      min_price_discount_rate: 0.5,
+      min_price_original_price: 20,
+      created_at: '2023-06-01',
+      updated_at: '2023-06-02',
+    };
+    const mockSellers: IProductSeller[] = [
+      { id: 1, product: 'Product1', seller: 'Seller1' },
+      { id: 2, product: 'Product2', seller: 'Seller2' },
+     
+    ];
 
   mockProductService.getProductData.and.returnValue(of(mockProduct));
   mockProductService.getSellerList.and.returnValue(of(mockSellers));
   mockProfileFacade.getProfile.and.returnValue(of({ id: '1', details: {} }));
-
   component.ngOnInit();
-
   tick();
 
   expect(mockProductService.getProductData).toHaveBeenCalledWith(1);
@@ -143,7 +141,6 @@ it('should call prodClickAnalytics when product$ emits a value', fakeAsync(() =>
   expect(mockAnalyticsService.createAnalyticsData).toHaveBeenCalled();
 }));
 
-// ...
 
 
   it('should call linkClickAnalytics when link is clicked', () => {
