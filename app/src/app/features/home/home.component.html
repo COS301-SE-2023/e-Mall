@@ -5,7 +5,7 @@
     <div class="banner">
       <div class="image-container">
         <img [src]="images" alt="Home banner" />
-        <ion-button class="overlay-button" (click)="onAllClick()">Shop Latest</ion-button>
+        <ion-button class="overlay-button" (click)="onAllClick()">Shop For You</ion-button>
       </div>
     </div>
 
@@ -13,7 +13,7 @@
     <br /><br />
     <!--Product carousel-->
     <div style="align-items: center">
-      <h3>Recommended For You</h3>
+      <h3 #recommendedHeading>Recommended For You</h3>
     </div>
     <div style="
         width: 80%;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 //import { AuthService } from '@app/services/auth/auth.service';
 import { ProductService } from '@shared/servicies/product/product.service';
@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   forYouProducts$: Observable<IProduct[]> | undefined;
   // isAuthenticated = false;
   images = 'assets/images/home_banner.png';
+  @ViewChild('recommendedHeading') recommendedHeading!: ElementRef;
   // isAuthenticated$;
   constructor(
     // private authService: AuthService,
@@ -63,11 +64,12 @@ export class HomeComponent implements OnInit {
 
     this.router.navigate(['products'], navigationextras);
   }
-  async onAllClick(){
-    const path='/construction';
-    this.router.navigate([path]);
-
-}
+  
+  async onAllClick() {
+    if (this.recommendedHeading) {
+      this.recommendedHeading.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
   getOneImg(imgList?: string[]) {
     //remove following when no need to have mock data
     if (!imgList || imgList.length < 1)
