@@ -1,3 +1,4 @@
+ /* eslint-disable @typescript-eslint/naming-convention */
 //search bar integration test
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SearchBarComponent } from '@shared/components/search-bar/search-bar.component';
