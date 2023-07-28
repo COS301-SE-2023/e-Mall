@@ -1,13 +1,20 @@
 <ion-card>
-    <div class="discount-tag">
-        <ion-label *ngIf="product.discount>0.5">-{{ product.discount }}%</ion-label>
-    </div>
-    <ion-img [src]="product.imageUrl"></ion-img>
+    <ion-img [src]="product.imageUrl" (click)="goToProductPage(product.id)"></ion-img>
     <ion-card-content>
-        <div>
-            <ion-card-title>{{ product.name }}</ion-card-title>
-            <p>{{product.category}}</p>
+        <div >
+            <div (click)="goToProductPage(product.id)">
+                <div class="discount-tag" *ngIf="product.discount > 0.5">
+                    <ion-label>-{{ product.discount }}%</ion-label>
+                </div>
+                <ion-card-title>{{ product.name }}</ion-card-title>
+                <p>{{product.category}}</p>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <h4 (click)="goToProductPage(product.id)" style="margin-right: 90px;">R{{ product.price }}</h4>
+                <ion-button (click)="toggleHeart()" class="wishlist-button" shape="round" fill="clear" mode="ios">
+                    <ion-icon [name]="isHearted ? 'heart' : 'heart-outline'" name="heart" style="color: red;"></ion-icon>
+                </ion-button>
+            </div>
         </div>
-        <h4>R{{ product.price }}</h4>
     </ion-card-content>
 </ion-card>

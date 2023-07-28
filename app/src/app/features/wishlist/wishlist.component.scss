@@ -1,0 +1,68 @@
+
+.content-container {
+    display: flex;
+    justify-content: space-between; 
+  }
+  
+
+.side-nav-container {
+    flex: 1; 
+    padding: 20px; 
+    //border: 1px solid green ;
+    max-width: 326px;
+  }
+  
+.ion-content-wrapper {
+    display: flex;
+    flex-direction: row;
+    //border: 1px solid red ;
+}
+
+
+.wishlist-container {
+    flex: 1;
+    //border: 1px solid blue ;
+    padding-left: 8%;
+    //padding-right: 10%;
+    //justify-content: center;
+    //text-align: center;
+}
+
+.wishlist-container1 {
+  flex: 1;
+  //border: 1px solid blue ;
+  padding-left: 8%;
+  //padding-right: 10%;
+  //justify-content: center;
+  //text-align: center;
+}
+
+.wishlist-container h2{
+  margin-left: 15px;
+  margin-top: 30px
+}
+
+.wishlist-container1 h2{
+  margin-left: 15px;
+  margin-top: 0px
+}
+
+.wishlist-container-cards {
+    flex: 1;
+    margin-top: 50px;
+}
+
+.wishlist-container-nocards {
+  flex: 1;
+  margin-top: 50px;
+  text-align: center;
+  padding-right: 100px;
+}
+
+.nimage {
+    width: 300px;
+    height: 300px;
+    justify-content: center;
+    opacity: 30%;
+    align-items: center;
+}
