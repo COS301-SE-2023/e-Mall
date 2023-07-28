@@ -11,9 +11,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
+import { IProduct } from '@shared/models/product/product.interface';
+import { Router } from '@angular/router';
 describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
   let fixture: ComponentFixture<SearchBarComponent>;
+  let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -37,6 +40,7 @@ describe('SearchBarComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchBarComponent);
     component = fixture.componentInstance;
+    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
 
@@ -60,5 +64,40 @@ describe('SearchBarComponent', () => {
     component.searchInputController.setValue('example');
     component.searchIconFunction();
     expect(component.search).toHaveBeenCalled();
+  });
+
+  
+  it('should navigate to search results page on search method call', () => {
+   spyOn(router, 'navigate');
+    component.searchInputController.setValue('Test Search');
+    component.search();
+    expect(router.navigate).toHaveBeenCalledWith(['/search-results'], {
+      queryParams: { search: 'Test Search' },
+    });
+  });
+
+  it('should generate random products', () => {
+    const products: IProduct[] = component.generateRandomProducts();
+    expect(products).toBeTruthy();
+    expect(products.length).toBe(3);
+  });
+
+  it('should get suggestions and return an observable of IProduct[]', () => {
+    spyOn(component, 'generateRandomProducts').and.returnValue([
+      {
+        id: 1,
+        min_price_img_array: ['img1', 'img2'],
+        name: 'Product 1',
+        brand: 'Brand 1',
+        category: 'Category 1',
+        min_price: 10,
+      },
+    ]);
+
+    const suggestions$ = component.getSuggestion();
+    suggestions$.subscribe((suggestions) => {
+      expect(suggestions).toBeTruthy();
+      expect(suggestions.length).toBe(1);
+    });
   });
 });
