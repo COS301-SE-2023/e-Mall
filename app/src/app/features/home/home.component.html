@@ -27,51 +27,39 @@
       <ngb-carousel *ngIf="forYouProducts$ | async as products" [wrap]="true">
         <ng-template ngbSlide>
           <div class="row">
-            <div
-              class="col-md-3"
-              *ngFor="let product of products.slice(0, 4); let i = index">
-              <app-product-card
-                [product]="{
+            <div class="col-md-3" *ngFor="let product of products.slice(0, 4); let i = index">
+              <app-product-card (click)="goToProductPage(product.id)" [product]="{
                   discount: product.min_price_discount_rate,
                   imageUrl: getOneImg(product?.min_price_img_array),
                   name: product.name,
                   category: product.category,
-                  price: product.min_price,
-                  id:product.id
+                  price: product.min_price
                 }"></app-product-card>
             </div>
           </div>
         </ng-template>
         <ng-template ngbSlide>
           <div class="row">
-            <div
-              class="col-md-3"
-              *ngFor="let product of products.slice(4, 8); let i = index">
-              <app-product-card
-                [product]="{
+            <div class="col-md-3" *ngFor="let product of products.slice(4, 8); let i = index">
+              <app-product-card (click)="goToProductPage(product.id)" [product]="{
                   discount: product.min_price_discount_rate,
                   imageUrl: getOneImg(product?.min_price_img_array),
                   name: product.name,
                   category: product.category,
-                  price: product.min_price,
-                  id:product.id
+                  price: product.min_price
                 }"></app-product-card>
             </div>
           </div>
         </ng-template>
         <ng-template ngbSlide>
           <div class="row">
-            <div
-              class="col-md-6"
-              *ngFor="let product of products.slice(8, 12); let i = index">
-              <app-product-card
-                [product]="{
+            <div class="col-md-6" *ngFor="let product of products.slice(8, 12); let i = index">
+              <app-product-card (click)="goToProductPage(product.id)" [product]="{
                   discount: product.min_price_discount_rate,
                   imageUrl: getOneImg(product?.min_price_img_array),
                   name: product.name,
                   category: product.category,
-                  price: product.min_price,
-                  id:product.id
+                  price: product.min_price
                 }"></app-product-card>
             </div>
           </div>
@@ -96,51 +84,39 @@
       <ngb-carousel *ngIf="popProducts$ | async as products" [wrap]="true">
         <ng-template ngbSlide>
           <div class="row">
-            <div
-              class="col-md-3"
-              *ngFor="let product of products.slice(0, 4); let i = index">
-              <app-product-card
-                [product]="{
+            <div class="col-md-3" *ngFor="let product of products.slice(0, 4); let i = index">
+              <app-product-card (click)="goToProductPage(product.id)" [product]="{
                   discount: product.min_price_discount_rate,
                   imageUrl: getOneImg(product?.min_price_img_array),
                   name: product.name,
                   category: product.category,
-                  price: product.min_price,
-                  id:product.id
+                  price: product.min_price
                 }"></app-product-card>
             </div>
           </div>
         </ng-template>
         <ng-template ngbSlide>
           <div class="row">
-            <div
-              class="col-md-3"
-              *ngFor="let product of products.slice(4, 8); let i = index">
-              <app-product-card
-                [product]="{
+            <div class="col-md-3" *ngFor="let product of products.slice(4, 8); let i = index">
+              <app-product-card (click)="goToProductPage(product.id)" [product]="{
                   discount: product.min_price_discount_rate,
                   imageUrl: getOneImg(product?.min_price_img_array),
                   name: product.name,
                   category: product.category,
-                  price: product.min_price,
-                  id:product.id
+                  price: product.min_price
                 }"></app-product-card>
             </div>
           </div>
         </ng-template>
         <ng-template ngbSlide>
           <div class="row">
-            <div
-              class="col-md-6"
-              *ngFor="let product of products.slice(8, 10); let i = index">
-              <app-product-card
-                [product]="{
+            <div class="col-md-6" *ngFor="let product of products.slice(8, 10); let i = index">
+              <app-product-card (click)="goToProductPage(product.id)" [product]="{
                   discount: product.min_price_discount_rate,
                   imageUrl: getOneImg(product?.min_price_img_array),
                   name: product.name,
                   category: product.category,
-                  price: product.min_price,
-                  id:product.id
+                  price: product.min_price
                 }"></app-product-card>
             </div>
           </div>
