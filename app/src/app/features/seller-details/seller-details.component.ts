@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { Observable, of, Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { FormControl } from '@angular/forms';
@@ -291,5 +291,15 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.paramMapSubscription.unsubscribe();
     this.searchResults$?.subscribe().unsubscribe();
+  }
+
+  goToProductPage(prod_id: number): void {
+    // Create the navigation extras object with the search query as a parameter
+
+    const navigationextras: NavigationExtras = {
+      queryParams: { prod_id: prod_id },
+    };
+
+    this.router.navigate(['products'], navigationextras);
   }
 }

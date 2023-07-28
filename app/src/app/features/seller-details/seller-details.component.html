@@ -73,6 +73,7 @@
 
     <div class="products-container">
       <h2 class="title">Products</h2>
+    <div class = "search-sort">
       <ion-searchbar
                 class="search-box"
                 placeholder="Search products..."
@@ -81,7 +82,22 @@
                 [(ngModel)]="searchKeyword"
                 [debounce]="2000"
                 (ionInput)="onSearchInputChange()"></ion-searchbar>
+
+        <div class="filter-condition">
+          <select name="" id="select">
+            <option value="Default">Default</option>
+            <option value="name">Name (A-Z)</option>
+            <option value="-name">Name (Z-A)</option>
+            <option value="price">Low to high</option>
+            <option value="-price">High to low</option>
+            <option value="discount">Lowest Discount</option>
+            <option value="-discount">Highest Discount</option>
+            
+          </select>
+        </div>
+      </div>        
       <div class="product-card">
+        
         <div
           style="display: flex; justify-content: center; align-items: center"
           *ngIf="(searchResults$ | async) === null">
@@ -93,7 +109,7 @@
               class="col-md-3 col-12"
               style="grid-auto-columns: auto; min-width: 300px"
               *ngFor="let product of products; let i = index">
-              <app-product-card
+              <app-product-card (click)="goToProductPage(product.id)"
                 [product]="{
                   discount: product.discount_rate,
                   imageUrl: getOneImg(product?.img_array),
@@ -122,7 +138,6 @@
               (page)="onPageChange($event)"></mat-paginator>
           </ng-container>
         </div>
-      </div></div></ng-container
-></ion-content>
-<!-- <app-footer></app-footer> -->
-```
+      </div></div></ng-container>
+  </ion-content>
+

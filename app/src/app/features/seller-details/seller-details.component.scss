@@ -58,10 +58,38 @@
     background: var(--c-1-white, #F7F9F9);
 }
 
-.mat-paginator {
+mat-paginator {
     display: flex;
     justify-content: center;
+    background: var(--c-1-white, #F7F9F9);
   }
+
+  .filter-condition{
+    padding: 20px;
+    height: 100%;
+    font-size: 20px;
+    margin-left: 32rem;
+}
+.filter-condition select{
+    width: 100%;
+    padding: 0 0 0 10px;
+    border: none;
+    //outline: none;
+    //font-weight: bold;
+    //color: purple;
+    //background: #FFFFFF;
+    cursor: pointer;
+    border-radius: 45px;
+    
+}
+
+.search-sort{
+    display:flex;
+}
+
+.row{
+    justify-items: center;
+}
 
 ion-button{
     border-radius: 16px;
