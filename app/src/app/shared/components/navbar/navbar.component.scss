@@ -25,7 +25,7 @@ i.arrow {
 .label {
   text-transform: none; /* Reset the text-transform to none */
 }
-button,.label  {
+button,.label,.profile  {
   color: var(--c-1-a, #151515);
 
   /* Button/Default */
@@ -34,6 +34,11 @@ button,.label  {
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+}
+.profile{
+  font-size: 30px;
+  margin-right: 35px;
+  margin-top: 15px;
 }
 .authButton{
   margin-right: 15px;
