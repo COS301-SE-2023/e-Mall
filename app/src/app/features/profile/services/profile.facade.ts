@@ -121,19 +121,22 @@ export class ProfileFacade implements OnDestroy {
 
   @Dispatch()
   async toggleSellers(name: string) {
-    if (!this.authFacade.isLoggedIn()) {
+    if (!(await this.authFacade.isLoggedIn())) {
       this.setError('You must be logged in to follow sellers');
       return new Navigate(['sign-in']);
-    } else if ((await this.authFacade.getUserType()) === 'seller') {
-      this.setError('Sellers cannot follow sellers');
-      return new Navigate(['sales']);
-    } else
-      try {
-        this.profileService.toggleFollowSeller(name);
-        return new ProfileActions.ToggleSellers(name);
-      } catch (error) {
-        return this.setError(error);
-      }
+    } else {
+      if ((await this.authFacade.getUserType()) === 'seller') {
+        console.log('here');
+        this.setError('Sellers cannot follow sellers');
+        return new Navigate(['sales']);
+      } else
+        try {
+          this.profileService.toggleFollowSeller(name);
+          return new ProfileActions.ToggleSellers(name);
+        } catch (error) {
+          return this.setError(error);
+        }
+    }
   }
 
   @Dispatch()
