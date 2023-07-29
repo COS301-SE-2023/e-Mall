@@ -161,12 +161,9 @@ export class ProductAnalyticsComponent implements OnInit {
     };
 
     const data1 = this.analytics.getSelectedProductData(data);
-    console.log(data1);
     data1.subscribe(data => {
-      console.log(data[product_name]);
       this.productData[product_name] = data[product_name];
       this.createProductClicksChart();
     });
-    console.log(this.productData);
   }
 }

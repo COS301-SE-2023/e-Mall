@@ -90,7 +90,44 @@ describe('ProductAnalyticsComponent', () => {
     expect(component.getSelectedProductData).toHaveBeenCalledTimes(2);
     expect(component.getSelectedProductData).toHaveBeenCalledWith('Product 1');
     expect(component.getSelectedProductData).toHaveBeenCalledWith('Product 2');
-  });/*
+  });
+  
+  it('should return pink color when objCount is 0', () => {
+    component.objCount = 0;
+    const color = component.getLineColor();
+    expect(color).toBe('#FFC0CB');
+  });
+
+  it('should return blue color when objCount is 1', () => {
+    component.objCount = 1;
+    const color = component.getLineColor();
+    expect(color).toBe('#0000FF');
+  });
+
+  it('should return green color when objCount is 2', () => {
+    component.objCount = 2;
+    const color = component.getLineColor();
+    expect(color).toBe('#008000');
+  });
+
+  it('should return red color when objCount is 3', () => {
+    component.objCount = 3;
+    const color = component.getLineColor();
+    expect(color).toBe('#FF0000');
+  });
+
+  it('should return orange color when objCount is 4', () => {
+    component.objCount = 4;
+    const color = component.getLineColor();
+    expect(color).toBe('#FFA500');
+  });
+
+  it('should return black color when objCount is greater than 4', () => {
+    component.objCount = 5;
+    const color = component.getLineColor();
+    expect(color).toBe('#000000');
+  });
+  /*
   it('should initialize productData when calling getSelectedProductData', () => {
     mockAnalyticsService.getSelectedProductData.and.returnValue(of({
       'product1': { 'Jan': 10, 'Feb': 15 },
