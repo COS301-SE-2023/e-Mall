@@ -99,7 +99,6 @@ export class ProfileFacade implements OnDestroy {
     }
   }
   checkWishlist(id: number): Observable<boolean> {
-    console.log(id);
     return this.wishlist$.pipe(
       map(wishlist => {
         return wishlist.includes(Number(id));

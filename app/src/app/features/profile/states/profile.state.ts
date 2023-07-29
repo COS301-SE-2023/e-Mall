@@ -47,66 +47,66 @@ export class ProfileState {
     ctx.setState({ profile: null });
   }
 
-  @Action(ProfileActions.AddToWishlist)
-  addToWishlist(
-    ctx: StateContext<ProfileStateModel>,
-    action: ProfileActions.AddToWishlist
-  ) {
-    ctx.setState(
-      produce(draft => {
-        if (draft.profile) {
-          draft.profile.details.wishlist.push(action.id);
-        }
-      })
-    );
-  }
+  // @Action(ProfileActions.AddToWishlist)
+  // addToWishlist(
+  //   ctx: StateContext<ProfileStateModel>,
+  //   action: ProfileActions.AddToWishlist
+  // ) {
+  //   ctx.setState(
+  //     produce(draft => {
+  //       if (draft.profile) {
+  //         draft.profile.details.wishlist.push(action.id);
+  //       }
+  //     })
+  //   );
+  // }
 
-  @Action(ProfileActions.RemoveFromWishlist)
-  removeFromWishlist(
-    ctx: StateContext<ProfileStateModel>,
-    action: ProfileActions.RemoveFromWishlist
-  ) {
-    ctx.setState(
-      produce(draft => {
-        if (draft.profile) {
-          draft.profile.details.wishlist.splice(
-            draft.profile.details.wishlist.indexOf(action.id),
-            1
-          );
-        }
-      })
-    );
-  }
-  @Action(ProfileActions.AddToFollowedSellers)
-  addToFollowedSellers(
-    ctx: StateContext<ProfileStateModel>,
-    action: ProfileActions.AddToFollowedSellers
-  ) {
-    ctx.setState(
-      produce(draft => {
-        if (draft.profile) {
-          draft.profile.details.followed_sellers.push(action.name);
-        }
-      })
-    );
-  }
+  // @Action(ProfileActions.RemoveFromWishlist)
+  // removeFromWishlist(
+  //   ctx: StateContext<ProfileStateModel>,
+  //   action: ProfileActions.RemoveFromWishlist
+  // ) {
+  //   ctx.setState(
+  //     produce(draft => {
+  //       if (draft.profile) {
+  //         draft.profile.details.wishlist.splice(
+  //           draft.profile.details.wishlist.indexOf(action.id),
+  //           1
+  //         );
+  //       }
+  //     })
+  //   );
+  // }
+  // @Action(ProfileActions.AddToFollowedSellers)
+  // addToFollowedSellers(
+  //   ctx: StateContext<ProfileStateModel>,
+  //   action: ProfileActions.AddToFollowedSellers
+  // ) {
+  //   ctx.setState(
+  //     produce(draft => {
+  //       if (draft.profile) {
+  //         draft.profile.details.followed_sellers.push(action.name);
+  //       }
+  //     })
+  //   );
+  // }
 
-  @Action(ProfileActions.RemoveFromFollowedSellers)
-  removeFromFollowedSellers(
-    ctx: StateContext<ProfileStateModel>,
-    action: ProfileActions.RemoveFromFollowedSellers
-  ) {
-    ctx.setState(
-      produce(draft => {
-        if (draft.profile) {
-          draft.profile.details.followed_sellers.splice(
-            draft.profile.details.followed_sellers.indexOf(action.name),
-            1
-          );
-        }
-      })
-    );
-  }
+  // @Action(ProfileActions.RemoveFromFollowedSellers)
+  // removeFromFollowedSellers(
+  //   ctx: StateContext<ProfileStateModel>,
+  //   action: ProfileActions.RemoveFromFollowedSellers
+  // ) {
+  //   ctx.setState(
+  //     produce(draft => {
+  //       if (draft.profile) {
+  //         draft.profile.details.followed_sellers.splice(
+  //           draft.profile.details.followed_sellers.indexOf(action.name),
+  //           1
+  //         );
+  //       }
+  //     })
+  //   );
+  // }
 
   @Action(ProfileActions.ToggleWishlist)
   toggleWishlist(

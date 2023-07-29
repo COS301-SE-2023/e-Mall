@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { Observable, of, Subscription, BehaviorSubject } from 'rxjs';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
@@ -8,20 +8,17 @@ import { ProfileFacade } from '@features/profile/services/profile.facade';
   templateUrl: 'product-card.component.html',
   styleUrls: ['product-card.component.scss'],
 })
-export class ProductCardComponent {
+export class ProductCardComponent implements OnInit {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() product: any;
   isHearted = of(false);
 
   constructor(private router: Router, private profileFacade: ProfileFacade) {}
-
-  ngOnInIt(): void {
+  ngOnInit(): void {
     this.isHearted = this.profileFacade.checkWishlist(this.product.id);
   }
   toggleHeart() {
-    console.log('toggling heart', this.product);
     this.profileFacade.toggleWishlist(this.product.id);
-    
   }
 
   goToProductPage(prod_id: number): void {
