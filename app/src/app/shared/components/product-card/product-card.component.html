@@ -8,7 +8,9 @@
         <div class="discount-tag" *ngIf="product.discount > 0.5">
           <ion-label>-{{ product.discount }}%</ion-label>
         </div>
-        <ion-card-title>{{ product.name }}</ion-card-title>
+        <ion-card-title (click)="goToProductPage(product.id)">{{
+          product.name
+        }}</ion-card-title>
         <p>{{ product.category }}</p>
       </div>
       <div style="display: flex; align-items: center">
