@@ -12,6 +12,7 @@ import {
   lastValueFrom,
   take,
   map,
+  of,
 } from 'rxjs';
 import { IConsumerProfile } from '../models/consumer-profile.interface';
 import { ISellerProfile } from '../models/seller-profile.interface';
@@ -20,6 +21,8 @@ import { ProfileService } from './profile.service';
 import * as ProfileActions from '../states/profile.actions';
 import { AuthFacade } from '@features/auth/services/auth.facade';
 import { Profile } from '../models/alias-profile.interface';
+import { Router } from '@angular/router';
+import { Navigate } from '@ngxs/router-plugin';
 
 @Injectable()
 export class ProfileFacade implements OnDestroy {
@@ -30,9 +33,11 @@ export class ProfileFacade implements OnDestroy {
   @Select(ProfileSelectors.getFollowedSellers)
   public followedSellers$!: Observable<string[]>;
   private authSubscription: Subscription;
+
   constructor(
     private profileService: ProfileService,
-    private authFacade: AuthFacade
+    private authFacade: AuthFacade,
+    private router: Router
   ) {
     console.log('Profile facade initialized');
     this.authSubscription = this.authFacade
@@ -115,20 +120,40 @@ export class ProfileFacade implements OnDestroy {
   }
 
   @Dispatch()
-  toggleSellers(name: string) {
-    try {
-      return new ProfileActions.ToggleSellers(name);
-    } catch (error) {
-      return this.setError(error);
-    }
+  async toggleSellers(name: string) {
+    if (!this.authFacade.isLoggedIn()) {
+      this.setError('You must be logged in to follow sellers');
+      return new Navigate(['sign-in']);
+    } else if ((await this.authFacade.getUserType()) === 'seller') {
+      this.setError('Sellers cannot follow sellers');
+      return new Navigate(['sales']);
+    } else
+      try {
+        this.profileService.toggleFollowSeller(name);
+        return new ProfileActions.ToggleSellers(name);
+      } catch (error) {
+        return this.setError(error);
+      }
   }
 
   @Dispatch()
-  toggleWishlist(id: number) {
-    try {
-      return new ProfileActions.ToggleWishlist(id);
-    } catch (error) {
-      return this.setError(error);
+  async toggleWishlist(id: number) {
+    console.log(this.authFacade.isLoggedIn());
+    if (!(await this.authFacade.isLoggedIn())) {
+      this.setError('You must be logged in to add to wishlist');
+      return new Navigate(['sign-in']);
+    } else {
+      if ((await this.authFacade.getUserType()) === 'seller') {
+        console.log('here');
+        this.setError('Sellers cannot add to wishlist');
+        return new Navigate(['sales']);
+      } else
+        try {
+          this.profileService.toggleWishlist(id);
+          return new ProfileActions.ToggleWishlist(id);
+        } catch (error) {
+          return this.setError(error);
+        }
     }
   }
 

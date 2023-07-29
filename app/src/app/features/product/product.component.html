@@ -51,27 +51,21 @@
                 </div>
               </div>
               <mat-card-actions>
-                <!--<button
-                  mat-icon-button
-                  color="warm"
-                  aria-label="Example icon button with a heart icon">
-                  <mat-icon>favorite</mat-icon>
-                </button>-->
+                <ion-button
+                  (click)="toggleHeart()"
+                  (click)="favClickAnalytics()"
+                  class="wishlist-button"
+                  shape="round"
+                  fill="clear"
+                  mode="ios">
+                  <ion-icon
+                    [name]="(isHearted | async) ? 'heart' : 'heart-outline'"
+                    name="heart"
+                    style="color: red"></ion-icon>
+                </ion-button>
               </mat-card-actions>
             </mat-card>
           </div>
-          <button
-            mat-icon-button
-            class="next-img-btn"
-            (click)="favourited_product(1055, false)">
-            <mat-icon>favorite</mat-icon>
-          </button>
-          <button
-            mat-icon-button
-            class="next-img-btn"
-            (click)="followed_seller('Takealot', true)">
-            <mat-icon>bookmark</mat-icon>
-          </button>
           <div class="col-sm-4 col-md-4 col-lg-4 upper-product-info-container">
             <div
               class="upper-product-info-small-container"

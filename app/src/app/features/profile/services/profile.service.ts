@@ -41,4 +41,41 @@ export class ProfileService {
     )) as HttpResponse<Profile>;
     return res.body;
   }
+
+  async toggleWishlist(prod_id: number): Promise<void> {
+    const url = `${this.apiUrl}updateWishlist/`;
+    console.log(prod_id);
+    await lastValueFrom(
+      this.http
+        .post(
+          url,
+          { prod_id: prod_id },
+          {
+            headers: new HttpHeaders()
+              .set('Content-Type', 'application/json')
+              .set('Authorization', 'true'),
+            observe: 'response',
+          }
+        )
+        .pipe(take(1), shareReplay(1))
+    );
+  }
+
+  async toggleFollowSeller(seller_name: string): Promise<void> {
+    const url = `${this.apiUrl}updateFollowedSellers/`;
+    await lastValueFrom(
+      this.http
+        .post(
+          url,
+          { seller_name: seller_name },
+          {
+            headers: new HttpHeaders()
+              .set('Content-Type', 'application/json')
+              .set('Authorization', 'true'),
+            observe: 'response',
+          }
+        )
+        .pipe(take(1), shareReplay(1))
+    );
+  }
 }

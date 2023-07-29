@@ -25,7 +25,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   product_name!: string;
   product_category!: string;
   selectedImage!: string;
-  isChecked$!: Observable<boolean>;
+  isHearted = of(false);
 
   currencyCode = 'ZAR';
 
@@ -43,19 +43,15 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.selected = new FormControl('default');
     this.paramMapSubscription = new Subscription();
     this.prod_id = -1;
-    this.isChecked$ = of(true);
   }
   ngOnInit(): void {
     this.paramMapSubscription = this.route.queryParamMap.subscribe(params => {
-  
       this.selectedImage = '';
       this.profileFacade.getProfile().subscribe(profile => {
         if (profile) {
           this.consumer_id = profile.id;
         }
       });
-      this.followed_sellers$ = this.profileFacade.followedSellers$;
-
       // this.consumer_id = this.profileFacade.getProfile().id;
       const id = params.get('prod_id');
 
@@ -67,14 +63,16 @@ export class ProductComponent implements OnInit, OnDestroy {
           'default'
         );
         this.currency$ = of('ZAR');
-        
-        this.isChecked$ = this.profileFacade.checkWishlist(this.prod_id);
+
+        this.isHearted = this.profileFacade.checkWishlist(this.prod_id);
       }
     });
 
     this.prodClickAnalytics();
   }
-
+  toggleHeart() {
+    this.profileFacade.toggleWishlist(this.prod_id);
+  }
   prodClickAnalytics(): void {
     if (this.product$) {
       this.product$.subscribe(product => {
@@ -164,30 +162,6 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   selectImage(image: string) {
     this.selectedImage = image;
-  }
-  followed_seller(seller: string, checked: boolean) {
-    return null;
-  }
-  favourited_product(prod_id: number, checked: boolean) {
-    this.profileFacade.getProfile().subscribe(profile => {
-      if (profile) {
-        if (checked) {
-          if (profile.details.wishlist.indexOf(prod_id) === -1) {
-            profile.details.wishlist.push(prod_id);
-          }
-        }
-        if (!checked) {
-          if (profile.details.wishlist.indexOf(prod_id) !== -1) {
-            profile.details.wishlist.splice(
-              profile.details.wishlist.indexOf(prod_id)
-            );
-          }
-        }
-        console.log(profile.details.wishlist);
-        this.favClickAnalytics();
-        this.profileFacade.updateProfile(profile);
-      }
-    });
   }
   favClickAnalytics(): void {
     if (this.product$) {
