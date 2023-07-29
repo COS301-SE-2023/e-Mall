@@ -21,11 +21,13 @@ export class ProductComponent implements OnInit, OnDestroy {
   consumer_id!: string | null;
   product$: Observable<IProduct> | undefined;
   sellers$: Observable<IProductSeller[]> | undefined;
+  followed_sellers$: Observable<string[]> | undefined;
   currency$: Observable<string> | undefined;
   seller_name!: string | undefined;
   product_name!: string;
   product_category!: string;
   selectedImage!: string;
+  isHearted = of(false);
 
   currencyCode = 'ZAR';
 
@@ -58,6 +60,7 @@ export class ProductComponent implements OnInit, OnDestroy {
       }
       // this.consumer_id = this.profileFacade.getProfile().id;
       const id = params.get('prod_id');
+
       if (id) {
         this.prod_id = +id;
         this.product$ = this.productService.getProductData(this.prod_id);
@@ -66,11 +69,16 @@ export class ProductComponent implements OnInit, OnDestroy {
           'default'
         );
         this.currency$ = of('ZAR');
+
+        this.isHearted = this.profileFacade.checkWishlist(this.prod_id);
       }
     });
+
     this.prodClickAnalytics();
   }
-
+  toggleHeart() {
+    this.profileFacade.toggleWishlist(this.prod_id);
+  }
   prodClickAnalytics(): void {
     if (this.product$) {
       this.product$.subscribe(product => {
@@ -161,48 +169,6 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   selectImage(image: string) {
     this.selectedImage = image;
-  }
-  followed_seller(seller: string, checked: boolean) {
-    this.profileFacade.getProfile().subscribe(profile => {
-      if (profile) {
-        if (checked) {
-          //TODO: check if seller is already in the list
-          //const index =
-          if (profile.details.followed_sellers.indexOf(seller) === -1) {
-            profile.details.followed_sellers.push(seller);
-          }
-        }
-        if (!checked) {
-          profile.details.followed_sellers.splice(
-            profile.details.followed_sellers.indexOf(seller)
-          );
-        }
-        console.log(profile.details.followed_sellers);
-
-        this.profileFacade.updateProfile(profile);
-      }
-    });
-  }
-  favourited_product(prod_id: number, checked: boolean) {
-    this.profileFacade.getProfile().subscribe(profile => {
-      if (profile) {
-        if (checked) {
-          if (profile.details.wishlist.indexOf(prod_id) === -1) {
-            profile.details.wishlist.push(prod_id);
-          }
-        }
-        if (!checked) {
-          if (profile.details.wishlist.indexOf(prod_id) !== -1) {
-            profile.details.wishlist.splice(
-              profile.details.wishlist.indexOf(prod_id)
-            );
-          }
-        }
-        console.log(profile.details.wishlist);
-        this.favClickAnalytics();
-        this.profileFacade.updateProfile(profile);
-      }
-    });
   }
   favClickAnalytics(): void {
     if (this.product$) {

@@ -46,4 +46,84 @@ export class ProfileState {
   signOut(ctx: StateContext<ProfileStateModel>) {
     ctx.setState({ profile: null });
   }
+
+  // @Action(ProfileActions.AddToWishlist)
+  // addToWishlist(
+  //   ctx: StateContext<ProfileStateModel>,
+  //   action: ProfileActions.AddToWishlist
+  // ) {
+  //   ctx.setState(
+  //     produce(draft => {
+  //       if (draft.profile) {
+  //         draft.profile.details.wishlist.push(action.id);
+  //       }
+  //     })
+  //   );
+  // }
+
+  // @Action(ProfileActions.RemoveFromWishlist)
+  // removeFromWishlist(
+  //   ctx: StateContext<ProfileStateModel>,
+  //   action: ProfileActions.RemoveFromWishlist
+  // ) {
+  //   ctx.setState(
+  //     produce(draft => {
+  //       if (draft.profile) {
+  //         draft.profile.details.wishlist.splice(
+  //           draft.profile.details.wishlist.indexOf(action.id),
+  //           1
+  //         );
+  //       }
+  //     })
+  //   );
+  // }
+  // @Action(ProfileActions.AddToFollowedSellers)
+  // addToFollowedSellers(
+  //   ctx: StateContext<ProfileStateModel>,
+  //   action: ProfileActions.AddToFollowedSellers
+  // ) {
+  //   ctx.setState(
+  //     produce(draft => {
+  //       if (draft.profile) {
+  //         draft.profile.details.followed_sellers.push(action.name);
+  //       }
+  //     })
+  //   );
+  // }
+
+  // @Action(ProfileActions.RemoveFromFollowedSellers)
+  // removeFromFollowedSellers(
+  //   ctx: StateContext<ProfileStateModel>,
+  //   action: ProfileActions.RemoveFromFollowedSellers
+  // ) {
+  //   ctx.setState(
+  //     produce(draft => {
+  //       if (draft.profile) {
+  //         draft.profile.details.followed_sellers.splice(
+  //           draft.profile.details.followed_sellers.indexOf(action.name),
+  //           1
+  //         );
+  //       }
+  //     })
+  //   );
+  // }
+
+  @Action(ProfileActions.ToggleWishlist)
+  toggleWishlist(
+    ctx: StateContext<ProfileStateModel>,
+    action: ProfileActions.ToggleWishlist
+  ) {
+    ctx.setState(
+      produce(draft => {
+        if (draft.profile) {
+          const index = draft.profile.details.wishlist.indexOf(action.id);
+          if (index === -1) {
+            draft.profile.details.wishlist.push(action.id);
+          } else {
+            draft.profile.details.wishlist.splice(index, 1);
+          }
+        }
+      })
+    );
+  }
 }
