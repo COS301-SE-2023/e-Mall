@@ -4,7 +4,9 @@ on:
   push:
     branches:
       - JY/00/deployment
-
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -31,7 +33,7 @@ jobs:
         with:
           # aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           # aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-region: af-south-1
           role-to-assume: arn:aws:iam::310478345046:role/GitHubAction-AssumeRoleWithAction
 
       - name: Login to Amazon ECR
