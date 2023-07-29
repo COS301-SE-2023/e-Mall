@@ -98,18 +98,18 @@ mat-paginator {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #37D0D6; /*background color for the bubbles */
+    background-color: rgb(172, 167, 167); /*background color for the bubbles */
     color: #ffffff; /* text color to white */
     border-radius: 20px; 
     padding: 8px 16px; /* Add padding to adjust the size of the bubble */
     margin: 8px; /* spacing between bubbles */
     cursor: pointer; 
-    white-space: nowrap; /* Prevent category text from wrapping to the next line */
+    white-space: nowrap; /* Prevent category text from wrapping to the next line #2c3e50 */
   }
   
   /* Hover effect */
   .category-bubble:hover {
-    background-color: #2c3e50;
+    background-color: #37D0D6;
   }
 
 ion-button{
