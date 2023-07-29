@@ -38,6 +38,8 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
   itemsPerPage!: number;
   totalSearchCount$: Observable<number> | undefined;
   searchKeyword!: string;
+  // Define the array of categories
+  categories: string[] = ['All', 'Books', 'Clothing', 'Electronics', 'Health & Beauty', 'Home & Kitchen', 'Sports & Outdoors', 'Toys & Games'];
 
   private paramMapSubscription: Subscription;
   constructor(

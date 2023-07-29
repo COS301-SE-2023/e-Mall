@@ -73,30 +73,35 @@
 
     <div class="products-container">
       <h2 class="title">Products</h2>
-    <div class = "search-sort">
-      <ion-searchbar
-                class="search-box"
-                placeholder="Search products..."
-                type="search"
-                mode="md"
-                [(ngModel)]="searchKeyword"
-                [debounce]="2000"
-                (ionInput)="onSearchInputChange()"></ion-searchbar>
+      <div class = "search-sort">
+        <ion-searchbar
+                  class="search-box"
+                  placeholder="Search products..."
+                  type="search"
+                  mode="md"
+                  [(ngModel)]="searchKeyword"
+                  [debounce]="2000"
+                  (ionInput)="onSearchInputChange()"></ion-searchbar>
 
-        <div class="sort-condition">
-          <select name="" id="select">
-            <option value="Default">Default</option>
-            <option value="name">Name (A-Z)</option>
-            <option value="-name">Name (Z-A)</option>
-            <option value="price">Low to high</option>
-            <option value="-price">High to low</option>
-            <option value="discount">Lowest Discount</option>
-            <option value="-discount">Highest Discount</option>
-            
-          </select>
-        </div>
+          <div class="sort-condition">
+            <select name="" id="select">
+              <option value="Default">Default</option>
+              <option value="name">Name (A-Z)</option>
+              <option value="-name">Name (Z-A)</option>
+              <option value="price">Low to high</option>
+              <option value="-price">High to low</option>
+              <option value="discount">Lowest Discount</option>
+              <option value="-discount">Highest Discount</option>
+              
+            </select>
+          </div>
       </div>    
-
+      <div class ="filter-menu">
+        <div *ngFor="let category of categories" class="category-bubble">
+          {{ category }}
+        </div>
+      </div>
+      <mat-divider class="divider3"></mat-divider>
       <div class="product-card">
         <div
           style="display: flex; justify-content: center; align-items: center"
