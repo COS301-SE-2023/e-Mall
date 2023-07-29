@@ -18,24 +18,15 @@ interface ProductData {
   styleUrls: ['product-analytics.component.scss'],
 })
 export class ProductAnalyticsComponent implements OnInit {
-  productPerformanceChart: any;
+
   public productClicksChart: Chart | undefined;
   sellerName!: string | undefined;
-  productsClicked = 0;
-  websiteClicks = 0;
-  favourited = 0;
   topProducts$: Observable<any> | undefined;
   productClicksData$: Observable<any> | undefined;
-  conversionRateData$: Observable<any> | undefined;
-  categoryPercentageData$: Observable<any> | undefined;
   table_product_clicks!: number[];
   table_labels!: string[];
   table_link_clicks: number[] = [];
   table_favourites: number[] = [];
-  conversionRateLabels!: string[];
-  conversionRate!: number[];
-  categories!: string[];
-  categoryPercentage!: number[];
   productNames!: string[];
   isChecked!: boolean;
   objCount=0
@@ -57,11 +48,6 @@ export class ProductAnalyticsComponent implements OnInit {
         }
       }
     });
-    this.analytics.getAnalyticsData(this.sellerName).subscribe(data => {
-      this.productsClicked = data.product_clicks;
-      this.websiteClicks = data.link_clicks;
-      this.favourited = data.favourites;
-    });
     this.analytics.getAllProducts(this.sellerName).subscribe(data => {
       this.productClicksData$ = of(data);
       this.productClicksData$.subscribe(data => {
@@ -81,12 +67,6 @@ export class ProductAnalyticsComponent implements OnInit {
         this.table_link_clicks = data.map(
           (item: { [x: string]: any }) => item['link_clicks']
         );
-        console.log(this.table_product_clicks);
-        console.log(this.table_favourites);
-        console.log(this.table_link_clicks);
-        console.log(this.table_labels);
-        //this.createProductClicksChart();
-
         this.table_labels.forEach(label => {
           this.getSelectedProductData(label);
         });
@@ -100,10 +80,9 @@ export class ProductAnalyticsComponent implements OnInit {
       'product-clicks-chart'
     ) as HTMLCanvasElement;
     
-    // Get the product names and months
     if (this.productClicksChart) {
       this.objCount=0;
-      this.productClicksChart.destroy(); // Destroy the existing chart
+      this.productClicksChart.destroy(); 
     }
 
     const productNames = Object.keys(this.productData);
