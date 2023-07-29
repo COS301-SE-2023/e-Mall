@@ -32,6 +32,7 @@ import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module
 import { ProfileModule } from './features/profile/profile.module';
 import { DropdownPopoverModule } from '@shared/components/dropdown-popover/dropdown-popover.module'; // Add this line
 import { CategoryModule } from '@features/category/category.module';
+import { SellerDetailsModule } from '@features/seller-details/seller-details.module';
 import { CustomerProfileModule } from '@features/profile/components/customer-profile/customer-profile.module';
 import { WishlistModule } from '@features/wishlist/wishlist.module';
 import { NavbarPopupModule } from '@shared/components/navbar-popup/navbar-popup.module';
@@ -84,6 +85,7 @@ import { NavbarPopupModule } from '@shared/components/navbar-popup/navbar-popup.
     DropdownPopoverModule,
     CategoryModule,
     AppRoutingModule,
+    SellerDetailsModule,
   ],
 
   providers: [

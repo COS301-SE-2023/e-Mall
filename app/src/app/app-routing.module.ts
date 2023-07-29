@@ -11,6 +11,9 @@ import { postAuthGuard } from '@shared/guards/post-auth.guard';
 import { preAuthGuard } from '@shared/guards/pre-auth.guard';
 import { baseGuard } from '@shared/guards/base.guard';
 import { sellerTypeGuard } from '@shared/guards/seller-type.guard';
+import { SellerDetailsComponent } from '@features/seller-details/seller-details.component';
+import { SellerDataResolver } from '@features/seller-details/seller-details-resolver';
+import { InventoryComponent } from '@features/inventory/components/inventory.component';
 import { CustomerProfileComponent } from '@features/profile/components/customer-profile/customer-profile.component';
 import { WishlistComponent } from '@features/wishlist/wishlist.component';
 
@@ -61,6 +64,12 @@ const routes: Routes = [
         m => m.InventoryModule
       ),
     canActivate: [postAuthGuard, sellerTypeGuard],
+  },
+  { path: 'inventory', component: InventoryComponent },
+  {
+    path: 'seller-details',
+    component: SellerDetailsComponent,
+    resolve: { sellerData: SellerDataResolver },
   },
   {
     path: 'about',

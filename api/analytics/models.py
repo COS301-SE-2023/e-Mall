@@ -9,7 +9,9 @@ class Analytics(models.Model):
     seller = models.CharField(default="")
     product = models.CharField(default="")
     product_category = models.CharField(max_length=100, default="")
-    consumer_id = models.UUIDField(default=uuid.uuid4, editable=False)
+    consumer_id = models.UUIDField(
+        default=uuid.uuid4, editable=False, null=True, blank=True
+    )
     event_type = models.CharField(max_length=100, default="")
     event_date = models.DateTimeField(editable=True)
     metadata = JSONField(null=True, blank=True)
