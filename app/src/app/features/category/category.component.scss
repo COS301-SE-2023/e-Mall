@@ -22,6 +22,21 @@
   align-items: flex-start;
 }
 
+.sort-condition{
+  padding: 20px;
+  height: 100%;
+  font-size: 20px;
+  margin-left: 32rem;
+}
+.sort-condition select{
+  width: 100%;
+  padding: 0 0 0 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 45px;
+  
+}
+
 .search-query {
   margin-top: 10px;
 }
