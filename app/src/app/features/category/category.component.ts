@@ -31,7 +31,6 @@ export class CategoryComponent implements OnInit, OnDestroy {
       this.categoryProducts$ = this.productService.getCategoryProducts(this.categoryName);
     });
 
-    console.log(this.categoryProducts$);
   }
 
   getOneImg(imgList?: string[]) {
