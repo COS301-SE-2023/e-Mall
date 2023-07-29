@@ -27,17 +27,24 @@ export class CustomerProfileComponent {
   
   }
 
-  goToWishlist() {
+  public goToWishlist() {
     
     this.router.navigate(['/wishlist']);
   }
 
-  goToConstruction(){
+  public goToConstruction(){
     this.router.navigate(['/construction']);
   }
 
   public signOut(): void {
     this.router.navigate(['sign-out']);
   }
+
+  public goToEditProfile(): void {
+    this.router.navigate(['edit-customer-profile']);
+  }
+  
+
+ 
 
 }

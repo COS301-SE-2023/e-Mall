@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 export class CustomerProfileSidenavComponent {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() profile: any;
+  currentPage!: string;
+  
 
   constructor(private router: Router){}
 
@@ -29,5 +31,12 @@ export class CustomerProfileSidenavComponent {
 
   public signOut(): void {
     this.router.navigate(['sign-out']);
+  }
+
+  navigateTo(page: string): void {
+    this.currentPage = page;
+    setTimeout(() => {
+      this.router.navigate([`/${page}`]);
+    }, 0);
   }
 }

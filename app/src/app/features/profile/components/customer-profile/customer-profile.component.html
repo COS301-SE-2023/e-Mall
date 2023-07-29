@@ -21,7 +21,7 @@
                     <p><b>Username : </b>{{ profile.username }}</p>
                     <p><b>Email :</b> {{ profile.email }}</p>
                     <div class="edit-button-container">
-                      <ion-button>
+                      <ion-button (click)="goToEditProfile()">
                         <ion-icon name="pencil" aria-hidden="true"></ion-icon>
                         Edit profile
                       </ion-button>

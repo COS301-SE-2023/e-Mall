@@ -11,6 +11,7 @@ import { authGuard } from '@shared/route-guards/auth-guard/auth-guard.service';
 import { routeGuard } from '@shared/route-guards/route-guard/route-guard.service';
 import { CustomerProfileComponent } from '@features/profile/components/customer-profile/customer-profile.component';
 import { WishlistComponent } from '@features/wishlist/wishlist.component';
+import { EditCustomerProfileComponent } from '@features/edit-customer-profile/edit-customer-profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -95,6 +96,10 @@ const routes: Routes = [
   {
     path: 'wishlist',
     component: WishlistComponent
+  },
+  {
+    path: 'edit-customer-profile',
+    component: EditCustomerProfileComponent
   },
   // {
   //   path: 'profile',

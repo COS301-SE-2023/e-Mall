@@ -1,0 +1,33 @@
+<app-navbar></app-navbar>
+<ion-content class="global-ion-content">
+    <div class="ion-content-wrapper">
+        <!--<div class="container">-->
+            <div class="side-nav-container" *ngIf="profile$ | async as profile">
+                <app-customer-profile-sidenav
+                [profile]="{username: profile.username}">
+                </app-customer-profile-sidenav> 
+            </div>
+            
+        
+            <div class="settings-container" *ngIf="profile$ | async as profile">
+                <h2>settings</h2>
+                <h5>general settings</h5>
+                <form [formGroup]="customerprofileForm" (ngSubmit)="onSubmit()">
+                    <ion-item>
+                      <ion-label>Username</ion-label>
+                      <ion-input formControlName="username" type="text"></ion-input>
+                    </ion-item>
+                
+                    <ion-item>
+                      <ion-label>Email</ion-label>
+                      <ion-input formControlName="email" type="email"></ion-input>
+                    </ion-item>
+                
+                    <ion-button type="submit">Submit</ion-button>
+                  </form>
+
+            </div>
+    </div>
+    <app-footer></app-footer>
+</ion-content>
+
