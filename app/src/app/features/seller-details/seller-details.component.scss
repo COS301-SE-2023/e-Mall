@@ -97,12 +97,12 @@ mat-paginator {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #37D0D6; /* Set a common background color for the bubbles */
-    color: #ffffff; /* Set the text color to white */
-    border-radius: 20px; /* Adjust the border-radius to make them more pill-shaped */
+    background-color: #37D0D6; /*background color for the bubbles */
+    color: #ffffff; /* text color to white */
+    border-radius: 20px; 
     padding: 8px 16px; /* Add padding to adjust the size of the bubble */
-    margin: 8px; /* Adjust the spacing between bubbles */
-    cursor: pointer; /* Change the cursor to indicate interactivity */
+    margin: 8px; /* spacing between bubbles */
+    cursor: pointer; 
     white-space: nowrap; /* Prevent category text from wrapping to the next line */
   }
   
