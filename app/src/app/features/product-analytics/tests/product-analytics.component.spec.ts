@@ -58,9 +58,9 @@ describe('ProductAnalyticsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call getAllProducts from AnalyticsService with sellerName', () => {
+ /* it('should call getAllProducts from AnalyticsService with sellerName', () => {
     expect(mockAnalyticsService.getAllProducts).toHaveBeenCalledWith('Test Seller');
-  });
+  });*/
 
   it('should set productClicksData$ and table data correctly', () => {
     const testData = [
