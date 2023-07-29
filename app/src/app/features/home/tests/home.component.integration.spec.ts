@@ -10,11 +10,14 @@ import { Router } from '@angular/router';
 import { AuthModule } from '@features/auth/auth.module';
 import { ProfileModule } from '@features/profile/profile.module';
 import { NgxsModule } from '@ngxs/store';
+import { ElementRef } from '@angular/core';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let httpTestingController: HttpTestingController;
   let router: Router;
+  
+  let mockRecommendedHeading: ElementRef<HTMLElement>
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -31,6 +34,9 @@ describe('HomeComponent', () => {
     httpTestingController = TestBed.inject(HttpTestingController);
 
     router = TestBed.inject(Router);
+    
+    mockRecommendedHeading = new ElementRef<HTMLElement>(document.createElement('div'));
+    component.recommendedHeading = mockRecommendedHeading;
   });
 
   afterEach(() => {
@@ -57,15 +63,14 @@ describe('HomeComponent', () => {
       queryParams: { prod_id: productId },
     });
   });
-  it('should navigate to "/construction" onAllClick()', () => {
-    spyOn(router, 'navigate');
+
+  it('should scroll to recommendedHeading', () => {
+    const scrollSpy = spyOn(mockRecommendedHeading.nativeElement, 'scrollIntoView');
 
     component.onAllClick();
 
-    // Ensure that the router.navigate method is called with the correct parameter
-    expect(router.navigate).toHaveBeenCalledWith(['/construction']);
+    expect(scrollSpy).toHaveBeenCalledWith({ behavior: 'smooth' });
   });
-
   it('should return the first image URL when imgList is provided', () => {
     const imgList = ['image1.jpg', 'image2.jpg', 'image3.jpg'];
     const result = component.getOneImg(imgList);

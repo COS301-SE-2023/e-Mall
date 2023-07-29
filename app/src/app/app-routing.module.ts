@@ -75,6 +75,13 @@ const routes: Routes = [
     canActivate: [postAuthGuard, sellerTypeGuard],
   },
   {
+    path: 'product-analytics',
+    loadChildren: () =>
+      import('@app/features/product-analytics/product-analytics.module').then(m => m.ProductAnalyticsModule),
+    canActivate: [postAuthGuard, sellerTypeGuard],
+  },
+  
+  {
     path: 'contact',
     loadChildren: () =>
       import('@app/features/contact/contact.module').then(m => m.ContactModule),
