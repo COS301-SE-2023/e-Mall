@@ -83,7 +83,7 @@
                 [debounce]="2000"
                 (ionInput)="onSearchInputChange()"></ion-searchbar>
 
-        <div class="filter-condition">
+        <div class="sort-condition">
           <select name="" id="select">
             <option value="Default">Default</option>
             <option value="name">Name (A-Z)</option>
@@ -95,14 +95,15 @@
             
           </select>
         </div>
-      </div>        
+      </div>    
+
       <div class="product-card">
-        
         <div
           style="display: flex; justify-content: center; align-items: center"
           *ngIf="(searchResults$ | async) === null">
           <mat-spinner></mat-spinner>
         </div>
+
         <ng-container *ngIf="searchResults$ | async as products">
           <div class="row" style="grid-auto-rows: auto">
             <div
@@ -127,6 +128,7 @@
             </div>
           </div>
         </ng-container>
+
         <div class="mat-paginator">
           <ng-container *ngIf="searchResults$ | async as products">
             <mat-paginator
@@ -135,7 +137,8 @@
               aria-label="Select page"
               [pageIndex]="currentPage"
               [pageSize]="itemsPerPage"
-              (page)="onPageChange($event)"></mat-paginator>
+              (page)="onPageChange($event)">
+            </mat-paginator>
           </ng-container>
         </div>
       </div></div></ng-container>
