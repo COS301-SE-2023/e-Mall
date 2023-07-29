@@ -16,3 +16,13 @@ export class UpdateProfile {
 export class ClearProfile {
   static readonly type = '[Profile] Clear Profile';
 }
+
+
+export class ToggleWishlist {
+  static readonly type = '[Profile] Updating Wishlist';
+  constructor(public id: number) {}
+}
+export class ToggleSellers {
+  static readonly type = '[Profile] Updating Follwed Sellers';
+  constructor(public name: string) {}
+}

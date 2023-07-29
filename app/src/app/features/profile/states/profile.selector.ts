@@ -10,4 +10,12 @@ export class ProfileSelectors {
   ): ISellerProfile | IConsumerProfile | null {
     return state.profile;
   }
+  @Selector([ProfileState])
+  static getWishlist(state: ProfileStateModel): number[] {
+    return state.profile?.details.wishlist || [];
+  }
+  @Selector([ProfileState])
+  static getFollowedSellers(state: ProfileStateModel): string[] {
+    return state.profile?.details.followed_sellers || [];
+  }
 }
