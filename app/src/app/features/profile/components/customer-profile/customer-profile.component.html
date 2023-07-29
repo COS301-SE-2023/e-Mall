@@ -1,0 +1,29 @@
+<app-navbar></app-navbar>
+<ion-content class="global-ion-content">
+    <div class="ion-content-wrapper">
+        <!--<div class="container">-->
+            
+            <div class="side-nav-container" *ngIf="profile$ | async as profile">
+                <app-customer-profile-sidenav
+                [profile]="{username: profile.username}">
+                </app-customer-profile-sidenav> 
+            </div>
+        
+            <div class="profile-info-container" *ngIf="profile$ | async as profile">
+                <div class="user-info">
+                  <div class="user-container">
+                    <div class="user-circle-container">
+                      <b>{{ profile.username?.charAt(0) }}</b>
+                    </div>
+                  </div>
+                  <div class="user-details">
+                    <p>{{ profile.email }}</p>
+                    <p>{{ profile.username }}</p>
+                  </div>
+                </div>
+              </div>
+              
+        <!--</div>-->
+    </div>
+    <app-footer></app-footer>
+</ion-content>

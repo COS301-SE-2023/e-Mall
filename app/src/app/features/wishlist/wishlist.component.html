@@ -1,0 +1,73 @@
+<app-navbar></app-navbar>
+<ion-content class="global-ion-content">
+    <div class="ion-content-wrapper">
+        <!--<div class="container">-->
+            <div class="side-nav-container" *ngIf="profile$ | async as profile">
+                <app-customer-profile-sidenav
+                [profile]="{username: profile.username}">
+                </app-customer-profile-sidenav> 
+            </div>
+            
+        
+            <div class="wishlist-container1" *ngIf="!bool">
+              <h2>My Wishlist</h2>
+
+              <div class="wishlist-container-nocards"> 
+                <div class="product-card-no">
+              
+                    <img src="assets\images\no-image.jpeg" alt="No Product Found" class="nimage" />
+                  </div>
+                  <h3>Oops! It's empty here!</h3>
+                    <p>
+                      Fill this page with your favourite products. 
+                      All you have to do is find a product you like, click the heart icon and it will be added to your wishlist. 
+                    </p>
+              </div>
+            </div>
+
+            <div class="wishlist-container" *ngIf="bool">
+                <h2>My Wishlist</h2>
+                <!--<div class="row" style="grid-auto-rows: auto">
+                    <div class="col-md-3 col-12" style="grid-auto-columns: auto; min-width: 300px">
+                        <app-product-card ></app-product-card>
+                         Add an empty column after every 4th product card, but only if there are more than 4 product cards
+                        <div class="col-md-1" ></div>
+                      </div>
+                </div>-->
+              <div class="wishlist-container-cards">  
+
+                <div class="product-card">
+                    <div style="
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                      " *ngIf="(products$ | async) === null">
+                      <mat-spinner></mat-spinner>
+                    </div>
+                    <ng-container *ngIf="products$ | async as products">
+                      <div class="row" style="grid-auto-rows: auto">
+                        <div class="col-md-3 col-12" style="grid-auto-columns: auto; min-width: 300px"
+                          *ngFor="let product of products; let i = index">
+                          <app-product-card [product]="{
+                              discount: product.min_price_discount_rate,
+                              imageUrl: getOneImg(product?.min_price_img_array),
+                              name: product.name,
+                              category: product.category,
+                              price: product.min_price,
+                              id: product.id
+                            }"></app-product-card>
+                          <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
+                          <div class="col-md-1" *ngIf="(i + 1) % 4 === 0 && products.length > 4 && (i + 1) !== products.length"></div>
+                        </div>
+                      </div>
+                    </ng-container>
+                </div>
+              </div>
+                
+                  
+        </div>
+        <!--</div>-->
+    </div>
+    <app-footer></app-footer>
+</ion-content>
+

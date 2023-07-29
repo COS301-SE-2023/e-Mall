@@ -1,0 +1,55 @@
+
+
+<ion-header>
+  <ion-toolbar>
+    <ion-list mode="ios">
+      <ion-item lines="none" class="modal-header-item">
+        <ion-button
+          class="close-button"
+          shape="round"
+          mode="ios"
+          slot="end"
+          fill="clear"
+          (click)="closePopOver()">
+          <ion-icon size="large" name="close-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="modal-container" *ngIf="profile$ | async as profile">
+    <div class="user-circle-container">
+      <p><b>{{ profile.username?.charAt(0) }}</b></p>
+    </div>
+    <div class="user-info-container">
+      <p><b>{{ profile.username }}</b></p>
+      <p><b> {{profile.email}}</b></p>
+    </div>
+  </div>
+  <div class="modal-button-container">
+  
+    <div class="modal-buttons">
+      <ion-button
+          class="profile-button modal-button"
+          mode="ios"
+          slot="start"
+          (click)="goToCustomerProfile()">
+          <ion-icon size="large" name="person-circle"></ion-icon>
+          Go to Profile
+      </ion-button>
+  
+      <ion-button
+          class="close-button modal-button"
+          mode="ios"
+          slot="end"
+          (click)="signOut()">
+          <ion-icon size="large" name="arrow-back-outline"></ion-icon>
+          signOut
+      </ion-button>
+      </div>
+    </div>
+</ion-content>
+

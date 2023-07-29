@@ -24,8 +24,6 @@ export class SalesComponent implements OnInit {
   productsClicked = 0;
   websiteClicks = 0;
   favourited = 0;
-  topProducts$: Observable<any> | undefined;
-  productClicksData$: Observable<any> | undefined;
   conversionRateData$: Observable<any> | undefined;
   categoryPercentageData$: Observable<any> | undefined;
   table_product_clicks!: number[];
@@ -36,22 +34,16 @@ export class SalesComponent implements OnInit {
   conversionRate!: number[];
   categories!: string[];
   categoryPercentage!: number[];
-  productNames!: string[];
-  isChecked!: boolean;
-  productData: ProductData = {
-  };
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(
     private analytics: AnalyticsService,
     private profileFacade: ProfileFacade
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.productNames = [];
     this.profileFacade.getProfile().subscribe(profile => {
       if (profile) {
         if ('business_name' in profile.details) {
-          // console.log(profile.details.business_name);
           this.sellerName = profile.details.business_name;
         }
       }
@@ -60,32 +52,6 @@ export class SalesComponent implements OnInit {
       this.productsClicked = data.product_clicks;
       this.websiteClicks = data.link_clicks;
       this.favourited = data.favourites;
-    });
-    this.analytics.getAllProducts(this.sellerName).subscribe(data => {
-      this.productClicksData$ = of(data);
-      this.productClicksData$.subscribe(data => {
-        this.topProducts$ = of(data);
-        this.topProducts$.subscribe(data => {
-          console.log('TOPPRODUCTS', data);
-        });
-        this.table_product_clicks = data.map(
-          (item: { [x: string]: any }) => item['clicks']
-        );
-        this.table_labels = data.map(
-          (item: { [x: string]: any }) => item['product_name']
-        );
-        this.table_favourites = data.map(
-          (item: { [x: string]: any }) => item['favourites']
-        );
-        this.table_link_clicks = data.map(
-          (item: { [x: string]: any }) => item['link_clicks']
-        );
-        console.log(this.table_product_clicks);
-        console.log(this.table_favourites);
-        console.log(this.table_link_clicks);
-        console.log(this.table_labels);
-        this.createProductClicksChart();
-      });
     });
 
     this.analytics.getConversionRate(this.sellerName).subscribe(data => {
@@ -117,125 +83,6 @@ export class SalesComponent implements OnInit {
       this.createCategoryPercentageChart();
     });
     Chart.register(...registerables);
-  }
-
-  /*createProductClicksChart() {
-    const productClicksCanvas = document.getElementById(
-      'product-clicks-chart'
-    ) as HTMLCanvasElement;
-
-    this.productClicksChart = new Chart(productClicksCanvas, {
-      type: 'bar',
-      data: {
-        labels: this.labels,
-        datasets: [
-          {
-            label: 'Product Clicks',
-            data: this.clicks,
-            backgroundColor: 'rgba(75, 192, 192, 0.5)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1,
-            borderRadius: 5,
-          },
-        ],
-      },
-      options: {
-        plugins: {
-          title: {
-            display: true,
-            text: 'Product Clicks',
-          },
-        },
-        scales: {
-          x: {
-            beginAtZero: true,
-            ticks: {
-              stepSize: 1,
-              callback: (value: string | number) => {
-                const stringValue = this.labels[Number(value)].toString();
-                return stringValue.length > 10
-                  ? stringValue.slice(0, 10) + '...'
-                  : stringValue;
-              },
-            },
-          },
-          y: {
-            beginAtZero: true,
-            ticks: {
-              stepSize: 10,
-            },
-          },
-        },
-        responsive: true,
-      },
-    });
-  }*/
-  // Modify your data to fit the format required by the line chart
-
-  createProductClicksChart() {
-    const productClicksCanvas = document.getElementById(
-      'product-clicks-chart'
-    ) as HTMLCanvasElement;
-
-    // Get the product names and months
-    if (this.productClicksChart) {
-      this.productClicksChart.destroy(); // Destroy the existing chart
-    }
-
-    const productNames = Object.keys(this.productData);
-    const months = Object.keys(this.productData[productNames[0]]);
-    const maxProductNameLength = 10;
-    // Create datasets for each product
-    const datasets = Object.keys(this.productData).map(productName => ({
-      label:
-        productName.length > maxProductNameLength
-          ? productName.slice(0, maxProductNameLength) + '...'
-          : productName,
-      data: months.map(month => this.productData[productName][month] || 0),
-      borderColor: this.getRandomColor(),
-      fill: false,
-    }));
-
-    // Create the line chart
-    this.productClicksChart = new Chart(productClicksCanvas, {
-      type: 'line',
-      data: {
-        labels: months,
-        datasets: datasets,
-      },
-      options: {
-        plugins: {
-          title: {
-            display: true,
-            text: 'Product Clicks per Month',
-          },
-        },
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: 'Months',
-            },
-          },
-          y: {
-            title: {
-              display: true,
-              text: 'Number of Clicks',
-            },
-            beginAtZero: true,
-            ticks: {
-              stepSize: 5,
-            },
-          },
-        },
-        responsive: true,
-      },
-    });
-  }
-
-  getRandomColor() {
-    // Generate a random color in hexadecimal format
-    return '#' + Math.floor(Math.random() * 16777215).toString(16);
   }
 
   createProductPerformanceChart() {
@@ -341,33 +188,5 @@ export class SalesComponent implements OnInit {
         responsive: true,
       },
     });
-  }
-
-  getSelectedProductData(product_name: string, event: any) {
-    this.isChecked = event.detail.checked;
-    if (this.isChecked) {
-      if (this.productNames.indexOf(product_name) === -1) {
-        this.productNames.push(product_name);
-      }
-    } else {
-      const index = this.productNames.indexOf(product_name);
-      if (index !== -1) {
-        this.productNames.splice(index, 1);
-      }
-    }
-
-    const data = {
-      seller_name: this.sellerName,
-      product_names: this.productNames,
-    };
-
-    const data1 = this.analytics.getSelectedProductData(data);
-    console.log(data1);
-    data1.subscribe(data => {
-      console.log(data[product_name]);
-      this.productData[product_name]=data[product_name];
-      this.createProductClicksChart();
-    });
-console.log(this.productData);
   }
 }

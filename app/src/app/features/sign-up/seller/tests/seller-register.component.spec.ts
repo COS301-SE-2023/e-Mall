@@ -20,7 +20,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { ViewSizeModule } from '@shared/directives/view-size/view-size.module';
 import { ToastModule } from '@shared/components/toast/toast.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-describe('RegisterComponent', () => {
+import { StepperSelectionEvent } from '@angular/cdk/stepper';
+/*describe('RegisterComponent', () => {
   let component: SellerRegisterComponent;
   let fixture: ComponentFixture<SellerRegisterComponent>;
   let authFacade: AuthFacade;
@@ -60,4 +61,100 @@ describe('RegisterComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+});*/
+describe('SellerRegisterComponent', () => {
+  let component: SellerRegisterComponent;
+  let fixture: ComponentFixture<SellerRegisterComponent>;
+  let authFacade: AuthFacade;
+  let authService: AuthService;
+  let router: Router;
+  let store: Store;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [
+        NgxsModule.forRoot([AuthState]),
+        RouterTestingModule,
+        HttpClientModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        ReactiveFormsModule,
+        IonicModule,
+        AuthModule,
+        MatStepperModule,
+        MatButtonModule,
+        MatIconModule,
+        ViewSizeModule,
+        ToastModule,
+      ],
+      declarations: [SellerRegisterComponent],
+      providers: [AuthFacade],
+    }).compileComponents();
+    store = TestBed.inject(Store);
+    router = TestBed.inject(Router);
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(SellerRegisterComponent);
+    component = fixture.componentInstance;
+    authService = TestBed.inject(AuthService);
+    authFacade = TestBed.inject(AuthFacade);
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should set stepToggle on selection change', () => {
+    const event = { selectedIndex: 1 } as StepperSelectionEvent;
+    component.onSelectionChange(event);
+    expect(component.stepToggle).toEqual([false, true, false]);
+  });
+
+  it('should call signUp method when form is valid', () => {
+    spyOn(component, 'signUp');
+    component.registerFormFirst.controls['email'].setValue('test@example.com');
+    component.registerFormFirst.controls['password'].setValue('Test1234!');
+    component.registerFormFirst.controls['cpassword'].setValue('Test1234!');
+    component.registerFormSecond.controls['website'].setValue('www.example.com');
+    component.registerFormSecond.controls['typeOfBusiness'].setValue('Type');
+    component.registerFormThird.controls['catalogSize'].setValue('Size');
+    component.registerFormThird.controls['sizeOfBusiness'].setValue('BusinessSize');
+
+    component.onSubmit();
+
+    expect(component.signUp).toHaveBeenCalled();
+  });
+
+  it('should not call signUp method when form is invalid', () => {
+    spyOn(component, 'signUp');
+    component.registerFormFirst.controls['email'].setValue('test@example.com');
+    component.registerFormFirst.controls['password'].setValue('Test1234!');
+    component.registerFormFirst.controls['cpassword'].setValue('DifferentPassword');
+    component.registerFormSecond.controls['website'].setValue('www.example.com');
+    component.registerFormSecond.controls['typeOfBusiness'].setValue('Type');
+    component.registerFormThird.controls['catalogSize'].setValue('Size');
+    component.registerFormThird.controls['sizeOfBusiness'].setValue('BusinessSize');
+
+    component.onSubmit();
+
+    expect(component.signUp).not.toHaveBeenCalled();
+  });
+
+  it('should call authFacade.signUp method when signUp is called', () => {
+    spyOn(authFacade, 'signUp');
+    component.registerFormFirst.controls['email'].setValue('test@example.com');
+    component.registerFormFirst.controls['password'].setValue('Test1234!');
+    component.registerFormFirst.controls['cpassword'].setValue('Test1234!');
+    component.registerFormSecond.controls['website'].setValue('www.example.com');
+    component.registerFormSecond.controls['typeOfBusiness'].setValue('Type');
+    component.registerFormThird.controls['catalogSize'].setValue('Size');
+    component.registerFormThird.controls['sizeOfBusiness'].setValue('BusinessSize');
+
+    component.signUp();
+
+    expect(authFacade.signUp).toHaveBeenCalled();
+  });
 });
+

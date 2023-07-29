@@ -14,6 +14,8 @@ import { sellerTypeGuard } from '@shared/guards/seller-type.guard';
 import { SellerDetailsComponent } from '@features/seller-details/seller-details.component';
 import { SellerDataResolver } from '@features/seller-details/seller-details-resolver';
 import { InventoryComponent } from '@features/inventory/components/inventory.component';
+import { CustomerProfileComponent } from '@features/profile/components/customer-profile/customer-profile.component';
+import { WishlistComponent } from '@features/wishlist/wishlist.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -82,6 +84,13 @@ const routes: Routes = [
     canActivate: [postAuthGuard, sellerTypeGuard],
   },
   {
+    path: 'product-analytics',
+    loadChildren: () =>
+      import('@app/features/product-analytics/product-analytics.module').then(m => m.ProductAnalyticsModule),
+    canActivate: [postAuthGuard, sellerTypeGuard],
+  },
+  
+  {
     path: 'contact',
     loadChildren: () =>
       import('@app/features/contact/contact.module').then(m => m.ContactModule),
@@ -98,6 +107,19 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
+  },
+  /*{
+    path: 'customer-profile',
+    loadChildren: () =>
+      import('@app/features/profile/components/customer-profile/customer-profile.module').then(m => m.CustomerProfileModule),
+  },*/
+  {
+    path: 'customer-profile',
+    component: CustomerProfileComponent
+  },
+  {
+    path: 'wishlist',
+    component: WishlistComponent
   },
   // {
   //   path: 'profile',

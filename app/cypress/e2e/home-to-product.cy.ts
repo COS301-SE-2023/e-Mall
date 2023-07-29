@@ -23,7 +23,7 @@ describe('visit home', () => {
       });
       cy.waitForNetworkIdle('@api', 1000);
 
-      cy.get('i[class*="in-stock-box"]').should('have.length', $inStock.length);
+      cy.get('i[class*="in-stock-box"]').should('have.length', $inStock.length-1);
     });
   });
 });

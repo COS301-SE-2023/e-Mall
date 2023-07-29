@@ -36,7 +36,7 @@ export class ProductService {
   public getPopProducts(): Observable<IProduct[]> {
     //Algo needs to be implemented
     //Mock data for demo
-    const url = `${this.apiUrl}products/backend?search=a`;
+    const url = `${this.apiUrl}products/test?search=a`;
     return this.http
       .get(url)
       .pipe(map((res: any) => res['data'] as IProduct[]));
@@ -45,7 +45,7 @@ export class ProductService {
   public getForYouProducts(): Observable<IProduct[]> {
     //Algo needs to be implemented
     //Mock data for demo
-    const url = `${this.apiUrl}products/backend?search=f`;
+    const url = `${this.apiUrl}products/test?search=x`;
     return this.http
       .get(url)
       .pipe(map((res: any) => res['data'] as IProduct[]));
@@ -91,8 +91,8 @@ export class ProductService {
     return this.http.get(url).pipe(
       map((res: any) => res['data'] as IProduct[]),
       mergeMap((products: IProduct[]) => products),
-      distinct((product: IProduct) => product.id), // Assuming 'id' is the property representing the unique product ID
-      toArray() // Collect the unique products into an array
+      distinct((product: IProduct) => product.id),
+      toArray() 
     );
     // Other methods for CRUD operations on products can be added here
   }

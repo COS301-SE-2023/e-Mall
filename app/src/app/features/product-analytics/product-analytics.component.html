@@ -1,0 +1,62 @@
+<app-seller-nav></app-seller-nav>
+<ion-content>
+  <div class="content">
+    <div class="container">
+      <div class="product-graph">
+        <canvas id="product-clicks-chart"></canvas>
+      </div>
+      <div class="date">
+        <div>
+          <label for="date-select">Select date range:</label>
+        </div>
+        <div>
+          <select id="date-select" onchange="updateDateRange()">
+            <option value="day">Day</option>
+            <option value="week">Week</option>
+            <option value="month">Month</option>
+            <option value="6months">6 Months</option>
+            <option value="year">Year</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div style="
+            display: flex;
+            padding: 10px;
+            align-items: flex-start;
+            align-self: stretch;
+          ">
+      <h2>Top 5 Products</h2>
+    </div>
+    <div class="container">
+      <div class="table">
+        <ion-list lines="full">
+          <ion-item>
+            <ion-grid>
+              <ion-row class="col-title">
+                <ion-col size="5"><b>Product Name</b></ion-col>
+                <ion-col size="2"><b>Product Clicks</b></ion-col>
+                <ion-col size="2"><b>Favourited</b></ion-col>
+                <ion-col size="2"><b>Link Clicks</b></ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+          <ng-container *ngIf="topProducts$ | async as topProducts">
+            <ion-item *ngFor="let product of topProducts">
+              <ion-grid>
+                <ion-row>
+
+                  <ion-col size="5">{{ product.product_name }}</ion-col>
+                  <ion-col size="2">{{ product.clicks }}</ion-col>
+                  <ion-col size="2">{{ product.favourites }}</ion-col>
+                  <ion-col size="2">{{ product.link_clicks }}</ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
+          </ng-container>
+        </ion-list>
+      </div>
+    </div>
+  </div>
+</ion-content>
