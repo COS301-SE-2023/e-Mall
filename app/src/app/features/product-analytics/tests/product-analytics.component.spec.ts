@@ -14,16 +14,23 @@ import { AnalyticsService } from '@shared/servicies/analytics/analytics.service'
 import { Chart } from 'chart.js';
 import { of } from 'rxjs';
 
+
+// Mock AnalyticsService
+const mockAnalyticsService = {
+  getAllProducts: jasmine.createSpy('getAllProducts').and.returnValue(of([])),
+};
+
+// Mock ProfileFacade
+const mockProfileFacade = {
+  getProfile: jasmine.createSpy('getProfile').and.returnValue(of({
+    details: { business_name: 'Test Seller' },
+  })),
+};
+
 describe('ProductAnalyticsComponent', () => {
   let component: ProductAnalyticsComponent;
   let fixture: ComponentFixture<ProductAnalyticsComponent>;
-  let mockAnalyticsService: jasmine.SpyObj<any>;
-  let mockProfileFacade: jasmine.SpyObj<any>;
-
   beforeEach(async () => {
-    mockAnalyticsService = jasmine.createSpyObj('AnalyticsService', ['getAnalyticsData', 'getAllProducts', 'getSelectedProductData']);
-    mockProfileFacade = jasmine.createSpyObj('ProfileFacade', ['getProfile']);
-
     await TestBed.configureTestingModule({
       declarations: [ProductAnalyticsComponent, SellerNavComponent],
       imports: [
@@ -47,11 +54,43 @@ describe('ProductAnalyticsComponent', () => {
     component = fixture.componentInstance;
   });
 
- 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-/*
+
+  it('should call getAllProducts from AnalyticsService with sellerName', () => {
+    expect(mockAnalyticsService.getAllProducts).toHaveBeenCalledWith('Test Seller');
+  });
+
+  it('should set productClicksData$ and table data correctly', () => {
+    const testData = [
+      { product_name: 'Product 1', clicks: 10, link_clicks: 5, favourites: 2 },
+      { product_name: 'Product 2', clicks: 15, link_clicks: 8, favourites: 3 },
+    ];
+    mockAnalyticsService.getAllProducts.and.returnValue(of(testData));
+    fixture.detectChanges();
+
+    expect(component.productClicksData$).toBeTruthy();
+    expect(component.table_labels).toEqual(['Product 1', 'Product 2']);
+    expect(component.table_product_clicks).toEqual([10, 15]);
+    expect(component.table_link_clicks).toEqual([5, 8]);
+    expect(component.table_favourites).toEqual([2, 3]);
+  });
+
+  it('should call getSelectedProductData for each product', () => {
+    const testData = [
+      { product_name: 'Product 1', clicks: 10, link_clicks: 5, favourites: 2 },
+      { product_name: 'Product 2', clicks: 15, link_clicks: 8, favourites: 3 },
+    ];
+    mockAnalyticsService.getAllProducts.and.returnValue(of(testData));
+    spyOn(component, 'getSelectedProductData');
+
+    fixture.detectChanges();
+
+    expect(component.getSelectedProductData).toHaveBeenCalledTimes(2);
+    expect(component.getSelectedProductData).toHaveBeenCalledWith('Product 1');
+    expect(component.getSelectedProductData).toHaveBeenCalledWith('Product 2');
+  });/*
   it('should initialize productData when calling getSelectedProductData', () => {
     mockAnalyticsService.getSelectedProductData.and.returnValue(of({
       'product1': { 'Jan': 10, 'Feb': 15 },
@@ -64,8 +103,8 @@ describe('ProductAnalyticsComponent', () => {
       'product1': { 'Jan': 10, 'Feb': 15 },
     });
   });
-
-  it('should create productClicksChart when calling createProductClicksChart', () => {
+*/
+ /* it('should create productClicksChart when calling createProductClicksChart', () => {
     spyOn(Chart, 'register'); // Spy on the Chart.register method
     spyOn(window, 'Chart' as any as Chart); // Spy on the Chart constructor
     component.productData = {
