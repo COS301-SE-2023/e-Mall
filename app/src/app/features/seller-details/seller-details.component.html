@@ -19,10 +19,8 @@
         </div>
 
         <div class="button-container">
-          <ion-button
-            expand="block"
-            (click)="followed_seller(seller.business_name)">
-            {{ buttonText }}
+          <ion-button expand="block" (click)="updateButtonState()">
+            {{ (isFollowed | async) ? 'Unfollow' : 'Follow' }}
           </ion-button>
           <a href="{{ seller.website }}" target="_blank">
             <ion-button expand="block">Visit Page</ion-button>
@@ -73,31 +71,39 @@
 
     <div class="products-container">
       <h2 class="title">Products</h2>
-      <div class = "search-sort">
+      <div class="search-sort">
         <ion-searchbar
-                  class="search-box"
-                  placeholder="Search products..."
-                  type="search"
-                  mode="md"
-                  [(ngModel)]="searchKeyword"
-                  [debounce]="2000"
-                  (ionInput)="onSearchInputChange()"></ion-searchbar>
+          class="search-box"
+          placeholder="Search products..."
+          type="search"
+          mode="md"
+          [(ngModel)]="searchQuery"
+          [debounce]="2000"
+          (ionInput)="onSearchInputChange()"
+          (ionInput)="onSearch()"></ion-searchbar>
 
-          <div class="sort-condition">
-            <select name="" id="select">
-              <option value="Default">Default</option>
-              <option value="name">Name (A-Z)</option>
-              <option value="-name">Name (Z-A)</option>
-              <option value="price">Low to high</option>
-              <option value="-price">High to low</option>
-              <option value="discount">Lowest Discount</option>
-              <option value="-discount">Highest Discount</option>
-              
-            </select>
-          </div>
-      </div>    
-      <div class ="filter-menu">
-        <div *ngFor="let category of categories" class="category-bubble">
+        <div class="sort-condition">
+          <select
+            name=""
+            id="select"
+            [(ngModel)]="selectedSortOption"
+            (ngModelChange)="onSortOptionChange()">
+            <option value="name">Name (A-Z)</option>
+            <option value="-name">Name (Z-A)</option>
+            <option value="price">Low to high</option>
+            <option value="-price">High to low</option>
+            <option value="discount">Lowest Discount</option>
+            <option value="-discount">Highest Discount</option>
+          </select>
+        </div>
+      </div>
+      <div class="filter-menu">
+        <div
+          *ngFor="let category of categories"
+          class="category-bubble"
+          (click)="onFilterOptionChange('filter_category', category)"
+          [ngClass]="{ 'selected': isCategorySelected(category) }"
+          id="category-{{ category }}">
           {{ category }}
         </div>
       </div>
@@ -115,12 +121,15 @@
               class="col-md-3 col-12"
               style="grid-auto-columns: auto; min-width: 300px"
               *ngFor="let product of products; let i = index">
-              <app-product-card (click)="goToProductPage(product.id)"
+              <app-product-card
                 [product]="{
-                  discount: product.discount_rate,
-                  imageUrl: getOneImg(product?.img_array),
+                  min_price_discount_rate: product.discount_rate,
+                  min_price_img_array: product.img_array,
                   name: product.product_name,
-                  price: product.price
+                  min_price: product.price,
+                  category: product.product_category,
+                  id: product.product,
+                  min_price_seller_business_name: product.business_name
                 }"></app-product-card>
               <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
               <div
@@ -146,6 +155,6 @@
             </mat-paginator>
           </ng-container>
         </div>
-      </div></div></ng-container>
-  </ion-content>
-
+      </div></div
+  ></ng-container>
+</ion-content>

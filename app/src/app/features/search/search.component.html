@@ -17,7 +17,9 @@
             <div class="dropdown">
               <button class="dropbtn">
                 <mat-label>Sort Options</mat-label>
-                <mat-select [(value)]="selectedSortOption" (selectionChange)="onSortOptionChange()"
+                <mat-select
+                  [(value)]="selectedSortOption"
+                  (selectionChange)="onSortOptionChange()"
                   class="custom-select">
                   <!-- <mat-option value="">Default</mat-option> -->
                   <mat-option value="price">Lowest price</mat-option>
@@ -42,9 +44,12 @@
               <!-- Content for Brand panel -->
 
               <div *ngFor="let brand of brandOptions">
-                <mat-checkbox [value]="brand" (change)="
+                <mat-checkbox
+                  [value]="brand"
+                  (change)="
                     onFilterOptionChange('filter_brand', brand, $event.checked)
-                  ">{{ brand }}
+                  "
+                  >{{ brand }}
                 </mat-checkbox>
               </div>
             </mat-expansion-panel>
@@ -55,13 +60,17 @@
                 <mat-panel-title> Category </mat-panel-title>
               </mat-expansion-panel-header>
               <!-- Content for Category panel -->
-              <mat-checkbox *ngFor="let category of categoryOptions" [value]="category" (change)="
+              <mat-checkbox
+                *ngFor="let category of categoryOptions"
+                [value]="category"
+                (change)="
                   onFilterOptionChange(
                     'filter_category',
                     category,
                     $event.checked
                   )
-                ">{{ category }}
+                "
+                >{{ category }}
               </mat-checkbox>
             </mat-expansion-panel>
 
@@ -70,18 +79,23 @@
               <mat-expansion-panel-header>
                 <mat-panel-title>Price</mat-panel-title>
               </mat-expansion-panel-header>
-              <ion-range aria-label="Dual Knobs Range" [pin]="true" [pinFormatter]="pinFormatter" [dualKnobs]="true"
-                min="0" max="5000" step="100" [value]="priceRangeGroup.value" [formGroup]="priceRangeGroup"
+              <ion-range
+                aria-label="Dual Knobs Range"
+                [pin]="true"
+                [pinFormatter]="pinFormatter"
+                [dualKnobs]="true"
+                min="0"
+                max="5000"
+                step="100"
+                [value]="priceRangeGroup.value"
+                [formGroup]="priceRangeGroup"
                 (ionChange)="onIonChange($event)">
               </ion-range>
 
-              <ion-label>Min: {{ minPrice}}</ion-label><br>
-              <ion-label>Min: {{ maxPrice}}</ion-label>
-
+              <ion-label>Min: {{ minPrice }}</ion-label
+              ><br />
+              <ion-label>Min: {{ maxPrice }}</ion-label>
             </mat-expansion-panel>
-
-
-
 
             <!-- Inventory -->
             <mat-expansion-panel>
@@ -89,11 +103,14 @@
                 <mat-panel-title> Inventory </mat-panel-title>
               </mat-expansion-panel-header>
               <!-- Content for Inventory panel -->
-              <mat-slide-toggle [(ngModel)]="isChecked" [aria-label]="
+              <mat-slide-toggle
+                [(ngModel)]="isChecked"
+                [aria-label]="
                   min_price_in_stock
                     ? 'Disable in-stock filter'
                     : 'Enable in-stock filter'
-                " (change)="
+                "
+                (change)="
                   onFilterOptionChange(
                     'filter_in_stock',
                     isChecked,
@@ -112,9 +129,14 @@
               </mat-expansion-panel-header>
               <!-- Content for Seller panel -->
 
-              <mat-checkbox *ngFor="let seller of sellerOptions" [value]="seller" (change)="
+              <mat-checkbox
+                *ngFor="let seller of sellerOptions"
+                [value]="seller"
+                (change)="
                   onFilterOptionChange('filter_seller', seller, $event.checked)
-                ">{{ seller }}</mat-checkbox>
+                "
+                >{{ seller }}</mat-checkbox
+              >
 
               <!-- ... -->
             </mat-expansion-panel>
@@ -123,41 +145,50 @@
           <!--products-->
 
           <div class="product-card">
-            <div style="
+            <div
+              style="
                 display: flex;
                 justify-content: center;
                 align-items: center;
-              " *ngIf="(searchResults$ | async) === null">
+              "
+              *ngIf="(searchResults$ | async) === null">
               <mat-spinner></mat-spinner>
             </div>
             <ng-container *ngIf="searchResults$ | async as products">
               <div class="row" style="grid-auto-rows: auto">
-                <div class="col-md-3 col-12" style="grid-auto-columns: auto; min-width: 300px"
+                <div
+                  class="col-md-3 col-12"
+                  style="grid-auto-columns: auto; min-width: 300px"
                   *ngFor="let product of products; let i = index">
-                  <app-product-card [product]="{
-                      discount: product.min_price_discount_rate,
-                      imageUrl: getOneImg(product?.min_price_img_array),
-                      name: product.name,
-                      category: product.category,
-                      price: product.min_price,
-                      id:product.id
-                    }"></app-product-card>
+                  <app-product-card [product]="product"></app-product-card>
                   <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
-                  <div class="col-md-1" *ngIf="(i + 1) % 4 === 0 && products.length > 4 && (i + 1) !== products.length"></div>
+                  <div
+                    class="col-md-1"
+                    *ngIf="
+                      (i + 1) % 4 === 0 &&
+                      products.length > 4 &&
+                      i + 1 !== products.length
+                    "></div>
                 </div>
               </div>
             </ng-container>
 
-            <div class="search-results-container" *ngIf="(searchResults$ | async)?.length === 0">
+            <div
+              class="search-results-container"
+              *ngIf="(searchResults$ | async)?.length === 0">
               <div class="product-card-no">
                 <h3>No Products Found</h3>
                 <p>
                   Sorry, we couldn't find any products matching "<strong>{{
                     searchQuery
-                    }}</strong>". Please try again with a different keyword or refine your
+                  }}</strong
+                  >". Please try again with a different keyword or refine your
                   search criteria.
                 </p>
-                <img src="assets\images\no-image.jpeg" alt="No Product Found" class="nimage" />
+                <img
+                  src="assets\images\no-image.jpeg"
+                  alt="No Product Found"
+                  class="nimage" />
               </div>
             </div>
           </div>
@@ -165,8 +196,12 @@
         <br /><br />
         <div class="mat-paginator">
           <ng-container *ngIf="searchResults$ | async as products">
-            <mat-paginator [length]="totalSearchCount$ | async" [pageSizeOptions]="[10, 20, 50, 100]"
-              aria-label="Select page" [pageIndex]="currentPage" [pageSize]="itemsPerPage"
+            <mat-paginator
+              [length]="totalSearchCount$ | async"
+              [pageSizeOptions]="[10, 20, 50, 100]"
+              aria-label="Select page"
+              [pageIndex]="currentPage"
+              [pageSize]="itemsPerPage"
               (page)="onPageChange($event)"></mat-paginator>
           </ng-container>
         </div>

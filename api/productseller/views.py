@@ -153,8 +153,7 @@ class ProductSellerDashboardAPIView(APIView):
         sort = request.GET.get("sort")
 
         # filter options[in stock, price, category]
-        filter_in_stock = request.GET.get("filter_in_stock")
-
+        filter_category = request.GET.get("filter_category")
         # Filtering of the products
         filters = Q(seller__business_name=seller_name)
 
@@ -165,9 +164,20 @@ class ProductSellerDashboardAPIView(APIView):
             else:
                 filters &= Q(product__name__icontains=search)
 
-        if filter_in_stock:
-            filters &= Q(in_stock=filter_in_stock)
+        if filter_category:
+            print("gettiong here")
+            categories_values = filter_category.split(
+                ",,,"
+            )  # Split the filter_categories value by comma
+            print(categories_values)
+            category_filters = Q()  # Create a separate Q object for category filters
 
+            for category_value in categories_values:
+                category_filters |= Q(
+                    product__category__icontains=category_value.strip()
+                )  # Apply category filter for each category value
+            filters &= category_filters
+            print(filters)
         productseller = ProductSeller.objects.filter(filters)
 
         # sorting

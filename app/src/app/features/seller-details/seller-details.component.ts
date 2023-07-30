@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { Observable, of, Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
@@ -14,6 +14,7 @@ import { SellerService } from '@shared/servicies/seller/seller.service';
 import { switchMap, take, tap } from 'rxjs/operators';
 import { combineLatest } from 'rxjs';
 import { SellerDataResolver } from './seller-details-resolver';
+import { IProduct } from '@shared/models/product/product.interface';
 
 @Component({
   selector: 'app-inventory',
@@ -33,13 +34,24 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
   categoryOptions: string[] = []; // Populate this array with the category names based on your search results
   filterOptions: string[] = []; // Stores the selected filter options
   selectedSortOption!: string;
-  isChecked!: boolean;
   currentPage!: number;
   itemsPerPage!: number;
   totalSearchCount$: Observable<number> | undefined;
   searchKeyword!: string;
+  isFollowed = of(false);
+  selectedCategories!: string[];
   // Define the array of categories
-  categories: string[] = ['All', 'Books', 'Clothing', 'Electronics', 'Health & Beauty', 'Home & Kitchen', 'Sports & Outdoors', 'Toys & Games'];
+  categories: string[] = [
+    'Books',
+    'Clothing',
+    'Electronics',
+    'Health and Beauty',
+    'Home and Kitchen',
+    'Sports and Outdoors',
+    'Toys and Games',
+  ];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Input() sellerID: any;
 
   private paramMapSubscription: Subscription;
   constructor(
@@ -58,10 +70,12 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // Subscribe to changes in the query parameters (seller_id)
+    console.log('seller details init');
     this.paramMapSubscription = this.route.queryParamMap
       .pipe(
         switchMap(params => {
           this.seller_id = params.get('seller_id');
+          console.log(this.seller_id);
           if (this.seller_id) {
             const data = {
               seller_id: this.seller_id,
@@ -79,14 +93,17 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
             this.seller$ = of(res);
             this.seller_business_name = res.business_name;
           }
-
+          this.isFollowed = this.profileFacade.checkFollowedSellers(
+            this.seller_business_name
+          );
           // Fetch the profile data and return the observable
           return this.profileFacade.getProfile();
         }),
-        // Use take(1) to ensure the observable completes after the first emission
-        take(1),
+        // // Use take(1) to ensure the observable completes after the first emission
+        // take(1),
         // Use tap to fetch the products based on the latest seller_business_name
         tap(() => {
+          console.log('in tap, seller detials');
           this.selectedSortOption = 'name';
 
           this.ProductSellerService.getProductSellerData(
@@ -99,58 +116,20 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
           ).subscribe(result => {
             this.searchResults$ = of(result.products);
             this.totalSearchCount$ = of(result.totalCount);
+            this.searchResults$.subscribe(res => {
+              console.log(res);
+            });
           });
-
-          this.updateButtonState();
         })
       )
-      .subscribe(data => {
-        if (data?.details.followed_sellers) {
-          this.is_followed = data.details.followed_sellers.includes(
-            this.seller_business_name
-          );
-        }
-
-        console.log(this.seller_business_name);
-        console.log(this.is_followed);
-        this.searchResults$?.subscribe(data => {
-          console.log(data);
-        });
-      });
+      .subscribe();
   }
 
   updateButtonState() {
-    if (this.is_followed == true) {
-      this.buttonText = 'Unfollow';
-    } else {
-      this.buttonText = 'Follow';
-    }
+    this.profileFacade.toggleSellers(this.seller_business_name);
+    console.log(this.isFollowed);
   }
 
-  followed_seller(seller: string) {
-    console.log(seller);
-    console.log(this.is_followed);
-    this.profileFacade.getProfile().subscribe(profile => {
-      if (profile) {
-        if (this.is_followed == false) {
-          //TODO: check if seller is already in the list
-          this.is_followed = true;
-          this.updateButtonState();
-          if (profile.details.followed_sellers.indexOf(seller) === -1) {
-            profile.details.followed_sellers.push(seller);
-          }
-        } else if (this.is_followed == true) {
-          this.is_followed = false;
-          this.updateButtonState();
-          const index = profile.details.followed_sellers.indexOf(seller);
-          if (index !== -1) {
-            profile.details.followed_sellers.splice(index, 1);
-          }
-        }
-        this.profileFacade.updateProfile(profile);
-      }
-    });
-  }
   onSortOptionChange(): void {
     this.ProductSellerService.getProductSellerData(
       this.seller_business_name,
@@ -168,6 +147,7 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
   onPageChange(event: PageEvent) {
     this.currentPage = event.pageIndex;
     this.itemsPerPage = event.pageSize;
+
     this.ProductSellerService.getProductSellerData(
       this.seller_business_name,
       undefined,
@@ -175,69 +155,49 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
       this.selectedSortOption,
       this.currentPage,
       this.itemsPerPage
-    ).subscribe(result => {
-      this.searchResults$ = of(result.products);
-      this.totalSearchCount$ = of(result.totalCount);
-    });
+    )
+      .pipe(take(1))
+      .subscribe(result => {
+        this.searchResults$ = of(result.products);
+        this.totalSearchCount$ = of(result.totalCount);
+      });
   }
-  onFilterOptionChange(filter_type: string, value: any, checked: boolean) {
+  onFilterOptionChange(filter_type: string, value: any) {
     if (filter_type === 'filter_category') {
-      if (checked) {
-        // Check if the filter option already exists in the array
-        const existingoptionindex = this.filterOptions.findIndex(option =>
-          option.startsWith(`${filter_type}=`)
-        );
+      // Check if the filter option already exists in the array
+      const existingOptionIndex = this.filterOptions.findIndex(option =>
+        option.startsWith(`${filter_type}=`)
+      );
 
-        if (existingoptionindex > -1) {
-          // If the filter option already exists, update it by appending the new value
-          const existingoption = this.filterOptions[existingoptionindex];
-          const existingvalues = existingoption.split('=')[1].split(',,,');
-          existingvalues.push(value);
-          this.filterOptions[
-            existingoptionindex
-          ] = `${filter_type}=${existingvalues.join(',,,')}`;
+      if (existingOptionIndex > -1) {
+        // If the filter option already exists, update it by appending the new value
+        const existingOption = this.filterOptions[existingOptionIndex];
+        const existingValues = existingOption.split('=')[1].split(',,,');
+        const valueIndex = existingValues.indexOf(value);
+
+        if (valueIndex === -1) {
+          // Add the value to the filter option if it's not already present
+          existingValues.push(value);
         } else {
-          // If the filter option doesn't exist, add it as a new option
-          this.filterOptions.push(`${filter_type}=${value}`);
+          // Remove the value from the filter option if it's already present
+          existingValues.splice(valueIndex, 1);
         }
-      } else {
-        // Remove the value from the filter option when unchecked
-        const existingoptionindex = this.filterOptions.findIndex(option =>
-          option.startsWith(`${filter_type}=`)
-        );
-        if (existingoptionindex > -1) {
-          const existingoption = this.filterOptions[existingoptionindex];
-          const existingvalues = existingoption.split('=')[1].split(',,,');
-          const valueindex = existingvalues.indexOf(value);
-          if (valueindex > -1) {
-            existingvalues.splice(valueindex, 1);
-            if (existingvalues.length === 0) {
-              this.filterOptions.splice(existingoptionindex, 1);
-            } else {
-              this.filterOptions[
-                existingoptionindex
-              ] = `${filter_type}=${existingvalues.join(',,,')}`;
-            }
-          }
-        }
-      }
-    } else if (filter_type === 'filter_in_stock') {
-      let filteroption = `${filter_type}=`; // Set the filter option as "filter_in_stock=true"
-      if (value == 'In Stock') {
-        filteroption += `True`;
-      } else if (value == 'Out of Stock') {
-        filteroption += `False`;
-      }
 
-      if (checked) {
-        // Add the filter option if checked is true
-        this.filterOptions = [];
-        this.filterOptions.push(filteroption);
+        // Update the filter option in the array
+        if (existingValues.length === 0) {
+          this.filterOptions.splice(existingOptionIndex, 1);
+        } else {
+          this.filterOptions[
+            existingOptionIndex
+          ] = `${filter_type}=${existingValues.join(',,,')}`;
+        }
       } else {
-        // Remove the filter option if checked is false
-        this.filterOptions = [];
+        // If the filter option doesn't exist, add it as a new option with the value
+        this.filterOptions.push(`${filter_type}=${value}`);
       }
     }
+
+    console.log(this.filterOptions);
     this.ProductSellerService.getProductSellerData(
       this.seller_business_name,
       undefined,
@@ -250,6 +210,19 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
       this.totalSearchCount$ = of(result.totalCount);
     });
   }
+  isCategorySelected(category: string): boolean {
+    const existingOptionIndex = this.filterOptions.findIndex(option =>
+      option.startsWith('filter_category=')
+    );
+    if (existingOptionIndex > -1) {
+      const existingOption = this.filterOptions[existingOptionIndex];
+      const existingValues = existingOption.split('=')[1].split(',,,');
+      return existingValues.includes(category);
+    }
+
+    return false;
+  }
+
   onSearchInputChange() {
     if (this.searchQuery === '') {
       // Call a function or perform an action when the search input is empty
@@ -291,8 +264,8 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
     return imgList[0];
   }
   ngOnDestroy(): void {
+    console.log('seller details page destroyed');
     this.paramMapSubscription.unsubscribe();
-    this.searchResults$?.subscribe().unsubscribe();
   }
 
   goToProductPage(prod_id: number): void {
@@ -303,5 +276,8 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
     };
 
     this.router.navigate(['products'], navigationextras);
+  }
+  test(category: string) {
+    console.log('test', category);
   }
 }

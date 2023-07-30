@@ -126,4 +126,26 @@ export class ProfileState {
       })
     );
   }
+
+  @Action(ProfileActions.ToggleSellers)
+  toggleSellers(
+    ctx: StateContext<ProfileStateModel>,
+    action: ProfileActions.ToggleSellers
+  ) {
+    ctx.setState(
+      produce(draft => {
+        if (draft.profile) {
+          const index = draft.profile.details.followed_sellers.indexOf(
+            action.name
+          );
+          if (index === -1) {
+            draft.profile.details.followed_sellers.push(action.name);
+          } else {
+            draft.profile.details.followed_sellers.splice(index, 1);
+          }
+        }
+      })
+    );
+  }
+
 }
