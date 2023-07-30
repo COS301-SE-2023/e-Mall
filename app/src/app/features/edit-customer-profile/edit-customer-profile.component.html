@@ -11,21 +11,31 @@
         
             <div class="settings-container" *ngIf="profile$ | async as profile">
                 <h2>settings</h2>
-                <h5>general settings</h5>
-                <form [formGroup]="customerprofileForm" (ngSubmit)="onSubmit()">
-                    <ion-item>
-                      <ion-label>Username</ion-label>
-                      <ion-input formControlName="username" type="text"></ion-input>
-                    </ion-item>
-                
-                    <ion-item>
-                      <ion-label>Email</ion-label>
-                      <ion-input formControlName="email" type="email"></ion-input>
-                    </ion-item>
-                
-                    <ion-button type="submit">Submit</ion-button>
-                  </form>
+                <div class="general-settings-container">
+                    <h5>general settings</h5>
+                    <form [formGroup]="customerprofileForm" (ngSubmit)="onSubmit()">
+                        <ion-input
+                            type="text"
+                            label="Username"
+                            labelPlacement="floating"
+                            fill="outline"
+                            formControlName="username"
+                            required="true"></ion-input>
 
+
+                        <ion-input
+                            type="email"
+                            label="Email"
+                            labelPlacement="floating"
+                            fill="outline"
+                            formControlName="email"
+                            required="true"></ion-input>
+
+                        <ion-button type="submit">Submit</ion-button>
+                    </form>
+
+                </div>
+                
             </div>
     </div>
     <app-footer></app-footer>
