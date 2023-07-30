@@ -1,4 +1,4 @@
-// import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 // import { EditCustomerProfileComponent } from './edit-customer-profile.component';
 
@@ -19,3 +19,9 @@
 //     expect(component).toBeTruthy();
 //   });
 // });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+*/
