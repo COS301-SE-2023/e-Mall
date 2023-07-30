@@ -102,7 +102,7 @@
           *ngFor="let category of categories"
           class="category-bubble"
           (click)="onFilterOptionChange('filter_category', category)"
-          (click)="{ selected: isCategorySelected(category) }"
+          [ngClass]="{ 'selected': isCategorySelected(category) }"
           id="category-{{ category }}">
           {{ category }}
         </div>

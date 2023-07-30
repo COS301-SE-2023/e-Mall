@@ -90,10 +90,7 @@ mat-paginator {
   display: flex;
   justify-content: center;
 }
-.selected {
-  background-color: #37d0d6; /* Apply your desired style for selected elements */
-  /* Add any other styles you want for selected elements */
-}
+
 .category-bubble {
   display: flex;
   justify-content: center;
@@ -110,6 +107,11 @@ mat-paginator {
 /* Hover effect */
 .category-bubble:hover {
   background-color: #37d0d6;
+}
+
+.selected {
+  background-color: #37d0d6; /* Apply your desired style for selected elements */
+  /* Add any other styles you want for selected elements */
 }
 
 ion-button {
