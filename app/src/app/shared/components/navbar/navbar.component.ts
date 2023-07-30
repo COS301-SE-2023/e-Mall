@@ -21,7 +21,8 @@ export class NavbarComponent {
   constructor(
     private router: Router,
     private authFacade: AuthFacade,
-    private profileFacde: ProfileFacade,private popoverController: PopoverController,
+    private profileFacde: ProfileFacade,
+    private popoverController: PopoverController,
     public modalController: ModalController
   ) {
     this.isAuthenticated = this.authFacade.getCurrentUser();
@@ -42,8 +43,8 @@ export class NavbarComponent {
       translucent: true,
       animated: true,
       componentProps: {
-        parameterData: 'Cat'
-      }
+        parameterData: 'Cat',
+      },
     });
     return await popover.present();
   }
@@ -54,14 +55,18 @@ export class NavbarComponent {
       translucent: true,
       animated: true,
       componentProps: {
-        parameterData: 'Sel'
-      }
+        parameterData: 'Sel',
+      },
     });
     return await popover.present();
   }
 
-   wishlist(event: Event) {
-    this.router.navigate(['/construction']);
+  async wishlist(event: Event) {
+    if (await this.authFacade.isLoggedIn()) {
+      this.router.navigate(['/wishlist']);
+    } else {
+      this.router.navigate(['/sign-in']);
+    }
   }
 
   public signIn(): void {
@@ -85,8 +90,8 @@ export class NavbarComponent {
       cssClass: 'inventory-popover',
       showBackdrop: true,
       backdropDismiss: true,
-      event: event, 
-      translucent: true, 
+      event: event,
+      translucent: true,
     });
     return await popover.present();
   }
