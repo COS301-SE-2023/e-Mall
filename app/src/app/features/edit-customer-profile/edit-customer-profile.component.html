@@ -1,43 +1,37 @@
 <app-navbar></app-navbar>
 <ion-content class="global-ion-content">
-    <div class="ion-content-wrapper">
-        <!--<div class="container">-->
-            <div class="side-nav-container" *ngIf="profile$ | async as profile">
-                <app-customer-profile-sidenav
-                [profile]="{username: profile.username}">
-                </app-customer-profile-sidenav> 
-            </div>
-            
-        
-            <div class="settings-container" *ngIf="profile$ | async as profile">
-                <h2>settings</h2>
-                <div class="general-settings-container">
-                    <h5>general settings</h5>
-                    <form [formGroup]="customerprofileForm" (ngSubmit)="onSubmit()">
-                        <ion-input
-                            type="text"
-                            label="Username"
-                            labelPlacement="floating"
-                            fill="outline"
-                            formControlName="username"
-                            required="true"></ion-input>
+  <div class="ion-content-wrapper">
+    <!--<div class="container">-->
+    <div class="side-nav-container" *ngIf="profile$ | async as profile">
+      <app-customer-profile-sidenav [profile]="{ username: profile.username }">
+      </app-customer-profile-sidenav>
+    </div>
 
+    <div class="settings-container" *ngIf="profile$ | async as profile">
+      <h2>settings</h2>
+      <div class="general-settings-container">
+        <h5>general settings</h5>
+        <form [formGroup]="customerprofileForm" (ngSubmit)="onSubmit()">
+          <ion-input
+            type="text"
+            label="Username"
+            labelPlacement="floating"
+            fill="outline"
+            formControlName="username"
+            required="true"></ion-input>
 
-                        <ion-input
+          <!-- <ion-input
                             type="email"
                             label="Email"
                             labelPlacement="floating"
                             fill="outline"
                             formControlName="email"
-                            required="true"></ion-input>
+                            required="true"></ion-input> -->
 
-                        <ion-button type="submit">Submit</ion-button>
-                    </form>
-
-                </div>
-                
-            </div>
+          <ion-button type="submit">Submit</ion-button>
+        </form>
+      </div>
     </div>
-    <app-footer></app-footer>
+  </div>
+  <app-footer></app-footer>
 </ion-content>
-

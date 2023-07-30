@@ -92,10 +92,8 @@ export class ProductService {
       map((res: any) => res['data'] as IProduct[]),
       mergeMap((products: IProduct[]) => products),
       distinct((product: IProduct) => product.id),
-      toArray() 
+      toArray()
     );
     // Other methods for CRUD operations on products can be added here
   }
-  
-  
 }

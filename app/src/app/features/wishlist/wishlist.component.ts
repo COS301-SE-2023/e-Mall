@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { ProfileFacade } from '../profile/services/profile.facade';
 import { ISellerProfile } from '../profile/models/seller-profile.interface';
 import { IConsumerProfile } from '../profile/models/consumer-profile.interface';
 import { Observable, of } from 'rxjs';
-import { FormControl, FormGroup } from '@angular/forms';
+import { EmailValidator, FormControl, FormGroup } from '@angular/forms';
 import { IProduct } from '@shared/models/product/product.interface';
+import { ConsumerService } from '@shared/servicies/consumer/consumer.service';
 //import { AuthFacade } from '@app/features/auth/services/auth.facade';
 //import { IUser } from '@app/features/auth/models/user.interface';
 //import { Observable } from 'rxjs';
@@ -15,15 +16,20 @@ import { IProduct } from '@shared/models/product/product.interface';
   templateUrl: './wishlist.component.html',
   styleUrls: ['./wishlist.component.scss'],
 })
-export class WishlistComponent {
-  products$: Observable<IProduct[] | null>;
+export class WishlistComponent implements OnInit {
+  products$!: Observable<IProduct[] | null>;
 
   bool = true;
   //isAuthenticated: Observable<IUser | null>;
   customerprofileForm: FormGroup;
   profile$: Observable<ISellerProfile | IConsumerProfile | null>;
+  email!: string;
 
-  constructor(private router: Router, public profileFacade: ProfileFacade) {
+  constructor(
+    private router: Router,
+    public profileFacade: ProfileFacade,
+    private consumerService: ConsumerService
+  ) {
     this.customerprofileForm = new FormGroup({
       username: new FormControl(),
       email: new FormControl(),
@@ -31,9 +37,6 @@ export class WishlistComponent {
     });
 
     this.profile$ = this.profileFacade.getProfile();
-
-    this.products$ = this.getData();
-    this.products$.subscribe(products => console.log(products));
   }
 
   /*constructor(
@@ -42,6 +45,18 @@ export class WishlistComponent {
       //this.isAuthenticated = this.authFacade.getCurrentUser();
      }*/
 
+  ngOnInit(): void {
+    this.profile$.subscribe(profile => {
+      if (profile) {
+        this.email = profile.email;
+      }
+    });
+    console.log(this.email);
+    this.consumerService.getConsumerInfo(this.email).subscribe(data => {
+      console.log(data.products);
+      this.products$ = of(data.products);
+    });
+  }
   goToCustomerProfile() {
     this.router.navigate(['/customer-profile']);
   }
@@ -75,7 +90,6 @@ export class WishlistComponent {
 
     this.router.navigate(['products'], navigationextras);
   }
-
 }
 
 export const data: IProduct[] = [
@@ -280,5 +294,4 @@ export const data: IProduct[] = [
     created_at: '2023-07-17T15:13:07.456257Z',
     updated_at: '2023-07-17T15:13:07.456264Z',
   },
- 
 ];

@@ -28,18 +28,22 @@ class Seller(User):
         max_length=9, choices=SELLER_STATUS_CHOICES, default="PENDING"
     )
     is_verified = models.BooleanField(default=False)
-    website = models.URLField(max_length=200, unique=True)
-    feed_url = models.URLField(max_length=200, unique=True)
+    website = models.URLField(
+        max_length=200,
+    )
+    feed_url = models.URLField(
+        max_length=200,
+    )
     no_employees = models.IntegerField(default=1)
-    support_email = models.EmailField(max_length=50, unique=True, default="")
-    landline_number = models.CharField(max_length=10, unique=True, default="0000000000")
+    support_email = models.EmailField(max_length=50, default="")
+    landline_number = models.CharField(max_length=10, default="0000000000")
     address = models.CharField(max_length=200, default="")
     city = models.CharField(max_length=20, default="")
     postal_code = models.CharField(max_length=4, default="0000")
-    logo = models.URLField(max_length=200, unique=True, default="")
-    instagram_link = models.URLField(max_length=200, unique=True, default="")
-    facebook_link = models.URLField(max_length=200, unique=True, default="")
-    twitter_link = models.URLField(max_length=200, unique=True, default="")
+    logo = models.URLField(max_length=200, default="")
+    instagram_link = models.URLField(max_length=200, default="")
+    facebook_link = models.URLField(max_length=200, default="")
+    twitter_link = models.URLField(max_length=200, default="")
 
     class Meta:
         app_label = "seller"
