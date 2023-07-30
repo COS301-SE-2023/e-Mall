@@ -1,4 +1,4 @@
- /* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/naming-convention */
 //navbar integration tests
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -28,15 +28,16 @@ describe('NavbarComponentIntegration', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
   let router: Router;
-  
+
   let popoverController: PopoverController;
 
   beforeEach(async () => {
     const popoverControllerMock = {
-      create: () => Promise.resolve({
-        present: () => Promise.resolve()
-      }),
-    }
+      create: () =>
+        Promise.resolve({
+          present: () => Promise.resolve(),
+        }),
+    };
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
@@ -69,7 +70,7 @@ describe('NavbarComponentIntegration', () => {
     fixture = TestBed.createComponent(NavbarComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
-    
+
     popoverController = TestBed.inject(PopoverController);
     fixture.detectChanges();
   });
@@ -118,11 +119,11 @@ describe('NavbarComponentIntegration', () => {
     });
   });
 
-  it('should navigate to construction page on wishlist', () => {
+  it('should navigate to wishlist', () => {
     const routerNavigateSpy = spyOn(router, 'navigate');
     const event = {} as Event;
     component.wishlist(event);
-    expect(routerNavigateSpy).toHaveBeenCalledWith(['/construction']);
+    expect(routerNavigateSpy).toHaveBeenCalledWith(['/wishlist']);
   });
   it('should navigate to sign-in page', () => {
     const routerNavigateSpy = spyOn(router, 'navigate');
