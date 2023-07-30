@@ -13,6 +13,8 @@ import { IError } from '@app/features/error/models/error.interface';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Auth, Hub } from 'aws-amplify';
+import { CognitoUserSession, CognitoIdToken, CognitoAccessToken, CognitoRefreshToken } from 'amazon-cognito-identity-js';
+
 import {
   ISignUpResult,
   CognitoUser,
@@ -211,7 +213,7 @@ describe('AuthModule', () => {
               },
             });
           }
-          return () => {};
+          return () => { };
         }
       );
 
@@ -240,5 +242,28 @@ describe('AuthModule', () => {
       await authService.signOut();
       expect(Auth.signOut).toHaveBeenCalled();
     });
+
+    it('should refresh the access token', async () => {
+      const jwtToken = 'newtesttoken';
+      spyOn(Auth, 'currentAuthenticatedUser').and.returnValue(Promise.resolve());
+      const session: CognitoUserSession = {
+        getIdToken: () => ({ getJwtToken: () => jwtToken }) as CognitoIdToken,
+        getAccessToken: () => ({ getJwtToken: () => jwtToken }) as CognitoAccessToken,
+        getRefreshToken: () => ({ getToken: () => jwtToken }) as CognitoRefreshToken,
+        isValid: () => true,
+      };
+      spyOn(Auth, 'currentSession').and.returnValue(Promise.resolve(session));
+  
+      const newAccessToken = await authService.refreshAccessToken();
+  
+      expect(Auth.currentAuthenticatedUser).toHaveBeenCalledWith({ bypassCache: true });
+      expect(Auth.currentSession).toHaveBeenCalled();
+      expect(newAccessToken).toEqual(jwtToken);
+    });
+
   });
+
+
+
+
 });

@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+/*import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CustomerProfileSidenavComponent } from './customer-profile-sidenav.component';
 
@@ -15,7 +15,8 @@ import { CustomerProfileSidenavComponent } from './customer-profile-sidenav.comp
 //     fixture.detectChanges();
 //   });
 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-// });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+*/

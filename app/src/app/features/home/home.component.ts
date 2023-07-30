@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 //import { AuthService } from '@app/services/auth/auth.service';
 import { ProductService } from '@shared/servicies/product/product.service';
@@ -14,7 +14,8 @@ export class HomeComponent implements OnInit {
   popProducts$: Observable<IProduct[]> | undefined;
   forYouProducts$: Observable<IProduct[]> | undefined;
   // isAuthenticated = false;
-  images = 'assets/images/comingSoon.jpg';
+  images = 'assets/images/home_banner.png';
+  @ViewChild('recommendedHeading') recommendedHeading!: ElementRef;
   // isAuthenticated$;
   constructor(
     // private authService: AuthService,
@@ -37,20 +38,12 @@ export class HomeComponent implements OnInit {
     //Need to implement AI algo
     //Mock data below
     this.popProducts$ = this.productService.getPopProducts();
-    this.popProducts$?.subscribe((res: IProduct[]) => {
-      console.log('getProductList');
-      console.log(res);
-    });
   }
 
   fetchforYouProducts() {
     //Need to implement AI algo
     //Mock data below
     this.forYouProducts$ = this.productService.getForYouProducts();
-    this.forYouProducts$?.subscribe((res: IProduct[]) => {
-      console.log('getProductList');
-      console.log(res);
-    });
   }
 
   search(searchQuery: string): void {
@@ -71,7 +64,12 @@ export class HomeComponent implements OnInit {
 
     this.router.navigate(['products'], navigationextras);
   }
-
+  
+  async onAllClick() {
+    if (this.recommendedHeading) {
+      this.recommendedHeading.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
   getOneImg(imgList?: string[]) {
     //remove following when no need to have mock data
     if (!imgList || imgList.length < 1)

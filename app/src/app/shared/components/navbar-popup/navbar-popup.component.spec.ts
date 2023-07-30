@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+/*import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavbarPopupComponent } from './navbar-popup.component';
 
@@ -15,7 +15,8 @@ import { NavbarPopupComponent } from './navbar-popup.component';
 //     fixture.detectChanges();
 //   });
 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-// });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+*/

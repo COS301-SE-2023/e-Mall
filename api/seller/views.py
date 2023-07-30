@@ -100,7 +100,7 @@ def auth_test(request):
 @permission_classes([AllowAny])
 def get_seller_info(request):
     try:
-        seller = Seller.objects.get(email=request.data["email"])
+        seller = Seller.objects.get(id=request.data["seller_id"])
         serializer = SellerSerializer(seller)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except Seller.DoesNotExist:

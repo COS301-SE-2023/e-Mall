@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+/*import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WishlistComponent } from './wishlist.component';
 
@@ -15,7 +15,10 @@ import { WishlistComponent } from './wishlist.component';
 //     fixture.detectChanges();
 //   });
 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-// });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+*/
+

@@ -1,0 +1,72 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 40px;
+  align-self: stretch;
+  position: relative; 
+}
+
+.content {
+  margin-left: 350px;
+  margin-top: 100px;
+}
+
+.product-graph,
+.table {
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.product-graph {
+  width: 800px;
+  height: 500px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  border: 1px solid #f8f9fa;
+  background: #fff;
+  box-shadow: 0px 4px 20px 0px rgba(238, 238, 238, 0.5);
+}
+
+.product-graph .chartjs-render-monitor .bar {
+  width: 20px;
+}
+
+
+.table {
+  padding-top: 0px;
+
+  h2 {
+    color: var(--primary-dark-shade, black);
+  }
+
+  .col-title {
+    ion-col {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px;
+}
+
+.date {
+  position: absolute;
+  top: 5px;
+  left:820px;
+  padding: 10px;
+  /* Add any other styling you need for the date div */
+}

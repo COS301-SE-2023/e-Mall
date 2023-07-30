@@ -10,6 +10,18 @@
             <div class="toptxt">
               <h2>Category: {{ categoryTitle }}</h2>
             </div>
+            <div class="sort-condition">
+              <select name="" id="select">
+                <option value="Default">Default</option>
+                <option value="name">Name (A-Z)</option>
+                <option value="-name">Name (Z-A)</option>
+                <option value="price">Low to high</option>
+                <option value="-price">High to low</option>
+                <option value="discount">Lowest Discount</option>
+                <option value="-discount">Highest Discount</option>
+
+              </select>
+            </div>
           </div>
 
           <mat-divider></mat-divider>
@@ -35,7 +47,8 @@
                       price: product.min_price
                     }"></app-product-card>
                   <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
-                  <div class="col-md-1" *ngIf="(i + 1) % 4 === 0 && products.length > 4 && (i + 1) !== products.length"></div>
+                  <div class="col-md-1" *ngIf="(i + 1) % 4 === 0 && products.length > 4 && (i + 1) !== products.length">
+                  </div>
                 </div>
               </div>
             </ng-container>
@@ -50,10 +63,11 @@
                 <img src="assets\images\no-image.jpeg" alt="No Product Found" class="nimage" />
               </div>
             </div>
+
           </div>
         </div>
       </main>
     </div>
   </div>
-  <app-footer></app-footer>
+
 </ion-content>

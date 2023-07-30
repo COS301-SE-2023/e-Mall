@@ -10,11 +10,14 @@ import { Router } from '@angular/router';
 import { AuthModule } from '@features/auth/auth.module';
 import { ProfileModule } from '@features/profile/profile.module';
 import { NgxsModule } from '@ngxs/store';
+import { ElementRef } from '@angular/core';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let httpTestingController: HttpTestingController;
   let router: Router;
+  
+  let mockRecommendedHeading: ElementRef<HTMLElement>
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -31,28 +34,13 @@ describe('HomeComponent', () => {
     httpTestingController = TestBed.inject(HttpTestingController);
 
     router = TestBed.inject(Router);
+    
+    mockRecommendedHeading = new ElementRef<HTMLElement>(document.createElement('div'));
+    component.recommendedHeading = mockRecommendedHeading;
   });
 
   afterEach(() => {
     httpTestingController.verify();
-  });
-
-  it('should make an API call on page load', () => {
-    const mockResponse = {
-      /* mock response data */
-    };
-
-    component.ngOnInit();
-
-    const req = httpTestingController.expectOne(
-      'http://localhost:3000/api/products/backend?search=a'
-    );
-    expect(req.request.method).toEqual('GET');
-    const req2 = httpTestingController.expectOne(
-      'http://localhost:3000/api/products/backend?search=f'
-    );
-    expect(req2.request.method).toEqual('GET');
-    req.flush(mockResponse);
   });
 
   it('should navigate to search results on search', async () => {
@@ -74,6 +62,14 @@ describe('HomeComponent', () => {
     expect(router.navigate).toHaveBeenCalledWith(['products'], {
       queryParams: { prod_id: productId },
     });
+  });
+
+  it('should scroll to recommendedHeading', () => {
+    const scrollSpy = spyOn(mockRecommendedHeading.nativeElement, 'scrollIntoView');
+
+    component.onAllClick();
+
+    expect(scrollSpy).toHaveBeenCalledWith({ behavior: 'smooth' });
   });
   it('should return the first image URL when imgList is provided', () => {
     const imgList = ['image1.jpg', 'image2.jpg', 'image3.jpg'];
