@@ -44,7 +44,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{env.ECR_REPOSITORY}}
-          IMAGE_TAG: ${{ github.sha }}
+          IMAGE_TAG: latest
         working-directory: api
         run: |
           docker build -f ./Dockerfile.prod -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
