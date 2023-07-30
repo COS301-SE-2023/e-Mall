@@ -155,6 +155,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   onSortOptionChange(): void {
+    console.log('onSortOptionChange');
     this.productService
       .searchProducts(
         this.searchQuery,

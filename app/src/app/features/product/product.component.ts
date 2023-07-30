@@ -203,7 +203,6 @@ export class ProductComponent implements OnInit, OnDestroy {
     const navigationextras: NavigationExtras = {
       queryParams: { seller_id: seller_id },
     };
-    console.log(navigationextras);
     this.router.navigate(['seller-details'], navigationextras);
   }
 }

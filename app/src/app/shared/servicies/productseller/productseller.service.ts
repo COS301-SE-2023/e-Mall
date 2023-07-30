@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { IProductSeller } from '@shared/models/product/product-seller.interface';
+import { IProduct } from '@shared/models/product/product.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -44,7 +45,7 @@ export class ProductSellerService {
     if (per_page) {
       url += '&per_page=' + per_page;
     }
-
+    console.log(url);
     return this.http.get(url).pipe(
       map((res: any) => ({
         products: res['data'] as IProductSeller[],

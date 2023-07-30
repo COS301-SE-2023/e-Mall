@@ -5,8 +5,8 @@
   <ion-card-content>
     <div>
       <div>
-        <div class="discount-tag" *ngIf="product.discount > 0.5">
-          <ion-label>-{{ product.discount }}%</ion-label>
+        <div class="discount-tag" *ngIf="product.min_price_discount_rate > 0.5">
+          <ion-label>-{{ product.min_price_discount_rate }}%</ion-label>
         </div>
         <ion-card-title (click)="goToProductPage(product.id)">{{
           product.name

@@ -112,7 +112,6 @@ export class ProfileFacade implements OnDestroy {
   }
   checkFollowedSellers(name: string): Observable<boolean> {
     return this.followedSellers$.pipe(
-      take(1),
       map(followedSellers => {
         return followedSellers.includes(name);
       })
@@ -141,7 +140,6 @@ export class ProfileFacade implements OnDestroy {
 
   @Dispatch()
   async toggleWishlist(id: number) {
-    console.log(this.authFacade.isLoggedIn());
     if (!(await this.authFacade.isLoggedIn())) {
       this.setError('You must be logged in to add to wishlist');
       return new Navigate(['sign-in']);
