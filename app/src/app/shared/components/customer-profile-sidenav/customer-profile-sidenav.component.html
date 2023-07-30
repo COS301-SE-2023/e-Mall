@@ -12,27 +12,30 @@
                         
                     <!--</ion-item>-->
 
-                    <ion-item (click)="goToCustomerProfile()">
+                    <ion-item (click)="navigateTo('customer-profile')" [class.active]="currentPage === 'customer-profile'">
                         <!--<ion-button aria-label="">-->
                             <ion-icon name="person-circle" aria-hidden="true" style="margin-right: 10px;"></ion-icon>
-                            <ion-label>Account</ion-label>
+                            <ion-label>Account</ion-label> 
                         <!--</ion-button>-->
                         
                     </ion-item>
-                  <ion-item (click)="goToWishlist()">
+                  <ion-item  [class.active]="currentPage === 'wishlist'"
+                  (click)="navigateTo('wishlist')">
                       <!--<ion-button aria-label="">-->
                           <ion-icon name="heart" aria-hidden="true" style="margin-right: 10px;"></ion-icon>
                           <ion-label>My Wishlist</ion-label>
                       <!--</ion-button>-->
                     
                   </ion-item>
-                  <ion-item (click)="goToConstruction()" >
+                  <ion-item [class.active]="currentPage === 'construction'"
+                  (click)="navigateTo('construction')">
                       <!--<ion-button aria-label="">-->
                           <ion-icon name="notifications" aria-hidden="true" style="margin-right: 10px;"></ion-icon>
                           <ion-label>Notifications</ion-label>
                       <!--</ion-button> -->
                   </ion-item>
-                  <ion-item (click)="goToConstruction()"> 
+                  <ion-item [class.active]="currentPage === 'edit-customer-profile'"
+                  (click)="navigateTo('edit-customer-profile')"> 
                       <!--<ion-button aria-label="">-->
                           <ion-icon name="settings" aria-hidden="true" style="margin-right: 10px;"></ion-icon>
                           <ion-label>Settings</ion-label>

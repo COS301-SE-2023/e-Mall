@@ -10,6 +10,7 @@
             </div>
         
             <div class="profile-info-container" *ngIf="profile$ | async as profile">
+              <h2>My Account</h2>
                 <div class="user-info">
                   <div class="user-container">
                     <div class="user-circle-container">
@@ -17,11 +18,20 @@
                     </div>
                   </div>
                   <div class="user-details">
-                    <p>{{ profile.email }}</p>
-                    <p>{{ profile.username }}</p>
+                    <p><b>Username : </b>{{ profile.username }}</p>
+                    <p><b>Email :</b> {{ profile.email }}</p>
+                    <div class="edit-button-container">
+                      <ion-button (click)="goToEditProfile()">
+                        <ion-icon name="pencil" aria-hidden="true"></ion-icon>
+                        Edit profile
+                      </ion-button>
+                    </div>
                   </div>
                 </div>
+                
               </div>
+
+              
               
         <!--</div>-->
     </div>

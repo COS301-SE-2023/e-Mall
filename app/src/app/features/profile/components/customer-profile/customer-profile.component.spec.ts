@@ -1,22 +1,24 @@
-/*import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CustomerProfileComponent } from './customer-profile.component';
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-describe('CustomerProfileComponent', () => {
-  let component: CustomerProfileComponent;
-  let fixture: ComponentFixture<CustomerProfileComponent>;
+// import { CustomerProfileComponent } from './customer-profile.component';
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [CustomerProfileComponent]
-    });
-    fixture = TestBed.createComponent(CustomerProfileComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+// describe('CustomerProfileComponent', () => {
+//   let component: CustomerProfileComponent;
+//   let fixture: ComponentFixture<CustomerProfileComponent>;
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
-*/
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({
+//       declarations: [CustomerProfileComponent]
+//     });
+//     fixture = TestBed.createComponent(CustomerProfileComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
+
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });
+
+

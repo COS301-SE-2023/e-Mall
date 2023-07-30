@@ -16,6 +16,7 @@ import { SellerDataResolver } from '@features/seller-details/seller-details-reso
 import { InventoryComponent } from '@features/inventory/components/inventory.component';
 import { CustomerProfileComponent } from '@features/profile/components/customer-profile/customer-profile.component';
 import { WishlistComponent } from '@features/wishlist/wishlist.component';
+import { EditCustomerProfileComponent } from '@features/edit-customer-profile/edit-customer-profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -120,6 +121,10 @@ const routes: Routes = [
   {
     path: 'wishlist',
     component: WishlistComponent
+  },
+  {
+    path: 'edit-customer-profile',
+    component: EditCustomerProfileComponent
   },
   // {
   //   path: 'profile',

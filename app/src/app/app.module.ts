@@ -36,6 +36,7 @@ import { SellerDetailsModule } from '@features/seller-details/seller-details.mod
 import { CustomerProfileModule } from '@features/profile/components/customer-profile/customer-profile.module';
 import { WishlistModule } from '@features/wishlist/wishlist.module';
 import { NavbarPopupModule } from '@shared/components/navbar-popup/navbar-popup.module';
+import { EditCustomerProfileModule } from '@features/edit-customer-profile/edit-customer-profile.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -74,6 +75,7 @@ import { NavbarPopupModule } from '@shared/components/navbar-popup/navbar-popup.
     CustomerProfileModule,
     WishlistModule,
     NavbarPopupModule,
+    EditCustomerProfileModule ,
     // FooterModule,
     // NavbarModule,
     // AboutModule,

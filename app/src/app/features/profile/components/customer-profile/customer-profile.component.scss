@@ -105,16 +105,28 @@ line-height: normal;
 
 
 .profile-info-container {
-    flex: 5;
+    flex: 1;
     //border: 1px solid blue ;
     //height: 88%;
 
-    margin-top: 0;
+    //margin-bottom: 300px;
     //flex-direction: column;
+    
+    //height: 5000px;
+    width:700px;
+    margin-left: 150px;
+}
+
+.profile-info-container h2{
+  margin-bottom: 30px;
 }
 
 .user-info {
   display: flex;
+  box-shadow: 0 3px 4px 4px rgba(0, 0, 0, 0.3);
+  height: 300px;
+  margin-bottom: 150px;
+  padding: 50px;
 }
 
 
@@ -138,20 +150,20 @@ line-height: normal;
 }
 
 .user-container p{
-  font-size: larger;
   margin-top: 10px;
 }
 
 .user-circle-container{
   width: 80px; 
   height: 80px; 
-  background-color: gray; 
+  background-color: #37d0d6; 
   border-radius: 50%; 
   display: flex;
   justify-content: center; 
   align-items: center; 
   color: white;
   font-size: 24px;
+  margin-right: 40px;
 }
 
 .user-container{
@@ -159,4 +171,23 @@ line-height: normal;
   flex-direction: column;
   align-items: center; 
 
+}
+
+.user-details p{
+  font-size: 25px;
+  font-family: 'Poppins',sans-serif;
+}
+
+.edit-button-container ion-icon{
+  margin-right: 10px;
+}
+
+.edit-button-container ion-button{
+  font-family: 'Poppins',sans-serif;
+  height: 40px;
+  --background: #37d0d6;
+}
+
+.edit-button-container{
+  margin-top: 40px;
 }
