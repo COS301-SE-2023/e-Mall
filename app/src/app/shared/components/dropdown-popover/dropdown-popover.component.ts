@@ -47,16 +47,13 @@ export class DropdownPopoverComponent implements OnInit {
   async onItemClicked(path: string,nav:string) {
     await this.popoverController.dismiss();
     // Redirect to the selected page using the provided path
-    if (this.parameterData === 'Cat') {
+    if (this.parameterData === 'Cat'||path==='/register') {
       this.router.navigate([path]);
-    } else {
-      if(path==='/register'){
-        this.router.navigate([path]);
-      }else{
+    } else{
       const navigationextras: NavigationExtras = {
         queryParams: { seller_id: nav },
       };
       this.router.navigate([path], navigationextras);
-    }}
+    }
   }
 }
