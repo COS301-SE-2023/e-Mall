@@ -11,14 +11,12 @@ interface ProductData {
     [month: string]: number;
   };
 }
-
 @Component({
   //selector: 'app-seller-dashboard',
   templateUrl: 'product-analytics.component.html',
   styleUrls: ['product-analytics.component.scss'],
 })
 export class ProductAnalyticsComponent implements OnInit {
-
   public productClicksChart: Chart | undefined;
   sellerName!: string | undefined;
   topProducts$: Observable<any> | undefined;
@@ -29,14 +27,13 @@ export class ProductAnalyticsComponent implements OnInit {
   table_favourites: number[] = [];
   productNames!: string[];
   isChecked!: boolean;
-  objCount=0
-  productData: ProductData = {
-  };
+  objCount = 0;
+  productData: ProductData = {};
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(
     private analytics: AnalyticsService,
     private profileFacade: ProfileFacade
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.productNames = [];
@@ -67,9 +64,9 @@ export class ProductAnalyticsComponent implements OnInit {
         this.table_link_clicks = data.map(
           (item: { [x: string]: any }) => item['link_clicks']
         );
-        this.table_labels.forEach(label => {
-          this.getSelectedProductData(label);
-        });
+        // this.table_labels.forEach(label => {
+        //   this.getSelectedProductData(label);
+        // });
       });
     });
     Chart.register(...registerables);
@@ -79,10 +76,10 @@ export class ProductAnalyticsComponent implements OnInit {
     const productClicksCanvas = document.getElementById(
       'product-clicks-chart'
     ) as HTMLCanvasElement;
-    
+
     if (this.productClicksChart) {
-      this.objCount=0;
-      this.productClicksChart.destroy(); 
+      this.objCount = 0;
+      this.productClicksChart.destroy();
     }
 
     const productNames = Object.keys(this.productData);
@@ -151,17 +148,21 @@ export class ProductAnalyticsComponent implements OnInit {
         return '#000000'; // Black (default color)
     }
   }
-  
 
   getSelectedProductData(product_name: string) {
-    this.productNames.push(product_name);
+    if (this.productNames.includes(product_name)) {
+      this.productNames.splice(this.productNames.indexOf(product_name), 1);
+    } else {
+      this.productNames.push(product_name);
+    }
+
     const data = {
       seller_name: this.sellerName,
       product_names: this.productNames,
     };
-
     const data1 = this.analytics.getSelectedProductData(data);
     data1.subscribe(data => {
+      console.log('names:', this.productNames);
       this.productData[product_name] = data[product_name];
       this.createProductClicksChart();
     });

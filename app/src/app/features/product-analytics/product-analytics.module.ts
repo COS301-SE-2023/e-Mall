@@ -9,7 +9,12 @@ import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module
 
 @NgModule({
   declarations: [ProductAnalyticsComponent],
-  imports: [CommonModule, ProductAnalyticsRoutingModule, IonicModule,SellerNavModule],
+  imports: [
+    CommonModule,
+    ProductAnalyticsRoutingModule,
+    IonicModule,
+    SellerNavModule,
+  ],
   exports: [ProductAnalyticsComponent],
 })
 export class ProductAnalyticsModule {}
