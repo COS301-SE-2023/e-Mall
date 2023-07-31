@@ -1,7 +1,7 @@
 <ion-card>
   
   <div class="discount-tag" *ngIf="product.min_price_discount_rate > 0">
-    <ion-label>-{{ product.min_price_discount_rate*100 }}%</ion-label>
+    <ion-label>-{{ product.min_price_discount_rate*100 | number:'1.0-0' }}%</ion-label>
   </div>
   <ion-img
     [src]="getOneImg(product?.min_price_img_array)"
@@ -15,7 +15,7 @@
         <p>{{ product.category }}</p>
       </div>
       <div style="display: flex; align-items: center">
-        <h4 style="margin-right: 90px">R{{ product.min_price }}</h4>
+        <h4 style="margin-right: 90px">R{{ product.min_price | number:'1.0-0'}}</h4>
         <ion-button
           (click)="toggleHeart()"
           class="wishlist-button"
