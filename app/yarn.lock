@@ -471,6 +471,15 @@
     "@aws-amplify/core" "5.5.2"
     tslib "^1.8.0"
 
+"@aws-amplify/cli@^12.2.3":
+  version "12.2.3"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/cli/-/cli-12.2.3.tgz#aa12044cb78cb8d2e4a77bba65f2deeee39eef6e"
+  integrity sha512-vQpkU2Tzia1EqdoH2/5LiqO75BI1OUT1iZmiE71ziuKf1kBxxFqOBOeJJKmoG5Jdn+KLDpwl+g7V/YOJjpm8rw==
+  dependencies:
+    axios "^0.26.0"
+    rimraf "^3.0.2"
+    tar-stream "^2.2.0"
+
 "@aws-amplify/core@5.5.2":
   version "5.5.2"
   resolved "https://registry.npmjs.org/@aws-amplify/core/-/core-5.5.2.tgz"
@@ -5784,6 +5793,13 @@ axios@0.26.0:
   version "0.26.0"
   resolved "https://registry.npmjs.org/axios/-/axios-0.26.0.tgz"
   integrity sha512-lKoGLMYtHvFrPVt3r+RBMp9nh34N0M8zEfCWqdWZx6phynIEhQqAdydpyBAAG211zlhX9Rgu08cOamy6XjE5Og==
+  dependencies:
+    follow-redirects "^1.14.8"
+
+axios@^0.26.0:
+  version "0.26.1"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.26.1.tgz#1ede41c51fcf51bbbd6fd43669caaa4f0495aaa9"
+  integrity sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==
   dependencies:
     follow-redirects "^1.14.8"
 
@@ -11833,7 +11849,7 @@ tapable@^2.1.1, tapable@^2.2.0:
   resolved "https://registry.npmjs.org/tapable/-/tapable-2.2.1.tgz"
   integrity sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==
 
-tar-stream@~2.2.0:
+tar-stream@^2.2.0, tar-stream@~2.2.0:
   version "2.2.0"
   resolved "https://registry.npmjs.org/tar-stream/-/tar-stream-2.2.0.tgz"
   integrity sha512-ujeqbceABgwMZxEJnk2HDY2DlnUZ+9oEcb1KzTVfYHio0UE6dG71n60d8D2I4qNvleWrrXpmjpt7vZeF1LnMZQ==

@@ -12,11 +12,7 @@ import { IUser } from '../models/user.interface';
 import { IError } from '@app/features/error/models/error.interface';
 @Injectable()
 export class AuthService {
-  constructor(private http: HttpClient, private router: Router) {
-    Amplify.configure({
-      Auth: environment.cognito,
-    });
-  }
+  constructor(private http: HttpClient, private router: Router) {}
 
   async signIn(email: string, password: string): Promise<IUser> {
     //TODO: add sign in check to backend db
