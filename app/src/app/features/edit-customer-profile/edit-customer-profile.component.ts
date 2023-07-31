@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class EditCustomerProfileComponent implements OnInit {
   customerprofileForm: FormGroup;
+  isUsernameChanged = false;
   // editProfileForm: FormGroup;
   profile$: Observable<ISellerProfile | IConsumerProfile | null>;
 
@@ -45,5 +46,10 @@ export class EditCustomerProfileComponent implements OnInit {
       username: this.customerprofileForm.value.username,
     });
     this.router.navigate(['/customer-profile']);
+  }
+
+  onUsernameChange() {
+    
+    this.isUsernameChanged = true;
   }
 }
