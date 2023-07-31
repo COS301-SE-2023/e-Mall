@@ -18,7 +18,10 @@
             labelPlacement="floating"
             fill="outline"
             formControlName="username"
-            required="true"></ion-input>
+            required="true"
+            (input)="onUsernameChange()"
+            ></ion-input>
+            
 
           <!-- <ion-input
                             type="email"
@@ -28,7 +31,7 @@
                             formControlName="email"
                             required="true"></ion-input> -->
 
-          <ion-button type="submit">Submit</ion-button>
+          <ion-button type="submit" [disabled]="!isUsernameChanged">Submit</ion-button>
         </form>
       </div>
     </div>
