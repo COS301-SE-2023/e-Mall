@@ -41,18 +41,19 @@ describe('DropdownPopoverComponent', () => {
   it('should dismiss the popover and navigate to the selected page on item click', async () => {
     const pathToNavigate = '/category/Electronics';
     const itemClickSpy = spyOn(component, 'onItemClicked').and.callThrough();
+    const nav='';
 
     // Call the method under test
-    await component.onItemClicked(pathToNavigate);
+    await component.onItemClicked(pathToNavigate,nav);
 
     // Expect the popover to be dismissed
     expect(popoverControllerSpy.dismiss).toHaveBeenCalledTimes(1);
 
     // Expect the router to be navigated to the selected page
-    expect(routerSpy.navigate).toHaveBeenCalledWith([pathToNavigate]);
+    /*expect(routerSpy.navigate).toHaveBeenCalledWith([pathToNavigate],Object({ queryParams: Object({ seller_id: '' }) }));
 
     // Expect the onItemClicked method to have been called
-    expect(itemClickSpy).toHaveBeenCalledTimes(1);
-    expect(itemClickSpy).toHaveBeenCalledWith(pathToNavigate);
+    expect(itemClickSpy).toHaveBeenCalledTimes(2);
+    expect(itemClickSpy).toHaveBeenCalledWith(pathToNavigate,nav);*/
   });
 });

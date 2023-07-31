@@ -57,7 +57,7 @@ describe('ContactComponent', () => {
   it('should display the correct heading', () => {
     const compiled = fixture.nativeElement;
     const headingel = compiled.querySelector('h2');
-    expect(headingel.textContent).toContain('Fill the form.');
+    expect(headingel.textContent).toContain('Please fill in the form below.');
   });
 
   it('should display "Send Message" button', () => {

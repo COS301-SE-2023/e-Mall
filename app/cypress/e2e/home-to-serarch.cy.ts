@@ -10,7 +10,7 @@ describe('visit home and search', () => {
       pattern: 'products/backend/*',
       alias: 'api',
     });
-    cy.waitForNetworkIdle('@api', 1000);
+    cy.waitForNetworkIdle('@api', 500);
     cy.get('app-product-card').should('have.length', 30);
 
    cy.contains('Brand')

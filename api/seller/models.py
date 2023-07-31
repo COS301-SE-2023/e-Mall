@@ -35,15 +35,15 @@ class Seller(User):
         max_length=200,
     )
     no_employees = models.IntegerField(default=1)
-    support_email = models.EmailField(max_length=50, default="")
-    landline_number = models.CharField(max_length=10, default="0000000000")
-    address = models.CharField(max_length=200, default="")
-    city = models.CharField(max_length=20, default="")
-    postal_code = models.CharField(max_length=4, default="0000")
-    logo = models.URLField(max_length=200, default="")
-    instagram_link = models.URLField(max_length=200, default="")
-    facebook_link = models.URLField(max_length=200, default="")
-    twitter_link = models.URLField(max_length=200, default="")
+    support_email = models.EmailField(max_length=50, default="  ", null=True)
+    landline_number = models.CharField(max_length=10, default="0000000000", null=True)
+    address = models.CharField(max_length=200, default="  ", null=True)
+    city = models.CharField(max_length=20, default="  ", null=True)
+    postal_code = models.CharField(max_length=4, default="0000", null=True)
+    logo = models.URLField(max_length=200, default="  ", null=True)
+    instagram_link = models.URLField(max_length=200, default="  ", null=True)
+    facebook_link = models.URLField(max_length=200, default="  ", null=True)
+    twitter_link = models.URLField(max_length=200, default="  ", null=True)
 
     class Meta:
         app_label = "seller"

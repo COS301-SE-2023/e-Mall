@@ -17,7 +17,7 @@ export class InventoryService {
   public async getProductSellerData(
     options: ISearchOptions
   ): Promise<{ products: IInventoryItem[]; totalCount: number }> {
-    const url = `${this.apiUrl}/get/`;
+    const url = `${this.apiUrl}/getProd/`;
 
     return await lastValueFrom(
       this.http
