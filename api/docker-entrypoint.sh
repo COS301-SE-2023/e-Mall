@@ -11,7 +11,6 @@
 echo "Migrate the Database at startup of project"
 python manage.py makemigrations
 python manage.py migrate
-
 # dont use below commented lines
 # echo "Reset the database"
 # #reset db
