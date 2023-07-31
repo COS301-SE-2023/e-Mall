@@ -133,7 +133,7 @@ export class ProductAnalyticsComponent implements OnInit {
   }
 
   getLineColor() {
-    switch (this.objCount++) {
+    switch (this.objCount++%5) {
       case 0:
         return '#FFC0CB'; // Pink
       case 1:
