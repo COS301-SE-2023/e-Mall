@@ -6,5 +6,9 @@
   "user2": {
     "email": "test3@test.com",
     "password": "!Q2w3e4r!"
+  },
+  "Amazon": {
+    "email": "syntax.sharks@gmail.com",
+    "password": "SWc0!DXpBRz5T3lT"
   }
 }
