@@ -156,7 +156,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     const navbareight = 50; // Replace with the actual height of your navbar
     const y = el.getBoundingClientRect().top + window.scrollY - navbareight;
     window.scrollTo({ top: y });
-    // el.scrollIntoView();
+    el.scrollIntoView();
   }
   onlyInStockToggler() {
     this.divClicked = !this.divClicked;
