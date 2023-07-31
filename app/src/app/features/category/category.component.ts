@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./category.component.scss'],
 })
 export class CategoryComponent implements OnInit, OnDestroy {
-  
+  selectedSortOption!: string;
   categoryName!: string;
   categoryTitle!: string;
   categoryProducts$: Observable<IProduct[]> | undefined;
@@ -27,8 +27,9 @@ export class CategoryComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.categoryName = params['category'];
+      this.selectedSortOption='name'
       this.categoryTitle = decodeURIComponent(decodeURIComponent(this.categoryName)); // Decode the URL twice
-      this.categoryProducts$ = this.productService.getCategoryProducts(this.categoryName);
+      this.categoryProducts$ = this.productService.getCategoryProducts(this.categoryName,this.selectedSortOption);
     });
 
   }
@@ -50,4 +51,8 @@ export class CategoryComponent implements OnInit, OnDestroy {
 
     this.router.navigate(['products'], navigationextras);
   }
+  onSortOptionChange(): void {
+    this.categoryProducts$ = this.productService.getCategoryProducts(this.categoryName,this.selectedSortOption);
+  }
+
 }

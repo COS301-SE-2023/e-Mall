@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from productseller.models import ProductSeller
@@ -8,6 +7,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from rest_framework.permissions import AllowAny
+from rest_framework.decorators import api_view, permission_classes
 
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -15,13 +15,15 @@ from decimal import Decimal
 
 
 @api_view(["POST"])
-def get(request):
+@permission_classes([AllowAny])
+def getProd(request):
+    print('hi')
     try:
         user = request.user
         seller_name = user.username
 
-        # remove this later
-        seller_name = "Takealot"
+        # # remove this later
+        #seller_name = "Takealot"
 
         search = request.data.get("search")
         search_option = request.data.get("searchOption")

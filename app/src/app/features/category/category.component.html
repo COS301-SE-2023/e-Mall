@@ -11,8 +11,9 @@
               <h2>Category: {{ categoryTitle }}</h2>
             </div>
             <div class="sort-condition">
-              <select name="" id="select">
-                <option value="Default">Default</option>
+              <select name="" id="select"             
+              [(ngModel)]="selectedSortOption"
+              (ngModelChange)="onSortOptionChange()">
                 <option value="name">Name (A-Z)</option>
                 <option value="-name">Name (Z-A)</option>
                 <option value="price">Low to high</option>
