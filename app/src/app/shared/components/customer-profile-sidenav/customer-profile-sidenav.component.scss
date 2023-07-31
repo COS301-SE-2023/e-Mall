@@ -86,8 +86,7 @@ line-height: normal;
 
 ion-item.active {
   background-color: #37d0d6; /* Set the desired background color when hovering */
-  ion-label,
-  ion-icon {
+  ion-label,ion-icon {
     color: #fff;
   }
 }

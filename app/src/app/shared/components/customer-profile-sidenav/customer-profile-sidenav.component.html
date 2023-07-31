@@ -19,7 +19,7 @@
                         <!--</ion-button>-->
                         
                     </ion-item>
-                  <ion-item  [class.active]="currentPage === 'wishlist'"
+                  <ion-item  [class.active]="currentPage === 'wishlist'" 
                   (click)="navigateTo('wishlist')">
                       <!--<ion-button aria-label="">-->
                           <ion-icon name="heart" aria-hidden="true" style="margin-right: 10px;"></ion-icon>
@@ -27,21 +27,22 @@
                       <!--</ion-button>-->
                     
                   </ion-item>
+                  <!--
                   <ion-item [class.active]="currentPage === 'construction'"
                   (click)="navigateTo('construction')">
-                      <!--<ion-button aria-label="">-->
+                      <ion-button aria-label="">
                           <ion-icon name="notifications" aria-hidden="true" style="margin-right: 10px;"></ion-icon>
                           <ion-label>Notifications</ion-label>
-                      <!--</ion-button> -->
+                      </ion-button> 
                   </ion-item>
                   <ion-item [class.active]="currentPage === 'edit-customer-profile'"
                   (click)="navigateTo('edit-customer-profile')"> 
-                      <!--<ion-button aria-label="">-->
+                      <ion-button aria-label="">
                           <ion-icon name="settings" aria-hidden="true" style="margin-right: 10px;"></ion-icon>
                           <ion-label>Settings</ion-label>
-                      <!--</ion-button>-->
+                      </ion-button>
                     
-                  </ion-item>
+                  </ion-item>-->
                   <ion-item 
                     (click)="signOut()"
                   > 
