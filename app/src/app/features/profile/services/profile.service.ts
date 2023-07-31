@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Injectable } from '@angular/core';
-import { lastValueFrom, shareReplay, take } from 'rxjs';
+import { Observable, lastValueFrom, map, shareReplay, take } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Profile } from '../models/alias-profile.interface';
+import { ISellerCard } from '../models/seller-card.interface';
 
 @Injectable()
 export class ProfileService {
@@ -77,5 +78,21 @@ export class ProfileService {
         )
         .pipe(take(1), shareReplay(1))
     );
+  }
+
+  fetchFollowedSellerDetails(): Observable<ISellerCard[] | null> {
+    const url = `${this.apiUrl}fetchFollowedSellerDetails/`;
+    return this.http
+      .post<ISellerCard[]>(
+        url,
+        {},
+        {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+          observe: 'response',
+        }
+      )
+      .pipe(map(response => response.body));
   }
 }
