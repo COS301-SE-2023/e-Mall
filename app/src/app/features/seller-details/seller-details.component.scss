@@ -1,5 +1,7 @@
 .details-container {
   display: flex;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
 .image {
@@ -27,6 +29,7 @@
   position: absolute;
   align-items: center;
   right:0;
+  padding-right: 100px;
 }
 
 .divider {
@@ -52,6 +55,7 @@
 .social-container {
   position:absolute;
   right: 0;
+  padding-right: 100px;
 }
 
 .products-container {
