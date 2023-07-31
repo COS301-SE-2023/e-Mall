@@ -3,17 +3,8 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { IError } from '@features/error/models/error.interface';
 import { SetError } from '@features/error/states/error.action';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
-import { Action, Select } from '@ngxs/store';
-import {
-  Observable,
-  shareReplay,
-  tap,
-  Subscription,
-  lastValueFrom,
-  take,
-  map,
-  of,
-} from 'rxjs';
+import { Select } from '@ngxs/store';
+import { Observable, shareReplay, tap, Subscription, map, of } from 'rxjs';
 import { IConsumerProfile } from '../models/consumer-profile.interface';
 import { ISellerProfile } from '../models/seller-profile.interface';
 import { ProfileSelectors } from '../states/profile.selector';
@@ -103,6 +94,7 @@ export class ProfileFacade implements OnDestroy {
       this.setError(error);
     }
   }
+
   checkWishlist(id: number): Observable<boolean> {
     return this.wishlist$.pipe(
       map(wishlist => {
@@ -162,6 +154,14 @@ export class ProfileFacade implements OnDestroy {
     console.log('profile facade destroyed');
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
+    }
+  }
+  fetchFollowedSellerDetails() {
+    try {
+      return this.profileService.fetchFollowedSellerDetails();
+    } catch (error) {
+      this.setError(error);
+      return of(null);
     }
   }
 }

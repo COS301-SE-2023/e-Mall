@@ -46,7 +46,7 @@
                     class="badge bg-danger discount_rate_badge"
                     matTooltip="Product discount rate"
                     *ngIf="product.min_price_discount_rate !== 0">
-                    -{{ product.min_price_discount_rate }}%
+                    -{{ ((product.min_price_discount_rate ?? 0) * 100 | number:'1.0-0') }}%
                   </span>
                 </div>
               </div>
