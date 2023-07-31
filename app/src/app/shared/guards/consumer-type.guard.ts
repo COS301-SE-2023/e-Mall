@@ -10,5 +10,5 @@ export const consumerTypeGuard: CanActivateFn = async (route, state) => {
   if ((await authFacade.getUserType()) === 'consumer') {
     return true;
   }
-  return router.parseUrl('/sales');
+  return router.parseUrl('/inventory');
 };

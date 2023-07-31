@@ -53,3 +53,73 @@ def update(request):
     except Exception as e:
         # handle other exceptions here
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(["POST"])
+def updateWishlist(request):
+    try:
+        user = request.user
+        product_id = request.data.get("prod_id")
+        if user is None:
+            raise Exception("User not found")
+        if user.type == "consumer":
+            consumer = Consumer.objects.get(email=user.email)
+            if product_id in consumer.wishlist:
+                consumer.wishlist.remove(product_id)
+            else:
+                consumer.wishlist.append(product_id)
+            consumer.save()
+            return Response({"success": True})
+        else:
+            raise Exception("Seller cannot have wishlist")
+    except Exception as e:
+        print(e)
+        # handle other exceptions here
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(["POST"])
+def updateFollowedSellers(request):
+    try:
+        user = request.user
+        seller_name = request.data.get("seller_name")
+        if user is None:
+            raise Exception("User not found")
+        if user.type == "consumer":
+            consumer = Consumer.objects.get(email=user.email)
+            if seller_name in consumer.followed_sellers:
+                consumer.followed_sellers.remove(seller_name)
+            else:
+                consumer.followed_sellers.append(seller_name)
+            consumer.save()
+            return Response({"success": True})
+        else:
+            raise Exception("Seller cannot follow sellers")
+    except Exception as e:
+        # handle other exceptions here
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(["POST"])
+def get_followed_seller_details(request):
+    try:
+        user = request.user
+        if user is None:
+            raise Exception("User not found")
+        if user.type == "consumer":
+            followed_seller = []
+            if user.followed_sellers is not None and len(user.followed_sellers) > 0:
+                followed_seller = Seller.objects.filter(
+                    business_name__in=user.followed_sellers
+                )
+                res = [
+                    {"id": seller.id, "name": seller.business_name, "logo": seller.logo}
+                    for seller in followed_seller
+                ]
+                return Response(res)
+
+        else:
+            raise Exception("User is seller")
+    except Exception as e:
+        # handle other exceptions here
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

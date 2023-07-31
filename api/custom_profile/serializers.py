@@ -18,7 +18,6 @@ class ConsumerProfileSerializer(ConsumerSerializer):
                 "created_at": data.get("created_at"),
                 "modified_at": data.get("modified_at"),
                 "followed_sellers": data.get("followed_sellers"),
-                "wishlist": data.get("wishlist"),
             },
         }
 

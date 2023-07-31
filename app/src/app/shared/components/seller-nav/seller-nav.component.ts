@@ -11,8 +11,8 @@ import { Subscription } from 'rxjs';
 })
 export class SellerNavComponent implements OnInit, OnDestroy {
   username: string | undefined;
-  // currentPage = 'sales'; // Set a default value for the current page
-  currentPage!: string; // Set a default value for the current page
+  currentPage = 'inventory'; // Set a default value for the current page
+  // Set a default value for the current page
   private profileSubscription: Subscription | undefined;
 
   constructor(private router: Router, private profileFacade: ProfileFacade) {}

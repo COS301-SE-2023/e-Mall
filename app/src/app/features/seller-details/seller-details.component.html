@@ -1,0 +1,161 @@
+<app-navbar></app-navbar>
+<ion-content>
+  <ng-container *ngIf="seller$ | async as seller">
+    <div class="details-container">
+      <div class="image-container">
+        <img class="image" src="{{ seller.logo }}" />
+      </div>
+      <div class="seller-info-container">
+        <div class="titleverified-container">
+          <div class="seller-info">
+            <h2 class="title">{{ seller.business_name }}</h2>
+          </div>
+          <div class="verified">
+            <img
+              class="verified-image"
+              style="width: 20px; height: 20px; padding: 0px; margin: 0px"
+              src="\assets\images\verified.png" />
+          </div>
+        </div>
+
+        <div class="button-container">
+          <ion-button expand="block" (click)="updateButtonState()">
+            {{ (isFollowed | async) ? 'Unfollow' : 'Follow' }}
+          </ion-button>
+          <a href="{{ seller.website }}" target="_blank">
+            <ion-button expand="block">Visit Page</ion-button>
+          </a>
+        </div>
+        <mat-divider class="divider"></mat-divider>
+        <div class="description-container">
+          <div class="contact-container">
+            <h3 class="title">Contact Us</h3>
+            <div class="contact">
+              <p class="email-text">{{ seller.support_email }}<br /></p>
+              <p class="number-text">{{ seller.landline_number }}<br /></p>
+            </div>
+          </div>
+          <div class="address-container">
+            <h3 class="title">Address</h3>
+            <div class="address">
+              <p class="address-text">{{ seller.address }}<br /></p>
+              <p class="city-text">{{ seller.city }}<br /></p>
+              <p class="postal-code">{{ seller.postal_code }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <mat-divider class="divider2"></mat-divider>
+
+    <div class="social-container">
+      <a href="{{ seller.facebook_link }}" target="_blank">
+        <img
+          class="facebook-image"
+          style="width: 60px; height: 60px; padding: 10px; margin: 0px"
+          src="\assets\images\facebook.png" />
+      </a>
+      <a href="{{ seller.twitter_link }}" target="_blank">
+        <img
+          class="twitter-image"
+          style="width: 60px; height: 60px; padding: 10px; margin: 0px"
+          src="\assets\images\twitter.png" />
+      </a>
+      <a href="{{ seller.instagram_link }}" target="_blank">
+        <img
+          class="instagram-image"
+          style="width: 60px; height: 60px; padding: 10px; margin: 0px"
+          src="\assets\images\instagram.png" />
+      </a>
+    </div>
+
+    <div class="products-container">
+      <h2 class="title">Products</h2>
+      <div class="search-sort">
+        <ion-searchbar
+          class="search-box"
+          placeholder="Search products..."
+          type="search"
+          mode="md"
+          [(ngModel)]="searchQuery"
+          [debounce]="2000"
+          (ionInput)="onSearchInputChange()"
+          (ionInput)="onSearch()"></ion-searchbar>
+
+        <div class="sort-condition">
+          <select
+            name=""
+            id="select"
+            [(ngModel)]="selectedSortOption"
+            (ngModelChange)="onSortOptionChange()">
+            <option value="name">Name (A-Z)</option>
+            <option value="-name">Name (Z-A)</option>
+            <option value="price">Low to high</option>
+            <option value="-price">High to low</option>
+            <option value="discount">Lowest Discount</option>
+            <option value="-discount">Highest Discount</option>
+          </select>
+        </div>
+      </div>
+      <div class="filter-menu">
+        <div
+          *ngFor="let category of categories"
+          class="category-bubble"
+          (click)="onFilterOptionChange('filter_category', category)"
+          [ngClass]="{ 'selected': isCategorySelected(category) }"
+          id="category-{{ category }}">
+          {{ category }}
+        </div>
+      </div>
+      <mat-divider class="divider3"></mat-divider>
+      <div class="product-card">
+        <div
+          style="display: flex; justify-content: center; align-items: center"
+          *ngIf="(searchResults$ | async) === null">
+          <mat-spinner></mat-spinner>
+        </div>
+
+        <ng-container *ngIf="searchResults$ | async as products">
+          <div class="row" style="grid-auto-rows: auto">
+            <div
+              class="col-md-3 col-12"
+              style="grid-auto-columns: auto; min-width: 300px"
+              *ngFor="let product of products; let i = index">
+              <app-product-card
+                [product]="{
+                  min_price_discount_rate: product.discount_rate,
+                  min_price_img_array: product.img_array,
+                  name: product.product_name,
+                  min_price: product.price,
+                  category: product.product_category,
+                  id: product.product,
+                  min_price_seller_business_name: product.business_name
+                }"></app-product-card>
+              <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
+              <div
+                class="col-md-1"
+                *ngIf="
+                  (i + 1) % 4 === 0 &&
+                  products.length > 4 &&
+                  i + 1 !== products.length
+                "></div>
+            </div>
+          </div>
+        </ng-container>
+
+        <div class="mat-paginator">
+          <ng-container *ngIf="searchResults$ | async as products">
+            <mat-paginator
+              [length]="totalSearchCount$ | async"
+              [pageSizeOptions]="[10, 20, 50, 100]"
+              aria-label="Select page"
+              [pageIndex]="currentPage"
+              [pageSize]="itemsPerPage"
+              (page)="onPageChange($event)">
+            </mat-paginator>
+          </ng-container>
+        </div>
+      </div></div
+  ></ng-container>
+  <app-footer></app-footer>
+</ion-content>

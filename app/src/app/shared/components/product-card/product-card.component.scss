@@ -71,3 +71,8 @@ ion-card-content {
   }
   
 }
+
+ion-icon {
+  position: absolute; /* or 'absolute' or 'fixed' depending on your layout needs */
+  right: 0;
+}

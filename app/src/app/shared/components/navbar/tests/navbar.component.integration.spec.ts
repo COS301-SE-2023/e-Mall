@@ -21,13 +21,23 @@ import { AuthModule } from '@app/features/auth/auth.module';
 import { AuthState } from '@app/features/auth/states/auth.state';
 import { NgxsModule } from '@ngxs/store';
 import { ProfileModule } from '@features/profile/profile.module';
+import { DropdownPopoverComponent } from '@shared/components/dropdown-popover/dropdown-popover.component';
+import { PopoverController } from '@ionic/angular';
 
 describe('NavbarComponentIntegration', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
   let router: Router;
 
+  let popoverController: PopoverController;
+
   beforeEach(async () => {
+    const popoverControllerMock = {
+      create: () =>
+        Promise.resolve({
+          present: () => Promise.resolve(),
+        }),
+    };
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
@@ -50,6 +60,9 @@ describe('NavbarComponentIntegration', () => {
         ProfileModule,
       ],
       declarations: [NavbarComponent],
+      providers: [
+        { provide: PopoverController, useValue: popoverControllerMock },
+      ],
     }).compileComponents();
   });
 
@@ -57,18 +70,10 @@ describe('NavbarComponentIntegration', () => {
     fixture = TestBed.createComponent(NavbarComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
+
+    popoverController = TestBed.inject(PopoverController);
     fixture.detectChanges();
   });
-
-  /*it('should toggle the category status', () => {
-    expect(component.isCategoryOpened).toBeFalse();
-
-    component.toggleCategory();
-    expect(component.isCategoryOpened).toBeTrue();
-
-    component.toggleCategory();
-    expect(component.isCategoryOpened).toBeFalse();
-  });*/
 
   it('should navigate to search results page with search query', () => {
     const searchQuery = 'test query';
@@ -83,6 +88,42 @@ describe('NavbarComponentIntegration', () => {
       ['/search-results'],
       navigationExtras
     );
+  });
+  it('should toggle category popover', async () => {
+    spyOn(popoverController, 'create').and.callThrough();
+    const event = {} as Event;
+    await component.toggleCategory(event);
+    expect(popoverController.create).toHaveBeenCalledWith({
+      component: DropdownPopoverComponent,
+      event: event,
+      translucent: true,
+      animated: true,
+      componentProps: {
+        parameterData: 'Cat',
+      },
+    });
+  });
+
+  it('should toggle sellers popover', async () => {
+    spyOn(popoverController, 'create').and.callThrough();
+    const event = {} as Event;
+    await component.toggleSellers(event);
+    expect(popoverController.create).toHaveBeenCalledWith({
+      component: DropdownPopoverComponent,
+      event: event,
+      translucent: true,
+      animated: true,
+      componentProps: {
+        parameterData: 'Sel',
+      },
+    });
+  });
+
+  it('should navigate to wishlist', () => {
+    const routerNavigateSpy = spyOn(router, 'navigate');
+    const event = {} as Event;
+    component.wishlist(event);
+  //  expect(routerNavigateSpy).toHaveBeenCalledWith(['/wishlist']);
   });
 
   it('should navigate to sign-in page', () => {

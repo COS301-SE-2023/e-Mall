@@ -2,42 +2,18 @@
 
 <ion-content class="global-ion-content">
   <div class="ion-content-wrapper">
-    <div>
-      <ngb-carousel *ngIf="images">
-        <ng-template ngbSlide>
-          <div class="picsum-img-wrapper">
-            <img [src]="images" alt="Random first slide" />
-          </div>
-          <div class="carousel-caption">
-            <h3>Advertiser 1</h3>
-            <p>Sale</p>
-          </div>
-        </ng-template>
-        <ng-template ngbSlide>
-          <div class="picsum-img-wrapper">
-            <img [src]="images" alt="Random second slide" />
-          </div>
-          <div class="carousel-caption">
-            <h3>Advertiser 2</h3>
-            <p>Promotion</p>
-          </div>
-        </ng-template>
-        <ng-template ngbSlide>
-          <div class="picsum-img-wrapper">
-            <img [src]="images" alt="Random third slide" />
-          </div>
-          <div class="carousel-caption">
-            <h3>Advertiser 3</h3>
-            <p>Come visit our site!</p>
-          </div>
-        </ng-template>
-      </ngb-carousel>
+    <div class="banner">
+      <div class="image-container">
+        <img [src]="images" alt="Home banner" />
+        <ion-button class="overlay-button" (click)="onAllClick()"
+          >Shop For You</ion-button>
+      </div>
     </div>
 
     <br /><br />
     <!--Product carousel-->
     <div style="align-items: center">
-      <h3>Products For You</h3>
+      <h3 #recommendedHeading>Recommended For You</h3>
     </div>
     <div
       style="
@@ -55,15 +31,7 @@
             <div
               class="col-md-3"
               *ngFor="let product of products.slice(0, 4); let i = index">
-              <app-product-card
-                (click)="goToProductPage(product.id)"
-                [product]="{
-                  discount: product.min_price_discount_rate,
-                  imageUrl: getOneImg(product?.min_price_img_array),
-                  name: product.name,
-                  category: product.category,
-                  price: product.min_price
-                }"></app-product-card>
+              <app-product-card [product]="product"></app-product-card>
             </div>
           </div>
         </ng-template>
@@ -72,15 +40,7 @@
             <div
               class="col-md-3"
               *ngFor="let product of products.slice(4, 8); let i = index">
-              <app-product-card
-                (click)="goToProductPage(product.id)"
-                [product]="{
-                  discount: product.min_price_discount_rate,
-                  imageUrl: getOneImg(product?.min_price_img_array),
-                  name: product.name,
-                  category: product.category,
-                  price: product.min_price
-                }"></app-product-card>
+              <app-product-card [product]="product"></app-product-card>
             </div>
           </div>
         </ng-template>
@@ -89,15 +49,7 @@
             <div
               class="col-md-6"
               *ngFor="let product of products.slice(8, 12); let i = index">
-              <app-product-card
-                (click)="goToProductPage(product.id)"
-                [product]="{
-                  discount: product.min_price_discount_rate,
-                  imageUrl: getOneImg(product?.min_price_img_array),
-                  name: product.name,
-                  category: product.category,
-                  price: product.min_price
-                }"></app-product-card>
+              <app-product-card [product]="product"></app-product-card>
             </div>
           </div>
         </ng-template>
@@ -107,7 +59,7 @@
     <br /><br />
     <!--Product carousel-->
     <div style="align-items: center">
-      <h3>Popular products</h3>
+      <h3>Trending products</h3>
     </div>
     <div
       style="
@@ -125,15 +77,7 @@
             <div
               class="col-md-3"
               *ngFor="let product of products.slice(0, 4); let i = index">
-              <app-product-card
-                (click)="goToProductPage(product.id)"
-                [product]="{
-                  discount: product.min_price_discount_rate,
-                  imageUrl: getOneImg(product?.min_price_img_array),
-                  name: product.name,
-                  category: product.category,
-                  price: product.min_price
-                }"></app-product-card>
+              <app-product-card [product]="product"></app-product-card>
             </div>
           </div>
         </ng-template>
@@ -142,15 +86,7 @@
             <div
               class="col-md-3"
               *ngFor="let product of products.slice(4, 8); let i = index">
-              <app-product-card
-                (click)="goToProductPage(product.id)"
-                [product]="{
-                  discount: product.min_price_discount_rate,
-                  imageUrl: getOneImg(product?.min_price_img_array),
-                  name: product.name,
-                  category: product.category,
-                  price: product.min_price
-                }"></app-product-card>
+              <app-product-card [product]="product"></app-product-card>
             </div>
           </div>
         </ng-template>
@@ -159,21 +95,56 @@
             <div
               class="col-md-6"
               *ngFor="let product of products.slice(8, 10); let i = index">
-              <app-product-card
-                (click)="goToProductPage(product.id)"
-                [product]="{
-                  discount: product.min_price_discount_rate,
-                  imageUrl: getOneImg(product?.min_price_img_array),
-                  name: product.name,
-                  category: product.category,
-                  price: product.min_price
-                }"></app-product-card>
+              <app-product-card [product]="product"></app-product-card>
             </div>
           </div>
         </ng-template>
       </ngb-carousel>
     </div>
+    <ng-container *ngIf="imageObject !== null && imageObject.length > 0">
+      <br /><br />
+      <!--Product carousel-->
+    </ng-container>
   </div>
   <br /><br />
+  <ng-container *ngIf="followedSellers$ | async as sellers">
+    <ng-container *ngIf="sellers !== null && sellers.length !== 0">
+      <div
+        style="
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+        ">
+        <div style="align-items: center">
+          <h3>Followed Sellers</h3>
+        </div>
+        <div
+          style="
+            width: 60%;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          ">
+          <swiper-container
+            [centerInsufficientSlides]="true"
+            [slidesPerView]="3"
+            [loop]="true"
+            [lazy]="true">
+            <swiper-slide *ngFor="let seller of sellers">
+              <ion-img
+                style="width: 100%; max-width: 200px; height: 100px"
+                (click)="redirect(seller.id)"
+                [src]="seller.logo"
+                [alt]="seller.name"></ion-img>
+            </swiper-slide>
+          </swiper-container>
+        </div>
+      </div>
+      <br /><br />
+    </ng-container>
+  </ng-container>
+
   <app-footer></app-footer>
 </ion-content>

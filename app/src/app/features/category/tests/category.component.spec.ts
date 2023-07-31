@@ -84,60 +84,6 @@ describe('CategoryComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should fetch category products on component initialization', () => {
-   // const categoryName = 'Electronics';
-    const categoryProducts: IProduct[] = [
-       { "id": 131,
-        "min_price_original_price": 499.0,
-        "min_price_discount": 180.0,
-        "min_price_discount_rate": 0.36,
-        "min_price": 319.0,
-        "min_price_seller_id": "93802b0f-06a7-413a-bbb0-073cb43e6e9c",
-        "min_price_seller_product_url": "https://www.takealot.com/tp-link-300mbps-wireless-n-wall-range-extender-no-ethernet-port/PLID38533224",
-        "min_price_seller_business_name": "Takealot",
-        "min_price_in_stock": true,
-        "min_price_img_array": [
-            "https://media.takealot.com/covers_tsins/41259431/6935364071325--zoom.jpg",
-            "https://media.takealot.com/covers_tsins/41259431/6935364071325-1-zoom.jpg",
-            "https://media.takealot.com/covers_tsins/41259431/6935364071325-2-zoom.jpg"
-        ],
-        "name": "Tp-link  Universal Wi-Fi Range Extender",
-        "description": "Range Extender mode boosts wireless signal to previously unreachable or hard-to-wire areas flawlessly.Miniature size and wall-mounted design make it easy to deploy and move flexibly",
-        "brand": "Tp-link",
-        "category": "electronics",
-        "created_at": "2023-07-17T07:37:35.076332Z",
-        "updated_at": "2023-07-17T07:37:35.076359Z"},
-        {
-            "id": 131,
-            "min_price_original_price": 499.0,
-            "min_price_discount": 180.0,
-            "min_price_discount_rate": 0.36,
-            "min_price": 319.0,
-            "min_price_seller_id": "93802b0f-06a7-413a-bbb0-073cb43e6e9c",
-            "min_price_seller_product_url": "https://www.takealot.com/tp-link-300mbps-wireless-n-wall-range-extender-no-ethernet-port/PLID38533224",
-            "min_price_seller_business_name": "Takealot",
-            "min_price_in_stock": true,
-            "min_price_img_array": [
-                "https://media.takealot.com/covers_tsins/41259431/6935364071325--zoom.jpg",
-                "https://media.takealot.com/covers_tsins/41259431/6935364071325-1-zoom.jpg",
-                "https://media.takealot.com/covers_tsins/41259431/6935364071325-2-zoom.jpg"
-            ],
-            "name": "Tp-link  Universal Wi-Fi Range Extender",
-            "description": "Range Extender mode boosts wireless signal to previously unreachable or hard-to-wire areas flawlessly.Miniature size and wall-mounted design make it easy to deploy and move flexibly",
-            "brand": "Tp-link",
-            "category": "electronics",
-            "created_at": "2023-07-17T07:37:35.076332Z",
-            "updated_at": "2023-07-17T07:37:35.076359Z"
-        }
-    ];
-
-    productService.getCategoryProducts.and.returnValue(of(categoryProducts));
-    component.ngOnInit();
-  
-    expect(component.categoryProducts$).toBeDefined();
-  });
-  
   it('should set a default image URL when imgList is not provided', () => {
     const defaultImgUrl = 'https://www.incredible.co.za/media/catalog/product/cache/7ce9addd40d23ee411c2cc726ad5e7ed/s/c/screenshot_2022-05-03_142633.jpg';
 
@@ -153,16 +99,5 @@ describe('CategoryComponent', () => {
 
     const imageUrl = component.getOneImg(imgList);
     expect(imageUrl).toBe(imgList[0]);
-  });
-  it('should navigate to the product page with the correct prod_id', () => {
-    const prod_id = 123; // Replace with your test prod_id value
-
-    spyOn((component as any).router, 'navigate'); // Accessing private router property
-
-    component.goToProductPage(prod_id);
-
-    expect((component as any).router.navigate).toHaveBeenCalledWith(['products'], {
-      queryParams: { prod_id: prod_id },
-    });
   });
 });

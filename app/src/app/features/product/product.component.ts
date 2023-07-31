@@ -9,6 +9,8 @@ import { ProductService } from '@shared/servicies/product/product.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
+import { NavigationExtras, Router } from '@angular/router';
+
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -16,14 +18,16 @@ import { ProfileFacade } from '@features/profile/services/profile.facade';
 })
 export class ProductComponent implements OnInit, OnDestroy {
   prod_id: number;
-  consumer_id!: string;
+  consumer_id!: string | null;
   product$: Observable<IProduct> | undefined;
   sellers$: Observable<IProductSeller[]> | undefined;
+  followed_sellers$: Observable<string[]> | undefined;
   currency$: Observable<string> | undefined;
   seller_name!: string | undefined;
   product_name!: string;
   product_category!: string;
   selectedImage!: string;
+  isHearted = of(false);
 
   currencyCode = 'ZAR';
 
@@ -35,6 +39,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
+    private router: Router,
     private analytics: AnalyticsService,
     private profileFacade: ProfileFacade
   ) {
@@ -50,8 +55,12 @@ export class ProductComponent implements OnInit, OnDestroy {
           this.consumer_id = profile.id;
         }
       });
+      if (this.consumer_id === undefined) {
+        this.consumer_id = null;
+      }
       // this.consumer_id = this.profileFacade.getProfile().id;
       const id = params.get('prod_id');
+
       if (id) {
         this.prod_id = +id;
         this.product$ = this.productService.getProductData(this.prod_id);
@@ -60,11 +69,16 @@ export class ProductComponent implements OnInit, OnDestroy {
           'default'
         );
         this.currency$ = of('ZAR');
+
+        this.isHearted = this.profileFacade.checkWishlist(this.prod_id);
       }
     });
+
     this.prodClickAnalytics();
   }
-
+  toggleHeart() {
+    this.profileFacade.toggleWishlist(this.prod_id);
+  }
   prodClickAnalytics(): void {
     if (this.product$) {
       this.product$.subscribe(product => {
@@ -73,6 +87,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 
         if (this.sellers$) {
           this.sellers$.subscribe(sellers => {
+            console.log(sellers);
             if (sellers.length > 0) {
               sellers.forEach(currentseller => {
                 const data = {
@@ -141,7 +156,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     const navbareight = 50; // Replace with the actual height of your navbar
     const y = el.getBoundingClientRect().top + window.scrollY - navbareight;
     window.scrollTo({ top: y });
-    // el.scrollIntoView();
+    el.scrollIntoView();
   }
   onlyInStockToggler() {
     this.divClicked = !this.divClicked;
@@ -154,48 +169,6 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   selectImage(image: string) {
     this.selectedImage = image;
-  }
-  followed_seller(seller: string, checked: boolean) {
-    this.profileFacade.getProfile().subscribe(profile => {
-      if (profile) {
-        if (checked) {
-          //TODO: check if seller is already in the list
-          //const index =
-          if (profile.details.followed_sellers.indexOf(seller) === -1) {
-            profile.details.followed_sellers.push(seller);
-          }
-        }
-        if (!checked) {
-          profile.details.followed_sellers.splice(
-            profile.details.followed_sellers.indexOf(seller)
-          );
-        }
-        console.log(profile.details.followed_sellers);
-
-        this.profileFacade.updateProfile(profile);
-      }
-    });
-  }
-  favourited_product(prod_id: number, checked: boolean) {
-    this.profileFacade.getProfile().subscribe(profile => {
-      if (profile) {
-        if (checked) {
-          if (profile.details.wishlist.indexOf(prod_id) === -1) {
-            profile.details.wishlist.push(prod_id);
-          }
-        }
-        if (!checked) {
-          if (profile.details.wishlist.indexOf(prod_id) !== -1) {
-            profile.details.wishlist.splice(
-              profile.details.wishlist.indexOf(prod_id)
-            );
-          }
-        }
-        console.log(profile.details.wishlist);
-        this.favClickAnalytics();
-        this.profileFacade.updateProfile(profile);
-      }
-    });
   }
   favClickAnalytics(): void {
     if (this.product$) {
@@ -224,5 +197,12 @@ export class ProductComponent implements OnInit, OnDestroy {
         }
       });
     }
+  }
+  goToSellerPage(seller_id: string): void {
+    // Create the navigation extras object with the search query as a parameter
+    const navigationextras: NavigationExtras = {
+      queryParams: { seller_id: seller_id },
+    };
+    this.router.navigate(['seller-details'], navigationextras);
   }
 }

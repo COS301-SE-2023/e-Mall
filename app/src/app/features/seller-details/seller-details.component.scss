@@ -1,0 +1,147 @@
+.details-container {
+  display: flex;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+}
+
+.image-container {
+  padding: 15px;
+  width: 300px;
+  height: 265px;
+}
+
+.seller-info-container {
+  align-items: center;
+  display: inline;
+}
+
+.seller-info {
+  margin-left: 1.5rem;
+}
+
+.button-container {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  right:0;
+  padding-right: 100px;
+}
+
+.divider {
+  width: 100%;
+}
+
+.titleverified-container {
+  display: flex;
+  align-items: center;
+}
+
+.description-container {
+  display: flex;
+  margin-left: 1.5rem;
+}
+
+.address-container {
+  display: flex;
+  flex-direction: column; /* Stack the items vertically */
+  margin-left: 6rem;
+}
+
+.social-container {
+  position:absolute;
+  right: 0;
+  padding-right: 100px;
+}
+
+.products-container {
+  padding: 100px;
+  background: var(--c-1-white, #f7f9f9);
+}
+
+mat-paginator {
+  display: flex;
+  justify-content: center;
+  background: var(--c-1-white, #f7f9f9);
+}
+
+.sort-condition {
+  padding: 20px;
+  height: 100%;
+  font-size: 20px;
+  margin-left: 41rem;
+}
+.sort-condition select {
+  width: 100%;
+  padding: 0 0 0 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 45px;
+}
+
+.search-sort {
+  display: flex;
+}
+
+.row {
+  justify-items: center;
+  margin-left: 4rem;
+}
+
+.filter-menu {
+  display: flex;
+  justify-content: center;
+}
+
+.category-bubble {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(172, 167, 167); /*background color for the bubbles */
+  color: #ffffff; /* text color to white */
+  border-radius: 20px;
+  padding: 8px 16px; /* Add padding to adjust the size of the bubble */
+  margin: 8px; /* spacing between bubbles */
+  cursor: pointer;
+  white-space: nowrap; /* Prevent category text from wrapping to the next line #2c3e50 */
+}
+
+/* Hover effect */
+.category-bubble:hover {
+  background-color: #37d0d6;
+}
+
+.selected {
+  background-color: #37d0d6; /* Apply your desired style for selected elements */
+  /* Add any other styles you want for selected elements */
+}
+
+ion-button {
+  border-radius: 16px;
+  --background: #37d0d6;
+  --color: #ffffff;
+  /* Shadow */
+  box-shadow: 0px 20px 50px 0px rgba(55, 69, 87, 0.1);
+}
+
+ion-searchbar {
+  width: 40%;
+  height: 100%;
+  min-width: 385px;
+  --border-radius: 45px;
+}
+
+mat-paginator{
+  margin-bottom: 1rem;
+}
+
+app-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 0;
+}

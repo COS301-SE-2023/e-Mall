@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Injectable } from '@angular/core';
-import { lastValueFrom, shareReplay, take } from 'rxjs';
+import { Observable, lastValueFrom, map, shareReplay, take } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Profile } from '../models/alias-profile.interface';
+import { ISellerCard } from '../models/seller-card.interface';
 
 @Injectable()
 export class ProfileService {
@@ -40,5 +41,58 @@ export class ProfileService {
         .pipe(take(1), shareReplay(1))
     )) as HttpResponse<Profile>;
     return res.body;
+  }
+
+  async toggleWishlist(prod_id: number): Promise<void> {
+    const url = `${this.apiUrl}updateWishlist/`;
+    console.log(prod_id);
+    await lastValueFrom(
+      this.http
+        .post(
+          url,
+          { prod_id: prod_id },
+          {
+            headers: new HttpHeaders()
+              .set('Content-Type', 'application/json')
+              .set('Authorization', 'true'),
+            observe: 'response',
+          }
+        )
+        .pipe(take(1), shareReplay(1))
+    );
+  }
+
+  async toggleFollowSeller(seller_name: string): Promise<void> {
+    const url = `${this.apiUrl}updateFollowedSellers/`;
+    await lastValueFrom(
+      this.http
+        .post(
+          url,
+          { seller_name: seller_name },
+          {
+            headers: new HttpHeaders()
+              .set('Content-Type', 'application/json')
+              .set('Authorization', 'true'),
+            observe: 'response',
+          }
+        )
+        .pipe(take(1), shareReplay(1))
+    );
+  }
+
+  fetchFollowedSellerDetails(): Observable<ISellerCard[] | null> {
+    const url = `${this.apiUrl}fetchFollowedSellerDetails/`;
+    return this.http
+      .post<ISellerCard[]>(
+        url,
+        {},
+        {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+          observe: 'response',
+        }
+      )
+      .pipe(map(response => response.body));
   }
 }
