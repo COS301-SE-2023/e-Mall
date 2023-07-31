@@ -193,5 +193,16 @@ ion-modal.inventory-modal{
 
 /*nabvar pop over*/
 .inventory-popover{
-  --width:400px;
+  --width:300px;
+  --height:auto;
+  
 }
+
+.modal-buttons ion-button {
+  --background: #37d0d6;
+}
+
+
+
+
+

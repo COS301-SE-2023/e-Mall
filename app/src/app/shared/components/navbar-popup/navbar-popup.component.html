@@ -1,6 +1,6 @@
 
 
-<ion-header>
+<!--<ion-header>
   <ion-toolbar>
     <ion-list mode="ios">
       <ion-item lines="none" class="modal-header-item">
@@ -16,9 +16,21 @@
       </ion-item>
     </ion-list>
   </ion-toolbar>
-</ion-header>
+</ion-header>-->
 
 <ion-content>
+
+  <ion-item lines="none" class="modal-header-item">
+    <ion-button
+      class="close-button"
+      shape="round"
+      mode="ios"
+      slot="end"
+      fill="clear"
+      (click)="closePopOver()">
+      <ion-icon size="large" name="close-outline"></ion-icon>
+    </ion-button>
+  </ion-item>
 
   <div class="modal-container" *ngIf="profile$ | async as profile">
     <div class="user-circle-container">
@@ -34,20 +46,18 @@
     <div class="modal-buttons">
       <ion-button
           class="profile-button modal-button"
-          mode="ios"
-          slot="start"
+          size="small"
           (click)="goToCustomerProfile()">
-          Go to Profile
+          Profile
       </ion-button>
   
       <ion-button
-          class="close-button modal-button"
-          mode="ios"
-          slot="end"
+          class="sign-out modal-button"
+          size="small"
           (click)="signOut()">
-          signOut
+          sign Out
       </ion-button>
-      </div>
     </div>
+  </div>
 </ion-content>
 

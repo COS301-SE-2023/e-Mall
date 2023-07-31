@@ -86,7 +86,7 @@ export class NavbarComponent {
       /* componentProps: {
         product: product,
       }, */
-      mode: 'ios',
+      //mode: 'ios',
       cssClass: 'inventory-popover',
       showBackdrop: true,
       backdropDismiss: true,
