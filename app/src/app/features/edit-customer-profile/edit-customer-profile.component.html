@@ -8,9 +8,9 @@
     </div>
 
     <div class="settings-container" *ngIf="profile$ | async as profile">
-      <h2>settings</h2>
+      <h2>Settings</h2>
       <div class="general-settings-container">
-        <h5>general settings</h5>
+        <h5>Persoal information</h5>
         <form [formGroup]="customerprofileForm" (ngSubmit)="onSubmit()">
           <ion-input
             type="text"
