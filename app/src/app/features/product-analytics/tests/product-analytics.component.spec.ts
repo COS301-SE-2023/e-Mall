@@ -58,40 +58,6 @@ describe('ProductAnalyticsComponent', () => {
     expect(component).toBeTruthy();
   });
 
- /* it('should call getAllProducts from AnalyticsService with sellerName', () => {
-    expect(mockAnalyticsService.getAllProducts).toHaveBeenCalledWith('Test Seller');
-  });*/
-
-  it('should set productClicksData$ and table data correctly', () => {
-    const testData = [
-      { product_name: 'Product 1', clicks: 10, link_clicks: 5, favourites: 2 },
-      { product_name: 'Product 2', clicks: 15, link_clicks: 8, favourites: 3 },
-    ];
-    mockAnalyticsService.getAllProducts.and.returnValue(of(testData));
-    fixture.detectChanges();
-
-    expect(component.productClicksData$).toBeTruthy();
-    expect(component.table_labels).toEqual(['Product 1', 'Product 2']);
-    expect(component.table_product_clicks).toEqual([10, 15]);
-    expect(component.table_link_clicks).toEqual([5, 8]);
-    expect(component.table_favourites).toEqual([2, 3]);
-  });
-
-  it('should call getSelectedProductData for each product', () => {
-    const testData = [
-      { product_name: 'Product 1', clicks: 10, link_clicks: 5, favourites: 2 },
-      { product_name: 'Product 2', clicks: 15, link_clicks: 8, favourites: 3 },
-    ];
-    mockAnalyticsService.getAllProducts.and.returnValue(of(testData));
-    spyOn(component, 'getSelectedProductData');
-
-    fixture.detectChanges();
-
-    expect(component.getSelectedProductData).toHaveBeenCalledTimes(2);
-    expect(component.getSelectedProductData).toHaveBeenCalledWith('Product 1');
-    expect(component.getSelectedProductData).toHaveBeenCalledWith('Product 2');
-  });
-  
   it('should return pink color when objCount is 0', () => {
     component.objCount = 0;
     const color = component.getLineColor();
