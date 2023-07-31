@@ -7,7 +7,7 @@
       </app-customer-profile-sidenav>
     </div>
 
-    <div class="wishlist-container1" *ngIf="!bool">
+    <div class="wishlist-container1" *ngIf="(products$ | async)?.length === 0">
       <h2>My Wishlist</h2>
 
       <div class="wishlist-container-nocards">
@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <div class="wishlist-container" *ngIf="bool">
+    <div class="wishlist-container" *ngIf="(products$ | async)?.length !== 0">
       <h2>My Wishlist</h2>
       <!--<div class="row" style="grid-auto-rows: auto">
                     <div class="col-md-3 col-12" style="grid-auto-columns: auto; min-width: 300px">
