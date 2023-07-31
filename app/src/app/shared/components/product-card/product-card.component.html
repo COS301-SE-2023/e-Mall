@@ -1,6 +1,6 @@
 <ion-card>
   
-  <div class="discount-tag" *ngIf="product.min_price_discount_rate > 0">
+  <div class="discount-tag" *ngIf="product.min_price_discount_rate !== undefined && product.min_price_discount_rate > 0">
     <ion-label>-{{ product.min_price_discount_rate*100 }}%</ion-label>
   </div>
   <ion-img
