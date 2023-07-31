@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeRoutingModule } from './home-routing.module';
@@ -25,38 +25,41 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
-import { ProductCardModule } from "../../shared/components/product-card/product-card.module";
+import { ProductCardModule } from '../../shared/components/product-card/product-card.module';
+import { ProfileModule } from '@features/profile/profile.module';
 
 @NgModule({
-    declarations: [HomeComponent],
-    providers: [ProductService, AuthService],
-    exports: [HomeComponent],
-    imports: [
-        HttpClientModule,
-        CommonModule,
-        RouterModule,
-        HomeRoutingModule,
-        NgbCarouselModule,
-        MatExpansionModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatDividerModule,
-        MatSidenavModule,
-        MatCheckboxModule,
-        MatCardModule,
-        MatIconModule,
-        MatPaginatorModule,
-        MatSliderModule,
-        MatButtonToggleModule,
-        MatProgressSpinnerModule,
-        MatSlideToggleModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatRadioModule,
-        IonicModule,
-        NavbarModule,
-        FooterModule,
-        ProductCardModule
-    ]
+  declarations: [HomeComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [ProductService, AuthService],
+  exports: [HomeComponent],
+  imports: [
+    HttpClientModule,
+    CommonModule,
+    RouterModule,
+    HomeRoutingModule,
+    NgbCarouselModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatDividerModule,
+    MatSidenavModule,
+    MatCheckboxModule,
+    MatCardModule,
+    MatIconModule,
+    MatPaginatorModule,
+    MatSliderModule,
+    MatButtonToggleModule,
+    MatProgressSpinnerModule,
+    MatSlideToggleModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatRadioModule,
+    IonicModule,
+    NavbarModule,
+    FooterModule,
+    ProductCardModule,
+    ProfileModule,
+  ],
 })
 export class HomeModule {}

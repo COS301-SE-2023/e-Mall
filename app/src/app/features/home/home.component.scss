@@ -50,3 +50,47 @@ ion-button {
   --background: transparent;
   color: white;
 }
+
+swiper-container {
+  width: 100%;
+  height: 100%;
+}
+
+swiper-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.swiper-button-prev,
+.swiper-button-next {
+  background-color: navy;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.swiper-button-prev {
+  left: 2rem;
+  right: auto;
+}
+
+.swiper-button-next {
+  right: 2rem;
+  left: auto;
+}
+
+@media (min-width: 640px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    padding: 1rem;
+  }
+
+  .swiper-button-prev {
+    left: 10rem;
+  }
+
+  .swiper-button-next {
+    right: 10rem;
+  }
+}
