@@ -1,13 +1,14 @@
 <ion-card>
+  
+  <div class="discount-tag" *ngIf="product.min_price_discount_rate > 0">
+    <ion-label>-{{ product.min_price_discount_rate*100 }}%</ion-label>
+  </div>
   <ion-img
     [src]="getOneImg(product?.min_price_img_array)"
     (click)="goToProductPage(product.id)"></ion-img>
   <ion-card-content>
     <div>
       <div>
-        <div class="discount-tag" *ngIf="product.min_price_discount_rate > 0.5">
-          <ion-label>-{{ product.min_price_discount_rate }}%</ion-label>
-        </div>
         <ion-card-title (click)="goToProductPage(product.id)">{{
           product.name
         }}</ion-card-title>
