@@ -15,7 +15,7 @@
         <p>{{ product.category }}</p>
       </div>
       <div style="display: flex; align-items: center">
-        <h4 style="margin-right: 90px">R{{ product.min_price }}</h4>
+        <h4 style="margin-right: 90px">R{{ product.min_price | number:'1.0-0'}}</h4>
         <ion-button
           (click)="toggleHeart()"
           class="wishlist-button"
