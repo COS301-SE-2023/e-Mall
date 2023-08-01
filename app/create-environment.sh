@@ -17,5 +17,5 @@ ENVIRONMENT_FILE_CONTENT="export const environment = {
 };"
 
 # Write environment file content to file
-echo "$ENVIRONMENT_FILE_CONTENT" > src/environments/environment.prod.ts
-echo "$ENVIRONMENT_FILE_CONTENT" > src/environments/environment.ts
+echo "$ENVIRONMENT_FILE_CONTENT" > src/environments/env.prod.ts
+echo "$ENVIRONMENT_FILE_CONTENT" > src/environments/env.ts
