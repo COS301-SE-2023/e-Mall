@@ -1,42 +1,35 @@
-name: Build Amplify
+name: Deploy to Amazon Amplify
+
 on:
   push:
     branches:
       - JY/00/deployment
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    environment: prod
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install AWS CLI
+      - name: Create .env file
         run: |
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip -u awscliv2.zip
-          sudo ./aws/install --update
-      - name: Configure credentials
-        env:
-          AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
-          AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-        run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID --profile default
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY --profile default
-          aws configure set default.region us-east-1
-      - name: Use Node.js ${{ matrix.node_version }}
-        uses: actions/setup-node@v1
-        with:
-          version: ${{ matrix.node_version }}
-      - name: Remove File
-        uses: JesseTG/rm@v1.0.3
-        with:
-          path: amplify
+          echo "${{secrets.APP_ENV_TS}}" > ./app/src/environments/env.ts
+          echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
 
-      - name: Install Amplify CLI & Building Project
-        env:
-          AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
-          AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-        run: |
-          npm install -g @aws-amplify/cli 
-          bash scripts/initialise-amplify.sh
-          amplify build
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-secret-access-key: ${{ secrets.AMP_SECRET_KEY }}
+          aws-access-key-id: ${{ secrets.AMP_ACCESS_KEY }}
+          aws-region: eu-west-2
+
+      - uses: luisgreen/amplify_deployment@main
+        with:
+          appId: "asd8adsjasd9"
+          branchName: "master"
+          artifactPath: "./myapp.zip"
+          region: "eu-west-2"
