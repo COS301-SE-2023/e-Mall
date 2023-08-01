@@ -6,6 +6,7 @@ import { Chart, registerables } from 'chart.js';
 import { Observable, of, Subscription } from 'rxjs';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
+import { PageEvent } from '@angular/material/paginator';
 interface ProductData {
   [productName: string]: {
     [month: string]: number;
@@ -29,6 +30,15 @@ export class ProductAnalyticsComponent implements OnInit {
   isChecked!: boolean;
   objCount = 0;
   productData: ProductData = {};
+  selectedSortOption!: string;
+  startDate = '2023-03-10';
+  endDate: string = new Date().toISOString().split('T')[0]; // Set the default end date to the current date
+  currentDate = new Date().toISOString().split('T')[0];
+  searchKeyword!: string;
+  currentPage!: number;
+  itemsPerPage!: number;
+  totalSearchCount$: Observable<number> | undefined;
+
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(
     private analytics: AnalyticsService,
@@ -37,6 +47,7 @@ export class ProductAnalyticsComponent implements OnInit {
 
   ngOnInit() {
     this.productNames = [];
+    this.selectedSortOption = '1_year';
     this.profileFacade.getProfile().subscribe(profile => {
       if (profile) {
         if ('business_name' in profile.details) {
@@ -45,13 +56,18 @@ export class ProductAnalyticsComponent implements OnInit {
         }
       }
     });
-    this.analytics.getAllProducts(this.sellerName).subscribe(data => {
-      this.productClicksData$ = of(data);
+    const data = {
+      seller_name: this.sellerName,
+      current_page: this.currentPage,
+      page_size: this.itemsPerPage,
+    };
+    this.analytics.getAllProducts(data).subscribe(data => {
+      console.log('ALLPRODUCTS', data);
+      this.productClicksData$ = of(data.data);
+      this.totalSearchCount$ = data['total_count'];
+      console.log('TOTALCOUNT', this.totalSearchCount$);
       this.productClicksData$.subscribe(data => {
         this.topProducts$ = of(data);
-        this.topProducts$.subscribe(data => {
-          console.log('TOPPRODUCTS', data);
-        });
         this.table_product_clicks = data.map(
           (item: { [x: string]: any }) => item['clicks']
         );
@@ -81,7 +97,9 @@ export class ProductAnalyticsComponent implements OnInit {
       this.objCount = 0;
       this.productClicksChart.destroy();
     }
-
+    if (Object.keys(this.productData).length === 0) {
+      return;
+    }
     const productNames = Object.keys(this.productData);
     const months = Object.keys(this.productData[productNames[0]]);
     const maxProductNameLength = 10;
@@ -133,7 +151,7 @@ export class ProductAnalyticsComponent implements OnInit {
   }
 
   getLineColor() {
-    switch (this.objCount++%5) {
+    switch (this.objCount++) {
       case 0:
         return '#FFC0CB'; // Pink
       case 1:
@@ -159,12 +177,91 @@ export class ProductAnalyticsComponent implements OnInit {
     const data = {
       seller_name: this.sellerName,
       product_names: this.productNames,
+      start_date: this.startDate,
+      end_date: this.endDate,
     };
+
     const data1 = this.analytics.getSelectedProductData(data);
     data1.subscribe(data => {
-      console.log('names:', this.productNames);
-      this.productData[product_name] = data[product_name];
+      this.productData = data;
       this.createProductClicksChart();
+    });
+  }
+
+  updateDateRange() {
+    const Graphdata = {
+      seller_name: this.sellerName,
+      product_names: this.productNames,
+      start_date: this.startDate,
+      end_date: this.endDate,
+    };
+
+    const data1 = this.analytics.getSelectedProductData(Graphdata);
+    data1.subscribe(data => {
+      this.productData = data;
+      this.createProductClicksChart();
+    });
+  }
+  onSearchInputChange(event: any) {
+    this.searchKeyword = event.target.value;
+    console.log(this.searchKeyword);
+    const data = {
+      seller_name: this.sellerName,
+      search: this.searchKeyword,
+      current_page: this.currentPage,
+      page_size: this.itemsPerPage,
+    };
+    this.analytics.getAllProducts(data).subscribe(data => {
+      this.productClicksData$ = of(data.data);
+      this.totalSearchCount$ = data['total_count'];
+      this.productClicksData$.subscribe(data => {
+        this.topProducts$ = of(data);
+        this.table_product_clicks = data.map(
+          (item: { [x: string]: any }) => item['clicks']
+        );
+        this.table_labels = data.map(
+          (item: { [x: string]: any }) => item['product_name']
+        );
+        this.table_favourites = data.map(
+          (item: { [x: string]: any }) => item['favourites']
+        );
+        this.table_link_clicks = data.map(
+          (item: { [x: string]: any }) => item['link_clicks']
+        );
+        // this.table_labels.forEach(label => {
+        //   this.getSelectedProductData(label);
+        // });
+      });
+    });
+  }
+
+  onPageChange(event: PageEvent) {
+    this.currentPage = event.pageIndex;
+    this.itemsPerPage = event.pageSize;
+
+    const data = {
+      seller_name: this.sellerName,
+      search: this.searchKeyword,
+      current_page: this.currentPage,
+      page_size: this.itemsPerPage,
+    };
+    console.log(data);
+    this.analytics.getAllProducts(data).subscribe(responseData => {
+      this.productClicksData$ = of(responseData.data);
+      this.totalSearchCount$ = of(responseData.total_count);
+      this.topProducts$ = of(responseData.data);
+      this.table_product_clicks = responseData.data.map(
+        (item: { [x: string]: any }) => item['clicks']
+      );
+      this.table_labels = responseData.data.map(
+        (item: { [x: string]: any }) => item['product_name']
+      );
+      this.table_favourites = responseData.data.map(
+        (item: { [x: string]: any }) => item['favourites']
+      );
+      this.table_link_clicks = responseData.data.map(
+        (item: { [x: string]: any }) => item['link_clicks']
+      );
     });
   }
 }
