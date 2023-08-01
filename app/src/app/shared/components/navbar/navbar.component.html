@@ -1,179 +1,49 @@
-<!-- <ng-container *viewSize="'mobile'">
-  <mat-toolbar color="primary">
+<ion-header>
+  <ion-toolbar color="primary" class="navbar">
     <div class="flex-container">
-      <div>
-        <button
-          mat-icon-button
-          [matMenuTriggerFor]="menu"
-          aria-label="Main menu">
-          <i class="fa-solid fa-bars margin-edit" aria-hidden="true"></i>
+      <div class="toolbar-button">
+        <a class="navbar-brand">
+          <img class="navbar-logo" src="assets/images/logo-black-no-bg.png" alt="e-Mall logo"
+            (click)="redirect('home')" />
+        </a>
+      </div>
+
+      <ion-buttons slot="start">
+        <ion-button class="toolbar-button" (click)="toggleCategory($event)">
+          <span class="label">All Categories</span>
+          <ion-icon *ngIf="!isCategoryOpened" name="chevron-down" class="arrow"></ion-icon>
+          <ion-icon *ngIf="isCategoryOpened" name="chevron-up" class="arrow"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+      <ion-buttons slot="start">
+        <ion-button class="toolbar-button" (click)="toggleSellers($event)">
+          <span class="label">Merchants</span>
+          <ion-icon *ngIf="!isCategoryOpened" name="chevron-down" class="arrow"></ion-icon>
+          <ion-icon *ngIf="isCategoryOpened" name="chevron-up" class="arrow"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+      <ion-buttons slot="start">
+        <ion-button class="toolbar-button" (click)="wishlist($event)">
+          <span class="label">Wishlist</span>
+        </ion-button>
+      </ion-buttons>
+
+      <div class="navbar-spacer"></div>
+      <app-search-bar class="search-bar"></app-search-bar>
+      <div class="authButton">
+        <button mat-button class="toolbar-button" *ngIf="(isAuthenticated | async) === null" (click)="signIn()">
+          Sign in
         </button>
-        <mat-menu #menu="matMenu">
-          <ng-template matMenuContent>
-            <button mat-menu-item>
-              <mat-icon>dialpad</mat-icon>
-              <span>Redial</span>
-            </button>
-            <button mat-menu-item disabled>
-              <mat-icon>voicemail</mat-icon>
-              <span>Check voice mail</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>notifications_off</mat-icon>
-              <span>Disable alerts</span>
-            </button>
-          </ng-template>
-        </mat-menu>
+        <div
+        *ngIf="(isAuthenticated | async) !== null" 
+        style="margin-top: 5px;"
+        (click)="openPopover($event)">
+       <ion-icon name="person-circle" aria-hidden="true" class="circular-button"></ion-icon>
+     </div>
       </div>
-      <div>
-        <a class="navbar-brand" routerLink="/">
-          <img
-            class="navbar-logo"
-            src="assets/images/logo.png"
-            alt="e-Mall logo" />
-        </a>
-      </div>
-      <app-search-bar></app-search-bar>
+     
     </div>
-  </mat-toolbar>
-</ng-container>-->
-<header>
-  <nav>
-    <div>
-      <mat-toolbar color="primary" class="navbar">
-        <div class="flex-container">
-          <div>
-            <a class="navbar-brand">
-              <img
-                class="navbar-logo"
-                src="assets/images/logo-black-no-bg.png"
-                alt="e-Mall logo"
-                (click)="redirect('home')" />
-            </a>
-          </div>
-
-          <button mat-button class="toolbar-button" (click)="toggleCategory()">
-            <span>All Categories</span>
-            <i
-              *ngIf="!isCategoryOpened"
-              class="fa-solid fa-chevron-down fa-xs arrow"></i>
-            <i
-              *ngIf="isCategoryOpened"
-              class="fa-solid fa-chevron-up fa-xs arrow"></i>
-          </button>
-          <!-- <button mat-button class="toolbar-button" (click)="redirect('sale')">
-            Sale
-          </button> -->
-          <button mat-button class="toolbar-button" (click)="redirect('about')">
-            About Us
-          </button>
-          <!-- </span> -->
-          <!-- <form (ngSubmit)="search(f.value.searchQuery)" #f="ngForm">
-      <input
-        type="search"
-        class="wrapper"
-        placeholder="Search Products..."
-        name="searchQuery"
-        ngModel
-        (keydown.enter)="f.valid && f.ngSubmit.emit()" />
-         </form> -->
-          <div class="navbar-spacer"></div>
-          <!-- <div style="color: darkgreen; top: 30px"> -->
-          <app-search-bar class="search-bar"></app-search-bar>
-
-          <button
-            mat-button
-            class="toolbar-button"
-            *ngIf="!isAuthenticated"
-            (click)="signIn()">
-            Sign in
-          </button>
-          <button
-            *ngIf="isAuthenticated"
-            class="btn btn-outline-dark my-2 my-sm-0 ms-auto"
-            type="submit"
-            (click)="signOut()">
-            Sign Out
-          </button>
-        </div>
-      </mat-toolbar>
-    </div>
-    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark upperNav">
-  <a class="navbar-brand" routerLink="/">
-    <img
-      class="navbar-logo"
-      src="assets/images/logo.png"
-      alt="e-Mall logo"
-      width="70"
-      height="60" />
-  </a>
-
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent"
-    aria-expanded="false"
-    aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <li class="nav-item dropdown">
-        <a
-          class="nav-link dropdown-toggle"
-          routerLink="/construction"
-          id="navbarDropdownMenuLink"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false">
-          All Categories
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/construction">Expert Reviews</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/construction">Sale</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/construction">Guides</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/construction">How to use</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/construction">About Us</a>
-      </li>
-    </ul>
-  </div>
-
-  <form (ngSubmit)="search(f.value.searchQuery)" #f="ngForm">
-    <input
-      type="search"
-      class="wrapper"
-      placeholder="Search Products..."
-      name="searchQuery"
-      ngModel
-      (keydown.enter)="f.valid && f.ngSubmit.emit()" />
-  </form>
-
-  <button
-    *ngIf="!isAuthenticated"
-    class="btn btn-outline-dark my-2 my-sm-0 ms-auto"
-    type="submit"
-    (click)="signIn()">
-    Sign in
-  </button>
-  <button
-    *ngIf="isAuthenticated"
-    class="btn btn-outline-dark my-2 my-sm-0 ms-auto"
-    type="submit"
-    (click)="signOut()">
-    Sign Out
-  </button>
-</nav> -->
-  </nav>
-</header>
+  </ion-toolbar>
+</ion-header>

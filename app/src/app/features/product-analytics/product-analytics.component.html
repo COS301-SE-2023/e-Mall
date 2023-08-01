@@ -1,0 +1,99 @@
+<app-seller-nav></app-seller-nav>
+<ion-content>
+  <div class="content">
+
+    <div style="
+        display: flex;
+        padding: 10px;
+        align-items: flex-start;
+        align-self: stretch;
+      ">
+      <h2>Products</h2>
+    </div>
+    <div class="container">
+      <div class="sort-search-wrapper">
+        <div class="search-bar">
+          <ion-item class="sort-searchbar-container">
+            <ion-searchbar class="search-box" placeholder="Search products..." type="search" mode="md"
+              [(ngModel)]="searchKeyword" [debounce]="2000" (ionInput)="onSearchInputChange($event)"></ion-searchbar>
+          </ion-item>
+        </div>
+        <div class="sort-wrapper">
+          <ion-list>
+            <select name="" id="date-select" [(ngModel)]="selectedSortOption" (ngModelChange)="onSortOptionChange()">
+              <option value="product_name">Product Name(A-Z)</option>
+              <option value="clicks">Product Clicks</option>
+              <option value="favourites">Favourites</option>
+              <option value="link_clicks">Link Clicks</option>
+            </select>
+          </ion-list>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="table">
+        <ion-list lines="full">
+          <ion-item>
+            <ion-grid>
+              <ion-row class="col-title">
+                <ion-col size="1"><b>Check</b></ion-col>
+                <ion-col size="5"><b>Product Name</b></ion-col>
+                <ion-col size="2"><b>Product Clicks</b></ion-col>
+                <ion-col size="2"><b>Favourited</b></ion-col>
+                <ion-col size="2"><b>Link Clicks</b></ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+          <ng-container *ngIf="topProducts$ | async as topProducts">
+            <ion-item *ngFor="let product of topProducts">
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="1">
+                    <ion-checkbox [checked]="productNames.includes(product.product_name)" (ionChange)="
+                        getSelectedProductData(product.product_name)
+                      "></ion-checkbox>
+                  </ion-col>
+                  <ion-col size="5">{{ product.product_name }}</ion-col>
+                  <ion-col size="2">{{ product.clicks }}</ion-col>
+                  <ion-col size="2">{{ product.favourites }}</ion-col>
+                  <ion-col size="2">{{ product.link_clicks }}</ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
+            
+          </ng-container>
+            <div class="paginator-container">
+              <ng-container *ngIf="topProducts$ | async as topProducts">
+                <mat-paginator [length]="this.totalSearchCount$ | async" [pageSizeOptions]="[10, 20, 50, 100]"
+                  aria-label="Select page" [pageIndex]="currentPage" [pageSize]="itemsPerPage"
+                  (page)="onPageChange($event)">
+                </mat-paginator>
+              </ng-container>
+            </div>
+        </ion-list>
+      </div>
+    </div>
+    <div class="container">
+      <div class="date">
+        <div>
+          <label for="date-select">Select date range:</label>
+        </div>
+        <div>
+          <label for="start-date">Start Date:</label>
+          <input type="date" id="start-date" name="start-date" [(ngModel)]="startDate"
+            (ngModelChange)="updateDateRange()" />
+
+          <label for="end-date">End Date:</label>
+          <input type="date" id="end-date" name="end-date" [(ngModel)]="endDate" (ngModelChange)="updateDateRange()"
+            [max]="currentDate" />
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="container">
+      <div class="product-graph">
+        <canvas id="product-clicks-chart"></canvas>
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -47,8 +47,8 @@ module.exports = function (config) {
     },
     reporters: ['progress', 'kjhtml'],
     browsers: ['Chrome'],
-    autoWatch: false,
-    singleRun: true,
+    // autoWatch: false,
+    // singleRun: true,
     restartOnFileChange: true
   });
 };

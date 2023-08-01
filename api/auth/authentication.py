@@ -22,8 +22,7 @@ class CognitoAuthentication(BaseAuthentication):
                     email = attribute['Value']
                 elif attribute['Name'] == 'custom:type':
                     user_type = attribute['Value']
-
-            if email is None or email != request.data.get('email'):
+            if email is None and email != request.data.get('email'):
                 raise AuthenticationFailed('Invalid email')
             if user_type is None:
                 raise AuthenticationFailed('Invalid user type')

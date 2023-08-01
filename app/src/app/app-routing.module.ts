@@ -1,40 +1,148 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
-import { PendingComponent } from './features/pending/pending.component';
-import { ConstructionComponent } from './features/construction/construction.component';
-// import { ProductComponent } from './features/product/product.component';
-import { SearchComponent } from './features/search/search.component';
-import { NotFoundComponent } from '@app/features/not-found/not-found.component';
-import { SellerRegisterComponent } from './features/sign-up/seller/seller-register.component';
-import { ConsumerRegisterComponent } from './features/sign-up/consumer/consumer-register.component';
-import { SignInComponent } from './features/sign-in/sign-in.component';
+import { SellerRegisterComponent } from '@features/sign-up/seller/components/seller-register.component';
+import { ConsumerRegisterComponent } from '@features/sign-up/consumer/components/consumer-register.component';
+import { SignInComponent } from './features/sign-in/components/sign-in.component';
 import { SignOutComponent } from './features/sign-out/sign-out.component';
-import { ContactComponent } from './features/contact/contact.component';
-import { AboutComponent } from './features/about/about.component';
-import { ProductComponent } from './features/product/product.component';
+import { ProfileComponent } from '@features/profile/components/profile.component';
+import { CategoryComponent } from '@features/category/category.component';
+import { postAuthGuard } from '@shared/guards/post-auth.guard';
+import { preAuthGuard } from '@shared/guards/pre-auth.guard';
+import { baseGuard } from '@shared/guards/base.guard';
+import { sellerTypeGuard } from '@shared/guards/seller-type.guard';
+import { SellerDetailsComponent } from '@features/seller-details/seller-details.component';
+import { SellerDataResolver } from '@features/seller-details/seller-details-resolver';
+import { InventoryComponent } from '@features/inventory/components/inventory.component';
+import { CustomerProfileComponent } from '@features/profile/components/customer-profile/customer-profile.component';
+import { WishlistComponent } from '@features/wishlist/wishlist.component';
+import { EditCustomerProfileComponent } from '@features/edit-customer-profile/edit-customer-profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'construction', component: ConstructionComponent },
-  { path: 'search-results', component: SearchComponent },
-  { path: 'pending', component: PendingComponent },
-  { path: 'register', component: SellerRegisterComponent },
-  { path: 'sign-in', component: SignInComponent },
-  { path: 'sign-out', component: SignOutComponent },
-  { path: 'search-results', component: SearchComponent },
-  { path: 'sign-up', component: ConsumerRegisterComponent },
-  { path: 'about', component: AboutComponent },
-  { path: 'contact', component: ContactComponent },
-  { path: 'products', component: ProductComponent },
+  { path: 'home', component: HomeComponent, canActivate: [baseGuard] },
+  {
+    path: 'construction',
+    loadChildren: () =>
+      import('@app/features/construction/construction.module').then(
+        m => m.ConstructionModule
+      ),
+    canActivate: [baseGuard],
+  },
+  {
+    path: 'search-results',
+    loadChildren: () =>
+      import('@app/features/search/search.module').then(m => m.SearchModule),
+    canActivate: [baseGuard],
+  },
+  { path: 'category/:category', component: CategoryComponent },
+  {
+    path: 'pending',
+    loadChildren: () =>
+      import('@app/features/pending/pending.module').then(m => m.PendingModule),
+    canActivate: [postAuthGuard, sellerTypeGuard],
+  },
+  {
+    path: 'register',
+    component: SellerRegisterComponent,
+    canActivate: [preAuthGuard],
+  },
+  { path: 'sign-in', component: SignInComponent, canActivate: [preAuthGuard] },
+  {
+    path: 'sign-out',
+    component: SignOutComponent,
+    canActivate: [postAuthGuard],
+  },
+  {
+    path: 'sign-up',
+    component: ConsumerRegisterComponent,
+    canActivate: [preAuthGuard],
+  },
+  {
+    path: 'inventory',
+    loadChildren: () =>
+      import('@app/features/inventory/inventory.module').then(
+        m => m.InventoryModule
+      ),
+    canActivate: [postAuthGuard, sellerTypeGuard],
+  },
+  { path: 'inventory', component: InventoryComponent },
+  {
+    path: 'seller-details',
+    component: SellerDetailsComponent,
+    resolve: { sellerData: SellerDataResolver },
+  },
+  {
+    path: 'about',
+    loadChildren: () =>
+      import('@app/features/about/about.module').then(m => m.AboutModule),
+    canActivate: [baseGuard],
+  },
+  {
+    path: 'sales',
+    loadChildren: () =>
+      import('@app/features/sales/sales.module').then(m => m.SalesModule),
+    canActivate: [postAuthGuard, sellerTypeGuard],
+  },
+  {
+    path: 'product-analytics',
+    loadChildren: () =>
+      import('@app/features/product-analytics/product-analytics.module').then(m => m.ProductAnalyticsModule),
+    canActivate: [postAuthGuard, sellerTypeGuard],
+  },
+  
+  {
+    path: 'contact',
+    loadChildren: () =>
+      import('@app/features/contact/contact.module').then(m => m.ContactModule),
+    canActivate: [baseGuard],
+  },
+  {
+    path: 'products',
+    loadChildren: () =>
+      import('@app/features/product/product.module').then(m => m.ProductModule),
+    canActivate: [baseGuard],
+  },
   { path: 'policies-and-privacy', redirectTo: '/construction' },
-  { path: 'seller/dashboard', redirectTo: '/construction' },
   { path: 'ads', redirectTo: '/construction' },
-  { path: '**', component: NotFoundComponent },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+  },
+  /*{
+    path: 'customer-profile',
+    loadChildren: () =>
+      import('@app/features/profile/components/customer-profile/customer-profile.module').then(m => m.CustomerProfileModule),
+  },*/
+  {
+    path: 'customer-profile',
+    component: CustomerProfileComponent
+  },
+  {
+    path: 'wishlist',
+    component: WishlistComponent
+  },
+  {
+    path: 'edit-customer-profile',
+    component: EditCustomerProfileComponent
+  },
+  // {
+  //   path: 'profile',
+  //   loadChildren: () =>
+  //     import('@app/features/profile/profile.module').then(m => m.ProfileModule),
+  // },
+  {
+    path: '**',
+    loadChildren: () =>
+      import('@app/features/not-found/not-found.module').then(
+        m => m.NotFoundModule
+      ),
+  },
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { bindToComponentInputs: true })],
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

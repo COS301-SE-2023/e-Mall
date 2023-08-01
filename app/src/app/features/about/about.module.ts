@@ -3,13 +3,21 @@ import { CommonModule } from '@angular/common';
 
 import { AboutRoutingModule } from './about-routing.module';
 import { AboutComponent } from './about.component';
-
-import { FooterModule } from '@shared/components/footer/footer.module';
+import { IonicModule } from '@ionic/angular';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
+import { FooterModule } from '@shared/components/footer/footer.module';
+import { RouteBreadcrumbModule } from '../../shared/components/breadcrumbs/route-breadcrumb/route-breadcrumb.module';
 
 @NgModule({
   declarations: [AboutComponent],
-  imports: [CommonModule, AboutRoutingModule, NavbarModule, FooterModule],
+  imports: [
+    CommonModule,
+    AboutRoutingModule,
+    IonicModule,
+    NavbarModule,
+    FooterModule,
+    RouteBreadcrumbModule,
+  ],
   exports: [AboutComponent],
 })
 export class AboutModule {}

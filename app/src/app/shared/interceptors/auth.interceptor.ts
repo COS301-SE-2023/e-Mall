@@ -7,24 +7,47 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '@app/services/auth/auth.service';
-import { Observable, switchMap, catchError, throwError } from 'rxjs';
+import { AuthFacade } from '@app/features/auth/services/auth.facade';
+import { Observable, switchMap, catchError, throwError, from } from 'rxjs';
 @Injectable()
 export class AuthHttpInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authFacade: AuthFacade) {}
   intercept(
     req: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     const authHeader = req.headers.get('Authorization');
     if (authHeader) {
-      return this.authService.getAccessTokenCognito().pipe(
-        switchMap(jwtToken => {
-          const authReq = req.clone({
-            headers: req.headers.set('Authorization', `Bearer ${jwtToken}`),
-          });
-          return next.handle(authReq);
+      return this.authFacade.getCurrentUser().pipe(
+        switchMap(user => {
+          if (user) {
+            // check if the access token has expired
+            if (isTokenExpired(user.token)) {
+              return from(this.authFacade.refreshAccessToken()).pipe(
+                switchMap(newAccessToken => {
+                  // clone the request and set the new access token
+                  const authReq = req.clone({
+                    headers: req.headers.set(
+                      'Authorization',
+                      `Bearer ${newAccessToken}`
+                    ),
+                  });
+                  return next.handle(authReq);
+                })
+              );
+            } else {
+              // clone the request and set the access token
+              const authReq = req.clone({
+                headers: req.headers.set(
+                  'Authorization',
+                  `Bearer ${user.token}`
+                ),
+              });
+              return next.handle(authReq);
+            }
+          } else {
+            throw new Error('Token not found');
+          }
         }),
         catchError((error: HttpErrorResponse) => {
           if (error.status === 401) {
@@ -36,4 +59,9 @@ export class AuthHttpInterceptor implements HttpInterceptor {
     }
     return next.handle(req);
   }
+}
+function isTokenExpired(token: string) {
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  const expirationTime = payload.exp;
+  return Date.now() > expirationTime * 1000;
 }

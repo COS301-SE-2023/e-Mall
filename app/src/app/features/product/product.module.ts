@@ -8,15 +8,19 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { NavbarModule } from '@shared/components/navbar/navbar.module';
-import { FooterModule } from '@shared/components/footer/footer.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { IonicModule } from '@ionic/angular';
+import { NgxsModule } from '@ngxs/store';
+import { NavbarModule } from '@shared/components/navbar/navbar.module';
+import { FooterModule } from '@shared/components/footer/footer.module';
+import { CategoryBreadcrumbModule } from '../../shared/components/breadcrumbs/category-breadcrumb/category-breadcrumb.module';
 
 @NgModule({
   declarations: [ProductComponent],
   imports: [
     CommonModule,
+    NgxsModule.forFeature(),
     ProductRoutingModule,
     FormsModule,
     ReactiveFormsModule,
@@ -24,10 +28,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatCardModule,
     MatSelectModule,
     MatExpansionModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule,
+    IonicModule,
     NavbarModule,
     FooterModule,
-    MatProgressSpinnerModule,
-    MatTooltipModule
+    CategoryBreadcrumbModule,
   ],
   exports: [ProductComponent],
 })

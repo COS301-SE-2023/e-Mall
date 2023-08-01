@@ -18,5 +18,14 @@ class SellerSerializer(UserSerializer):
             "is_verified",
             "website",
             "feed_url",
-            'no_employees'
+            "no_employees",
+            "support_email",
+            "landline_number",
+            "address",
+            "city",
+            "postal_code",
+            "logo",
+            "instagram_link",
+            "facebook_link",
+            "twitter_link",
         )

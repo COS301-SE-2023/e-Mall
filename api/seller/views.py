@@ -1,13 +1,15 @@
 # from django.shortcuts import render
 from django.forms import ValidationError
 from rest_framework.response import Response
+
 # from rest_framework.decorators import action
 # from rest_framework.views import APIView
 from rest_framework.decorators import api_view, permission_classes
-
+from rest_framework.views import APIView
 from .serializers import SellerSerializer
 from .models import Seller
 from rest_framework.permissions import AllowAny
+
 # from rest_framework import permissions
 # from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 # from django.shortcuts import get_object_or_404
@@ -69,12 +71,21 @@ from faker import Faker
 #     #         return super().retrieve(request, pk)
 
 
-@api_view(['POST'])
+@api_view(["POST"])
 @permission_classes([AllowAny])
 def register(request):
-    request.data['username'] = Faker().user_name()[:15]
-    request.data['reg_no'] = Faker().bothify('##############')
-    request.data['business_name'] = Faker().company()
+    request.data["username"] = Faker().user_name()[:15]
+    request.data["reg_no"] = Faker().bothify("##############")
+    request.data["business_name"] = Faker().company()
+    request.data["support_email"] = Faker().email()
+    request.data["landline_number"] = Faker().bothify("##########")
+    request.data["address"] = Faker().address()
+    request.data["city"] = Faker().city()
+    request.data["postal_code"] = Faker().bothify("####")
+    request.data["logo"] = Faker().image_url()
+    request.data["instagram_link"] = Faker().url()
+    request.data["facebook_link"] = Faker().url()
+    request.data["twitter_link"] = Faker().url()
     serializer = SellerSerializer(data=request.data)
     if not serializer.is_valid():
         for field, error in serializer.errors.items():
@@ -82,11 +93,61 @@ def register(request):
     serializer.is_valid(raise_exception=True)
     serializer.save()
 
-    return Response({'message': 'Seller registered successfully'}, status=status.HTTP_201_CREATED)
+    return Response(
+        {"message": "Seller registered successfully"}, status=status.HTTP_201_CREATED
+    )
 
 
 # testing if auth permission working
-@api_view(['POST'])
+@api_view(["POST"])
 # @permission_classes([AllowAny])
 def auth_test(request):
-    return Response({'message': 'auth success'}, status=status.HTTP_201_CREATED)
+    return Response({"message": "auth success"}, status=status.HTTP_201_CREATED)
+
+
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def get_seller_info(request):
+    try:
+        seller = Seller.objects.get(id=request.data["seller_id"])
+        serializer = SellerSerializer(seller)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Seller.DoesNotExist:
+        return Response(
+            {"message": "Seller does not exist"},
+            status=status.HTTP_404_NOT_FOUND,
+        )
+
+
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def update_seller_info(request):
+    catalogue_size = int(request.data["catalogue_size"])
+    website = request.data["website"]
+    feed_url = request.data["feed_url"]
+    no_employees = int(request.data["no_employees"])
+    support_email = request.data["support_email"]
+    landline_number = request.data["landline_number"]
+    address = request.data["address"]
+    city = request.data["city"]
+    postal_code = request.data["postal_code"]
+    try:
+        seller = Seller.objects.get(email=request.data["email"])
+        seller.catalogue_size = catalogue_size
+        seller.website = website
+        seller.feed_url = feed_url
+        seller.no_employees = no_employees
+        seller.support_email = support_email
+        seller.landline_number = landline_number
+        seller.address = address
+        seller.city = city
+        seller.postal_code = postal_code
+        seller.save()
+        return Response(
+            {"message": "Seller info updated successfully"}, status=status.HTTP_200_OK
+        )
+    except Seller.DoesNotExist:
+        return Response(
+            {"message": "Seller does not exist"},
+            status=status.HTTP_404_NOT_FOUND,
+        )

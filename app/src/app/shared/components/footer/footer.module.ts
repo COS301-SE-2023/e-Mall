@@ -8,6 +8,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [FooterComponent],
@@ -20,6 +21,7 @@ import { RouterModule } from '@angular/router';
     MatGridListModule,
     MatListModule,
     MatCardModule,
+    IonicModule,
   ],
   exports: [FooterComponent],
 })

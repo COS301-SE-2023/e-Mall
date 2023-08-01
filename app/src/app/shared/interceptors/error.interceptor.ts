@@ -7,8 +7,11 @@ import {
 } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { ErrorFacade } from '@app/features/error/services/error.facade';
+import { IError } from '@app/features/error/models/error.interface';
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
+  constructor(private errorFacade: ErrorFacade) {}
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
@@ -16,14 +19,16 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         let err_message = '';
+        let error_code = -1; //front error
         if (error.error instanceof ErrorEvent) {
           //front side error
-          err_message = `Error ${error.error.message}`;
+          err_message = error.error.message;
         } else {
-          err_message = `Error Code: ${error.status}\nMessage: ${error.message}`;
+          //backend side error
+          error_code = error.status;
+          err_message = error.message;
         }
-        console.log(err_message);
-        return throwError(() => new Error(err_message));
+        return throwError(() => new IError(error_code, err_message));
       })
     );
   }

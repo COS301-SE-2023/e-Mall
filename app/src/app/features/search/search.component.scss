@@ -1,69 +1,50 @@
-/*@use "utils" as *;*/
 
-$color_type_0: rgb(0, 0, 0);
-$color_type_1: rgb(124, 208, 211);
-$color_type_2: rgb(169, 169, 169);
-$color_type_3: rgb(209, 209, 209);
-$color_type_4: rgb(21, 21, 21);
-$color_type_5: rgb(247, 249, 249);
-$color_type_6: rgb(55, 208, 214);
-$color_type_7: rgb(87, 87, 87);
-$color_type_8: rgb(193, 237, 233);
-
-$padding_type_0: 0px;
-
-$border_radius_type_0: 12px 12px 12px 12px;
-
-$font_type_0: 600 50px/1.39 'Poppins', Helvetica, Arial, serif;
-$font_type_1: 600 32px/1.39 'Poppins', Helvetica, Arial, serif;
-$font_type_2: 700 15px/1.53 'Poppins', Helvetica, Arial, serif;
-$font_type_3: 400 14px/1.35 'Open Sans', Helvetica, Arial, serif;
-$font_type_4: 400 12px/1.33 'Open Sans', Helvetica, Arial, serif;
-$font_type_5: 600 1em/1.39 'Poppins', Helvetica, Arial, serif;
-
-.navbar {
-  background-color: $color_type_8 !important;
+.body {
+  display: flex;
+  min-height: fit-content;
+  min-width: 1448px;
+  padding: 25px 45px;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-.navbar a {
-  transition: color 0.3s ease-in-out;
-  color: #444;
-  text-decoration: none;
+.top {
+  max-width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.search-input {
-  margin-right: 30px;
-  width: 500px;
-  border-radius: 20px !important;
-  padding-left: 50px;
-  height: 40px;
+.toptxt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-.fa-search {
-  height: 26px;
+.search-query {
+  margin-top: 10px;
 }
 
-.input-group-text {
-  position: absolute;
-  left: 0;
-  z-index: 2;
-  padding: 0.375rem 0.75rem;
+.dropdown {
+  display: flex;
+  position: relative;
+  align-items: flex-end;
 }
-
+.dropbtn{
+min-width: 150px;
+}
 .dropdown-menu {
-  position: absolute;
+  top: 100%;
+  left: 0;
   z-index: 1000;
-  display: none;
-  min-width: 10rem;
-  padding: 0.5rem 0;
-  margin: 0;
-  font-size: 1rem;
+  min-width: 100px;
   color: #212529;
   text-align: left;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
 }
+
 
 .dropdown-menu a {
   display: block;
@@ -78,7 +59,7 @@ $font_type_5: 600 1em/1.39 'Poppins', Helvetica, Arial, serif;
 .dropdown-menu a:hover,
 .dropdown-menu a:focus {
   color: #fff;
-  background-color: #007bff;
+  background-color: #1dc4b0;
 }
 
 .dropdown-item.active,
@@ -93,31 +74,22 @@ $font_type_5: 600 1em/1.39 'Poppins', Helvetica, Arial, serif;
   pointer-events: none;
   background-color: transparent;
 }
-.search-results {
-  margin-top: 1rem;
-  margin-left: 0.5rem;
-}
 
 .filter-menu {
   float: left;
-  width: 225px;
+  width: 350px;
   margin-left: 1rem;
-}
-
-.filter-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  margin-left: 1rem;
+  padding-right: 80px;
 }
 
 .slider {
   width: 190px;
 }
 
-.search-results-container {
+.search-results{
   margin-top: 1rem;
+  min-width: 1300px;
+  padding: 10px;
   // margin-right: 0.5rem;
 }
 .dropbtn {
@@ -130,7 +102,6 @@ $font_type_5: 600 1em/1.39 'Poppins', Helvetica, Arial, serif;
   width: 170px;
   height: 60px;
   margin-bottom: 1rem;
-
 }
 .sort-panel {
   color: #212529;
@@ -138,38 +109,6 @@ $font_type_5: 600 1em/1.39 'Poppins', Helvetica, Arial, serif;
   // margin-right: 0.25rem;
   margin-bottom: 1rem;
   opacity: 100%;
-}
-.product-card-no {
-  margin-top: 4.5rem;
-  margin-left: 12rem;
-  // margin: 0 0 1rem 0; # commented out coz sonarCloud
-  // border: 1px solid #ccc;
-  border-radius: 0.25rem;
-  padding: 1rem;
-  cursor: pointer;
-  justify-content: center;
-  text-align: center;
-}
-.product-card {
-  margin-top: 1rem;
-  margin-left: 2rem;
-  // margin: 0 0 1rem 0; # commented out coz sonarCloud
-  // border: 1px solid #ccc;
-  border-radius: 0.25rem;
-  padding: 1rem;
-  cursor: pointer;
-}
-.product-image {
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  width: 100%;
-  height: 200px;
-}
-
-.product-price{
-  font-size: 1.2rem;
-  font-weight: 600;
 }
 
 .mat-paginator {
@@ -199,28 +138,32 @@ $font_type_5: 600 1em/1.39 'Poppins', Helvetica, Arial, serif;
   background-color: #ddd;
 }
 
-.nimage{
+.nimage {
   width: 300px;
   height: 300px;
   justify-content: center;
   opacity: 30%;
+  align-items: center;
+}
+.search-results-container{
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-.error-message{
-  color:red;
+.error-message {
+  color: red;
   font-size: small;
 }
 
-.body{
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-app-footer {
-  height: 0px;
-}
 
 html {
   scroll-behavior: smooth;
+}
+
+ion-range {
+  --bar-background: #EBEBEB;
+  --bar-background-active: #37D0D6;
+  --bar-height: 6px;
+  --bar-border-radius: 8px;
 }

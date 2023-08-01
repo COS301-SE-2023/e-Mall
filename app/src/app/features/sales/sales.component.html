@@ -1,0 +1,64 @@
+<app-seller-nav></app-seller-nav>
+<ion-content>
+  <div class="content">
+    <div class="todays-sales">
+      <ion-card class="summary">
+        <div style="
+            display: flex;
+            padding: 10px;
+            align-items: flex-start;
+            align-self: stretch;
+          ">
+          <h2>This Month</h2>
+        </div>
+
+        <div style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            align-self: stretch;
+          ">
+          <ion-card style="background-color: #ffe2e5">
+            <ion-card-header>
+              <ion-icon name="cart" style="background-color: #fa5a7d"></ion-icon>
+              <ion-card-title>Products Clicked</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <h1>{{ productsClicked }}</h1>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card style="background-color: #fff4de">
+            <ion-card-header>
+              <ion-icon name="globe" style="background-color: #ff947a"></ion-icon>
+              <ion-card-title>Website Clicks</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <h1>{{ websiteClicks }}</h1>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card style="background-color: #dcfce7">
+            <ion-card-header>
+              <ion-icon name="heart" style="background-color: #3cd856"></ion-icon>
+              <ion-card-title>Favourited</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <h1>{{ favourited }}</h1>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </ion-card>
+    </div>
+
+    <div class="container">
+      <div class="categoryPercentage-graph">
+        <canvas id="categoryPercentage-chart"></canvas>
+      </div>
+      <div class="product-performance">
+        <canvas id="product-performance-chart"></canvas>
+      </div>
+    </div>
+  </div>
+</ion-content>

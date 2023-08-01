@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { SearchBarModule } from '@shared/components/search-bar/search-bar.module';
 import { ViewSizeModule } from '@shared/directives/view-size/view-size.module';
 import { HttpClientModule } from '@angular/common/http';
-//import { AuthService } from '@app/services/auth/auth.service';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [NavbarComponent],
@@ -28,8 +28,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatMenuModule,
     MatFormFieldModule,
     MatInputModule,
+    IonicModule,
   ],
-  //providers: [AuthService],
   exports: [NavbarComponent],
 })
 export class NavbarModule {}

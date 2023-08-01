@@ -16,15 +16,22 @@ class ProductSeller(models.Model):
     img_array = models.JSONField(max_length=1000, default=list)
     business_name = models.CharField(max_length=100, default="")
     product_name = models.CharField(default="")
+    product_category = models.CharField(default="")
 
     def get_names(self):
         seller = self.seller
-        if seller is not None:
+        product = self.product
+        if seller is not None and product is not None:
             business_name = seller.business_name
-            return business_name
+            product_category = product.category
+            return business_name, product_category
 
         return None
 
+    @property
     def business_name(self):
-        business_name = self.get_names()
-        return business_name
+        return self.get_names()[0] if self.get_names() else None
+
+    @property
+    def product_category(self):
+        return self.get_names()[1] if self.get_names() else None

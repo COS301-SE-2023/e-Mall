@@ -21,6 +21,13 @@ $font_type_3: 400 14px/1.35 "Open Sans", Helvetica, Arial, serif;
 $font_type_4: 400 12px/1.33 "Open Sans", Helvetica, Arial, serif;
 $font_type_5: 600 1em/1.39 "Poppins", Helvetica, Arial, serif;
 
+ion-icon{
+  margin-left: 16rem;
+  width: 30px;
+  height: 30px;
+
+}
+
 .upperNav{
   background-color: $color_type_8 !important;
 }
@@ -337,6 +344,7 @@ background-color: $color_type_8;
   font-size: medium;
   font-weight: bold;
   margin-bottom: 0;
+  color: black;
   //border-left: 2px solid rgb(245,245,245);
   
 }
@@ -394,6 +402,7 @@ background-color: $color_type_8;
 .product-name a {
   transition: color 0.3s ease-in-out; 
   text-decoration: none;
+  color: #37D0D6!important;
   
 }
 
@@ -665,7 +674,6 @@ html {
   border-top: 2px solid #444 ;
  
 }
-
 // .welcomeMsg_logo_footer {
 //   width:100px;
 //   height: 100px;

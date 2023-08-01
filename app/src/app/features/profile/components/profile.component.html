@@ -1,0 +1,4 @@
+<p>profile works!</p>
+<ng-container *ngIf="profile$ | async as profile">
+  <h1>{{ profile.email }}</h1>
+</ng-container>

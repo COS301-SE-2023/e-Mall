@@ -1,0 +1,193 @@
+.side-nav,
+.side-nav ion-list {
+  background-color: white;
+  font-family: 'Poppins',sans-serif;
+}
+
+.side-nav {
+  display: flex;
+  width: 326px;
+//width: 25%;
+//min-height: 1024px;
+//border: 1px solid red;
+height: 88%; 
+box-shadow: 3px 0 3px rgba(0, 0, 0, 0.3);
+
+
+
+padding: 40px 20px 254px 20px;
+flex-direction: column;
+align-items: center;
+//gap: 20px;
+//flex-shrink: 0;
+  z-index: 999;
+}
+
+.side-nav ion-list {
+  display: flex;
+  padding: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.side-nav ion-item {
+  display: flex;
+  width: 252px;
+  height: 64px;
+  padding: 16px 10px;
+  align-items: center;
+  gap: 10px;
+  border-radius: 16px;
+  --ion-background-color: transparent; /* Remove the background color of the item */
+  --ion-item-background-color: transparent; /* Remove the background color of the item */
+  --ion-item-box-shadow: none; /* Remove the box shadow */
+  --ion-item-border-radius: 0; /* Remove the border radius */
+  transition: background-color 0.3s ease; /* Add transition for smooth color change */
+}
+
+
+.side-nav ion-item:hover {
+  background-color: #37d0d6; /* Set the desired background color when hovering */
+  ion-label,ion-icon{
+    color: #FFF;
+  }
+}
+
+ion-title {
+  color: var(--greys-blue-grey-900, #151d48);
+
+  /* 3xl/Semibold */
+  font-family: 'Poppins',sans-serif;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+}
+
+.side-nav ion-item ion-icon,
+.side-nav ion-item ion-label {
+  background-color: transparent; /* Set the background color of the icon and label to transparent */
+}
+.side-nav ion-item ion-icon {
+  width: 30px;
+  height: 40px;
+  flex-shrink: 0;
+}
+.side-nav ion-item ion-label {
+  color: var(--c-1-a, #151515);
+font-family: 'Poppins',sans-serif;
+font-size: 18px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+}
+
+.content-container {
+    display: flex;
+    justify-content: space-between; 
+  }
+  
+
+.side-nav-container {
+    flex: 1; 
+    padding: 20px; 
+    //border: 1px solid green ;
+    max-width: 326px;
+  }
+  
+.ion-content-wrapper {
+    display: flex;
+    //flex-direction: row;
+    //border: 1px solid red ;
+}
+
+
+.profile-info-container {
+    flex: 1;
+    //border: 1px solid blue ;
+    //height: 88%;
+
+    //margin-bottom: 300px;
+    //flex-direction: column;
+    
+    //height: 5000px;
+    width:700px;
+    margin-left: 240px;
+}
+
+.profile-info-container h2{
+  margin-bottom: 30px;
+}
+
+.user-info {
+  display: flex;
+  box-shadow: 0 3px 4px 4px rgba(0, 0, 0, 0.3);
+  height: 300px;
+  margin-bottom: 110px;
+  padding: 50px;
+}
+
+
+.user-circle-container{
+  width: 80px; 
+  height: 80px; 
+  background-color: gray; 
+  border-radius: 50%; 
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  color: white;
+  font-size: 24px;
+}
+
+.user-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+
+}
+
+.user-container p{
+  margin-top: 10px;
+}
+
+.user-circle-container{
+  width: 80px; 
+  height: 80px; 
+  background-color: #37d0d6; 
+  border-radius: 50%; 
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  color: white;
+  font-size: 24px;
+  margin-right: 40px;
+}
+
+.user-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+
+}
+
+.user-details p{
+  font-size: 25px;
+  font-family: 'Poppins',sans-serif;
+}
+
+.edit-button-container ion-icon{
+  margin-right: 10px;
+}
+
+.edit-button-container ion-button{
+  font-family: 'Poppins',sans-serif;
+  height: 40px;
+  --background: #37d0d6;
+}
+
+.edit-button-container{
+  margin-top: 40px;
+}

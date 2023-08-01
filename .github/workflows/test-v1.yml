@@ -81,7 +81,7 @@ jobs:
 
       - name: Frontend unit and integration tests
         working-directory: ./app
-        run: yarn ng test --code-coverage --browsers ChromeHeadless
+        run: yarn ng test --code-coverage --browsers ChromeHeadless --watch=false
 
       - name: Backend tests
         working-directory: api

@@ -1,0 +1,140 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 40px;
+  align-self: stretch;
+  position: relative; 
+}
+
+.content {
+  margin-left: 350px;
+  margin-top: 100px;
+}
+
+.product-graph,
+.table {
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.product-graph {
+  width: 1200px;
+  height: auto;
+  flex-shrink: 0;
+  border-radius: 20px;
+  border: 1px solid #f8f9fa;
+  background: #fff;
+  box-shadow: 0px 4px 20px 0px rgba(238, 238, 238, 0.5);
+}
+
+.table {
+  padding-top: 0px;
+
+  h2 {
+    color: var(--primary-dark-shade, black);
+  }
+
+  .col-title {
+    ion-col {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px;
+}
+
+.date {
+  position: relative;
+  top: 5px;
+ // left: 820px;
+  padding: 10px;
+  /* Add any other styling you need for the date div */
+}
+
+.search-box,
+#date-select {
+  flex: 1; 
+  max-width: 600px; 
+}
+
+.select-box {
+  display: flex;
+  flex:1;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.sort-search-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  gap:50px;
+  min-width: 800px;
+
+}
+
+.sort-searchbar-container {
+  --background: var(--ion-color-tab);
+  width: 100%;
+  --border-radius: 20px;
+  --border-style: solid;
+  --border-width: 1px;
+  height: 100%;
+}
+.searchbar-option-container,
+.sort-searchbar-container {
+  --font-size: var(--searchbar-font-size);
+  font-size: var(--searchbar-font-size);
+}
+
+.search-box {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  --background: var(--ion-color-tab);
+  --box-shadow: 0px;
+  height: 100%;
+}
+.search-bar {
+  width: 50%;
+  height: 100%;
+  min-width: 385px;
+}
+.searchbar-option-container {
+  --background: var(--ion-color-tab);
+  width: 100%;
+  --border-radius: 20px;
+}
+#search-select {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.sort-wrapper {
+ 
+  width: auto;
+  height: 100%;
+}
+
+.paginator-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px; }
