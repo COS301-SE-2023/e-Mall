@@ -20,16 +20,23 @@ jobs:
           echo "${{secrets.APP_ENV_TS}}" > ./app/src/environments/env.ts
           echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
 
+      - name: Install AWS CLI
+        run: |
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip -u awscliv2.zip
+          sudo ./aws/install --update
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-secret-access-key: ${{ secrets.AMP_SECRET_KEY }}
-          aws-access-key-id: ${{ secrets.AMP_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           aws-region: eu-west-2
 
-      - uses: luisgreen/amplify_deployment@main
+      - name: Deploy
+        uses: luisgreen/amplify_deployment@main
         with:
-          appId: "asd8adsjasd9"
-          branchName: "master"
-          artifactPath: "./myapp.zip"
-          region: "eu-west-2"
+          appId: "d1jzsmpriss3vx"
+          branchName: "JY/00/deployment"
+          artifactPath: "dist/app"
+          region: "us-west-2"
