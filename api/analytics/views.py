@@ -1,3 +1,4 @@
+import datetime
 import statistics
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -10,6 +11,13 @@ from rest_framework.permissions import AllowAny
 from datetime import timedelta, timezone
 from django.utils.timezone import now
 from django.db.models import Count, Case, When, Value, Q, IntegerField
+from django.utils.timezone import make_aware
+
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from rest_framework.pagination import PageNumberPagination
+
+
+from django.core.paginator import Paginator, PageNotAnInteger
 
 # Create your views here.
 # Date range options and their corresponding time deltas
@@ -39,7 +47,6 @@ class ProductAnalyticsAPIView(APIView):
             "product_clicks": product_clicks,
             "link_clicks": link_clicks,
             "favourites": favourites,
-
         }
         return Response(response_data)
 
@@ -50,25 +57,48 @@ class AllProductAnalyticsAPIView(APIView):
     def post(self, request):
         seller_name = request.data.get("seller_name")
 
+        # Filter the Analytics data based on the seller_name
         product_clicks = (
-            Analytics.objects.filter(seller=seller_name, event_type="product_click")
+            Analytics.objects.filter(
+                seller=seller_name,
+                event_type="product_click",
+            )
             .values("product")
             .annotate(clicks=Count("id"))
-            .order_by(
-                "-clicks", "product"
-            )  # Sort by clicks in descending order and product name in ascending order
-        )[
-            :10
-        ]  # Get the top ten most clicked products
+            .order_by("-clicks", "product")
+        )
+
+        # Perform searching if a product_name is provided
+        search = request.data.get("search")
+        if search is not None:
+            product_clicks = product_clicks.filter(product__icontains=search)
+        # Perform pagination
+        page = (
+            int(request.data.get("current_page"))
+            if request.data.get("current_page")
+            else 1
+        )
+        per_page = (
+            int(request.data.get("page_size")) if request.data.get("page_size") else 10
+        )
+        print(page)
+        print(per_page)
+        paginator = Paginator(product_clicks, per_page)
+        try:
+            paginated_products = paginator.page(page)
+        except PageNotAnInteger:
+            paginated_products = paginator.page(1)
 
         response_data = []
-        for item in product_clicks:
+        for item in paginated_products:
             product_name = item["product"]
             clicks = item["clicks"]
 
             # Retrieve link_clicks for the current product
             link_clicks = Analytics.objects.filter(
-                seller=seller_name, event_type="link_click", product=product_name
+                seller=seller_name,
+                event_type="link_click",
+                product=product_name,
             ).count()
 
             # Retrieve favourites for the current product
@@ -87,8 +117,18 @@ class AllProductAnalyticsAPIView(APIView):
                     "favourites": favourites,
                 }
             )
-
-        return Response(response_data)
+        # Sort the response data
+        sort = request.data.get("sort")
+        if sort is not None:
+            if sort == "product_name":
+                response_data = sorted(response_data, key=lambda k: k[sort])
+            else:
+                response_data = sorted(
+                    response_data, key=lambda k: k[sort], reverse=True
+                )
+        else:
+            response_data = sorted(response_data, key=lambda k: k["product_name"])
+        return Response({"data": response_data, "total_count": paginator.count})
 
 
 class CreateProductAnalyticsAPIView(APIView):
@@ -142,6 +182,7 @@ class ConversionRateAPIView(APIView):
                             "conversion_rate": conversion_rate,
                         }
                     )
+
         return Response(response_data)
 
 
@@ -182,26 +223,8 @@ class selectedProductsAPIView(APIView):
     def post(self, request):
         seller_name = request.data.get("seller_name")
         product_names = request.data.get("product_names")
-        if request.data.get("date_range"):
-            date_range = request.data.get("date_range")
-        else:
-            date_range = "1_year"
-
-        # Define a dictionary to map date_range options to timedelta values
-        date_range_options = {
-            "1_year": timedelta(days=365),
-            "6_months": timedelta(days=180),
-            "30_days": timedelta(days=30),
-            "7_days": timedelta(days=7),
-            "1_day": timedelta(days=1),
-        }
-
-        # Get the timedelta for the selected date_range
-        date_range_timedelta = date_range_options.get(date_range)
-
-        # Calculate the start date based on the selected date_range
-        end_date = now()
-        start_date = end_date - date_range_timedelta
+        start_date = request.data.get("start_date")
+        end_date = request.data.get("end_date")
 
         # Query the Analytics data for the specified products and date range
         product_clicks = (
@@ -228,5 +251,4 @@ class selectedProductsAPIView(APIView):
                 clicks_by_product[product] = {}
 
             clicks_by_product[product][month] = clicks
-
         return Response(clicks_by_product)
