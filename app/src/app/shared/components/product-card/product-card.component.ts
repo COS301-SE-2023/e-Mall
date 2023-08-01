@@ -22,10 +22,10 @@ export class ProductCardComponent implements OnInit {
     private analytics: AnalyticsService
   ) {}
   ngOnInit(): void {
-    this.isHearted = this.product ? this.profileFacade.checkWishlist(this.product.id) : of(false);
+    this.isHearted = this.profileFacade.checkWishlist(this.product.id);
   
     this.profileFacade.getProfile().subscribe(profile => {
-      if (profile && profile.id) {
+      if (profile) {
         this.consumer_id = profile.id;
       }
     });
@@ -48,17 +48,15 @@ export class ProductCardComponent implements OnInit {
 
     console.log(prod_id);
   }
-  getOneImg(imgList?: string[]): string {
-    // remove the following when no need to have mock data
-    if (!imgList || imgList.length < 1) {
+  getOneImg(imgList?: string[]) {
+    //remove following when no need to have mock data
+    if (!imgList || imgList.length < 1){
       return 'https://www.incredible.co.za/media/catalog/product/cache/7ce9addd40d23ee411c2cc726ad5e7ed/s/c/screenshot_2022-05-03_142633.jpg';
     }
-  
-    // Use optional chaining to access the property safely
-    return this.product?.min_price_discount_rate ? imgList[0] : 'default-image-url.jpg';
+    return imgList[0];
   }
   favClickAnalytics(): void {
-    if (this.product && this.product.min_price_seller_business_name && this.consumer_id) {
+    if (this.product) {
       const data = {
         seller: this.product.min_price_seller_business_name,
         product: this.product.name,
