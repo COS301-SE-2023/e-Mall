@@ -18,6 +18,16 @@
       [(ngModel)]="searchKeyword"
       [debounce]="2000"
       (ionInput)="onSearchInputChange($event)"></ion-searchbar>
+    <select
+      name=""
+      id="date-select"
+      [(ngModel)]="selectedSortOption"
+      (ngModelChange)="onSortOptionChange()">
+      <option value="product_name">Product Name(A-Z)</option>
+      <option value="clicks">Product Clicks</option>
+      <option value="favourites">Favourites</option>
+      <option value="link_clicks">Link Clicks</option>
+    </select>
     <div class="container">
       <div class="table">
         <ion-list lines="full">
@@ -53,7 +63,7 @@
             <div class="mat-paginator">
               <ng-container *ngIf="topProducts$ | async as topProducts">
                 <mat-paginator
-                  [length]="totalSearchCount$ | async"
+                  [length]="this.totalSearchCount$ | async"
                   [pageSizeOptions]="[10, 20, 50, 100]"
                   aria-label="Select page"
                   [pageIndex]="currentPage"
@@ -75,17 +85,6 @@
           <label for="date-select">Select date range:</label>
         </div>
         <div>
-          <!-- <select
-            name=""
-            id="date-select"
-            [(ngModel)]="selectedSortOption"
-            (ngModelChange)="updateDateRange()">
-            <option value="1_day">Day</option>
-            <option value="7_days">Week</option>
-            <option value="30_days">Month</option>
-            <option value="6_months">6 Months</option>
-            <option value="1_year">Year</option>
-          </select> -->
           <label for="start-date">Start Date:</label>
           <input
             type="date"

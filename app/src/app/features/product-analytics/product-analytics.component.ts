@@ -7,6 +7,7 @@ import { Observable, of, Subscription } from 'rxjs';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { PageEvent } from '@angular/material/paginator';
+
 interface ProductData {
   [productName: string]: {
     [month: string]: number;
@@ -47,11 +48,10 @@ export class ProductAnalyticsComponent implements OnInit {
 
   ngOnInit() {
     this.productNames = [];
-    this.selectedSortOption = '1_year';
+    this.selectedSortOption = 'product_name';
     this.profileFacade.getProfile().subscribe(profile => {
       if (profile) {
         if ('business_name' in profile.details) {
-          // console.log(profile.details.business_name);
           this.sellerName = profile.details.business_name;
         }
       }
@@ -60,12 +60,11 @@ export class ProductAnalyticsComponent implements OnInit {
       seller_name: this.sellerName,
       current_page: this.currentPage,
       page_size: this.itemsPerPage,
+      sort: this.selectedSortOption,
     };
     this.analytics.getAllProducts(data).subscribe(data => {
-      console.log('ALLPRODUCTS', data);
       this.productClicksData$ = of(data.data);
-      this.totalSearchCount$ = data['total_count'];
-      console.log('TOTALCOUNT', this.totalSearchCount$);
+      this.totalSearchCount$ = of(data['total_count']);
       this.productClicksData$.subscribe(data => {
         this.topProducts$ = of(data);
         this.table_product_clicks = data.map(
@@ -204,16 +203,16 @@ export class ProductAnalyticsComponent implements OnInit {
   }
   onSearchInputChange(event: any) {
     this.searchKeyword = event.target.value;
-    console.log(this.searchKeyword);
     const data = {
       seller_name: this.sellerName,
       search: this.searchKeyword,
       current_page: this.currentPage,
       page_size: this.itemsPerPage,
+      sort: this.selectedSortOption,
     };
     this.analytics.getAllProducts(data).subscribe(data => {
       this.productClicksData$ = of(data.data);
-      this.totalSearchCount$ = data['total_count'];
+      this.totalSearchCount$ = of(data['total_count']);
       this.productClicksData$.subscribe(data => {
         this.topProducts$ = of(data);
         this.table_product_clicks = data.map(
@@ -235,6 +234,32 @@ export class ProductAnalyticsComponent implements OnInit {
     });
   }
 
+  onSortOptionChange() {
+    const data = {
+      seller_name: this.sellerName,
+      search: this.searchKeyword,
+      current_page: this.currentPage,
+      page_size: this.itemsPerPage,
+      sort: this.selectedSortOption,
+    };
+    this.analytics.getAllProducts(data).subscribe(responseData => {
+      this.productClicksData$ = of(responseData.data);
+      this.totalSearchCount$ = of(responseData.total_count);
+      this.topProducts$ = of(responseData.data);
+      this.table_product_clicks = responseData.data.map(
+        (item: { [x: string]: any }) => item['clicks']
+      );
+      this.table_labels = responseData.data.map(
+        (item: { [x: string]: any }) => item['product_name']
+      );
+      this.table_favourites = responseData.data.map(
+        (item: { [x: string]: any }) => item['favourites']
+      );
+      this.table_link_clicks = responseData.data.map(
+        (item: { [x: string]: any }) => item['link_clicks']
+      );
+    });
+  }
   onPageChange(event: PageEvent) {
     this.currentPage = event.pageIndex;
     this.itemsPerPage = event.pageSize;
@@ -244,8 +269,8 @@ export class ProductAnalyticsComponent implements OnInit {
       search: this.searchKeyword,
       current_page: this.currentPage,
       page_size: this.itemsPerPage,
+      sort: this.selectedSortOption,
     };
-    console.log(data);
     this.analytics.getAllProducts(data).subscribe(responseData => {
       this.productClicksData$ = of(responseData.data);
       this.totalSearchCount$ = of(responseData.total_count);

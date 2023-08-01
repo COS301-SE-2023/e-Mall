@@ -72,12 +72,17 @@ class AllProductAnalyticsAPIView(APIView):
         search = request.data.get("search")
         if search is not None:
             product_clicks = product_clicks.filter(product__icontains=search)
-
         # Perform pagination
-        page = int(request.GET.get("page")) if request.GET.get("page") else 1
-        per_page = (
-            int(request.GET.get("per_page")) if request.GET.get("per_page") else 10
+        page = (
+            int(request.data.get("current_page"))
+            if request.data.get("current_page")
+            else 1
         )
+        per_page = (
+            int(request.data.get("page_size")) if request.data.get("page_size") else 10
+        )
+        print(page)
+        print(per_page)
         paginator = Paginator(product_clicks, per_page)
         try:
             paginated_products = paginator.page(page)
@@ -112,7 +117,17 @@ class AllProductAnalyticsAPIView(APIView):
                     "favourites": favourites,
                 }
             )
-
+        # Sort the response data
+        sort = request.data.get("sort")
+        if sort is not None:
+            if sort == "product_name":
+                response_data = sorted(response_data, key=lambda k: k[sort])
+            else:
+                response_data = sorted(
+                    response_data, key=lambda k: k[sort], reverse=True
+                )
+        else:
+            response_data = sorted(response_data, key=lambda k: k["product_name"])
         return Response({"data": response_data, "total_count": paginator.count})
 
 
@@ -167,6 +182,7 @@ class ConversionRateAPIView(APIView):
                             "conversion_rate": conversion_rate,
                         }
                     )
+
         return Response(response_data)
 
 
