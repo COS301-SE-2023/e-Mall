@@ -3,7 +3,7 @@ name: Deploy to Amazon Amplify
 on:
   push:
     branches:
-      - JY/00/deployment
+      - JY/00/deploymentt
 permissions:
   id-token: write # This is required for requesting the JWT
   contents: read # This is required for actions/checkout
@@ -36,7 +36,7 @@ jobs:
       - name: Deploy
         uses: luisgreen/amplify_deployment@main
         with:
-          appId: "d1jzsmpriss3vx"
-          branchName: "JY/00/deployment"
-          artifactPath: "dist/app"
+          appId: "asd8adsjasd9"
+          branchName: "master"
+          artifactPath: "./myapp.zip"
           region: "us-west-2"

@@ -3,7 +3,7 @@ name: Deploy to Amazon ECS
 on:
   push:
     branches:
-      - JY/00/deployment
+      - JY/00/deploymentt
 permissions:
   id-token: write # This is required for requesting the JWT
   contents: read # This is required for actions/checkout
