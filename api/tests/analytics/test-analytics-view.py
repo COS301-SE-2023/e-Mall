@@ -36,33 +36,65 @@ class ProductAnalyticsAPIViewTestCase(APITestCase):
 
 
 class AllProductAnalyticsAPIViewTestCase(APITestCase):
-    def test_get_top_ten_products_analytics(self):
-        # Create test data
-        seller_name = "TestSeller"
+    def setUp(self):
+        # Create test data for the test seller
+        self.seller_name = "TestSeller"
         for i in range(1, 31):
             product_name = f"TestProduct{i}"
             Analytics.objects.create(
-                seller=seller_name,
+                seller=self.seller_name,
                 product=product_name,
                 event_type="product_click",
                 event_date=now() - timedelta(days=i),
             )
 
+    def test_get_top_ten_products_analytics(self):
         url = reverse("allproductanalytics")
-        response = self.client.post(url, {"seller_name": seller_name})
+        response = self.client.post(url, {"seller_name": self.seller_name})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(
-            len(response.data), 10
+            len(response.data["data"]), 10
         )  # Assuming there are at least 10 products
 
-    def test_get_top_ten_products_analytics_no_data(self):
-        seller_name = "TestSeller"
+    def test_get_top_products_by_search(self):
         url = reverse("allproductanalytics")
-        response = self.client.post(url, {"seller_name": seller_name})
+        response = self.client.post(
+            url, {"seller_name": self.seller_name, "search": "TestProduct1"}
+        )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, [])  # No data should be returned
+        self.assertEqual(len(response.data["data"]), 10)
+        self.assertEqual(response.data["data"][0]["product_name"], "TestProduct1")
+
+    def test_get_top_products_by_sorting(self):
+        url = reverse("allproductanalytics")
+        response = self.client.post(
+            url, {"seller_name": self.seller_name, "sort": "clicks"}
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        sorted_data = sorted(
+            response.data["data"], key=lambda k: k["clicks"], reverse=True
+        )
+        self.assertEqual(response.data["data"], sorted_data)
+
+    def test_get_top_products_with_pagination(self):
+        url = reverse("allproductanalytics")
+        page_size = 5
+        response = self.client.post(
+            url, {"seller_name": self.seller_name, "page_size": page_size}
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data["data"]), page_size)
+
+    def test_get_top_products_no_data(self):
+        url = reverse("allproductanalytics")
+        response = self.client.post(url, {"seller_name": "NonExistentSeller"})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, {"data": [], "total_count": 0})
 
 
 class CreateProductAnalyticsAPIViewTestCase(APITestCase):
