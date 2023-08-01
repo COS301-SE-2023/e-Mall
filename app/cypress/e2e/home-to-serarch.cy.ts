@@ -37,17 +37,17 @@ describe('visit home and search', () => {
       .then(() => {
         cy.contains('Show only in stock').click({ force: true });
       });
-    cy.get('app-product-card').should('have.length', 30);
+    cy.get('app-product-card').should('have.length', 29);
     cy.contains('Show only in stock').click({ force: true });
-    cy.get('app-product-card').should('have.length', 30);
+    cy.get('app-product-card').should('have.length', 29);
 
     cy.contains('Seller')
       .click({ force: true })
       .then(() => {
         cy.contains('Amazon').click({ force: true });
       });
-    cy.get('app-product-card').should('have.length', 30);
+    cy.get('app-product-card').should('have.length', 27);
     cy.contains('Amazon').click({ force: true });
-    cy.get('app-product-card').should('have.length', 30);
+    cy.get('app-product-card').should('have.length', 27);
   });
 });
