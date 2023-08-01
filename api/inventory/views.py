@@ -17,7 +17,6 @@ from decimal import Decimal
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def getProd(request):
-    print('hi')
     try:
         user = request.user
         seller_name = user.username
