@@ -26,9 +26,9 @@ export class DropdownPopoverComponent implements OnInit {
   ];
 
   sel_pages = [
-    { title: 'Amazon', path: '/seller-details', nav: '36cc45f7-82ce-45b5-b56d-98683c0e06bf' },
-    { title: 'Makro', path: '/seller-details', nav: '7d48c8ab-d272-4ee3-82ce-fe7b8966e9fa' },
-    { title: 'Takealot', path: '/seller-details', nav: 'a3d5eea7-f2d1-42bb-8f60-4c000af7f6b0' },
+    { title: 'Amazon', path: 'seller-details', nav: '36cc45f7-82ce-45b5-b56d-98683c0e06bf' },
+    { title: 'Makro', path: 'seller-details', nav: '7d48c8ab-d272-4ee3-82ce-fe7b8966e9fa' },
+    { title: 'Takealot', path: 'seller-details', nav: 'a3d5eea7-f2d1-42bb-8f60-4c000af7f6b0' },
     { title: 'Become a seller', path: '/register', nav: '' }
   ];
   pages = [{ title: '', path: '', nav: '' }];
@@ -47,16 +47,15 @@ export class DropdownPopoverComponent implements OnInit {
   async onItemClicked(path: string,nav:string) {
     await this.popoverController.dismiss();
     // Redirect to the selected page using the provided path
-    if (this.parameterData === 'Cat') {
+    if (this.parameterData === 'Cat'||path==='/register') {
       this.router.navigate([path]);
-    } else {
-      if(path==='/register'){
-        this.router.navigate([path]);
-      }else{
+    } else{
       const navigationextras: NavigationExtras = {
         queryParams: { seller_id: nav },
+
       };
+      console.log(nav)
       this.router.navigate([path], navigationextras);
-    }}
+    }
   }
 }

@@ -1,87 +1,111 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { TestBed, fakeAsync } from '@angular/core/testing';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
-import { ProfileService } from '../services/profile.service';
-import { ISellerProfile } from '../models/seller-profile.interface';
-import { ProfileModule } from '../profile.module';
-import { NgxsModule } from '@ngxs/store';
-import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+import { ProfileService } from '@features/profile/services/profile.service';
 import { Profile } from '../models/alias-profile.interface';
 
 describe('ProfileService', () => {
-  let service: ProfileService;
+  let profileService: ProfileService;
   let httpMock: HttpTestingController;
-  let mockSellerProfile: ISellerProfile;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        ProfileModule,
-        NgxsModule.forRoot([]),
-        NgxsDispatchPluginModule,
-        HttpClientTestingModule,
-      ],
+      imports: [HttpClientTestingModule],
       providers: [ProfileService],
     });
-    service = TestBed.inject(ProfileService);
+    profileService = TestBed.inject(ProfileService);
     httpMock = TestBed.inject(HttpTestingController);
-    mockSellerProfile = {
-      id: '',
-      email: '',
-      type: '',
-      details: {
-        reg_no: undefined,
-        business_name: undefined,
-        business_type: undefined,
-        catalogue_size: undefined,
-        business_category: undefined,
-        status: undefined,
-        is_verified: undefined,
-        website: undefined,
-        feed_url: undefined,
-        created_at: undefined,
-        modified_at: undefined,
-        last_login: undefined,
-      },
-    };
   });
+
   afterEach(() => {
+    // Ensure there are no outstanding HTTP requests.
     httpMock.verify();
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(profileService).toBeTruthy();
   });
 
-  it('should get profile', fakeAsync(() => {
-    service.getProfile().then(result => {
-      expect(result).toEqual(mockSellerProfile);
-    });
-
-    const req = httpMock.expectOne(req => {
-      return req.url.endsWith('/api/profile/get/');
-    });
-    expect(req.request.method).toBe('POST');
-    req.flush(mockSellerProfile);
-  }));
-
-  it('should update profile', () => {
+  it('should make a POST request to getProfile()', () => {
+    // Mock response data
     const mockProfile: Profile = {
       id: '1',
-      email: 'test@example.com',
-      type: 'consumer',
-      details: {},
+      email:'mock@gmail.com',
+      type:'type1',
+      details:{}
     };
 
-    service.updateProfile(mockProfile).then(profile => {
-      expect(profile).toEqual(mockProfile);
+    // Make the API call
+    profileService.getProfile().then((result) => {
+      expect(result).toEqual(mockProfile);
     });
 
+    // Set up the expected request
+    const req = httpMock.expectOne('/api/profile/get/');
+    expect(req.request.method).toBe('POST');
+
+    // Provide the mock response data
+    req.flush(mockProfile);
+  });
+
+  it('should make a POST request to updateProfile()', () => {
+    // Mock request data
+    const mockData: any = {
+      /* ... Define your mock data here ... */
+    };
+
+    // Mock response data
+    const mockProfile: Profile = {
+      id: '1',
+      email:'mock@gmail.com',
+      type:'type1',
+      details:{}
+    };
+
+    // Make the API call
+    profileService.updateProfile(mockData).then((result) => {
+      expect(result).toEqual(mockProfile);
+    });
+
+    // Set up the expected request
     const req = httpMock.expectOne('/api/profile/update/');
     expect(req.request.method).toBe('POST');
+
+    // Provide the mock response data
     req.flush(mockProfile);
+  });
+
+  it('should make a POST request to toggleWishlist()', () => {
+    // Mock request data
+    const prod_id = 123;
+
+    // Make the API call
+    profileService.toggleWishlist(prod_id).then(() => {
+      // No need to check the response for this method.
+    });
+
+    // Set up the expected request
+    const req = httpMock.expectOne('/api/profile/updateWishlist/');
+    expect(req.request.method).toBe('POST');
+
+    // Provide an empty response to complete the request
+    req.flush(null);
+  });
+
+  it('should make a POST request to toggleFollowSeller()', () => {
+    // Mock request data
+    const seller_name = 'Seller Name';
+
+    // Make the API call
+    profileService.toggleFollowSeller(seller_name).then(() => {
+      // No need to check the response for this method.
+    });
+
+    // Set up the expected request
+    const req = httpMock.expectOne('/api/profile/updateFollowedSellers/');
+    expect(req.request.method).toBe('POST');
+
+    // Provide an empty response to complete the request
+    req.flush(null);
   });
 });

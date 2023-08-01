@@ -12,8 +12,9 @@ import { IProduct } from '@shared/models/product/product.interface';
 import { Observable, Subscription, of } from 'rxjs';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 
-import { register } from 'swiper/element/bundle';
-register();
+
+//import { register } from 'swiper/element/bundle';
+//register();
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

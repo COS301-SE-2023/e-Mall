@@ -252,4 +252,94 @@ describe('ProductComponent', () => {
     expect(productService.getSellerList).toHaveBeenCalledWith(1, 'true');
   });
   
+
+    it('should call linkClickAnalytics with correct data when calling linkClickAnalytics(seller_name)', () => {
+      // Arrange
+      const mockProduct: IProduct = {
+        id: 1,
+        min_price_img_array: ['image1.jpg', 'image2.jpg'],
+        name: 'Product 1',
+        description: 'Description 1',
+        brand: 'Brand 1',
+        category: 'Category 1',
+        min_price: 10,
+        min_price_seller_id: 'seller1',
+        min_price_seller_product_url: 'seller1.com/product1',
+        min_price_seller_business_name: 'Seller 1',
+        min_price_in_stock: true,
+        min_price_discount: 5,
+        min_price_discount_rate: 0.5,
+        min_price_original_price: 20,
+        created_at: '2023-06-01',
+        updated_at: '2023-06-02',
+      };
+      component.product$ = of(mockProduct);
+      spyOn(component, 'linkClickAnalytics').and.callThrough();
+  
+      // Act
+      component.linkClickAnalytics('Seller 1');
+  
+      // Assert
+      expect(component.linkClickAnalytics).toHaveBeenCalledWith('Seller 1');
+      expect(analyticsService.createAnalyticsData).toHaveBeenCalledWith({
+        seller: 'Seller 1',
+        product: mockProduct.name,
+        product_category: mockProduct.category,
+        consumer_id: component.consumer_id,
+        event_type: 'link_click',
+        metadata: null,
+      });
+    });
+  
+    it('should return the first image from imgList when calling getOneImg(imgList)', () => {
+      // Arrange
+      const imgList = ['image1.jpg', 'image2.jpg'];
+  
+      // Act
+      const result = component.getOneImg(imgList);
+  
+      // Assert
+      expect(result).toEqual('image1.jpg');
+    });
+  
+    it('should scroll to the element when calling scroll(el)', () => {
+      // Arrange
+      const el = document.createElement('div');
+      spyOn(window, 'scrollTo');
+  
+      // Act
+      component.scroll(el);
+  
+      // Assert
+      expect(window.scrollTo).toHaveBeenCalled();
+    });
+  
+    it('should set selectedImage when calling selectImage(image)', () => {
+      // Arrange
+      const image = 'selectedImage.jpg';
+  
+      // Act
+      component.selectImage(image);
+  
+      // Assert
+      expect(component.selectedImage).toEqual(image);
+    });
+  
+    it('should navigate to seller-details page with seller_id parameter when calling goToSellerPage(seller_id)', () => {
+      // Arrange
+      spyOn(router, 'navigate');
+  
+      // Act
+      component.goToSellerPage('seller1');
+  
+      // Assert
+      const navigationExtras = { queryParams: { seller_id: 'seller1' } };
+      expect(router.navigate).toHaveBeenCalledWith(
+        ['seller-details'],
+        navigationExtras
+      );
+    });
+  
+  
+
 });
