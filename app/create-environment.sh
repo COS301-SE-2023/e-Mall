@@ -8,7 +8,7 @@ API_URL=$apiUrl
 
 # Create environment file content
 ENVIRONMENT_FILE_CONTENT="export const environment = {
-  production: '$PRODUCTION',
+  production: false,
   cognito: {
     userPoolId: '$USER_POOL_ID',
     userPoolWebClientId: '$USER_POOL_WEB_CLIENT_ID',
