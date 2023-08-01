@@ -15,6 +15,7 @@ import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module
     IonicModule,
     SellerNavModule,
     FormsModule,
+    MatPaginatorModule,
   ],
   exports: [ProductAnalyticsComponent],
 })
