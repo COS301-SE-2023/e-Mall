@@ -5,6 +5,8 @@ import { ProductService } from '@shared/servicies/product/product.service';
 import { IProduct } from '@shared/models/product/product.interface';
 import { Observable } from 'rxjs';
 
+//import { register } from 'swiper/element/bundle';
+//register();
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
