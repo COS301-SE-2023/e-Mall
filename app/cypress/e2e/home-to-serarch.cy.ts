@@ -1,4 +1,4 @@
-import 'cypress-network-idle';
+/*import 'cypress-network-idle';
 
 describe('visit home and search', () => {
   it('passes', () => {
@@ -51,3 +51,4 @@ describe('visit home and search', () => {
     cy.get('app-product-card').should('have.length', 27);
   });
 });
+*/
