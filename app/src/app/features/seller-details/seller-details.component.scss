@@ -1,5 +1,7 @@
 .details-container {
   display: flex;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
 .image {
@@ -22,14 +24,16 @@
   margin-left: 1.5rem;
 }
 
-.divider {
-  width: 80rem;
-}
-
 .button-container {
   display: flex;
+  position: absolute;
   align-items: center;
-  margin-left: 65rem;
+  right:0;
+  padding-right: 100px;
+}
+
+.divider {
+  width: 100%;
 }
 
 .titleverified-container {
@@ -49,11 +53,13 @@
 }
 
 .social-container {
-  margin-left: 82rem;
+  position:absolute;
+  right: 0;
+  padding-right: 100px;
 }
 
 .products-container {
-  padding: 30px;
+  padding: 100px;
   background: var(--c-1-white, #f7f9f9);
 }
 
@@ -67,7 +73,7 @@ mat-paginator {
   padding: 20px;
   height: 100%;
   font-size: 20px;
-  margin-left: 32rem;
+  margin-left: 41rem;
 }
 .sort-condition select {
   width: 100%;
@@ -83,7 +89,7 @@ mat-paginator {
 
 .row {
   justify-items: center;
-  margin-left: 3rem;
+  margin-left: 4rem;
 }
 
 .filter-menu {
@@ -127,6 +133,10 @@ ion-searchbar {
   height: 100%;
   min-width: 385px;
   --border-radius: 45px;
+}
+
+mat-paginator{
+  margin-bottom: 1rem;
 }
 
 app-footer {

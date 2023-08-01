@@ -77,6 +77,15 @@ def register(request):
     request.data["username"] = Faker().user_name()[:15]
     request.data["reg_no"] = Faker().bothify("##############")
     request.data["business_name"] = Faker().company()
+    request.data["support_email"] = Faker().email()
+    request.data["landline_number"] = Faker().bothify("##########")
+    request.data["address"] = Faker().address()
+    request.data["city"] = Faker().city()
+    request.data["postal_code"] = Faker().bothify("####")
+    request.data["logo"] = Faker().image_url()
+    request.data["instagram_link"] = Faker().url()
+    request.data["facebook_link"] = Faker().url()
+    request.data["twitter_link"] = Faker().url()
     serializer = SellerSerializer(data=request.data)
     if not serializer.is_valid():
         for field, error in serializer.errors.items():

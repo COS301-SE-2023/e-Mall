@@ -39,6 +39,7 @@ import { NavbarPopupModule } from '@shared/components/navbar-popup/navbar-popup.
 import { EditCustomerProfileModule } from '@features/edit-customer-profile/edit-customer-profile.module';
 @NgModule({
   declarations: [AppComponent],
+
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -75,7 +76,7 @@ import { EditCustomerProfileModule } from '@features/edit-customer-profile/edit-
     CustomerProfileModule,
     WishlistModule,
     NavbarPopupModule,
-    EditCustomerProfileModule ,
+    EditCustomerProfileModule,
     // FooterModule,
     // NavbarModule,
     // AboutModule,

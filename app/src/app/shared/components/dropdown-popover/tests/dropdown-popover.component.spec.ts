@@ -3,6 +3,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule, PopoverController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { DropdownPopoverComponent } from '@shared/components/dropdown-popover/dropdown-popover.component';
+import { Observable, of } from 'rxjs';
+import { IProductSeller } from '@shared/models/product/product-seller.interface';
 
 describe('DropdownPopoverComponent', () => {
   let component: DropdownPopoverComponent;
@@ -38,22 +40,28 @@ describe('DropdownPopoverComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should set the pages array based on parameterData value in ngOnInit', () => {
+    
+    component.parameterData = 'Cat';
+
+    component.ngOnInit();
+
+    expect(component.pages).toEqual(component.cat_pages);
+  });
+
   it('should dismiss the popover and navigate to the selected page on item click', async () => {
     const pathToNavigate = '/category/Electronics';
     const itemClickSpy = spyOn(component, 'onItemClicked').and.callThrough();
-    const nav='';
+    const nav = '';
 
-    // Call the method under test
-    await component.onItemClicked(pathToNavigate,nav);
+    component.parameterData = 'Cat';
+    component.ngOnInit();
 
-    // Expect the popover to be dismissed
+    await component.onItemClicked(pathToNavigate, nav);
+
     expect(popoverControllerSpy.dismiss).toHaveBeenCalledTimes(1);
-
-    // Expect the router to be navigated to the selected page
-    /*expect(routerSpy.navigate).toHaveBeenCalledWith([pathToNavigate],Object({ queryParams: Object({ seller_id: '' }) }));
-
-    // Expect the onItemClicked method to have been called
-    expect(itemClickSpy).toHaveBeenCalledTimes(2);
-    expect(itemClickSpy).toHaveBeenCalledWith(pathToNavigate,nav);*/
+    expect(routerSpy.navigate).toHaveBeenCalledWith([pathToNavigate]);
+    expect(itemClickSpy).toHaveBeenCalledTimes(1);
+    expect(itemClickSpy).toHaveBeenCalledWith(pathToNavigate, nav);
   });
 });

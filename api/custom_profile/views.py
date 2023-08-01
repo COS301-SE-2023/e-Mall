@@ -98,3 +98,28 @@ def updateFollowedSellers(request):
     except Exception as e:
         # handle other exceptions here
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(["POST"])
+def get_followed_seller_details(request):
+    try:
+        user = request.user
+        if user is None:
+            raise Exception("User not found")
+        if user.type == "consumer":
+            followed_seller = []
+            if user.followed_sellers is not None and len(user.followed_sellers) > 0:
+                followed_seller = Seller.objects.filter(
+                    business_name__in=user.followed_sellers
+                )
+                res = [
+                    {"id": seller.id, "name": seller.business_name, "logo": seller.logo}
+                    for seller in followed_seller
+                ]
+                return Response(res)
+
+        else:
+            raise Exception("User is seller")
+    except Exception as e:
+        # handle other exceptions here
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
