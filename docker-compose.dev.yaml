@@ -4,8 +4,6 @@ services:
     build:
       context: ./api
 
-      dockerfile: ./Dockerfile.dev
-
     env_file:
       - api/api/.env
     ports:

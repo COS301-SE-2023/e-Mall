@@ -94,7 +94,7 @@ jobs:
           fi
       - name: Run docker compose up
         run: |
-          chmod +x api/docker-entrypoint.sh && docker-compose -f docker-compose.dev.yaml up -d
+          chmod +x api/docker-entrypoint.sh && docker-compose up -d
 
       - name: Backend tests
         working-directory: api
@@ -210,7 +210,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Start django
-        run: chmod +x api/docker-entrypoint.sh && docker-compose -f docker-compose.dev.yaml up -d &
+        run: chmod +x api/docker-entrypoint.sh && docker-compose up -d &
 
       - name: Start angular
         working-directory: ./app
