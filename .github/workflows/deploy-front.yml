@@ -1,5 +1,4 @@
 name: Deploy to Amazon Amplify
-
 on:
   push:
     branches:
