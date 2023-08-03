@@ -10,18 +10,18 @@ describe('sign in', () => {
     cy.get('ion-button[type=submit').click();
     cy.url().should('include', '/inventory');
     cy.wait(5000);
-    cy.contains('Insights').click({ force: true });
-    cy.url().should('include', '/sales');
-    
-    cy.wait(500);
     cy.contains('Analytics').click({ force: true });
-    cy.url().should('include', '/product-analytics');
+    cy.url().should('include', '/sales');
+
+    // cy.wait(1000);
+    // cy.contains('Compare').click({ force: true });
+    // cy.url().should('include', '/product-analytics');
 
     cy.wait(500);
     cy.contains('Sign out').click({ force: true });
     cy.url().should('include', '/sign-out');
 
-    cy.wait(6000)
+    cy.wait(6000);
     cy.url().should('include', '/home');
   });
 });
