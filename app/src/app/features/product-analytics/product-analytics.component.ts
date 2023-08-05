@@ -33,7 +33,8 @@ export class ProductAnalyticsComponent implements OnInit {
   productData: ProductData = {};
   selectedSortOption!: string;
   selectedPeriodOption!: string;
-  startDate = '10/03/2023';
+  startDate = '2023-03-10';
+  begninningDate = '2023-03-10';
   endDate: string = new Date().toISOString().split('T')[0]; // Set the default end date to the current date
   currentDate = new Date().toISOString().split('T')[0];
   searchKeyword!: string;
@@ -297,6 +298,7 @@ export class ProductAnalyticsComponent implements OnInit {
       product_names: this.productNames,
       period: this.selectedPeriodOption,
       start_date: this.startDate,
+      end_date: this.endDate,
     };
 
     const data1 = this.analytics.getSelectedProductData(data);

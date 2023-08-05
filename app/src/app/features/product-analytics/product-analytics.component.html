@@ -90,21 +90,31 @@
     </div>
     <div class="container">
       <div class="date">
-        <!-- <div>
+        <div>
           <label for="date-select">Select date range:</label>
         </div>
         <div>
           <label for="start-date">Start Date:</label>
-          <input type="date" id="start-date" name="start-date" [(ngModel)]="startDate"
-            (ngModelChange)="updateDateRange()" />
+          <input
+            type="date"
+            id="start-date"
+            name="start-date"
+            [(ngModel)]="startDate"
+            [min]="begninningDate"
+            (ngModelChange)="onPeriodOptionChange()" />
 
           <label for="end-date">End Date:</label>
-          <input type="date" id="end-date" name="end-date" [(ngModel)]="endDate" (ngModelChange)="updateDateRange()"
+          <input
+            type="date"
+            id="end-date"
+            name="end-date"
+            [(ngModel)]="endDate"
+            (ngModelChange)="onPeriodOptionChange()"
             [max]="currentDate" />
-        </div> -->
+        </div>
         <div>
           <button class="dropdownbtn">
-            <mat-label>Sort Options</mat-label>
+            <mat-label>Period Options</mat-label>
             <mat-select
               [(value)]="selectedSortOption"
               (selectionChange)="onPeriodOptionChange()"

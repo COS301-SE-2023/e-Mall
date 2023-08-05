@@ -206,42 +206,48 @@ class categoryPercentageAPIView(APIView):
         return Response(response_data)
 
 
-
-
 class selectedProductsAPIView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
         seller_name = request.data.get("seller_name")
         product_names = request.data.get("product_names")
+        start_date_str = request.data.get("start_date")
+        end_date_str = request.data.get("end_date")
         period = request.data.get("period")
 
-        end_date = datetime.now()
+        # Parse start_date and end_date from strings
+        if start_date_str:
+            start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
+        else:
+            start_date = datetime.strptime("2023-03-10", "%Y-%m-%d")
+
+        if end_date_str:
+            end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
+        else:
+            end_date = datetime.now()
+
+        # Apply the specified period (if provided)
         if period == "1_day":
-            start_date = end_date - timedelta(days=1)
-            date_format = "%Y-%m-%d %H:%M:%S"
+            date_format = "%H:%M:%S"
             trunc_unit = TruncHour("event_date")
         elif period == "7_days":
-            start_date = end_date - timedelta(days=7)
             date_format = "%Y-%m-%d"
             trunc_unit = TruncDay("event_date")
         elif period == "30_days":
-            start_date = end_date - timedelta(days=30)
             date_format = "%Y-%m-%d"
             trunc_unit = TruncDay("event_date")
         elif period == "6_months":
-            start_date = end_date - timedelta(days=180)
-            date_format = "%Y-%m-%d"
+            date_format = "%Y-%m"
             trunc_unit = TruncMonth("event_date")
         elif period == "1_year":
-            start_date = end_date - timedelta(days=365)
-            date_format = "%Y-%m-%d"
+            date_format = "%Y-%m"
             trunc_unit = TruncMonth("event_date")
         else:
             # Handle invalid period option here (optional)
             return Response({"error": "Invalid period option."})
 
-        # Query the Analytics data for the specified products and period
+        # Query the Analytics data for the specified products and date range
         product_clicks = (
             Analytics.objects.filter(
                 seller=seller_name,
@@ -259,12 +265,19 @@ class selectedProductsAPIView(APIView):
         clicks_by_product = {}
         for item in product_clicks:
             product = item["product"]
-            interval = item["interval"].strftime(date_format)
+            interval = item["interval"]
             clicks = item["clicks"]
+
+            if period == "1_day":
+                interval = interval.strftime(date_format)
+            else:
+                interval = interval.date().strftime(date_format)
 
             if product not in clicks_by_product:
                 clicks_by_product[product] = {}
 
             clicks_by_product[product][interval] = clicks
-        return Response(clicks_by_product)
 
+        sorted_clicks_by_product = dict(sorted(clicks_by_product.items(), reverse=True))
+
+        return Response(sorted_clicks_by_product)
