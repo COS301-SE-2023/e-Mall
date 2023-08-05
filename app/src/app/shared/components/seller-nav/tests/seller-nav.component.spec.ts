@@ -69,9 +69,9 @@ describe('SellerNavComponent', () => {
       const productsLabel = productsItem.querySelector('ion-label').textContent;
       const analticsLabel = analyticsItem.querySelector('ion-label').textContent;
       const signOutLabel = signOutItem.querySelector('ion-label').textContent;
-      expect(salesLabel).toBe('Insights');
+      expect(salesLabel).toBe('Analytics');
       expect(productsLabel).toBe('Products');
-      expect(analticsLabel).toBe('Analytics');
+      expect(analticsLabel).toBe('Compare');
       expect(signOutLabel).toBe('Sign out');
     });
   }));
