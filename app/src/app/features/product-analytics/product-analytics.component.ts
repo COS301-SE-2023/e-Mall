@@ -32,7 +32,8 @@ export class ProductAnalyticsComponent implements OnInit {
   objCount = 0;
   productData: ProductData = {};
   selectedSortOption!: string;
-  startDate = '2023-03-10';
+  selectedPeriodOption!: string;
+  startDate = '10/03/2023';
   endDate: string = new Date().toISOString().split('T')[0]; // Set the default end date to the current date
   currentDate = new Date().toISOString().split('T')[0];
   searchKeyword!: string;
@@ -49,6 +50,7 @@ export class ProductAnalyticsComponent implements OnInit {
   ngOnInit() {
     this.productNames = [];
     this.selectedSortOption = 'product_name';
+    this.selectedPeriodOption = '30_days';
     this.profileFacade.getProfile().subscribe(profile => {
       if (profile) {
         if ('business_name' in profile.details) {
@@ -176,8 +178,8 @@ export class ProductAnalyticsComponent implements OnInit {
     const data = {
       seller_name: this.sellerName,
       product_names: this.productNames,
+      period: this.selectedPeriodOption,
       start_date: this.startDate,
-      end_date: this.endDate,
     };
 
     const data1 = this.analytics.getSelectedProductData(data);
@@ -287,6 +289,20 @@ export class ProductAnalyticsComponent implements OnInit {
       this.table_link_clicks = responseData.data.map(
         (item: { [x: string]: any }) => item['link_clicks']
       );
+    });
+  }
+  onPeriodOptionChange() {
+    const data = {
+      seller_name: this.sellerName,
+      product_names: this.productNames,
+      period: this.selectedPeriodOption,
+      start_date: this.startDate,
+    };
+
+    const data1 = this.analytics.getSelectedProductData(data);
+    data1.subscribe(data => {
+      this.productData = data;
+      this.createProductClicksChart();
     });
   }
 }

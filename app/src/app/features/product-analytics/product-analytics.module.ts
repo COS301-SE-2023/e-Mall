@@ -6,6 +6,7 @@ import { ProductAnalyticsComponent } from './product-analytics.component';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [ProductAnalyticsComponent],
@@ -16,6 +17,7 @@ import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module
     SellerNavModule,
     FormsModule,
     MatPaginatorModule,
+    MatSelectModule,
   ],
   exports: [ProductAnalyticsComponent],
 })

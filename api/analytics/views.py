@@ -1,23 +1,12 @@
-import datetime
-import statistics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Analytics
-from django.http import JsonResponse
-from django.db.models.functions import TruncMonth
-from django.db.models import Q
 from django.db.models import Count
 from rest_framework.permissions import AllowAny
-from datetime import timedelta, timezone
 from django.utils.timezone import now
-from django.db.models import Count, Case, When, Value, Q, IntegerField
-from django.utils.timezone import make_aware
-
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from rest_framework.pagination import PageNumberPagination
-
-
-from django.core.paginator import Paginator, PageNotAnInteger
+from datetime import datetime, timedelta
+from django.db.models.functions import TruncHour, TruncDay, TruncMonth
 
 # Create your views here.
 # Date range options and their corresponding time deltas
@@ -217,16 +206,42 @@ class categoryPercentageAPIView(APIView):
         return Response(response_data)
 
 
+
+
 class selectedProductsAPIView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
         seller_name = request.data.get("seller_name")
         product_names = request.data.get("product_names")
-        start_date = request.data.get("start_date")
-        end_date = request.data.get("end_date")
+        period = request.data.get("period")
 
-        # Query the Analytics data for the specified products and date range
+        end_date = datetime.now()
+        if period == "1_day":
+            start_date = end_date - timedelta(days=1)
+            date_format = "%Y-%m-%d %H:%M:%S"
+            trunc_unit = TruncHour("event_date")
+        elif period == "7_days":
+            start_date = end_date - timedelta(days=7)
+            date_format = "%Y-%m-%d"
+            trunc_unit = TruncDay("event_date")
+        elif period == "30_days":
+            start_date = end_date - timedelta(days=30)
+            date_format = "%Y-%m-%d"
+            trunc_unit = TruncDay("event_date")
+        elif period == "6_months":
+            start_date = end_date - timedelta(days=180)
+            date_format = "%Y-%m-%d"
+            trunc_unit = TruncMonth("event_date")
+        elif period == "1_year":
+            start_date = end_date - timedelta(days=365)
+            date_format = "%Y-%m-%d"
+            trunc_unit = TruncMonth("event_date")
+        else:
+            # Handle invalid period option here (optional)
+            return Response({"error": "Invalid period option."})
+
+        # Query the Analytics data for the specified products and period
         product_clicks = (
             Analytics.objects.filter(
                 seller=seller_name,
@@ -234,21 +249,22 @@ class selectedProductsAPIView(APIView):
                 product__in=product_names,
                 event_date__range=[start_date, end_date],
             )
-            .annotate(month=TruncMonth("event_date"))
-            .values("product", "month")
+            .annotate(interval=trunc_unit)
+            .values("product", "interval")
             .annotate(clicks=Count("id"))
-            .order_by("product", "month")
+            .order_by("product", "interval")
         )
 
-        # Group the clicks by product and month
+        # Group the clicks by product and interval (hour, day, month)
         clicks_by_product = {}
         for item in product_clicks:
             product = item["product"]
-            month = item["month"].strftime("%Y-%m")
+            interval = item["interval"].strftime(date_format)
             clicks = item["clicks"]
 
             if product not in clicks_by_product:
                 clicks_by_product[product] = {}
 
-            clicks_by_product[product][month] = clicks
+            clicks_by_product[product][interval] = clicks
         return Response(clicks_by_product)
+
