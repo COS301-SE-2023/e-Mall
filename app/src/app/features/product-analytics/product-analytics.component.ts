@@ -51,7 +51,7 @@ export class ProductAnalyticsComponent implements OnInit {
   ngOnInit() {
     this.productNames = [];
     this.selectedSortOption = 'product_name';
-    this.selectedPeriodOption = '1_day';
+    this.selectedPeriodOption = '30_days';
     this.profileFacade.getProfile().subscribe(profile => {
       if (profile) {
         if ('business_name' in profile.details) {
@@ -134,7 +134,7 @@ export class ProductAnalyticsComponent implements OnInit {
           x: {
             title: {
               display: true,
-              text: 'Date',
+              text: 'Date/time',
             },
           },
           y: {
