@@ -32,7 +32,7 @@ export class ProductAnalyticsComponent implements OnInit {
   objCount = 0;
   productData: ProductData = {};
   selectedSortOption!: string;
-  selectedPeriodOption!: string;
+  selectedPeriodOption = '6_months';
   startDate = '2023-03-10';
   begninningDate = '2023-03-10';
   endDate: string = new Date().toISOString().split('T')[0]; // Set the default end date to the current date
@@ -51,7 +51,6 @@ export class ProductAnalyticsComponent implements OnInit {
   ngOnInit() {
     this.productNames = [];
     this.selectedSortOption = 'product_name';
-    this.selectedPeriodOption = '1_day';
     this.profileFacade.getProfile().subscribe(profile => {
       if (profile) {
         if ('business_name' in profile.details) {
@@ -99,7 +98,6 @@ export class ProductAnalyticsComponent implements OnInit {
       'product-clicks-chart'
     ) as HTMLCanvasElement;
 
- 
     if (Object.keys(this.productData).length === 0) {
       return;
     }
@@ -293,11 +291,11 @@ export class ProductAnalyticsComponent implements OnInit {
       );
     });
   }
-  onPeriodOptionChange(period:string) {
+  onPeriodOptionChange(period: string) {
     if (period) {
-      this.selectedPeriodOption=period;
+      this.selectedPeriodOption = period;
     }
-    console.log("Selected Period:", period);
+    console.log('Selected Period:', period);
     const data = {
       seller_name: this.sellerName,
       product_names: this.productNames,

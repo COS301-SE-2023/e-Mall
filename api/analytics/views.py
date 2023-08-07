@@ -6,7 +6,15 @@ from rest_framework.permissions import AllowAny
 from django.utils.timezone import now
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from datetime import datetime, timedelta
-from django.db.models.functions import TruncHour, TruncDay, TruncMonth
+from django.db.models.functions import (
+    TruncHour,
+    TruncDay,
+    TruncMonth,
+    TruncYear,
+    TruncMinute,
+    TruncSecond,
+    TruncWeek,
+)
 
 # Create your views here.
 # Date range options and their corresponding time deltas
@@ -232,17 +240,17 @@ class selectedProductsAPIView(APIView):
             date_format = "%H:%M:%S"
             trunc_unit = TruncHour("event_date")
         elif period == "7_days":
-            date_format = "%Y-%m-%d"
-            trunc_unit = TruncDay("event_date")
+            date_format = "%A"  # Only the day of the week
+            trunc_unit = TruncWeek("event_date")
         elif period == "30_days":
-            date_format = "%Y-%m-%d"
+            date_format = "%d"  # Only the day of the month
             trunc_unit = TruncDay("event_date")
         elif period == "6_months":
-            date_format = "%Y-%m"
+            date_format = "%B"  # Only the full month name
             trunc_unit = TruncMonth("event_date")
         elif period == "1_year":
-            date_format = "%Y-%m"
-            trunc_unit = TruncMonth("event_date")
+            date_format = "%Y"  # Only the year
+            trunc_unit = TruncYear("event_date")
         else:
             # Handle invalid period option here (optional)
             return Response({"error": "Invalid period option."})
@@ -261,22 +269,19 @@ class selectedProductsAPIView(APIView):
             .order_by("product", "interval")
         )
 
-        # Group the clicks by product and interval (hour, day, month)
+        # Group the clicks by product and interval (hour, day, week, month, year)
         clicks_by_product = {}
         for item in product_clicks:
             product = item["product"]
             interval = item["interval"]
             clicks = item["clicks"]
 
-            if period == "1_day":
-                interval = interval.strftime(date_format)
-            else:
-                interval = interval.date().strftime(date_format)
+            interval_str = interval.strftime(date_format)
 
             if product not in clicks_by_product:
                 clicks_by_product[product] = {}
 
-            clicks_by_product[product][interval] = clicks
+            clicks_by_product[product][interval_str] = clicks
 
         sorted_clicks_by_product = dict(sorted(clicks_by_product.items(), reverse=True))
 
