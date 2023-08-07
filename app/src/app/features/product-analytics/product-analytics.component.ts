@@ -132,7 +132,7 @@ export class ProductAnalyticsComponent implements OnInit {
           x: {
             title: {
               display: true,
-              text: 'Date',
+              text: 'Date/time',
             },
           },
           y: {
