@@ -73,12 +73,12 @@ export class ProfileFacade implements OnDestroy {
   }
   @Dispatch()
   setError(error: any) {
-    return new SetError('profile', error as IError);
+    return [new SetError('profile', error as IError)];
   }
   getProfile(): Observable<Profile> {
     return this.profile$.pipe(
       tap(async profile => {
-        if (profile == null) {
+        if (profile == null && (await this.authFacade.isLoggedIn())) {
           await this.fetchProfile();
         }
       }),
@@ -89,6 +89,7 @@ export class ProfileFacade implements OnDestroy {
   async fetchProfile() {
     try {
       const res = await this.profileService.getProfile();
+      console.log(res, 'aaaaaaaaaaaaaaaaaaa');
       if (res != null) this.setProfile(res);
     } catch (error) {
       this.setError(error);

@@ -54,7 +54,7 @@ export class InventoryComponent {
   filter_changed = false;
   isLoading$: Observable<ActionsExecuting>;
   loading: HTMLIonLoadingElement | null | undefined;
-  loadingBool = of(false);
+
   constructor(
     private inventoryFacade: InventoryFacade,
     private popoverController: PopoverController,

@@ -18,16 +18,20 @@ export class AuthService {
     });
   }
 
-  async signIn(email: string, password: string): Promise<IUser> {
+  async signIn(email: string, password: string): Promise<IUser | null> {
     //TODO: add sign in check to backend db
-    const cognitoUser = await Auth.signIn(email, password);
-    const user: IUser = {
-      email: cognitoUser.attributes.email,
-      email_verified: cognitoUser.attributes.email_verified,
-      token: cognitoUser.signInUserSession.accessToken.jwtToken,
-      type: cognitoUser.attributes['custom:type'],
-    };
-    return user;
+    const res = await this.checkEmail(email);
+    if (res) {
+      const cognitoUser = await Auth.signIn(email, password);
+      const user: IUser = {
+        email: cognitoUser.attributes.email,
+        email_verified: cognitoUser.attributes.email_verified,
+        token: cognitoUser.signInUserSession.accessToken.jwtToken,
+        type: cognitoUser.attributes['custom:type'],
+      };
+      return user;
+    }
+    return null;
   }
 
   public async signUp(form: ISellerForm | IConsumerForm): Promise<IUser> {
@@ -102,5 +106,19 @@ export class AuthService {
     // update your application state with the new access token
     // ...
     return newAccessToken;
+  }
+
+  public async checkEmail(email: string) {
+    const url = '/api/auth/check_email/';
+    const data = { email: email };
+    const res = await lastValueFrom(
+      this.http
+        .post(url, data, {
+          headers: new HttpHeaders().set('Content-Type', 'application/json'),
+          observe: 'response',
+        })
+        .pipe(take(1))
+    );
+    return res.body;
   }
 }
