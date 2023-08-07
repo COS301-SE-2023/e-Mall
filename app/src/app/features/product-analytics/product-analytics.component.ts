@@ -51,7 +51,7 @@ export class ProductAnalyticsComponent implements OnInit {
   ngOnInit() {
     this.productNames = [];
     this.selectedSortOption = 'product_name';
-    this.selectedPeriodOption = '30_days';
+    this.selectedPeriodOption = '1_day';
     this.profileFacade.getProfile().subscribe(profile => {
       if (profile) {
         if ('business_name' in profile.details) {
@@ -91,14 +91,15 @@ export class ProductAnalyticsComponent implements OnInit {
   }
 
   createProductClicksChart() {
-    const productClicksCanvas = document.getElementById(
-      'product-clicks-chart'
-    ) as HTMLCanvasElement;
-
     if (this.productClicksChart) {
       this.objCount = 0;
       this.productClicksChart.destroy();
     }
+    const productClicksCanvas = document.getElementById(
+      'product-clicks-chart'
+    ) as HTMLCanvasElement;
+
+ 
     if (Object.keys(this.productData).length === 0) {
       return;
     }
@@ -133,7 +134,7 @@ export class ProductAnalyticsComponent implements OnInit {
           x: {
             title: {
               display: true,
-              text: 'Months',
+              text: 'Date',
             },
           },
           y: {
@@ -292,7 +293,11 @@ export class ProductAnalyticsComponent implements OnInit {
       );
     });
   }
-  onPeriodOptionChange() {
+  onPeriodOptionChange(period:string) {
+    if (period) {
+      this.selectedPeriodOption=period;
+    }
+    console.log("Selected Period:", period);
     const data = {
       seller_name: this.sellerName,
       product_names: this.productNames,

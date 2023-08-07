@@ -101,7 +101,7 @@
             name="start-date"
             [(ngModel)]="startDate"
             [min]="begninningDate"
-            (ngModelChange)="onPeriodOptionChange()" />
+            (ngModelChange)="onPeriodOptionChange(selectedPeriodOption)" />
 
           <label for="end-date">End Date:</label>
           <input
@@ -109,7 +109,7 @@
             id="end-date"
             name="end-date"
             [(ngModel)]="endDate"
-            (ngModelChange)="onPeriodOptionChange()"
+            (ngModelChange)="onPeriodOptionChange(selectedPeriodOption)"
             [max]="currentDate" />
         </div>
         <div>
@@ -117,7 +117,7 @@
             <mat-label>Period Options</mat-label>
             <mat-select
               [(value)]="selectedSortOption"
-              (selectionChange)="onPeriodOptionChange()"
+              (selectionChange)="onPeriodOptionChange($event.value)"
               class="custom-select">
               <!-- <mat-option value="">Default</mat-option> -->
               <mat-option value="1_year">Year</mat-option>
