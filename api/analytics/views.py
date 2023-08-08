@@ -240,8 +240,8 @@ class selectedProductsAPIView(APIView):
             date_format = "%H:%M:%S"
             trunc_unit = TruncHour("event_date")
         elif period == "7_days":
-            date_format = "%A"  # Only the day of the week
-            trunc_unit = TruncWeek("event_date")
+            date_format = "%A %Y-%m-%d"  # Day of the week and date
+            trunc_unit = TruncDay("event_date")
         elif period == "30_days":
             date_format = "%d"  # Only the day of the month
             trunc_unit = TruncDay("event_date")
