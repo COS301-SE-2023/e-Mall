@@ -1,7 +1,8 @@
-import { Component, Input, OnInit,OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthFacade } from '@features/auth/services/auth.facade';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
-import {Subscription} from 'rxjs'
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-customer-profile-sidenav',
@@ -9,35 +10,32 @@ import {Subscription} from 'rxjs'
   styleUrls: ['./customer-profile-sidenav.component.scss'],
   providers: [ProfileFacade],
 })
-export class CustomerProfileSidenavComponent implements OnInit, OnDestroy{
+export class CustomerProfileSidenavComponent implements OnInit, OnDestroy {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() profile: any;
   currentPage: string;
-  routerURL = new Subscription
-  
+  routerURL = new Subscription();
 
-  constructor(private router: Router){
-    console.log('profile side init')
-    this.currentPage= 'customer-profile';
+  constructor(private router: Router, private authFacade: AuthFacade) {
+    console.log('profile side init');
+    this.currentPage = 'customer-profile';
   }
 
   goToCustomerProfile() {
-    
     this.router.navigate(['/customer-profile']);
   }
 
-
   goToWishlist() {
-    
     this.router.navigate(['/wishlist']);
   }
 
-  goToConstruction(){
+  goToConstruction() {
     this.router.navigate(['/construction']);
   }
 
   public signOut(): void {
-    this.router.navigate(['sign-out']);
+    // this.router.navigate(['sign-out']);
+    this.authFacade.signOut();
   }
 
   navigateTo(page: string): void {
@@ -50,16 +48,12 @@ export class CustomerProfileSidenavComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
-    
-         this.routerURL= this.router.events.subscribe(() => {
-            this.currentPage = this.router.url.slice(1);
-          });
+    this.routerURL = this.router.events.subscribe(() => {
+      this.currentPage = this.router.url.slice(1);
+    });
   }
 
-  ngOnDestroy()
-  {
-    this.routerURL.unsubscribe()
+  ngOnDestroy() {
+    this.routerURL.unsubscribe();
   }
-
-  
 }

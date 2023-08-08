@@ -89,10 +89,6 @@ export class WishlistComponent implements OnInit, OnDestroy {
     this.router.navigate(['/construction']);
   }
 
-  public signOut(): void {
-    this.router.navigate(['sign-out']);
-  }
-
   getOneImg(imgList?: string[]) {
     //remove following when no need to have mock data
     if (!imgList || imgList.length < 1)

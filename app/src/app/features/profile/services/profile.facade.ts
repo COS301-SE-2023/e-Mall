@@ -35,7 +35,6 @@ export class ProfileFacade implements OnDestroy {
       .getCurrentUser()
       .pipe(
         tap(user => {
-          console.log('Profile tap');
           if (user) {
             this.fetchProfile();
           } else {
@@ -89,7 +88,6 @@ export class ProfileFacade implements OnDestroy {
   async fetchProfile() {
     try {
       const res = await this.profileService.getProfile();
-      console.log(res, 'aaaaaaaaaaaaaaaaaaa');
       if (res != null) this.setProfile(res);
     } catch (error) {
       this.setError(error);
@@ -118,7 +116,6 @@ export class ProfileFacade implements OnDestroy {
       return new Navigate(['sign-in']);
     } else {
       if ((await this.authFacade.getUserType()) === 'seller') {
-        console.log('here');
         this.setError('Sellers cannot follow sellers');
         return new Navigate(['sales']);
       } else
@@ -138,7 +135,6 @@ export class ProfileFacade implements OnDestroy {
       return new Navigate(['sign-in']);
     } else {
       if ((await this.authFacade.getUserType()) === 'seller') {
-        console.log('here');
         this.setError('Sellers cannot add to wishlist');
         return new Navigate(['sales']);
       } else
