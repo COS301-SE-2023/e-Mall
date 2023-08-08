@@ -35,7 +35,6 @@ export class ProfileFacade implements OnDestroy {
       .getCurrentUser()
       .pipe(
         tap(user => {
-          console.log('Profile tap');
           if (user) {
             this.fetchProfile();
           } else {
@@ -73,12 +72,12 @@ export class ProfileFacade implements OnDestroy {
   }
   @Dispatch()
   setError(error: any) {
-    return new SetError('profile', error as IError);
+    return [new SetError('profile', error as IError)];
   }
   getProfile(): Observable<Profile> {
     return this.profile$.pipe(
       tap(async profile => {
-        if (profile == null) {
+        if (profile == null && (await this.authFacade.isLoggedIn())) {
           await this.fetchProfile();
         }
       }),
@@ -117,7 +116,6 @@ export class ProfileFacade implements OnDestroy {
       return new Navigate(['sign-in']);
     } else {
       if ((await this.authFacade.getUserType()) === 'seller') {
-        console.log('here');
         this.setError('Sellers cannot follow sellers');
         return new Navigate(['sales']);
       } else
@@ -137,7 +135,6 @@ export class ProfileFacade implements OnDestroy {
       return new Navigate(['sign-in']);
     } else {
       if ((await this.authFacade.getUserType()) === 'seller') {
-        console.log('here');
         this.setError('Sellers cannot add to wishlist');
         return new Navigate(['sales']);
       } else
