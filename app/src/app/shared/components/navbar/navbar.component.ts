@@ -73,7 +73,6 @@ export class NavbarComponent {
     this.router.navigate(['sign-in']);
   }
   public signOut(): void {
-    // this.router.navigate(['sign-out']);
     this.authFacade.signOut();
   }
 

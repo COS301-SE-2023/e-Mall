@@ -34,7 +34,6 @@ export class CustomerProfileSidenavComponent implements OnInit, OnDestroy {
   }
 
   public signOut(): void {
-    // this.router.navigate(['sign-out']);
     this.authFacade.signOut();
   }
 

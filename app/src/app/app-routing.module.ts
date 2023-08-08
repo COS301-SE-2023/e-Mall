@@ -17,6 +17,7 @@ import { InventoryComponent } from '@features/inventory/components/inventory.com
 import { CustomerProfileComponent } from '@features/profile/components/customer-profile/customer-profile.component';
 import { WishlistComponent } from '@features/wishlist/wishlist.component';
 import { EditCustomerProfileComponent } from '@features/edit-customer-profile/edit-customer-profile.component';
+import { consumerTypeGuard } from '@shared/guards/consumer-type.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -87,10 +88,12 @@ const routes: Routes = [
   {
     path: 'product-analytics',
     loadChildren: () =>
-      import('@app/features/product-analytics/product-analytics.module').then(m => m.ProductAnalyticsModule),
+      import('@app/features/product-analytics/product-analytics.module').then(
+        m => m.ProductAnalyticsModule
+      ),
     canActivate: [postAuthGuard, sellerTypeGuard],
   },
-  
+
   {
     path: 'contact',
     loadChildren: () =>
@@ -116,15 +119,16 @@ const routes: Routes = [
   },*/
   {
     path: 'customer-profile',
-    component: CustomerProfileComponent
+    component: CustomerProfileComponent,
   },
   {
     path: 'wishlist',
-    component: WishlistComponent
+    component: WishlistComponent,
+    canActivate: [consumerTypeGuard],
   },
   {
     path: 'edit-customer-profile',
-    component: EditCustomerProfileComponent
+    component: EditCustomerProfileComponent,
   },
   // {
   //   path: 'profile',

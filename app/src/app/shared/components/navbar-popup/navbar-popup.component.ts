@@ -41,7 +41,6 @@ export class NavbarPopupComponent {
   }
 
   public signOut(): void {
-    // this.router.navigate(['sign-out']);
     this.popoverController.dismiss();
     this.authFacade.signOut();
   }
