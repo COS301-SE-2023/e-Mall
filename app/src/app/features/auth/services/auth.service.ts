@@ -19,7 +19,6 @@ export class AuthService {
   }
 
   async signIn(email: string, password: string): Promise<IUser | null> {
-    //TODO: add sign in check to backend db
     const res = await this.checkEmail(email);
     if (res) {
       const cognitoUser = await Auth.signIn(email, password);

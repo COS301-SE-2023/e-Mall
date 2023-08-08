@@ -13,13 +13,16 @@ import { IError } from '@app/features/error/models/error.interface';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Auth, Hub } from 'aws-amplify';
-import { CognitoUserSession, CognitoIdToken, CognitoAccessToken, CognitoRefreshToken } from 'amazon-cognito-identity-js';
-
 import {
   ISignUpResult,
   CognitoUser,
   CognitoUserPool,
+  CognitoUserSession,
+  CognitoIdToken,
+  CognitoAccessToken,
+  CognitoRefreshToken,
 } from 'amazon-cognito-identity-js';
+
 describe('AuthModule', () => {
   let facade: AuthFacade;
   let authService: AuthService;
@@ -146,6 +149,7 @@ describe('AuthModule', () => {
 
   describe('AuthService', () => {
     it('should sign in a user', async () => {
+      spyOn(authService, 'checkEmail').and.returnValue(Promise.resolve(true));
       spyOn(Auth, 'signIn').and.returnValue(
         Promise.resolve({
           attributes: {
@@ -213,7 +217,7 @@ describe('AuthModule', () => {
               },
             });
           }
-          return () => { };
+          return () => {};
         }
       );
 
@@ -245,25 +249,26 @@ describe('AuthModule', () => {
 
     it('should refresh the access token', async () => {
       const jwtToken = 'newtesttoken';
-      spyOn(Auth, 'currentAuthenticatedUser').and.returnValue(Promise.resolve());
+      spyOn(Auth, 'currentAuthenticatedUser').and.returnValue(
+        Promise.resolve()
+      );
       const session: CognitoUserSession = {
-        getIdToken: () => ({ getJwtToken: () => jwtToken }) as CognitoIdToken,
-        getAccessToken: () => ({ getJwtToken: () => jwtToken }) as CognitoAccessToken,
-        getRefreshToken: () => ({ getToken: () => jwtToken }) as CognitoRefreshToken,
+        getIdToken: () => ({ getJwtToken: () => jwtToken } as CognitoIdToken),
+        getAccessToken: () =>
+          ({ getJwtToken: () => jwtToken } as CognitoAccessToken),
+        getRefreshToken: () =>
+          ({ getToken: () => jwtToken } as CognitoRefreshToken),
         isValid: () => true,
       };
       spyOn(Auth, 'currentSession').and.returnValue(Promise.resolve(session));
-  
+
       const newAccessToken = await authService.refreshAccessToken();
-  
-      expect(Auth.currentAuthenticatedUser).toHaveBeenCalledWith({ bypassCache: true });
+
+      expect(Auth.currentAuthenticatedUser).toHaveBeenCalledWith({
+        bypassCache: true,
+      });
       expect(Auth.currentSession).toHaveBeenCalled();
       expect(newAccessToken).toEqual(jwtToken);
     });
-
   });
-
-
-
-
 });

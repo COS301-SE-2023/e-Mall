@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { Observable, debounceTime, map, merge, Subscription } from 'rxjs';
 import { ActionType, Store } from '@ngxs/store';
@@ -11,7 +11,7 @@ import {
 @Injectable({
   providedIn: 'root',
 })
-export class LoaderFacade {
+export class LoaderFacade implements OnDestroy {
   private loading: HTMLIonLoadingElement | null | undefined;
   private actionsToWatch: ActionType[] = [];
   private actions$!: Observable<ActionsExecuting>;
@@ -21,29 +21,39 @@ export class LoaderFacade {
     private stroe: Store
   ) {
     this.loading = null;
-
     this.watch();
   }
 
   watch() {
     if (this.loadingSubs) {
       this.loadingSubs.unsubscribe();
+      this.dismissLoading();
     }
     this.actions$ = this.stroe.select(actionsExecuting(this.actionsToWatch));
     this.loadingSubs = merge(
-      this.actions$.pipe(map(() => true)),
+      this.actions$.pipe(
+        debounceTime(200),
+        map(() => true)
+      ),
       this.actions$.pipe(
         debounceTime(2000),
         map(() => false)
       )
     ).subscribe(async shouldPresent => {
       console.log(shouldPresent);
-      if (shouldPresent) {
+      if (shouldPresent && this.loading === null) {
         this.presentLoading();
       } else {
         this.dismissLoading();
       }
     });
+  }
+  ngOnDestroy(): void {
+    if (this.loadingSubs) {
+      console.log('loader service destroyed');
+      this.dismissLoading();
+      this.loadingSubs.unsubscribe();
+    }
   }
 
   async presentLoading() {
@@ -53,6 +63,7 @@ export class LoaderFacade {
         spinner: 'dots',
         message: 'Please wait...',
         mode: 'ios',
+        duration: 5000,
       });
       await this.loading.present();
       console.log('presenting loading from loader');

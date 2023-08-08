@@ -68,7 +68,7 @@ describe('NavbarComponent', () => {
       done();
     });
   });
-/*
+  /*
   it('should toggle the category status', () => {
     expect(component.isCategoryOpened).toBeFalse();
 
@@ -95,14 +95,6 @@ describe('NavbarComponent', () => {
     component.signIn();
 
     expect(routerspy).toHaveBeenCalledWith(['sign-in']);
-  });
-
-  it('should navigate to sign-out page', () => {
-    const routerspy = spyOn(component['router'], 'navigate');
-
-    component.signOut();
-
-    expect(routerspy).toHaveBeenCalledWith(['sign-out']);
   });
 
   it('should navigate to a specified page', () => {

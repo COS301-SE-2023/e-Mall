@@ -4,7 +4,6 @@ import { HomeComponent } from './features/home/home.component';
 import { SellerRegisterComponent } from '@features/sign-up/seller/components/seller-register.component';
 import { ConsumerRegisterComponent } from '@features/sign-up/consumer/components/consumer-register.component';
 import { SignInComponent } from './features/sign-in/components/sign-in.component';
-import { SignOutComponent } from './features/sign-out/sign-out.component';
 import { ProfileComponent } from '@features/profile/components/profile.component';
 import { CategoryComponent } from '@features/category/category.component';
 import { postAuthGuard } from '@shared/guards/post-auth.guard';
@@ -13,7 +12,6 @@ import { baseGuard } from '@shared/guards/base.guard';
 import { sellerTypeGuard } from '@shared/guards/seller-type.guard';
 import { SellerDetailsComponent } from '@features/seller-details/seller-details.component';
 import { SellerDataResolver } from '@features/seller-details/seller-details-resolver';
-import { InventoryComponent } from '@features/inventory/components/inventory.component';
 import { CustomerProfileComponent } from '@features/profile/components/customer-profile/customer-profile.component';
 import { WishlistComponent } from '@features/wishlist/wishlist.component';
 import { EditCustomerProfileComponent } from '@features/edit-customer-profile/edit-customer-profile.component';
@@ -49,11 +47,7 @@ const routes: Routes = [
     canActivate: [preAuthGuard],
   },
   { path: 'sign-in', component: SignInComponent, canActivate: [preAuthGuard] },
-  {
-    path: 'sign-out',
-    component: SignOutComponent,
-    canActivate: [postAuthGuard],
-  },
+
   {
     path: 'sign-up',
     component: ConsumerRegisterComponent,
@@ -67,7 +61,6 @@ const routes: Routes = [
       ),
     canActivate: [postAuthGuard, sellerTypeGuard],
   },
-  { path: 'inventory', component: InventoryComponent },
   {
     path: 'seller-details',
     component: SellerDetailsComponent,
