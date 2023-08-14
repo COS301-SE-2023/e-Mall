@@ -1,23 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Injectable } from '@angular/core';
-import { Actions, Select } from '@ngxs/store';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Select } from '@ngxs/store';
 import { Observable, Subscription, pairwise } from 'rxjs';
 import { InventoryService } from './inventory.service';
 import { InventorySelectors } from '../states/inventory.selector';
 import { IInventoryItem } from '../models/inventory-item.interface';
 import { ISearchOptions } from '../models/search-options.interface';
-import { InventoryState } from '../states/inventory.state';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 import * as InventoryActions from '../states/inventory.action';
 import { SetError } from '@features/error/states/error.action';
 import { IError } from '@features/error/models/error.interface';
-import {
-  ActionsExecuting,
-  actionsExecuting,
-} from '@ngxs-labs/actions-executing';
+import { LoaderFacade } from '@shared/components/loader/loader.facade';
 
 @Injectable()
-export class InventoryFacade {
+export class InventoryFacade implements OnDestroy {
   @Select(InventorySelectors.products)
   products$!: Observable<IInventoryItem[]>;
   @Select(InventorySelectors.query)
@@ -30,22 +26,20 @@ export class InventoryFacade {
   querySubs: Subscription;
   productSubs: Subscription;
   queryTemp: ISearchOptions;
-  @Select(
-    actionsExecuting([
-      InventoryActions.UpdateFilterOptions,
-      InventoryActions.UpdateQuery,
-      InventoryActions.SetInventory,
-      InventoryActions.DeleteItem,
-      InventoryActions.UpdateItems,
-    ])
-  )
-  loading$!: Observable<ActionsExecuting>;
 
+  actions = [
+    InventoryActions.UpdateFilterOptions,
+    InventoryActions.UpdateQuery,
+    InventoryActions.SetInventory,
+    InventoryActions.DeleteItem,
+    InventoryActions.UpdateItems,
+  ];
   constructor(
     private inventoryService: InventoryService,
-    private inventoryState: InventoryState,
-    private actions$: Actions
+    private loaderFacade: LoaderFacade
   ) {
+    this.loaderFacade.addActions(this.actions);
+
     this.queryTemp = {};
     console.log('inventory facade initialized');
     this.resetState();
@@ -66,6 +60,10 @@ export class InventoryFacade {
       });
   }
 
+  ngOnDestroy(): void {
+    this.loaderFacade.removeActions(this.actions);
+    console.log('inventory facade destroyed');
+  }
   async fetchItems(options: ISearchOptions) {
     try {
       console.log('fetching items');

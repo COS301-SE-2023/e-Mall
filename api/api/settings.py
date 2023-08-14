@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "custom_profile.apps.CustomProfileConfig",
     "analytics.apps.AnalyticsConfig",
     "inventory.apps.InventoryConfig",
+    "custom_auth.apps.CustomAuthConfig",
 ]
 
 MIDDLEWARE = [

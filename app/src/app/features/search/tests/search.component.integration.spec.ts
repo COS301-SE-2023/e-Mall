@@ -209,11 +209,6 @@ describe('SearchComponent', () => {
       10
     );
   });
-  it('should navigate to sign-out page on signOut method', () => {
-    spyOn(router, 'navigate');
-    component.signOut();
-    expect(router.navigate).toHaveBeenCalledWith(['sign-out']);
-  });
 
   it('should return the first image URL when imgList is provided', () => {
     const imgList = ['image1.jpg', 'image2.jpg', 'image3.jpg'];

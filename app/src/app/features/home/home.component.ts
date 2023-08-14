@@ -12,7 +12,6 @@ import { IProduct } from '@shared/models/product/product.interface';
 import { Observable, Subscription, of } from 'rxjs';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 
-
 //import { register } from 'swiper/element/bundle';
 //register();
 @Component({
@@ -38,8 +37,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {
     this.followedSellers$ = of(null);
     this.followSubs = this.profileFacade.followedSellers$.subscribe(val => {
-      if (val !== null)
+      if ((val !== null || val !== undefined) && val.length > 0) {
+        console.log('passing here', val);
         this.followedSellers$ = this.profileFacade.fetchFollowedSellerDetails();
+      }
     });
   }
 

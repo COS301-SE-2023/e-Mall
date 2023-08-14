@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, ViewChild } from '@angular/core';
-import { Observable, debounceTime, map, merge, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import {
   IonContent,
@@ -13,7 +13,6 @@ import { PopovereditComponent } from './popoveredit/popoveredit.component';
 import { IInventoryItem } from '../models/inventory-item.interface';
 import { ISearchOptions } from '../models/search-options.interface';
 import { InventoryFacade } from '../servicies/inventory.facade';
-import { ActionsExecuting } from '@ngxs-labs/actions-executing';
 
 @Component({
   selector: 'app-inventory',
@@ -52,9 +51,9 @@ export class InventoryComponent {
   query$: Observable<ISearchOptions>;
   prev_per_page = 10;
   filter_changed = false;
-  isLoading$: Observable<ActionsExecuting>;
+  // isLoading$: Observable<ActionsExecuting>;
   loading: HTMLIonLoadingElement | null | undefined;
-  loadingBool = of(false);
+
   constructor(
     private inventoryFacade: InventoryFacade,
     private popoverController: PopoverController,
@@ -64,48 +63,12 @@ export class InventoryComponent {
     const options: ISearchOptions = {
       filterOptions: { filter_in_stock: 'all' },
     };
-    this.isLoading$ = this.inventoryFacade.loading$;
-    this.loading = null;
-    merge(
-      this.isLoading$.pipe(map(() => true)),
-      this.isLoading$.pipe(
-        debounceTime(2000),
-        map(() => false)
-      )
-    ).subscribe(async shouldPresent => {
-      if (shouldPresent) {
-        this.presentLoading();
-      } else {
-        this.dismissLoading();
-      }
-    });
 
     this.query$ = this.inventoryFacade.query$;
 
     this.inventoryFacade.updateFilter(options.filterOptions);
     this.searchResults$ = this.inventoryFacade.products$;
     this.totalSearchCount$ = this.inventoryFacade.totalCount$;
-  }
-  async presentLoading() {
-    if (this.loading === null) {
-      this.loading = undefined;
-      this.loading = await this.loadingController.create({
-        spinner: 'dots',
-        message: 'Please wait...',
-        mode: 'ios',
-      });
-      await this.loading.present();
-      console.log('presenting loading');
-    }
-  }
-
-  async dismissLoading() {
-    if (this.loading) {
-      await this.loading.dismiss();
-      this.loading = null;
-      this.scrollToTop();
-      console.log('dismissed loading');
-    }
   }
   onSearchInputChange(event: any) {
     if (event) {

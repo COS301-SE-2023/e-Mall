@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, take, lastValueFrom, tap } from 'rxjs';
+import { map, take, lastValueFrom } from 'rxjs';
 import { IInventoryItem } from '@features/inventory/models/inventory-item.interface';
 import { ISearchOptions } from '@features/inventory/models/search-options.interface';
 

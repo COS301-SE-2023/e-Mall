@@ -13,8 +13,6 @@ import { IError } from '@features/error/models/error.interface';
 import { IUser } from '@features/auth/models/user.interface';
 import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
 import { ProfileModule } from '../profile.module';
-import { Navigate } from '@ngxs/router-plugin';
-
 
 describe('ProfileFacade', () => {
   let facade: ProfileFacade;
@@ -31,7 +29,11 @@ describe('ProfileFacade', () => {
       'getProfile',
       'updateProfile',
     ]);
-    authFacade = jasmine.createSpyObj('AuthFacade', ['getCurrentUser']);
+    authFacade = jasmine.createSpyObj('AuthFacade', [
+      'getCurrentUser',
+      'isLoggedIn',
+    ]);
+
     authFacade.getCurrentUser.and.returnValue(of(null));
     TestBed.configureTestingModule({
       imports: [
@@ -95,9 +97,9 @@ describe('ProfileFacade', () => {
       return facade.setError(error);
     });
     facade.setProfile(mockSellerProfile);
-    expect(store.dispatch).toHaveBeenCalledWith(
-      new SetError('profile', error as IError)
-    );
+    expect(store.dispatch).toHaveBeenCalledWith([
+      new SetError('profile', error as IError),
+    ]);
   });
 
   it('should update profile', async () => {
@@ -114,9 +116,9 @@ describe('ProfileFacade', () => {
     const error = new Error('test error');
     profileService.updateProfile.and.throwError(error);
     facade.updateProfile(mockConsumerProfile);
-    expect(store.dispatch).toHaveBeenCalledWith(
-      new SetError('profile', error as IError)
-    );
+    expect(store.dispatch).toHaveBeenCalledWith([
+      new SetError('profile', error as IError),
+    ]);
   });
 
   it('should clear profile', () => {
@@ -132,17 +134,17 @@ describe('ProfileFacade', () => {
       return facade.setError(error);
     });
     facade.clearProfile();
-    expect(store.dispatch).toHaveBeenCalledWith(
-      new SetError('profile', error as IError)
-    );
+    expect(store.dispatch).toHaveBeenCalledWith([
+      new SetError('profile', error as IError),
+    ]);
   });
 
   it('should set error', () => {
     const error = new Error('test error');
     facade.setError(error);
-    expect(store.dispatch).toHaveBeenCalledWith(
-      new SetError('profile', error as IError)
-    );
+    expect(store.dispatch).toHaveBeenCalledWith([
+      new SetError('profile', error as IError),
+    ]);
   });
 
   it('should get profile when not null', async () => {
@@ -176,13 +178,14 @@ describe('ProfileFacade', () => {
         profile: null,
       },
     });
+    authFacade.isLoggedIn.and.returnValue(Promise.resolve(true));
     profileService.getProfile.and.returnValue(Promise.reject(error));
     facade.getProfile().subscribe({
       error: err => {
         expect(err).toEqual(error);
-        expect(store.dispatch).toHaveBeenCalledWith(
-          new SetError('profile', error as IError)
-        );
+        expect(store.dispatch).toHaveBeenCalledWith([
+          new SetError('profile', error as IError),
+        ]);
       },
     });
   });
@@ -249,7 +252,7 @@ describe('ProfileFacade', () => {
     expect(result).toBeFalse();
   });
 
- /* it('should check followed sellers and return true if seller is followed', async () => {
+  /* it('should check followed sellers and return true if seller is followed', async () => {
     const mockFollowedSellers: string[] = ['Seller1', 'Seller2'];
     store.reset({
       profile: {
@@ -279,7 +282,7 @@ describe('ProfileFacade', () => {
     expect(result).toBeFalse();
   });
 
- /* it('should toggle sellers and return Navigate action if user is not logged in', async () => {
+  /* it('should toggle sellers and return Navigate action if user is not logged in', async () => {
     spyOn(authFacade, 'isLoggedIn').and.returnValue(of(false));
     const navigateSpy = spyOn(store, 'dispatch').and.returnValue(of(null));
 
@@ -372,5 +375,4 @@ describe('ProfileFacade', () => {
     facade.ngOnDestroy();
     expect(unsubscribeSpy).toHaveBeenCalled();
   });
-
 });
