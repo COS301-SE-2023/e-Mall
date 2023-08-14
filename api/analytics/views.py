@@ -521,4 +521,3 @@ class selectedProductsAPIView(APIView):
                 sorted_clicks_by_product[product] = sorted_intervals_dict
             return Response(sorted_clicks_by_product)
 
-        return Response(sorted_clicks_by_product)
