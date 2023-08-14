@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module';
 import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [ProductAnalyticsComponent],
@@ -18,6 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
     FormsModule,
     MatPaginatorModule,
     MatSelectModule,
+    MatFormFieldModule,
   ],
   exports: [ProductAnalyticsComponent],
 })
