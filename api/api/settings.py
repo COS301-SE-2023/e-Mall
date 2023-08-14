@@ -114,7 +114,8 @@ AUTH_USER_MODEL = "staff.Staff"
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Africa/Johannesburg"
+
 
 USE_I18N = True
 

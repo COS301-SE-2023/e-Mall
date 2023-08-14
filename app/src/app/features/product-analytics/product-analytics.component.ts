@@ -32,7 +32,9 @@ export class ProductAnalyticsComponent implements OnInit {
   objCount = 0;
   productData: ProductData = {};
   selectedSortOption!: string;
+  selectedPeriodOption = '6_months';
   startDate = '2023-03-10';
+  begninningDate = '2023-03-10';
   endDate: string = new Date().toISOString().split('T')[0]; // Set the default end date to the current date
   currentDate = new Date().toISOString().split('T')[0];
   searchKeyword!: string;
@@ -88,14 +90,14 @@ export class ProductAnalyticsComponent implements OnInit {
   }
 
   createProductClicksChart() {
-    const productClicksCanvas = document.getElementById(
-      'product-clicks-chart'
-    ) as HTMLCanvasElement;
-
     if (this.productClicksChart) {
       this.objCount = 0;
       this.productClicksChart.destroy();
     }
+    const productClicksCanvas = document.getElementById(
+      'product-clicks-chart'
+    ) as HTMLCanvasElement;
+
     if (Object.keys(this.productData).length === 0) {
       return;
     }
@@ -130,7 +132,7 @@ export class ProductAnalyticsComponent implements OnInit {
           x: {
             title: {
               display: true,
-              text: 'Months',
+              text: 'Date/time',
             },
           },
           y: {
@@ -176,8 +178,8 @@ export class ProductAnalyticsComponent implements OnInit {
     const data = {
       seller_name: this.sellerName,
       product_names: this.productNames,
+      period: this.selectedPeriodOption,
       start_date: this.startDate,
-      end_date: this.endDate,
     };
 
     const data1 = this.analytics.getSelectedProductData(data);
@@ -287,6 +289,25 @@ export class ProductAnalyticsComponent implements OnInit {
       this.table_link_clicks = responseData.data.map(
         (item: { [x: string]: any }) => item['link_clicks']
       );
+    });
+  }
+  onPeriodOptionChange(period: string) {
+    if (period) {
+      this.selectedPeriodOption = period;
+    }
+    console.log('Selected Period:', period);
+    const data = {
+      seller_name: this.sellerName,
+      product_names: this.productNames,
+      period: this.selectedPeriodOption,
+      start_date: this.startDate,
+      end_date: this.endDate,
+    };
+
+    const data1 = this.analytics.getSelectedProductData(data);
+    data1.subscribe(data => {
+      this.productData = data;
+      this.createProductClicksChart();
     });
   }
 }
