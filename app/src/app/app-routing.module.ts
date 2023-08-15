@@ -17,6 +17,7 @@ import { InventoryComponent } from '@features/inventory/components/inventory.com
 import { CustomerProfileComponent } from '@features/profile/components/customer-profile/customer-profile.component';
 import { WishlistComponent } from '@features/wishlist/wishlist.component';
 import { EditCustomerProfileComponent } from '@features/edit-customer-profile/edit-customer-profile.component';
+import { SellerDashboardSettingsComponent } from '@features/seller-dashboard-settings/seller-dashboard-settings.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -125,6 +126,10 @@ const routes: Routes = [
   {
     path: 'edit-customer-profile',
     component: EditCustomerProfileComponent
+  },
+  {
+    path: 'seller-dashboard-settings',
+    component: SellerDashboardSettingsComponent
   },
   // {
   //   path: 'profile',
