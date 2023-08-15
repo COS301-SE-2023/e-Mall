@@ -1,0 +1,40 @@
+.background{
+    background-color: #f7f9f9;
+}
+.settings-content-wrapper {
+    background-color: #f7f9f9;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    //padding-top: 100px;
+    padding-left: 328px;
+    position: relative;
+  }
+
+.settings-container{
+    margin-left: 10rem;
+    margin-bottom: 5rem;
+}
+
+.settings-container h2{
+    margin-top: 10rem;
+}
+.general-settings-container{
+    box-shadow: 0 3px 4px 4px rgba(0, 0, 0, 0.3);
+    padding: 50px;
+    width: 700px;
+    margin-top: 30px;
+}
+
+ion-input{
+    margin-top: 30px;
+}
+
+ion-button{
+    margin-top: 30px;
+    font-family: 'Poppins',sans-serif;
+    height: 40px;
+  --background: #37d0d6; 
+}
