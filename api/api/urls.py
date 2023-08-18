@@ -42,4 +42,5 @@ urlpatterns = [
     path("api/analytics/", include("analytics.urls")),
     path("api/profile/", include("custom_profile.urls")),
     path("api/inventory/", include("inventory.urls")),
+    path("api/camatrix/", include("ca_matrix.urls")),
 ]
