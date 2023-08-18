@@ -123,3 +123,35 @@ def get_followed_seller_details(request):
     except Exception as e:
         # handle other exceptions here
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(["POST"])
+def get_followed_seller_details(request):
+    try:
+        user = request.user
+        if user is None:
+            raise Exception("User not found")
+        if user.type == "consumer":
+            rec_prods = []
+            df=[]
+            df1=[]
+            for m in df[df[user] == 0].index.tolist():
+
+                index_df = df.index.tolist().index(m)
+                predicted_rating = df1.iloc[index_df, df1.columns.tolist().index(user)]
+                rec_prods.append((m, predicted_rating))
+
+            sorted_rm = sorted(rec_prods, key=lambda x:x[1], reverse=True)
+            for rec_prods in sorted_rm[5]:
+                rec_prods[0]
+            res = [
+                    {"id": product.id, "name": product.name}
+                    for product in rec_prods
+                ]
+            return Response(res)
+
+        else:
+            raise Exception("User is seller")
+    except Exception as e:
+        # handle other exceptions here
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
