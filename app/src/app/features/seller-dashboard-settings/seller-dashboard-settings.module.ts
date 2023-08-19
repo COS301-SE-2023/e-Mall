@@ -6,6 +6,10 @@ import { FooterModule } from '@shared/components/footer/footer.module';
 import { IonicModule } from '@ionic/angular';
 import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProfileState } from '@features/profile/states/profile.state';
+import { ProfileService } from '@features/profile/services/profile.service';
+import { ProfileFacade } from '@features/profile/services/profile.facade';
+import { NgxsModule } from '@ngxs/store';
 
 
 
@@ -19,7 +23,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     NavbarModule,
     FooterModule,
     SellerNavModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    NgxsModule.forFeature([ProfileState]),
+  ],
+  exports: [SellerDashboardSettingsComponent],
+  providers: [ProfileService, ProfileFacade]
+
 })
 export class SellerDashboardSettingsModule { }

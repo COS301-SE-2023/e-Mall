@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
   providers: [ProfileFacade],
 })
 export class SellerNavComponent implements OnInit, OnDestroy {
+  
   username: string | undefined;
   currentPage = 'inventory'; // Set a default value for the current page
   // Set a default value for the current page
