@@ -15,10 +15,14 @@ import { ProductService } from '@shared/servicies/product/product.service';
 import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { ProfileFacade } from '@features/profile/services/profile.facade';
+import { ProfileService } from '@features/profile/services/profile.service';
+
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let httpTestingController: HttpTestingController;
   let productServiceMock: jasmine.SpyObj<ProductService>;
+  let profileServiceMock: jasmine.SpyObj<ProfileService>;
   const mockProduct: IProduct = {
     // Define your mock product data here
     // For example:
@@ -32,7 +36,8 @@ describe('HomeComponent', () => {
 
   beforeEach(() => {
     // Create a mock ProductService
-    const productServiceSpy = jasmine.createSpyObj('ProductService', ['getPopProducts', 'getForYouProducts']);
+    const productServiceSpy = jasmine.createSpyObj('ProductService', ['getPopProducts']);
+    const profileServiceSpy = jasmine.createSpyObj('ProfileService', ['getSimilarProducts']); // Add this line
 
     TestBed.configureTestingModule({
       imports: [
@@ -43,12 +48,15 @@ describe('HomeComponent', () => {
         ProfileModule,
         RouterTestingModule
       ],
-      providers: [HomeComponent,{ provide: ProductService, useValue: productServiceSpy }],
+      providers: [HomeComponent,{ provide: ProductService, useValue: productServiceSpy }, { provide: ProfileService, useValue: profileServiceSpy } ],
     });
 
     component = TestBed.inject(HomeComponent);
     httpTestingController = TestBed.inject(HttpTestingController);
     productServiceMock = TestBed.inject(ProductService) as jasmine.SpyObj<ProductService>;
+    profileServiceMock = TestBed.inject(ProfileService) as jasmine.SpyObj<ProfileService>; 
+    // Mock forYouProducts$ observable
+  profileServiceMock.getSimilarProducts.and.returnValue(of([mockProduct])); 
   });
 
   afterEach(() => {
@@ -70,11 +78,12 @@ describe('HomeComponent', () => {
     component.popProducts$?.subscribe((products) => {
       expect(products).toEqual([mockProduct]);
     });
-  });
+  }); 
+  
 
   it('should fetch "for you" products on initialization', () => {
     // Mock the getForYouProducts method of the ProductService to return a mock product list
-    productServiceMock.getForYouProducts.and.returnValue(of([mockProduct]));
+    profileServiceMock.getSimilarProducts.and.returnValue(of([mockProduct]));
 
     component.ngOnInit();
 
