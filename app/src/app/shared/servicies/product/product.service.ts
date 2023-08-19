@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, distinct, map, mergeMap, toArray } from 'rxjs';
 import { IProduct } from '@shared/models/product/product.interface';
 import { IProductSeller } from '@shared/models/product/product-seller.interface';
@@ -84,10 +84,13 @@ export class ProductService {
     );
   }
 
-  getCategoryProducts(category: string,sortOption?: any,): Observable<IProduct[]> {
+  getCategoryProducts(
+    category: string,
+    sortOption?: any
+  ): Observable<IProduct[]> {
     let url = `${this.apiUrl}products/backend/?filter_category=${category}`;
     // filterOptions = { };
-    
+
     if (sortOption) {
       url += '&sort=' + sortOption;
     }

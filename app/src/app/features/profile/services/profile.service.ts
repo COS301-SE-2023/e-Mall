@@ -5,6 +5,7 @@ import { Observable, lastValueFrom, map, shareReplay, take } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Profile } from '../models/alias-profile.interface';
 import { ISellerCard } from '../models/seller-card.interface';
+import { IProduct } from '@shared/models/product/product.interface';
 
 @Injectable()
 export class ProfileService {
@@ -94,5 +95,44 @@ export class ProfileService {
         }
       )
       .pipe(map(response => response.body));
+  }
+
+  public getSimilarProducts(): Observable<IProduct[]> {
+    this.updateRecommendedProducts();
+    const url = `${this.apiUrl}fetchRecommendedProducts/`;
+
+    return this.http
+      .post(
+        url,
+        {},
+        {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+          observe: 'response',
+        }
+      )
+      .pipe(
+        map((response: any) => {
+          return response.body as IProduct[];
+        })
+      );
+  }
+
+  public updateRecommendedProducts(): void {
+    const url = `${this.apiUrl}updateRecommendedProducts/`;
+
+    this.http
+      .post(
+        url,
+        {},
+        {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+          observe: 'response',
+        }
+      )
+      .subscribe();
   }
 }

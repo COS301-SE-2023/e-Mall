@@ -1,11 +1,16 @@
+import string
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework import status
-from .serializers import ConsumerProfileSerializer, SellerProfileSerializer
+from .serializers import ConsumerProfileSerializer, SellerProfileSerializer, ProductSerializer
 from consumer.models import Consumer
 from seller.models import Seller
+from product.models import Product
+from ca_matrix.models import ca_matrix
+import numpy as np
+import pandas as pd
 
 
 @api_view(["POST"])
@@ -125,32 +130,79 @@ def get_followed_seller_details(request):
 
 
 @api_view(["POST"])
-def get_recommended_products(request):
+def update_recommended_products(request):
     try:
         user = request.user
         if user is None:
             raise Exception("User not found")
         if user.type == "consumer":
             rec_prods = []
-            df=[]
-            df1=[]
-            for m in df[df[user] == 0].index.tolist():
-
+            #get the predictions data
+            predictions_data = ca_matrix.objects.all()
+            #create the df table
+            df, df1 = createTables(predictions_data)
+            for m in df[df[user.id] == 0].index.tolist():
                 index_df = df.index.tolist().index(m)
-                predicted_rating = df1.iloc[index_df, df1.columns.tolist().index(user)]
+                predicted_rating = df1.iloc[index_df, df1.columns.tolist().index(user.id)]
                 rec_prods.append((m, predicted_rating))
 
             sorted_rm = sorted(rec_prods, key=lambda x:x[1], reverse=True)
-            for rec_prods in sorted_rm[5]:
-                rec_prods[0]
-            res = [
-                    {"id": product.id, "name": product.name}
-                    for product in rec_prods
-                ]
-            return Response(res)
+            #find the consumer
+            consumer = Consumer.objects.get(email=user.email)
+            #remove old similar products array
+            consumer.recommended_products = []
+            # #add new similar products array
+
+            for name,value in sorted_rm:
+                consumer.recommended_products.append(name)
+            
+            consumer.save()
+
+            return Response({"success": True})
 
         else:
             raise Exception("User is seller")
     except Exception as e:
         # handle other exceptions here
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+@api_view(["POST"])
+def get_recommended_products(request):
+    try:
+        user = request.user
+        if user is None:
+            raise Exception("User not found")
+        if user.type == "consumer":
+            if user.recommended_products is not None and len(user.recommended_products) > 0:
+                #get the recommended products by product name
+                recommended_products = Product.objects.filter(
+                    name__in=user.recommended_products
+                )
+            serializer = ProductSerializer(recommended_products, many=True)
+            return Response(serializer.data)
+    
+        else:
+            raise Exception("User is seller")
+    
+    except Exception as e:
+        # handle other exceptions here
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+
+def createTables(predictions_data):
+    # Prepare data for NearestNeighbors
+    user_indices = predictions_data.values_list('user_id', flat=True)
+    product_indices = predictions_data.values_list('product', flat=True)
+    values = predictions_data.values_list('value', flat=True)
+    
+    #recreating the df table
+    data = {
+        'user_id': user_indices,
+        'product': product_indices,
+        'value': values
+    }
+    predictions_df = pd.DataFrame(data)
+    # Pivot the data to create the table
+    df = predictions_df.pivot(index='product', columns='user_id', values='value')
+    df1 = df.copy()
+    return df, df1

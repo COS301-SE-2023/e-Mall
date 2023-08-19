@@ -92,7 +92,8 @@ def calculate_predicted_values(predictions_data):
     distances, indices = knn.kneighbors(user_product_matrix, n_neighbors=number_neighbors)
     # iterating through all users 
     for user_index,user_uuid in list(enumerate(df.columns)):
-        # iterating through all products. 
+        # iterating through all products.
+        print("User index",user_index) 
         for row,name in list(enumerate(df.index)):
             #find products that have not been interacted with by the user
             if df.iloc[row,user_index] == 0:
@@ -130,6 +131,7 @@ def calculate_predicted_values(predictions_data):
                 
                 #check if the number of the ratings with non-zero is positive
                 if len(product_similarity_copy) > 0:
+                    print("length of similar products",len(product_similarity_copy))
                     #check if the sum of the similarity is positive
                     if sum(product_similarity_copy) > 0:
                         predicted_value = nominator / sum(product_similarity_copy)
@@ -140,6 +142,7 @@ def calculate_predicted_values(predictions_data):
                     predicted_value = 0
                 
                 #place the predicted value in the dataframe
+                print(predicted_value)
                 df1.iloc[row,user_index] = predicted_value
     
     return df1

@@ -11,6 +11,7 @@ import { ProductService } from '@shared/servicies/product/product.service';
 import { IProduct } from '@shared/models/product/product.interface';
 import { Observable, Subscription, of } from 'rxjs';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
+import { ProfileService } from '@features/profile/services/profile.service';
 
 //import { register } from 'swiper/element/bundle';
 //register();
@@ -33,15 +34,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private productService: ProductService,
-    private profileFacade: ProfileFacade
+    private profileFacade: ProfileFacade,
+    private profileService: ProfileService
   ) {
     this.followedSellers$ = of(null);
     this.followSubs = this.profileFacade.followedSellers$.subscribe(val => {
       if ((val !== null || val !== undefined) && val.length > 0) {
-        console.log('passing here', val);
         this.followedSellers$ = this.profileFacade.fetchFollowedSellerDetails();
       }
     });
+
+
   }
 
   ngOnInit(): void {
@@ -56,9 +59,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   fetchforYouProducts() {
-    //Need to implement AI algo
-    //Mock data below
-    this.forYouProducts$ = this.productService.getForYouProducts();
+    this.forYouProducts$ = this.profileService.getSimilarProducts();
+    this.forYouProducts$.subscribe((val) => {
+      if (val) {
+          console.log(val);
+      }
+    }
+    );
   }
 
   search(searchQuery: string): void {
