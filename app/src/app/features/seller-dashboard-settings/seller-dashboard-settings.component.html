@@ -12,7 +12,7 @@
 
   <div class="settings-container" *ngIf="profile$ | async as profile">
     <div class="general-settings-container">
-      <h5>Personal information</h5>
+      <h5>Business information</h5>
       <form [formGroup]="sellerProfileForm" (ngSubmit)="onSubmit()">
         <ion-input
           type="text"
@@ -55,24 +55,37 @@
           ></ion-input>
 
           <ion-input
-          type="text"
-          label="Street"
-          labelPlacement="floating"
-          fill="outline"
-          formControlName="street"
-          required="false"
-          (input)="onUsernameChange()"
-          ></ion-input>
+              type="text"
+              label="Street"
+              labelPlacement="floating"
+              fill="outline"
+              formControlName="street"
+              required="false"
+              (input)="onUsernameChange()"
+            ></ion-input>
 
-          <ion-input
-          type="text"
-          label="Postcode"
-          labelPlacement="floating"
-          fill="outline"
-          formControlName="postcode"
-          required="false"
-          (input)="onUsernameChange()"
-          ></ion-input>
+          <div class="flex-input-container">
+            <ion-input
+              type="text"
+              label="City"
+              labelPlacement="floating"
+              fill="outline"
+              formControlName="city"
+              required="false"
+              (input)="onUsernameChange()"
+            ></ion-input>
+        
+            <ion-input
+              type="text"
+              label="Postcode"
+              labelPlacement="floating"
+              fill="outline"
+              formControlName="postcode"
+              required="false"
+              (input)="onUsernameChange()"
+            ></ion-input>
+          </div>
+        
 
           <ion-input
           type="text"
@@ -114,7 +127,7 @@
           (input)="onUsernameChange()"
           ></ion-input>
 
-        <ion-button type="submit" [disabled]="!isUsernameChanged">Submit</ion-button>
+        <ion-button type="submit" [disabled]="!isUsernameChanged">Update Profile</ion-button>
           
 
       </form>

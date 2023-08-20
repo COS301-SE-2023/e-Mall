@@ -34,6 +34,7 @@ export class SellerDashboardSettingsComponent implements OnInit{
       email: new FormControl(),
       phoneNumber: new FormControl(),
       street: new FormControl(),
+      city: new FormControl(),
       postcode: new FormControl(),
       website: new FormControl(),
       facebook: new FormControl(),
