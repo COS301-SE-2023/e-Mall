@@ -25,6 +25,7 @@ class Command(BaseCommand):
                 email=consumer_data["email"],
                 wishlist=consumer_data["wishlist"],
                 followed_sellers=consumer_data["followed_sellers"],
+                recommended_products= consumer_data["recommended_products"],
             )
             consumer.save()
 
