@@ -18,10 +18,6 @@ def generate_fake_input(select_list):
 
 class Command(BaseCommand):
     def handle(self, *args: Any, **options: Any) -> Optional[str]:
-        last_product_id = Product.objects.last().id
-        current_product_id = last_product_id - 28
-        seller_uuids = Seller.objects.values_list("id", flat=True)
-
         json_file = "productsellers.json"
         script_directory = os.path.dirname(
             __file__
@@ -34,22 +30,10 @@ class Command(BaseCommand):
             data = json.load(file)
 
         items = list(data.keys())
-        x = 0
-        i = 0
-        for current_product_id in range(int(current_product_id), last_product_id + 1):
-            product = Product.objects.get(id=current_product_id)
-            # Iterate over items in batches of three
-            batch_keys = items[i: i + 3]  # Get the keys for the current batch
-            i += 3
-            if len(batch_keys) < 3:
-                break  # Break the loop if less than three JSON objects are processed
-
-            for key in batch_keys:
-                productseller_data = data[key]
-                seller_uuid = seller_uuids[x]
-                x += 1
-                uuid_str = str(seller_uuid)
-                seller = Seller.objects.get(id=uuid_str)
+        for item in items:
+                productseller_data = data[item]
+                seller = Seller.objects.get(business_name=productseller_data["seller_name"])
+                product = Product.objects.get(name=productseller_data["product_name"]) 
                 # Create the ProductSeller object and assign the fields from the JSON data
                 productseller = ProductSeller(
                     product=product,
@@ -64,6 +48,4 @@ class Command(BaseCommand):
                     product_name=product.name,
                 )
                 productseller.save()
-                if x >= len(seller_uuids):
-                    x = 0  # Reset counter if we reach the end of seller_uuids
         self.stdout.write(self.style.SUCCESS("Productsellers populated"))
