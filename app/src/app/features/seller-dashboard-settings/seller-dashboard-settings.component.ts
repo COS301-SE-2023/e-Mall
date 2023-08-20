@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 //import { IonContent } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class SellerDashboardSettingsComponent implements OnInit{
   constructor(
     public profileFacade: ProfileFacade,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private toastController: ToastController
   ) 
   {
     this.sellerProfileForm = new FormGroup({
@@ -72,7 +74,7 @@ export class SellerDashboardSettingsComponent implements OnInit{
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     this.profileFacade.updateProfile({
       username: this.sellerProfileForm.value.username,
       details: {
@@ -88,6 +90,14 @@ export class SellerDashboardSettingsComponent implements OnInit{
       }
 
     });
+
+    const toast = await this.toastController.create({
+      message: 'Profile updated.',
+      duration: 2000, 
+      position: 'bottom',
+      cssClass: 'custom-toast' 
+    });
+    await toast.present();
 
     
     this.router.navigate(['/seller-dashboard-settings']);

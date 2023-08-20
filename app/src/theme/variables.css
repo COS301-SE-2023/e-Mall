@@ -202,7 +202,13 @@ ion-modal.inventory-modal{
   --background: #37d0d6;
 }
 
-
+.custom-toast {
+  --background: #37d0d6; 
+  /*margin-left: 10rem;*/
+  left: 50%;
+  width: 300px;
+  text-align: center;
+}
 
 
 
