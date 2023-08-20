@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProfileFacade } from '../profile/services/profile.facade';
 import { ISellerProfile } from '../profile/models/seller-profile.interface';
-import { IConsumerProfile } from '../profile/models/consumer-profile.interface';
+//import { IConsumerProfile } from '../profile/models/consumer-profile.interface';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonContent } from '@ionic/angular';
+//import { IonContent } from '@ionic/angular';
 
 
 @Component({
@@ -15,8 +15,8 @@ import { IonContent } from '@ionic/angular';
 })
 export class SellerDashboardSettingsComponent implements OnInit{
 
-  @ViewChild(IonContent)
-  content!: IonContent;
+ // @ViewChild(IonContent)
+ // content!: IonContent;
   
   sellerProfileForm: FormGroup;
   isUsernameChanged = false;
@@ -65,7 +65,7 @@ export class SellerDashboardSettingsComponent implements OnInit{
           address: profile.details.address,
           phoneNumber: profile.details.landline_number,
           support_email: profile.details.support_email,
-          name: profile.details.business_name,
+          //name: profile.details.business_name,
 
         });
       }
@@ -75,8 +75,22 @@ export class SellerDashboardSettingsComponent implements OnInit{
   onSubmit() {
     this.profileFacade.updateProfile({
       username: this.sellerProfileForm.value.username,
+      details: {
+        twitter_link: this.sellerProfileForm.value.twitter,
+        facebook_link: this.sellerProfileForm.value.facebook,
+        instagram_link: this.sellerProfileForm.value.instagram,
+        website: this.sellerProfileForm.value.website,
+        postal_code: this.sellerProfileForm.value.postcode,
+        city: this.sellerProfileForm.value.city,
+        address: this.sellerProfileForm.value.address,
+        landline_number: this.sellerProfileForm.value.phoneNumber,
+        support_email: this.sellerProfileForm.value.support_email
+      }
+
     });
-    this.router.navigate(['/customer-profile']);
+
+    
+    this.router.navigate(['/seller-dashboard-settings']);
   }
 
   onUsernameChange() {

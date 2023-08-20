@@ -14,16 +14,6 @@
     <div class="general-settings-container">
       <h5>Business information</h5>
       <form [formGroup]="sellerProfileForm" (ngSubmit)="onSubmit()">
-        <ion-input
-          type="text"
-          label="Business Name"
-          labelPlacement="floating"
-          fill="outline"
-          formControlName="name"
-          required="true"
-          (input)="onUsernameChange()"
-          ></ion-input>
-
           <ion-input
           type="text"
           label="Username"
