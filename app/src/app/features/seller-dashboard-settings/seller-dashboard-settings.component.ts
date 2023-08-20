@@ -91,6 +91,7 @@ export class SellerDashboardSettingsComponent implements OnInit{
 
     
     this.router.navigate(['/seller-dashboard-settings']);
+    this.isUsernameChanged = false;
   }
 
   onUsernameChange() {
