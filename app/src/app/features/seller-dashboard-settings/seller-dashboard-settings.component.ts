@@ -20,7 +20,7 @@ export class SellerDashboardSettingsComponent implements OnInit{
   
   sellerProfileForm: FormGroup;
   isUsernameChanged = false;
-  profile$: Observable<ISellerProfile | IConsumerProfile | null>;
+  profile$: Observable<ISellerProfile | null>;
 
   constructor(
     public profileFacade: ProfileFacade,
@@ -31,9 +31,9 @@ export class SellerDashboardSettingsComponent implements OnInit{
     this.sellerProfileForm = new FormGroup({
       username: new FormControl(),
       name: new FormControl(),
-      email: new FormControl(),
+      support_email: new FormControl(),
       phoneNumber: new FormControl(),
-      street: new FormControl(),
+      address: new FormControl(),
       city: new FormControl(),
       postcode: new FormControl(),
       website: new FormControl(),
@@ -56,6 +56,17 @@ export class SellerDashboardSettingsComponent implements OnInit{
       if (profile) {
         this.sellerProfileForm.patchValue({
           username: profile.username,
+          twitter: profile.details.twitter_link,
+          facebook: profile.details.facebook_link,
+          instagram: profile.details.instagram_link,
+          website: profile.details.website,
+          postcode: profile.details.postal_code,
+          city: profile.details.city,
+          address: profile.details.address,
+          phoneNumber: profile.details.landline_number,
+          support_email: profile.details.support_email,
+          name: profile.details.business_name,
+
         });
       }
     });
