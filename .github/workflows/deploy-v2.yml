@@ -34,7 +34,7 @@ jobs:
 
           - build: backend
             registry: registry.digitalocean.com/e-mall/backend
-            image-name: api
+            image_name: api
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v3
