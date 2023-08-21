@@ -2,10 +2,19 @@ name: deploy
 
 on:
   push:
-    branches: master
+    branches: JY/194/ssl_configure
 
 jobs:
-  front_build_and_push:
+  build_and_push:
+    strategy:
+      matrix:
+        include:
+          - service: frontend
+            directory: app
+            dockerfile: Dockerfile
+          - service: backend
+            directory: api
+            dockerfile: Dockerfile.prod
     runs-on: ubuntu-latest
     environment: prod
     steps:
@@ -14,8 +23,12 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo '' > ./app/src/environments/env.ts
-          echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
+          if [ "${{ matrix.service }}" == "frontend" ]; then
+            echo '' > ./app/src/environments/env.ts
+            echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
+          else
+            echo "${{ secrets.API_ENV_PROD}}" > ./api/api/.env.prod
+          fi
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
@@ -26,42 +39,16 @@ jobs:
         run: doctl registry login --expiry-seconds 600
 
       - name: Build and push
-        working-directory: ./app
+        working-directory: ./${{ matrix.directory }}
         run: |
-          docker build -f Dockerfile -t frontend .
-          docker tag frontend registry.digitalocean.com/e-mall/frontend
-          docker push registry.digitalocean.com/e-mall/frontend
-
-  backend_build_and_push:
-    runs-on: ubuntu-latest
-    environment: prod
-    steps:
-      - name: Checkout the repo
-        uses: actions/checkout@v3
-
-      - name: Create .env file
-        run: |
-          echo "${{ secrets.API_ENV_PROD}}" > ./api/api/.env.prod
-
-      - name: Install doctl
-        uses: digitalocean/action-doctl@v2
-        with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-
-      - name: Log in to DigitalOcean Container
-        run: doctl registry login --expiry-seconds 600
-
-      - name: Build and push
-        working-directory: ./api
-        run: |
-          docker build -f Dockerfile.prod -t backend .
-          docker tag backend registry.digitalocean.com/e-mall/backend
-          docker push registry.digitalocean.com/e-mall/backend
+          docker build -f ${{ matrix.dockerfile }} -t ${{ matrix.service }} .
+          docker tag ${{ matrix.service }} registry.digitalocean.com/e-mall/${{ matrix.service }}
+          docker push registry.digitalocean.com/e-mall/${{ matrix.service }}
 
   garbage_collection:
     runs-on: ubuntu-latest
     environment: prod
-    needs: [front_build_and_push, backend_build_and_push]
+    needs: build_and_push
     steps:
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
