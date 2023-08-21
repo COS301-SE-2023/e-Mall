@@ -35,8 +35,8 @@ jobs:
       - name: Log in to DigitalOcean Container
         run: doctl registry login --expiry-seconds 600
 
-      - name: Remove old images
-        run: if [ ! -z "$(doctl registry repository list | grep "frontend")" ]; then for TAG in $(doctl registry repository list-tags frontend --format Tag --no-header); do doctl registry repository delete-manifest frontend $TAG --force; done; else echo "No repository"; fi
+      # - name: Remove old images
+      #   run: if [ ! -z "$(doctl registry repository list | grep "frontend")" ]; then for TAG in $(doctl registry repository list-tags frontend --format Tag --no-header); do doctl registry repository delete-manifest frontend $TAG --force; done; else echo "No repository"; fi
 
       - name: Build and push
         working-directory: ./app
@@ -44,6 +44,10 @@ jobs:
           docker build -f Dockerfile -t frontend .
           docker tag frontend registry.digitalocean.com/e-mall/frontend
           docker push registry.digitalocean.com/e-mall/frontend
+
+      - name: Garbage collection
+        run: |
+          doctl registry garbage-collection start --force --include-untagged-manifests registry.digitalocean.com/e-mall/frontend
 
   backend_build_and_push:
     runs-on: ubuntu-latest
@@ -64,8 +68,8 @@ jobs:
       - name: Log in to DigitalOcean Container
         run: doctl registry login --expiry-seconds 600
 
-      - name: Remove old images
-        run: if [ ! -z "$(doctl registry repository list | grep "backend")" ]; then for TAG in $(doctl registry repository list-tags backend --format Tag --no-header); do doctl registry repository delete-manifest backend $TAG --force; done; else echo "No repository"; fi
+      # - name: Remove old images
+      #   run: if [ ! -z "$(doctl registry repository list | grep "backend")" ]; then for TAG in $(doctl registry repository list-tags backend --format Tag --no-header); do doctl registry repository delete-manifest backend $TAG --force; done; else echo "No repository"; fi
 
       - name: Build and push
         working-directory: ./api
@@ -73,3 +77,7 @@ jobs:
           docker build -f Dockerfile.prod -t backend .
           docker tag backend registry.digitalocean.com/e-mall/backend
           docker push registry.digitalocean.com/e-mall/backend
+
+      - name: Garbage collection
+        run: |
+          doctl registry garbage-collection start --force --include-untagged-manifests registry.digitalocean.com/e-mall/frontend
