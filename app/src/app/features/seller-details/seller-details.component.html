@@ -22,7 +22,7 @@
           <ion-button expand="block" (click)="updateButtonState()">
             {{ (isFollowed | async) ? 'Unfollow' : 'Follow' }}
           </ion-button>
-          <a href="{{ seller.website }}" target="_blank">
+          <a href="{{ seller.website }}" target="_blank" rel="noopener">
             <ion-button expand="block">Visit Page</ion-button>
           </a>
         </div>
@@ -49,19 +49,19 @@
     <mat-divider class="divider2"></mat-divider>
 
     <div class="social-container">
-      <a href="{{ seller.facebook_link }}" target="_blank">
+      <a href="{{ seller.facebook_link }}" target="_blank" rel="noopener">
         <img
           class="facebook-image"
           style="width: 60px; height: 60px; padding: 10px; margin: 0px"
           src="\assets\images\facebook.png" />
       </a>
-      <a href="{{ seller.twitter_link }}" target="_blank">
+      <a href="{{ seller.twitter_link }}" target="_blank" rel="noopener">
         <img
           class="twitter-image"
           style="width: 60px; height: 60px; padding: 10px; margin: 0px"
           src="\assets\images\twitter.png" />
       </a>
-      <a href="{{ seller.instagram_link }}" target="_blank">
+      <a href="{{ seller.instagram_link }}" target="_blank" rel="noopener">
         <img
           class="instagram-image"
           style="width: 60px; height: 60px; padding: 10px; margin: 0px"
@@ -102,7 +102,7 @@
           *ngFor="let category of categories"
           class="category-bubble"
           (click)="onFilterOptionChange('filter_category', category)"
-          [ngClass]="{ 'selected': isCategorySelected(category) }"
+          [ngClass]="{ selected: isCategorySelected(category) }"
           id="category-{{ category }}">
           {{ category }}
         </div>
