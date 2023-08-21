@@ -39,6 +39,11 @@ jobs:
       - name: Checkout the repo
         uses: actions/checkout@v3
 
+      - name: Create .env file
+        run: |
+          echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod
+          echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
+
       - name: Build image for ${{ matrix.build}}
         run: docker build -f ./api/Dockerfile.prod -t  ${{ matrix.registry }}/${{ matrix.image_name }} .
 
