@@ -1,4 +1,4 @@
-name: dev-v1
+name: dev-v2
 
 on:
   push:
@@ -12,9 +12,23 @@ env:
   node_version: v18.16.0
 
 jobs:
+  start:
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || github.event.pull_request.base.ref != 'master'
+    outputs:
+      should_skip: ${{ steps.check.outputs.should_skip }}
+    steps:
+      - id: check
+        run: |
+          if [[ "${{ github.event.head_commit.message }}" == "Merge pull request"* ]]; then
+            echo "::set-output name=should_skip::true"
+          else
+            echo "::set-output name=should_skip::false"
+          fi
+
   frontend:
-    if: github.event_name == 'pull_request' || github.event.pull_request.base.ref != 'master'
     name: Angular Build and Test
+    if: needs.start.outputs.should_skip != 'true'
     runs-on: ubuntu-latest
 
     steps:
@@ -72,7 +86,7 @@ jobs:
 
   backend:
     name: Django Build and Test
-    if: github.event_name == 'pull_request' || github.event.pull_request.base.ref != 'master'
+    if: needs.start.outputs.should_skip != 'true'
     runs-on: ubuntu-latest
 
     steps:
@@ -185,7 +199,7 @@ jobs:
 
   cypress-e2e:
     name: Cypress E2E Test
-    if: github.event_name == 'pull_request' || github.event.pull_request.base.ref != 'master'
+    if: needs.start.outputs.should_skip != 'true'
     runs-on: ubuntu-latest
 
     steps:
