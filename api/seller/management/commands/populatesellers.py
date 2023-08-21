@@ -12,22 +12,6 @@ fake = Faker()
 
 class Command(BaseCommand):
     def handle(self, *args: Any, **options: Any) -> Optional[str]:
-        # select_category = [
-        #     "MICRO",
-        #     "SMALL",
-        #     "MEDIUM",
-        # ]
-        # select_type = [
-        #     "Technology",
-        #     "Fashion",
-        #     "Food",
-        #     "Health",
-        #     "Sports",
-        #     "Books",
-        #     "Toys",
-        #     "Home",
-        #     "Beauty",
-        # ]
         json_file = "sellers.json"
         script_directory = os.path.dirname(
             __file__
