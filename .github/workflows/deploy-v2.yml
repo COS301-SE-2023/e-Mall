@@ -13,39 +13,18 @@ on:
       version:
         description: "Image version"
         required: true
-#2
-env:
-  REGISTRY_BACKEND: "registry.digitalocean.com/e-mall/backend"
-  IMAGE_NAME_BACKEND: "api"
-  REGISTRY_FRONTEND: "registry.digitalocean.com/e-mall/frontend"
-  IMAGE_NAME_FRONTEND: "app"
-
 #3
 jobs:
-  build_and_push:
+  front_build_and_push:
     runs-on: ubuntu-latest
     environment: prod
-    strategy:
-      matrix:
-        include:
-          - build: frontend
-            registry: registry.digitalocean.com/e-mall/frontend
-            image_name: app
-
-          - build: backend
-            registry: registry.digitalocean.com/e-mall/backend
-            image_name: api
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v3
 
       - name: Create .env file
         run: |
-          echo "${{ secrets.API_ENV_PROD}}" > ./api/env.prod
           echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
-
-      - name: Build image for ${{ matrix.build}}
-        run: docker build -f ./api/Dockerfile.prod -t  ${{ matrix.registry }}/${{ matrix.image_name }} .
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
@@ -56,7 +35,40 @@ jobs:
         run: doctl registry login --expiry-seconds 600
 
       - name: Remove old images
-        run: if [ ! -z "$(doctl registry repository list | grep "${{ matrix.image_name }}" ]; then doctl registry repository delete-manifest ${{ matrix.image_name }} $(doctl registry repository list-tags ${{ matrix.image_name }}) --force; else echo "No repository"; fi
+        run: if [ ! -z "$(doctl registry repository list | grep "frontend" ]; then doctl registry repository delete-manifest frontend $(doctl registry repository list-tags frontend) --force; else echo "No repository"; fi
 
-      - name: Push image to DigitalOcean Container Registry
-        run: docker push  ${{ matrix.registry }}/${{ matrix.image_name }}
+      - name: Build and push
+        working-directory: ./app
+        run: |
+          docker build -f Dockerfile -t frontend .
+          docker tag frontend registry.digitalocean.com/e-mall/frontend
+          docker push registry.digitalocean.com/e-mall/frontend
+
+  backend_build_and_push:
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v3
+
+      - name: Create .env file
+        run: |
+          echo "${{ secrets.API_ENV_PROD}}" > .api/api/env.prod
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Log in to DigitalOcean Container
+        run: doctl registry login --expiry-seconds 600
+
+      - name: Remove old images
+        run: if [ ! -z "$(doctl registry repository list | grep "backend" ]; then doctl registry repository delete-manifest backend $(doctl registry repository list-tags backend) --force; else echo "No repository"; fi
+
+      - name: Build and push
+        working-directory: ./api
+        run: |
+          docker build -f Dockerfile.prod -t backend .
+          docker tag backend registry.digitalocean.com/e-mall/backend
+          docker push registry.digitalocean.com/e-mall/backend
