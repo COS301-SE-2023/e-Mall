@@ -114,17 +114,16 @@ export class ProfileFacade implements OnDestroy {
     if (!(await this.authFacade.isLoggedIn())) {
       this.setError('You must be logged in to follow sellers');
       return new Navigate(['sign-in']);
+    } else if ((await this.authFacade.getUserType()) === 'seller') {
+      this.setError('Sellers cannot follow sellers');
+      return new Navigate(['sales']);
     } else {
-      if ((await this.authFacade.getUserType()) === 'seller') {
-        this.setError('Sellers cannot follow sellers');
-        return new Navigate(['sales']);
-      } else
-        try {
-          this.profileService.toggleFollowSeller(name);
-          return new ProfileActions.ToggleSellers(name);
-        } catch (error) {
-          return this.setError(error);
-        }
+      try {
+        this.profileService.toggleFollowSeller(name);
+        return new ProfileActions.ToggleSellers(name);
+      } catch (error) {
+        return this.setError(error);
+      }
     }
   }
 
@@ -133,17 +132,16 @@ export class ProfileFacade implements OnDestroy {
     if (!(await this.authFacade.isLoggedIn())) {
       this.setError('You must be logged in to add to wishlist');
       return new Navigate(['sign-in']);
+    } else if ((await this.authFacade.getUserType()) === 'seller') {
+      this.setError('Sellers cannot add to wishlist');
+      return new Navigate(['sales']);
     } else {
-      if ((await this.authFacade.getUserType()) === 'seller') {
-        this.setError('Sellers cannot add to wishlist');
-        return new Navigate(['sales']);
-      } else
-        try {
-          this.profileService.toggleWishlist(id);
-          return new ProfileActions.ToggleWishlist(id);
-        } catch (error) {
-          return this.setError(error);
-        }
+      try {
+        this.profileService.toggleWishlist(id);
+        return new ProfileActions.ToggleWishlist(id);
+      } catch (error) {
+        return this.setError(error);
+      }
     }
   }
 

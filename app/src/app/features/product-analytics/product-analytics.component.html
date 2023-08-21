@@ -90,28 +90,6 @@
     </div>
     <div class="container">
       <div class="date">
-        <!-- <div>
-          <label for="date-select">Select date range:</label>
-        </div>
-        <div>
-          <label for="start-date">Start Date:</label>
-          <input
-            type="date"
-            id="start-date"
-            name="start-date"
-            [(ngModel)]="startDate"
-            [min]="begninningDate"
-            (ngModelChange)="onPeriodOptionChange(selectedPeriodOption)" />
-
-          <label for="end-date">End Date:</label>
-          <input
-            type="date"
-            id="end-date"
-            name="end-date"
-            [(ngModel)]="endDate"
-            (ngModelChange)="onPeriodOptionChange(selectedPeriodOption)"
-            [max]="currentDate" />
-        </div> -->
         <div>
           <button class="dropdownbtn">
             <mat-label>Period Options</mat-label>
@@ -119,7 +97,6 @@
               [(value)]="selectedPeriodOption"
               (selectionChange)="onPeriodOptionChange($event.value)"
               class="custom-select">
-              <!-- <mat-option value="">Default</mat-option> -->
               <mat-option value="1_year">Past Years</mat-option>
               <mat-option value="6_months">Past 6 months</mat-option>
               <mat-option value="30_days">Past 30 days</mat-option>

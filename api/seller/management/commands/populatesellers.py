@@ -10,29 +10,8 @@ import json
 fake = Faker()
 
 
-# def generate_fake_input(select_list):
-#     random_input = fake.random_element(select_list)
-#     return random_input
-
-
 class Command(BaseCommand):
     def handle(self, *args: Any, **options: Any) -> Optional[str]:
-        select_category = [
-            "MICRO",
-            "SMALL",
-            "MEDIUM",
-        ]
-        select_type = [
-            "Technology",
-            "Fashion",
-            "Food",
-            "Health",
-            "Sports",
-            "Books",
-            "Toys",
-            "Home",
-            "Beauty",
-        ]
         json_file = "sellers.json"
         script_directory = os.path.dirname(
             __file__
