@@ -80,4 +80,4 @@ jobs:
 
       - name: Garbage collection
         run: |
-          doctl registry garbage-collection start --force --include-untagged-manifests registry.digitalocean.com/e-mall/frontend
+          doctl registry garbage-collection start --force --include-untagged-manifests registry.digitalocean.com/e-mall/backend
