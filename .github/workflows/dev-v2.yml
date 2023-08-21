@@ -21,13 +21,14 @@ jobs:
       - id: check
         run: |
           if [[ "${{ github.event.head_commit.message }}" == "Merge pull request"* ]]; then
-            echo "::set-output name=should_skip::true"
+            echo "should_skip=true" >> $GITHUB_ENV
           else
-            echo "::set-output name=should_skip::false"
+            echo "should_skip=false" >> $GITHUB_ENV
           fi
 
   frontend:
     name: Angular Build and Test
+    needs: [start]
     if: needs.start.outputs.should_skip != 'true'
     runs-on: ubuntu-latest
 
@@ -86,6 +87,7 @@ jobs:
 
   backend:
     name: Django Build and Test
+    needs: [start]
     if: needs.start.outputs.should_skip != 'true'
     runs-on: ubuntu-latest
 
@@ -199,6 +201,7 @@ jobs:
 
   cypress-e2e:
     name: Cypress E2E Test
+    needs: [start]
     if: needs.start.outputs.should_skip != 'true'
     runs-on: ubuntu-latest
 
