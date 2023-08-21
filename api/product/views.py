@@ -1,6 +1,7 @@
 from django.http import HttpResponseBadRequest
 from django.shortcuts import render
-
+from analytics.models import Analytics
+from django.db.models import Count
 # Create your views here.
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -10,9 +11,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Product
 from .serializers import ProductSerializer
-import math
 from django.utils.dateparse import parse_date
-from rest_framework.pagination import PageNumberPagination
 from django.db.models import Subquery, OuterRef, Min
 from productseller.models import ProductSeller
 from django.core import serializers
@@ -299,3 +298,26 @@ class ProductTestAPIView(APIView):
             keyword = keyword.strip()
             _query |= Q(**{f"{field}__icontains": keyword})
         return _query
+
+class GetPopularProductsAPIView(APIView):
+    def get(self, request):
+        # Get the most popular products names based on clicks
+        top_products = (
+            Analytics.objects.filter(
+                event_type="product_click",
+            )
+            .values("product")
+            .annotate(click_count=Count("product"))
+            .order_by("-click_count")[:12]  # Get top 10 products
+        )
+        
+        # Extract product names from the queryset
+        top_products_names = [product["product"] for product in top_products]
+        
+        # Fetch the actual Product objects from the database
+        products = Product.objects.filter(name__in=top_products_names)
+        
+        # Serialize the products
+        serializer = ProductSerializer(products, many=True)  # Assuming you have a ProductSerializer
+        
+        return Response(serializer.data)

@@ -23,7 +23,7 @@ import { ProfileService } from '@features/profile/services/profile.service';
 export class HomeComponent implements OnInit, OnDestroy {
   popProducts$: Observable<IProduct[]> | undefined;
   forYouProducts$: Observable<IProduct[]> | undefined;
-
+  trendingProducts$: Observable<IProduct[]> | undefined;
   followedSellers$: Observable<any>;
   followSubs = new Subscription();
   imageObject: Array<object> = [];
@@ -50,6 +50,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.fetchforYouProducts();
     this.fetchPopProducts();
+    this.fetchTrendingProducts();
   }
 
   fetchPopProducts() {
@@ -57,15 +58,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     //Mock data below
     this.popProducts$ = this.productService.getPopProducts();
   }
+  
+  fetchTrendingProducts() {
+    this.trendingProducts$ = this.productService.getTrendingProducts();
+  }
 
   fetchforYouProducts() {
     this.forYouProducts$ = this.profileService.getSimilarProducts();
-    this.forYouProducts$.subscribe((val) => {
-      if (val) {
-          console.log(val);
-      }
-    }
-    );
   }
 
   search(searchQuery: string): void {

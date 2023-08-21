@@ -141,9 +141,9 @@ def update_recommended_products(request):
             predictions_data = ca_matrix.objects.all()
             #create the df table
             df, df1 = createTables(predictions_data)
-            for m in df[df[user.id] == 0].index.tolist():
+            for m in df[df[user.email] == 0].index.tolist():
                 index_df = df.index.tolist().index(m)
-                predicted_rating = df1.iloc[index_df, df1.columns.tolist().index(user.id)]
+                predicted_rating = df1.iloc[index_df, df1.columns.tolist().index(user.email)]
                 rec_prods.append((m, predicted_rating))
 
             sorted_rm = sorted(rec_prods, key=lambda x:x[1], reverse=True)
@@ -191,18 +191,18 @@ def get_recommended_products(request):
 
 def createTables(predictions_data):
     # Prepare data for NearestNeighbors
-    user_indices = predictions_data.values_list('user_id', flat=True)
+    user_indices = predictions_data.values_list('user_email', flat=True)
     product_indices = predictions_data.values_list('product', flat=True)
     values = predictions_data.values_list('value', flat=True)
     
     #recreating the df table
     data = {
-        'user_id': user_indices,
+        'user_email': user_indices,
         'product': product_indices,
         'value': values
     }
     predictions_df = pd.DataFrame(data)
     # Pivot the data to create the table
-    df = predictions_df.pivot(index='product', columns='user_id', values='value')
+    df = predictions_df.pivot(index='product', columns='user_email', values='value')
     df1 = df.copy()
     return df, df1

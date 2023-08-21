@@ -4,6 +4,6 @@ from django.contrib import admin
 from .models import ca_matrix
 
 class ca_matrixAdmin(admin.ModelAdmin):
-    list_display = ["product", "user_id", "value"]
+    list_display = ["product", "user_email", "value"]
 
 admin.site.register(ca_matrix, ca_matrixAdmin)

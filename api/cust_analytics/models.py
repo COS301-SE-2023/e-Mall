@@ -11,8 +11,8 @@ class cust_analytics(models.Model):
     )
 
     product = models.CharField(default="")
-    user_id = models.UUIDField(default=uuid.uuid4)
+    user_email = models.CharField(default="")
     value = models.PositiveSmallIntegerField(choices=Value_CHOICES, default=0)
 
     class Meta:
-        unique_together = ('product', 'user_id')  # Ensure uniqueness of product and user_id combination
+        unique_together = ('product', 'user_email')  # Ensure uniqueness of product and user_email combination

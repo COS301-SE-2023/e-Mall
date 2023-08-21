@@ -20,13 +20,13 @@ class CAMatrixView(APIView):
 
                 # Fetch all unique products and users
                 unique_products = Analytics.objects.values_list('product', flat=True).distinct()
-                unique_users = Analytics.objects.filter(consumer_id__isnull=False).values_list('consumer_id', flat=True).distinct()
+                unique_users = Analytics.objects.filter(consumer_email__isnull=False).values_list('consumer_email', flat=True).distinct()
 
                 # Loop through each product and user to create/update CAMatrix entries
                 for product_name in unique_products:
-                    for user_id in unique_users:
+                    for user_email in unique_users:
                         # Check if there's an interaction for the product and user
-                        interaction = Analytics.objects.filter(product=product_name, consumer_id=user_id, event_type__in=['	product_click', 'link_click', 'favourited_product']).first()
+                        interaction = Analytics.objects.filter(product=product_name, consumer_email=user_email, event_type__in=['	product_click', 'link_click', 'favourited_product']).first()
 
                         if interaction:
                             event_type = interaction.event_type
@@ -42,7 +42,7 @@ class CAMatrixView(APIView):
                         # Create or update CAMatrix entry
                         existing_entry, created = ca_matrix.objects.update_or_create(
                             product=product_name,
-                            user_id=user_id,
+                            user_email=user_email,
                             defaults={'value': value}
                         )
 

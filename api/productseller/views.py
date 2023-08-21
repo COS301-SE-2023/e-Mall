@@ -1,14 +1,16 @@
+from django.db.models import Count
+from itertools import count
 from django.shortcuts import render
+from product.models import Product
+from product.serializers import ProductSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import ProductSeller
 from .serializers import ProductSellerSerializer
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.parsers import JSONParser
 from rest_framework.permissions import AllowAny
-
+from analytics.models import Analytics
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from decimal import Decimal
@@ -208,3 +210,10 @@ class ProductSellerDashboardAPIView(APIView):
 
         serializer = ProductSellerSerializer(paginated_products, many=True)
         return Response({"data": serializer.data, "total_count": total_count})
+
+
+
+
+
+
+

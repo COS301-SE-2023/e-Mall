@@ -120,6 +120,7 @@ export class ProfileService {
   }
 
   public updateRecommendedProducts(): void {
+    this.updateDB();
     const url = `${this.apiUrl}updateRecommendedProducts/`;
 
     this.http
@@ -132,6 +133,17 @@ export class ProfileService {
             .set('Authorization', 'true'),
           observe: 'response',
         }
+      )
+      .subscribe();
+  }
+
+  public updateDB(): void {
+    const url = `http://localhost:3000/api/custanalytics/predicted_matrix/`;
+
+    this.http
+      .post(
+        url,
+        {},
       )
       .subscribe();
   }

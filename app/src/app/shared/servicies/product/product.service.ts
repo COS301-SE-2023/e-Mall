@@ -36,12 +36,18 @@ export class ProductService {
   public getPopProducts(): Observable<IProduct[]> {
     //Algo needs to be implemented
     //Mock data for demo
-    const url = `${this.apiUrl}products/test?search=a`;
+    const url = `${this.apiUrl}products/popularproducts/`;
+    return this.http
+      .get(url)
+      .pipe(map((res: any) => res as IProduct[]));
+  }
+  public getTrendingProducts(): Observable<IProduct[]> {
+    const url = `${this.apiUrl}products/test?search=x`;
     return this.http
       .get(url)
       .pipe(map((res: any) => res['data'] as IProduct[]));
   }
-
+  
   public getForYouProducts(): Observable<IProduct[]> {
     //Algo needs to be implemented
     //Mock data for demo

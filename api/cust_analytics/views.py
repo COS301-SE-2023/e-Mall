@@ -31,11 +31,11 @@ class PredictCustAnalyticsView(APIView):
 
                 # Store predictions in the CustAnalytics model
                 for index, row in predicated_values.iterrows():
-                    for user_id in row.index:
+                    for user_email in row.index:
                         cust_analytics.objects.update_or_create(
                             product=index,
-                            user_id=user_id,
-                            defaults={'value': row[user_id]}
+                            user_email=user_email,
+                            defaults={'value': row[user_email]}
                         )
 
             return JsonResponse({"message": "Predictions created successfully"}, status=200)
@@ -67,19 +67,19 @@ def create_initial_matrix():
         
 def calculate_predicted_values(predictions_data):
     # Prepare data for NearestNeighbors
-    user_indices = predictions_data.values_list('user_id', flat=True)
+    user_indices = predictions_data.values_list('user_email', flat=True)
     product_indices = predictions_data.values_list('product', flat=True)
     values = predictions_data.values_list('value', flat=True)
     
     #recreating the df table
     data = {
-        'user_id': user_indices,
+        'user_email': user_indices,
         'product': product_indices,
         'value': values
     }
     predictions_df = pd.DataFrame(data)
     # Pivot the data to create the table
-    df = predictions_df.pivot(index='product', columns='user_id', values='value')
+    df = predictions_df.pivot(index='product', columns='user_email', values='value')
     df1 = df.copy()
 
 
@@ -93,7 +93,6 @@ def calculate_predicted_values(predictions_data):
     # iterating through all users 
     for user_index,user_uuid in list(enumerate(df.columns)):
         # iterating through all products.
-        print("User index",user_index) 
         for row,name in list(enumerate(df.index)):
             #find products that have not been interacted with by the user
             if df.iloc[row,user_index] == 0:
@@ -131,7 +130,6 @@ def calculate_predicted_values(predictions_data):
                 
                 #check if the number of the ratings with non-zero is positive
                 if len(product_similarity_copy) > 0:
-                    print("length of similar products",len(product_similarity_copy))
                     #check if the sum of the similarity is positive
                     if sum(product_similarity_copy) > 0:
                         predicted_value = nominator / sum(product_similarity_copy)
@@ -142,7 +140,6 @@ def calculate_predicted_values(predictions_data):
                     predicted_value = 0
                 
                 #place the predicted value in the dataframe
-                print(predicted_value)
                 df1.iloc[row,user_index] = predicted_value
     
     return df1
@@ -156,9 +153,9 @@ def create_user_product_matrix(user_indices, product_indices, values):
     
     matrix = np.zeros((len(unique_products), len(unique_users)))  # Swap dimensions
     for user, product, value in zip(user_indices, product_indices, values):
-        user_idx = user_index_map[user]
+        user_emailx = user_index_map[user]
         product_idx = product_index_map[product]
-        matrix[product_idx, user_idx] = value  # Swap indices
+        matrix[product_idx, user_emailx] = value  # Swap indices
     
     return matrix
 
