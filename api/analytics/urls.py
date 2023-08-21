@@ -4,8 +4,8 @@ from .views import (
     AllProductAnalyticsAPIView,
     CreateProductAnalyticsAPIView,
     ConversionRateAPIView,
-    categoryPercentageAPIView,
-    selectedProductsAPIView,
+    CategoryPercentageAPIView,
+    SelectedProductsAPIView,
 )
 
 urlpatterns = [
@@ -29,10 +29,10 @@ urlpatterns = [
     ),
     path(
         "categorypercentage/",
-        categoryPercentageAPIView.as_view(),
+        CategoryPercentageAPIView.as_view(),
         name="categorypercentage",
     ),
     path(
-        "selectedproducts/", selectedProductsAPIView.as_view(), name="selectedproducts"
+        "selectedproducts/", SelectedProductsAPIView.as_view(), name="selectedproducts"
     ),
 ]
