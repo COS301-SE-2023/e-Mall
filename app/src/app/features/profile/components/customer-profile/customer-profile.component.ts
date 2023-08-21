@@ -5,46 +5,40 @@ import { ISellerProfile } from '../../models/seller-profile.interface';
 import { IConsumerProfile } from '../../models/consumer-profile.interface';
 import { Observable } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
+import { AuthFacade } from '@features/auth/services/auth.facade';
 
 @Component({
   selector: 'app-customer-profile',
   templateUrl: './customer-profile.component.html',
-  styleUrls: ['./customer-profile.component.scss']
+  styleUrls: ['./customer-profile.component.scss'],
 })
 export class CustomerProfileComponent {
-
   customerprofileForm: FormGroup;
   profile$: Observable<ISellerProfile | IConsumerProfile | null>;
 
-  constructor(private router: Router,public profileFacade: ProfileFacade) { 
+  constructor(
+    private router: Router,
+    public profileFacade: ProfileFacade,
+    public authFacade: AuthFacade
+  ) {
     this.customerprofileForm = new FormGroup({
       username: new FormControl(),
-      email: new FormControl(), 
-      details: new FormControl(), 
+      email: new FormControl(),
+      details: new FormControl(),
     });
 
-    this.profile$ = this.profileFacade.getProfile(); 
-  
+    this.profile$ = this.profileFacade.getProfile();
   }
 
   public goToWishlist() {
-    
     this.router.navigate(['/wishlist']);
   }
 
-  public goToConstruction(){
+  public goToConstruction() {
     this.router.navigate(['/construction']);
-  }
-
-  public signOut(): void {
-    this.router.navigate(['sign-out']);
   }
 
   public goToEditProfile(): void {
     this.router.navigate(['edit-customer-profile']);
   }
-  
-
- 
-
 }

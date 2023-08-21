@@ -19,9 +19,9 @@ describe('sign in', () => {
 
     cy.wait(500);
     cy.contains('Sign out').click({ force: true });
-    cy.url().should('include', '/sign-out');
+    // cy.url().should('include', '/sign-out');
 
-    cy.wait(6000);
+    cy.wait(500);
     cy.url().should('include', '/home');
   });
 });

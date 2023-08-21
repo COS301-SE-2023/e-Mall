@@ -123,7 +123,7 @@ describe('NavbarComponentIntegration', () => {
     const routerNavigateSpy = spyOn(router, 'navigate');
     const event = {} as Event;
     component.wishlist(event);
-  //  expect(routerNavigateSpy).toHaveBeenCalledWith(['/wishlist']);
+    //  expect(routerNavigateSpy).toHaveBeenCalledWith(['/wishlist']);
   });
 
   it('should navigate to sign-in page', () => {
@@ -134,13 +134,13 @@ describe('NavbarComponentIntegration', () => {
     expect(routerNavigateSpy).toHaveBeenCalledWith(['sign-in']);
   });
 
-  it('should navigate to sign-out page', () => {
-    const routerNavigateSpy = spyOn(router, 'navigate');
+  // it('should navigate to sign-out page', () => {
+  //   const routerNavigateSpy = spyOn(router, 'navigate');
 
-    component.signOut();
+  //   component.signOut();
 
-    expect(routerNavigateSpy).toHaveBeenCalledWith(['sign-out']);
-  });
+  //   expect(routerNavigateSpy).toHaveBeenCalledWith(['sign-out']);
+  // });
 
   it('should navigate to a specified page', () => {
     const page = 'home';

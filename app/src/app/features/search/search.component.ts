@@ -7,6 +7,7 @@ import { tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { FormControl, FormGroup } from '@angular/forms';
+import { AuthFacade } from '@features/auth/services/auth.facade';
 interface RangeValue {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any;
@@ -49,7 +50,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private productService: ProductService,
     private router: Router,
-    private analytics: AnalyticsService
+    private analytics: AnalyticsService,
+    private authFacade: AuthFacade
   ) {
     this.priceRangeGroup = new FormGroup({
       lower: new FormControl(0),
@@ -131,9 +133,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   //
   pinFormatter(value: number) {
     return `R${value}`;
-  }
-  signOut(): void {
-    this.router.navigate(['sign-out']);
   }
 
   getOneImg(imgList?: string[]) {
