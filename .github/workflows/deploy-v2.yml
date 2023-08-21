@@ -1,0 +1,57 @@
+name: deploy
+
+# 1
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push events but only for the master branch
+  push:
+    branches: [JY/194/ssl_configure]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Image version"
+        required: true
+#2
+env:
+  REGISTRY_BACKEND: "registry.digitalocean.com/e-mall/backend"
+  IMAGE_NAME_BACKEND: "api"
+  REGISTRY_FRONTEND: "registry.digitalocean.com/e-mall/frontend"
+  IMAGE_NAME_FRONTEND: "app"
+
+#3
+jobs:
+  front_build_and_push:
+    runs-on: ubuntu-latest
+    environment: prod
+    strategy:
+      matrix:
+        include:
+          - build: frontend
+            registry: backend
+            image_name: app
+
+          - build: backend
+            registry: backend
+            image-name: api
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v3
+
+      - name: Build image for ${{ matrix.build}}
+        run: docker build -f ./api/Dockerfile.prod -t  ${{ matrix.registry }}/${{ matrix.image_name }}:${GITHUB_SHA:0:7} .
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Log in to DigitalOcean Container
+        run: doctl registry login --expiry-seconds 600
+
+      - name: Remove old images
+        run: if [ ! -z "$(doctl registry repository list | grep "${{ matrix.image_name }}" ]; then doctl registry repository delete-manifest ${{ matrix.image_name }} $(doctl registry repository list-tags ${{ matrix.image_name }} | grep -o "sha.*") --force; else echo "No repository"; fi
+
+      - name: Push image to DigitalOcean Container Registry
+        run: docker push  ${{ matrix.registry }}/${{ matrix.image_name }}:${GITHUB_SHA:0:7}
