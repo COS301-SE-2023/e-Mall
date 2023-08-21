@@ -15,7 +15,9 @@ jobs:
   start:
     runs-on: ubuntu-latest
     if: (github.event_name != 'pull_request'&& !startsWith(github.event.head_commit.message, 'Merge pull request') )|| github.event.pull_request.base.ref != 'master'
-    steps: []
+    steps:
+      - name: Start jobs
+        run: echo "Start job"
 
   frontend:
     name: Angular Build and Test
