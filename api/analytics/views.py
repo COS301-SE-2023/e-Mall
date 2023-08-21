@@ -183,7 +183,7 @@ class ConversionRateAPIView(APIView):
         return Response(response_data)
 
 
-class categoryPercentageAPIView(APIView):
+class CategoryPercentageAPIView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
@@ -214,7 +214,7 @@ class categoryPercentageAPIView(APIView):
         return Response(response_data)
 
 
-class selectedProductsAPIView(APIView):
+class SelectedProductsAPIView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
@@ -520,4 +520,3 @@ class selectedProductsAPIView(APIView):
                 sorted_intervals_dict = dict(sorted_intervals)
                 sorted_clicks_by_product[product] = sorted_intervals_dict
             return Response(sorted_clicks_by_product)
-

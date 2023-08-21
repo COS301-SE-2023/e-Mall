@@ -45,8 +45,6 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "django_extensions",
-    # 'public.apps.PublicConfig',
-    # 'user.apps.UserConfig',
     "seller.apps.SellerConfig",
     "staff.apps.StaffConfig",
     "consumer.apps.ConsumerConfig",
@@ -154,7 +152,6 @@ CORS_ALLOWED_ORIGINS = [
     "https://app.emall.space",
 ]
 
-# DATABASE = env('DATABASE')
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",

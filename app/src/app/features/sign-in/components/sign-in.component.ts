@@ -33,15 +33,8 @@ export class SignInComponent {
   }
 
   async signIn() {
-    // const loading = await this.loadingController.create({
-    //   message: 'Please Wait',
-    //   duration: 2000,
-    //   translucent: true,
-    // });
-    // await loading.present();
     const { email, password } = this.signInForm.value;
     await this.signInFacade.signIn(email, password);
-    // loading.dismiss();
     this.toast.presentErrorToast(this.signInFacade.getError());
   }
   getFormControl(field: string) {
