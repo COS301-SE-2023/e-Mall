@@ -35,7 +35,7 @@ jobs:
         run: doctl registry login --expiry-seconds 600
 
       - name: Remove old images
-        run: if [ ! -z "$(doctl registry repository list | grep "frontend" ]; then doctl registry repository delete-manifest frontend $(doctl registry repository list-tags frontend) --force; else echo "No repository"; fi
+        run: if [ ! -z "$(doctl registry repository list | grep "frontend")" ]; then doctl registry repository delete-manifest frontend $(doctl registry repository list-tags frontend) --force; else echo "No repository"; fi
 
       - name: Build and push
         working-directory: ./app
@@ -53,7 +53,7 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "${{ secrets.API_ENV_PROD}}" > .api/api/env.prod
+          echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
@@ -64,7 +64,7 @@ jobs:
         run: doctl registry login --expiry-seconds 600
 
       - name: Remove old images
-        run: if [ ! -z "$(doctl registry repository list | grep "backend" ]; then doctl registry repository delete-manifest backend $(doctl registry repository list-tags backend) --force; else echo "No repository"; fi
+        run: if [ ! -z "$(doctl registry repository list | grep "backend")" ]; then doctl registry repository delete-manifest backend $(doctl registry repository list-tags backend) --force; else echo "No repository"; fi
 
       - name: Build and push
         working-directory: ./api
