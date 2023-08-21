@@ -12,7 +12,7 @@ env:
   node_version: v18.16.0
 
 jobs:
-  start:
+  Start:
     runs-on: ubuntu-latest
     if: (github.event_name != 'pull_request'&& !startsWith(github.event.head_commit.message, 'Merge pull request') )|| github.event.pull_request.base.ref != 'master'
     steps:
@@ -21,7 +21,7 @@ jobs:
 
   frontend:
     name: Angular Build and Test
-    needs: [start]
+    needs: [Start]
     runs-on: ubuntu-latest
 
     steps:
@@ -79,7 +79,7 @@ jobs:
 
   backend:
     name: Django Build and Test
-    needs: [start]
+    needs: [Start]
     runs-on: ubuntu-latest
 
     steps:
@@ -192,7 +192,7 @@ jobs:
 
   cypress-e2e:
     name: Cypress E2E Test
-    needs: [start]
+    needs: [Start]
     runs-on: ubuntu-latest
 
     steps:
