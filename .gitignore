@@ -2,3 +2,5 @@
 coverage.xml
 .venv
 .vscode
+kubectl.exe
+doctl-1.94.0-windows-amd64

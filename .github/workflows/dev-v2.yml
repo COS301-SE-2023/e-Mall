@@ -13,6 +13,7 @@ env:
 
 jobs:
   frontend:
+    if: github.event_name == 'pull_request' || github.event.pull_request.base.ref != 'master'
     name: Angular Build and Test
     runs-on: ubuntu-latest
 
@@ -71,6 +72,7 @@ jobs:
 
   backend:
     name: Django Build and Test
+    if: github.event_name == 'pull_request' || github.event.pull_request.base.ref != 'master'
     runs-on: ubuntu-latest
 
     steps:
@@ -183,6 +185,7 @@ jobs:
 
   cypress-e2e:
     name: Cypress E2E Test
+    if: github.event_name == 'pull_request' || github.event.pull_request.base.ref != 'master'
     runs-on: ubuntu-latest
 
     steps:
