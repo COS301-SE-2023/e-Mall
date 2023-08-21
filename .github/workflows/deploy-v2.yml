@@ -22,25 +22,25 @@ env:
 
 #3
 jobs:
-  front_build_and_push:
+  build_and_push:
     runs-on: ubuntu-latest
     environment: prod
     strategy:
       matrix:
         include:
           - build: frontend
-            registry: backend
+            registry: registry.digitalocean.com/e-mall/frontend
             image_name: app
 
           - build: backend
-            registry: backend
+            registry: registry.digitalocean.com/e-mall/backend
             image-name: api
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v3
 
       - name: Build image for ${{ matrix.build}}
-        run: docker build -f ./api/Dockerfile.prod -t  ${{ matrix.registry }}/${{ matrix.image_name }}:${GITHUB_SHA:0:7} .
+        run: docker build -f ./api/Dockerfile.prod -t  ${{ matrix.registry }}/${{ matrix.image_name }} .
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
@@ -51,7 +51,7 @@ jobs:
         run: doctl registry login --expiry-seconds 600
 
       - name: Remove old images
-        run: if [ ! -z "$(doctl registry repository list | grep "${{ matrix.image_name }}" ]; then doctl registry repository delete-manifest ${{ matrix.image_name }} $(doctl registry repository list-tags ${{ matrix.image_name }} | grep -o "sha.*") --force; else echo "No repository"; fi
+        run: if [ ! -z "$(doctl registry repository list | grep "${{ matrix.image_name }}" ]; then doctl registry repository delete-manifest ${{ matrix.image_name }} $(doctl registry repository list-tags ${{ matrix.image_name }}) --force; else echo "No repository"; fi
 
       - name: Push image to DigitalOcean Container Registry
-        run: docker push  ${{ matrix.registry }}/${{ matrix.image_name }}:${GITHUB_SHA:0:7}
+        run: docker push  ${{ matrix.registry }}/${{ matrix.image_name }}
