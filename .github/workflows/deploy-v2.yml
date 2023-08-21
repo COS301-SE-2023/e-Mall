@@ -89,7 +89,7 @@ jobs:
       - name: Garbage collection
         run: |
           # Check if there is an active garbage collection
-          ACTIVE_GC=$(doctl registry garbage-collection get-active e-mall --format Status --no-header 2>/dev/null)     
+          ACTIVE_GC=$(doctl registry garbage-collection get-active e-mall --format Status --no-header 2>/dev/null || echo "")     
 
           # If there is no active garbage collection, start a new one
           if [ "$ACTIVE_GC" == "" ]; then
