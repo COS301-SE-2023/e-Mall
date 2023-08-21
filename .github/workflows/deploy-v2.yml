@@ -74,27 +74,27 @@ jobs:
           docker tag backend registry.digitalocean.com/e-mall/backend
           docker push registry.digitalocean.com/e-mall/backend
 
-  garbage_collection:
-    runs-on: ubuntu-latest
-    environment: prod
-    steps:
-      - name: Install doctl
-        uses: digitalocean/action-doctl@v2
-        with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+  # garbage_collection:
+  #   runs-on: ubuntu-latest
+  #   environment: prod
+  #   steps:
+  #     - name: Install doctl
+  #       uses: digitalocean/action-doctl@v2
+  #       with:
+  #         token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
-      - name: Log in to DigitalOcean Container
-        run: doctl registry login --expiry-seconds 600
+  #     - name: Log in to DigitalOcean Container
+  #       run: doctl registry login --expiry-seconds 600
 
-      - name: Garbage collection
-        run: |
-          # Check if there is an active garbage collection
-          ACTIVE_GC=$(doctl registry garbage-collection get-active registry.digitalocean.com/e-mall --format Status --no-header)
-               
-          # If there is an active garbage collection, cancel it
-          if [ "$ACTIVE_GC" != "" ]; then
-            doctl registry garbage-collection cancel registry.digitalocean.com/e-mall
-          fi
-               
-          # Start a new garbage collection
-          doctl registry garbage-collection start registry.digitalocean.com/e-mall
+  #     - name: Garbage collection
+  #       run: |
+  #         # Check if there is an active garbage collection
+  #         ACTIVE_GC=$(doctl registry garbage-collection get-active registry.digitalocean.com/e-mall --format Status --no-header)
+
+  #         # If there is an active garbage collection, cancel it
+  #         if [ "$ACTIVE_GC" != "" ]; then
+  #           doctl registry garbage-collection cancel registry.digitalocean.com/e-mall
+  #         fi
+
+  #         # Start a new garbage collection
+  #         doctl registry garbage-collection start registry.digitalocean.com/e-mall
