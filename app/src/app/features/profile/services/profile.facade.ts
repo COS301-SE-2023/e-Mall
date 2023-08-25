@@ -14,6 +14,7 @@ import { AuthFacade } from '@features/auth/services/auth.facade';
 import { Profile } from '../models/alias-profile.interface';
 import { Router } from '@angular/router';
 import { Navigate } from '@ngxs/router-plugin';
+import { IProduct } from '@shared/models/product/product.interface';
 
 @Injectable()
 export class ProfileFacade implements OnDestroy {
@@ -24,7 +25,7 @@ export class ProfileFacade implements OnDestroy {
   @Select(ProfileSelectors.getFollowedSellers)
   public followedSellers$!: Observable<string[]>;
   @Select(ProfileSelectors.getRecommendedProducts)
-  public recommendedProducts$!: Observable<number[]>;
+  public recommendedProducts$!: Observable<IProduct[]>;
   private authSubscription: Subscription;
 
   constructor(
@@ -170,7 +171,6 @@ export class ProfileFacade implements OnDestroy {
 
   fetchRecommendedProducts() {
     try {
-      
       return this.profileService.fetchRecommendedProducts();
     } catch (error) {
       this.setError(error);

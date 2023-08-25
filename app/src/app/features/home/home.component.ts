@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   forYouProducts$: Observable<IProduct[]> | Observable<any> | undefined;
   tempProducts$: Observable<IProduct[]> | undefined;
   trendingProducts$: Observable<IProduct[]> | undefined;
-  followedSellers$: Observable<any>;
+  followedSellers$: Observable<any> | undefined;
   followSubs = new Subscription();
   forYouSubs = new Subscription();
   imageObject: Array<object> = [];
