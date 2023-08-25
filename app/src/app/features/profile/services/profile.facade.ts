@@ -23,6 +23,8 @@ export class ProfileFacade implements OnDestroy {
   private wishlist$!: Observable<number[]>;
   @Select(ProfileSelectors.getFollowedSellers)
   public followedSellers$!: Observable<string[]>;
+  @Select(ProfileSelectors.getRecommendedProducts)
+  public recommendedProducts$!: Observable<number[]>;
   private authSubscription: Subscription;
 
   constructor(
@@ -74,6 +76,7 @@ export class ProfileFacade implements OnDestroy {
   setError(error: any) {
     return [new SetError('profile', error as IError)];
   }
+
   getProfile(): Observable<Profile> {
     return this.profile$.pipe(
       tap(async profile => {
@@ -101,6 +104,7 @@ export class ProfileFacade implements OnDestroy {
       })
     );
   }
+
   checkFollowedSellers(name: string): Observable<boolean> {
     return this.followedSellers$.pipe(
       map(followedSellers => {
@@ -153,9 +157,21 @@ export class ProfileFacade implements OnDestroy {
       this.authSubscription.unsubscribe();
     }
   }
+
   fetchFollowedSellerDetails() {
     try {
-      return this.profileService.fetchFollowedSellerDetails();
+      this.profileService
+      return ;
+    } catch (error) {
+      this.setError(error);
+      return of(null);
+    }
+  }
+
+  fetchRecommendedProducts() {
+    try {
+      
+      return this.profileService.fetchRecommendedProducts();
     } catch (error) {
       this.setError(error);
       return of(null);

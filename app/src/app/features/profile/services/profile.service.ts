@@ -97,7 +97,7 @@ export class ProfileService {
       .pipe(map(response => response.body));
   }
 
-  public getSimilarProducts(): Observable<IProduct[]> {
+  public fetchRecommendedProducts(): Observable<IProduct[]> {
     this.updateRecommendedProducts();
     const url = `${this.apiUrl}fetchRecommendedProducts/`;
 
@@ -140,11 +140,6 @@ export class ProfileService {
   public updateDB(): void {
     const url = `http://localhost:3000/api/custanalytics/predicted_matrix/`;
 
-    this.http
-      .post(
-        url,
-        {},
-      )
-      .subscribe();
+    this.http.post(url, {}).subscribe();
   }
 }

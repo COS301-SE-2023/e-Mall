@@ -22,10 +22,12 @@ import { ProfileService } from '@features/profile/services/profile.service';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   popProducts$: Observable<IProduct[]> | undefined;
-  forYouProducts$: Observable<IProduct[]> | undefined;
+  forYouProducts$: Observable<IProduct[]> | Observable<any> | undefined;
+  tempProducts$: Observable<IProduct[]> | undefined;
   trendingProducts$: Observable<IProduct[]> | undefined;
   followedSellers$: Observable<any>;
   followSubs = new Subscription();
+  forYouSubs = new Subscription();
   imageObject: Array<object> = [];
   images = 'assets/images/home_banner.png';
   @ViewChild('recommendedHeading') recommendedHeading!: ElementRef;
@@ -38,19 +40,30 @@ export class HomeComponent implements OnInit, OnDestroy {
     private profileService: ProfileService
   ) {
     this.followedSellers$ = of(null);
+    this.forYouProducts$ = of(null);
     this.followSubs = this.profileFacade.followedSellers$.subscribe(val => {
       if ((val !== null || val !== undefined) && val.length > 0) {
         this.followedSellers$ = this.profileFacade.fetchFollowedSellerDetails();
       }
     });
+    this.forYouSubs = this.profileFacade.recommendedProducts$.subscribe(val => {
+      if ((val !== null || val !== undefined) && val.length > 0) {
+        this.forYouProducts$ = this.profileFacade.fetchRecommendedProducts();
+      }
+    });
 
+    this.tempProducts$ = this.profileService.fetchRecommendedProducts();
+    this.tempProducts$.subscribe(val => {
+      console.log(val);
+    });
+    
 
   }
 
   ngOnInit(): void {
-    this.fetchforYouProducts();
     this.fetchPopProducts();
     this.fetchTrendingProducts();
+
   }
 
   fetchPopProducts() {
@@ -61,10 +74,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   
   fetchTrendingProducts() {
     this.trendingProducts$ = this.productService.getTrendingProducts();
-  }
-
-  fetchforYouProducts() {
-    this.forYouProducts$ = this.profileService.getSimilarProducts();
   }
 
   search(searchQuery: string): void {
@@ -105,5 +114,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.followSubs.unsubscribe();
+    this.forYouSubs.unsubscribe();
   }
 }

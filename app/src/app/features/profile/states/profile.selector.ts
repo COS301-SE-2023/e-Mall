@@ -18,4 +18,8 @@ export class ProfileSelectors {
   static getFollowedSellers(state: ProfileStateModel): string[] {
     return state.profile?.details.followed_sellers || [];
   }
+  @Selector([ProfileState])
+  static getRecommendedProducts(state: ProfileStateModel): number[] {
+    return state.profile?.details.recommended_products || [];
+  }
 }

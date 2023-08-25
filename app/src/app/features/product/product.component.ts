@@ -60,6 +60,9 @@ export class ProductComponent implements OnInit, OnDestroy {
       if (this.consumer_id === undefined) {
         this.consumer_id = null;
       }
+      if(this.consumer_email === undefined){
+        this.consumer_email = null;
+      }
       // this.consumer_id = this.profileFacade.getProfile().id;
       const id = params.get('prod_id');
 
@@ -90,7 +93,6 @@ export class ProductComponent implements OnInit, OnDestroy {
 
         if (this.sellers$) {
           this.sellers$.subscribe(sellers => {
-            console.log(sellers);
             if (sellers.length > 0) {
               sellers.forEach(currentseller => {
                 const data = {
@@ -181,7 +183,6 @@ export class ProductComponent implements OnInit, OnDestroy {
 
         if (this.sellers$) {
           this.sellers$.subscribe(sellers => {
-            console.log(sellers);
             if (sellers.length > 0) {
               sellers.forEach(currentseller => {
                 const data = {
