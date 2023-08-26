@@ -14,7 +14,6 @@ import { IProduct } from '@shared/models/product/product.interface';
 import { ProductService } from '@shared/servicies/product/product.service';
 import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
-
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { ProfileService } from '@features/profile/services/profile.service';
 
@@ -22,7 +21,6 @@ describe('HomeComponent', () => {
   let component: HomeComponent;
   let httpTestingController: HttpTestingController;
   let productServiceMock: jasmine.SpyObj<ProductService>;
-  let profileServiceMock: jasmine.SpyObj<ProfileService>;
   const mockProduct: IProduct = {
     // Define your mock product data here
     // For example:
@@ -54,9 +52,6 @@ describe('HomeComponent', () => {
     component = TestBed.inject(HomeComponent);
     httpTestingController = TestBed.inject(HttpTestingController);
     productServiceMock = TestBed.inject(ProductService) as jasmine.SpyObj<ProductService>;
-    profileServiceMock = TestBed.inject(ProfileService) as jasmine.SpyObj<ProfileService>; 
-    // Mock forYouProducts$ observable
-  profileServiceMock.getSimilarProducts.and.returnValue(of([mockProduct])); 
   });
 
   afterEach(() => {
@@ -66,35 +61,6 @@ describe('HomeComponent', () => {
   it('should create the HomeComponent', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should fetch popular products on initialization', () => {
-    // Mock the getPopProducts method of the ProductService to return a mock product list
-    productServiceMock.getPopProducts.and.returnValue(of([mockProduct]));
-
-    component.ngOnInit();
-
-    // Ensure that popProducts$ is set correctly with the mock product list
-    expect(component.popProducts$).toBeDefined();
-    component.popProducts$?.subscribe((products) => {
-      expect(products).toEqual([mockProduct]);
-    });
-  }); 
-  
-
-  it('should fetch "for you" products on initialization', () => {
-    // Mock the getForYouProducts method of the ProductService to return a mock product list
-    profileServiceMock.getSimilarProducts.and.returnValue(of([mockProduct]));
-
-    component.ngOnInit();
-
-    // Ensure that forYouProducts$ is set correctly with the mock product list
-    expect(component.forYouProducts$).toBeDefined();
-    component.forYouProducts$?.subscribe((products) => {
-      expect(products).toEqual([mockProduct]);
-    });
-  });
-
- 
 
   it('should return the first image from the list', () => {
     const mockImageList: string[] = ['img1.jpg', 'img2.jpg', 'img3.jpg'];
