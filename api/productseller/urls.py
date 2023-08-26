@@ -6,5 +6,4 @@ urlpatterns = [
     path("produpdate/", ProductSellerProdUpdateAPIView.as_view(),name="produpdate"),
     path("proddelete/", ProductSellerProdDeleteAPIView.as_view(),name="proddelete"),
     path("sellerdashboard/", ProductSellerDashboardAPIView.as_view(), name="sellerdashboard"),
-
 ]

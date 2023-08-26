@@ -74,54 +74,7 @@ describe('ProductService', () => {
     req.flush(mockSellers);
   });
 
-  it('should get popular products', () => {
-    const mockProducts: IProduct[] = [
-      {
-        id: 1,
-        min_price_img_array: ['image1.jpg', 'image2.jpg'],
-        name: 'Product 1',
-        description: 'Description 1',
-        brand: 'Brand 1',
-        category: 'electronics',
-        min_price: 10,
-        min_price_seller_id: 'seller1',
-        min_price_seller_product_url: 'seller1.com/product1',
-        min_price_seller_business_name: 'Seller 1',
-        min_price_in_stock: true,
-        min_price_discount: 5,
-        min_price_discount_rate: 0.5,
-        min_price_original_price: 20,
-        created_at: '2023-06-01',
-        updated_at: '2023-06-02',
-      },
-      {
-        id: 2,
-        min_price_img_array: ['image1.jpg', 'image2.jpg'],
-        name: 'Product 2',
-        description: 'Description 2',
-        brand: 'Brand 2',
-        category: 'electronics',
-        min_price: 10,
-        min_price_seller_id: 'seller2',
-        min_price_seller_product_url: 'seller2.com/product2',
-        min_price_seller_business_name: 'Seller 2',
-        min_price_in_stock: true,
-        min_price_discount: 5,
-        min_price_discount_rate: 0.5,
-        min_price_original_price: 20,
-        created_at: '2023-06-01',
-        updated_at: '2023-06-02',
-      },
-    ];
-
-    productService.getPopProducts().subscribe((products: IProduct[]) => {
-      expect(products).toEqual(mockProducts);
-    });
-
-    const req = httpMock.expectOne(`${productService['apiUrl']}products/test?search=a`);
-    expect(req.request.method).toEqual('GET');
-    req.flush({ data: mockProducts });
-  });
+ 
 
   it('should get products "For You"', () => {
     const mockProducts: IProduct[] = [

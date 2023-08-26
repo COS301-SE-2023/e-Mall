@@ -19,7 +19,6 @@ export class AnalyticsService {
   }
 
   public getAllProducts(data: object): Observable<any> {
-    console.log('data', data);
     const url = `${this.apiUrl}analytics/allproductanalytics/`;
     return this.http.post<any>(url, data);
   }

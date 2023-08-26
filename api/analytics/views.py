@@ -1,23 +1,17 @@
-import datetime
-import statistics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Analytics
-from django.http import JsonResponse
-from django.db.models.functions import TruncMonth
-from django.db.models import Q
 from django.db.models import Count
 from rest_framework.permissions import AllowAny
-from datetime import timedelta, timezone
 from django.utils.timezone import now
-from django.db.models import Count, Case, When, Value, Q, IntegerField
-from django.utils.timezone import make_aware
-
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from rest_framework.pagination import PageNumberPagination
-
-
 from django.core.paginator import Paginator, PageNotAnInteger
+from datetime import datetime, timedelta
+from django.db.models.functions import (
+    TruncHour,
+    TruncDay,
+    TruncMonth,
+    TruncYear,
+)
 
 # Create your views here.
 # Date range options and their corresponding time deltas
@@ -81,8 +75,6 @@ class AllProductAnalyticsAPIView(APIView):
         per_page = (
             int(request.data.get("page_size")) if request.data.get("page_size") else 10
         )
-        print(page)
-        print(per_page)
         paginator = Paginator(product_clicks, per_page)
         try:
             paginated_products = paginator.page(page)
@@ -131,27 +123,52 @@ class AllProductAnalyticsAPIView(APIView):
         return Response({"data": response_data, "total_count": paginator.count})
 
 
+
 class CreateProductAnalyticsAPIView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
         try:
-            analytics = Analytics(
-                seller=request.data.get("seller"),
-                product=request.data.get("product"),
-                product_category=request.data.get("product_category"),
-                consumer_id=request.data.get("consumer_id"),
-                event_type=request.data.get("event_type"),
-                metadata=request.data.get("metadata"),
-                event_date=now(),
-            )
-            analytics.save()
-            return Response(
-                {"message": "Product Analytics created successfully"}, status=201
-            )
+            seller = request.data.get("seller")
+            product = request.data.get("product")
+            product_category = request.data.get("product_category")
+            consumer_email = request.data.get("consumer_email")
+            event_type = request.data.get("event_type")
+            metadata = request.data.get("metadata")
+
+            # Check if the entry already exists
+            existing_entry = Analytics.objects.filter(
+                seller=seller,
+                product=product,
+                consumer_email=consumer_email,
+                event_type=event_type
+            ).first()
+
+            if existing_entry:
+                # Entry already exists, remove it
+                existing_entry.delete()
+                return Response(
+                    {"message": "Existing Product Analytics entry removed"}, status=200
+                )
+            else:
+                # Entry doesn't exist, create it
+                analytics = Analytics(
+                    seller=seller,
+                    product=product,
+                    product_category=product_category,
+                    consumer_email=consumer_email,
+                    event_type=event_type,
+                    metadata=metadata,
+                    event_date=now(),
+                )
+                analytics.save()
+                return Response(
+                    {"message": "Product Analytics created successfully"}, status=201
+                )
 
         except Exception as e:
             return Response({"message": str(e)}, status=400)
+
 
 
 class ConversionRateAPIView(APIView):
@@ -186,7 +203,7 @@ class ConversionRateAPIView(APIView):
         return Response(response_data)
 
 
-class categoryPercentageAPIView(APIView):
+class CategoryPercentageAPIView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
@@ -217,38 +234,309 @@ class categoryPercentageAPIView(APIView):
         return Response(response_data)
 
 
-class selectedProductsAPIView(APIView):
+class SelectedProductsAPIView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
         seller_name = request.data.get("seller_name")
         product_names = request.data.get("product_names")
-        start_date = request.data.get("start_date")
-        end_date = request.data.get("end_date")
+        start_date_str = request.data.get("start_date")
+        end_date_str = request.data.get("end_date")
+        period = request.data.get("period")
 
-        # Query the Analytics data for the specified products and date range
-        product_clicks = (
-            Analytics.objects.filter(
-                seller=seller_name,
-                event_type="product_click",
-                product__in=product_names,
-                event_date__range=[start_date, end_date],
-            )
-            .annotate(month=TruncMonth("event_date"))
-            .values("product", "month")
-            .annotate(clicks=Count("id"))
-            .order_by("product", "month")
+        # Parse start_date and end_date from strings
+        start_date = (
+            datetime.strptime(start_date_str, "%Y-%m-%d")
+            if start_date_str
+            else datetime.strptime("2023-03-10", "%Y-%m-%d")
         )
+        end_date = (
+            datetime.strptime(end_date_str, "%Y-%m-%d")
+            if end_date_str
+            else datetime.now()
+        )
+        current_day_of_week = end_date.strftime("%A")
 
-        # Group the clicks by product and month
-        clicks_by_product = {}
-        for item in product_clicks:
-            product = item["product"]
-            month = item["month"].strftime("%Y-%m")
-            clicks = item["clicks"]
+        # Define date formats and trunc_units for each period
+        period_settings = {
+            "1_day": {
+                "date_format": "%A : %H-%M-%S",
+                "trunc_unit": TruncHour("event_date"),
+            },
+            "7_days": {
+                "date_format": "%A %Y-%m-%d",
+                "trunc_unit": TruncDay("event_date"),
+            },
+            "30_days": {
+                "date_format": " %d %B %Y",
+                "trunc_unit": TruncDay("event_date"),
+            },
+            "6_months": {
+                "date_format": "%B %Y",
+                "trunc_unit": TruncMonth("event_date"),
+            },
+            "1_year": {
+                "date_format": "%Y",
+                "trunc_unit": TruncYear("event_date"),
+            },
+        }
 
-            if product not in clicks_by_product:
-                clicks_by_product[product] = {}
+        # Apply the specified period (if provided)
+        if period in period_settings:
+            period_data = period_settings[period]
+            date_format = period_data["date_format"]
+            trunc_unit = period_data["trunc_unit"]
+        else:
+            # Handle invalid period option here (optional)
+            return Response({"error": "Invalid period option."})
 
-            clicks_by_product[product][month] = clicks
-        return Response(clicks_by_product)
+        # Populate the clicks data for the past 24 hours (1_day period)
+        if period == "1_day":
+            # Query the Analytics data for the specified products and date range
+            start_date = end_date - timedelta(hours=24)
+            product_clicks = (
+                Analytics.objects.filter(
+                    seller=seller_name,
+                    event_type="product_click",
+                    product__in=product_names,
+                    event_date__range=[start_date, end_date],
+                )
+                .annotate(interval=trunc_unit)
+                .values("product", "interval")
+                .annotate(clicks=Count("id"))
+                .order_by("product", "interval")
+            )
+
+            # Initialize the clicks_by_product dictionary for all periods
+            clicks_by_product = {}
+            for item in product_clicks:
+                product = item["product"]
+                interval = item["interval"]
+                clicks = item["clicks"]
+
+                interval_str = interval.strftime(date_format)
+
+                if product not in clicks_by_product:
+                    clicks_by_product[product] = {}
+
+                clicks_by_product[product][interval_str] = clicks
+            current_date = end_date - timedelta(hours=24)
+            while current_date <= end_date:
+                interval_str = current_date.strftime(date_format)
+                for product in product_names:
+                    if product not in clicks_by_product:
+                        clicks_by_product[product] = {}
+                    if interval_str not in clicks_by_product[product]:
+                        clicks_by_product[product][interval_str] = 0
+                current_date += timedelta(hours=1)
+
+            sorted_clicks_by_product = {}
+            for product, interval_data in clicks_by_product.items():
+                sorted_intervals = sorted(
+                    (interval, clicks)
+                    for interval, clicks in interval_data.items()
+                    if interval.startswith(current_day_of_week)
+                )
+                sorted_intervals_dict = dict(sorted_intervals)
+                sorted_clicks_by_product[product] = sorted_intervals_dict
+
+            return Response(sorted_clicks_by_product)
+
+            # Populate the clicks data for the past 7 days (7_days period)
+        if period == "7_days":
+            # Query the Analytics data for the specified products and date range
+            start_date = end_date - timedelta(days=7)
+            product_clicks = (
+                Analytics.objects.filter(
+                    seller=seller_name,
+                    event_type="product_click",
+                    product__in=product_names,
+                    event_date__range=[start_date, end_date],
+                )
+                .annotate(interval=trunc_unit)
+                .values("product", "interval")
+                .annotate(clicks=Count("id"))
+                .order_by("product", "interval")
+            )
+
+            # Initialize the clicks_by_product dictionary for all periods
+            clicks_by_product = {}
+            for item in product_clicks:
+                product = item["product"]
+                interval = item["interval"]
+                clicks = item["clicks"]
+
+                interval_str = interval.strftime(date_format)
+
+                if product not in clicks_by_product:
+                    clicks_by_product[product] = {}
+
+                clicks_by_product[product][interval_str] = clicks
+            current_date = end_date - timedelta(days=6)
+            while current_date <= end_date:
+                interval_str = current_date.strftime(date_format)
+                for product in product_names:
+                    if product not in clicks_by_product:
+                        clicks_by_product[product] = {}
+                    if interval_str not in clicks_by_product[product]:
+                        clicks_by_product[product][interval_str] = 0
+                current_date += timedelta(days=1)
+
+            # Sort the intervals and populate sorted_clicks_by_product
+            sorted_clicks_by_product = {}
+            for product, interval_data in clicks_by_product.items():
+                sorted_intervals = sorted(
+                    interval_data.items(),
+                    key=lambda x: datetime.strptime(x[0], date_format),
+                )
+                sorted_intervals_dict = dict(sorted_intervals)
+                sorted_clicks_by_product[product] = sorted_intervals_dict
+            # only return seven days
+            return Response(sorted_clicks_by_product)
+
+        if period == "30_days":
+            start_date = end_date - timedelta(days=30)
+            product_clicks = (
+                Analytics.objects.filter(
+                    seller=seller_name,
+                    event_type="product_click",
+                    product__in=product_names,
+                    event_date__range=[start_date, end_date],
+                )
+                .annotate(interval=trunc_unit)
+                .values("product", "interval")
+                .annotate(clicks=Count("id"))
+                .order_by("product", "interval")
+            )
+
+            # Initialize the clicks_by_product dictionary for all periods
+            clicks_by_product = {}
+            for item in product_clicks:
+                product = item["product"]
+                interval = item["interval"]
+                clicks = item["clicks"]
+
+                interval_str = interval.strftime(date_format)
+
+                if product not in clicks_by_product:
+                    clicks_by_product[product] = {}
+
+                clicks_by_product[product][interval_str] = clicks
+            current_date = end_date - timedelta(days=30)
+            while current_date <= end_date:
+                interval_str = current_date.strftime(date_format)
+                for product in product_names:
+                    if product not in clicks_by_product:
+                        clicks_by_product[product] = {}
+                    if interval_str not in clicks_by_product[product]:
+                        clicks_by_product[product][interval_str] = 0
+                current_date += timedelta(days=1)
+
+            # Sort the intervals and populate sorted_clicks_by_product
+            sorted_clicks_by_product = {}
+            for product, interval_data in clicks_by_product.items():
+                sorted_intervals = sorted(
+                    interval_data.items(),
+                    key=lambda x: datetime.strptime(x[0], date_format),
+                )
+                sorted_intervals_dict = dict(sorted_intervals)
+                sorted_clicks_by_product[product] = sorted_intervals_dict
+            return Response(sorted_clicks_by_product)
+
+        if period == "6_months":
+            start_date = end_date - timedelta(days=180)
+            product_clicks = (
+                Analytics.objects.filter(
+                    seller=seller_name,
+                    event_type="product_click",
+                    product__in=product_names,
+                    event_date__range=[start_date, end_date],
+                )
+                .annotate(interval=trunc_unit)
+                .values("product", "interval")
+                .annotate(clicks=Count("id"))
+                .order_by("product", "interval")
+            )
+
+            # Initialize the clicks_by_product dictionary for all periods
+            clicks_by_product = {}
+            for item in product_clicks:
+                product = item["product"]
+                interval = item["interval"]
+                clicks = item["clicks"]
+
+                interval_str = interval.strftime(date_format)
+
+                if product not in clicks_by_product:
+                    clicks_by_product[product] = {}
+
+                clicks_by_product[product][interval_str] = clicks
+            current_date = end_date - timedelta(days=180)
+            while current_date <= end_date:
+                interval_str = current_date.strftime(date_format)
+                for product in product_names:
+                    if product not in clicks_by_product:
+                        clicks_by_product[product] = {}
+                    if interval_str not in clicks_by_product[product]:
+                        clicks_by_product[product][interval_str] = 0
+                current_date += timedelta(days=1)
+
+            # Sort the intervals and populate sorted_clicks_by_product
+            sorted_clicks_by_product = {}
+            for product, interval_data in clicks_by_product.items():
+                sorted_intervals = sorted(
+                    interval_data.items(),
+                    key=lambda x: datetime.strptime(x[0], date_format),
+                )
+                sorted_intervals_dict = dict(sorted_intervals)
+                sorted_clicks_by_product[product] = sorted_intervals_dict
+            return Response(sorted_clicks_by_product)
+
+        if period == "1_year":
+            start_date = end_date - timedelta(days=365)
+            product_clicks = (
+                Analytics.objects.filter(
+                    seller=seller_name,
+                    event_type="product_click",
+                    product__in=product_names,
+                    event_date__range=[start_date, end_date],
+                )
+                .annotate(interval=trunc_unit)
+                .values("product", "interval")
+                .annotate(clicks=Count("id"))
+                .order_by("product", "interval")
+            )
+
+            # Initialize the clicks_by_product dictionary for all periods
+            clicks_by_product = {}
+            for item in product_clicks:
+                product = item["product"]
+                interval = item["interval"]
+                clicks = item["clicks"]
+
+                interval_str = interval.strftime(date_format)
+
+                if product not in clicks_by_product:
+                    clicks_by_product[product] = {}
+
+                clicks_by_product[product][interval_str] = clicks
+            current_date = end_date - timedelta(days=365)
+            while current_date <= end_date:
+                interval_str = current_date.strftime(date_format)
+                for product in product_names:
+                    if product not in clicks_by_product:
+                        clicks_by_product[product] = {}
+                    if interval_str not in clicks_by_product[product]:
+                        clicks_by_product[product][interval_str] = 0
+                current_date += timedelta(days=1)
+
+            # Sort the intervals and populate sorted_clicks_by_product
+            sorted_clicks_by_product = {}
+            for product, interval_data in clicks_by_product.items():
+                sorted_intervals = sorted(
+                    interval_data.items(),
+                    key=lambda x: datetime.strptime(x[0], date_format),
+                )
+                sorted_intervals_dict = dict(sorted_intervals)
+                sorted_clicks_by_product[product] = sorted_intervals_dict
+            return Response(sorted_clicks_by_product)

@@ -11,7 +11,7 @@ import { ProductService } from '@shared/servicies/product/product.service';
 import { IProduct } from '@shared/models/product/product.interface';
 import { Observable, Subscription, of } from 'rxjs';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
-
+import { ProfileService } from '@features/profile/services/profile.service';
 
 //import { register } from 'swiper/element/bundle';
 //register();
@@ -22,10 +22,12 @@ import { ProfileFacade } from '@features/profile/services/profile.facade';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   popProducts$: Observable<IProduct[]> | undefined;
-  forYouProducts$: Observable<IProduct[]> | undefined;
-
-  followedSellers$: Observable<any>;
+  forYouProducts$: Observable<IProduct[]> | Observable<any> | undefined;
+  tempProducts$: Observable<IProduct[]> | undefined;
+  trendingProducts$: Observable<IProduct[]> | undefined;
+  followedSellers$: Observable<any> | undefined;
   followSubs = new Subscription();
+  forYouSubs = new Subscription();
   imageObject: Array<object> = [];
   images = 'assets/images/home_banner.png';
   @ViewChild('recommendedHeading') recommendedHeading!: ElementRef;
@@ -34,18 +36,28 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private productService: ProductService,
-    private profileFacade: ProfileFacade
+    private profileFacade: ProfileFacade,
+    private profileService: ProfileService
   ) {
     this.followedSellers$ = of(null);
+    this.forYouProducts$ = of(null);
     this.followSubs = this.profileFacade.followedSellers$.subscribe(val => {
-      if (val !== null)
+      if ((val !== null || val !== undefined) && val.length > 0) {
         this.followedSellers$ = this.profileFacade.fetchFollowedSellerDetails();
+      }
     });
+    this.forYouSubs = this.profileFacade.recommendedProducts$.subscribe(val => {
+      if ((val !== null || val !== undefined) && val.length > 0) {
+        this.forYouProducts$ = of(val);
+      }
+    });
+
   }
 
   ngOnInit(): void {
-    this.fetchforYouProducts();
     this.fetchPopProducts();
+    this.fetchTrendingProducts();
+
   }
 
   fetchPopProducts() {
@@ -53,11 +65,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     //Mock data below
     this.popProducts$ = this.productService.getPopProducts();
   }
-
-  fetchforYouProducts() {
-    //Need to implement AI algo
-    //Mock data below
-    this.forYouProducts$ = this.productService.getForYouProducts();
+  
+  fetchTrendingProducts() {
+    this.trendingProducts$ = this.productService.getTrendingProducts();
   }
 
   search(searchQuery: string): void {
@@ -98,5 +108,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.followSubs.unsubscribe();
+    this.forYouSubs.unsubscribe();
   }
 }

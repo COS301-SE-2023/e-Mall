@@ -12,17 +12,29 @@ import { SetError } from '@app/features/error/states/error.action';
 import { IConsumerForm } from '@features/sign-up/consumer/models/consumer.interface';
 import { IError } from '@app/features/error/models/error.interface';
 import * as ErrorActions from '@features/error/states/error.action';
+import { LoaderFacade } from '../../../shared/components/loader/loader.facade';
 @Injectable()
 export class AuthFacade {
   @Select(AuthSelectors.currentUser)
   private currentUser$!: Observable<IUser>;
   private redirectUrl: string | null = null;
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private loaderService: LoaderFacade
+  ) {
+    loaderService.addActions([
+      AuthActions.SignOutAction,
+      AuthActions.SetCurrentUser,
+    ]);
+  }
 
   @Dispatch()
   async signIn(email: string, password: string) {
     try {
       const user = await this.authService.signIn(email, password);
+      if (user === null) {
+        throw Error('Account does not exist');
+      }
       if (this.redirectUrl) {
         const actions = [
           new AuthActions.SetCurrentUser(user),

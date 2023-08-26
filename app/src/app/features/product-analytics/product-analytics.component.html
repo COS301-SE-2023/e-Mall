@@ -12,13 +12,23 @@
       <div class="sort-search-wrapper">
         <div class="search-bar">
           <ion-item class="sort-searchbar-container">
-            <ion-searchbar class="search-box" placeholder="Search products..." type="search" mode="md"
-              [(ngModel)]="searchKeyword" [debounce]="2000" (ionInput)="onSearchInputChange($event)"></ion-searchbar>
+            <ion-searchbar
+              class="search-box"
+              placeholder="Search products..."
+              type="search"
+              mode="md"
+              [(ngModel)]="searchKeyword"
+              [debounce]="2000"
+              (ionInput)="onSearchInputChange($event)"></ion-searchbar>
           </ion-item>
         </div>
         <div class="sort-wrapper">
           <ion-list>
-            <select name="" id="date-select" [(ngModel)]="selectedSortOption" (ngModelChange)="onSortOptionChange()">
+            <select
+              name=""
+              id="date-select"
+              [(ngModel)]="selectedSortOption"
+              (ngModelChange)="onSortOptionChange()">
               <option value="product_name">Product Name(A-Z)</option>
               <option value="clicks">Product Clicks</option>
               <option value="favourites">Favourites</option>
@@ -47,7 +57,9 @@
               <ion-grid>
                 <ion-row>
                   <ion-col size="1">
-                    <ion-checkbox [checked]="productNames.includes(product.product_name)" (ionChange)="
+                    <ion-checkbox
+                      [checked]="productNames.includes(product.product_name)"
+                      (ionChange)="
                         getSelectedProductData(product.product_name)
                       "></ion-checkbox>
                   </ion-col>
@@ -58,36 +70,42 @@
                 </ion-row>
               </ion-grid>
             </ion-item>
-            
           </ng-container>
-            <div class="paginator-container">
-              <ng-container *ngIf="topProducts$ | async as topProducts">
-                <mat-paginator [length]="this.totalSearchCount$ | async" [pageSizeOptions]="[10, 20, 50, 100]"
-                  aria-label="Select page" [pageIndex]="currentPage" [pageSize]="itemsPerPage"
-                  (page)="onPageChange($event)">
-                </mat-paginator>
-              </ng-container>
-            </div>
+          <div class="paginator-container">
+            <ng-container *ngIf="topProducts$ | async as topProducts">
+              <mat-paginator
+                [length]="this.totalSearchCount$ | async"
+                [pageSizeOptions]="[10, 20, 50, 100]"
+                aria-label="Select page"
+                [pageIndex]="currentPage"
+                [pageSize]="itemsPerPage"
+                (page)="onPageChange($event)">
+              </mat-paginator>
+            </ng-container>
+          </div>
         </ion-list>
       </div>
     </div>
     <div class="container">
       <div class="date">
         <div>
-          <label for="date-select">Select date range:</label>
-        </div>
-        <div>
-          <label for="start-date">Start Date:</label>
-          <input type="date" id="start-date" name="start-date" [(ngModel)]="startDate"
-            (ngModelChange)="updateDateRange()" />
-
-          <label for="end-date">End Date:</label>
-          <input type="date" id="end-date" name="end-date" [(ngModel)]="endDate" (ngModelChange)="updateDateRange()"
-            [max]="currentDate" />
+          <button class="dropdownbtn">
+            <mat-label>Period Options</mat-label>
+            <mat-select
+              [(value)]="selectedPeriodOption"
+              (selectionChange)="onPeriodOptionChange($event.value)"
+              class="custom-select">
+              <mat-option value="1_year">Past Years</mat-option>
+              <mat-option value="6_months">Past 6 months</mat-option>
+              <mat-option value="30_days">Past 30 days</mat-option>
+              <mat-option value="7_days">Past 7 days</mat-option>
+              <mat-option value="1_day">Past 24 hours</mat-option>
+            </mat-select>
+          </button>
         </div>
       </div>
     </div>
-    <br>
+    <br />
     <div class="container">
       <div class="product-graph">
         <canvas id="product-clicks-chart"></canvas>

@@ -38,9 +38,10 @@ export class SalesComponent implements OnInit {
   constructor(
     private analytics: AnalyticsService,
     private profileFacade: ProfileFacade
-  ) { }
+  ) {}
 
   ngOnInit() {
+    console.log('sales component initialized');
     this.profileFacade.getProfile().subscribe(profile => {
       if (profile) {
         if ('business_name' in profile.details) {

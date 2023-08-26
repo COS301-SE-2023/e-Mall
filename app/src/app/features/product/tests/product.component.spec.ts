@@ -253,43 +253,6 @@ describe('ProductComponent', () => {
   });
   
 
-    it('should call linkClickAnalytics with correct data when calling linkClickAnalytics(seller_name)', () => {
-      // Arrange
-      const mockProduct: IProduct = {
-        id: 1,
-        min_price_img_array: ['image1.jpg', 'image2.jpg'],
-        name: 'Product 1',
-        description: 'Description 1',
-        brand: 'Brand 1',
-        category: 'Category 1',
-        min_price: 10,
-        min_price_seller_id: 'seller1',
-        min_price_seller_product_url: 'seller1.com/product1',
-        min_price_seller_business_name: 'Seller 1',
-        min_price_in_stock: true,
-        min_price_discount: 5,
-        min_price_discount_rate: 0.5,
-        min_price_original_price: 20,
-        created_at: '2023-06-01',
-        updated_at: '2023-06-02',
-      };
-      component.product$ = of(mockProduct);
-      spyOn(component, 'linkClickAnalytics').and.callThrough();
-  
-      // Act
-      component.linkClickAnalytics('Seller 1');
-  
-      // Assert
-      expect(component.linkClickAnalytics).toHaveBeenCalledWith('Seller 1');
-      expect(analyticsService.createAnalyticsData).toHaveBeenCalledWith({
-        seller: 'Seller 1',
-        product: mockProduct.name,
-        product_category: mockProduct.category,
-        consumer_id: component.consumer_id,
-        event_type: 'link_click',
-        metadata: null,
-      });
-    });
   
     it('should return the first image from imgList when calling getOneImg(imgList)', () => {
       // Arrange

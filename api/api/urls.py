@@ -33,7 +33,8 @@ router = routers.DefaultRouter()
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/seller/", include("seller.urls")),
-    path("api-auth/", include("rest_framework.urls")),
+    path("api-auth/", include("rest_framework.urls")),  # django auth
+    path("api/auth/", include("custom_auth.urls")),  # custom auth
     path("api/products/", include("product.urls")),
     path("api/seller/", include("seller.urls")),
     path("api/consumer/", include("consumer.urls")),
@@ -41,4 +42,6 @@ urlpatterns = [
     path("api/analytics/", include("analytics.urls")),
     path("api/profile/", include("custom_profile.urls")),
     path("api/inventory/", include("inventory.urls")),
+    path("api/camatrix/", include("ca_matrix.urls")),
+    path("api/custanalytics/", include("cust_analytics.urls")),
 ]

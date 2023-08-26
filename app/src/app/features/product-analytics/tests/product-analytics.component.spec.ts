@@ -1,19 +1,38 @@
-/* eslint-disable @typescript-eslint/no-unused-vars*/
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSliderModule } from '@angular/material/slider';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from '@features/auth/auth.module';
-import { ProductAnalyticsComponent } from '@features/product-analytics/product-analytics.component';
 import { ProfileModule } from '@features/profile/profile.module';
-import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { IonicModule } from '@ionic/angular';
-import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
 import { NgxsModule } from '@ngxs/store';
+import { FooterModule } from '@shared/components/footer/footer.module';
+import { NavbarModule } from '@shared/components/navbar/navbar.module';
+import { ProductCardModule } from '@shared/components/product-card/product-card.module';
+import { ProductAnalyticsComponent } from '../product-analytics.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { SellerNavComponent } from '@shared/components/seller-nav/seller-nav.component';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
-import { Chart } from 'chart.js';
-import { of } from 'rxjs';
-
+import { ProfileFacade } from '@features/profile/services/profile.facade';
+import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
 
 // Mock AnalyticsService
 const mockAnalyticsService = {
@@ -22,9 +41,11 @@ const mockAnalyticsService = {
 
 // Mock ProfileFacade
 const mockProfileFacade = {
-  getProfile: jasmine.createSpy('getProfile').and.returnValue(of({
-    details: { business_name: 'Test Seller' },
-  })),
+  getProfile: jasmine.createSpy('getProfile').and.returnValue(
+    of({
+      details: { business_name: 'Test Seller' },
+    })
+  ),
 };
 
 describe('ProductAnalyticsComponent', () => {
@@ -35,11 +56,35 @@ describe('ProductAnalyticsComponent', () => {
       declarations: [ProductAnalyticsComponent, SellerNavComponent],
       imports: [
         NgxsModule.forRoot([]),
-        IonicModule,
         AuthModule,
         ProfileModule,
         HttpClientTestingModule,
-        NgxsDispatchPluginModule
+        NgxsDispatchPluginModule,
+        IonicModule,
+        NavbarModule,
+        FooterModule,
+        ProductCardModule,
+        HttpClientModule,
+        RouterTestingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        MatExpansionModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatDividerModule,
+        MatSidenavModule,
+        MatCheckboxModule,
+        MatCardModule,
+        MatIconModule,
+        MatPaginatorModule,
+        MatSliderModule,
+        MatButtonToggleModule,
+        MatProgressSpinnerModule,
+        MatSlideToggleModule,
+        MatRadioModule,
+        AuthModule,
+        ProfileModule,
       ],
       providers: [
         { provide: AnalyticsService, useValue: mockAnalyticsService },
@@ -47,7 +92,6 @@ describe('ProductAnalyticsComponent', () => {
       ],
     }).compileComponents();
   });
-
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ProductAnalyticsComponent);
@@ -107,7 +151,7 @@ describe('ProductAnalyticsComponent', () => {
     });
   });
 */
- /* it('should create productClicksChart when calling createProductClicksChart', () => {
+  /* it('should create productClicksChart when calling createProductClicksChart', () => {
     spyOn(Chart, 'register'); // Spy on the Chart.register method
     spyOn(window, 'Chart' as any as Chart); // Spy on the Chart constructor
     component.productData = {

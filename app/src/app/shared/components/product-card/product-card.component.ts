@@ -16,6 +16,7 @@ export class ProductCardComponent implements OnInit {
   @Input() product: any;
   isHearted = of(false);
   consumer_id!: string;
+  consumer_email!: string;
   constructor(
     private router: Router,
     private profileFacade: ProfileFacade,
@@ -27,6 +28,7 @@ export class ProductCardComponent implements OnInit {
     this.profileFacade.getProfile().subscribe(profile => {
       if (profile) {
         this.consumer_id = profile.id;
+        this.consumer_email = profile.email;
       }
     });
   }
@@ -61,7 +63,7 @@ export class ProductCardComponent implements OnInit {
         seller: this.product.min_price_seller_business_name,
         product: this.product.name,
         product_category: this.product.category,
-        consumer_id: this.consumer_id,
+        consumer_email: this.consumer_email,
         event_type: 'favourited_product',
         metadata: null,
       };

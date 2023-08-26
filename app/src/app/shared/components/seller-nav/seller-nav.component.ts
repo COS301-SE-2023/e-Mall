@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthFacade } from '@features/auth/services/auth.facade';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { Subscription } from 'rxjs';
 
@@ -16,13 +17,20 @@ export class SellerNavComponent implements OnInit, OnDestroy {
   // Set a default value for the current page
   private profileSubscription: Subscription | undefined;
 
-  constructor(private router: Router, private profileFacade: ProfileFacade) {}
+  constructor(
+    private router: Router,
+    private profileFacade: ProfileFacade,
+    private authFacade: AuthFacade
+  ) {}
 
   navigateTo(page: string): void {
     this.currentPage = page;
     setTimeout(() => {
       this.router.navigate([`/${page}`]);
     }, 0);
+  }
+  public signOut(): void {
+    this.authFacade.signOut();
   }
 
   ngOnInit(): void {

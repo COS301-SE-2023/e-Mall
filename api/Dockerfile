@@ -25,6 +25,7 @@ COPY . .
 #database migration
 # RUN sudo apt install build-essential libpq-dev python3-dev
 # RUN apt-get install -y python3-psycopg2
+# RUN apt-get update && apt-get install -y gcc
 RUN chmod +x docker-entrypoint.sh
 ENTRYPOINT ["./docker-entrypoint.sh"]
 

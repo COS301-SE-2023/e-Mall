@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface ISellerProfile {
   id: string;
   username?: string;
@@ -27,5 +28,6 @@ export interface ISellerProfile {
     postal_code?: string;
     landline_number?: number;
     support_email?: string;
+    recommended_products?: any;
   };
 }
