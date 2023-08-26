@@ -48,15 +48,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
     this.forYouSubs = this.profileFacade.recommendedProducts$.subscribe(val => {
       if ((val !== null || val !== undefined) && val.length > 0) {
-        this.forYouProducts$ = this.profileFacade.fetchRecommendedProducts();
+        this.forYouProducts$ = of(val);
       }
     });
-
-    this.tempProducts$ = this.profileService.fetchRecommendedProducts();
-    this.tempProducts$.subscribe(val => {
-      console.log(val);
-    });
-    
 
   }
 

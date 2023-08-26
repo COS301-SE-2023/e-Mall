@@ -123,27 +123,52 @@ class AllProductAnalyticsAPIView(APIView):
         return Response({"data": response_data, "total_count": paginator.count})
 
 
+
 class CreateProductAnalyticsAPIView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
         try:
-            analytics = Analytics(
-                seller=request.data.get("seller"),
-                product=request.data.get("product"),
-                product_category=request.data.get("product_category"),
-                consumer_email=request.data.get("consumer_email"),
-                event_type=request.data.get("event_type"),
-                metadata=request.data.get("metadata"),
-                event_date=now(),
-            )
-            analytics.save()
-            return Response(
-                {"message": "Product Analytics created successfully"}, status=201
-            )
+            seller = request.data.get("seller")
+            product = request.data.get("product")
+            product_category = request.data.get("product_category")
+            consumer_email = request.data.get("consumer_email")
+            event_type = request.data.get("event_type")
+            metadata = request.data.get("metadata")
+
+            # Check if the entry already exists
+            existing_entry = Analytics.objects.filter(
+                seller=seller,
+                product=product,
+                consumer_email=consumer_email,
+                event_type=event_type
+            ).first()
+
+            if existing_entry:
+                # Entry already exists, remove it
+                existing_entry.delete()
+                return Response(
+                    {"message": "Existing Product Analytics entry removed"}, status=200
+                )
+            else:
+                # Entry doesn't exist, create it
+                analytics = Analytics(
+                    seller=seller,
+                    product=product,
+                    product_category=product_category,
+                    consumer_email=consumer_email,
+                    event_type=event_type,
+                    metadata=metadata,
+                    event_date=now(),
+                )
+                analytics.save()
+                return Response(
+                    {"message": "Product Analytics created successfully"}, status=201
+                )
 
         except Exception as e:
             return Response({"message": str(e)}, status=400)
+
 
 
 class ConversionRateAPIView(APIView):

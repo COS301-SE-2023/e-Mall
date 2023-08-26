@@ -40,6 +40,7 @@ export class ProfileFacade implements OnDestroy {
         tap(user => {
           if (user) {
             this.fetchProfile();
+            this.fetchRecommendedProducts();
           } else {
             this.clearProfile();
           }
@@ -56,6 +57,15 @@ export class ProfileFacade implements OnDestroy {
       return this.setError(error);
     }
   }
+  @Dispatch()
+  setRecommendedProducts(products: IProduct[]) {
+    try {
+        return new ProfileActions.SetRecommendedProducts(products);
+      } catch (error) {
+        return this.setError(error);
+      }
+  }
+
   @Dispatch()
   updateProfile(profile: Partial<IConsumerProfile | ISellerProfile>) {
     try {
@@ -89,10 +99,30 @@ export class ProfileFacade implements OnDestroy {
     );
   }
 
+  getRecommendedProducts(): Observable<IProduct[]> {
+    return this.recommendedProducts$.pipe(
+      tap(async products => {
+        if (products == null && (await this.authFacade.isLoggedIn())) {
+          await this.fetchRecommendedProducts();
+        }
+      }),
+      shareReplay(1)
+    );
+  }
+
   async fetchProfile() {
     try {
       const res = await this.profileService.getProfile();
       if (res != null) this.setProfile(res);
+    } catch (error) {
+      this.setError(error);
+    }
+  }
+
+  async fetchRecommendedProducts() {
+    try {
+      const res = await this.profileService.fetchRecommendedProducts();
+      if (res != null) this.setRecommendedProducts(res);
     } catch (error) {
       this.setError(error);
     }
@@ -161,17 +191,8 @@ export class ProfileFacade implements OnDestroy {
 
   fetchFollowedSellerDetails() {
     try {
-      this.profileService
-      return ;
-    } catch (error) {
-      this.setError(error);
-      return of(null);
-    }
-  }
-
-  fetchRecommendedProducts() {
-    try {
-      return this.profileService.fetchRecommendedProducts();
+      this.profileService;
+      return;
     } catch (error) {
       this.setError(error);
       return of(null);
