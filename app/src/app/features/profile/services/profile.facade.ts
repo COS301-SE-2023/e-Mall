@@ -191,7 +191,7 @@ export class ProfileFacade implements OnDestroy {
 
   fetchFollowedSellerDetails() {
     try {
-      this.profileService;
+      this.profileService.fetchFollowedSellerDetails;
       return;
     } catch (error) {
       this.setError(error);
