@@ -4,16 +4,13 @@ from .models import Analytics
 from django.db.models import Count
 from rest_framework.permissions import AllowAny
 from django.utils.timezone import now
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator, PageNotAnInteger
 from datetime import datetime, timedelta
 from django.db.models.functions import (
     TruncHour,
     TruncDay,
     TruncMonth,
     TruncYear,
-    TruncMinute,
-    TruncSecond,
-    TruncWeek,
 )
 
 # Create your views here.
@@ -78,8 +75,6 @@ class AllProductAnalyticsAPIView(APIView):
         per_page = (
             int(request.data.get("page_size")) if request.data.get("page_size") else 10
         )
-        print(page)
-        print(per_page)
         paginator = Paginator(product_clicks, per_page)
         try:
             paginated_products = paginator.page(page)
@@ -128,27 +123,52 @@ class AllProductAnalyticsAPIView(APIView):
         return Response({"data": response_data, "total_count": paginator.count})
 
 
+
 class CreateProductAnalyticsAPIView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
         try:
-            analytics = Analytics(
-                seller=request.data.get("seller"),
-                product=request.data.get("product"),
-                product_category=request.data.get("product_category"),
-                consumer_id=request.data.get("consumer_id"),
-                event_type=request.data.get("event_type"),
-                metadata=request.data.get("metadata"),
-                event_date=now(),
-            )
-            analytics.save()
-            return Response(
-                {"message": "Product Analytics created successfully"}, status=201
-            )
+            seller = request.data.get("seller")
+            product = request.data.get("product")
+            product_category = request.data.get("product_category")
+            consumer_email = request.data.get("consumer_email")
+            event_type = request.data.get("event_type")
+            metadata = request.data.get("metadata")
+
+            # Check if the entry already exists
+            existing_entry = Analytics.objects.filter(
+                seller=seller,
+                product=product,
+                consumer_email=consumer_email,
+                event_type=event_type
+            ).first()
+
+            if existing_entry:
+                # Entry already exists, remove it
+                existing_entry.delete()
+                return Response(
+                    {"message": "Existing Product Analytics entry removed"}, status=200
+                )
+            else:
+                # Entry doesn't exist, create it
+                analytics = Analytics(
+                    seller=seller,
+                    product=product,
+                    product_category=product_category,
+                    consumer_email=consumer_email,
+                    event_type=event_type,
+                    metadata=metadata,
+                    event_date=now(),
+                )
+                analytics.save()
+                return Response(
+                    {"message": "Product Analytics created successfully"}, status=201
+                )
 
         except Exception as e:
             return Response({"message": str(e)}, status=400)
+
 
 
 class ConversionRateAPIView(APIView):

@@ -148,4 +148,17 @@ export class ProfileState {
     );
   }
 
+  @Action(ProfileActions.SetRecommendedProducts)
+  setRecommendedProducts(
+    ctx: StateContext<ProfileStateModel>,
+    action: ProfileActions.SetRecommendedProducts
+  ) {
+    ctx.setState(
+      produce(draft => {
+        if (draft.profile) {
+          draft.profile.details.recommended_products = action.products;
+        }
+      })
+    );
+  }
 }

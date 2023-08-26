@@ -13,7 +13,8 @@ class Consumer(User):
     type = models.CharField(max_length=8, default="consumer", editable=False)
     # Define the JSONField for wishlist as an array of product IDs
     wishlist = models.JSONField(encoder=None, default=list, null=True, blank=True)
-
+    #Define the JSONfield for similar products
+    recommended_products = models.JSONField(encoder=None, default=list, null=True, blank=True)
     # Define the JSONField for followed_sellers as an array of seller IDs
     followed_sellers = models.JSONField(
         encoder=None, default=list, null=True, blank=True

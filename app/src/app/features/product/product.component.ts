@@ -19,6 +19,7 @@ import { NavigationExtras, Router } from '@angular/router';
 export class ProductComponent implements OnInit, OnDestroy {
   prod_id: number;
   consumer_id!: string | null;
+  consumer_email!: string | null;
   product$: Observable<IProduct> | undefined;
   sellers$: Observable<IProductSeller[]> | undefined;
   followed_sellers$: Observable<string[]> | undefined;
@@ -53,10 +54,14 @@ export class ProductComponent implements OnInit, OnDestroy {
       this.profileFacade.getProfile().subscribe(profile => {
         if (profile) {
           this.consumer_id = profile.id;
+          this.consumer_email = profile.email;
         }
       });
       if (this.consumer_id === undefined) {
         this.consumer_id = null;
+      }
+      if(this.consumer_email === undefined){
+        this.consumer_email = null;
       }
       // this.consumer_id = this.profileFacade.getProfile().id;
       const id = params.get('prod_id');
@@ -79,6 +84,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   toggleHeart() {
     this.profileFacade.toggleWishlist(this.prod_id);
   }
+
   prodClickAnalytics(): void {
     if (this.product$) {
       this.product$.subscribe(product => {
@@ -87,14 +93,13 @@ export class ProductComponent implements OnInit, OnDestroy {
 
         if (this.sellers$) {
           this.sellers$.subscribe(sellers => {
-            console.log(sellers);
             if (sellers.length > 0) {
               sellers.forEach(currentseller => {
                 const data = {
                   seller: currentseller.business_name,
                   product: this.product_name,
                   product_category: this.product_category,
-                  consumer_id: this.consumer_id,
+                  consumer_email: this.consumer_email,
                   event_type: 'product_click',
                   metadata: null,
                 };
@@ -118,7 +123,7 @@ export class ProductComponent implements OnInit, OnDestroy {
           seller: seller_name,
           product: this.product_name,
           product_category: this.product_category,
-          consumer_id: this.consumer_id,
+          consumer_email: this.consumer_email,
           event_type: 'link_click',
           metadata: null,
         };
@@ -178,14 +183,13 @@ export class ProductComponent implements OnInit, OnDestroy {
 
         if (this.sellers$) {
           this.sellers$.subscribe(sellers => {
-            console.log(sellers);
             if (sellers.length > 0) {
               sellers.forEach(currentseller => {
                 const data = {
                   seller: currentseller.business_name,
                   product: this.product_name,
                   product_category: this.product_category,
-                  consumer_id: this.consumer_id,
+                  consumer_email: this.consumer_email,
                   event_type: 'favourited_product',
                   metadata: null,
                 };

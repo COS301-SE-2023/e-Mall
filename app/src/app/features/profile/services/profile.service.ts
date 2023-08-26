@@ -5,11 +5,13 @@ import { Observable, lastValueFrom, map, shareReplay, take } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Profile } from '../models/alias-profile.interface';
 import { ISellerCard } from '../models/seller-card.interface';
+import { IProduct } from '@shared/models/product/product.interface';
 
 @Injectable()
 export class ProfileService {
   private apiUrl = '/api/profile/';
   constructor(private http: HttpClient) {}
+
   async getProfile(): Promise<Profile> {
     const url = `${this.apiUrl}get/`;
     const res = (await lastValueFrom(
@@ -94,5 +96,51 @@ export class ProfileService {
         }
       )
       .pipe(map(response => response.body));
+  }
+
+  async fetchRecommendedProducts(): Promise<IProduct[]> {
+    this.updateRecommendedProducts();
+    const url = `${this.apiUrl}fetchRecommendedProducts/`;
+
+    const response = await lastValueFrom(
+      this.http
+        .post<IProduct[]>(
+          url,
+          {},
+          {
+            headers: new HttpHeaders()
+              .set('Content-Type', 'application/json')
+              .set('Authorization', 'true'),
+            observe: 'response',
+          }
+        )
+        .pipe(take(1), shareReplay(1))
+    );
+
+    return response.body || [];
+  }
+
+  public updateRecommendedProducts(): void {
+    this.updateDB();
+    const url = `${this.apiUrl}updateRecommendedProducts/`;
+
+    this.http
+      .post(
+        url,
+        {},
+        {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+          observe: 'response',
+        }
+      )
+      .subscribe();
+  }
+
+  public updateDB(): void {
+    const url = `http://localhost:3000/api/custanalytics/predicted_matrix/`;
+
+    this.http.post(url, {}).subscribe();
   }
 }

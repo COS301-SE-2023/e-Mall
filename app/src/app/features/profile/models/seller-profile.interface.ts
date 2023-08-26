@@ -19,5 +19,6 @@ export interface ISellerProfile {
     last_login?: string;
     wishlist?: any;
     followed_sellers?: any;
+    recommended_products?: any;
   };
 }
