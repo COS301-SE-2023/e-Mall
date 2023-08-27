@@ -104,7 +104,6 @@ import { ProfileModule } from '@features/profile/profile.module';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { IConsumerProfile } from '@features/profile/models/consumer-profile.interface';
 
 describe('SalesComponent', () => {
   let component: SalesComponent;
