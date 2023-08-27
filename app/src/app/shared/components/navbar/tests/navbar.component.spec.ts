@@ -68,17 +68,7 @@ describe('NavbarComponent', () => {
       done();
     });
   });
-  /*
-  it('should toggle the category status', () => {
-    expect(component.isCategoryOpened).toBeFalse();
-
-    component.toggleCategory();
-    expect(component.isCategoryOpened).toBeTrue();
-
-    component.toggleCategory();
-    expect(component.isCategoryOpened).toBeFalse();
-  });
-*/
+  
   it('should navigate to search results page with search query', () => {
     const routerspy = spyOn(component['router'], 'navigate');
 

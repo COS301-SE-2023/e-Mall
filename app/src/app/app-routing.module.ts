@@ -15,6 +15,7 @@ import { SellerDataResolver } from '@features/seller-details/seller-details-reso
 import { CustomerProfileComponent } from '@features/profile/components/customer-profile/customer-profile.component';
 import { WishlistComponent } from '@features/wishlist/wishlist.component';
 import { EditCustomerProfileComponent } from '@features/edit-customer-profile/edit-customer-profile.component';
+import { SellerDashboardSettingsComponent } from '@features/seller-dashboard-settings/seller-dashboard-settings.component';
 import { consumerTypeGuard } from '@shared/guards/consumer-type.guard';
 
 const routes: Routes = [
@@ -122,6 +123,10 @@ const routes: Routes = [
   {
     path: 'edit-customer-profile',
     component: EditCustomerProfileComponent,
+  },
+  {
+    path: 'seller-dashboard-settings',
+    component: SellerDashboardSettingsComponent
   },
   // {
   //   path: 'profile',

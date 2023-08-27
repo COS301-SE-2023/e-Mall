@@ -37,6 +37,7 @@ import { CustomerProfileModule } from '@features/profile/components/customer-pro
 import { WishlistModule } from '@features/wishlist/wishlist.module';
 import { NavbarPopupModule } from '@shared/components/navbar-popup/navbar-popup.module';
 import { EditCustomerProfileModule } from '@features/edit-customer-profile/edit-customer-profile.module';
+import { SellerDashboardSettingsModule } from '@features/seller-dashboard-settings/seller-dashboard-settings.module';
 @NgModule({
   declarations: [AppComponent],
 
@@ -89,6 +90,7 @@ import { EditCustomerProfileModule } from '@features/edit-customer-profile/edit-
     CategoryModule,
     AppRoutingModule,
     SellerDetailsModule,
+    SellerDashboardSettingsModule
   ],
 
   providers: [
