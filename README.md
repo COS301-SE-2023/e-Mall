@@ -64,30 +64,31 @@ Key features of our Agile approach during this project include:
 
 - [Demo 1](https://docs.google.com/presentation/d/1YZrFA4QHVVs61md-jd0sVwaYuVxk8gIflGG08N9U5ts/edit?usp=share_link)
 - [Demo 2](https://docs.google.com/presentation/d/1eknA2NjDVeAyFU2KvNPRM3W3024Jb-ArIjgltQonX9E/edit?usp=sharing)
+- [Demo 3](https://docs.google.com/presentation/d/1yCNfD2P3epXiJ3sGOegg91rmwa3flfQyD0107JS0ss4/edit?usp=sharing)
 
 ## Documentation
 
 ### How to run the project
 
-- [Instructions](https://github.com/COS301-SE-2023/e-Mall/wiki/How-to-run-the-project-locally)
+- [Technical Installation](https://drive.google.com/file/d/14fMqBF31RnWUtml2GGkyaZ7XS2CuJYdU/view?usp=sharing)
 
 ### Software Requirements Specification
 
 - [SRS V1](https://drive.google.com/file/d/1xYJfWMI8LHSDu71Z_4f4M5lmC0sm7LC7/view?usp=share_link)
 - [SRS V2](https://drive.google.com/file/d/17sjF_ug5B2UOm4882mR8pB-XNJYRdQlR/view?usp=sharing)
+- [SRS V3](https://drive.google.com/file/d/1JigDUwt08_AUGzS-JQIRdyKzsoh14lhn/view?usp=sharing)
 
 ### Architecture
-- [Architecture Document](https://drive.google.com/file/d/1bqVY1dhNnN6TRFIE9gbgmBwtZRpwdSxe/view?usp=sharing)
+- [Architecture Document V1](https://drive.google.com/file/d/1bqVY1dhNnN6TRFIE9gbgmBwtZRpwdSxe/view?usp=sharing)
+- [Architecture Document V2](https://drive.google.com/file/d/1C4_xi6-5COi-VOv8yEiFNeXSBJW1rAT0/view?usp=sharing)
 
 ### Coding Standards
 - [Coding Standards Document](https://drive.google.com/file/d/1PSxej1cXmVsGjtHcWc3-ent6uTmSJMlR/view?usp=sharing)
 
-### Deployment
-
-### Research and Development
-
+### User Manual
+- [User Manual ](https://drive.google.com/file/d/1eVx9C_775NXCrV-AqXXu-QgBNgYYbnaN/view?usp=sharing)
+  
 ## Project Management
-
 - [Jira](https://ss-e-mall.atlassian.net/jira/software/projects/SS/boards/1)
 - [Project Board](https://github.com/orgs/COS301-SE-2023/projects/3)
 - [CI/CD GitHub Actions](https://github.com/COS301-SE-2023/e-Mall/actions)
