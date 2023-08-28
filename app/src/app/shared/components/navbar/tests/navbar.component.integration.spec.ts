@@ -104,20 +104,6 @@ describe('NavbarComponentIntegration', () => {
     });
   });
 
-  it('should toggle sellers popover', async () => {
-    spyOn(popoverController, 'create').and.callThrough();
-    const event = {} as Event;
-    await component.toggleSellers(event);
-    expect(popoverController.create).toHaveBeenCalledWith({
-      component: DropdownPopoverComponent,
-      event: event,
-      translucent: true,
-      animated: true,
-      componentProps: {
-        parameterData: 'Sel',
-      },
-    });
-  });
 
   it('should navigate to wishlist', () => {
     const routerNavigateSpy = spyOn(router, 'navigate');

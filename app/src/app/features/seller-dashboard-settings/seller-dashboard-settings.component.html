@@ -1,0 +1,127 @@
+
+<ion-header>
+  <app-seller-nav></app-seller-nav>
+</ion-header>
+
+<ion-content>
+  <div class="settings-content-wrapper">
+    <ion-text color="settings-header">
+    <h2 class="settings-header-padding">Settings</h2>
+    </ion-text>
+  </div>
+
+  <div class="settings-container" *ngIf="profile$ | async as profile">
+    <div class="general-settings-container">
+      <h5>Business information</h5>
+      <form [formGroup]="sellerProfileForm" (ngSubmit)="onSubmit()">
+          <ion-input
+          type="text"
+          label="Username"
+          labelPlacement="floating"
+          fill="outline"
+          formControlName="username"
+          required="true"
+          (input)="onUsernameChange()"
+          ></ion-input>
+
+          <ion-input
+          type="text"
+          label="Support Email"
+          labelPlacement="floating"
+          fill="outline"
+          formControlName="support_email"
+          required="true"
+          (input)="onUsernameChange()"
+          ></ion-input>
+
+          <ion-input
+          type="number"
+          label="Phone Number"
+          labelPlacement="floating"
+          fill="outline"
+          formControlName="phoneNumber"
+          required="false"
+          (input)="onUsernameChange()"
+          ></ion-input>
+
+          <ion-input
+              type="text"
+              label="address"
+              labelPlacement="floating"
+              fill="outline"
+              formControlName="address"
+              required="false"
+              (input)="onUsernameChange()"
+            ></ion-input>
+
+          <div class="flex-input-container">
+            <ion-input
+              type="text"
+              label="City"
+              labelPlacement="floating"
+              fill="outline"
+              formControlName="city"
+              required="false"
+              (input)="onUsernameChange()"
+            ></ion-input>
+        
+            <ion-input
+              type="text"
+              label="Postcode"
+              labelPlacement="floating"
+              fill="outline"
+              formControlName="postcode"
+              required="false"
+              (input)="onUsernameChange()"
+            ></ion-input>
+          </div>
+        
+
+          <ion-input
+          type="text"
+          label="Website"
+          labelPlacement="floating"
+          fill="outline"
+          formControlName="website"
+          required="true"
+          (input)="onUsernameChange()"
+          ></ion-input>
+
+          <ion-input
+          type="text"
+          label="Facebook"
+          labelPlacement="floating"
+          fill="outline"
+          formControlName="facebook"
+          required="false"
+          (input)="onUsernameChange()"
+          ></ion-input>
+
+          <ion-input
+          type="text"
+          label="Instagram"
+          labelPlacement="floating"
+          fill="outline"
+          formControlName="instagram"
+          required="false"
+          (input)="onUsernameChange()"
+          ></ion-input>
+
+          <ion-input
+          type="text"
+          label="Twitter"
+          labelPlacement="floating"
+          fill="outline"
+          formControlName="twitter"
+          required="false"
+          (input)="onUsernameChange()"
+          ></ion-input>
+
+        <ion-button type="submit" [disabled]="!isUsernameChanged">Update Profile</ion-button>
+          
+
+      </form>
+    </div>
+  </div>
+</ion-content>
+

@@ -21,7 +21,7 @@ class Command(BaseCommand):
                 seller=analytics_data["seller"],
                 product=analytics_data["product"],
                 product_category=analytics_data["product_category"],
-                consumer_id=analytics_data["consumer_id"],
+                consumer_email=analytics_data["consumer_email"],
                 event_type=analytics_data["event_type"],
                 event_date=analytics_data["event_date"],
             )

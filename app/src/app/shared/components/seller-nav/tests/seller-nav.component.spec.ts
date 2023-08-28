@@ -52,7 +52,7 @@ describe('SellerNavComponent', () => {
     const sideNav = fixture.nativeElement.querySelector('.side-nav');
     expect(sideNav).toBeTruthy();
     const items = sideNav.querySelectorAll('ion-item');
-    expect(items.length).toBe(5);
+    expect(items.length).toBe(6);
   });
 
   it('should render the correct labels in the items', waitForAsync(() => {
@@ -64,14 +64,17 @@ describe('SellerNavComponent', () => {
       const productsItem = items[1];
       const salesItem = items[2];
       const analyticsItem = items[3];
-      const signOutItem = items[4];
+      const settingsItem = items[4];
+      const signOutItem = items[5];
       const salesLabel = salesItem.querySelector('ion-label').textContent;
       const productsLabel = productsItem.querySelector('ion-label').textContent;
       const analticsLabel = analyticsItem.querySelector('ion-label').textContent;
+      const SettingsLabel = settingsItem.querySelector('ion-label').textContent;
       const signOutLabel = signOutItem.querySelector('ion-label').textContent;
       expect(salesLabel).toBe('Analytics');
       expect(productsLabel).toBe('Products');
       expect(analticsLabel).toBe('Compare');
+      expect(SettingsLabel).toBe('Settings');
       expect(signOutLabel).toBe('Sign out');
     });
   }));

@@ -14,6 +14,7 @@ import { AuthFacade } from '@features/auth/services/auth.facade';
 import { Profile } from '../models/alias-profile.interface';
 import { Router } from '@angular/router';
 import { Navigate } from '@ngxs/router-plugin';
+import { IProduct } from '@shared/models/product/product.interface';
 
 @Injectable()
 export class ProfileFacade implements OnDestroy {
@@ -23,6 +24,8 @@ export class ProfileFacade implements OnDestroy {
   private wishlist$!: Observable<number[]>;
   @Select(ProfileSelectors.getFollowedSellers)
   public followedSellers$!: Observable<string[]>;
+  @Select(ProfileSelectors.getRecommendedProducts)
+  public recommendedProducts$!: Observable<IProduct[]>;
   private authSubscription: Subscription;
 
   constructor(
@@ -37,6 +40,7 @@ export class ProfileFacade implements OnDestroy {
         tap(user => {
           if (user) {
             this.fetchProfile();
+            this.fetchRecommendedProducts();
           } else {
             this.clearProfile();
           }
@@ -53,6 +57,15 @@ export class ProfileFacade implements OnDestroy {
       return this.setError(error);
     }
   }
+  @Dispatch()
+  setRecommendedProducts(products: IProduct[]) {
+    try {
+        return new ProfileActions.SetRecommendedProducts(products);
+      } catch (error) {
+        return this.setError(error);
+      }
+  }
+
   @Dispatch()
   updateProfile(profile: Partial<IConsumerProfile | ISellerProfile>) {
     try {
@@ -74,11 +87,23 @@ export class ProfileFacade implements OnDestroy {
   setError(error: any) {
     return [new SetError('profile', error as IError)];
   }
+
   getProfile(): Observable<Profile> {
     return this.profile$.pipe(
       tap(async profile => {
         if (profile == null && (await this.authFacade.isLoggedIn())) {
           await this.fetchProfile();
+        }
+      }),
+      shareReplay(1)
+    );
+  }
+
+  getRecommendedProducts(): Observable<IProduct[]> {
+    return this.recommendedProducts$.pipe(
+      tap(async products => {
+        if (products == null && (await this.authFacade.isLoggedIn())) {
+          await this.fetchRecommendedProducts();
         }
       }),
       shareReplay(1)
@@ -94,6 +119,15 @@ export class ProfileFacade implements OnDestroy {
     }
   }
 
+  async fetchRecommendedProducts() {
+    try {
+      const res = await this.profileService.fetchRecommendedProducts();
+      if (res != null) this.setRecommendedProducts(res);
+    } catch (error) {
+      this.setError(error);
+    }
+  }
+
   checkWishlist(id: number): Observable<boolean> {
     return this.wishlist$.pipe(
       map(wishlist => {
@@ -101,6 +135,7 @@ export class ProfileFacade implements OnDestroy {
       })
     );
   }
+
   checkFollowedSellers(name: string): Observable<boolean> {
     return this.followedSellers$.pipe(
       map(followedSellers => {
@@ -151,9 +186,11 @@ export class ProfileFacade implements OnDestroy {
       this.authSubscription.unsubscribe();
     }
   }
+
   fetchFollowedSellerDetails() {
     try {
-      return this.profileService.fetchFollowedSellerDetails();
+      this.profileService.fetchFollowedSellerDetails();
+      return;
     } catch (error) {
       this.setError(error);
       return of(null);

@@ -12,6 +12,9 @@ describe('sign in', () => {
     cy.wait(5000);
     cy.contains('Analytics').click({ force: true });
     cy.url().should('include', '/sales');
+    cy.wait(5000);
+    cy.contains('Settings').click({ force: true });
+    cy.url().should('include', '/seller-dashboard-settings');
 
     // cy.wait(1000);
     // cy.contains('Compare').click({ force: true });

@@ -19,5 +19,15 @@ export interface ISellerProfile {
     last_login?: string;
     wishlist?: any;
     followed_sellers?: any;
+    twitter_link?: string;
+    facebook_link?: string;
+    instagram_link?: string;
+    logo?: string;
+    address?: string;
+    city?: string;
+    postal_code?: string;
+    landline_number?: number;
+    support_email?: string;
+    recommended_products?: any;
   };
 }

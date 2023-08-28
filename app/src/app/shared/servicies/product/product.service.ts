@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, distinct, map, mergeMap, toArray } from 'rxjs';
 import { IProduct } from '@shared/models/product/product.interface';
 import { IProductSeller } from '@shared/models/product/product-seller.interface';
@@ -36,12 +36,18 @@ export class ProductService {
   public getPopProducts(): Observable<IProduct[]> {
     //Algo needs to be implemented
     //Mock data for demo
-    const url = `${this.apiUrl}products/test?search=a`;
+    const url = `${this.apiUrl}products/popularproducts/`;
+    return this.http
+      .get(url)
+      .pipe(map((res: any) => res as IProduct[]));
+  }
+  public getTrendingProducts(): Observable<IProduct[]> {
+    const url = `${this.apiUrl}products/test?search=x`;
     return this.http
       .get(url)
       .pipe(map((res: any) => res['data'] as IProduct[]));
   }
-
+  
   public getForYouProducts(): Observable<IProduct[]> {
     //Algo needs to be implemented
     //Mock data for demo
@@ -84,10 +90,13 @@ export class ProductService {
     );
   }
 
-  getCategoryProducts(category: string,sortOption?: any,): Observable<IProduct[]> {
+  getCategoryProducts(
+    category: string,
+    sortOption?: any
+  ): Observable<IProduct[]> {
     let url = `${this.apiUrl}products/backend/?filter_category=${category}`;
     // filterOptions = { };
-    
+
     if (sortOption) {
       url += '&sort=' + sortOption;
     }
