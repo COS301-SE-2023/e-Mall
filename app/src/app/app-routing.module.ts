@@ -17,6 +17,7 @@ import { WishlistComponent } from '@features/wishlist/wishlist.component';
 import { EditCustomerProfileComponent } from '@features/edit-customer-profile/edit-customer-profile.component';
 import { SellerDashboardSettingsComponent } from '@features/seller-dashboard-settings/seller-dashboard-settings.component';
 import { consumerTypeGuard } from '@shared/guards/consumer-type.guard';
+import { MyCombosComponent } from '@features/my-combos/my-combos.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -120,6 +121,12 @@ const routes: Routes = [
     component: WishlistComponent,
     canActivate: [consumerTypeGuard],
   },
+  {
+    path: 'my-combos',
+    component: MyCombosComponent,
+    canActivate: [consumerTypeGuard],
+  },
+  
   {
     path: 'edit-customer-profile',
     component: EditCustomerProfileComponent,
