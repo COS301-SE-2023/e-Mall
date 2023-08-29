@@ -17,8 +17,23 @@
         <p>{{ product.category }}</p>
       </div>
       <div style="display: flex; align-items: center">
-        <h4 style="margin-right: 90px">R{{ product.min_price | number:'1.0-0'}}</h4>
+        <h4 style="margin-right: 70px">R{{ product.min_price | number:'1.0-0'}}</h4>
+        
         <ion-button
+        style="margin-right: -9px"
+        (click)="toggleBookmark()"
+        class="bookmark-button"
+        shape="round"
+        fill="clear"
+        mode="ios">
+        <ion-icon
+          [name]="(isBookmark | async) ? 'bookmark' : 'bookmark-outline'"
+          name="bookmark"
+          style=" color: var(--c-5-a, #37d0d6);">
+        </ion-icon>
+       </ion-button>
+        <ion-button
+        style="margin-left: -9px"
           (click)="toggleHeart()"
           class="wishlist-button"
           shape="round"

@@ -15,6 +15,7 @@ export class ProductCardComponent implements OnInit {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() product: any;
   isHearted = of(false);
+  isBookmark = of(false);
   consumer_id!: string;
   consumer_email!: string;
   constructor(
@@ -37,6 +38,10 @@ export class ProductCardComponent implements OnInit {
   toggleHeart() {
     this.favClickAnalytics();
     this.profileFacade.toggleWishlist(this.product.id);
+  }
+
+  toggleBookmark() {
+    this.isBookmark = of(true);
   }
 
   goToProductPage(prod_id: number): void {
