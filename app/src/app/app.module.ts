@@ -39,6 +39,7 @@ import { NavbarPopupModule } from '@shared/components/navbar-popup/navbar-popup.
 import { EditCustomerProfileModule } from '@features/edit-customer-profile/edit-customer-profile.module';
 import { SellerDashboardSettingsModule } from '@features/seller-dashboard-settings/seller-dashboard-settings.module';
 import { MyCombosModule } from '@features/my-combos/my-combos.module';
+import { ComboModule } from '@features/combo/component.module';
 @NgModule({
   declarations: [AppComponent],
 
@@ -78,6 +79,7 @@ import { MyCombosModule } from '@features/my-combos/my-combos.module';
     CustomerProfileModule,
     WishlistModule,
     MyCombosModule,
+    ComboModule,
     NavbarPopupModule,
     EditCustomerProfileModule,
     // FooterModule,

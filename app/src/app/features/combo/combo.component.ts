@@ -13,11 +13,11 @@ import { ActivatedRoute } from '@angular/router';
 //import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-',
-  templateUrl: './my-combos.component.html',
-  styleUrls: ['./my-combos.component.scss'],
+  selector: 'app-combo',
+  templateUrl: './combo.component.html',
+  styleUrls: ['./combo.component.scss'],
 })
-export class MyCombosComponent implements OnInit, OnDestroy {
+export class ComboComponent implements OnInit, OnDestroy {
   products$!: Observable<IProduct[] | null>;
 
   bool = true;
@@ -50,7 +50,7 @@ export class MyCombosComponent implements OnInit, OnDestroy {
     this.profile$.subscribe(profile => {
       if (profile) {
         this.email = profile.email;
-        this.loadcombos();
+        this.loadcombo();
       }
     });
   }
@@ -65,7 +65,7 @@ export class MyCombosComponent implements OnInit, OnDestroy {
       }
 
       // If needed, you can call the method to reload consumer products here
-      this.loadcombos();
+      this.loadcombo();
     });
   }
 
@@ -73,9 +73,8 @@ export class MyCombosComponent implements OnInit, OnDestroy {
     // Unsubscribe from the route parameter subscription to avoid memory leaks
     this.routeSubscription.unsubscribe();
   }
-  loadcombos() {
+  loadcombo() {
     if (!this.email) return;
-    
   }
   goToCustomerProfile() {
     this.router.navigate(['/customer-profile']);
