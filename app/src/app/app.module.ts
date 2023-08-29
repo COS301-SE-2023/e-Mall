@@ -38,8 +38,9 @@ import { WishlistModule } from '@features/wishlist/wishlist.module';
 import { NavbarPopupModule } from '@shared/components/navbar-popup/navbar-popup.module';
 import { EditCustomerProfileModule } from '@features/edit-customer-profile/edit-customer-profile.module';
 import { SellerDashboardSettingsModule } from '@features/seller-dashboard-settings/seller-dashboard-settings.module';
+import { LogoLoaderComponent } from './shared/animations/logo-loader/logo-loader.component';
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LogoLoaderComponent],
 
   imports: [
     BrowserModule,
