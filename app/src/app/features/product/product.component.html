@@ -43,10 +43,9 @@
                   class="min-price-discount_rate"
                   *ngIf="product$ | async as product">
                   <span
-                    class="badge bg-danger discount_rate_badge"
-                    matTooltip="Product discount rate"
+                    class="discount-tag"
                     *ngIf="product.min_price_discount_rate !== 0">
-                    -{{ ((product.min_price_discount_rate ?? 0) * 100 | number:'1.0-0') }}%
+                    <ion-label> -{{ ((product.min_price_discount_rate ?? 0) * 100 | number:'1.0-0') }}%</ion-label>
                   </span>
                 </div>
               </div>

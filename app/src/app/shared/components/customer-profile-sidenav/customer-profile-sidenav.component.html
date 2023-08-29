@@ -27,6 +27,14 @@
                       <!--</ion-button>-->
                     
                   </ion-item>
+                  <ion-item  [class.active]="currentPage === 'combos'" 
+                  (click)="navigateTo('combos')">
+                      <!--<ion-button aria-label="">-->
+                          <ion-icon name="heart" aria-hidden="true" style="margin-right: 10px;"></ion-icon>
+                          <ion-label>My Combos</ion-label>
+                      <!--</ion-button>-->
+                    
+                  </ion-item>
                   <!--
                   <ion-item [class.active]="currentPage === 'construction'"
                   (click)="navigateTo('construction')">

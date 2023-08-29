@@ -121,6 +121,24 @@ height: 400px;
   //padding: 20px;
 }
 
+.discount-tag {
+  position: absolute; 
+  display: inline-flex;
+  padding: 0px 8px;
+  align-items: center;
+  gap: 10px;
+  z-index: 100; 
+  border-radius: 12px;
+  background: var(--c-5-e, #ecf6f6);
+  ion-label {
+    color: var(--c-5-a, #37d0d6);
+    font-family: Poppins,sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+}
 .position-relative {
   position: relative;
 }
