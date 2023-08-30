@@ -70,11 +70,29 @@ ion-card-content {
     text-align: center;
   }
 
+  .price-and-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
   
-  
+  .button-container {
+    display: flex;
+    align-items: center;
+   ion-button {
+    --padding-start: 0;
+    --padding-end: 0;
+    padding: 2px;
+    margin: 0;
+    box-shadow: none;
+    background: transparent;
+
+    ::part(native){
+      padding: 0;
+    }
+   }
+
+  }
 }
 
-ion-icon {
-  position: absolute; /* or 'absolute' or 'fixed' depending on your layout needs */
-  right: 0;
-}
+
