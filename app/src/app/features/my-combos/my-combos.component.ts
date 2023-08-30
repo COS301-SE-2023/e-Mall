@@ -84,7 +84,9 @@ export class MyCombosComponent implements OnInit, OnDestroy {
   goToConstruction() {
     this.router.navigate(['/construction']);
   }
-
+goToComboPage(){
+  this.router.navigate(['/combo']);
+}
   getOneImg(imgList?: string[]) {
     //remove following when no need to have mock data
     if (!imgList || imgList.length < 1)
