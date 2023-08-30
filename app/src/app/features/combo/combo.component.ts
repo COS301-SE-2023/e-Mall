@@ -75,6 +75,11 @@ export class ComboComponent implements OnInit, OnDestroy {
   }
   loadcombo() {
     if (!this.email) return;
+
+    this.consumerService.getConsumerInfo(this.email).subscribe(data => {
+      console.log(data.products);
+      this.products$ = of(data.products);
+    });
   }
   goToCustomerProfile() {
     this.router.navigate(['/customer-profile']);
