@@ -5,6 +5,9 @@ import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { IProduct } from '@shared/models/product/product.interface';
 import { IProductSeller } from '@shared/models/product/product-seller.interface';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
+import { PopoverController } from '@ionic/angular';
+import { ComboPopoverComponent } from './combo-popover/combo-popover.component';
+
 
 @Component({
   selector: 'app-product-card',
@@ -19,6 +22,7 @@ export class ProductCardComponent implements OnInit {
   consumer_id!: string;
   consumer_email!: string;
   constructor(
+    private popoverController: PopoverController,
     private router: Router,
     private profileFacade: ProfileFacade,
     private analytics: AnalyticsService
@@ -42,8 +46,18 @@ export class ProductCardComponent implements OnInit {
 
   toggleBookmark() {
     this.isBookmark = of(true);
+    this.openComboPopover(); 
   }
+  async openComboPopover() {
+    const popover = await this.popoverController.create({
+      component: ComboPopoverComponent,
+      event: event,
 
+      translucent: true,
+      alignment: 'center',
+    });
+    return await popover.present();
+  }
   goToProductPage(prod_id: number): void {
     // Create the navigation extras object with the search query as a parameter
 

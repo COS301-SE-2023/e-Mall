@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { ProductCardComponent } from './product-card.component';
+import { ComboPopoverModule } from './combo-popover/combo-popover.module';
 
 @NgModule({
   declarations: [ProductCardComponent],
@@ -22,6 +23,7 @@ import { ProductCardComponent } from './product-card.component';
     MatListModule,
     MatCardModule,
     IonicModule,
+    ComboPopoverModule
   ],
   exports: [ProductCardComponent],
 })
