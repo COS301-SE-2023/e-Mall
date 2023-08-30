@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 //import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-',
+  selector: 'app-my-combos',
   templateUrl: './my-combos.component.html',
   styleUrls: ['./my-combos.component.scss'],
 })
