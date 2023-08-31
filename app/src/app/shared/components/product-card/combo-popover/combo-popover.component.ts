@@ -10,21 +10,21 @@ import { PopoverController, ModalController } from '@ionic/angular';
   styleUrls: ['./combo-popover.component.scss'], 
 })
 export class ComboPopoverComponent implements OnInit {
-  productForm!: FormGroup;
-  newProductForm!: FormGroup;
+  selectForm!: FormGroup;
+  newForm!: FormGroup;
   newClicked: boolean = false;
 
   constructor(private fb: FormBuilder,  private popoverController: PopoverController,
     private modalController: ModalController) {}
 
   ngOnInit() {
-    this.productForm = this.fb.group({
+    this.selectForm = this.fb.group({
       selectedOptions: [[]], // Empty array for multiple selection
     });
 
-    this.newProductForm = this.fb.group({
-      newProductName: ['', Validators.required],
-      newProductEmail: ['', [Validators.required, Validators.email]],
+    this.newForm = this.fb.group({
+      newName: ['', Validators.required],
+      newEmail: ['', [Validators.required, Validators.email]],
     });
   }
 
@@ -33,10 +33,10 @@ export class ComboPopoverComponent implements OnInit {
   }
 
   createNewCombo() {
-    if (this.newProductForm.valid) {
-      const newName = this.newProductForm.value.newProductName;
-      const newEmail = this.newProductForm.value.newProductEmail;
-      this.newProductForm.reset();
+    if (this.newForm.valid) {
+      const newName = this.newForm.value.newProductName;
+      const newEmail = this.newForm.value.newProductEmail;
+      this.newForm.reset();
       this.newClicked = false;
     }
     this.addCombo();
