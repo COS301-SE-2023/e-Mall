@@ -699,17 +699,11 @@ html {
 //   margin-right: auto;
 // }
   
-  
-.card-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+
 
 .button-container {
   display: flex;
   align-items: center;
-  gap: 10px; /* Adjust the gap between buttons if needed */
 }
 
 ion-button {
@@ -729,6 +723,5 @@ ion-icon{
 }
 
 mat-card-actions{
-  align-items: right;
   justify-content: right;
 }
