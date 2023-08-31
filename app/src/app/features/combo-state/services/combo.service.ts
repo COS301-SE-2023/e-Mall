@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, lastValueFrom, map, shareReplay, take } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ICombo, IComboResponse } from '../models/combo.interface';
+import { ICombo } from '../models/combo.interface';
 
 @Injectable()
 export class ComboService {
     private apiUrl = '/api/combos/';
     constructor(private http: HttpClient) { }
 
-    async getCombos(): Promise<IComboResponse> {
+    async getCombos(): Promise<ICombo[]> {
         const url = `${this.apiUrl}get/`;
         const res = (await lastValueFrom(
             this.http
@@ -22,7 +22,7 @@ export class ComboService {
                         observe: 'response',
                     }
                 )
-        )) as HttpResponse<IComboResponse>;
+        )) as HttpResponse<ICombo[]>;
         if (res && res.body) {
               return res.body;
             } else {
@@ -58,7 +58,7 @@ export class ComboService {
         return res.body;
     }
 
-    async delete(data: any): Promise<any> {
+    async deleteUser(data: any): Promise<any> {
         const url = `${this.apiUrl}delete/`;
         const res = (await lastValueFrom(
             this.http

@@ -27,7 +27,7 @@ import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
 import { ProductCardModule } from '../../shared/components/product-card/product-card.module';
 import { ProfileModule } from '@features/profile/profile.module';
-
+import { ComboStateModule } from '@features/combo-state/combo-state.module';
 @NgModule({
   declarations: [HomeComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -60,6 +60,7 @@ import { ProfileModule } from '@features/profile/profile.module';
     FooterModule,
     ProductCardModule,
     ProfileModule,
+    ComboStateModule,
   ],
 })
 export class HomeModule {}

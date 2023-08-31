@@ -4,8 +4,7 @@ export interface ICombo {
     id: number;
     name: string;
     products: IProduct[];
-    usernames: string[];
+    active_usernames: string[];
+    active_emails: string[];
     pending_users: string[];
 }
-
-export type IComboResponse = Array<ICombo>

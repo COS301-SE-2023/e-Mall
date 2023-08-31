@@ -124,7 +124,7 @@ def delete(request):
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 
-@api_view(["GET"])
+@api_view(["POST"])
 def get(request):
     try:
         user = request.user
@@ -147,6 +147,7 @@ def get(request):
                     "combo_name": combo.combo_name,
                     "products": product_data,
                     "active_usernames": usernames,
+                    "active_emails": combo.user_emails,
                     "pending_emails": combo.pending_emails,
                 })
 
