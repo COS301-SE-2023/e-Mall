@@ -14,13 +14,11 @@
       </ion-item>
       <div class="modal-container">
         <ion-list mode="ios">
-          <!-- ... Modal header and other content ... -->
-      
           <ng-container *ngIf="!newClicked; else new">
-            <form [formGroup]="productForm"> <!-- Wrap form elements in a formGroup -->
+            <form [formGroup]="selectForm"> <!-- Wrap form elements in a formGroup -->
               <ion-item class="item-padding" lines="none">
                 <div class="item-label">Select Options</div>
-                <ion-select multiple="true" formControlName="selectedOptions">
+                <ion-select multiple="true" interface="popover" formControlName="selectedOptions" class="custom-select">
                   <ion-select-option value="option1">Option 1</ion-select-option>
                   <ion-select-option value="option2">Option 2</ion-select-option>
                   <ion-select-option value="option3">Option 3</ion-select-option>
@@ -28,7 +26,7 @@
               </ion-item>
               <ion-item class="item-padding" lines="none">
                 <ion-button mode="ios" color="primary" (click)="newClick()">
-                  Create New Combo
+                  New Combo
                 </ion-button>
                 <ion-button mode="ios" color="primary" (click)="addCombo()">
                   Done
@@ -38,16 +36,31 @@
           </ng-container>
       
           <ng-template #new>
-            <form [formGroup]="newProductForm"> <!-- Wrap form elements in a formGroup -->
-              <!-- Display name and email input fields when it's new -->
+            <form [formGroup]="newForm"> <!-- Wrap form elements in a formGroup -->
+              <ion-item class="item-padding" lines="none">
+                <div class="item-label">Name</div>
+                <div class="input-container">
+                  <ion-input
+                    formControlName="newProductName"
+                  ></ion-input>
+                </div>
+              </ion-item>
+              <ion-item class="item-padding" lines="none">
+                <div class="item-label">Email</div>
+                <div class="input-container">
+                  <ion-input
+                    clearInput="true"
+                    formControlName="newProductEmail"
+                    type="email"
+                  ></ion-input>
+                </div>
+              </ion-item>
               <ion-item class="item-padding" lines="none">
                 <ion-button
                   type="submit"
                   mode="ios"
                   color="primary"
-                  [disabled]="!newProductForm.valid"
-                >
-                  Create
+                > Create
                 </ion-button>
               </ion-item>
             </form>
