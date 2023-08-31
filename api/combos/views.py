@@ -21,18 +21,19 @@ def create(request):
         combo_name = request.data['combo_name']
         user_emails = request.data['user_emails']
         product_ids = request.data['product_ids']
-        pending_emails = request.data['pending_emails']
+        pending_emails = user_emails[1:] if len(user_emails) > 1 else []
         if user is None:
             raise Exception("User not found")
         if user.type == "seller":
             raise Exception("Seller cannot create combos")
         if user.type == "consumer":
             # add to db 
+
             combo = Combos(
                 combo_name=combo_name,
-                user_emails=user_emails[0],
+                user_emails=[user_emails[0]],
                 product_ids=product_ids,
-                pending_emails=pending_emails
+                pending_emails=pending_emails,
             )
             combo.save()
         return Response({"success": "Combo created successfully"})
@@ -58,14 +59,16 @@ def update_user(request):
                     combo.pending_emails.remove(user.email)
                     combo.user_emails.append(user.email)
                     combo.save()
+                    return Response({"success": "User added to Combo successfully"})
+            
             if action == "Reject":
                 #remove user email from pending emails
                 combo = Combos.objects.get(id=combo_id)
                 if user.email in combo.pending_emails:
                     combo.pending_emails.remove(user.email)
                     combo.save()
+                    return Response({"success": "User removed from pending emails successfully"})
 
-        return Response({"success": "User added to Combo successfully"})
     except Exception as e:
         # handle other exceptions here
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -76,7 +79,6 @@ def update(request):
         user = request.user
         combo_id = request.data['combo_id']
         combo_name = request.data['combo_name']
-        user_emails = request.data['user_emails']
         product_ids = request.data['product_ids']
 
         if user is None:
@@ -86,7 +88,6 @@ def update(request):
         if user.type == "consumer":
             # update existing combo
             combo = Combos.objects.get(id=combo_id)
-            combo.user_emails = user_emails
             combo.product_ids = product_ids
             combo.combo_name = combo_name
             combo.save()
@@ -145,7 +146,8 @@ def get(request):
                     "combo_id": combo.id,
                     "combo_name": combo.combo_name,
                     "products": product_data,
-                    "usernames": usernames,
+                    "active_usernames": usernames,
+                    "pending_emails": combo.pending_emails,
                 })
 
             return Response({"combos": combo_data})

@@ -6,7 +6,8 @@ class Combos(models.Model):
     combo_name = models.CharField(max_length=100)
     user_emails = ArrayField(models.EmailField())
     product_ids = ArrayField(models.PositiveIntegerField())
-    pending_emails = ArrayField(models.EmailField())
+    pending_emails = ArrayField(models.EmailField(), blank=True, default=[])
 
     def __str__(self):
         return self.combo_name
+    
