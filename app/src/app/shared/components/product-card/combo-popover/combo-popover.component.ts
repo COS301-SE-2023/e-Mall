@@ -19,7 +19,7 @@ export class ComboPopoverComponent implements OnInit {
 
   ngOnInit() {
     this.selectForm = this.fb.group({
-      selectedOptions: [[]], // Empty array for multiple selection
+      selectedOptions: [[]],
     });
 
     this.newForm = this.fb.group({
