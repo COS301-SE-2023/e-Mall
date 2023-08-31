@@ -47,18 +47,28 @@
                 </div>
               </div>
               <mat-card-actions>
-                <ion-button
-                  (click)="toggleHeart()"
-                  (click)="favClickAnalytics()"
-                  class="wishlist-button"
-                  shape="round"
-                  fill="clear"
-                  mode="ios">
-                  <ion-icon
-                    [name]="(isHearted | async) ? 'heart' : 'heart-outline'"
-                    name="heart"
-                    style="color: red"></ion-icon>
-                </ion-button>
+                <span class="button-container">
+                  <ion-button
+                    (click)="toggleBookmark()"
+                    class="bookmark-button"
+                    shape="round"
+                    fill="clear"
+                    mode="ios">
+                    <ion-icon
+                      [name]="(isBookmark | async) ? 'bookmark' : 'bookmark-outline'"
+                      style="color: var(--c-5-a, #37d0d6)"></ion-icon>
+                  </ion-button>
+                  <ion-button
+                    (click)="toggleHeart()"
+                    class="wishlist-button"
+                    shape="round"
+                    fill="clear"
+                    mode="ios">
+                    <ion-icon
+                      [name]="(isHearted | async) ? 'heart' : 'heart-outline'"
+                      style="color: red"></ion-icon>
+                  </ion-button>
+                </span>
               </mat-card-actions>
             </mat-card>
           </div>

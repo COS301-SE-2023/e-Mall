@@ -10,6 +10,8 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { NavigationExtras, Router } from '@angular/router';
+import { PopoverController } from '@ionic/angular';
+import { ComboPopoverComponent } from '@shared/components/product-card/combo-popover/combo-popover.component';
 
 @Component({
   selector: 'app-product',
@@ -29,6 +31,8 @@ export class ProductComponent implements OnInit, OnDestroy {
   product_category!: string;
   selectedImage!: string;
   isHearted = of(false);
+  
+  isBookmark = of(false);
 
   currencyCode = 'ZAR';
 
@@ -38,6 +42,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   divClicked = false;
   private paramMapSubscription: Subscription;
   constructor(
+    private popoverController: PopoverController,
     private productService: ProductService,
     private route: ActivatedRoute,
     private router: Router,
@@ -84,7 +89,20 @@ export class ProductComponent implements OnInit, OnDestroy {
   toggleHeart() {
     this.profileFacade.toggleWishlist(this.prod_id);
   }
+  toggleBookmark() {
+    this.isBookmark = of(true);
+    this.openComboPopover(); 
+  }
+  async openComboPopover() {
+    const popover = await this.popoverController.create({
+      component: ComboPopoverComponent,
+      event: event,
 
+      translucent: true,
+      alignment: 'center',
+    });
+    return await popover.present();
+  }
   prodClickAnalytics(): void {
     if (this.product$) {
       this.product$.subscribe(product => {

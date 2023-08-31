@@ -700,3 +700,24 @@ html {
 // }
   
   
+.button-container {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+}
+
+ion-button {
+  --padding-start: 0;
+  --padding-end: 0;
+  padding: 2px;
+  margin: 0;
+  box-shadow: none;
+  background: transparent;
+}
+ion-icon{
+  margin: 0;
+}
+
+::part(native) {
+  padding: 0;
+}
