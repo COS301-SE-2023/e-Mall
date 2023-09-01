@@ -27,6 +27,7 @@ export class ComboComponent implements OnInit, OnDestroy {
   paramMapSubscription: Subscription;
   combo_id: number;
   combo$!: Observable<ICombo | null | undefined>;
+  name:string|undefined;
   active_users:string[] |undefined=[];
   pending_users: string[]|undefined=[];
   private routeSubscription: Subscription = new Subscription();
@@ -68,6 +69,7 @@ export class ComboComponent implements OnInit, OnDestroy {
       this.products$ = of(data?.products);
       this.active_users=data?.active_usernames;
       this.pending_users=data?.pending_users;
+      this.name=data?.name;
     });
   }
   // Subscribe to route parameter changes and reload data accordingly
