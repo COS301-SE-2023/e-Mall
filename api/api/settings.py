@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "custom_auth.apps.CustomAuthConfig",
     "ca_matrix.apps.CaMatrixConfig",
     "cust_analytics.apps.CustAnalyticsConfig",
+    "combos.apps.CombosConfig",
 ]
 
 MIDDLEWARE = [

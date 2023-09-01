@@ -38,6 +38,7 @@ import { WishlistModule } from '@features/wishlist/wishlist.module';
 import { NavbarPopupModule } from '@shared/components/navbar-popup/navbar-popup.module';
 import { EditCustomerProfileModule } from '@features/edit-customer-profile/edit-customer-profile.module';
 import { SellerDashboardSettingsModule } from '@features/seller-dashboard-settings/seller-dashboard-settings.module';
+import { ComboStateModule } from '@features/combo-state/combo-state.module';
 import { MyCombosModule } from '@features/my-combos/my-combos.module';
 import { ComboModule } from '@features/combo/component.module';
 @NgModule({
@@ -69,6 +70,7 @@ import { ComboModule } from '@features/combo/component.module';
     NgxsResetPluginModule.forRoot(),
     AuthModule,
     ErrorModule,
+    ComboStateModule,
 
     HomeModule,
     // ProductModule,
