@@ -105,6 +105,7 @@
     "eslint": "^8.47.0",
     "eslint-config-prettier": "^8.10.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "firebase-tools": "^12.5.2",
     "jasmine-core": "~5.0.1",
     "karma": "~6.4.2",
     "karma-chrome-launcher": "^3.2.0",

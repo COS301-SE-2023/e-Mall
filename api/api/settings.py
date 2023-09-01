@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from environ import Env
+import json
+import firebase_admin
+from firebase_admin import credentials
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -56,6 +59,7 @@ INSTALLED_APPS = [
     "custom_auth.apps.CustomAuthConfig",
     "ca_matrix.apps.CaMatrixConfig",
     "cust_analytics.apps.CustAnalyticsConfig",
+    "notification.apps.NotificationConfig",
 ]
 
 MIDDLEWARE = [
@@ -171,3 +175,5 @@ COGNITO_CONFIG = {
     "user_pools_id": env("AWS_USER_POOLS_ID"),
     "user_pools_web_client_id": env("AWS_APP_CLIENT_ID"),
 }
+cred = credentials.Certificate(BASE_DIR / "api/serviceAccountKey.json")
+firebase_admin.initialize_app(cred)

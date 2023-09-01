@@ -24,9 +24,9 @@ export class NotificationComponent implements OnInit {
   ngOnInit(): void {
     console.log('Notification component initialized');
     this.notificationFacade.requestPermission();
-    this.notificationFacade.getToken().subscribe(token => {
-      console.log('token ', token);
-    });
+    // this.notificationFacade.getToken().subscribe(token => {
+    //   console.log('token ', token);
+    // });
     this.showMessage({
       notification: {
         title: 'Test message',
@@ -69,7 +69,6 @@ export class NotificationComponent implements OnInit {
   }
 
   async displayNextMessage() {
-    console.log(this.messages);
     if (this.messages.length > 0 && !this.isToastPresented) {
       this.isToastPresented = true;
       const message = this.messages.shift();
