@@ -18,6 +18,7 @@ export interface ProfileStateModel {
 })
 @Injectable()
 export class ProfileState {
+  
   @Action(ProfileActions.SetProfile)
   SetProfile(
     ctx: StateContext<ProfileStateModel>,
@@ -25,6 +26,7 @@ export class ProfileState {
   ) {
     ctx.setState({ profile: action.profile });
   }
+
   @Action(ProfileActions.UpdateProfile)
   UpdateProfile(
     ctx: StateContext<ProfileStateModel>,
