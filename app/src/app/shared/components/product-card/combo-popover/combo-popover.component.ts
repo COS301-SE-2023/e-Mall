@@ -46,7 +46,7 @@ export class ComboPopoverComponent implements OnInit {
     this.closePopover();
   }
     async closePopover() {
-        await this.popoverController.dismiss();
+        await this.modalController.dismiss();
       }
   
   

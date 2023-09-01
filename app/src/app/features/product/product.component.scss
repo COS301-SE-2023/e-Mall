@@ -162,26 +162,8 @@ height: 400px;
    color: red;
 }
 
-/*
-.main-img-small-container{
-//border: 3px solid black;
-margin: 5px;
-height: 300px;
-width: 300px;
-border-radius: 10px;
-background-color: $color_type_8;
-}
-
-.main-img-small-container img{
-  max-width: 100%;
-  height: 300px;
-  border-radius: 10px;
-}*/
 
 .product-card {
-  // margin-top: 4.5rem;
-  // margin-left: 2rem;
-  // margin: 0 0 1rem 0; # commented out coz sonarCloud
   border: 1px solid #ccc;
   border-radius: 0.25rem;
   padding: 1rem;
@@ -669,37 +651,12 @@ html {
   margin: 20px;
 }
 
-
-// .footer{
-//   background-color: $color_type_8;
-//   padding-top: 60px;
-//   //margin-top: 30%;
-// }
-
-// .footer a {
-//   transition: color 0.3s ease-in-out; 
-//   color: #444;
-//   text-decoration: none;
-// }
-
-// .footer a:hover {
-//   text-decoration: underline;
-// }
-
 .icons {
   margin-top: 20px;
   padding-top: 20px;
   border-top: 2px solid #444 ;
  
 }
-// .welcomeMsg_logo_footer {
-//   width:100px;
-//   height: 100px;
-//   margin-left: auto;
-//   margin-right: auto;
-// }
-  
-
 
 .button-container {
   display: flex;
