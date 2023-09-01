@@ -57,6 +57,14 @@ export class NavbarComponent {
     }
   }
 
+  async combos(event: Event) {
+    if (await this.authFacade.isLoggedIn()) {
+      this.router.navigate(['/my-combos']);
+    } else {
+      this.router.navigate(['/sign-in']);
+    }
+  }
+
   public signIn(): void {
     this.router.navigate(['sign-in']);
   }

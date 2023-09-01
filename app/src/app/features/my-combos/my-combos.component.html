@@ -1,0 +1,51 @@
+<app-navbar></app-navbar>
+<ion-content class="global-ion-content">
+  <div class="ion-content-wrapper">
+    <div class="side-nav-container" *ngIf="profile$ | async as profile">
+      <app-customer-profile-sidenav [profile]="{ username: profile.username }">
+      </app-customer-profile-sidenav>
+    </div>
+
+    <div class="combos-container1" *ngIf="(products$ | async)?.length === 0">
+      <h2>My combos</h2>
+
+      <div class="combos-container-nocards">
+        <div class="product-card-no">
+          <img
+            src="assets\images\no-image.jpeg"
+            alt="No Product Found"
+            class="nimage" />
+        </div>
+        <h3>Oops! It's empty here!</h3>
+        <p>Create combos by clicking the bookmark icon on a product.</p>
+      </div>
+    </div>
+
+    <div class="combos-container" *ngIf="(products$ | async)?.length !== 0">
+      <h2>My Combos</h2>
+      <div class="combos-container-cards">
+        <div class="combo-card">
+          <ion-card class="collage-card" (click)="goToComboPage()">
+            <div class="collage-images">
+              <div class="image-container">
+                <img src="assets/images/logo-black-no-bg.png" alt="Image 1" />
+              </div>
+              <div class="image-container">
+                <img src="assets/images/logo-black-no-bg.png" alt="Image 2" />
+              </div>
+              <div class="image-container">
+                <img src="assets/images/logo-black-no-bg.png" alt="Image 3" />
+              </div>
+              <div class="image-container">
+                <img src="assets/images/logo-black-no-bg.png" alt="Image 4" />
+              </div>
+            </div>
+            <ion-card-header>
+              <ion-card-title>Combo Name</ion-card-title>
+            </ion-card-header>
+          </ion-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

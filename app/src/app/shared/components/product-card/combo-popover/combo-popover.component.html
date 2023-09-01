@@ -1,0 +1,70 @@
+<div class="modal-container">
+    <ion-list mode="ios">
+      <ion-item lines="none" class="modal-header-item">
+        <ion-text class="modal-header"> Add to Combo </ion-text>
+        <ion-button
+          class="close-button"
+          fill="clear"
+          shape="round"
+          mode="ios"
+          slot="end"
+          (click)="closePopover()">
+          <ion-icon size="large" name="close-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <div class="modal-container">
+        <ion-list mode="ios">
+          <ng-container *ngIf="!newClicked; else new">
+            <form [formGroup]="selectForm"> <!-- Wrap form elements in a formGroup -->
+              <ion-item class="item-padding" lines="none">
+                <div class="item-label">Select Options</div>
+                <ion-select multiple="true" interface="popover" formControlName="selectedOptions" class="custom-select">
+                  <ion-select-option value="option1">Option 1</ion-select-option>
+                  <ion-select-option value="option2">Option 2</ion-select-option>
+                  <ion-select-option value="option3">Option 3</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item class="item-padding" lines="none">
+                <ion-button mode="ios" color="primary" (click)="newClick()">
+                  New Combo
+                </ion-button>
+                <ion-button mode="ios" color="primary" (click)="addCombo()">
+                  Done
+                </ion-button>
+              </ion-item>
+            </form>
+          </ng-container>
+      
+          <ng-template #new>
+            <form [formGroup]="newForm"> <!-- Wrap form elements in a formGroup -->
+              <ion-item class="item-padding" lines="none">
+                <div class="item-label">Name</div>
+                <div class="input-container">
+                  <ion-input
+                    formControlName="newName"
+                  ></ion-input>
+                </div>
+              </ion-item>
+              <ion-item class="item-padding" lines="none">
+                <div class="item-label">Email</div>
+                <div class="input-container">
+                  <ion-input
+                    clearInput="true"
+                    formControlName="newEmail"
+                    type="email"
+                  ></ion-input>
+                </div>
+              </ion-item>
+              <ion-item class="item-padding" lines="none">
+                <ion-button
+                  type="submit"
+                  mode="ios"
+                  color="primary"
+                > Create
+                </ion-button>
+              </ion-item>
+            </form>
+          </ng-template>
+        </ion-list>
+      </div>
+      

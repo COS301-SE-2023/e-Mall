@@ -7,10 +7,10 @@
       </app-customer-profile-sidenav>
     </div>
 
-    <div class="wishlist-container1" *ngIf="(products$ | async)?.length === 0">
-      <h2>My Wishlist</h2>
+    <div class="combo-container1" *ngIf="(products$ | async)?.length === 0">
+      <h2>My combo</h2>
 
-      <div class="wishlist-container-nocards">
+      <div class="combo-container-nocards">
         <div class="product-card-no">
           <img
             src="assets\images\no-image.jpeg"
@@ -19,23 +19,14 @@
         </div>
         <h3>Oops! It's empty here!</h3>
         <p>
-          Fill this page with your favourite products. All you have to do is
-          find a product you like, click the heart icon and it will be added to
-          your wishlist.
+          Add products to this combo by clicking the bookmark on the product. 
         </p>
       </div>
     </div>
 
-    <div class="wishlist-container" *ngIf="(products$ | async)?.length !== 0">
-      <h2>My Wishlist</h2>
-      <!--<div class="row" style="grid-auto-rows: auto">
-                    <div class="col-md-3 col-12" style="grid-auto-columns: auto; min-width: 300px">
-                        <app-product-card ></app-product-card>
-                         Add an empty column after every 4th product card, but only if there are more than 4 product cards
-                        <div class="col-md-1" ></div>
-                      </div>
-                </div>-->
-      <div class="wishlist-container-cards">
+    <div class="combo-container" *ngIf="(products$ | async)?.length !== 0">
+      <h2>My combo</h2>
+      <div class="combo-container-cards">
         <div class="product-card">
           <div
             style="display: flex; justify-content: center; align-items: center"
@@ -63,6 +54,5 @@
         </div>
       </div>
     </div>
-    <!--</div>-->
   </div>
 </ion-content>

@@ -121,6 +121,24 @@ height: 400px;
   //padding: 20px;
 }
 
+.discount-tag {
+  position: absolute; 
+  display: inline-flex;
+  padding: 0px 8px;
+  align-items: center;
+  gap: 10px;
+  z-index: 100; 
+  border-radius: 12px;
+  background: var(--c-5-e, #ecf6f6);
+  ion-label {
+    color: var(--c-5-a, #37d0d6);
+    font-family: Poppins,sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+}
 .position-relative {
   position: relative;
 }
@@ -183,18 +201,18 @@ background-color: $color_type_8;
 
 
 .upper-product-info-container{
-  margin-top: 10px;
+ // margin-top: 10px;
   margin-right: 0;
   width: 45%;
 
 }
 
 .upper-product-info-container p{
-  margin-top: 30px;
+  margin-top: 15px;
 }
 
 .upper-product-info-container h2{
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
 .lower-body-container{
@@ -682,3 +700,35 @@ html {
 // }
   
   
+.card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adjust the gap between buttons if needed */
+}
+
+ion-button {
+  --padding-start: 0;
+  --padding-end: 0;
+  padding: 2px;
+  margin: 0;
+  box-shadow: none;
+  background: transparent;
+}
+ion-icon{
+  margin: 0;
+}
+
+::part(native) {
+  padding: 0;
+}
+
+mat-card-actions{
+  align-items: right;
+  justify-content: right;
+}
