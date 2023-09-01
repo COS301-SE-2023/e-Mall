@@ -6,7 +6,7 @@
       </app-customer-profile-sidenav>
     </div>
 
-    <div class="combos-container1" *ngIf="(products$ | async)?.length === 0">
+    <div class="combos-container1" *ngIf="!comboData">
       <h2>My combos</h2>
 
       <div class="combos-container-nocards">
@@ -20,57 +20,34 @@
         <p>Create combos by clicking the bookmark icon on a product.</p>
       </div>
     </div>
-
-    <!-- <div class="combos-container" *ngIf="(combos$ | async)?.length !== 0">
+    <div class="combos-container1" *ngIf="comboData">
       <h2>My Combos</h2>
-      <div class="combos-container-cards">
-        <div class="combo-card">
-          <ion-card class="collage-card" (click)="goToComboPage()">
-            <div class="collage-images">
-              <div class="image-container">
-                <img src="assets/images/logo-black-no-bg.png" alt="Image 1" />
-              </div>
-              <div class="image-container">
-                <img src="assets/images/logo-black-no-bg.png" alt="Image 2" />
-              </div>
-              <div class="image-container">
-                <img src="assets/images/logo-black-no-bg.png" alt="Image 3" />
-              </div>
-              <div class="image-container">
-                <img src="assets/images/logo-black-no-bg.png" alt="Image 4" />
-              </div>
+      <div class="row-combos-container-cards">
+        <ng-container *ngFor="let combo of comboData">
+          <div class="col-md-3 col-12"  style="grid-auto-columns: auto; min-width: 300px">
+            <div class="combo-card">
+              <ion-card class="collage-card" (click)="goToComboPage(combo.id)">
+                <div class="collage-images">
+                  <div class="image-container">
+                    <img [src]="combo.images[0]" alt="Image 1" />
+                  </div>
+                  <div class="image-container">
+                    <img [src]="combo.images[1]" alt="Image 2" />
+                  </div>
+                  <div class="image-container">
+                    <img [src]="combo.images[2]" alt="Image 3" />
+                  </div>
+                  <div class="image-container">
+                    <img [src]="combo.images[3]" alt="Image 4" />
+                  </div>
+                </div>
+                <ion-card-header>
+                  <ion-card-title>{{ combo.name }}</ion-card-title>
+                </ion-card-header>
+              </ion-card>
             </div>
-            <ion-card-header>
-              <ion-card-title>Combo</ion-card-title>
-            </ion-card-header>
-          </ion-card>
-        </div>
-      </div>
-    </div>-->
-    <div *ngIf="(comboData)">
-      <h2>My Combos</h2>
-      <div class="combos-container-cards"*ngFor="let combo of comboData">
-        <div class="combo-card">
-          <ion-card class="collage-card" (click)="goToComboPage()">
-            <div class="collage-images">
-              <div class="image-container">
-                <img src={{combo.images[0]}} alt="Image 1" />
-              </div>
-              <div class="image-container">
-                <img src={{combo.images[1]}} alt="Image 2" />
-              </div>
-              <div class="image-container">
-                <img src={{combo.images[2]}} alt="Image 3" />
-              </div>
-              <div class="image-container">
-                <img src={{combo.images[3]}} alt="Image 4" />
-              </div>
-            </div>
-            <ion-card-header>
-              <ion-card-title>{{ combo.name }}</ion-card-title>
-            </ion-card-header>
-          </ion-card>
-        </div>
+          </div>
+        </ng-container>
       </div>
     </div>
     

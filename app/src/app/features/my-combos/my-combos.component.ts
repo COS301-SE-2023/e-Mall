@@ -21,7 +21,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MyCombosComponent implements OnInit, OnDestroy {
   products$!: Observable<IProduct[] | null>;
-  combos$!: Observable<any | null>;
+  combos$!: Observable<ICombo[] | null>;
   comboData: { id: number, name: string, images: string[] }[] = [];
   bool = true;
   //isAuthenticated: Observable<IUser | null>;
@@ -72,7 +72,7 @@ export class MyCombosComponent implements OnInit, OnDestroy {
   }
   loadcombos() {
     this.comboFacade.getCombos().subscribe(data => {
-      if (data) this.combos$ = of(data.combos);
+      if (data) this.combos$ = of(data);
     });
 
     this.combos$.subscribe(data => {
@@ -87,8 +87,11 @@ export class MyCombosComponent implements OnInit, OnDestroy {
   goToConstruction() {
     this.router.navigate(['/construction']);
   }
-  goToComboPage() {
-    this.router.navigate(['/combo']);
+  goToComboPage(combo_id:number) {
+   const navigationextras: NavigationExtras={
+    queryParams:{combo_id:combo_id}
+   }
+    this.router.navigate(['/combo'],navigationextras);
   }
   getOneImg(imgList?: string[]) {
     //remove following when no need to have mock data

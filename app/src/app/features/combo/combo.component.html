@@ -7,7 +7,7 @@
       </app-customer-profile-sidenav>
     </div>
 
-    <div class="combo-container1" *ngIf="(products$ | async)?.length === 0">
+    <div class="combo-container1" *ngIf="!combo$">
       <h2>My combo</h2>
 
       <div class="combo-container-nocards">
@@ -24,13 +24,13 @@
       </div>
     </div>
 
-    <div class="combo-container" *ngIf="(products$ | async)?.length !== 0">
+    <div class="combo-container">
       <h2>My combo</h2>
       <div class="combo-container-cards">
         <div class="product-card">
           <div
             style="display: flex; justify-content: center; align-items: center"
-            *ngIf="(products$ | async) === null">
+            *ngIf="(combo$ | async) === null">
             <mat-spinner></mat-spinner>
           </div>
           <ng-container *ngIf="products$ | async as products">

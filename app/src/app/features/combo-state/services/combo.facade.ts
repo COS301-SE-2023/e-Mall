@@ -93,7 +93,7 @@ export class ComboFacade implements OnDestroy {
         return [new SetError('combo', error as IError)];
     }
 
-    getCombos(): Observable<any | null> {
+    getCombos(): Observable<ICombo[] | null> {
         return this.combos$.pipe(
             tap(async combos => {
                 if (combos == null && (await this.authFacade.isLoggedIn())) {
@@ -104,19 +104,36 @@ export class ComboFacade implements OnDestroy {
         );
     }
 
-    getOneCombo(id: number): Observable<ICombo | null| undefined> {
-        return this.combos$.pipe(
-            map(combos => {
-                if (combos == null) return null;
-                return combos.find(combo => combo.id === id);
-            })
-        );
-    }
+
+getOneCombo(id: number): Observable<ICombo | undefined> {
+  return this.combos$.pipe(
+    map(combos => {
+      if (combos) {
+        let matching_combo: ICombo | undefined = undefined;
+        for (let i = 0; i < combos.length; i++) {
+            console.log(combos[i].id)
+            if (combos[i].id === id) {
+            matching_combo = combos[i];
+            break; // Exit the loop when a match is found
+          }
+        }
+        return matching_combo;
+      } else {
+        return undefined;
+      }
+    })
+  );
+}
+
+
+
+      
 
     async fetchCombos() {
         try {
             const res = await this.comboService.getCombos();
-            if (res != null) this.setCombos(res);
+            if (res != null)
+             this.setCombos(res.combos);
         } catch (error) {
             this.setError(error);
         }

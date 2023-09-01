@@ -9,6 +9,7 @@ import { EmailValidator, FormControl, FormGroup } from '@angular/forms';
 import { IProduct } from '@shared/models/product/product.interface';
 import { ConsumerService } from '@shared/servicies/consumer/consumer.service';
 import { ActivatedRoute } from '@angular/router';
+import { ComboFacade } from '@features/combo-state/services/combo.facade';
 //import { AuthFacade } from '@app/features/auth/services/auth.facade';
 //import { IUser } from '@app/features/auth/models/user.interface';
 //import { Observable } from 'rxjs';
@@ -19,24 +20,25 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./combo.component.scss'],
 })
 export class ComboComponent implements OnInit, OnDestroy {
-  products$!: Observable<IProduct[] | null>;
+  products$!: Observable<IProduct[] | undefined>;
   bool = true;
-  //isAuthenticated: Observable<IUser | null>;
-  customerprofileForm: FormGroup;
   profile$!: Observable<ISellerProfile | IConsumerProfile | null>;
   email!: string;
+  paramMapSubscription: Subscription;
+  combo_id: number;
+  combo$!: Observable<ICombo | null | undefined>;
+  active_users:string[] |undefined=[];
+  pending_users: string[]|undefined=[];
   private routeSubscription: Subscription = new Subscription();
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     public profileFacade: ProfileFacade,
-    private consumerService: ConsumerService
+    private consumerService: ConsumerService,
+    private comboFacade: ComboFacade
   ) {
-    this.customerprofileForm = new FormGroup({
-      username: new FormControl(),
-      email: new FormControl(),
-      details: new FormControl(),
-    });
+    this.paramMapSubscription = new Subscription();
+    this.combo_id = -1;
   }
 
   /*constructor(
@@ -50,20 +52,28 @@ export class ComboComponent implements OnInit, OnDestroy {
     this.profile$.subscribe(profile => {
       if (profile) {
         this.email = profile.email;
-        this.loadcombo();
       }
+    });
+    this.paramMapSubscription = this.route.queryParamMap.subscribe(params => {
+      const id = params.get('combo_id');
+
+      if (id) {
+        console.log(id);
+        this.combo_id = +id;
+        this.combo$ = this.comboFacade.getOneCombo(this.combo_id);
+      }
+    });
+
+    this.combo$.subscribe(data => {
+      this.products$ = of(data?.products);
+      this.active_users=data?.active_usernames;
+      this.pending_users=data?.pending_users;
     });
   }
   // Subscribe to route parameter changes and reload data accordingly
 
   ngAfterViewInit(): void {
     this.routeSubscription = this.route.queryParams.subscribe(params => {
-      // Check if the 'seller_id' query parameter exists in the route
-      if (params['seller_id']) {
-        // Perform any necessary actions here when 'seller_id' is present in the route
-        // For example, you can fetch seller-specific data based on 'seller_id'
-      }
-
       // If needed, you can call the method to reload consumer products here
       this.loadcombo();
     });
@@ -75,11 +85,6 @@ export class ComboComponent implements OnInit, OnDestroy {
   }
   loadcombo() {
     if (!this.email) return;
-
-    this.consumerService.getConsumerInfo(this.email).subscribe(data => {
-      console.log(data.products);
-      this.products$ = of(data.products);
-    });
   }
   goToCustomerProfile() {
     this.router.navigate(['/customer-profile']);
