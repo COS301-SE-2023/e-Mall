@@ -92,7 +92,7 @@ export class ComboFacade implements OnDestroy {
         return [new SetError('combo', error as IError)];
     }
 
-    getCombos(): Observable<ICombo[] | null> {
+    getCombos(): Observable<any | null> {
         return this.combos$.pipe(
             tap(async combos => {
                 if (combos == null && (await this.authFacade.isLoggedIn())) {

@@ -21,13 +21,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MyCombosComponent implements OnInit, OnDestroy {
   products$!: Observable<IProduct[] | null>;
-  combos$!: Observable<ICombo[] | null>;
-
+  combos$!: Observable<any | null>;
+  comboData: { id: number, name: string, images: string[] }[] = [];
   bool = true;
   //isAuthenticated: Observable<IUser | null>;
   profile$!: Observable<ISellerProfile | IConsumerProfile | null>;
   email!: string;
   private routeSubscription: Subscription = new Subscription();
+  imgs: string[]=[];
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -43,7 +44,14 @@ export class MyCombosComponent implements OnInit, OnDestroy {
      }*/
 
   ngOnInit(): void {
-    this.loadcombos();
+    this.profile$ = this.profileFacade.getProfile();
+    this.profile$.subscribe(profile => {
+      if (profile) {
+        this.email = profile.email;
+        this.loadcombos();
+      }
+    });
+    this.collage();
   }
   // Subscribe to route parameter changes and reload data accordingly
 
@@ -54,9 +62,7 @@ export class MyCombosComponent implements OnInit, OnDestroy {
         // Perform any necessary actions here when 'seller_id' is present in the route
         // For example, you can fetch seller-specific data based on 'seller_id'
       }
-
-      // If needed, you can call the method to reload consumer products here
-      this.loadcombos();
+      
     });
   }
 
@@ -65,7 +71,14 @@ export class MyCombosComponent implements OnInit, OnDestroy {
     this.routeSubscription.unsubscribe();
   }
   loadcombos() {
-    this.combos$ = this.comboFacade.getCombos();
+    this.comboFacade.getCombos().subscribe(data => {
+      if (data) this.combos$ = of(data.combos);
+    });
+
+    this.combos$.subscribe(data => {
+      console.log(data);
+    });
+
   }
   goToCustomerProfile() {
     this.router.navigate(['/customer-profile']);
@@ -94,4 +107,33 @@ export class MyCombosComponent implements OnInit, OnDestroy {
 
     this.router.navigate(['products'], navigationextras);
   }
+
+
+  collage() {
+    this.combos$.subscribe((combos) => {
+      if (combos) {
+        combos.forEach((combo:  ICombo) => {
+          console.log(combo)
+          if (combo.products) {
+            // Create an object to store combo data
+            this.imgs=[];
+            let image_count = 0; // Counter to keep track of the number of images pushed for each combo
+            combo.products.forEach((product: IProduct) => {
+              if (product.min_price_img_array && image_count < 4) {
+                console.log(product.min_price_img_array[0]);
+                this.imgs.push(product.min_price_img_array[0]);
+                image_count++;
+              }
+            });
+            const comboObj = { id: combo.id, name: combo.name, images:this.imgs }; 
+            this.comboData.push(comboObj); // Push the combo data object to the array
+          }
+        });
+      }
+      console.log("Combo Data", this.comboData);
+    });
+  }
+  
+
+
 }

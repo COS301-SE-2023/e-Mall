@@ -21,12 +21,10 @@
       </div>
     </div>
 
-    <div class="combos-container" *ngIf="(combos$ | async)?.length !== 0">
+    <!-- <div class="combos-container" *ngIf="(combos$ | async)?.length !== 0">
       <h2>My Combos</h2>
-      <ng-container  *ngIf="combos$ | async as combos" >
-      <div class="combos-container-cards" *ngFor="let combo of combos">
-        {{combo}}
-        <div class="combo-card" >
+      <div class="combos-container-cards">
+        <div class="combo-card">
           <ion-card class="collage-card" (click)="goToComboPage()">
             <div class="collage-images">
               <div class="image-container">
@@ -48,7 +46,33 @@
           </ion-card>
         </div>
       </div>
-    </ng-container>
+    </div>-->
+    <div *ngIf="(comboData)">
+      <h2>My Combos</h2>
+      <div class="combos-container-cards"*ngFor="let combo of comboData">
+        <div class="combo-card">
+          <ion-card class="collage-card" (click)="goToComboPage()">
+            <div class="collage-images">
+              <div class="image-container">
+                <img src={{combo.images[0]}} alt="Image 1" />
+              </div>
+              <div class="image-container">
+                <img src={{combo.images[1]}} alt="Image 2" />
+              </div>
+              <div class="image-container">
+                <img src={{combo.images[2]}} alt="Image 3" />
+              </div>
+              <div class="image-container">
+                <img src={{combo.images[3]}} alt="Image 4" />
+              </div>
+            </div>
+            <ion-card-header>
+              <ion-card-title>{{ combo.name }}</ion-card-title>
+            </ion-card-header>
+          </ion-card>
+        </div>
+      </div>
     </div>
+    
   </div>
 </ion-content>

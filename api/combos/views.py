@@ -147,12 +147,12 @@ def get(request):
                 usernames = [user.username for user in users]
                 product_data = ProductSerializer(products, many=True).data
                 combo_data.append({
-                    "combo_id": combo.id,
-                    "combo_name": combo.combo_name,
+                    "id": combo.id,
+                    "name": combo.combo_name,
                     "products": product_data,
                     "active_usernames": usernames,
                     "active_emails": combo.user_emails,
-                    "pending_emails": combo.pending_emails,
+                    "pending_users": combo.pending_emails,
                 })
 
             return Response({"combos": combo_data})

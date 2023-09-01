@@ -11,7 +11,7 @@ export class ComboService {
   constructor(private http: HttpClient) {}
 
   
-  async getCombos(): Promise<ICombo[]> {
+  async getCombos(): Promise<any> {
     const url = `${this.apiUrl}get/`;
 
     const response = await lastValueFrom(
@@ -29,7 +29,7 @@ export class ComboService {
 
     // Check if the response status is OK (200) before accessing the body
     if (response.status === 200) {
-      return response.body as ICombo[];
+      return response.body as any;
     } else {
       throw new Error('Failed to fetch combo data');
     }
