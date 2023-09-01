@@ -3,6 +3,7 @@ import { Router, NavigationExtras } from '@angular/router';
 import { ProfileFacade } from '../profile/services/profile.facade';
 import { ISellerProfile } from '../profile/models/seller-profile.interface';
 import { IConsumerProfile } from '../profile/models/consumer-profile.interface';
+import { ICombo } from '@features/combo-state/models/combo.interface';
 import { Observable, Subscription, of } from 'rxjs';
 import { EmailValidator, FormControl, FormGroup } from '@angular/forms';
 import { IProduct } from '@shared/models/product/product.interface';
@@ -19,7 +20,6 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ComboComponent implements OnInit, OnDestroy {
   products$!: Observable<IProduct[] | null>;
-
   bool = true;
   //isAuthenticated: Observable<IUser | null>;
   customerprofileForm: FormGroup;

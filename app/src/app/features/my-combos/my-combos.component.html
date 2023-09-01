@@ -21,10 +21,12 @@
       </div>
     </div>
 
-    <div class="combos-container" *ngIf="(products$ | async)?.length !== 0">
+    <div class="combos-container" *ngIf="(combos$ | async)?.length !== 0">
       <h2>My Combos</h2>
-      <div class="combos-container-cards">
-        <div class="combo-card">
+      <ng-container  *ngIf="combos$ | async as combos" >
+      <div class="combos-container-cards" *ngFor="let combo of combos">
+        {{combo}}
+        <div class="combo-card" >
           <ion-card class="collage-card" (click)="goToComboPage()">
             <div class="collage-images">
               <div class="image-container">
@@ -41,11 +43,12 @@
               </div>
             </div>
             <ion-card-header>
-              <ion-card-title>Combo Name</ion-card-title>
+              <ion-card-title>Combo</ion-card-title>
             </ion-card-header>
           </ion-card>
         </div>
       </div>
+    </ng-container>
     </div>
   </div>
 </ion-content>

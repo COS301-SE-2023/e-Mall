@@ -3,6 +3,8 @@ import { Router, NavigationExtras } from '@angular/router';
 import { ProfileFacade } from '../profile/services/profile.facade';
 import { ISellerProfile } from '../profile/models/seller-profile.interface';
 import { IConsumerProfile } from '../profile/models/consumer-profile.interface';
+import { ICombo } from '@features/combo-state/models/combo.interface';
+import { ComboFacade } from '@features/combo-state/services/combo.facade';
 import { Observable, Subscription, of } from 'rxjs';
 import { EmailValidator, FormControl, FormGroup } from '@angular/forms';
 import { IProduct } from '@shared/models/product/product.interface';
@@ -19,10 +21,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MyCombosComponent implements OnInit, OnDestroy {
   products$!: Observable<IProduct[] | null>;
+  combos$!: Observable<ICombo[] | null>;
 
   bool = true;
   //isAuthenticated: Observable<IUser | null>;
-  customerprofileForm: FormGroup;
   profile$!: Observable<ISellerProfile | IConsumerProfile | null>;
   email!: string;
   private routeSubscription: Subscription = new Subscription();
@@ -30,14 +32,9 @@ export class MyCombosComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     public profileFacade: ProfileFacade,
+    public comboFacade: ComboFacade,
     private consumerService: ConsumerService
-  ) {
-    this.customerprofileForm = new FormGroup({
-      username: new FormControl(),
-      email: new FormControl(),
-      details: new FormControl(),
-    });
-  }
+  ) {}
 
   /*constructor(
     private router: Router,
@@ -46,13 +43,7 @@ export class MyCombosComponent implements OnInit, OnDestroy {
      }*/
 
   ngOnInit(): void {
-    this.profile$ = this.profileFacade.getProfile();
-    this.profile$.subscribe(profile => {
-      if (profile) {
-        this.email = profile.email;
-        this.loadcombos();
-      }
-    });
+    this.loadcombos();
   }
   // Subscribe to route parameter changes and reload data accordingly
 
@@ -74,8 +65,7 @@ export class MyCombosComponent implements OnInit, OnDestroy {
     this.routeSubscription.unsubscribe();
   }
   loadcombos() {
-    if (!this.email) return;
-    
+    this.combos$ = this.comboFacade.getCombos();
   }
   goToCustomerProfile() {
     this.router.navigate(['/customer-profile']);
@@ -84,9 +74,9 @@ export class MyCombosComponent implements OnInit, OnDestroy {
   goToConstruction() {
     this.router.navigate(['/construction']);
   }
-goToComboPage(){
-  this.router.navigate(['/combo']);
-}
+  goToComboPage() {
+    this.router.navigate(['/combo']);
+  }
   getOneImg(imgList?: string[]) {
     //remove following when no need to have mock data
     if (!imgList || imgList.length < 1)
