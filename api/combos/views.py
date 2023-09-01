@@ -65,8 +65,12 @@ def update_user(request):
                 #remove user email from pending emails
                 combo = Combos.objects.get(id=combo_id)
                 if user.email in combo.pending_emails:
-                    combo.pending_emails.remove(user.email)
-                    combo.save()
+                    if combo.user_emails == [] and len(combo.pending_emails) == 1:
+                        combo.delete()
+                        return Response({"success": "Combo deleted successfully"})
+                    else:
+                        combo.pending_emails.remove(user.email)
+                        combo.save()
                     return Response({"success": "User removed from pending emails successfully"})
 
     except Exception as e:
