@@ -27,4 +27,9 @@ export class ClearCombos {
     static readonly type = '[Combo] Clear Combos';
 }
 
+export class GetOneCombo {
+    static readonly type = '[Combo] Get One Combo';
+    constructor(public comboId: number) {}
+}
+
 

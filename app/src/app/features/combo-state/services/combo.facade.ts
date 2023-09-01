@@ -47,7 +47,16 @@ export class ComboFacade implements OnDestroy {
             return this.setError(error);
         }
     }
+    @Dispatch()
+    getOneCombo(id: number) {
+        try {
+            return new ComboActions.GetOneCombo(id);
+        } catch (error) {
+            return this.setError(error);
+        }
+    }
 
+    
     @Dispatch()
     updateCombo(combo: Partial<ICombo>) {
         try {
