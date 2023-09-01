@@ -47,14 +47,6 @@ export class ComboFacade implements OnDestroy {
             return this.setError(error);
         }
     }
-    @Dispatch()
-    getOneCombo(id: number) {
-        try {
-            return new ComboActions.GetOneCombo(id);
-        } catch (error) {
-            return this.setError(error);
-        }
-    }
 
     
     @Dispatch()
@@ -109,6 +101,15 @@ export class ComboFacade implements OnDestroy {
                 }
             }),
             shareReplay({ bufferSize: 1, refCount: true })
+        );
+    }
+
+    getOneCombo(id: number): Observable<ICombo | null| undefined> {
+        return this.combos$.pipe(
+            map(combos => {
+                if (combos == null) return null;
+                return combos.find(combo => combo.id === id);
+            })
         );
     }
 
