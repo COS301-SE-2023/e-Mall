@@ -111,7 +111,6 @@ getOneCombo(id: number): Observable<ICombo | undefined> {
       if (combos) {
         let matching_combo: ICombo | undefined = undefined;
         for (let i = 0; i < combos.length; i++) {
-            console.log(combos[i].id)
             if (combos[i].id === id) {
             matching_combo = combos[i];
             break; // Exit the loop when a match is found
