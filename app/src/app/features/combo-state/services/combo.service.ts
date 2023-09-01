@@ -39,26 +39,31 @@ export class ComboService {
 
   async updateCombo(data: any): Promise<any> {
     const url = `${this.apiUrl}update/`;
+
     const res = (await lastValueFrom(
-      this.http.post(url, data, {
-        headers: new HttpHeaders()
-          .set('Content-Type', 'application/json')
-          .set('Authorization', 'true'),
-        observe: 'response',
-      })
-    )) as HttpResponse<ICombo>;
+        this.http
+            .post(url, data, {
+                headers: new HttpHeaders()
+                    .set('Content-Type', 'application/json')
+                    .set('Authorization', 'true'),
+                observe: 'response',
+            })
+            .pipe(take(1), shareReplay(1))
+    )); 
     return res.body;
   }
 
   async updateUsers(data: any): Promise<any> {
     const url = `${this.apiUrl}update_user/`;
+
     const res = await lastValueFrom(
       this.http.post(url, data, {
         headers: new HttpHeaders()
           .set('Content-Type', 'application/json')
           .set('Authorization', 'true'),
         observe: 'response',
-      })
+        })
+        .pipe(take(1), shareReplay(1))
     );
     return res.body;
   }
@@ -72,6 +77,7 @@ export class ComboService {
           .set('Authorization', 'true'),
         observe: 'response',
       })
+        .pipe(take(1), shareReplay(1))
     );
     return res.body;
   }
