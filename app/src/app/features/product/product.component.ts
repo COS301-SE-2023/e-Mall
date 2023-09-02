@@ -32,6 +32,11 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   currencyCode = 'ZAR';
 
+  showSpinner = true;
+
+  // Your timer function
+  
+
   //expandedStates: Map<string, boolean> = new Map<string, boolean>();
 
   selected: FormControl;
@@ -48,7 +53,17 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.paramMapSubscription = new Subscription();
     this.prod_id = -1;
   }
+
+
   ngOnInit(): void {
+    console.log("heyy: yo");
+    this.showSpinner = true;
+    console.log("heyy:" + this.showSpinner);
+    setTimeout(() => {
+      this.showSpinner = false;
+      console.log( "heyy@:"+this.showSpinner);
+    }, 4000); 
+
     this.paramMapSubscription = this.route.queryParamMap.subscribe(params => {
       this.selectedImage = '';
       this.profileFacade.getProfile().subscribe(profile => {

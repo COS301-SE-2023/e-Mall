@@ -1,12 +1,19 @@
 <app-navbar></app-navbar>
-<ion-content class="global-ion-content">
+<ion-content class="global-ion-content" >
+
   <ng-container *ngIf="product$ | async as product">
     <app-category-breadcrumb
       [categoryList]="product.category"></app-category-breadcrumb>
   </ng-container>
   <div class="ion-content-wrapper">
     <div class="container-fluid body-container">
-      <div class="container-fluid prices" id="prices">
+      <div class="spinner-container" *ngIf="showSpinner">
+      <div class="spinner">
+        <ion-spinner name="dots"></ion-spinner>
+        <ion-label>loading</ion-label>
+      </div>
+      </div>
+      <div class="container-fluid prices" id="prices" *ngIf="!showSpinner">
         <div
           class="row product-img-info-container"
           style="margin-left: 10px; margin-right: 10px">
@@ -27,17 +34,17 @@
             </div>
           </div>
 
-          <div class="col-sm-4 col-md-4 col-lg-4 main-img-container">
+          <div class="col-sm-4 col-md-4 col-lg-4 main-img-container" >
             <mat-card class="product-card">
               <div class="position-relative">
-                <img
+                <img *ngIf="!showSpinner"
                   mat-card-image
                   [src]="
                     selectedImage
                       ? selectedImage
                       : getOneImg((product$ | async)?.min_price_img_array)
                   "
-                  alt="Product Image"
+                  
                   class="product-image" />
                 <div
                   class="min-price-discount_rate"
