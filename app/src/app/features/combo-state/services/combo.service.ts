@@ -10,21 +10,22 @@ export class ComboService {
   private apiUrl = '/api/combos/';
   constructor(private http: HttpClient) {}
 
-  
   async getCombos(): Promise<any> {
     const url = `${this.apiUrl}get/`;
 
     const response = await lastValueFrom(
-      this.http.post(
-        url,
-        {},
-        {
-          headers: new HttpHeaders()
-            .set('Content-Type', 'application/json')
-            .set('Authorization', 'true'),
-          observe: 'response',
-        }
-      ).pipe(take(1), shareReplay(1))
+      this.http
+        .post(
+          url,
+          {},
+          {
+            headers: new HttpHeaders()
+              .set('Content-Type', 'application/json')
+              .set('Authorization', 'true'),
+            observe: 'response',
+          }
+        )
+        .pipe(take(1), shareReplay(1))
     );
 
     // Check if the response status is OK (200) before accessing the body
@@ -35,21 +36,19 @@ export class ComboService {
     }
   }
 
-
-
   async updateCombo(data: any): Promise<any> {
     const url = `${this.apiUrl}update/`;
 
-    const res = (await lastValueFrom(
-        this.http
-            .post(url, data, {
-                headers: new HttpHeaders()
-                    .set('Content-Type', 'application/json')
-                    .set('Authorization', 'true'),
-                observe: 'response',
-            })
-            .pipe(take(1), shareReplay(1))
-    )); 
+    const res = await lastValueFrom(
+      this.http
+        .post(url, data, {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+          observe: 'response',
+        })
+        .pipe(take(1), shareReplay(1))
+    );
     return res.body;
   }
 
@@ -57,11 +56,12 @@ export class ComboService {
     const url = `${this.apiUrl}update_user/`;
 
     const res = await lastValueFrom(
-      this.http.post(url, data, {
-        headers: new HttpHeaders()
-          .set('Content-Type', 'application/json')
-          .set('Authorization', 'true'),
-        observe: 'response',
+      this.http
+        .post(url, data, {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+          observe: 'response',
         })
         .pipe(take(1), shareReplay(1))
     );
@@ -71,12 +71,28 @@ export class ComboService {
   async deleteUser(data: any): Promise<any> {
     const url = `${this.apiUrl}delete/`;
     const res = await lastValueFrom(
-      this.http.post(url, data, {
-        headers: new HttpHeaders()
-          .set('Content-Type', 'application/json')
-          .set('Authorization', 'true'),
-        observe: 'response',
-      })
+      this.http
+        .post(url, data, {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+          observe: 'response',
+        })
+        .pipe(take(1), shareReplay(1))
+    );
+    return res.body;
+  }
+
+  async createCombo(data: any): Promise<any> {
+    const url = `${this.apiUrl}create/`;
+    const res = await lastValueFrom(
+      this.http
+        .post(url, data, {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+          observe: 'response',
+        })
         .pipe(take(1), shareReplay(1))
     );
     return res.body;
