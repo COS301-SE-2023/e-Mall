@@ -48,30 +48,20 @@
         <ng-template #new>
           <form [formGroup]="newForm">
             <!-- Wrap form elements in a formGroup -->
-            <ion-item class="item-padding" lines="none">
-              <div class="item-label">Name</div>
-              <div class="input-container">
-                <ion-input formControlName="newName"></ion-input>
-              </div>
-            </ion-item>
-            <ion-item class="item-padding" lines="none">
-              <div class="item-label">Email</div>
-              <div class="input-container">
-                <ion-input
-                  clearInput="true"
-                  formControlName="newEmails"
-                  type="email"></ion-input>
-              </div>
-            </ion-item>
-            <ion-item class="item-padding" lines="none">
-              <ion-button
-                type="submit"
-                mode="ios"
-                color="primary"
-                (click)="createNewCombo()">
-                Create
-              </ion-button>
-            </ion-item>
+            <ion-list>
+              <ion-item class="input">
+                <ion-label position="floating">Name:</ion-label>
+                <ion-input type="text" [(ngModel)]="comboName" clearInput></ion-input>
+              </ion-item>
+          
+              <ion-item class="input">
+                <ion-label position="floating">Email:</ion-label>
+                <ion-input type="email" [(ngModel)]="comboEmail" clearInput></ion-input>
+                
+              </ion-item>
+            </ion-list>
+            <ion-button mode="ios" color="primary" (click)="sendData()">Send</ion-button>
+            <ion-button mode="ios" color="primary"  (click)="createNewCombo()">Create</ion-button>
           </form>
         </ng-template>
       </ion-list>

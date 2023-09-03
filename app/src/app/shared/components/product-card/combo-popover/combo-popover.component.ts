@@ -21,6 +21,8 @@ export class ComboPopoverComponent implements OnInit {
   product!: IProduct;
   userEmail!: string;
   username!: string | undefined;
+  comboName!: string;
+  comboEmail!:string;
 
   constructor(
     private fb: FormBuilder,
@@ -56,6 +58,10 @@ export class ComboPopoverComponent implements OnInit {
 
   newClick() {
     this.newClicked = true;
+  }
+
+  sendData(){
+     console.log();
   }
 
   createNewCombo() {

@@ -54,7 +54,6 @@ export class ProductCardComponent implements OnInit {
       },
     });
     return await modal.present();
-    return await modal.present();
   }
   goToProductPage(prod_id: number): void {
     // Create the navigation extras object with the search query as a parameter
