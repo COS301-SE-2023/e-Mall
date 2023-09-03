@@ -93,20 +93,11 @@ export class ComboState {
           return;
         }
         const comboIndex = draft.combos.findIndex(
-          combo => combo.id === action.comboId
+          combo => combo.id === action.payload.combo_id
         );
         if (comboIndex !== -1) {
-          const combo = draft.combos[comboIndex];
-          if (
-            combo.active_emails.length === 1 &&
-            combo.active_usernames[0] === action.username
-          ) {
-            draft.combos.splice(comboIndex, 1); // Remove combo entirely
-          } else if (combo.active_usernames.includes(action.username)) {
-            combo.active_emails = combo.active_emails.filter(
-              email => email !== action.username
-            );
-          }
+          //remove combo from combos array
+          draft.combos.splice(comboIndex, 1);
         }
       })
     );

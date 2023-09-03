@@ -24,6 +24,7 @@ export class ComboComponent implements OnInit, OnDestroy {
   bool = true;
   profile$!: Observable<ISellerProfile | IConsumerProfile | null>;
   email!: string;
+  username!: string | undefined;
   paramMapSubscription: Subscription;
   combo_id: number;
   combo$!: Observable<ICombo | null | undefined>;
@@ -48,6 +49,7 @@ export class ComboComponent implements OnInit, OnDestroy {
     this.profile$.subscribe(profile => {
       if (profile) {
         this.email = profile.email;
+        this.username = profile.username;
       }
     });
     this.paramMapSubscription = this.route.queryParamMap.subscribe(params => {
@@ -109,5 +111,12 @@ export class ComboComponent implements OnInit, OnDestroy {
     };
 
     this.router.navigate(['products'], navigationextras);
+  }
+  leaveCombo(){
+    const data = {
+      combo_id: this.combo_id
+    };
+    this.comboFacade.deleteUser(data);
+    this.router.navigate(['my-combos']);
   }
 }

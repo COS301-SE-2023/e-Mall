@@ -28,7 +28,11 @@ export class UpdateUsers {
 
 export class DeleteUser {
   static readonly type = '[Combo] Delete Combo';
-  constructor(public comboId: number, public username: string) {}
+  constructor(
+    public payload: {
+      combo_id: number;
+    }
+  ) {}
 }
 
 export class ClearCombos {

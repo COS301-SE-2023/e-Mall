@@ -69,15 +69,15 @@ export class ComboFacade implements OnDestroy {
     }
   }
 
-  // @Dispatch()
-  // deleteUser(id: number) {
-  //     try {
-  //         this.comboService.deleteUser(id);
-  //         return new ComboActions.DeleteUser(id, this.ProfileFacade.getProfile().username);
-  //     } catch (error) {
-  //         return this.setError(error);
-  //     }
-  // }
+  @Dispatch()
+  deleteUser(data: any) {
+      try {
+          this.comboService.deleteUser(data);
+          return new ComboActions.DeleteUser(data);
+      } catch (error) {
+          return this.setError(error);
+      }
+  }
 
   @Dispatch()
   CreateCombo(data: any) {

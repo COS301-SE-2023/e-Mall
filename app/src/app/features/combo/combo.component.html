@@ -8,28 +8,27 @@
     </div>
 
     <div class="combo-container">
-      <div class ="head">
+      <div class="head">
         <h2>{{ name }}</h2>
         <div class="head-buttons">
           <ion-button>Edit Combo</ion-button>
-          <ion-button>Leave Combo</ion-button>
+          <ion-button (click)="leaveCombo()">Leave Combo</ion-button>
         </div>
       </div>
-      
+
       <ion-card>
         <ion-card-header (click)="togglePanel(1)">
           <div class="users">
-          <ion-card-title>Active Users  
-          </ion-card-title>
-          <ion-icon
-            *ngIf="!isPanelOpen[1]"
-            name="chevron-down"
-            class="arrow"></ion-icon>
-          <ion-icon
-            *ngIf="isPanelOpen[1]"
-            name="chevron-up"
-            class="arrow"></ion-icon>
-            </div>
+            <ion-card-title>Active Users </ion-card-title>
+            <ion-icon
+              *ngIf="!isPanelOpen[1]"
+              name="chevron-down"
+              class="arrow"></ion-icon>
+            <ion-icon
+              *ngIf="isPanelOpen[1]"
+              name="chevron-up"
+              class="arrow"></ion-icon>
+          </div>
         </ion-card-header>
         <ion-card-content [hidden]="!isPanelOpen[1]">
           <ion-list>
@@ -41,20 +40,19 @@
           </ion-list>
         </ion-card-content>
       </ion-card>
-      <ion-card *ngIf="pending_users?.length!==0">
+      <ion-card *ngIf="pending_users?.length !== 0">
         <ion-card-header (click)="togglePanel(2)">
           <div class="header">
-          <ion-card-title>Pending Users  
-          </ion-card-title>
-          <ion-icon
-            *ngIf="!isPanelOpen[2]"
-            name="chevron-down"
-            class="arrow"></ion-icon>
-          <ion-icon
-            *ngIf="isPanelOpen[2]"
-            name="chevron-up"
-            class="arrow"></ion-icon>
-            </div>
+            <ion-card-title>Pending Users </ion-card-title>
+            <ion-icon
+              *ngIf="!isPanelOpen[2]"
+              name="chevron-down"
+              class="arrow"></ion-icon>
+            <ion-icon
+              *ngIf="isPanelOpen[2]"
+              name="chevron-up"
+              class="arrow"></ion-icon>
+          </div>
         </ion-card-header>
         <ion-card-content [hidden]="!isPanelOpen[2]">
           <ion-list>
