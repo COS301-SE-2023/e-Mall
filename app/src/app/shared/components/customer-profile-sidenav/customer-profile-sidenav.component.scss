@@ -9,7 +9,7 @@
 }}
 .side-nav {
   display: flex;
-  width: 326px;
+  max-width: 250px;
 //width: 25%;
 min-height: 1024px;
 //border: 1px solid red;
@@ -37,7 +37,7 @@ align-items: center;
 
 .side-nav ion-item {
   display: flex;
-  width: 252px;
+  width: fit-content;
   height: 64px;
   padding: 16px 10px;
   align-items: center;

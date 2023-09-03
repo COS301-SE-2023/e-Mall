@@ -10,10 +10,21 @@
     <div class="combo-container">
       <h2>{{ name }}</h2>
       <ion-card>
-        <ion-card-header>
-          <ion-card-title>Active Users</ion-card-title>
+        <ion-card-header (click)="togglePanel(1)">
+          <div class="header">
+          <ion-card-title>Active Users  
+          </ion-card-title>
+          <ion-icon
+            *ngIf="!isPanelOpen[1]"
+            name="chevron-down"
+            class="arrow"></ion-icon>
+          <ion-icon
+            *ngIf="isPanelOpen[1]"
+            name="chevron-up"
+            class="arrow"></ion-icon>
+            </div>
         </ion-card-header>
-        <ion-card-content>
+        <ion-card-content [hidden]="!isPanelOpen[1]">
           <ion-list>
             <div *ngFor="let user of active_users">
               <ion-item>
@@ -24,10 +35,21 @@
         </ion-card-content>
       </ion-card>
       <ion-card>
-        <ion-card-header>
-          <ion-card-title>Pending Users</ion-card-title>
+        <ion-card-header (click)="togglePanel(2)">
+          <div class="header">
+          <ion-card-title>Pending Users  
+          </ion-card-title>
+          <ion-icon
+            *ngIf="!isPanelOpen[2]"
+            name="chevron-down"
+            class="arrow"></ion-icon>
+          <ion-icon
+            *ngIf="isPanelOpen[2]"
+            name="chevron-up"
+            class="arrow"></ion-icon>
+            </div>
         </ion-card-header>
-        <ion-card-content>
+        <ion-card-content [hidden]="!isPanelOpen[2]">
           <ion-list>
             <div *ngFor="let user of pending_users">
               <ion-item>

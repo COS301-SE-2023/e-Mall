@@ -1,40 +1,49 @@
-
 .content-container {
-    display: flex;
-    justify-content: space-between; 
-  }
-  
-
-.side-nav-container {
-    flex: 1; 
-    padding: 20px; 
-    //border: 1px solid green ;
-    max-width: 326px;
-  }
-  
-.ion-content-wrapper {
-    display: flex;
-    flex-direction: row;
-    //border: 1px solid red ;
+  display: flex;
+  justify-content: space-between;
 }
 
+.side-nav-container {
+  flex: 1;
+  padding: 20px;
+  //border: 1px solid green ;
+  max-width: 250px;
+}
+
+.ion-content-wrapper {
+  display: flex;
+  flex-direction: row;
+  //border: 1px solid red ;
+}
 
 .combo-container {
   margin-top: 20px;
-    flex: 1;
-    //border: 1px solid blue ;
-    padding-left: 5%;
-    //padding-right: 10%;
-    //justify-content: center;
-    //text-align: center;
+  flex: 1;
+  //border: 1px solid blue ;
+  padding-left: 5%;
+  //padding-right: 10%;
+  //justify-content: center;
+  //text-align: center;
 }
- ion-card{
-      width: 40%;
-    }
-    ion-item {
-      --border-width: 0;
-      --inner-border-width: 0; 
-    }
+.header{
+  display: flex;
+  justify-content: space-between;
+}
+ion-card {
+  width: 40%;
+  ion-icon{
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+}
+ion-item {
+  --border-width: 0;
+  --inner-border-width: 0;
+}
+
+.arrow {
+  justify-content: flex-end;
+}
 .combo-container1 {
   flex: 1;
   //border: 1px solid blue ;
@@ -44,20 +53,19 @@
   //text-align: center;
 }
 
-.combo-container h2{
+.combo-container h2 {
   margin-left: 15px;
-  margin-top: 0px
+  margin-top: 0px;
 }
 
-.combo-container1 h2{
+.combo-container1 h2 {
   margin-left: 15px;
-  margin-top:60px
+  margin-top: 60px;
 }
 
 .combo-container-cards {
-    flex: 1;
-    margin-top: 10px;
-   
+  flex: 1;
+  margin-top: 10px;
 }
 
 .combo-container-nocards {
@@ -68,9 +76,9 @@
 }
 
 .nimage {
-    width: 300px;
-    height: 300px;
-    justify-content: center;
-    opacity: 30%;
-    align-items: center;
+  width: 300px;
+  height: 300px;
+  justify-content: center;
+  opacity: 30%;
+  align-items: center;
 }

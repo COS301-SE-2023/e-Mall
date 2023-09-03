@@ -8,7 +8,7 @@
     flex: 1; 
     padding: 20px; 
     //border: 1px solid green ;
-    max-width: 326px;
+    max-width: 250px;
   }
   
 .ion-content-wrapper {
@@ -20,20 +20,8 @@
 
 .combos-container {
     flex: 1;
-    //border: 1px solid blue ;
-    padding-left: 8%;
-    //padding-right: 10%;
-    //justify-content: center;
-    //text-align: center;
-}
-
-.combos-container1 {
-  flex: 1;
-  //border: 1px solid blue ;
-  padding-left: 8%;
-  //padding-right: 10%;
-  //justify-content: center;
-  //text-align: center;
+    padding-left: 5%;
+    margin-top: 20px;
 }
 
 .combos-container h2{
@@ -41,10 +29,6 @@
   margin-top: 0px
 }
 
-.combos-container1 h2{
-  margin-left: 15px;
-  margin-top:60px
-}
 
 .combos-container-cards {
     flex: 1;

@@ -30,6 +30,7 @@ export class ComboComponent implements OnInit, OnDestroy {
   name:string|undefined;
   active_users:string[] |undefined=[];
   pending_users: string[]|undefined=[];
+  isPanelOpen: { [key: number]: boolean } = {};
   private routeSubscription: Subscription = new Subscription();
   constructor(
     private router: Router,
@@ -77,7 +78,6 @@ export class ComboComponent implements OnInit, OnDestroy {
   ngAfterViewInit(): void {
     this.routeSubscription = this.route.queryParams.subscribe(params => {
       // If needed, you can call the method to reload consumer products here
-      this.loadcombo();
     });
   }
 
@@ -85,9 +85,10 @@ export class ComboComponent implements OnInit, OnDestroy {
     // Unsubscribe from the route parameter subscription to avoid memory leaks
     this.routeSubscription.unsubscribe();
   }
-  loadcombo() {
-    if (!this.email) return;
+  togglePanel(panelNumber: number) {
+    this.isPanelOpen[panelNumber] = !this.isPanelOpen[panelNumber];
   }
+
   goToCustomerProfile() {
     this.router.navigate(['/customer-profile']);
   }
