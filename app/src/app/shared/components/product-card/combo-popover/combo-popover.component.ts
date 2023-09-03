@@ -48,7 +48,7 @@ export class ComboPopoverComponent implements OnInit {
 
     this.newForm = this.fb.group({
       newName: ['', Validators.required],
-      newEmails: ['', [Validators.required, Validators.email]],
+      newEmails: ['', [ Validators.email]],
     });
 
     this.comboFacade.getCombos().subscribe(data => {
@@ -66,20 +66,26 @@ export class ComboPopoverComponent implements OnInit {
 
   createNewCombo() {
     if (this.newForm.valid) {
-      //add user email to first index of array
-      const useremails = this.newForm.value.newEmails;
-      //make useremails an array and add user email to first index
-      const useremailsarray = useremails.split(',');
+      // Get form values
+      const newName = this.newForm.value.newName;
+      const newEmails = this.newForm.value.newEmails;
+
+      // Split emails into an array
+      const useremailsarray = newEmails.split(',');
       useremailsarray.unshift(this.userEmail);
 
+      // Create data object
       const data = {
-        combo_name: this.newForm.value.newName,
+        combo_name: newName,
         user_emails: useremailsarray,
-        product_ids: [this.product.id],
-        username: [this.username],
+        product_ids: [this.product.id], // You need to define 'this.product'
+        username: [this.username], // You need to define 'this.username'
       };
+
+      // Reset the form
       this.newForm.reset();
-      this.newClicked = false;
+
+      // Call your 'addCombo' function with 'data'
       this.addCombo(data);
     }
   }

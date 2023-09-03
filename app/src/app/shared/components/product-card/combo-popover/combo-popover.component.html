@@ -51,13 +51,12 @@
             <ion-list>
               <ion-item class="input">
                 <ion-label position="floating">Name:</ion-label>
-                <ion-input type="text" [(ngModel)]="comboName" clearInput></ion-input>
+                <ion-input formControlName="newName" clearInput></ion-input>
               </ion-item>
           
               <ion-item class="input">
                 <ion-label position="floating">Email:</ion-label>
-                <ion-input type="email" [(ngModel)]="comboEmail" clearInput></ion-input>
-                
+                <ion-input formControlName="newEmails" clearInput></ion-input>
               </ion-item>
             </ion-list>
             <ion-button mode="ios" color="primary" (click)="sendData()">Send</ion-button>
