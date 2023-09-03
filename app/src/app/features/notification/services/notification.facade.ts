@@ -1,13 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable, OnDestroy } from '@angular/core';
 import { NotificationService } from './notification.service';
-import {
-  EMPTY,
-  Observable,
-  BehaviorSubject,
-  Subscription,
-  debounceTime,
-} from 'rxjs';
+import { BehaviorSubject, Subscription, debounceTime } from 'rxjs';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 import { NotificationState } from '../states/notification.state';
 import { INotification } from '../models/notification.interface';
@@ -16,17 +10,34 @@ import { AuthFacade } from '@features/auth/services/auth.facade';
 import { SetError } from '@features/error/states/error.action';
 import { IError } from '@features/error/models/error.interface';
 import * as NotificationActions from '../states/notification.action';
+import { IUser } from '../../auth/models/user.interface';
 
 @Injectable()
 export class NotificationFacade implements OnDestroy {
   newMessage$ = new BehaviorSubject<INotification | null>(null);
   messageListenSubs = new Subscription();
+  authSubs = new Subscription();
+
   constructor(
     private notificationService: NotificationService,
     private notificationState: NotificationState,
     private authfacade: AuthFacade
   ) {
     console.log('Notification Facade initialized');
+    this.authSubs = authfacade
+      .getCurrentUser()
+      .pipe(debounceTime(2000))
+      .subscribe((user: IUser | null) => {
+        if (user != null) {
+          this.init();
+        } else {
+          if (this.messageListenSubs) {
+            this.messageListenSubs.unsubscribe();
+          }
+        }
+      });
+  }
+  async init() {
     this.getUnreadCount();
     this.requestpermission();
     this.messageListenSubs = this.listenForMessages()
@@ -40,13 +51,10 @@ export class NotificationFacade implements OnDestroy {
       });
   }
   transformMessage(message: any): INotification {
-    console.log(message);
     let message_time = null;
     let readable_time = null;
     if (message.data.timestamp != null) {
-      console.log(new Date(Number(message.data.timestamp)));
       message_time = new Date(Number(message.data.timestamp));
-      console.log(message_time);
       readable_time = new DatePipe('en-ZA').transform(
         message_time,
         'yyyy-MM-dd HH:mm:ss'
@@ -86,7 +94,6 @@ export class NotificationFacade implements OnDestroy {
     try {
       if (await this.authfacade.isLoggedIn()) {
         const count = await this.notificationService.getUnreadCount();
-        console.log('count: ', count);
         return new NotificationActions.SetUnreadCount(count);
       }
       throw Error('User not logged in');
@@ -109,6 +116,8 @@ export class NotificationFacade implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.messageListenSubs.unsubscribe();
+    if (this.messageListenSubs) {
+      this.messageListenSubs.unsubscribe();
+    }
   }
 }

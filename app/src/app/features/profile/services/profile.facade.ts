@@ -4,7 +4,17 @@ import { IError } from '@features/error/models/error.interface';
 import { SetError } from '@features/error/states/error.action';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 import { Select } from '@ngxs/store';
-import { Observable, shareReplay, tap, Subscription, map, of } from 'rxjs';
+import {
+  Observable,
+  shareReplay,
+  tap,
+  Subscription,
+  map,
+  of,
+  debounceTime,
+  firstValueFrom,
+  distinctUntilChanged,
+} from 'rxjs';
 import { IConsumerProfile } from '../models/consumer-profile.interface';
 import { ISellerProfile } from '../models/seller-profile.interface';
 import { ProfileSelectors } from '../states/profile.selector';
@@ -27,6 +37,7 @@ export class ProfileFacade implements OnDestroy {
   @Select(ProfileSelectors.getRecommendedProducts)
   public recommendedProducts$!: Observable<IProduct[]>;
   private authSubscription: Subscription;
+  private profileSubs = new Subscription();
 
   constructor(
     private profileService: ProfileService,
@@ -34,21 +45,38 @@ export class ProfileFacade implements OnDestroy {
     private router: Router
   ) {
     console.log('Profile facade initialized');
+
     this.authSubscription = this.authFacade
       .getCurrentUser()
       .pipe(
-        tap(user => {
+        debounceTime(500),
+        tap(async user => {
           if (user) {
-            this.fetchProfile();
-            this.fetchRecommendedProducts();
+            await this.fetchProfile();
+            this.init();
           } else {
+            if (this.profileSubs) {
+              this.profileSubs.unsubscribe();
+            }
             this.clearProfile();
           }
         })
       )
       .subscribe();
   }
-
+  init() {
+    this.profileSubs = this.profile$
+      .pipe(
+        distinctUntilChanged((prev, curr) => {
+          return !(prev === null && curr !== null);
+        })
+      )
+      .subscribe(profile => {
+        if (profile) {
+          this.fetchRecommendedProducts();
+        }
+      });
+  }
   @Dispatch()
   setProfile(profile: ISellerProfile | IConsumerProfile) {
     try {
@@ -60,10 +88,10 @@ export class ProfileFacade implements OnDestroy {
   @Dispatch()
   setRecommendedProducts(products: IProduct[]) {
     try {
-        return new ProfileActions.SetRecommendedProducts(products);
-      } catch (error) {
-        return this.setError(error);
-      }
+      return new ProfileActions.SetRecommendedProducts(products);
+    } catch (error) {
+      return this.setError(error);
+    }
   }
 
   @Dispatch()
@@ -99,16 +127,16 @@ export class ProfileFacade implements OnDestroy {
     );
   }
 
-  getRecommendedProducts(): Observable<IProduct[]> {
-    return this.recommendedProducts$.pipe(
-      tap(async products => {
-        if (products == null && (await this.authFacade.isLoggedIn())) {
-          await this.fetchRecommendedProducts();
-        }
-      }),
-      shareReplay(1)
-    );
-  }
+  // getRecommendedProducts(): Observable<IProduct[]> {
+  //   return this.recommendedProducts$.pipe(
+  //     tap(async products => {
+  //       if (products == null && (await this.authFacade.isLoggedIn())) {
+  //         await this.fetchRecommendedProducts();
+  //       }
+  //     }),
+  //     shareReplay(1)
+  //   );
+  // }
 
   async fetchProfile() {
     try {
@@ -184,6 +212,9 @@ export class ProfileFacade implements OnDestroy {
     console.log('profile facade destroyed');
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
+    }
+    if (this.profileSubs) {
+      this.profileSubs.unsubscribe();
     }
   }
 

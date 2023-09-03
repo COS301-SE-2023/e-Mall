@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, Injectable, OnInit, Optional } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { Messaging, getToken, onMessage } from '@angular/fire/messaging';
 import { AuthFacade } from '@features/auth/services/auth.facade';
 import { environment } from 'environments/env';
@@ -11,7 +11,6 @@ import {
   debounceTime,
   from,
   share,
-  tap,
   lastValueFrom,
 } from 'rxjs';
 
@@ -27,14 +26,10 @@ export class NotificationService {
     private http: HttpClient,
     private authFacade: AuthFacade
   ) {
-    console.log('Notification service initialized');
-    console.log(this.messaging);
     if (this.messaging) {
-      console.log('passing messaging if statement');
       this.token$ = this.getToken();
       this.message$ = this.getMessage();
       this.token$.pipe(debounceTime(2000)).subscribe(async token => {
-        console.log('token', token);
         if (await authFacade.isLoggedIn()) {
           this.updateDeviceToken(token);
         }
@@ -42,7 +37,6 @@ export class NotificationService {
     }
   }
   getToken() {
-    console.log('get token');
     return from(
       navigator.serviceWorker
         .register('firebase-messaging-sw.js', { type: 'module', scope: '__' })
@@ -80,7 +74,6 @@ export class NotificationService {
     console.log(res);
   }
   async getUnreadCount() {
-    console.log('get unread count');
     const url = `${this.apiUrl}count/unread/`;
     const res = await firstValueFrom(
       this.http.post<any>(
@@ -93,7 +86,6 @@ export class NotificationService {
         }
       )
     );
-    console.log('res', res);
     return res.unread_count;
   }
 }

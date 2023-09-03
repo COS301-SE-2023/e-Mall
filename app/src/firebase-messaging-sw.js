@@ -16,12 +16,16 @@ const app = initializeApp(firebaseConfig);
 isSupported().then(isSupported => {
 
   if (isSupported) {
-
+    console.log("in is supported");
     const messaging = getMessaging(app);
 
-    onBackgroundMessage(messaging, ({ notification: { title, body, image } }) => {
-      self.registration.showNotification(title, { body, icon: image || '/assets/icons/icon-72x72.png' });
-    });
+    // onBackgroundMessage(messaging, ({ notification: { title, body, image } }) => {
+    //   self.registration.showNotification(title, {
+    //     body, icon: image || '/assets/icons/icon-72x72.png'
+        
+    //   });
+    //   console.log("in onBackgroundMessage")
+    // });
 
   }
 

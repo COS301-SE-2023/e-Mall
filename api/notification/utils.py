@@ -30,12 +30,8 @@ def update_wishlist(user_id, product_id, action):
         if product_doc.exists:
             product_ref.update(update_data)
         else:
-            # The document does not exist, create it
             if action == "add":
                 product_ref.set({"wishlisted_users": [user_id]})
-            else:
-                # If the action is "remove" and the document does not exist, do nothing
-                pass
 
         return Response(
             {
@@ -44,13 +40,13 @@ def update_wishlist(user_id, product_id, action):
             }
         )
     except Exception as e:
-        print("in total exception", e)
         return Response({"status": "error", "message": str(e)})
 
 
 def send_message(data):
     try:
-        user_id = data.get("user_id")
+        main_collection_name = user_collection
+        target_id = data.get("target")
         msg_type = data.get("msg_type")
         image = data.get("image")
         message = data.get("message")
@@ -62,10 +58,11 @@ def send_message(data):
         sub_collection_name = singe_msg_collection_name
         if msg_type == "follower":
             sub_collection_name = multi_msg_collection_name
-
+        elif msg_type == "wishlist":
+            main_collection_name = product_collection
         doc_ref = (
-            db.collection(user_collection)
-            .document(user_id)
+            db.collection(main_collection_name)
+            .document(target_id)
             .collection(sub_collection_name)
             .document()
         )
@@ -108,12 +105,8 @@ def update_followed_users(customer_id, seller_id, action):
         if user_doc.exists:
             user_ref.update(update_data)
         else:
-            # The document does not exist, create it
             if action == "add":
                 user_ref.set({"followed_users": [customer_id]})
-            else:
-                # If the action is "remove" and the document does not exist, do nothing
-                pass
 
         return Response(
             {
@@ -122,5 +115,4 @@ def update_followed_users(customer_id, seller_id, action):
             }
         )
     except Exception as e:
-        print("in total exception", e)
         return Response({"status": "error", "message": str(e)})

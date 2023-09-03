@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, OnInit, Optional, OnDestroy } from '@angular/core';
-import { Messaging, getToken, onMessage } from '@angular/fire/messaging';
-import { environment } from 'environments/env';
-import { EMPTY, Observable, from, share, tap, Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { NotificationFacade } from '../services/notification.facade';
 import { ToastController } from '@ionic/angular';
 import { INotification } from '../models/notification.interface';
@@ -22,15 +20,9 @@ export class NotificationComponent implements OnInit, OnDestroy {
     private notificationFacade: NotificationFacade,
     private toastController: ToastController
   ) {
-    // this.notificationFacade.listenForMessages().subscribe(message => {
-    //   // Handle incoming messages here
-    //   console.log(message);
-    //   this.showMessage(message);
-    // });
     this.newMessageSubs = this.notificationFacade.newMessage$.subscribe(
       (message: INotification | null) => {
         if (message !== null) {
-          console.log(message);
           this.showMessage(message);
         }
       }
@@ -38,39 +30,36 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log('Notification component initialized');
-    // this.notificationFacade.requestPermission();
-    // this.notificationFacade.getToken().subscribe(token => {
-    //   console.log('token ', token);
+    console.log('ngOnInit');
+    /* uncomment below for testing notification ui*/
+    // this.showMessage({
+    //   notification: {
+    //     title: 'Test message',
+    //     body: 'long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message',
+    //     image:
+    //       'https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_640.jpg',
+    //   },
     // });
-    this.showMessage({
-      notification: {
-        title: 'Test message',
-        body: 'long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message long test message',
-        image:
-          'https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_640.jpg',
-      },
-    });
-    setTimeout(() => {
-      this.showMessage({
-        notification: {
-          title: 'First simulated message',
-          body: 'First simulated body',
-          image:
-            'https://media.istockphoto.com/id/1322123064/photo/portrait-of-an-adorable-white-cat-in-sunglasses-and-an-shirt-lies-on-a-fabric-hammock.jpg?s=612x612&w=0&k=20&c=-G6l2c4jNI0y4cenh-t3qxvIQzVCOqOYZNvrRA7ZU5o=',
-        },
-      });
-    }, 1000);
-    setTimeout(() => {
-      this.showMessage({
-        notification: {
-          title: 'Second simulated message',
-          body: 'Second simulated body',
-          image:
-            'https://images.unsplash.com/photo-1608848461950-0fe51dfc41cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80',
-        },
-      });
-    }, 4000);
+    // setTimeout(() => {
+    //   this.showMessage({
+    //     notification: {
+    //       title: 'First simulated message',
+    //       body: 'First simulated body',
+    //       image:
+    //         'https://media.istockphoto.com/id/1322123064/photo/portrait-of-an-adorable-white-cat-in-sunglasses-and-an-shirt-lies-on-a-fabric-hammock.jpg?s=612x612&w=0&k=20&c=-G6l2c4jNI0y4cenh-t3qxvIQzVCOqOYZNvrRA7ZU5o=',
+    //     },
+    //   });
+    // }, 1000);
+    // setTimeout(() => {
+    //   this.showMessage({
+    //     notification: {
+    //       title: 'Second simulated message',
+    //       body: 'Second simulated body',
+    //       image:
+    //         'https://images.unsplash.com/photo-1608848461950-0fe51dfc41cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80',
+    //     },
+    //   });
+    // }, 4000);
   }
 
   async showMessage(message: any) {

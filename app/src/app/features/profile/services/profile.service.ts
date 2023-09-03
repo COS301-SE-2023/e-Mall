@@ -1,7 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Injectable } from '@angular/core';
-import { Observable, lastValueFrom, map, shareReplay, take } from 'rxjs';
+import {
+  Observable,
+  firstValueFrom,
+  lastValueFrom,
+  map,
+  shareReplay,
+  take,
+} from 'rxjs';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Profile } from '../models/alias-profile.interface';
 import { ISellerCard } from '../models/seller-card.interface';
@@ -99,7 +106,7 @@ export class ProfileService {
   }
 
   async fetchRecommendedProducts(): Promise<IProduct[]> {
-    this.updateRecommendedProducts();
+    await this.updateRecommendedProducts();
     const url = `${this.apiUrl}fetchRecommendedProducts/`;
 
     const response = await lastValueFrom(
@@ -120,12 +127,12 @@ export class ProfileService {
     return response.body || [];
   }
 
-  public updateRecommendedProducts(): void {
-    this.updateDB();
+  async updateRecommendedProducts() {
+    await this.updateDB();
     const url = `${this.apiUrl}updateRecommendedProducts/`;
 
-    this.http
-      .post(
+    return await firstValueFrom(
+      this.http.post(
         url,
         {},
         {
@@ -135,12 +142,11 @@ export class ProfileService {
           observe: 'response',
         }
       )
-      .subscribe();
+    );
   }
 
-  public updateDB(): void {
+  async updateDB() {
     const url = `http://localhost:3000/api/custanalytics/predicted_matrix/`;
-
-    this.http.post(url, {}).subscribe();
+    return firstValueFrom(this.http.post(url, {}));
   }
 }
