@@ -58,7 +58,7 @@ export class NotificationService {
   async updateDeviceToken(token: string) {
     console.log('update device token');
     const url = `${this.apiUrl}device/`;
-    const res = await lastValueFrom(
+    const res = await firstValueFrom(
       this.http.post(
         url,
         {

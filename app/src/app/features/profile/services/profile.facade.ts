@@ -117,14 +117,7 @@ export class ProfileFacade implements OnDestroy {
   }
 
   getProfile(): Observable<Profile> {
-    return this.profile$.pipe(
-      tap(async profile => {
-        if (profile == null && (await this.authFacade.isLoggedIn())) {
-          await this.fetchProfile();
-        }
-      }),
-      shareReplay(1)
-    );
+    return this.profile$;
   }
 
   // getRecommendedProducts(): Observable<IProduct[]> {
