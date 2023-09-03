@@ -18,6 +18,7 @@ import { NavbarPopupComponent } from '@shared/components/navbar-popup/navbar-pop
 export class NavbarComponent {
   isAuthenticated: Observable<IUser | null>;
   isCategoryOpened = false;
+  notificationCount!: number;
   constructor(
     private router: Router,
     private authFacade: AuthFacade,
@@ -26,6 +27,7 @@ export class NavbarComponent {
     public modalController: ModalController
   ) {
     this.isAuthenticated = this.authFacade.getCurrentUser();
+    // this.notificationCount = 20;
   }
 
   search(searchQuery: string): void {
