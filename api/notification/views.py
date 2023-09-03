@@ -1,9 +1,8 @@
-from django.http import JsonResponse
 from firebase_admin import firestore
 from django.conf import settings
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .swagger import *
+from .swagger.decorator import *
 
 # Initialize Firebase
 db = firestore.client()
@@ -18,7 +17,8 @@ multi_msg_collection_name = "follower_logs"  # sent to followers
 @api_view(["POST"])
 def send_message_api(request):
     try:
-        user_id = request.data.get("target")
+        main_collection_name = user_collection
+        target_id = request.data.get("target")
         msg_type = request.data.get("message_type")
         image = request.data.get("image")
         message = request.data.get("message")
@@ -30,10 +30,12 @@ def send_message_api(request):
         sub_collection_name = singe_msg_collection_name
         if msg_type == "follower":
             sub_collection_name = multi_msg_collection_name
+        elif msg_type == "wishlist":
+            main_collection_name = product_collection
 
         doc_ref = (
-            db.collection(user_collection)
-            .document(user_id)
+            db.collection(main_collection_name)
+            .document(target_id)
             .collection(sub_collection_name)
             .document()
         )
@@ -70,7 +72,7 @@ def delete(request):
         return Response({"status": "error", "message": str(e)})
 
 
-@read_decorator
+@delete_all_decorator
 @api_view(["POST"])
 def delete_all(request):
     try:
@@ -91,7 +93,7 @@ def delete_all(request):
         return Response({"status": "error", "message": str(e)})
 
 
-@get_decorator
+@read_decorator
 @api_view(["POST"])
 def read(request):
     try:
@@ -105,6 +107,7 @@ def read(request):
         return Response({"status": "error", "message": str(e)})
 
 
+@read_all_decorator
 @api_view(["POST"])
 def read_all(request):
     try:
@@ -126,6 +129,7 @@ def read_all(request):
         return Response({"status": "error", "message": str(e)})
 
 
+@get_decorator
 @api_view(["POST"])
 def get(request):
     try:
@@ -175,6 +179,7 @@ def get(request):
         return Response({"status": "error", "message": str(e)})
 
 
+@update_device_token_decorator
 @api_view(["POST"])
 def update_device_token(request):
     try:
@@ -199,6 +204,7 @@ def update_device_token(request):
         return Response({"status": "error", "message": str(e)})
 
 
+@update_settings_decorator
 @api_view(["POST"])
 def update_settings(request):
     try:
@@ -222,10 +228,10 @@ def update_settings(request):
         return Response({"status": "error", "message": str(e)})
 
 
+@count_unread_notifications_decorator
 @api_view(["POST"])
 def count_unread_notifications(request):
     try:
-        print("got here")
         user_id = str(request.user.id)
         logs_ref = (
             db.collection(user_collection)
@@ -238,85 +244,6 @@ def count_unread_notifications(request):
             "status": "success",
             "unread_count": count,
         }
-        print(response_data)
         return Response(response_data)
     except Exception as e:
         return Response({"status": "error", "message": str(e)})
-
-
-def update_wishlist(user_id, product_id, action):
-    try:
-        user_id = str(user_id)
-        product_id = str(product_id)
-        if not all([user_id, product_id, action]):
-            raise Exception("Missing required parameters")
-
-        product_ref = db.collection(product_collection).document(product_id)
-        product_doc = product_ref.get()
-
-        if action == "add":
-            update_data = {"wishlisted_users": firestore.ArrayUnion([user_id])}
-        elif action == "remove":
-            update_data = {"wishlisted_users": firestore.ArrayRemove([user_id])}
-        else:
-            raise Exception("Invalid action")
-
-        if product_doc.exists:
-            product_ref.update(update_data)
-        else:
-            # The document does not exist, create it
-            if action == "add":
-                product_ref.set({"wishlisted_users": [user_id]})
-            else:
-                # If the action is "remove" and the document does not exist, do nothing
-                pass
-
-        return Response(
-            {
-                "status": "success",
-                "message": f'Product {product_id} {"added to" if action == "add" else "removed from"} wishlist for user {user_id}',
-            }
-        )
-    except Exception as e:
-        print("in total exception", e)
-        return Response({"status": "error", "message": str(e)})
-
-
-def send_message(data):
-    try:
-        user_id = data.get("user_id")
-        msg_type = data.get("msg_type")
-        image = data.get("image")
-        message = data.get("message")
-        title = data.get("title")
-
-        if msg_type not in message_types:
-            raise Exception("invalid parameter")
-
-        sub_collection_name = singe_msg_collection_name
-        if msg_type == "follower":
-            sub_collection_name = multi_msg_collection_name
-
-        doc_ref = (
-            db.collection(user_collection)
-            .document(user_id)
-            .collection(sub_collection_name)
-            .document()
-        )
-        doc_id = doc_ref.id
-
-        data = {
-            "id": doc_id,
-            "image": image,
-            "is_read": False,
-            "message": message,
-            "message_type": msg_type,
-            "timestamp": firestore.SERVER_TIMESTAMP,
-            "title": title,
-        }
-
-        doc_ref.set(data)
-
-        return {"status": "success"}
-    except Exception as e:
-        return {"status": "error", "message": str(e)}

@@ -28,7 +28,8 @@ export class NotificationService {
     private authFacade: AuthFacade
   ) {
     console.log('Notification service initialized');
-    if (messaging) {
+    console.log(this.messaging);
+    if (this.messaging) {
       console.log('passing messaging if statement');
       this.token$ = this.getToken();
       this.message$ = this.getMessage();

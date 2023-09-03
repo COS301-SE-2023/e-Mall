@@ -29,12 +29,12 @@ from rest_framework import permissions
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Your API Title",
+        title="E-mall API",
         default_version="v1",
-        description="Your API Description",
-        terms_of_service="https://www.example.com/terms/",
-        contact=openapi.Contact(email="contact@example.com"),
-        license=openapi.License(name="Your API License"),
+        description="API for E-mall. For POST request, it must have token in request header",
+        contact=openapi.Contact(email="syntaxsharks@google.com"),
+        git="https://github.com/COS301-SE-2023/e-Mall",
+        license=openapi.License(name="Your API License/"),
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
@@ -50,7 +50,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/seller/", include("seller.urls")),
     path("accounts/", include("rest_framework.urls")),
-    path("api-auth/", include("rest_framework.urls")),  # django auth
+    # path("api-auth/", include("rest_framework.urls")),  # django auth
     path("api/auth/", include("custom_auth.urls")),  # custom auth
     path("api/products/", include("product.urls")),
     path("api/seller/", include("seller.urls")),
@@ -63,8 +63,8 @@ urlpatterns = [
     path("api/custanalytics/", include("cust_analytics.urls")),
     path("api/notification/", include("notification.urls")),
     path(
-        "swagger/",
-        schema_view.with_ui("swagger", cache_timeout=0),
-        name="schema-swagger-ui",
+        "api/",
+        schema_view.with_ui("redoc", cache_timeout=0),
+        name="schema-redoc-ui",
     ),
 ]

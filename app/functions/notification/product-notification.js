@@ -2,9 +2,9 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 
-exports.followerNotification = functions
+exports.productNotification = functions
     .region("europe-west1")
-    .firestore.document("users/{user_id}/follower_logs/{log_id}")
+    .firestore.document("products/{product_id}/logs/{log_id}")
     .onCreate((snap, context) => {
       const data = snap.data();
       const title = data.title;
@@ -16,7 +16,7 @@ exports.followerNotification = functions
       // Get the list of following users from the parent document
       const parentRef = snap.ref.parent.parent;
       return parentRef.get().then((parentDoc) => {
-        const followingUsers = parentDoc.data().followed_users;
+        const followingUsers = parentDoc.data().wishlisted_users;
 
         if (followingUsers && followingUsers.length > 0) {
           // Get the device tokens of all following users with a single query
