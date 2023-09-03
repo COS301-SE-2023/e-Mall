@@ -3,6 +3,7 @@ from firebase_admin import firestore
 from django.conf import settings
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from .swagger import *
 
 # Initialize Firebase
 db = firestore.client()
@@ -13,6 +14,7 @@ singe_msg_collection_name = "logs"  # sent to user
 multi_msg_collection_name = "follower_logs"  # sent to followers
 
 
+@send_message_api_decorator
 @api_view(["POST"])
 def send_message_api(request):
     try:
@@ -54,6 +56,7 @@ def send_message_api(request):
         return Response({"status": "error", "message": str(e)})
 
 
+@delete_decorator
 @api_view(["POST"])
 def delete(request):
     try:
@@ -67,6 +70,7 @@ def delete(request):
         return Response({"status": "error", "message": str(e)})
 
 
+@read_decorator
 @api_view(["POST"])
 def delete_all(request):
     try:
@@ -87,6 +91,7 @@ def delete_all(request):
         return Response({"status": "error", "message": str(e)})
 
 
+@get_decorator
 @api_view(["POST"])
 def read(request):
     try:
