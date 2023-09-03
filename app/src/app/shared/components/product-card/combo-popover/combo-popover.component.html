@@ -1,5 +1,4 @@
 <div class="modal-container">
-  <ion-list mode="ios">
     <ion-item lines="none" class="modal-header-item">
       <ion-text class="modal-header"> Add to Combo </ion-text>
       <ion-button
@@ -13,7 +12,6 @@
       </ion-button>
     </ion-item>
     <div class="modal-container" *ngIf="combos$">
-      <ion-list mode="ios">
         <ng-container *ngIf="!newClicked; else new">
           <form [formGroup]="selectForm">
             <!-- Wrap form elements in a formGroup -->
@@ -55,7 +53,7 @@
               </ion-item>
           
               <ion-item class="input">
-                <ion-label position="floating">Email:</ion-label>
+                <ion-label position="floating">Emails:</ion-label>
                 <ion-input formControlName="newEmails" clearInput></ion-input>
               </ion-item>
             </ion-list>
@@ -63,7 +61,5 @@
             <ion-button mode="ios" color="primary"  (click)="createNewCombo()">Create</ion-button>
           </form>
         </ng-template>
-      </ion-list>
     </div>
-  </ion-list>
 </div>
