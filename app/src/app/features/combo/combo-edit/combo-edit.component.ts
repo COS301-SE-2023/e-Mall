@@ -18,11 +18,12 @@ export class ComboEditComponent implements OnInit {
   newForm!: FormGroup;
   newClicked: boolean = false;
   combos$!: Observable<ICombo[] | null>;
-  product!: IProduct;
+  combo_id!: number;
   userEmail!: string;
   username!: string | undefined;
   comboName!: string;
-  comboEmail!:string;
+  comboEmail!: string;
+  isChanged = false;
 
   constructor(
     private fb: FormBuilder,
@@ -40,15 +41,16 @@ export class ComboEditComponent implements OnInit {
         this.username = data.username;
       }
     });
-    this.product = this.navParams.get('product');
+    this.combo_id = this.navParams.get('combo_id');
+    this.comboName = this.navParams.get('combo_name');
 
     this.selectForm = this.fb.group({
       selectedOptions: [[]],
     });
 
     this.newForm = this.fb.group({
-      newName: ['', Validators.required],
-      newEmails: ['', [ Validators.email]],
+      newName: [this.comboName, Validators.required],
+      newEmails: ['', [Validators.email]],
     });
 
     this.comboFacade.getCombos().subscribe(data => {
@@ -56,11 +58,11 @@ export class ComboEditComponent implements OnInit {
     });
   }
 
-  
-  sendData(){
-     console.log();
+  sendData() {
+    console.log();
   }
-editCombo() {
+
+  editCombo() {
     if (this.newForm.valid) {
       // Get form values
       const newName = this.newForm.value.newName;
@@ -68,45 +70,34 @@ editCombo() {
 
       // Split emails into an array
       const useremailsarray = newEmails.split(',');
-      useremailsarray.unshift(this.userEmail);
 
       // Create data object
       const data = {
+        combo_id: this.navParams.get('combo_id'),
         combo_name: newName,
         user_emails: useremailsarray,
-        product_ids: [this.product.id], // You need to define 'this.product'
-        username: [this.username], // You need to define 'this.username'
       };
 
+      console.log(data);
       // Reset the form
       this.newForm.reset();
 
       // Call your 'addCombo' function with 'data'
-      this.addCombo(data);
-    }
-  }
-
-  UpdateExistingCombo() {
-    if (this.selectForm.valid) {
-      const data = {
-        combo_ids: this.selectForm.value.selectedOptions,
-        product_id: this.product.id,
-        product: this.product,
-      };
       this.updateCombo(data);
     }
   }
 
   updateCombo(data: any) {
-    this.comboFacade.updateCombo(data);
+    this.comboFacade.editCombo(data);
     this.closePopover();
   }
 
-  addCombo(data: any) {
-    this.comboFacade.CreateCombo(data);
-    this.closePopover();
-  }
   async closePopover() {
     await this.modalController.dismiss();
   }
+
+  onChange() {
+    this.isChanged = true;
+  }
+
 }

@@ -22,13 +22,13 @@ import { ActivatedRoute } from '@angular/router';
 export class MyCombosComponent implements OnInit, OnDestroy {
   products$!: Observable<IProduct[] | null>;
   combos$!: Observable<ICombo[] | null>;
-  comboData: { id: number, name: string, images: string[] }[] = [];
+  comboData: { id: number; name: string; images: string[] }[] = [];
   bool = true;
   //isAuthenticated: Observable<IUser | null>;
   profile$!: Observable<ISellerProfile | IConsumerProfile | null>;
   email!: string;
   private routeSubscription: Subscription = new Subscription();
-  imgs: string[]=[];
+  imgs: string[] = [];
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -54,22 +54,18 @@ export class MyCombosComponent implements OnInit, OnDestroy {
         // Perform any necessary actions here when 'seller_id' is present in the route
         // For example, you can fetch seller-specific data based on 'seller_id'
       }
-      
     });
   }
 
   ngOnDestroy(): void {
     this.routeSubscription.unsubscribe();
+    this.comboData = [];
+    console.log('here');
   }
   loadcombos() {
     this.comboFacade.getCombos().subscribe(data => {
       if (data) this.combos$ = of(data);
     });
-
-    this.combos$.subscribe(data => {
-      console.log(data);
-    });
-
   }
   goToCustomerProfile() {
     this.router.navigate(['/customer-profile']);
@@ -78,13 +74,12 @@ export class MyCombosComponent implements OnInit, OnDestroy {
   goToConstruction() {
     this.router.navigate(['/construction']);
   }
-  goToComboPage(combo_id:number) {
-   const navigationextras: NavigationExtras={
-    queryParams:{combo_id:combo_id}
-   }
-    this.router.navigate(['/combo'],navigationextras);
+  goToComboPage(combo_id: number) {
+    const navigationextras: NavigationExtras = {
+      queryParams: { combo_id: combo_id },
+    };
+    this.router.navigate(['/combo'], navigationextras);
   }
-
 
   goToProductPage(prod_id: number): void {
     const navigationextras: NavigationExtras = {
@@ -94,38 +89,32 @@ export class MyCombosComponent implements OnInit, OnDestroy {
     this.router.navigate(['products'], navigationextras);
   }
 
-
   collage() {
-    this.combos$.subscribe((combos) => {
+    this.combos$.subscribe(combos => {
       if (combos) {
-        combos.forEach((combo:  ICombo) => {
-          console.log(combo)
+        combos.forEach((combo: ICombo) => {
           if (combo.products) {
-            this.imgs=[];
-            
-            for(let i=0;i<4;i++){
-              this.imgs[i]="assets/images/logo-black-no-bg.png";
+            this.imgs = [];
+
+            for (let i = 0; i < 4; i++) {
+              this.imgs[i] = 'assets/images/logo-black-no-bg.png';
             }
-            let image_count = 0; 
+            let image_count = 0;
             combo.products.forEach((product: IProduct) => {
               if (product.min_price_img_array && image_count < 4) {
-                console.log(product.min_price_img_array[0]);
-                this.imgs[image_count]=product.min_price_img_array[0];
+                this.imgs[image_count] = product.min_price_img_array[0];
                 image_count++;
               }
-              
-             
-              
             });
-            const comboObj = { id: combo.id, name: combo.name, images:this.imgs }; 
+            const comboObj = {
+              id: combo.id,
+              name: combo.name,
+              images: this.imgs,
+            };
             this.comboData.push(comboObj);
           }
         });
       }
-      console.log("Combo Data", this.comboData);
     });
   }
-  
-
-
 }

@@ -126,6 +126,7 @@ const routes: Routes = [
     path: 'my-combos',
     component: MyCombosComponent,
     canActivate: [consumerTypeGuard],
+    runGuardsAndResolvers: 'always',
   },
   {
     path: 'combo',
@@ -138,7 +139,7 @@ const routes: Routes = [
   },
   {
     path: 'seller-dashboard-settings',
-    component: SellerDashboardSettingsComponent
+    component: SellerDashboardSettingsComponent,
   },
   // {
   //   path: 'profile',

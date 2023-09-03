@@ -59,11 +59,23 @@ export class ComboFacade implements OnDestroy {
     }
   }
 
+
+
   @Dispatch()
   updateUsers(data: any) {
     try {
       this.comboService.updateUsers(data);
       return new ComboActions.UpdateUsers(data);
+    } catch (error) {
+      return this.setError(error);
+    }
+  }
+
+  @Dispatch()
+  editCombo(data: any) {
+    try {
+      this.comboService.editCombo(data);
+      return new ComboActions.EditCombo(data);
     } catch (error) {
       return this.setError(error);
     }

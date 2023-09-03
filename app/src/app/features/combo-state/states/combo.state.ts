@@ -132,4 +132,27 @@ export class ComboState {
       })
     );
   }
+
+  @Action(ComboActions.EditCombo)
+  EditCombo(
+    ctx: StateContext<ComboStateModel>,
+    action: ComboActions.EditCombo
+  ) {
+    ctx.setState(
+      produce((draft: ComboStateModel) => {
+        if (draft.combos) {
+          for (const combo of draft.combos) {
+            if (combo.id === action.payload.combo_id) {
+              combo.name = action.payload.combo_name;
+              if (action.payload.user_emails[0] !== '') {
+                for(const email of action.payload.user_emails){
+                  combo.pending_users.push(email);
+                }
+              }
+            }
+          }
+        }
+      })
+    );
+  }
 }

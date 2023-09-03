@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import create, update,delete, get, update_user
+from .views import create, update,delete, get, update_user,edit
 
 urlpatterns = [
     path("create/", create),
@@ -7,5 +7,6 @@ urlpatterns = [
     path("delete/", delete),
     path("get/", get),
     path("update_user/", update_user),
+    path("edit/", edit),
 
 ]

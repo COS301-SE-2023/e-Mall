@@ -17,6 +17,17 @@ export class UpdateCombo {
   ) {}
 }
 
+export class EditCombo {
+  static readonly type = '[Combo] Edit Combo';
+  constructor(
+    public payload: {
+      combo_id: number;
+      combo_name: string;
+      user_emails: string[];
+    }
+  ) {}
+}
+
 export class UpdateUsers {
   static readonly type = '[Combo] Update Users';
   constructor(

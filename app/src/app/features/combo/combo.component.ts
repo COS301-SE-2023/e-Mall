@@ -30,9 +30,9 @@ export class ComboComponent implements OnInit, OnDestroy {
   paramMapSubscription: Subscription;
   combo_id: number;
   combo$!: Observable<ICombo | null | undefined>;
-  name:string|undefined;
-  active_users:string[] |undefined=[];
-  pending_users: string[]|undefined=[];
+  name: string | undefined;
+  active_users: string[] | undefined = [];
+  pending_users: string[] | undefined = [];
   isPanelOpen: { [key: number]: boolean } = {};
   private routeSubscription: Subscription = new Subscription();
   constructor(
@@ -41,7 +41,7 @@ export class ComboComponent implements OnInit, OnDestroy {
     public profileFacade: ProfileFacade,
     private consumerService: ConsumerService,
     private comboFacade: ComboFacade,
-    private modalController: ModalController,
+    private modalController: ModalController
   ) {
     this.paramMapSubscription = new Subscription();
     this.combo_id = -1;
@@ -59,7 +59,6 @@ export class ComboComponent implements OnInit, OnDestroy {
       const id = params.get('combo_id');
 
       if (id) {
-        console.log(id);
         this.combo_id = +id;
         this.combo$ = this.comboFacade.getOneCombo(this.combo_id);
       }
@@ -67,11 +66,10 @@ export class ComboComponent implements OnInit, OnDestroy {
 
     this.combo$.subscribe(data => {
       this.products$ = of(data?.products);
-      this.active_users=data?.active_usernames;
-      this.pending_users=data?.pending_users;
-      this.name=data?.name;
+      this.active_users = data?.active_emails;
+      this.pending_users = data?.pending_users;
+      this.name = data?.name;
     });
-    console.log("Pending",this.pending_users);
   }
   // Subscribe to route parameter changes and reload data accordingly
 
@@ -84,7 +82,8 @@ export class ComboComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     // Unsubscribe from the route parameter subscription to avoid memory leaks
     this.routeSubscription.unsubscribe();
-    this.combo$=null as any;
+    this.combo$ = null as any;
+    console.log('destroyed');
   }
   togglePanel(panelNumber: number) {
     this.isPanelOpen[panelNumber] = !this.isPanelOpen[panelNumber];
@@ -116,23 +115,26 @@ export class ComboComponent implements OnInit, OnDestroy {
     this.router.navigate(['products'], navigationextras);
   }
 
-  edit(){
+  edit() {
     this.openComboPopover();
   }
 
   async openComboPopover() {
     const modal = await this.modalController.create({
       component: ComboEditComponent,
-      
+      componentProps: {
+        combo_id: this.combo_id,
+        combo_name: this.name, // Pass the product as a property
+      },
     });
     return await modal.present();
   }
 
-  leaveCombo(){
+  leaveCombo() {
     const data = {
-      combo_id: this.combo_id
+      combo_id: this.combo_id,
     };
     this.comboFacade.deleteUser(data);
-    this.router.navigate(['my-combos']);
+    this.router.navigate(['/my-combos']);
   }
 }

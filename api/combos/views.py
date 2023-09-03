@@ -115,6 +115,32 @@ def update(request):
 
 
 @api_view(["POST"])
+def edit(request):
+    try:
+        user = request.user
+        combo_id = request.data["combo_id"]
+        combo_name = request.data["combo_name"]
+        user_emails = request.data["user_emails"]
+        if user is None:
+            raise Exception("User not found")
+        if user.type == "seller":
+            raise Exception("Seller cannot create combos")
+        if user.type == "consumer":
+            # update existing combo
+            combo = Combos.objects.get(id=combo_id)
+            combo.combo_name = combo_name
+            if user_emails[0] != "":
+                for email in user_emails:
+                    if email not in combo.pending_emails:
+                        combo.pending_emails.append(email)
+            combo.save()
+        return Response({"success": "Combo edited successfully"})
+    except Exception as e:
+        # handle other exceptions here
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(["POST"])
 def delete(request):
     try:
         user = request.user
