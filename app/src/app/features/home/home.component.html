@@ -23,6 +23,7 @@
         align-items: center;
       ">
       <div *ngIf="(forYouProducts$ | async) === null">
+
         <ngb-carousel *ngIf="popProducts$ | async as products" [wrap]="true">
         <ng-template ngbSlide>
           <div class="row">
@@ -98,9 +99,9 @@
       ">
       <div *ngIf="(trendingProducts$ | async) === null">
         <mat-spinner></mat-spinner>
-      </div>
-      <ngb-carousel *ngIf="trendingProducts$ | async as products" [wrap]="true">
-        <ng-template ngbSlide>
+      </div> 
+      <ngb-carousel *ngIf="trendingProducts$ | async as products" [wrap]="true" class="custom-carousel-arrows" style="color:black">
+        <ng-template ngbSlide >
           <div class="row">
             <div
               class="col-md-3"
