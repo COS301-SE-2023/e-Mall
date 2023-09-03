@@ -10,6 +10,8 @@ import { IProduct } from '@shared/models/product/product.interface';
 import { ConsumerService } from '@shared/servicies/consumer/consumer.service';
 import { ActivatedRoute } from '@angular/router';
 import { ComboFacade } from '@features/combo-state/services/combo.facade';
+import { ComboEditComponent } from './combo-edit/combo-edit.component';
+import { ModalController } from '@ionic/angular';
 //import { AuthFacade } from '@app/features/auth/services/auth.facade';
 //import { IUser } from '@app/features/auth/models/user.interface';
 //import { Observable } from 'rxjs';
@@ -37,7 +39,8 @@ export class ComboComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public profileFacade: ProfileFacade,
     private consumerService: ConsumerService,
-    private comboFacade: ComboFacade
+    private comboFacade: ComboFacade,
+    private modalController: ModalController,
   ) {
     this.paramMapSubscription = new Subscription();
     this.combo_id = -1;
@@ -110,4 +113,17 @@ export class ComboComponent implements OnInit, OnDestroy {
 
     this.router.navigate(['products'], navigationextras);
   }
+
+  edit(){
+    this.openComboPopover();
+  }
+
+  async openComboPopover() {
+    const modal = await this.modalController.create({
+      component: ComboEditComponent,
+      
+    });
+    return await modal.present();
+  }
+
 }
