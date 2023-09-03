@@ -7,10 +7,37 @@
       </app-customer-profile-sidenav>
     </div>
 
-    <div class="combo-container1" *ngIf="!combo$">
-      <h2>My combo</h2>
-
-      <div class="combo-container-nocards">
+    <div class="combo-container">
+      <h2>{{ name }}</h2>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Active Users</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <div *ngFor="let user of active_users">
+              <ion-item>
+                <ion-label>{{ user }}</ion-label>
+              </ion-item>
+            </div>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Pending Users</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <div *ngFor="let user of pending_users">
+              <ion-item>
+                <ion-label>{{ user }}</ion-label>
+              </ion-item>
+            </div>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+      <div class="combo-container-nocards" *ngIf="!combo$">
         <div class="product-card-no">
           <img
             src="assets\images\no-image.jpeg"
@@ -19,14 +46,11 @@
         </div>
         <h3>Oops! It's empty here!</h3>
         <p>
-          Add products to this combo by clicking the bookmark on the product. 
+          Add products to this combo by clicking the bookmark on the product.
         </p>
       </div>
-    </div>
 
-    <div class="combo-container">
-      <h2>{{name}}</h2>
-      <div class="combo-container-cards">
+      <div class="combo-container-cards" *ngIf="combo$">
         <div class="product-card">
           <div
             style="display: flex; justify-content: center; align-items: center"

@@ -20,14 +20,21 @@
 
 
 .combo-container {
+  margin-top: 20px;
     flex: 1;
     //border: 1px solid blue ;
-    padding-left: 8%;
+    padding-left: 5%;
     //padding-right: 10%;
     //justify-content: center;
     //text-align: center;
 }
-
+ ion-card{
+      width: 40%;
+    }
+    ion-item {
+      --border-width: 0;
+      --inner-border-width: 0; 
+    }
 .combo-container1 {
   flex: 1;
   //border: 1px solid blue ;
@@ -49,7 +56,8 @@
 
 .combo-container-cards {
     flex: 1;
-    margin-top: 50px;
+    margin-top: 10px;
+   
 }
 
 .combo-container-nocards {

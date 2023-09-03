@@ -40,7 +40,7 @@ import { EditCustomerProfileModule } from '@features/edit-customer-profile/edit-
 import { SellerDashboardSettingsModule } from '@features/seller-dashboard-settings/seller-dashboard-settings.module';
 import { ComboStateModule } from '@features/combo-state/combo-state.module';
 import { MyCombosModule } from '@features/my-combos/my-combos.module';
-import { ComboModule } from '@features/combo/component.module';
+import { ComboModule } from '@features/combo/combo.module';
 @NgModule({
   declarations: [AppComponent],
 

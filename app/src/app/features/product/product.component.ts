@@ -97,6 +97,9 @@ export class ProductComponent implements OnInit, OnDestroy {
   async openComboPopover() {
     const modal = await this.modalController.create({
       component: ComboPopoverComponent,
+      componentProps: {
+        product: this.product$, // Pass the product as a property
+      },
     });
     return await modal.present();
   }
