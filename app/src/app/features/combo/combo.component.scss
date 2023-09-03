@@ -21,11 +21,18 @@
   flex: 1;
   //border: 1px solid blue ;
   padding-left: 5%;
+  padding-right: 3%;
   //padding-right: 10%;
   //justify-content: center;
   //text-align: center;
 }
-.header{
+.head{
+  display:flex;
+justify-content: space-between;
+
+
+}
+.users{
   display: flex;
   justify-content: space-between;
 }

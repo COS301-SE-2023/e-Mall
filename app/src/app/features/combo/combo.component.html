@@ -8,10 +8,17 @@
     </div>
 
     <div class="combo-container">
-      <h2>{{ name }}</h2>
+      <div class ="head">
+        <h2>{{ name }}</h2>
+        <div class="head-buttons">
+          <ion-button>Edit Combo</ion-button>
+          <ion-button>Leave Combo</ion-button>
+        </div>
+      </div>
+      
       <ion-card>
         <ion-card-header (click)="togglePanel(1)">
-          <div class="header">
+          <div class="users">
           <ion-card-title>Active Users  
           </ion-card-title>
           <ion-icon
