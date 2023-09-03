@@ -1,29 +1,45 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, OnInit, Optional } from '@angular/core';
+import { Component, OnInit, Optional, OnDestroy } from '@angular/core';
 import { Messaging, getToken, onMessage } from '@angular/fire/messaging';
 import { environment } from 'environments/env';
-import { EMPTY, Observable, from, share, tap } from 'rxjs';
+import { EMPTY, Observable, from, share, tap, Subscription } from 'rxjs';
 import { NotificationFacade } from '../services/notification.facade';
 import { ToastController } from '@ionic/angular';
+import { INotification } from '../models/notification.interface';
 
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss'],
 })
-export class NotificationComponent implements OnInit {
+export class NotificationComponent implements OnInit, OnDestroy {
   toast: HTMLIonToastElement | undefined;
   messages: any[] = [];
   isToastPresented = false;
   messageMaxLength = 200;
+  newMessageSubs = new Subscription();
   constructor(
     private notificationFacade: NotificationFacade,
     private toastController: ToastController
-  ) {}
+  ) {
+    // this.notificationFacade.listenForMessages().subscribe(message => {
+    //   // Handle incoming messages here
+    //   console.log(message);
+    //   this.showMessage(message);
+    // });
+    this.newMessageSubs = this.notificationFacade.newMessage$.subscribe(
+      (message: INotification | null) => {
+        if (message !== null) {
+          console.log(message);
+          this.showMessage(message);
+        }
+      }
+    );
+  }
 
   ngOnInit(): void {
     console.log('Notification component initialized');
-    this.notificationFacade.requestPermission();
+    // this.notificationFacade.requestPermission();
     // this.notificationFacade.getToken().subscribe(token => {
     //   console.log('token ', token);
     // });
@@ -55,11 +71,6 @@ export class NotificationComponent implements OnInit {
         },
       });
     }, 4000);
-    this.notificationFacade.listenForMessages().subscribe(message => {
-      // Handle incoming messages here
-      console.log(message);
-      this.showMessage(message);
-    });
   }
 
   async showMessage(message: any) {
@@ -105,5 +116,8 @@ export class NotificationComponent implements OnInit {
       return message.slice(0, this.messageMaxLength) + '...';
     }
     return message;
+  }
+  ngOnDestroy(): void {
+    this.newMessageSubs.unsubscribe();
   }
 }

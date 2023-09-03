@@ -2,8 +2,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Injectable, OnInit, Optional } from '@angular/core';
 import { Messaging, getToken, onMessage } from '@angular/fire/messaging';
+import { AuthFacade } from '@features/auth/services/auth.facade';
 import { environment } from 'environments/env';
 import {
+  firstValueFrom,
   EMPTY,
   Observable,
   debounceTime,
@@ -22,16 +24,19 @@ export class NotificationService {
 
   constructor(
     @Optional() private messaging: Messaging,
-    private http: HttpClient
+    private http: HttpClient,
+    private authFacade: AuthFacade
   ) {
     console.log('Notification service initialized');
     if (messaging) {
       console.log('passing messaging if statement');
       this.token$ = this.getToken();
       this.message$ = this.getMessage();
-      this.token$.pipe(debounceTime(2000)).subscribe(token => {
+      this.token$.pipe(debounceTime(2000)).subscribe(async token => {
         console.log('token', token);
-        this.updateDeviceToken(token);
+        if (await authFacade.isLoggedIn()) {
+          this.updateDeviceToken(token);
+        }
       });
     }
   }
@@ -46,18 +51,10 @@ export class NotificationService {
             vapidKey: environment.vapidKey,
           })
         )
-    ).pipe(
-      debounceTime(2000),
-      tap(token => {
-        console.log('FCM', { token });
-      }),
-      share()
-    );
+    ).pipe(debounceTime(2000), share());
   }
   getMessage() {
-    return new Observable(sub =>
-      onMessage(this.messaging, it => sub.next(it))
-    ).pipe(tap(token => console.log('FCM on message', { token })));
+    return new Observable(sub => onMessage(this.messaging, it => sub.next(it)));
   }
 
   request() {
@@ -80,5 +77,22 @@ export class NotificationService {
       )
     );
     console.log(res);
+  }
+  async getUnreadCount() {
+    console.log('get unread count');
+    const url = `${this.apiUrl}count/unread/`;
+    const res = await firstValueFrom(
+      this.http.post<any>(
+        url,
+        {},
+        {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+        }
+      )
+    );
+    console.log('res', res);
+    return res.unread_count;
   }
 }

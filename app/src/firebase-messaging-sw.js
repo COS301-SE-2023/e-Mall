@@ -1,5 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.1/firebase-app.js';
 import { getMessaging, onBackgroundMessage, isSupported } from 'https://www.gstatic.com/firebasejs/9.0.1/firebase-messaging-sw.js';
+
 const firebaseConfig = {
   apiKey: "AIzaSyCfiKD_kAHbYNm3Twi5IkTsJWQxnN-Q4eA",
   authDomain: "e-mall-e0fd3.firebaseapp.com",

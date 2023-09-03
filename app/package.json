@@ -8,6 +8,7 @@
     "test": "jest",
     "start:other": "yarn install && $TERMINAL ng serve --port 4200 --configuration=development & $TERMINAL docker-compose up",
     "start": "yarn install && start cmd /k \"ng serve --port 4200 --configuration=development\" & start cmd /k \"docker-compose up\"",
+    "env-worker": "tsc -outFile src/environments/out/env.js src/environments/env.ts --module amd",
     "docker:exec": "docker-compose exec",
     "api:uninstall": "yarn docker:exec api pip uninstall",
     "api:install": "yarn docker:exec api pip install",
