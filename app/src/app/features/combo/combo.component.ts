@@ -43,12 +43,6 @@ export class ComboComponent implements OnInit, OnDestroy {
     this.combo_id = -1;
   }
 
-  /*constructor(
-    private router: Router,
-    /*private authFacade: AuthFacade) {
-      //this.isAuthenticated = this.authFacade.getCurrentUser();
-     }*/
-
   ngOnInit(): void {
     this.profile$ = this.profileFacade.getProfile();
     this.profile$.subscribe(profile => {
@@ -72,6 +66,7 @@ export class ComboComponent implements OnInit, OnDestroy {
       this.pending_users=data?.pending_users;
       this.name=data?.name;
     });
+    console.log("Pending",this.pending_users);
   }
   // Subscribe to route parameter changes and reload data accordingly
 
@@ -84,6 +79,7 @@ export class ComboComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     // Unsubscribe from the route parameter subscription to avoid memory leaks
     this.routeSubscription.unsubscribe();
+    this.combo$=null as any;
   }
   togglePanel(panelNumber: number) {
     this.isPanelOpen[panelNumber] = !this.isPanelOpen[panelNumber];

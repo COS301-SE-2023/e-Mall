@@ -34,7 +34,7 @@
           </ion-list>
         </ion-card-content>
       </ion-card>
-      <ion-card>
+      <ion-card *ngIf="pending_users?.length!==0">
         <ion-card-header (click)="togglePanel(2)">
           <div class="header">
           <ion-card-title>Pending Users  
