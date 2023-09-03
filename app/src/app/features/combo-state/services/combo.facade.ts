@@ -11,136 +11,138 @@ import { ComboSelectors } from '../states/combo.selector';
 import { ComboService } from './combo.service';
 import * as ComboActions from '../states/combo.actions';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
+import { async } from '@angular/core/testing';
 
 @Injectable()
 export class ComboFacade implements OnDestroy {
-    @Select(ComboSelectors.getCombos)
-    private combos$!: Observable<ICombo[] | null>;
-    private authSubscription: Subscription;
+  @Select(ComboSelectors.getCombos)
+  private combos$!: Observable<ICombo[] | null>;
+  private authSubscription: Subscription;
 
-    constructor(
-        private authFacade: AuthFacade,
-        private router: Router,
-        private comboService: ComboService,
-        private ProfileFacade: ProfileFacade
-    ) {
-        console.log('Combo facade initialized');
-        this.authSubscription = this.authFacade
-            .getCurrentUser()
-            .pipe(
-                tap(user => {
-                    if (user) {
-                        this.fetchCombos();
-                    } else {
-                        this.clearCombos();
-                    }
-                })
-            )
-            .subscribe();
-    }
-
-    @Dispatch()
-    setCombos(combos: ICombo[]) {
-        try {
-            return new ComboActions.SetCombos(combos);
-        } catch (error) {
-            return this.setError(error);
-        }
-    }
-
-    
-    @Dispatch()
-    updateCombo(combo: Partial<ICombo>) {
-        try {
-            this.comboService.updateCombo(combo);
-            return new ComboActions.UpdateCombo({combo});
-        } catch (error) {
-            return this.setError(error);
-        }
-    }
-
-    @Dispatch()
-    updateUsers(data: any) {
-        try {
-            this.comboService.updateUsers(data);
-            return new ComboActions.UpdateUsers(data);
-        } catch (error) {
-            return this.setError(error);
-        }
-    }
-
-    // @Dispatch()
-    // deleteUser(id: number) {
-    //     try {
-    //         this.comboService.deleteUser(id);
-    //         return new ComboActions.DeleteUser(id, this.ProfileFacade.getProfile().username);
-    //     } catch (error) {
-    //         return this.setError(error);
-    //     }
-    // }
-
-    @Dispatch()
-    clearCombos() {
-        try {
-            return new ComboActions.ClearCombos();
-        } catch (error) {
-            return this.setError(error);
-        }
-    }
-
-    @Dispatch()
-    setError(error: any) {
-        return [new SetError('combo', error as IError)];
-    }
-
-    getCombos(): Observable<ICombo[] | null> {
-        return this.combos$.pipe(
-            tap(async combos => {
-                if (combos == null && (await this.authFacade.isLoggedIn())) {
-                    await this.fetchCombos();
-                }
-            }),
-            shareReplay({ bufferSize: 1, refCount: true })
-        );
-    }
-
-
-getOneCombo(id: number): Observable<ICombo | undefined> {
-  return this.combos$.pipe(
-    map(combos => {
-      if (combos) {
-        let matching_combo: ICombo | undefined = undefined;
-        for (let i = 0; i < combos.length; i++) {
-            if (combos[i].id === id) {
-            matching_combo = combos[i];
-            break; // Exit the loop when a match is found
+  constructor(
+    private authFacade: AuthFacade,
+    private router: Router,
+    private comboService: ComboService,
+    private ProfileFacade: ProfileFacade
+  ) {
+    console.log('Combo facade initialized');
+    this.authSubscription = this.authFacade
+      .getCurrentUser()
+      .pipe(
+        tap(user => {
+          if (user) {
+            this.fetchCombos();
+          } else {
+            this.clearCombos();
           }
-        }
-        return matching_combo;
-      } else {
-        return undefined;
-      }
-    })
-  );
-}
+        })
+      )
+      .subscribe();
+  }
 
-
-
-      
-
-    async fetchCombos() {
-        try {
-            const res = await this.comboService.getCombos();
-            if (res != null)
-             this.setCombos(res.combos);
-        } catch (error) {
-            this.setError(error);
-        }
+  @Dispatch()
+  setCombos(combos: ICombo[]) {
+    try {
+      return new ComboActions.SetCombos(combos);
+    } catch (error) {
+      return this.setError(error);
     }
+  }
 
-    
-
-    ngOnDestroy() {
-        this.authSubscription.unsubscribe();
+  @Dispatch()
+  updateCombo(data: any) {
+    try {
+      this.comboService.updateCombo(data);
+      return new ComboActions.UpdateCombo(data);
+    } catch (error) {
+      return this.setError(error);
     }
+  }
+
+  @Dispatch()
+  updateUsers(data: any) {
+    try {
+      this.comboService.updateUsers(data);
+      return new ComboActions.UpdateUsers(data);
+    } catch (error) {
+      return this.setError(error);
+    }
+  }
+
+  // @Dispatch()
+  // deleteUser(id: number) {
+  //     try {
+  //         this.comboService.deleteUser(id);
+  //         return new ComboActions.DeleteUser(id, this.ProfileFacade.getProfile().username);
+  //     } catch (error) {
+  //         return this.setError(error);
+  //     }
+  // }
+
+  @Dispatch()
+  CreateCombo(data: any) {
+    try {
+      this.comboService.createCombo(data);
+      return new ComboActions.CreateCombo(data);
+    } catch (error) {
+      return this.setError(error);
+    }
+  }
+
+  @Dispatch()
+  clearCombos() {
+    try {
+      return new ComboActions.ClearCombos();
+    } catch (error) {
+      return this.setError(error);
+    }
+  }
+
+  @Dispatch()
+  setError(error: any) {
+    return [new SetError('combo', error as IError)];
+  }
+
+  getCombos(): Observable<ICombo[] | null> {
+    return this.combos$.pipe(
+      tap(async combos => {
+        if (combos == null && (await this.authFacade.isLoggedIn())) {
+          await this.fetchCombos();
+        }
+      }),
+      shareReplay({ bufferSize: 1, refCount: true })
+    );
+  }
+
+  getOneCombo(id: number): Observable<ICombo | undefined> {
+    return this.combos$.pipe(
+      map(combos => {
+        if (combos) {
+          let matching_combo: ICombo | undefined = undefined;
+          for (let i = 0; i < combos.length; i++) {
+            if (combos[i].id === id) {
+              matching_combo = combos[i];
+              break; // Exit the loop when a match is found
+            }
+          }
+          return matching_combo;
+        } else {
+          return undefined;
+        }
+      })
+    );
+  }
+
+  async fetchCombos() {
+    try {
+      const res = await this.comboService.getCombos();
+      if (res != null) this.setCombos(res.combos);
+    } catch (error) {
+      this.setError(error);
+    }
+  }
+
+  ngOnDestroy() {
+    this.authSubscription.unsubscribe();
+  }
 }

@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Action, Actions, State, StateContext } from '@ngxs/store';
-import {  ICombo } from '../models/combo.interface';
+import { ICombo } from '../models/combo.interface';
 import * as ComboActions from './combo.actions';
 import produce from 'immer';
 import {
@@ -9,6 +9,9 @@ import {
   UpdateUsers,
   DeleteUser,
 } from './combo.actions';
+import { Observable, switchMap } from 'rxjs';
+import { ComboService } from '../services/combo.service';
+import { ComboFacade } from '../services/combo.facade';
 
 export interface ComboStateModel {
   combos: ICombo[] | null;
@@ -20,7 +23,6 @@ export interface ComboStateModel {
     combos: [],
   },
 })
-
 @Injectable()
 export class ComboState {
   @Action(SetCombos)
@@ -39,12 +41,20 @@ export class ComboState {
     ctx.setState(
       produce((draft: ComboStateModel) => {
         if (draft.combos) {
-          const comboToUpdate = draft.combos.find(
-            combo => combo.id === action.payload.combo.id
-          );
-          if (comboToUpdate) {
-            // Merge the changes from the payload into the existing combo
-            Object.assign(comboToUpdate, action.payload.combo);
+          for (const combo of draft.combos) {
+            for (const id of action.payload.combo_ids)
+              if (combo.id === Number(id)) {
+                //check if the product is already in the combo and if so , remove , else push
+                if (
+                  combo.products.find(
+                    product => product.id === action.payload.product.id
+                  )
+                ) {
+                  combo.products = combo.products.filter(
+                    product => product.id !== action.payload.product.id
+                  );
+                } else combo.products.push(action.payload.product);
+              }
           }
         }
       })
@@ -75,30 +85,60 @@ export class ComboState {
     );
   }
 
-    @Action(DeleteUser)
-    deleteUser(ctx: StateContext<ComboStateModel>, action: DeleteUser) {
-      ctx.setState(
-        produce((draft: ComboStateModel) => {
-          if (!draft.combos) {
-            return;
+  @Action(DeleteUser)
+  deleteUser(ctx: StateContext<ComboStateModel>, action: DeleteUser) {
+    ctx.setState(
+      produce((draft: ComboStateModel) => {
+        if (!draft.combos) {
+          return;
+        }
+        const comboIndex = draft.combos.findIndex(
+          combo => combo.id === action.comboId
+        );
+        if (comboIndex !== -1) {
+          const combo = draft.combos[comboIndex];
+          if (
+            combo.active_emails.length === 1 &&
+            combo.active_usernames[0] === action.username
+          ) {
+            draft.combos.splice(comboIndex, 1); // Remove combo entirely
+          } else if (combo.active_usernames.includes(action.username)) {
+            combo.active_emails = combo.active_emails.filter(
+              email => email !== action.username
+            );
           }
-          const comboIndex = draft.combos.findIndex(
-            combo => combo.id === action.comboId
-          );
-          if (comboIndex !== -1) {
-            const combo = draft.combos[comboIndex];
-            if (
-              combo.active_emails.length === 1 &&
-              combo.active_usernames[0] === action.username
-            ) {
-              draft.combos.splice(comboIndex, 1); // Remove combo entirely
-            } else if (combo.active_usernames.includes(action.username)) {
-              combo.active_emails = combo.active_emails.filter(
-                email => email !== action.username
-              );
-            }
-          }
-        })
-      );
-    }
+        }
+      })
+    );
+  }
+
+  @Action(ComboActions.CreateCombo)
+  CreateCombo(
+    ctx: StateContext<ComboStateModel>,
+    action: ComboActions.CreateCombo
+  ) {
+    const state = ctx.getState();
+    const lastCombo =
+      state.combos && state.combos.length > 0
+        ? state.combos[state.combos.length - 1]
+        : null;
+    const newComboId = lastCombo ? lastCombo.id + 1 : 1;
+    const newCombo = {
+      id: newComboId,
+      name: action.payload.combo_name,
+      products: action.payload.product_ids.map(
+        (id: number) => action.payload.product
+      ),
+      active_emails: action.payload.user_emails.slice(0, 1),
+      active_usernames: action.payload.username,
+      pending_users: action.payload.user_emails.slice(1),
+    };
+    ctx.setState(
+      produce((draft: ComboStateModel) => {
+        if (draft.combos) {
+          draft.combos.push(newCombo);
+        }
+      })
+    );
+  }
 }

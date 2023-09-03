@@ -8,7 +8,6 @@ import { AnalyticsService } from '@shared/servicies/analytics/analytics.service'
 import { ModalController, PopoverController } from '@ionic/angular';
 import { ComboPopoverComponent } from './combo-popover/combo-popover.component';
 
-
 @Component({
   selector: 'app-product-card',
   templateUrl: 'product-card.component.html',
@@ -29,7 +28,7 @@ export class ProductCardComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.isHearted = this.profileFacade.checkWishlist(this.product.id);
-  
+
     this.profileFacade.getProfile().subscribe(profile => {
       if (profile) {
         this.consumer_id = profile.id;
@@ -37,8 +36,7 @@ export class ProductCardComponent implements OnInit {
       }
     });
   }
-  
-  
+
   toggleHeart() {
     this.favClickAnalytics();
     this.profileFacade.toggleWishlist(this.product.id);
@@ -46,13 +44,16 @@ export class ProductCardComponent implements OnInit {
 
   toggleBookmark() {
     this.isBookmark = of(true);
-    this.openComboPopover(); 
+    this.openComboPopover();
   }
   async openComboPopover() {
     const modal = await this.modalController.create({
       component: ComboPopoverComponent,
-      cssClass: 'custom-modal', // Apply the custom CSS class
+      componentProps: {
+        product: this.product, // Pass the product as a property
+      },
     });
+    return await modal.present();
     return await modal.present();
   }
   goToProductPage(prod_id: number): void {
@@ -68,7 +69,7 @@ export class ProductCardComponent implements OnInit {
   }
   getOneImg(imgList?: string[]) {
     //remove following when no need to have mock data
-    if (!imgList || imgList.length < 1){
+    if (!imgList || imgList.length < 1) {
       return 'https://www.incredible.co.za/media/catalog/product/cache/7ce9addd40d23ee411c2cc726ad5e7ed/s/c/screenshot_2022-05-03_142633.jpg';
     }
     return imgList[0];
@@ -88,5 +89,4 @@ export class ProductCardComponent implements OnInit {
       this.analytics.createAnalyticsData(data);
     }
   }
-  
 }
