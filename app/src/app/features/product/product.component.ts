@@ -56,13 +56,13 @@ export class ProductComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    console.log("heyy: yo");
+    
     this.showSpinner = true;
-    console.log("heyy:" + this.showSpinner);
+    
     setTimeout(() => {
       this.showSpinner = false;
-      console.log( "heyy@:"+this.showSpinner);
-    }, 4000); 
+      
+    }, 4500); 
 
     this.paramMapSubscription = this.route.queryParamMap.subscribe(params => {
       this.selectedImage = '';

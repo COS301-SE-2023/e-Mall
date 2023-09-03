@@ -211,4 +211,28 @@ ion-modal.inventory-modal{
 }
 
 
+.carousel-control-prev-icon {
+  color: red; /* Customize the color of the left (previous) arrow */
+  width: 50rem;
+}
+
+.carousel-control-next-icon {
+  color: blue; /* Customize the color of the right (next) arrow */
+}
+
+
+.spinner ion-spinner{
+  width: 100px; 
+  height: 80px;
+  --color:black;
+}
+
+.spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+
 
