@@ -118,18 +118,24 @@ export class MyCombosComponent implements OnInit, OnDestroy {
         combos.forEach((combo:  ICombo) => {
           console.log(combo)
           if (combo.products) {
-            // Create an object to store combo data
             this.imgs=[];
-            let image_count = 0; // Counter to keep track of the number of images pushed for each combo
+            
+            for(let i=0;i<4;i++){
+              this.imgs[i]="assets/images/logo-black-no-bg.png";
+            }
+            let image_count = 0; 
             combo.products.forEach((product: IProduct) => {
               if (product.min_price_img_array && image_count < 4) {
                 console.log(product.min_price_img_array[0]);
-                this.imgs.push(product.min_price_img_array[0]);
+                this.imgs[image_count]=product.min_price_img_array[0];
                 image_count++;
               }
+              
+             
+              
             });
             const comboObj = { id: combo.id, name: combo.name, images:this.imgs }; 
-            this.comboData.push(comboObj); // Push the combo data object to the array
+            this.comboData.push(comboObj);
           }
         });
       }
