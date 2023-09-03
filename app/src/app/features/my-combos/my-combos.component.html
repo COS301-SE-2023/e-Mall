@@ -20,11 +20,15 @@
         <p>Create combos by clicking the bookmark icon on a product.</p>
       </div>
     </div>
-    <div class="combos-container1" *ngIf="comboData">
+    <div class="combos-container" *ngIf="comboData">
       <h2>My Combos</h2>
       <div class="row-combos-container-cards">
-        <ng-container *ngFor="let combo of comboData">
-          <div class="col-md-3 col-12"  style="grid-auto-columns: auto; min-width: 300px">
+        <ng-container >
+          <div class="row" style="grid-auto-rows: auto">
+            <div
+              class="col-md-3 col-12"
+              style="grid-auto-columns: auto; min-width: 300px"
+              *ngFor="let combo of comboData; let i = index">
             <div class="combo-card">
               <ion-card class="collage-card" (click)="goToComboPage(combo.id)">
                 <div class="collage-images">
@@ -46,6 +50,14 @@
                 </ion-card-header>
               </ion-card>
             </div>
+            <div
+            class="col-md-1"
+            *ngIf="
+              (i + 1) % 4 === 0 &&
+              comboData.length > 4 &&
+              i + 1 !== comboData.length
+            "></div>
+          </div>
           </div>
         </ng-container>
       </div>
