@@ -131,6 +131,8 @@ ion-button {
     font-size: 11px; /* Adjusted font size for responsiveness */
   }
 }
-ion-modal{
-  height: 50px;
+/* styles.scss or your-component.scss */
+.custom-modal {
+  height: 50vh; /* Set the height to 50% of the viewport height */
+  max-height: none; /* Remove any max-height constraints */
 }

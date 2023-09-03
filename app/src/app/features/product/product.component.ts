@@ -10,7 +10,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { NavigationExtras, Router } from '@angular/router';
-import { PopoverController } from '@ionic/angular';
+import { ModalController, PopoverController } from '@ionic/angular';
 import { ComboPopoverComponent } from '@shared/components/product-card/combo-popover/combo-popover.component';
 
 @Component({
@@ -43,6 +43,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   private paramMapSubscription: Subscription;
   constructor(
     private popoverController: PopoverController,
+    private modalController: ModalController,
     private productService: ProductService,
     private route: ActivatedRoute,
     private router: Router,
@@ -94,14 +95,10 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.openComboPopover(); 
   }
   async openComboPopover() {
-    const popover = await this.popoverController.create({
+    const modal = await this.modalController.create({
       component: ComboPopoverComponent,
-      event: event,
-
-      translucent: true,
-      alignment: 'center',
     });
-    return await popover.present();
+    return await modal.present();
   }
   prodClickAnalytics(): void {
     if (this.product$) {

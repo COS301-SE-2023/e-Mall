@@ -51,6 +51,7 @@ export class ProductCardComponent implements OnInit {
   async openComboPopover() {
     const modal = await this.modalController.create({
       component: ComboPopoverComponent,
+      cssClass: 'custom-modal', // Apply the custom CSS class
     });
     return await modal.present();
   }
