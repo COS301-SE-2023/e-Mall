@@ -21,8 +21,7 @@ export class ComboPopoverComponent implements OnInit {
   product!: IProduct;
   userEmail!: string;
   username!: string | undefined;
-  comboName!: string;
-  comboEmail!:string;
+  addEmails:string[]=[];
 
   constructor(
     private fb: FormBuilder,
@@ -60,18 +59,30 @@ export class ComboPopoverComponent implements OnInit {
     this.newClicked = true;
   }
 
-  sendData(){
-     console.log();
+  createNewComboAndClearInput() {
+    // Get the "newEmails" form control
+    console.log("enter");
+    const newEmailsControl = this.newForm.get('newEmails');
+  
+    // Check if the control exists and is not null or undefined
+    if (newEmailsControl&&newEmailsControl.valid) {
+      console.log("here");
+      // Push the value from the form control to your array (assuming "addEmails" is an array)
+      this.addEmails.push(newEmailsControl.value);
+  
+      // Reset the "newEmails" form control to clear the input field
+      newEmailsControl.reset();
+    }
   }
+  
 
   createNewCombo() {
     if (this.newForm.valid) {
       // Get form values
       const newName = this.newForm.value.newName;
-      const newEmails = this.newForm.value.newEmails;
 
       // Split emails into an array
-      const useremailsarray = newEmails.split(',');
+      const useremailsarray = this.addEmails;
       useremailsarray.unshift(this.userEmail);
 
       // Create data object

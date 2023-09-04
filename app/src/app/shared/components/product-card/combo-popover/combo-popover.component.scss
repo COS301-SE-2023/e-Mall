@@ -21,7 +21,9 @@ ion-modal .modal-wrapper {
   height: 50%;
   max-height: 50vh; /* Adjust as needed */
 }
-
+.emails{
+  width: fit-content;
+}
   
   .modal-container ion-item {
     font-size: medium;
