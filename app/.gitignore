@@ -70,3 +70,9 @@ cypress/coverage
 cypress/screenshots
 # Thumbnails
 # Icon
+# Firebase
+.firebase
+*-debug.log
+.runtimeconfig.json
+
+firebase-messaging-sw.js
