@@ -30,8 +30,14 @@ jobs:
             echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
           else
             echo "${{ secrets.API_ENV_PROD}}" > ./api/api/.env.prod
-            echo "${{ secrets.SERVICE_ACCOUNT}}" > ./api/api/serviceAccountKey.json
           fi
+
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@1.1.2
+        with:
+          name: "./api/api/serviceAccountKey.json"
+          json: ${{ secrets.SERVICE_ACCOUNT }}
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2

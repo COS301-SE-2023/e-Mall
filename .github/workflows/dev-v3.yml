@@ -80,7 +80,13 @@ jobs:
         run: |
           echo "${{ secrets.API_ENV}}" > ./api/api/.env
           echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod
-          echo "${{ secrets.SERVICE_ACCOUNT}}" > ./api/api/serviceAccountKey.json
+
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@1.1.2
+        with:
+          name: "./api/api/serviceAccountKey.json"
+          json: ${{ secrets.SERVICE_ACCOUNT }}
 
       - name: Check if env files exists
         run: |
@@ -195,7 +201,13 @@ jobs:
           echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod
           echo "${{secrets.APP_ENV_TS}}" > ./app/src/environments/env.ts
           echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
-          echo "${{ secrets.SERVICE_ACCOUNT}}" > ./api/api/serviceAccountKey.json
+
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@1.1.2
+        with:
+          name: "./api/api/serviceAccountKey.json"
+          json: ${{ secrets.SERVICE_ACCOUNT }}
 
       - name: Get node_modules cache
         uses: actions/cache@v3
