@@ -30,14 +30,22 @@
   display:flex;
 justify-content: space-between;
 
-
-}
-.users{
+.head-buttons{
   display: flex;
   justify-content: space-between;
+  gap:5%;
 }
+
+}
+.user-cards {
+  display: flex; 
+  justify-content: flex-start; 
+  flex-wrap: wrap;
+}
+
 ion-card {
-  width: 40%;
+  width: 30%;
+  height: fit-content;
   ion-icon{
     justify-content: flex-end;
     align-items: flex-end;
@@ -47,7 +55,10 @@ ion-item {
   --border-width: 0;
   --inner-border-width: 0;
 }
-
+.users{
+  display: flex;
+  justify-content: space-between;
+}
 .arrow {
   justify-content: flex-end;
 }
