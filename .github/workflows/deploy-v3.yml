@@ -2,7 +2,9 @@ name: deploy-v3
 
 on:
   push:
-    branches: master
+    branches:
+      - master
+      - JY/00/django-static-files
 
 jobs:
   build_and_push:
