@@ -86,7 +86,7 @@ jobs:
           EOL
       - name: create-json
         id: create-json
-        uses: jsdaniell/create-json@1.1.2
+        uses: jsdaniell/create-json@v1.2.2
         with:
           name: "./api/api/serviceAccountKey.json"
           json: ${{ secrets.SERVICE_ACCOUNT }}
@@ -211,7 +211,7 @@ jobs:
 
       - name: create-json
         id: create-json
-        uses: jsdaniell/create-json@1.1.2
+        uses: jsdaniell/create-json@v1.2.2
         with:
           name: "./api/api/serviceAccountKey.json"
           json: ${{ secrets.SERVICE_ACCOUNT }}
