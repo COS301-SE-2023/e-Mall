@@ -31,7 +31,7 @@ jobs:
             echo "${{secrets.FIREBASE_SW}}" > ./app/src/firebase-messaging-sw.js
 
           else
-            cat > ./api/api/env.prod <<EOL
+            cat > ./api/api/.env.prod <<EOL
             ${{ secrets.API_ENV_PROD }}
             EOL
           fi
