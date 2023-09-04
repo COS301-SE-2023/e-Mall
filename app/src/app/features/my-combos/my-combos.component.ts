@@ -60,7 +60,7 @@ export class MyCombosComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.routeSubscription.unsubscribe();
     this.comboData = [];
-    console.log('here');
+    console.log('My-combos destoryed');
   }
   loadcombos() {
     this.comboFacade.getCombos().subscribe(data => {

@@ -27,7 +27,7 @@ export class NavbarComponent {
     public modalController: ModalController
   ) {
     this.isAuthenticated = this.authFacade.getCurrentUser();
-    // this.notificationCount = 20;
+    //this.notificationCount = 20;
   }
 
   search(searchQuery: string): void {

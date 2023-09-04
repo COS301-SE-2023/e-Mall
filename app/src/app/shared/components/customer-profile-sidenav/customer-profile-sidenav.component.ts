@@ -38,9 +38,9 @@ export class CustomerProfileSidenavComponent implements OnInit, OnDestroy {
   }
 
   navigateTo(page: string): void {
-    console.log(this.currentPage);
+   // console.log(this.currentPage);
     this.currentPage = page;
-    console.log(this.currentPage);
+  //  console.log(this.currentPage);
     setTimeout(() => {
       this.router.navigate([`/${page}`]);
     }, 0);
