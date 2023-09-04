@@ -12,62 +12,62 @@ env:
   node_version: v18.16.0
 
 jobs:
-  # frontend:
-  #   name: Angular Build and Test
-  #   runs-on: ubuntu-latest
+  frontend:
+    name: Angular Build and Test
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - uses: actions/checkout@v3
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - name: Set up Node.js
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: ${{env.node_version}}
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{env.node_version}}
 
-  #     - name: Create env files
-  #       run: |
-  #         echo "${{secrets.APP_ENV_TS}}" > ./app/src/environments/env.ts
-  #         echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
+      - name: Create env files
+        run: |
+          echo "${{secrets.APP_ENV_TS}}" > ./app/src/environments/env.ts
+          echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
 
-  #     - name: Check if env files exists
-  #       run: |
-  #         if [ ! -f ./app/src/environments/env.ts ]; then
-  #           echo "app.env not found!"
-  #           exit 1
-  #         fi
+      - name: Check if env files exists
+        run: |
+          if [ ! -f ./app/src/environments/env.ts ]; then
+            echo "app.env not found!"
+            exit 1
+          fi
 
-  #         if [ ! -f ./app/src/environments/env.prod.ts ]; then
-  #           echo "app.env.prod not found!"
-  #           exit 1
-  #         fi
+          if [ ! -f ./app/src/environments/env.prod.ts ]; then
+            echo "app.env.prod not found!"
+            exit 1
+          fi
 
-  #     - name: Get node_modules cache
-  #       uses: actions/cache@v3
-  #       id: node_modules
-  #       with:
-  #         path: |
-  #           **/node_modules
-  #         # Adding node version as cache key
-  #         key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ env.node_version }}
+      - name: Get node_modules cache
+        uses: actions/cache@v3
+        id: node_modules
+        with:
+          path: |
+            **/node_modules
+          # Adding node version as cache key
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ env.node_version }}
 
-  #     - name: Install dependencies
-  #       if: steps.node_modules.outputs.cache-hit != 'true'
-  #       working-directory: ./app
-  #       run: yarn install --frozen-lockfile
+      - name: Install dependencies
+        if: steps.node_modules.outputs.cache-hit != 'true'
+        working-directory: ./app
+        run: yarn install --frozen-lockfile
 
-  #     - name: Lint and build
-  #       working-directory: ./app
-  #       run: yarn lint && yarn build
+      - name: Lint and build
+        working-directory: ./app
+        run: yarn lint && yarn build
 
-  #     - name: Frontend unit and integration tests
-  #       working-directory: ./app
-  #       run: yarn ng test --code-coverage --browsers ChromeHeadless --watch=false
+      - name: Frontend unit and integration tests
+        working-directory: ./app
+        run: yarn ng test --code-coverage --browsers ChromeHeadless --watch=false
 
-  #     - name: Upload coverage report
-  #       uses: actions/upload-artifact@v3
-  #       with:
-  #         name: karma-report
-  #         path: app/coverage/karma/lcov.info
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: karma-report
+          path: app/coverage/karma/lcov.info
 
   backend:
     name: Django Build and Test
@@ -116,137 +116,141 @@ jobs:
           name: pytest-report
           path: api/coverage.xml
 
-  # sonarcloud:
-  #   name: SonarCloud Analysis
-  #   needs: [frontend, backend, cypress-e2e]
-  #   runs-on: ubuntu-latest
+  sonarcloud:
+    name: SonarCloud Analysis
+    needs: [frontend, backend, cypress-e2e]
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #       with:
-  #         fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
-  #     - name: Download pytest coverage report
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: pytest-report
-  #         path: api/
+      - name: Download pytest coverage report
+        uses: actions/download-artifact@v3
+        with:
+          name: pytest-report
+          path: api/
 
-  #     - name: Download karma coverage report
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: karma-report
-  #         path: app/coverage/karma/
+      - name: Download karma coverage report
+        uses: actions/download-artifact@v3
+        with:
+          name: karma-report
+          path: app/coverage/karma/
 
-  #     - name: Download cypress coverage report
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: cypress-report
-  #         path: app/coverage/cypress/
+      - name: Download cypress coverage report
+        uses: actions/download-artifact@v3
+        with:
+          name: cypress-report
+          path: app/coverage/cypress/
 
-  #     - name: Change pytest report source
-  #       run: sed -i "s|<source>\/api</source>|<source>api\/<\/source>|g" api/coverage.xml
+      - name: Change pytest report source
+        run: sed -i "s|<source>\/api</source>|<source>api\/<\/source>|g" api/coverage.xml
 
-  #     - name: Change karma report source
-  #       run: sed -i 's/src\\app/app\\src\\app/g' app/coverage/karma/lcov.info
+      - name: Change karma report source
+        run: sed -i 's/src\\app/app\\src\\app/g' app/coverage/karma/lcov.info
 
-  #     - name: SonarCloud scan
-  #       uses: SonarSource/sonarcloud-github-action@master
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
-  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: SonarCloud scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  # codecov:
-  #   name: Codecov Analysis
-  #   needs: [frontend, backend, cypress-e2e]
+  codecov:
+    name: Codecov Analysis
+    needs: [frontend, backend, cypress-e2e]
 
-  #   runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - uses: actions/checkout@v3
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - name: Download coverage report
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: pytest-report
-  #         path: ./api/
+      - name: Download coverage report
+        uses: actions/download-artifact@v3
+        with:
+          name: pytest-report
+          path: ./api/
 
-  #     - name: Download karma coverage report
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: karma-report
-  #         path: app/karma
+      - name: Download karma coverage report
+        uses: actions/download-artifact@v3
+        with:
+          name: karma-report
+          path: app/karma
 
-  #     - name: Download cypress coverage report
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: cypress-report
-  #         path: app/cypress
+      - name: Download cypress coverage report
+        uses: actions/download-artifact@v3
+        with:
+          name: cypress-report
+          path: app/cypress
 
-  #     - name: Codecov scan
-  #       uses: codecov/codecov-action@v3
-  #       with:
-  #         token: ${{ secrets.CODECOV_TOKEN }}
-  #         # files: |
-  #         #   coverage.xml
-  #         #   lcov.info
+      - name: Codecov scan
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          # files: |
+          #   coverage.xml
+          #   lcov.info
 
-  # cypress-e2e:
-  #   name: Cypress E2E Test
-  #   runs-on: ubuntu-latest
+  cypress-e2e:
+    name: Cypress E2E Test
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - uses: actions/checkout@v3
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - name: Create .env file
-  #       run: |
-  #         echo "${{ secrets.API_ENV}}" > ./api/api/.env
-  #         echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod
-  #         echo "${{secrets.APP_ENV_TS}}" > ./app/src/environments/env.ts
-  #         echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
+      - name: Create .env file
+        run: |
+          cat > ./api/api/.env <<EOL
+          ${{ secrets.API_ENV }}
+          EOL
+          cat > ./api/api/env.prod <<EOL
+          ${{ secrets.API_ENV_PROD }}
+          EOL
+          echo "${{secrets.APP_ENV_TS}}" > ./app/src/environments/env.ts
+          echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
 
-  #     - name: create-json
-  #       id: create-json
-  #       uses: jsdaniell/create-json@1.1.2
-  #       with:
-  #         name: "./api/api/serviceAccountKey.json"
-  #         json: ${{ secrets.SERVICE_ACCOUNT }}
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@1.1.2
+        with:
+          name: "./api/api/serviceAccountKey.json"
+          json: ${{ secrets.SERVICE_ACCOUNT }}
 
-  #     - name: Get node_modules cache
-  #       uses: actions/cache@v3
-  #       id: node_modules
-  #       with:
-  #         path: |
-  #           **/node_modules
-  #         # Adding node version as cache key
-  #         key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ env.node_version }}
+      - name: Get node_modules cache
+        uses: actions/cache@v3
+        id: node_modules
+        with:
+          path: |
+            **/node_modules
+          # Adding node version as cache key
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ env.node_version }}
 
-  #     - name: Install dependencies
-  #       if: steps.node_modules.outputs.cache-hit != 'true'
-  #       working-directory: ./app
-  #       run: yarn install --frozen-lockfile
+      - name: Install dependencies
+        if: steps.node_modules.outputs.cache-hit != 'true'
+        working-directory: ./app
+        run: yarn install --frozen-lockfile
 
-  #     - name: Start django
-  #       run: chmod +x api/docker-entrypoint.sh && docker-compose up -d &
+      - name: Start django
+        run: chmod +x api/docker-entrypoint.sh && docker-compose up -d &
 
-  #     - name: Start angular
-  #       working-directory: ./app
-  #       run: yarn ng serve --port 4200 --configuration=development &
+      - name: Start angular
+        working-directory: ./app
+        run: yarn ng serve --port 4200 --configuration=development &
 
-  #     - name: Start cypress test
-  #       working-directory: ./app
-  #       run: |
-  #         yarn cypress install
-  #         echo "[Django] waiting for server..."
-  #         timeout 3m bash -c 'until $(curl --output /dev/null --silent --head --fail http://localhost:3000/admin); do sleep 5; done'
-  #         echo "[Django] server is up!"
-  #         echo "[Angular] waiting for server..."
-  #         timeout 3m bash -c 'until $(curl --output /dev/null --silent --head --fail http://localhost:4200); do sleep 5; done'
-  #         echo "[Angular] server is up!"
-  #         yarn cypress:run --config video=false
+      - name: Start cypress test
+        working-directory: ./app
+        run: |
+          yarn cypress install
+          echo "[Django] waiting for server..."
+          timeout 3m bash -c 'until $(curl --output /dev/null --silent --head --fail http://localhost:3000/admin); do sleep 5; done'
+          echo "[Django] server is up!"
+          echo "[Angular] waiting for server..."
+          timeout 3m bash -c 'until $(curl --output /dev/null --silent --head --fail http://localhost:4200); do sleep 5; done'
+          echo "[Angular] server is up!"
+          yarn cypress:run --config video=false
 
-  #     - name: Upload cypress coverage report
-  #       uses: actions/upload-artifact@v3
-  #       with:
-  #         name: cypress-report
-  #         path: app/coverage/cypress/coverage.xml
+      - name: Upload cypress coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-report
+          path: app/coverage/cypress/coverage.xml
