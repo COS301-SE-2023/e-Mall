@@ -159,5 +159,5 @@ shared-local-instance.db
 !**/migrations/__init__.py
 # /db/data
 
+#firebase
 serviceAccountKey.json
-```
