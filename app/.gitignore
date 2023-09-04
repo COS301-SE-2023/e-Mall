@@ -74,3 +74,5 @@ cypress/screenshots
 .firebase
 *-debug.log
 .runtimeconfig.json
+
+firebase-messaging-sw.js
