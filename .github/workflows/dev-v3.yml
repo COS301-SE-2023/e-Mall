@@ -78,9 +78,12 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "${{ secrets.API_ENV}}" > ./api/api/.env
-          echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod
-
+          cat > ./api/api/.env <<EOL
+          ${{ secrets.API_ENV }}
+          EOL
+          cat > ./api/api/env.prod <<EOL
+          ${{ secrets.API_ENV_PROD }}
+          EOL
       - name: create-json
         id: create-json
         uses: jsdaniell/create-json@1.1.2
