@@ -39,8 +39,11 @@ import { NavbarPopupModule } from '@shared/components/navbar-popup/navbar-popup.
 import { EditCustomerProfileModule } from '@features/edit-customer-profile/edit-customer-profile.module';
 import { SellerDashboardSettingsModule } from '@features/seller-dashboard-settings/seller-dashboard-settings.module';
 import { LogoLoaderComponent } from './shared/animations/logo-loader/logo-loader.component';
+import { SpinnerComponent } from './shared/components/spinner/spinner.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { LoadingInterceptor } from '@shared/components/spinner/interceptors/loading.interceptor';
 @NgModule({
-  declarations: [AppComponent, LogoLoaderComponent],
+  declarations: [AppComponent, LogoLoaderComponent, SpinnerComponent],
 
   imports: [
     BrowserModule,
@@ -91,13 +94,15 @@ import { LogoLoaderComponent } from './shared/animations/logo-loader/logo-loader
     CategoryModule,
     AppRoutingModule,
     SellerDetailsModule,
-    SellerDashboardSettingsModule
+    SellerDashboardSettingsModule,
+    HttpClientModule
   ],
 
   providers: [
     { provide: 'API_URL', useValue: environment.apiUrl },
     httpInterceptorProviders,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}
   ],
   bootstrap: [AppComponent],
 })
