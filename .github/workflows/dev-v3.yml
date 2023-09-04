@@ -117,45 +117,45 @@ jobs:
           name: pytest-report
           path: api/coverage.xml
 
-  # sonarcloud:
-  #   name: SonarCloud Analysis
-  #   needs: [frontend, backend, cypress-e2e]
-  #   runs-on: ubuntu-latest
+  sonarcloud:
+    name: SonarCloud Analysis
+    needs: [frontend, backend, cypress-e2e]
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #       with:
-  #         fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
-  #     - name: Download pytest coverage report
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: pytest-report
-  #         path: api/
+      - name: Download pytest coverage report
+        uses: actions/download-artifact@v3
+        with:
+          name: pytest-report
+          path: api/
 
-  #     - name: Download karma coverage report
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: karma-report
-  #         path: app/coverage/karma/
+      - name: Download karma coverage report
+        uses: actions/download-artifact@v3
+        with:
+          name: karma-report
+          path: app/coverage/karma/
 
-  #     - name: Download cypress coverage report
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: cypress-report
-  #         path: app/coverage/cypress/
+      - name: Download cypress coverage report
+        uses: actions/download-artifact@v3
+        with:
+          name: cypress-report
+          path: app/coverage/cypress/
 
-  #     - name: Change pytest report source
-  #       run: sed -i "s|<source>\/api</source>|<source>api\/<\/source>|g" api/coverage.xml
+      - name: Change pytest report source
+        run: sed -i "s|<source>\/api</source>|<source>api\/<\/source>|g" api/coverage.xml
 
-  #     - name: Change karma report source
-  #       run: sed -i 's/src\\app/app\\src\\app/g' app/coverage/karma/lcov.info
+      - name: Change karma report source
+        run: sed -i 's/src\\app/app\\src\\app/g' app/coverage/karma/lcov.info
 
-  #     - name: SonarCloud scan
-  #       uses: SonarSource/sonarcloud-github-action@master
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
-  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: SonarCloud scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   codecov:
     name: Codecov Analysis
