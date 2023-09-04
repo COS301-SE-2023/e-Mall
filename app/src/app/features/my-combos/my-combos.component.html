@@ -6,7 +6,7 @@
       </app-customer-profile-sidenav>
     </div>
 
-    <div class="combos-container" *ngIf="!comboData">
+    <div class="combos-container" *ngIf="comboData?.length===0">
       <h2>My combos</h2>
 
       <div class="combos-container-nocards">
@@ -17,10 +17,10 @@
             class="nimage" />
         </div>
         <h3>Oops! It's empty here!</h3>
-        <p>Create combos by clicking the bookmark icon on a product.</p>
+        <p>Create combos by clicking the plus icon on a product.</p>
       </div>
     </div>
-    <div class="combos-container" *ngIf="comboData">
+    <div class="combos-container" *ngIf="comboData?.length!==0">
       <h2>My Combos</h2>
       <div class="row-combos-container-cards">
         <ng-container >
