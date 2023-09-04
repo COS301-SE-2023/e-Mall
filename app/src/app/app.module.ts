@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -41,13 +41,20 @@ import { SellerDashboardSettingsModule } from '@features/seller-dashboard-settin
 import { ComboStateModule } from '@features/combo-state/combo-state.module';
 import { MyCombosModule } from '@features/my-combos/my-combos.module';
 import { ComboModule } from '@features/combo/combo.module';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideMessaging, getMessaging } from '@angular/fire/messaging';
+import { NotificationModule } from './features/notification/notification.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
 @NgModule({
   declarations: [AppComponent],
 
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    IonicModule.forRoot({ navAnimation: customPageAnimation }),
+    IonicModule.forRoot({
+      navAnimation: customPageAnimation,
+      innerHTMLTemplatesEnabled: true,
+    }),
     NgxsModule.forRoot([]),
     NgxsLoggerPluginModule.forRoot({
       // Do not collapse log groups
@@ -96,7 +103,16 @@ import { ComboModule } from '@features/combo/combo.module';
     CategoryModule,
     AppRoutingModule,
     SellerDetailsModule,
-    SellerDashboardSettingsModule
+    SellerDashboardSettingsModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideMessaging(() => getMessaging()),
+    NotificationModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
 
   providers: [

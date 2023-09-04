@@ -25,12 +25,18 @@ jobs:
 
       - name: Create .env file
         run: |
-          if [ "${{ matrix.service }}" == "frontend" ]; then
             echo '' > ./app/src/environments/env.ts
             echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
-          else
-            echo "${{ secrets.API_ENV_PROD}}" > ./api/api/.env.prod
-          fi
+            echo "${{secrets.FIREBASE_SW}}" > ./app/src/firebase-messaging-sw.js
+            cat > ./api/api/.env.prod <<EOL${{ secrets.API_ENV_PROD }}EOL
+
+      - name: create-json
+        if: matrix.service == 'backend'
+        id: create-json
+        uses: jsdaniell/create-json@v1.2.2
+        with:
+          name: "./api/api/serviceAccountKey.json"
+          json: ${{ secrets.SERVICE_ACCOUNT }}
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
