@@ -124,18 +124,25 @@ const routes: Routes = [
   },
   {
     path: 'my-combos',
-    component: MyCombosComponent,
+    loadChildren: () =>
+      import('@app/features/my-combos/my-combos.module').then(
+        m => m.MyCombosModule
+      ),
     canActivate: [consumerTypeGuard],
     runGuardsAndResolvers: 'always',
   },
   {
     path: 'combo',
-    component: ComboComponent,
+    loadChildren: () =>
+      import('@app/features/combo/combo.module').then(
+        m => m.ComboModule
+      ),
     canActivate: [consumerTypeGuard],
   },
   {
     path: 'edit-customer-profile',
     component: EditCustomerProfileComponent,
+    canActivate: [consumerTypeGuard],
   },
   {
     path: 'seller-dashboard-settings',
