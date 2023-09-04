@@ -7,16 +7,16 @@
   </ng-container>
   <div class="ion-content-wrapper">
     <div class="container-fluid body-container">
-      <div class="spinner-container" *ngIf="showSpinner">
-      <div class="spinner">
-        <ion-spinner name="dots"></ion-spinner>
-        <ion-label>loading</ion-label>
-      </div>
-      </div>
-      <div class="container-fluid prices" id="prices" *ngIf="!showSpinner">
+      <div class="container-fluid prices" id="prices">
+        <div class="spinner-container" *ngIf="(product$ | async) === null">
+          <div class="spinner">
+            <ion-spinner name="dots"></ion-spinner>
+            <ion-label>loading</ion-label>
+          </div>
+        </div>
         <div
           class="row product-img-info-container"
-          style="margin-left: 10px; margin-right: 10px">
+          style="margin-left: 10px; margin-right: 10px" *ngIf="(product$ | async) !== null">
           <!--<div *ngIf="(product$ | async) === null">
             <mat-spinner></mat-spinner>
           </div>-->
