@@ -62,8 +62,11 @@ export class LoaderFacade implements OnDestroy {
       this.loading = await this.loadingController.create({
         spinner: 'dots',
         message: 'Please wait...',
-        mode: 'ios',
+        translucent: true,
+        backdropDismiss: false,
+        //mode: 'ios',
         duration: 5000,
+        cssClass: 'custom-loader',
       });
       await this.loading.present();
       console.log('presenting loading from loader');
