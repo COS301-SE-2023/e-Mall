@@ -5,9 +5,11 @@ describe('sign in', () => {
     cy.visit('/');
     cy.contains('Sign in').click({ force: true });
     cy.url().should('include', '/sign-in');
+    cy.wait(2000);
     cy.get('ion-input[type=email').type(users.Amazon.email);
     cy.get('ion-input[type=password').type(`${users.Amazon.password}{enter}`);
     cy.get('ion-button[type=submit').click();
+    cy.wait(5000);
     cy.url().should('include', '/inventory');
     cy.wait(5000);
     cy.contains('Analytics').click({ force: true });

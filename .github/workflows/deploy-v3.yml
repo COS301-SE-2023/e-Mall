@@ -28,6 +28,8 @@ jobs:
           if [ "${{ matrix.service }}" == "frontend" ]; then
             echo '' > ./app/src/environments/env.ts
             echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
+            echo "${{secrets.FIREBASE_SW}}" > ./app/src/firebase-messaging-sw.js
+
           else
             cat > ./api/api/env.prod <<EOL
             ${{ secrets.API_ENV_PROD }}

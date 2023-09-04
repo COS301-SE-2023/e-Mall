@@ -24,6 +24,7 @@ jobs:
         run: |
           echo "${{secrets.APP_ENV_TS}}" > ./app/src/environments/env.ts
           echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
+          echo "${{secrets.FIREBASE_SW}}" > ./app/src/firebase-messaging-sw.js
 
       - name: Check if env files exists
         run: |
@@ -204,6 +205,7 @@ jobs:
           EOL
           echo "${{secrets.APP_ENV_TS}}" > ./app/src/environments/env.ts
           echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
+          echo "${{secrets.FIREBASE_SW}}" > ./app/src/firebase-messaging-sw.js
 
       - name: create-json
         id: create-json
