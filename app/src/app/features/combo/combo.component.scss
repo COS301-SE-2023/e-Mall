@@ -17,14 +17,11 @@
 }
 
 .combo-container {
-  margin-top: 20px;
+  min-height: 1024px;
+  margin-top: 30px;
   flex: 1;
-  //border: 1px solid blue ;
   padding-left: 5%;
   padding-right: 3%;
-  //padding-right: 10%;
-  //justify-content: center;
-  //text-align: center;
 }
 .head{
   display:flex;
@@ -62,14 +59,7 @@ ion-item {
 .arrow {
   justify-content: flex-end;
 }
-.combo-container1 {
-  flex: 1;
-  //border: 1px solid blue ;
-  padding-left: 8%;
-  //padding-right: 10%;
-  //justify-content: center;
-  //text-align: center;
-}
+
 
 .combo-container h2 {
   margin-left: 15px;

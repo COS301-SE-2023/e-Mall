@@ -21,23 +21,11 @@
 
 
 .wishlist-container {
-    flex: 1;
-    //border: 1px solid blue ;
-    padding-left: 8%;
-    margin-top: 20px;
-    //padding-right: 10%;
-    //justify-content: center;
-    //text-align: center;
-}
-
-.wishlist-container1 {
+  min-height: 1024px;
+  margin-top: 30px;
   flex: 1;
-  //border: 1px solid blue ;
-  padding-left: 8%;
-  margin-top: 20px;
-  //padding-right: 10%;
-  //justify-content: center;
-  //text-align: center;
+  padding-left: 5%;
+  padding-right: 3%;
 }
 
 .wishlist-container h2{
@@ -45,14 +33,10 @@
   margin-top: 0px
 }
 
-.wishlist-container1 h2{
-  margin-left: 15px;
-  margin-top:60px
-}
 
 .wishlist-container-cards {
     flex: 1;
-    margin-top: 50px;
+    margin-top: 10px;
 }
 
 .wishlist-container-nocards {
