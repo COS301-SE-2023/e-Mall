@@ -235,12 +235,12 @@ ion-modal.inventory-modal{
 }
 
 .custom-loader {
-  background-color: rgb(0, 0, 0, 0.99); /* Adjust the background color and opacity as needed */
-  box-shadow: none; /* Remove any box shadow */
-  border: none; /* Remove borders */
-  border-radius: 0; /* Remove border radius */
-  color: #000; /* Text color */
-  font-size: 18px; /* Text size */
+  background-color: rgb(0, 0, 0, 0.96);
+  box-shadow: none; 
+  border: none; 
+  border-radius: 0; 
+  color: #000; 
+  font-size: 18px; 
   
 }
 
