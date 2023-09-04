@@ -42,6 +42,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              "src/firebase-messaging-sw.js",
               {
                 "glob": "**/*.svg",
                 "input": "node_modules/ionicons/dist/ionicons/svg",
@@ -56,7 +57,8 @@
                 "glob": "**/*.svg",
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
-              }
+              },
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/styles.scss",
@@ -165,7 +167,9 @@
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.js",
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-            ]
+            ],
+            "serviceWorker": true,
+            "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
             "production": {
@@ -243,7 +247,8 @@
                 "glob": "**/*.svg",
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
-              }
+              },
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "node_modules/bootstrap/scss/bootstrap.scss",
