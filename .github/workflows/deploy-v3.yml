@@ -30,6 +30,7 @@ jobs:
             echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
           else
             echo "${{ secrets.API_ENV_PROD}}" > ./api/api/.env.prod
+            echo "${{ secrets.SERVICE_ACCOUNT}}" > ./api/api/serviceAccountKey.json
           fi
 
       - name: Install doctl

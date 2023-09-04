@@ -1,9 +1,13 @@
-name: master-v1
+name: dev-v2
 
 on:
+  push:
+    branches:
+      - develop
+
   pull_request:
     branches:
-      - master
+      - develop
 env:
   node_version: v18.16.0
 
@@ -76,6 +80,7 @@ jobs:
         run: |
           echo "${{ secrets.API_ENV}}" > ./api/api/.env
           echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod
+          echo "${{ secrets.SERVICE_ACCOUNT}}" > ./api/api/serviceAccountKey.json
 
       - name: Check if env files exists
         run: |
@@ -190,6 +195,7 @@ jobs:
           echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod
           echo "${{secrets.APP_ENV_TS}}" > ./app/src/environments/env.ts
           echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
+          echo "${{ secrets.SERVICE_ACCOUNT}}" > ./api/api/serviceAccountKey.json
 
       - name: Get node_modules cache
         uses: actions/cache@v3
