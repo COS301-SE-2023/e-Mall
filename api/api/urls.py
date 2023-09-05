@@ -29,6 +29,7 @@ from rest_framework import permissions
 from django.views.static import serve
 from .settings import STATIC_ROOT
 from django.urls import re_path
+from django.views.generic.base import RedirectView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -50,6 +51,7 @@ router = routers.DefaultRouter()
 # router.register(r"consumer", ConsumerViewSet)
 
 urlpatterns = [
+    path("", RedirectView.as_view(url="/api")),
     path("admin/", admin.site.urls),
     path("api/seller/", include("seller.urls")),
     path("accounts/", include("rest_framework.urls")),
