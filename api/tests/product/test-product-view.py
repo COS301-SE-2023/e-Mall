@@ -1,13 +1,16 @@
 from datetime import datetime, timedelta
 from decimal import Decimal
 from django.test import TestCase
+from requests import patch
 from rest_framework.test import APITestCase, APIRequestFactory
+from user.models import User
 from product.models import Product
 from productseller.models import ProductSeller
 from seller.models import Seller
 from product.views import ProductBackendAPIView, ProductTestAPIView
 from rest_framework.test import APIClient
 from django.utils import timezone
+from rest_framework import status
 
 
 class ProductBackendAPIViewTestCase(APITestCase):
@@ -330,3 +333,108 @@ class ProductFrontendAPIViewTestCase(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["name"], "Test Product 1")
+
+
+# class CreateAPIViewTest(TestCase):
+#     API_ENDPOINT = "/products/create"  # Define a consistent API endpoint URL
+
+#     def setUp(self):
+#         # Create a test user (you may need to adjust this based on your user model)
+#         self.test_user = User.objects.create(username="test_user", type="seller")
+
+#         # Create some initial products for testing
+#         self.product1 = Product.objects.create(
+#             name="liverpool shirt",
+#             brand="Brand A",
+#             category="Category A",
+#             description="Description A",
+#         )
+#         self.product2 = Product.objects.create(
+#             name="manchester united shirt",
+#             brand="Brand B",
+#             category="Category B",
+#             description="Description B",
+#         )
+
+#         # Create an API client
+#         self.client = APIClient()
+
+#     @patch("auth.permissions.CognitoPermission.has_permission")
+#     @patch("auth.authentication.CognitoAuthentication.authenticate")
+#     def test_create_product_with_existing_similar_name(
+#         self, mock_authenticate, mock_has_permission
+#     ):
+#         mock_authenticate.return_value = (self.test_user, None)
+#         mock_has_permission.return_value = True
+
+#         data = {
+#             "name": "liverpool soccer shirt",
+#             "brand": "Brand C",
+#             "category": "Category C",
+#             "description": "Description C",
+#             # Add other required fields here
+#         }
+
+#         # Perform the POST request
+#         response = self.client.post(self.API_ENDPOINT, data, format="json")
+
+#         # Check the response status code
+#         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+#         # Check if a new product was created
+#         self.assertEqual(Product.objects.count(), 3)
+
+#         # Check if a new ProductSeller relation was created
+#         self.assertEqual(ProductSeller.objects.count(), 1)
+
+#     @patch("auth.permissions.CognitoPermission.has_permission")
+#     @patch("auth.authentication.CognitoAuthentication.authenticate")
+#     def test_create_product_with_unique_name(
+#         self, mock_authenticate, mock_has_permission
+#     ):
+#         mock_authenticate.return_value = (self.test_user, None)
+#         mock_has_permission.return_value = True
+
+#         data = {
+#             "name": "unique product name",
+#             "brand": "Brand D",
+#             "category": "Category D",
+#             "description": "Description D",
+#             # Add other required fields here
+#         }
+
+#         # Perform the POST request
+#         response = self.client.post(self.API_ENDPOINT, data, format="json")
+
+#         # Check the response status code
+#         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+#         # Check if a new product was created
+#         self.assertEqual(Product.objects.count(), 3)
+
+#         # Check if a new ProductSeller relation was created
+#         self.assertEqual(ProductSeller.objects.count(), 1)
+
+#     @patch("auth.permissions.CognitoPermission.has_permission")
+#     @patch("auth.authentication.CognitoAuthentication.authenticate")
+#     def test_create_product_as_consumer(self, mock_authenticate, mock_has_permission):
+#         mock_authenticate.return_value = (self.test_user, None)
+#         mock_has_permission.return_value = True
+
+#         # Change the user type to "consumer" for this test
+#         self.test_user.type = "consumer"
+#         self.test_user.save()
+
+#         data = {
+#             "name": "liverpool soccer shirt",
+#             "brand": "Brand E",
+#             "category": "Category E",
+#             "description": "Description E",
+#             # Add other required fields here
+#         }
+
+#         # Perform the POST request
+#         response = self.client.post(self.API_ENDPOINT, data, format="json")
+
+#         # Check the response status code
+#         self.assertEqual(response.status_code, status.HTTP_500_INTERNAL_SERVER_ERROR)

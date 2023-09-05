@@ -14,7 +14,7 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log && ln -sf /dev/stderr /var/log/
 
 # Copy the requirements.txt file into the container
 COPY requirements.txt .
-COPY docker-entrypoint.sh .
+
 
 # Install the project's dependencies
 # RUN pip install --upgrade pip
@@ -22,12 +22,12 @@ RUN pip install -r requirements.txt
 
 # Copy the rest of the project files into the container
 COPY . .
-COPY ./api/.env.prod ./api/.env
 #database migration
 # RUN sudo apt install build-essential libpq-dev python3-dev
 # RUN apt-get install -y python3-psycopg2
-RUN chmod +x docker-entrypoint.prod.sh
-ENTRYPOINT ["./docker-entrypoint.prod.sh"]
+RUN rm ./docker-entrypoint.sh && mv ./docker-entrypoint.prod.sh ./docker-entrypoint.sh
+RUN chmod +x docker-entrypoint.sh 
+ENTRYPOINT ["./docker-entrypoint.sh"]
 
 # Expose port 8000 for the Django development server
 # EXPOSE 3000
