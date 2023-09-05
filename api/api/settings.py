@@ -31,7 +31,7 @@ if env_path.exists():
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = (env("DEBUG"), False)
+DEBUG = True if env("DEBUG") in [True, "True"] else False
 
 ALLOWED_HOSTS = ["*"]
 
