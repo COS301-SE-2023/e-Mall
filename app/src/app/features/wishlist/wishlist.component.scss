@@ -8,20 +8,19 @@
 .side-nav-container {
     flex: 1; 
     padding: 20px; 
-    //border: 1px solid green ;
     max-width: 250px;
   }
   
 .ion-content-wrapper {
     display: flex;
     flex-direction: row;
-  
-    //border: 1px solid red ;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 
 .wishlist-container {
-  min-height: 1024px;
+  
   margin-top: 30px;
   flex: 1;
   padding-left: 5%;

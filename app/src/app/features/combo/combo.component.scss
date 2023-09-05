@@ -13,11 +13,12 @@
 .ion-content-wrapper {
   display: flex;
   flex-direction: row;
-  //border: 1px solid red ;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .combo-container {
-  min-height: 1024px;
+ 
   margin-top: 30px;
   flex: 1;
   padding-left: 5%;

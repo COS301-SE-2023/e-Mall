@@ -14,23 +14,18 @@
   display: flex;
   flex-direction: row;
   //border: 1px solid red ;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 .content {
   display: flex;
   flex-direction: row;
 }
 
-.wishlist-container{
-  flex: 1;
-  padding-left: 5%;
-  margin-top: 30px;
-  min-height: fit-content;
-}
 .combos-container {
   flex: 1;
   padding-left: 5%;
   margin-top: 30px;
-  min-height: fit-content;
 }
 
 .combos-container h2 {
