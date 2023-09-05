@@ -18,9 +18,13 @@ export class ClearProfile {
   static readonly type = '[Profile] Clear Profile';
 }
 
-
 export class ToggleWishlist {
   static readonly type = '[Profile] Updating Wishlist';
+  constructor(public id: number) {}
+}
+
+export class RemoveProductFromWishlist {
+  static readonly type = '[Profile] Removing Product From Wishlist';
   constructor(public id: number) {}
 }
 

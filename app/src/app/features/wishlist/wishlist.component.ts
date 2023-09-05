@@ -77,7 +77,6 @@ export class WishlistComponent implements OnInit, OnDestroy {
     if (!this.email) return;
 
     this.consumerService.getConsumerInfo(this.email).subscribe(data => {
-
       this.products$ = of(data.products);
     });
   }

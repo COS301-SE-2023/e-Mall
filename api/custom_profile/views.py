@@ -74,12 +74,30 @@ def updateWishlist(request):
             raise Exception("User not found")
         if user.type == "consumer":
             consumer = Consumer.objects.get(email=user.email)
-            if product_id in consumer.wishlist:
-                consumer.wishlist.remove(product_id)
-                res = update_wishlist(user.id, product_id, "remove")
-            else:
-                consumer.wishlist.append(product_id)
-                res = update_wishlist(user.id, product_id, "add")
+            consumer.wishlist.append(product_id)
+            res = update_wishlist(user.id, product_id, "add")
+            if res.get("status") == "error":
+                raise Exception(res.get("message"))
+            consumer.save()
+            return Response({"success": True})
+        else:
+            raise Exception("Seller cannot have wishlist")
+    except Exception as e:
+        # handle other exceptions here
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(["POST"])
+def removeProductFromWishlist(request):
+    try:
+        user = request.user
+        product_id = request.data.get("prod_id")
+        if user is None:
+            raise Exception("User not found")
+        if user.type == "consumer":
+            consumer = Consumer.objects.get(email=user.email)
+            consumer.wishlist.remove(product_id)
+            res = update_wishlist(user.id, product_id, "remove")
             if res.get("status") == "error":
                 raise Exception(res.get("message"))
             consumer.save()

@@ -60,7 +60,11 @@
                     fill="clear"
                     mode="ios">
                     <ion-icon
-                      [name]="(isBookmark | async) ? 'add' : 'add-outline'"
+                      [name]="
+                        (isBookmark | async)
+                          ? 'bookmark-outline'
+                          : 'bookmark-outline'
+                      "
                       style="color: var(--c-5-a, #37d0d6)"></ion-icon>
                   </ion-button>
                 </span>

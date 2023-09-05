@@ -45,6 +45,11 @@ export class ProductCardComponent implements OnInit {
     });
   }
 
+  toggleHeart() {
+    this.favClickAnalytics();
+    this.profileFacade.toggleWishlist(this.product.id);
+  }
+
   async toggleBookmark() {
     console.log('toggleBookmark');
     if (!(await this.authFacade.isLoggedIn())) {
@@ -62,7 +67,6 @@ export class ProductCardComponent implements OnInit {
       component: ComboPopoverComponent,
       componentProps: {
         product: this.product,
-        consumer_email: this.consumer_email
       },
       cssClass: ['inventory-modal'],
       backdropDismiss: false,
@@ -72,10 +76,11 @@ export class ProductCardComponent implements OnInit {
     });
     return await modal.present();
   }
-  updateWishlist(){
+  updateWishlist() {
     this.favClickAnalytics();
     this.profileFacade.toggleWishlist(this.product.id);
   }
+
   removeProd() {
     const data = {
       combo_id: this.combo_id,
@@ -83,6 +88,12 @@ export class ProductCardComponent implements OnInit {
     };
     this.comboFacade.removeProduct(data);
   }
+
+  removeProdFromWishlist() {
+    this.favClickAnalytics();
+    this.profileFacade.removeProductFromWishlist(this.product.id);
+  }
+
   goToProductPage(prod_id: number): void {
     // Create the navigation extras object with the search query as a parameter
 

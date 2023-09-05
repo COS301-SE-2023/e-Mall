@@ -125,7 +125,10 @@ const routes: Routes = [
   },
   {
     path: 'wishlist',
-    component: WishlistComponent,
+    loadChildren: () =>
+      import('@app/features/wishlist/wishlist.module').then(
+        m => m.WishlistModule
+      ),
     canActivate: [consumerTypeGuard],
   },
   {

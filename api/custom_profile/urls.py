@@ -6,6 +6,11 @@ urlpatterns = [
     path("update/", views.update, name="update_profile"),
     path("updateWishlist/", views.updateWishlist, name="update_wishlist"),
     path(
+        "removeProductFromWishlist/",
+        views.removeProductFromWishlist,
+        name="remove_product_from_wishlist",
+    ),
+    path(
         "updateFollowedSellers/",
         views.updateFollowedSellers,
         name="update_followed_sellers",
