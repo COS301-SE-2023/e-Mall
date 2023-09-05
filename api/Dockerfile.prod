@@ -14,7 +14,7 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log && ln -sf /dev/stderr /var/log/
 
 # Copy the requirements.txt file into the container
 COPY requirements.txt .
-COPY docker-entrypoint.sh .
+COPY docker-entrypoint.prod.sh .
 
 # Install the project's dependencies
 # RUN pip install --upgrade pip
