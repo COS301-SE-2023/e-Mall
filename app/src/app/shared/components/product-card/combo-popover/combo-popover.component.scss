@@ -11,18 +11,33 @@ ion-modal {
 }
 
 .modal-container {
-  height: 50%;
-  max-height: 50%; /* To ensure the modal doesn't exceed 100% of the viewport height */
+  height: 100%;
   width: 100%;
   padding: 20px;
+}
+.content-container{
+  height: 100%;
+  width: 100%;
 }
 /* Set a maximum height for the modal's content */
 ion-modal .modal-wrapper {
   height: 50%;
   max-height: 50vh; /* Adjust as needed */
 }
+.custom-select{
+  padding: 2%;
+}
+.newList{
+  padding-top: 0;
+  padding-bottom: 10%;
+  
+}
 .emails{
   width: fit-content;
+}
+.email{
+  --border-width: 0;
+  --inner-border-width: 0
 }
   
   .modal-container ion-item {
@@ -108,4 +123,5 @@ ion-modal .modal-wrapper {
   
  .input {
   width: 80%;
+
  }

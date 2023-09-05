@@ -11,16 +11,18 @@
       <ion-icon size="large" name="close-outline"></ion-icon>
     </ion-button>
   </ion-item>
-  <div class="modal-container" *ngIf="combos$">
+  <div class="content-container" *ngIf="combos$">
     <ng-container *ngIf="!newClicked; else new">
       <form [formGroup]="selectForm">
         <!-- Wrap form elements in a formGroup -->
         <ion-item class="item-padding" lines="none">
-          <div class="item-label">Select Options</div>
+          
           <ion-select
             multiple="true"
             interface="popover"
             formControlName="selectedOptions"
+            label="Select Combo"
+            label-placement="floating" fill="outline"
             class="custom-select">
             <ng-container *ngFor="let combo of combos$ | async">
               <ion-select-option value="{{ combo.id }}">{{
@@ -46,7 +48,7 @@
     <ng-template #new>
       <form [formGroup]="newForm">
         <!-- Wrap form elements in a formGroup -->
-        <ion-list>
+        <ion-list class="newList">
           <ion-item class="input">
             <ion-label position="floating">Name:</ion-label>
             <ion-input formControlName="newName" clearInput></ion-input>
@@ -59,15 +61,14 @@
               clearInput
               (keyup.enter)="createNewComboAndClearInput()"></ion-input>
           </ion-item>
-          <ion-item *ngIf="addEmails?.length!==0">
+          <ion-item *ngIf="addEmails?.length!==0" class="email">
             <ion-list>
               <div *ngFor="let email of addEmails">
-                <ion-item>
+                <ion-item class="email">
                   <ion-label class="emails">{{ email }}</ion-label>
                 </ion-item>
               </div>
             </ion-list>
-
           </ion-item>
         </ion-list>
         <ion-button mode="ios" color="primary" (click)="createNewCombo()"

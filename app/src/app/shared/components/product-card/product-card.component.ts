@@ -57,8 +57,13 @@ export class ProductCardComponent implements OnInit {
     const modal = await this.modalController.create({
       component: ComboPopoverComponent,
       componentProps: {
-        product: this.product, // Pass the product as a property
+        product: this.product,
       },
+      cssClass: ['inventory-modal'],
+      backdropDismiss: false, 
+      animated: true, 
+      mode: 'md',
+      presentingElement: await this.modalController.getTop(), 
     });
     return await modal.present();
   }
