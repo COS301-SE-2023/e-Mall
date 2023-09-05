@@ -1,13 +1,25 @@
 .cssload-container {
-    position: fixed;
-    width: 100%;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    //position: fixed;
+    //width: 100%;
+    //left: 0;
+    //right: 0;
+    //top: 0;
+    //bottom: 0;
     background-color: rgba(255, 255, 255, 0.7);
-    z-index: 9999;
+    //z-index: 9999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Make the container full-height */
+        //background-color: rgba(0, 0, 0, 0.6); /* Background color and opacity */
   }
+
+  .loader-content img {
+    max-width: 200px; /* Adjust the image size as needed */
+    /* Add any other image styles here */
+  }
+
   
   .cssload-speeding-wheel {
     content: "";
@@ -22,11 +34,11 @@
     border-radius: 50%;
     border-left-color: transparent;
     border-right-color: transparent;
-    animation: cssload-spin 500ms infinite linear;
-    -o-animation: cssload-spin 500ms infinite linear;
-    -ms-animation: cssload-spin 500ms infinite linear;
-    -webkit-animation: cssload-spin 500ms infinite linear;
-    -moz-animation: cssload-spin 500ms infinite linear;
+    animation: cssload-spin 800ms infinite linear;
+    -o-animation: cssload-spin 800ms infinite linear;
+    -ms-animation: cssload-spin 800ms infinite linear;
+    -webkit-animation: cssload-spin 800ms infinite linear;
+    -moz-animation: cssload-spin 800ms infinite linear;
   }
   
   @keyframes cssload-spin {
