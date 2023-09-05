@@ -22,7 +22,12 @@ import { ComboComponent } from '@features/combo/combo.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent, canActivate: [baseGuard] },
+
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [baseGuard, consumerTypeGuard],
+  },
   {
     path: 'construction',
     loadChildren: () =>
@@ -35,7 +40,7 @@ const routes: Routes = [
     path: 'search-results',
     loadChildren: () =>
       import('@app/features/search/search.module').then(m => m.SearchModule),
-    canActivate: [baseGuard],
+    canActivate: [baseGuard, consumerTypeGuard],
   },
   { path: 'category/:category', component: CategoryComponent },
   {
@@ -73,7 +78,7 @@ const routes: Routes = [
     path: 'about',
     loadChildren: () =>
       import('@app/features/about/about.module').then(m => m.AboutModule),
-    canActivate: [baseGuard],
+    canActivate: [baseGuard, consumerTypeGuard],
   },
   {
     path: 'sales',
@@ -94,13 +99,13 @@ const routes: Routes = [
     path: 'contact',
     loadChildren: () =>
       import('@app/features/contact/contact.module').then(m => m.ContactModule),
-    canActivate: [baseGuard],
+    canActivate: [baseGuard, consumerTypeGuard],
   },
   {
     path: 'products',
     loadChildren: () =>
       import('@app/features/product/product.module').then(m => m.ProductModule),
-    canActivate: [baseGuard],
+    canActivate: [baseGuard, consumerTypeGuard],
   },
   { path: 'policies-and-privacy', redirectTo: '/construction' },
   { path: 'ads', redirectTo: '/construction' },
@@ -116,6 +121,7 @@ const routes: Routes = [
   {
     path: 'customer-profile',
     component: CustomerProfileComponent,
+    canActivate: [baseGuard, consumerTypeGuard],
   },
   {
     path: 'wishlist',
@@ -134,9 +140,7 @@ const routes: Routes = [
   {
     path: 'combo',
     loadChildren: () =>
-      import('@app/features/combo/combo.module').then(
-        m => m.ComboModule
-      ),
+      import('@app/features/combo/combo.module').then(m => m.ComboModule),
     canActivate: [consumerTypeGuard],
   },
   {
@@ -147,6 +151,7 @@ const routes: Routes = [
   {
     path: 'seller-dashboard-settings',
     component: SellerDashboardSettingsComponent,
+    canActivate: [sellerTypeGuard],
   },
   // {
   //   path: 'profile',

@@ -8,6 +8,8 @@ import { AnalyticsService } from '@shared/servicies/analytics/analytics.service'
 import { ModalController, PopoverController } from '@ionic/angular';
 import { ComboPopoverComponent } from './combo-popover/combo-popover.component';
 import { ComboFacade } from '@features/combo-state/services/combo.facade';
+import { AuthFacade } from '@features/auth/services/auth.facade';
+import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
   selector: 'app-product-card',
@@ -29,7 +31,8 @@ export class ProductCardComponent implements OnInit {
     private router: Router,
     private profileFacade: ProfileFacade,
     private analytics: AnalyticsService,
-    private comboFacade: ComboFacade
+    private comboFacade: ComboFacade,
+    private authFacade: AuthFacade
   ) {
     this.pageType = '';
   }
@@ -49,10 +52,18 @@ export class ProductCardComponent implements OnInit {
     this.profileFacade.toggleWishlist(this.product.id);
   }
 
-  toggleBookmark() {
-    this.isBookmark = of(true);
-    this.openComboPopover();
+  async toggleBookmark() {
+    console.log('toggleBookmark');
+    if (!(await this.authFacade.isLoggedIn())) {
+      return this.router.navigate(['sign-in']);
+    } else if ((await this.authFacade.getUserType()) === 'seller') {
+      return this.router.navigate(['sales']);
+    } else {
+      this.isBookmark = of(true);
+      return this.openComboPopover();
+    }
   }
+
   async openComboPopover() {
     const modal = await this.modalController.create({
       component: ComboPopoverComponent,
@@ -60,10 +71,10 @@ export class ProductCardComponent implements OnInit {
         product: this.product,
       },
       cssClass: ['inventory-modal'],
-      backdropDismiss: false, 
-      animated: true, 
+      backdropDismiss: false,
+      animated: true,
       mode: 'md',
-      presentingElement: await this.modalController.getTop(), 
+      presentingElement: await this.modalController.getTop(),
     });
     return await modal.present();
   }
@@ -83,7 +94,6 @@ export class ProductCardComponent implements OnInit {
     };
 
     this.router.navigate(['products'], navigationextras);
-
   }
   getOneImg(imgList?: string[]) {
     //remove following when no need to have mock data
