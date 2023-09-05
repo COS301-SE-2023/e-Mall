@@ -67,6 +67,7 @@ export class ProductCardComponent implements OnInit {
       component: ComboPopoverComponent,
       componentProps: {
         product: this.product,
+        consumer_email: this.consumer_email
       },
       cssClass: ['inventory-modal'],
       backdropDismiss: false,
