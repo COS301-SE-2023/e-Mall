@@ -5,8 +5,8 @@
       <app-customer-profile-sidenav [profile]="{ username: profile.username }">
       </app-customer-profile-sidenav>
     </div>
-    <div *ngIf="comboData$ | async as comboData">
-      <div class="combos-container" *ngIf="comboData?.length === 0">
+    <div *ngIf="comboData$ | async as comboData" class="combos-container">
+      <div  *ngIf="comboData?.length === 0">
         <h2>My combos</h2>
         <div class="combos-container-nocards">
           <div class="product-card-no">
@@ -19,7 +19,7 @@
           <p>Create combos by clicking the plus icon on a product.</p>
         </div>
       </div>
-      <div class="combos-container" *ngIf="comboData?.length !== 0">
+      <div *ngIf="comboData?.length !== 0">
         <h2>My Combos</h2>
         <div class="row-combos-container-cards">
           <ng-container>

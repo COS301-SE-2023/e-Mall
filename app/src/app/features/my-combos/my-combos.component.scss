@@ -1,41 +1,48 @@
 .content-container {
-    display: flex;
-    justify-content: space-between; 
-  }
-  
+  display: flex;
+  justify-content: space-between;
+}
 
 .side-nav-container {
-    flex: 1; 
-    padding: 20px; 
-    //border: 1px solid green ;
-    max-width: 250px;
-  }
-  
+  flex: 1;
+  padding: 20px;
+  //border: 1px solid green ;
+  max-width: 250px;
+}
+
 .ion-content-wrapper {
-    display: flex;
-    flex-direction: row;
-    //border: 1px solid red ;
+  display: flex;
+  flex-direction: row;
+  //border: 1px solid red ;
+}
+.content {
+  display: flex;
+  flex-direction: row;
 }
 
-
+.wishlist-container{
+  flex: 1;
+  padding-left: 5%;
+  margin-top: 30px;
+  min-height: fit-content;
+}
 .combos-container {
-    flex: 1;
-    padding-left: 5%;
-    margin-top: 30px;
-    min-height: 1024px;
+  flex: 1;
+  padding-left: 5%;
+  margin-top: 30px;
+  min-height: fit-content;
 }
 
-
-.combos-container h2{
-
+.combos-container h2 {
   margin-left: 15px;
-  margin-top: 0px
+  margin-top: 0px;
 }
-
 
 .combos-container-cards {
-    flex: 1;
-    margin-top: 50px;
+  flex: 1;
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .combos-container-nocards {
@@ -46,11 +53,11 @@
 }
 
 .nimage {
-    width: 300px;
-    height: 300px;
-    justify-content: center;
-    opacity: 30%;
-    align-items: center;
+  width: 300px;
+  height: 300px;
+  justify-content: center;
+  opacity: 30%;
+  align-items: center;
 }
 
 ion-card {
@@ -106,6 +113,6 @@ ion-card-title {
   text-align: center;
 }
 
-.row-combos-container-cards{
+.row-combos-container-cards {
   display: flex;
 }
