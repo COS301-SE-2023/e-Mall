@@ -92,9 +92,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 
     this.prodClickAnalytics();
   }
-  toggleHeart() {
-    this.profileFacade.toggleWishlist(this.prod_id);
-  }
+
   toggleBookmark() {
     this.isBookmark = of(true);
     this.openComboPopover(); 

@@ -45,11 +45,6 @@ export class ProductCardComponent implements OnInit {
     });
   }
 
-  toggleHeart() {
-    this.favClickAnalytics();
-    this.profileFacade.toggleWishlist(this.product.id);
-  }
-
   async toggleBookmark() {
     console.log('toggleBookmark');
     if (!(await this.authFacade.isLoggedIn())) {

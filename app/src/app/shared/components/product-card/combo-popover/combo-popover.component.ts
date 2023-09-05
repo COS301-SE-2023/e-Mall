@@ -121,6 +121,7 @@ export class ComboPopoverComponent implements OnInit {
           };
           this.updateCombo(data);
         }
+        this.closePopover();
       } else {
         const data = {
           combo_ids: this.selectForm.value.selectedOptions,
@@ -128,13 +129,13 @@ export class ComboPopoverComponent implements OnInit {
           product: this.product,
         };
         this.updateCombo(data);
+        this.closePopover();
       }
     }
   }
 
   updateCombo(data: any) {
     this.comboFacade.updateCombo(data);
-    this.closePopover();
   }
 
   addCombo(data: any) {
