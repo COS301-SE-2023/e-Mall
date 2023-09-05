@@ -38,12 +38,11 @@ import { WishlistModule } from '@features/wishlist/wishlist.module';
 import { NavbarPopupModule } from '@shared/components/navbar-popup/navbar-popup.module';
 import { EditCustomerProfileModule } from '@features/edit-customer-profile/edit-customer-profile.module';
 import { SellerDashboardSettingsModule } from '@features/seller-dashboard-settings/seller-dashboard-settings.module';
-import { LogoLoaderComponent } from './shared/animations/logo-loader/logo-loader.component';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoadingInterceptor } from '@shared/components/spinner/interceptors/loading.interceptor';
 @NgModule({
-  declarations: [AppComponent, LogoLoaderComponent, SpinnerComponent],
+  declarations: [AppComponent, SpinnerComponent],
 
   imports: [
     BrowserModule,
