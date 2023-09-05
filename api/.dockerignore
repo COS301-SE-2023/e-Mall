@@ -152,3 +152,7 @@ GitHub.sublime-settings
 !.vscode/extensions.json 
 .history
 
+Dockerfile
+Dockerfile.prod
+docker-entrypoint.sh
+docker-entrypoint.prod.sh
