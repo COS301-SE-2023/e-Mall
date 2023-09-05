@@ -51,13 +51,7 @@ export class NavbarComponent {
     return await popover.present();
   }
 
-  async wishlist(event: Event) {
-    if (await this.authFacade.isLoggedIn()) {
-      this.router.navigate(['/wishlist']);
-    } else {
-      this.router.navigate(['/sign-in']);
-    }
-  }
+
 
   async combos(event: Event) {
     if (await this.authFacade.isLoggedIn()) {

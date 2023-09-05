@@ -28,7 +28,7 @@
       <div class="navbar-spacer"></div>
       <div class="button-container">
         <ion-button
-          (click)="wishlist($event)"
+          (click)="combos($event)"
           class="wishlist-button"
           shape="round"
           fill="clear"
@@ -37,17 +37,9 @@
           <!-- <span class="notification-badge" *ngIf="notificationCount">{{
             notificationCount
           }}</span> -->
-          <ion-badge  *ngIf="notificationCount">{{
+          <ion-badge *ngIf="notificationCount">{{
             notificationCount
           }}</ion-badge>
-        </ion-button>
-        <ion-button
-          (click)="wishlist($event)"
-          class="wishlist-button"
-          shape="round"
-          fill="clear"
-          mode="ios">
-          <ion-icon [name]="'heart'" style="color: black"></ion-icon>
         </ion-button>
         <ion-button
           (click)="combos($event)"
