@@ -154,5 +154,5 @@ GitHub.sublime-settings
 
 Dockerfile
 Dockerfile.prod
-docker-entrypoint.sh
-docker-entrypoint.prod.sh
+# docker-entrypoint.sh
+# docker-entrypoint.prod.sh
