@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - JY/00/django-static-files
 
 jobs:
   build_and_push:
