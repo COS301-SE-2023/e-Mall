@@ -2,7 +2,8 @@ name: deploy-v3
 
 on:
   push:
-    branches: master
+    branches:
+      - master
 
 jobs:
   build_and_push:
@@ -28,7 +29,7 @@ jobs:
           echo '' > ./app/src/environments/env.ts
           echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
           echo "${{secrets.FIREBASE_SW}}" > ./app/src/firebase-messaging-sw.js
-          cat > ./api/api/.env.prod <<EOL${{ secrets.API_ENV_PROD }}EOL
+          cat > ./api/api/.env <<EOL${{ secrets.API_ENV_PROD }}EOL
 
       - name: create-json
         if: matrix.service == 'backend'

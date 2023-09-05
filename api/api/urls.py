@@ -26,6 +26,10 @@ from django.urls import path, include
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
+from django.views.static import serve
+from .settings import STATIC_ROOT
+from django.urls import re_path
+from django.views.generic.base import RedirectView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -47,6 +51,7 @@ router = routers.DefaultRouter()
 # router.register(r"consumer", ConsumerViewSet)
 
 urlpatterns = [
+    path("", RedirectView.as_view(url="/api")),
     path("admin/", admin.site.urls),
     path("api/seller/", include("seller.urls")),
     path("accounts/", include("rest_framework.urls")),
@@ -67,4 +72,5 @@ urlpatterns = [
         schema_view.with_ui("redoc", cache_timeout=0),
         name="schema-redoc-ui",
     ),
+    re_path(r"^static/(?P<path>.*)$", serve, {"document_root": STATIC_ROOT}),
 ]
