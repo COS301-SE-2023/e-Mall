@@ -16,6 +16,7 @@ import { ComboPopoverComponent } from './combo-popover/combo-popover.component';
 export class ProductCardComponent implements OnInit {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() product: any;
+  @Input() pageType: string;
   isHearted = of(false);
   isBookmark = of(false);
   consumer_id!: string;
@@ -25,8 +26,10 @@ export class ProductCardComponent implements OnInit {
     private router: Router,
     private profileFacade: ProfileFacade,
     private analytics: AnalyticsService
-  ) {}
-  ngOnInit(): void {
+  ) {
+    this.pageType="";
+  }
+  ngOnInit(): void{
     this.isHearted = this.profileFacade.checkWishlist(this.product.id);
 
     this.profileFacade.getProfile().subscribe(profile => {
@@ -54,6 +57,10 @@ export class ProductCardComponent implements OnInit {
       },
     });
     return await modal.present();
+  }
+
+  removeProd(){
+    console
   }
   goToProductPage(prod_id: number): void {
     // Create the navigation extras object with the search query as a parameter

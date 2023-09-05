@@ -20,14 +20,24 @@
       <div class="price-and-buttons">
         <h4>R{{ product.min_price | number : '1.0-0' }}</h4>
         <div class="button-container">
-          <ion-button
+          <ion-button *ngIf="pageType==='normal'"
             (click)="toggleBookmark()"
             class="bookmark-button"
             shape="round"
             fill="clear"
             mode="ios">
             <ion-icon
-              [name]="(isBookmark | async) ? 'add' : 'add-outline'"
+              [name]="'add'"
+              style="color: var(--c-5-a, #37d0d6)"></ion-icon>
+          </ion-button>
+          <ion-button *ngIf="pageType==='comboPage'"
+            (click)="removeProd()"
+            class="bookmark-button"
+            shape="round"
+            fill="clear"
+            mode="ios">
+            <ion-icon
+              [name]="'trash'"
               style="color: var(--c-5-a, #37d0d6)"></ion-icon>
           </ion-button>
           <ion-button
