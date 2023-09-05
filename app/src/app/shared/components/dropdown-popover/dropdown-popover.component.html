@@ -1,7 +1,7 @@
 <!-- dropdown-popover.component.html -->
 
 <ion-list>
-  <ion-item *ngFor="let page of pages" (click)="onItemClicked(page.path,page.nav)">
+  <ion-item *ngFor="let page of pages" class="category-item" (click)="onItemClicked(page.path,page.nav)">
     {{ page.title }}
   </ion-item>
 </ion-list>

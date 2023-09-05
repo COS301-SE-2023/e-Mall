@@ -1,8 +1,13 @@
 <app-navbar></app-navbar>
 <ion-content>
+  <div class="spinner" *ngIf="(seller$ | async) === null">
+    <ion-spinner name="dots"></ion-spinner>
+    <ion-label>loading</ion-label>
+  </div>
   <ng-container *ngIf="seller$ | async as seller">
     <div class="details-container">
-      <div class="image-container">
+      
+      <div class="image-container" >
         <img class="image" src="{{ seller.logo }}" />
       </div>
       <div class="seller-info-container">

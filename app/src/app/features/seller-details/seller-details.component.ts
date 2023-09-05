@@ -52,8 +52,10 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
   ];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() sellerID: any;
+  showSpinner = true;
 
   private paramMapSubscription: Subscription;
+  
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
@@ -69,6 +71,13 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.showSpinner = true;
+    
+    setTimeout(() => {
+      this.showSpinner = false;
+      
+    }, 4500); 
+
     // Subscribe to changes in the query parameters (seller_id)
     console.log('seller details init');
     this.paramMapSubscription = this.route.queryParamMap

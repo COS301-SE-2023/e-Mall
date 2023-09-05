@@ -1,0 +1,99 @@
+.cssload-container {
+    //position: fixed;
+    //width: 100%;
+    //left: 0;
+    //right: 0;
+    //top: 0;
+    //bottom: 0;
+    background-color: rgb(10, 10, 10, 0.6);
+    //z-index: 9999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Make the container full-height */
+        //background-color: rgba(0, 0, 0, 0.6); /* Background color and opacity */
+  }
+
+  .loader-content img {
+    max-width: 200px; /* Adjust the image size as needed */
+    /* Add any other image styles here */
+  }
+
+  /*
+  .cssload-speeding-wheel {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 48%;
+    top: 40%;
+    width: 63px;
+    height: 63px;
+    margin: 0 auto;
+    border: 4px solid rgb(0, 0, 0);
+    border-radius: 50%;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    animation: cssload-spin 800ms infinite linear;
+    -o-animation: cssload-spin 800ms infinite linear;
+    -ms-animation: cssload-spin 800ms infinite linear;
+    -webkit-animation: cssload-spin 800ms infinite linear;
+    -moz-animation: cssload-spin 800ms infinite linear;
+  }
+  
+  @keyframes cssload-spin {
+    100% {
+      transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  
+  @-o-keyframes cssload-spin {
+    100% {
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  
+  @-ms-keyframes cssload-spin {
+    100% {
+      -ms-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  
+  @-webkit-keyframes cssload-spin {
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  
+  @-moz-keyframes cssload-spin {
+    100% {
+      -moz-transform: rotate(360deg);
+      transform: rotate(360deg);  
+    }
+  }*/
+
+  /*
+  .loader-content {
+
+    animation: glow 1.5s alternate infinite; 
+  }
+  
+  @keyframes glow {
+    0% {
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); 
+    }
+    100% {
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); 
+    }
+  }*/
+  
+  
+  
+  
+  
+  
+  

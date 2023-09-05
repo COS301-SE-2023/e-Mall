@@ -250,3 +250,37 @@ ion-toast.custom-notification::part(button) {
   right: 0px;
   top: 0px;
 }
+
+.carousel-control-prev-icon {
+  color: red; /* Customize the color of the left (previous) arrow */
+  width: 50rem;
+}
+
+.carousel-control-next-icon {
+  color: blue; /* Customize the color of the right (next) arrow */
+}
+
+
+.spinner ion-spinner{
+  width: 100px; 
+  height: 80px;
+  --color:black;
+}
+
+.spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.custom-loader {
+  background-color: rgb(0, 0, 0, 0.96);
+  box-shadow: none; 
+  border: none; 
+  border-radius: 0; 
+  color: #000; 
+  font-size: 18px; 
+  
+}
+
