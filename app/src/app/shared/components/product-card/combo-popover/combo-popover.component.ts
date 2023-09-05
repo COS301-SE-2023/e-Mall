@@ -21,7 +21,7 @@ export class ComboPopoverComponent implements OnInit {
   product!: IProduct;
   userEmail!: string;
   username!: string | undefined;
-  addEmails:string[]=[];
+  addEmails: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -47,7 +47,7 @@ export class ComboPopoverComponent implements OnInit {
 
     this.newForm = this.fb.group({
       newName: ['', Validators.required],
-      newEmails: ['', [ Validators.email]],
+      newEmails: ['', [Validators.email]],
     });
 
     this.comboFacade.getCombos().subscribe(data => {
@@ -61,20 +61,19 @@ export class ComboPopoverComponent implements OnInit {
 
   createNewComboAndClearInput() {
     // Get the "newEmails" form control
-    console.log("enter");
+    console.log('enter');
     const newEmailsControl = this.newForm.get('newEmails');
-  
+
     // Check if the control exists and is not null or undefined
-    if (newEmailsControl&&newEmailsControl.valid) {
-      console.log("here");
+    if (newEmailsControl && newEmailsControl.valid) {
+      console.log('here');
       // Push the value from the form control to your array (assuming "addEmails" is an array)
       this.addEmails.push(newEmailsControl.value);
-  
+
       // Reset the "newEmails" form control to clear the input field
       newEmailsControl.reset();
     }
   }
-  
 
   createNewCombo() {
     if (this.newForm.valid) {
@@ -90,7 +89,8 @@ export class ComboPopoverComponent implements OnInit {
         combo_name: newName,
         user_emails: useremailsarray,
         product_ids: [this.product.id], // You need to define 'this.product'
-        username: [this.username], // You need to define 'this.username'
+        username: [this.username], // You need to define 'this.username',
+        product: this.product,
       };
 
       // Reset the form

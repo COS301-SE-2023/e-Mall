@@ -17,6 +17,16 @@ export class UpdateCombo {
   ) {}
 }
 
+export class RemoveProductFromCombo {
+  static readonly type = '[Combo] Remove Product From Combo';
+  constructor(
+    public payload: {
+      combo_id: number;
+      product_id: number;
+    }
+  ) {}
+}
+
 export class EditCombo {
   static readonly type = '[Combo] Edit Combo';
   constructor(

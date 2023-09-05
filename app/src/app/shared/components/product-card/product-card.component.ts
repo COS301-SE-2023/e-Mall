@@ -7,6 +7,7 @@ import { IProductSeller } from '@shared/models/product/product-seller.interface'
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { ComboPopoverComponent } from './combo-popover/combo-popover.component';
+import { ComboFacade } from '@features/combo-state/services/combo.facade';
 
 @Component({
   selector: 'app-product-card',
@@ -17,19 +18,22 @@ export class ProductCardComponent implements OnInit {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() product: any;
   @Input() pageType: string;
+  @Input() combo_id!: any;
   isHearted = of(false);
   isBookmark = of(false);
   consumer_id!: string;
   consumer_email!: string;
+
   constructor(
     private modalController: ModalController,
     private router: Router,
     private profileFacade: ProfileFacade,
-    private analytics: AnalyticsService
+    private analytics: AnalyticsService,
+    private comboFacade: ComboFacade
   ) {
-    this.pageType="";
+    this.pageType = '';
   }
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.isHearted = this.profileFacade.checkWishlist(this.product.id);
 
     this.profileFacade.getProfile().subscribe(profile => {
@@ -59,8 +63,12 @@ export class ProductCardComponent implements OnInit {
     return await modal.present();
   }
 
-  removeProd(){
-    console
+  removeProd() {
+    const data = {
+      combo_id: this.combo_id,
+      product_id: this.product.id,
+    };
+    this.comboFacade.removeProduct(data);
   }
   goToProductPage(prod_id: number): void {
     // Create the navigation extras object with the search query as a parameter
@@ -71,7 +79,6 @@ export class ProductCardComponent implements OnInit {
 
     this.router.navigate(['products'], navigationextras);
 
-    console.log(prod_id);
   }
   getOneImg(imgList?: string[]) {
     //remove following when no need to have mock data
@@ -80,6 +87,7 @@ export class ProductCardComponent implements OnInit {
     }
     return imgList[0];
   }
+
   favClickAnalytics(): void {
     if (this.product) {
       const data = {
@@ -90,8 +98,6 @@ export class ProductCardComponent implements OnInit {
         event_type: 'favourited_product',
         metadata: null,
       };
-      console.log(data);
-      console.log(this.product);
       this.analytics.createAnalyticsData(data);
     }
   }

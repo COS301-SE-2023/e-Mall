@@ -101,13 +101,31 @@ def update(request):
             # update existing combo
             for id in combo_ids:
                 combo = Combos.objects.get(id=id)
-                if product_id not in combo.product_ids:
-                    combo.product_ids.append(product_id)
-                else:
-                    combo.product_ids.remove(product_id)
+                combo.product_ids.append(product_id)
                 if combo_name != "":
                     combo.combo_name = combo_name
                 combo.save()
+        return Response({"success": "Combo updated successfully"})
+    except Exception as e:
+        # handle other exceptions here
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(["POST"])
+def removeProduct(request):
+    try:
+        user = request.user
+        combo_id = request.data["combo_id"]
+        product_id = request.data["product_id"]
+        if user is None:
+            raise Exception("User not found")
+        if user.type == "seller":
+            raise Exception("Seller cannot create combos")
+        if user.type == "consumer":
+            # update existing combo
+            combo = Combos.objects.get(id=combo_id)
+            combo.product_ids.remove(product_id)
+            combo.save()
         return Response({"success": "Combo updated successfully"})
     except Exception as e:
         # handle other exceptions here
