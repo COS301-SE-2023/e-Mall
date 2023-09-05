@@ -48,7 +48,7 @@
                 class="col-md-3 col-12"
                 style="grid-auto-columns: auto; min-width: 300px"
                 *ngFor="let product of products; let i = index">
-                <app-product-card [product]="product" [pageType]="'normal'"></app-product-card>
+                <app-product-card [product]="product" [pageType]="'wishlistPage'"></app-product-card>
                 <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
                 <div
                   class="col-md-1"

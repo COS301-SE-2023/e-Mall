@@ -40,6 +40,16 @@
               [name]="'trash'"
               style="color: var(--c-5-a, #37d0d6)"></ion-icon>
           </ion-button>
+          <ion-button *ngIf="pageType==='wishlistPage'"
+          (click)="updateWishlist()"
+          class="bookmark-button"
+          shape="round"
+          fill="clear"
+          mode="ios">
+          <ion-icon
+            [name]="'trash'"
+            style="color: var(--c-5-a, #37d0d6)"></ion-icon>
+        </ion-button>
           <ion-button
             (click)="toggleHeart()"
             class="wishlist-button"

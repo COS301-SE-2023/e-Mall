@@ -29,6 +29,8 @@ export class MyCombosComponent implements OnInit, OnDestroy {
   email!: string;
   private routeSubscription: Subscription = new Subscription();
   imgs: string[] = [];
+  wishlistImages: string[] = []
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -44,6 +46,7 @@ export class MyCombosComponent implements OnInit, OnDestroy {
       }
     });
     this.collage();
+    this.wishlistCollage();
   }
 
   ngAfterViewInit(): void {
@@ -67,6 +70,11 @@ export class MyCombosComponent implements OnInit, OnDestroy {
 
   goToConstruction() {
     this.router.navigate(['/construction']);
+  }
+
+  
+  goToWishlist() {
+    this.router.navigate(['/wishlist']);
   }
 
   goToComboPage(combo_id: number) {
@@ -119,5 +127,21 @@ export class MyCombosComponent implements OnInit, OnDestroy {
         }
       })
     );
+  }
+
+
+  wishlistCollage(){
+    this.consumerService.getConsumerInfo(this.email).subscribe(data => {
+      for (let i = 0; i < 4; i++) {
+        this.wishlistImages[i] = 'assets/images/logo-black-no-bg.png';
+      }
+      let image_count = 0;
+      data.products.forEach((product: IProduct) => {
+        if (product.min_price_img_array && image_count < 4) {
+          this.wishlistImages[image_count] = product.min_price_img_array[0];
+          image_count++;
+        }
+      });
+    });
   }
 }

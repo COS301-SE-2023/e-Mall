@@ -37,8 +37,6 @@ export class ProductCardComponent implements OnInit {
     this.pageType = '';
   }
   ngOnInit(): void {
-    this.isHearted = this.profileFacade.checkWishlist(this.product.id);
-
     this.profileFacade.getProfile().subscribe(profile => {
       if (profile) {
         this.consumer_id = profile.id;
@@ -78,7 +76,10 @@ export class ProductCardComponent implements OnInit {
     });
     return await modal.present();
   }
-
+  updateWishlist(){
+    this.favClickAnalytics();
+    this.profileFacade.toggleWishlist(this.product.id);
+  }
   removeProd() {
     const data = {
       combo_id: this.combo_id,

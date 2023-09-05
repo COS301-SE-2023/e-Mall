@@ -17,6 +17,14 @@
   justify-content: flex-start;
   align-items: flex-start;
 }
+/* component.css or your CSS file */
+.combo-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+  gap: 20px; 
+}
+
+
 .content {
   display: flex;
   flex-direction: row;
