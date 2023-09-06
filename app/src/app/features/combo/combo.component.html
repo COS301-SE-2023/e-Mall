@@ -15,55 +15,83 @@
           <ion-button (click)="leaveCombo()">Leave Combo</ion-button>
         </div>
       </div>
-      <div class="user-cards">
-        <ion-card class="user-card">
-          <ion-card-header (click)="togglePanel(1)">
-            <div class="users">
-              <ion-card-title>Active Users </ion-card-title>
-              <ion-icon
-                *ngIf="!isPanelOpen[1]"
-                name="chevron-down"
-                class="arrow"></ion-icon>
-              <ion-icon
-                *ngIf="isPanelOpen[1]"
-                name="chevron-up"
-                class="arrow"></ion-icon>
-            </div>
-          </ion-card-header>
-          <ion-card-content [hidden]="!isPanelOpen[1]">
-            <ion-list>
-              <div *ngFor="let user of active_users">
-                <ion-item>
-                  <ion-label>{{ user }}</ion-label>
+      <div class="head">
+        <div class="user-cards">
+          <ion-card class="user-card">
+            <ion-card-header (click)="togglePanel(1)">
+              <div class="users">
+                <ion-card-title>Active Users</ion-card-title>
+                <ion-icon
+                  *ngIf="!isPanelOpen[1]"
+                  name="chevron-down"
+                  class="arrow"></ion-icon>
+                <ion-icon
+                  *ngIf="isPanelOpen[1]"
+                  name="chevron-up"
+                  class="arrow"></ion-icon>
+              </div>
+            </ion-card-header>
+            <ion-card-content [hidden]="!isPanelOpen[1]">
+              <ion-list>
+                <div *ngFor="let user of active_users">
+                  <ion-item>
+                    <ion-label>{{ user }}</ion-label>
+                  </ion-item>
+                </div>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+          <ion-card *ngIf="pending_users?.length !== 0" class="user-card">
+            <ion-card-header (click)="togglePanel(2)">
+              <div class="users">
+                <ion-card-title>Pending Users</ion-card-title>
+                <ion-icon
+                  *ngIf="!isPanelOpen[2]"
+                  name="chevron-down"
+                  class="arrow"></ion-icon>
+                <ion-icon
+                  *ngIf="isPanelOpen[2]"
+                  name="chevron-up"
+                  class="arrow"></ion-icon>
+              </div>
+            </ion-card-header>
+            <ion-card-content [hidden]="!isPanelOpen[2]">
+              <ion-list>
+                <div *ngFor="let user of pending_users">
+                  <ion-item>
+                    <ion-label>{{ user }}</ion-label>
+                  </ion-item>
+                </div>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </div>
+        <div class="collection-cards" *ngIf="comboData$ | async as combos">
+          <ion-card class="collection-card">
+            <ion-card-header (click)="togglePanel(3)">
+              <div class="users">
+                <ion-card-title>My Collections</ion-card-title>
+                <ion-icon
+                  *ngIf="!isPanelOpen[3]"
+                  name="chevron-down"
+                  class="arrow"></ion-icon>
+                <ion-icon
+                  *ngIf="isPanelOpen[3]"
+                  name="chevron-up"
+                  class="arrow"></ion-icon>
+              </div>
+            </ion-card-header>
+            <ion-card-content [hidden]="!isPanelOpen[3]">
+              <ion-list> 
+                <div *ngFor="let combo of combos">
+                <ion-item (click)="goToComboPage(combo.id)">
+                  <ion-label>{{ combo.name }}</ion-label>
                 </ion-item>
               </div>
             </ion-list>
-          </ion-card-content>
-        </ion-card>
-        <ion-card *ngIf="pending_users?.length !== 0">
-          <ion-card-header (click)="togglePanel(2)">
-            <div class="users">
-              <ion-card-title>Pending Users </ion-card-title>
-              <ion-icon
-                *ngIf="!isPanelOpen[2]"
-                name="chevron-down"
-                class="arrow"></ion-icon>
-              <ion-icon
-                *ngIf="isPanelOpen[2]"
-                name="chevron-up"
-                class="arrow"></ion-icon>
-            </div>
-          </ion-card-header>
-          <ion-card-content [hidden]="!isPanelOpen[2]">
-            <ion-list>
-              <div *ngFor="let user of pending_users">
-                <ion-item>
-                  <ion-label>{{ user }}</ion-label>
-                </ion-item>
-              </div>
-            </ion-list>
-          </ion-card-content>
-        </ion-card>
+            </ion-card-content>
+          </ion-card>
+        </div>
       </div>
       <div class="combo-container-nocards" *ngIf="!combo$">
         <div class="product-card-no">
@@ -89,17 +117,12 @@
             <div class="row" style="grid-auto-rows: auto">
               <div
                 class="col-md-3 col-12"
-                style="grid-auto-columns: auto; min-width: 300px"
-                *ngFor="let product of products; let i = index">
-                <app-product-card [product]="product" [pageType]="'comboPage'" [combo_id]="combo_id"></app-product-card>
-                <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
-                <div
-                  class="col-md-1"
-                  *ngIf="
-                    (i + 1) % 4 === 0 &&
-                    products.length > 4 &&
-                    i + 1 !== products.length
-                  "></div>
+                style="grid-auto-columns: auto; min-width: 270px"
+                *ngFor="let product of products">
+                <app-product-card
+                  [product]="product"
+                  [pageType]="'comboPage'"
+                  [combo_id]="combo_id"></app-product-card>
               </div>
             </div>
           </ng-container>

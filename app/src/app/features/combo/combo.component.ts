@@ -4,7 +4,7 @@ import { ProfileFacade } from '../profile/services/profile.facade';
 import { ISellerProfile } from '../profile/models/seller-profile.interface';
 import { IConsumerProfile } from '../profile/models/consumer-profile.interface';
 import { ICombo } from '@features/combo-state/models/combo.interface';
-import { Observable, Subscription, of } from 'rxjs';
+import { Observable, Subscription, map, of } from 'rxjs';
 import { EmailValidator, FormControl, FormGroup } from '@angular/forms';
 import { IProduct } from '@shared/models/product/product.interface';
 import { ConsumerService } from '@shared/servicies/consumer/consumer.service';
@@ -22,6 +22,7 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./combo.component.scss'],
 })
 export class ComboComponent implements OnInit, OnDestroy {
+  comboData$: Observable<any> | undefined;
   products$!: Observable<IProduct[] | undefined>;
   bool = true;
   profile$!: Observable<ISellerProfile | IConsumerProfile | null>;
@@ -70,6 +71,8 @@ export class ComboComponent implements OnInit, OnDestroy {
       this.pending_users = data?.pending_users;
       this.name = data?.name;
     });
+
+    this.comboData();
   }
   // Subscribe to route parameter changes and reload data accordingly
 
@@ -94,6 +97,12 @@ export class ComboComponent implements OnInit, OnDestroy {
 
   goToConstruction() {
     this.router.navigate(['/construction']);
+  }
+  goToComboPage(combo_id: number) {
+    const navigationextras: NavigationExtras = {
+      queryParams: { combo_id: combo_id },
+    };
+    this.router.navigate(['/combo'], navigationextras);
   }
 
   getOneImg(imgList?: string[]) {
@@ -136,4 +145,29 @@ export class ComboComponent implements OnInit, OnDestroy {
     this.comboFacade.deleteUser(data);
     this.router.navigate(['/my-combos']);
   }
+
+
+  comboData() {
+    this.comboData$ = this.comboFacade.getCombos().pipe(
+      map(combos => {
+        if (combos) {
+          const comboData: any[] = [];
+          combos.forEach((combo: ICombo) => {
+            if (combo.products) {
+              const comboObj = {
+                id: combo.id,
+                name: combo.name,
+              };
+              comboData.push(comboObj);
+            }
+          });
+          return comboData;
+        } else {
+          return [];
+        }
+      })
+    );
+  }
+
 }
+
