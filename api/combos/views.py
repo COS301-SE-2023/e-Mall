@@ -11,11 +11,12 @@ from product.models import Product
 from user.models import User
 from consumer.models import Consumer
 from consumer.serializers import ConsumerSerializer
+from django.views.decorators.http import require_http_methods
 
 # Create your views here.
 
 
-@api_view(["POST"])
+@require_http_methods(["POST"])
 def create(request):
     try:
         user = request.user
@@ -43,7 +44,7 @@ def create(request):
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-@api_view(["POST"])
+@require_http_methods(["POST"])
 def update_user(request):
     try:
         user = request.user
@@ -82,7 +83,7 @@ def update_user(request):
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-@api_view(["POST"])
+@require_http_methods(["POST"])
 def update(request):
     try:
         user = request.user
@@ -111,7 +112,7 @@ def update(request):
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-@api_view(["POST"])
+@require_http_methods(["POST"])
 def removeProduct(request):
     try:
         user = request.user
@@ -132,7 +133,7 @@ def removeProduct(request):
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-@api_view(["POST"])
+@require_http_methods(["POST"])
 def edit(request):
     try:
         user = request.user
@@ -158,7 +159,7 @@ def edit(request):
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-@api_view(["POST"])
+@require_http_methods(["POST"])
 def delete(request):
     try:
         user = request.user
@@ -186,7 +187,7 @@ def delete(request):
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-@api_view(["POST"])
+@require_http_methods(["POST"])
 def get(request):
     try:
         user = request.user
