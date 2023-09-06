@@ -83,6 +83,9 @@
             </ion-card-header>
             <ion-card-content [hidden]="!isPanelOpen[3]">
               <ion-list> 
+                <ion-item (click)="goToWishlist()">
+                  <ion-label>Wishlist</ion-label>
+                </ion-item>
                 <div *ngFor="let combo of combos">
                 <ion-item (click)="goToComboPage(combo.id)">
                   <ion-label>{{ combo.name }}</ion-label>

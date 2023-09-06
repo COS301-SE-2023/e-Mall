@@ -112,7 +112,9 @@ export class ComboComponent implements OnInit, OnDestroy {
 
     return imgList[0];
   }
-
+  goToWishlist() {
+    this.router.navigate(['/wishlist']);
+  }
   goToProductPage(prod_id: number): void {
     // Create the navigation extras object with the search query as a parameter
 
