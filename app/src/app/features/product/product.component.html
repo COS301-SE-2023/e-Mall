@@ -10,9 +10,6 @@
         <div
           class="row product-img-info-container"
           style="margin-left: 10px; margin-right: 10px">
-          <!--<div *ngIf="(product$ | async) === null">
-            <mat-spinner></mat-spinner>
-          </div>-->
           <div class="col-sm-4 col-md-4 col-lg-4 mini-imgs-container">
             <div
               class="mini-imgs-small-container"
@@ -43,26 +40,34 @@
                   class="min-price-discount_rate"
                   *ngIf="product$ | async as product">
                   <span
-                    class="badge bg-danger discount_rate_badge"
-                    matTooltip="Product discount rate"
+                    class="discount-tag"
                     *ngIf="product.min_price_discount_rate !== 0">
-                    -{{ ((product.min_price_discount_rate ?? 0) * 100 | number:'1.0-0') }}%
+                    <ion-label>
+                      -{{
+                        (product.min_price_discount_rate ?? 0) * 100
+                          | number : '1.0-0'
+                      }}%</ion-label
+                    >
                   </span>
                 </div>
               </div>
               <mat-card-actions>
-                <ion-button
-                  (click)="toggleHeart()"
-                  (click)="favClickAnalytics()"
-                  class="wishlist-button"
-                  shape="round"
-                  fill="clear"
-                  mode="ios">
-                  <ion-icon
-                    [name]="(isHearted | async) ? 'heart' : 'heart-outline'"
-                    name="heart"
-                    style="color: red"></ion-icon>
-                </ion-button>
+                <span class="button-container">
+                  <ion-button
+                    (click)="toggleBookmark()"
+                    class="bookmark-button"
+                    shape="round"
+                    fill="clear"
+                    mode="ios">
+                    <ion-icon
+                      [name]="
+                        (isBookmark | async)
+                          ? 'bookmark-outline'
+                          : 'bookmark-outline'
+                      "
+                      style="color: var(--c-5-a, #37d0d6)"></ion-icon>
+                  </ion-button>
+                </span>
               </mat-card-actions>
             </mat-card>
           </div>
@@ -70,7 +75,7 @@
             <div
               class="upper-product-info-small-container"
               *ngIf="product$ | async as product">
-              <h2 style="font-family: airbone, Arial, Helvetica, sans-serif">
+              <h2>
                 {{ product.name }}
               </h2>
               <h4>{{ product.brand }}</h4>
@@ -108,17 +113,11 @@
                   >Prices</a
                 >
               </li>
-              <!--<li class="nav-item">
-                <a class="nav-link">Statistics</a>
-              </li>-->
               <li class="nav-item">
                 <a class="nav-link" (click)="scroll(product_info)"
                   >Product information</a
                 >
               </li>
-              <!--<li class="nav-item">
-                <a class="nav-link">Reviews & tests</a>
-              </li>-->
             </ul>
           </div>
         </nav>
@@ -145,14 +144,15 @@
                 <mat-accordion>
                   <mat-expansion-panel hideToggle disabled>
                     <mat-expansion-panel-header>
-                      <mat-panel-title >
-                        <mat-card-title class="seller-name" (click)="goToSellerPage(seller.seller)">{{
-                          seller.business_name
-                        }}</mat-card-title>
+                      <mat-panel-title>
+                        <mat-card-title
+                          class="seller-name"
+                          (click)="goToSellerPage(seller.seller)"
+                          >{{ seller.business_name }}</mat-card-title
+                        >
                       </mat-panel-title>
                       <mat-panel-description></mat-panel-description>
                     </mat-expansion-panel-header>
-                    
                   </mat-expansion-panel>
                   <mat-card-header class="seller-product-name-price">
                     <div class="container-fluid card-title-container">
@@ -195,78 +195,6 @@
           </ul>
         </ng-container>
 
-        <!--<div
-            *ngFor="let seller of sellers"
-            class="container-fluid comp-products">
-            <div class="row drop-d-sellerName-container">
-              <div class="col-sm-3 col-md-3 col-lg-3 dropdown-arrow">
-                <span class=""
-                  ><i class="fa-solid fa-chevron-down" aria-hidden="true"></i
-                ></span>
-              </div>
-              <div class="col-sm-9 col-md-9 col-lg-9 seller-name">
-                <span class="">{{ seller.business_name }}</span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12 col-md-12 col-lg-12 product-name">
-                {{ seller.product_name }}
-                <span class="product-name-price">{{ seller.price }}</span >
-              </div>
-            </div>
-          </div>-->
-
-        <!--</ng-container>-->
-        <!--<div class="container-fluid related-products" *ngIf="products">
-          <h3>Related Products</h3>
-          <div class="row">
-            <div class="col-sm-3 col-md-3 col-lg-3">
-              <div class="card" style="width: 18rem">
-                <img
-                  [src]="products[6].img"
-                  alt="Product Image"
-                  class="card-img-top related-product-img" />
-                <div class="card-body">
-                  <h5 class="card-title">{{ products[6].brand }}</h5>
-                  <h6 class="card-subtitle mb-2 text-body-secondary">
-                    {{ products[6].description }}
-                  </h6>
-                  <p class="card-text">R{{ products[6].min_price }}</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-3 col-md-3 col-lg-3">
-              <div class="card" style="width: 18rem">
-                <img
-                  [src]="products[17].img"
-                  alt="Product Image"
-                  class="card-img-top related-product-img" />
-                <div class="card-body">
-                  <h5 class="card-title">{{ products[17].brand }}</h5>
-                  <h6 class="card-subtitle mb-2 text-body-secondary">
-                    {{ products[17].description }}
-                  </h6>
-                  <p class="card-text">R{{ products[17].min_price }}</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-3 col-md-3 col-lg-3">
-              <div class="card" style="width: 18rem">
-                <img
-                  [src]="products[19].img"
-                  alt="Product Image"
-                  class="card-img-top related-product-img" />
-                <div class="card-body">
-                  <h5 class="card-title">{{ products[19].brand }}</h5>
-                  <h6 class="card-subtitle mb-2 text-body-secondary">
-                    {{ products[19].description }}
-                  </h6>
-                  <p class="card-text">R{{ products[19].min_price }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
         <div
           style="padding-left: 30px; padding-right: 30px"
           #product_info
@@ -290,145 +218,7 @@
             </div>
           </ng-container>
         </div>
-
-        <!--<div class="container-fluid reviews" id="reviews">
-          <h3>Reviews</h3>
-          <div class="row">
-            <div class="col-sm-7 col-md-7 col-lg-7 reviews-info-container">
-              ------------------------------------------ reviews------------------------------------------------
-              <p>
-                <span><i class="fa-solid fa-star overall-star"></i></span
-                ><b> 4.7</b> (from 4,703 reviews)
-              </p>
-              <p>
-                Let us know your thoughts on a product or view reviews from
-                others. Please note that e-Mall does not verify whether the user
-                has used or purchased the product.
-              </p>
-            </div>
-            <div class="col-sm-2 col-md-2 col-lg-2 show-all">
-              <a routerLink="./construction"><B>Show all</B></a>
-            </div>
-          </div>
-
-          <div class="row review-row">
-            <div class="col-sm-3 col-md-3 col-lg-3 reviews-cols">
-              <div class="card review-card" style="width: 18rem">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-2 col-md-2 col-lg-2">
-                      <div class="S-div">
-                        <span class="initial">S</span>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-6">
-                      <div class="reviewer-name">
-                        <h6 class="card-title">Samukelo</h6>
-                        <p>2 months ago</p>
-                      </div>
-                    </div>
-                    <div class="col-sm-4 col-md-4 col-lg-4">
-                      <div class="reviewer-star-container">
-                        <span
-                          ><i class="fa-solid fa-star reviewer-star"></i></span
-                        ><b>3</b>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="card-text">
-                    I'm really impressed with this product. It exceeded my
-                    expectations and works flawlessly!
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-3 col-md-3 col-lg-3 reviews-cols">
-              <div class="card review-card" style="width: 18rem">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-2 col-md-2 col-lg-2">
-                      <div class="J-div">
-                        <span class="initial">J</span>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-6">
-                      <div class="reviewer-name">
-                        <h6 class="card-title">Jane</h6>
-                        <p>1 month ago</p>
-                      </div>
-                    </div>
-                    <div class="col-sm-4 col-md-4 col-lg-4">
-                      <div class="reviewer-star-container">
-                        <span
-                          ><i class="fa-solid fa-star reviewer-star"></i></span
-                        ><b>5</b>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="card-text">
-                    I've been using this product for a while now, and I can't
-                    imagine my life without it. Highly recommended!
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-3 col-md-3 col-lg-3 reviews-cols">
-              <div class="card review-card" style="width: 18rem">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-2 col-md-2 col-lg-2">
-                      <div class="SD-div">
-                        <span class="initial">SD</span>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-6">
-                      <div class="reviewer-name">
-                        <h6 class="card-title">Sam Day</h6>
-                        <p>4 months ago</p>
-                      </div>
-                    </div>
-                    <div class="col-sm-4 col-md-4 col-lg-4">
-                      <div class="reviewer-star-container">
-                        <span
-                          ><i class="fa-solid fa-star reviewer-star"></i></span
-                        ><b>4</b>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="card-text">
-                    I've tried several similar products, but this one stands out
-                    from the rest. It's reliable, easy to use, and delivers
-                    consistent results.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <button
-            class="btn btn-outline-dark my-2 my-sm-0 ms-auto post-review"
-            type="submit"
-            routerLink="/construction">
-            <span><i class="fa-solid fa-pen"></i></span>
-            Post a review
-          </button>
-        </div>-->
-
-        <!--
-        <div class="container-fluid statistics" id="statistics">
-          <h3>Statistics</h3>
-        </div>
-      -->
-
-        <!--
-        <div *ngIf="product">
-          <h1>{{ product[0].brand }}</h1>
-          <img [src]="product[0].img" alt="Product Image">
-        </div>
-        
-      --></div>
+      </div>
     </div>
   </div>
   <app-footer></app-footer>

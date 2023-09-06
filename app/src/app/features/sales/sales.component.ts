@@ -41,7 +41,6 @@ export class SalesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('sales component initialized');
     this.profileFacade.getProfile().subscribe(profile => {
       if (profile) {
         if ('business_name' in profile.details) {
@@ -78,8 +77,6 @@ export class SalesComponent implements OnInit {
         this.categoryPercentage = data.map(
           (item: { [x: string]: any }) => item['percentage']
         );
-        console.log(this.categories);
-        console.log(this.categoryPercentage);
       });
       this.createCategoryPercentageChart();
     });

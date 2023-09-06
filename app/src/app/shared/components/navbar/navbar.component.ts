@@ -18,6 +18,7 @@ import { NavbarPopupComponent } from '@shared/components/navbar-popup/navbar-pop
 export class NavbarComponent {
   isAuthenticated: Observable<IUser | null>;
   isCategoryOpened = false;
+  notificationCount!: number;
   constructor(
     private router: Router,
     private authFacade: AuthFacade,
@@ -26,6 +27,7 @@ export class NavbarComponent {
     public modalController: ModalController
   ) {
     this.isAuthenticated = this.authFacade.getCurrentUser();
+    //this.notificationCount = 20;
   }
 
   search(searchQuery: string): void {
@@ -49,9 +51,11 @@ export class NavbarComponent {
     return await popover.present();
   }
 
-  async wishlist(event: Event) {
+
+
+  async combos(event: Event) {
     if (await this.authFacade.isLoggedIn()) {
-      this.router.navigate(['/wishlist']);
+      this.router.navigate(['/my-combos']);
     } else {
       this.router.navigate(['/sign-in']);
     }

@@ -16,10 +16,10 @@
 }
 
 .pic {
+    width: 50%;
     height: auto;
-    width: 400px;
     border-radius: 12px;
-}
+  }
 
 .about {
     width: 1130px;
@@ -77,3 +77,25 @@ span {
 .hire:hover {
     background: #000;
 }
+
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .text h2 {
+      font-size: 8vw;
+    }
+  
+    .text h5 {
+      font-size: 3vw;
+    }
+  
+    .text p {
+      font-size: 2.5vw;
+      line-height: 3vw;
+    }
+  
+    .hire {
+      font-size: 2.5vw;
+      padding: 2vw 4vw;
+    }
+  }

@@ -1,9 +1,10 @@
 <ion-card>
-  
-
   <div class="discount-tag" *ngIf="product.min_price_discount_rate > 0">
-    <ion-label>-{{ product.min_price_discount_rate*100 | number:'1.0-0' }}%</ion-label>
-
+    <ion-label
+      >-{{
+        product.min_price_discount_rate * 100 | number : '1.0-0'
+      }}%</ion-label
+    >
   </div>
   <ion-img
     [src]="getOneImg(product?.min_price_img_array)"
@@ -16,19 +17,43 @@
         }}</ion-card-title>
         <p>{{ product.category }}</p>
       </div>
-      <div style="display: flex; align-items: center">
-        <h4 style="margin-right: 90px">R{{ product.min_price | number:'1.0-0'}}</h4>
-        <ion-button
-          (click)="toggleHeart()"
-          class="wishlist-button"
-          shape="round"
-          fill="clear"
-          mode="ios">
-          <ion-icon
-            [name]="(isHearted | async) ? 'heart' : 'heart-outline'"
-            name="heart"
-            style="color: red"></ion-icon>
-        </ion-button>
+      <div class="price-and-buttons">
+        <h4>R{{ product.min_price | number : '1.0-0' }}</h4>
+        <div class="button-container">
+          <ion-button
+            *ngIf="pageType === 'normal'"
+            (click)="toggleBookmark()"
+            class="bookmark-button"
+            shape="round"
+            fill="clear"
+            mode="ios">
+            <ion-icon
+              [name]="'bookmark-outline'"
+              style="color: var(--c-5-a, #37d0d6)"></ion-icon>
+          </ion-button>
+          <ion-button
+            *ngIf="pageType === 'comboPage'"
+            (click)="removeProd()"
+            class="bookmark-button"
+            shape="round"
+            fill="clear"
+            mode="ios">
+            <ion-icon
+              [name]="'trash'"
+              style="color: var(--c-5-a, #37d0d6)"></ion-icon>
+          </ion-button>
+          <ion-button
+            *ngIf="pageType === 'wishlistPage'"
+            (click)="removeProdFromWishlist()"
+            class="bookmark-button"
+            shape="round"
+            fill="clear"
+            mode="ios">
+            <ion-icon
+              [name]="'trash'"
+              style="color: var(--c-5-a, #37d0d6)"></ion-icon>
+          </ion-button>
+        </div>
       </div>
     </div>
   </ion-card-content>
