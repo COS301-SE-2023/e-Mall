@@ -17,7 +17,6 @@ export class CustomerProfileSidenavComponent implements OnInit, OnDestroy {
   routerURL = new Subscription();
 
   constructor(private router: Router, private authFacade: AuthFacade) {
-    console.log('profile side init');
     this.currentPage = 'customer-profile';
   }
 
@@ -38,9 +37,7 @@ export class CustomerProfileSidenavComponent implements OnInit, OnDestroy {
   }
 
   navigateTo(page: string): void {
-   // console.log(this.currentPage);
     this.currentPage = page;
-  //  console.log(this.currentPage);
     setTimeout(() => {
       this.router.navigate([`/${page}`]);
     }, 0);

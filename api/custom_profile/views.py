@@ -17,6 +17,8 @@ import numpy as np
 import pandas as pd
 from notification.utils import update_wishlist
 from notification.utils import update_followed_users
+from django.views.decorators.http import require_http_methods
+
 
 
 @api_view(["POST"])
@@ -87,7 +89,7 @@ def updateWishlist(request):
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-@api_view(["POST"])
+@require_http_methods(["POST"])
 def removeProductFromWishlist(request):
     try:
         user = request.user

@@ -70,12 +70,10 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // Subscribe to changes in the query parameters (seller_id)
-    console.log('seller details init');
     this.paramMapSubscription = this.route.queryParamMap
       .pipe(
         switchMap(params => {
           this.seller_id = params.get('seller_id');
-          console.log(this.seller_id);
           if (this.seller_id) {
             const data = {
               seller_id: this.seller_id,
@@ -103,7 +101,6 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
         // take(1),
         // Use tap to fetch the products based on the latest seller_business_name
         tap(() => {
-          console.log('in tap, seller detials');
           this.selectedSortOption = 'name';
 
           this.ProductSellerService.getProductSellerData(
@@ -116,9 +113,6 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
           ).subscribe(result => {
             this.searchResults$ = of(result.products);
             this.totalSearchCount$ = of(result.totalCount);
-            this.searchResults$.subscribe(res => {
-              console.log(res);
-            });
           });
         })
       )
@@ -127,7 +121,6 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
 
   updateButtonState() {
     this.profileFacade.toggleSellers(this.seller_business_name);
-    console.log(this.isFollowed);
   }
 
   onSortOptionChange(): void {
@@ -197,7 +190,6 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
       }
     }
 
-    console.log(this.filterOptions);
     this.ProductSellerService.getProductSellerData(
       this.seller_business_name,
       undefined,
@@ -276,8 +268,5 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
     };
 
     this.router.navigate(['products'], navigationextras);
-  }
-  test(category: string) {
-    console.log('test', category);
   }
 }

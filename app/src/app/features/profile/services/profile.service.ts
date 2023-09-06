@@ -54,7 +54,6 @@ export class ProfileService {
 
   async toggleWishlist(prod_id: number): Promise<void> {
     const url = `${this.apiUrl}updateWishlist/`;
-    console.log(prod_id);
     await lastValueFrom(
       this.http
         .post(

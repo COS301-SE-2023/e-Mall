@@ -120,7 +120,6 @@ export class MyCombosComponent implements OnInit, OnDestroy {
               comboData.push(comboObj);
             }
           });
-          console.log('comboData', comboData);
           return comboData;
         } else {
           return [];

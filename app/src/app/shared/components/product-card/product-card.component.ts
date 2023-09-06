@@ -51,7 +51,6 @@ export class ProductCardComponent implements OnInit {
   }
 
   async toggleBookmark() {
-    console.log('toggleBookmark');
     if (!(await this.authFacade.isLoggedIn())) {
       return this.router.navigate(['sign-in']);
     } else if ((await this.authFacade.getUserType()) === 'seller') {

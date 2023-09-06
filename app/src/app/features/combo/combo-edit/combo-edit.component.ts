@@ -84,7 +84,6 @@ export class ComboEditComponent implements OnInit {
         user_emails: useremailsarray,
       };
 
-      console.log(data);
       // Reset the form
       this.newForm.reset();
 

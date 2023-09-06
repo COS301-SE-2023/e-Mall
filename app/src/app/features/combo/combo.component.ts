@@ -83,7 +83,6 @@ export class ComboComponent implements OnInit, OnDestroy {
     // Unsubscribe from the route parameter subscription to avoid memory leaks
     this.routeSubscription.unsubscribe();
     this.combo$ = null as any;
-    console.log('destroyed');
   }
   togglePanel(panelNumber: number) {
     this.isPanelOpen[panelNumber] = !this.isPanelOpen[panelNumber];

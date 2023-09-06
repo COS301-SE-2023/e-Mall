@@ -220,7 +220,6 @@ export class ProfileFacade implements OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log('profile facade destroyed');
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
     }

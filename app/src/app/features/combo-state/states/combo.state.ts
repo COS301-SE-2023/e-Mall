@@ -125,7 +125,6 @@ export class ComboState {
         ? state.combos[state.combos.length - 1]
         : null;
     const newComboId = lastCombo ? lastCombo.id + 1 : 1;
-    console.log(action.payload);
     const newCombo = {
       id: newComboId,
       name: action.payload.combo_name,
@@ -134,7 +133,6 @@ export class ComboState {
       active_usernames: action.payload.username,
       pending_users: action.payload.user_emails.slice(1),
     };
-    console.log(newCombo);
     ctx.setState(
       produce((draft: ComboStateModel) => {
         if (draft.combos) {
