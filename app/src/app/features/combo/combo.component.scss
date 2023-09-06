@@ -83,6 +83,8 @@ ion-item {
   margin-top: 50px;
   text-align: center;
   padding-right: 100px;
+  justify-content: center;
+  align-items: center;
 }
 
 .nimage {
@@ -99,5 +101,27 @@ ion-item {
 
 .collection-card{
   width:max-content;
+
+  ion-item {
+    border-radius: 16px;
+    --ion-background-color: transparent; /* Remove the background color of the item */
+    --ion-item-background-color: transparent; /* Remove the background color of the item */
+    --ion-item-box-shadow: none; /* Remove the box shadow */
+    --ion-item-border-radius: 0; /* Remove the border radius */
+    transition: background-color 0.3s ease; /* Add transition for smooth color change */
+  }
   
+  ion-item:hover {
+    background-color: #37d0d6; /* Set the desired background color when hovering */
+    ion-label,ion-icon{
+      color: #FFF;
+    }
+    cursor: pointer;
+  }
+  
+}
+
+.main{
+  display: flex;
+  flex-wrap: wrap;
 }
