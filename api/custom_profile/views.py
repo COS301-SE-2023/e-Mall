@@ -74,7 +74,8 @@ def updateWishlist(request):
             raise Exception("User not found")
         if user.type == "consumer":
             consumer = Consumer.objects.get(email=user.email)
-            consumer.wishlist.append(product_id)
+            if product_id not in consumer.wishlist:
+                consumer.wishlist.append(product_id)
             res = update_wishlist(user.id, product_id, "add")
             if res.get("status") == "error":
                 raise Exception(res.get("message"))

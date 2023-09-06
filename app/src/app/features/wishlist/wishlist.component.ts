@@ -56,18 +56,6 @@ export class WishlistComponent implements OnInit, OnDestroy {
   }
   // Subscribe to route parameter changes and reload data accordingly
 
-  ngAfterViewInit(): void {
-    this.routeSubscription = this.route.queryParams.subscribe(params => {
-      // Check if the 'seller_id' query parameter exists in the route
-      if (params['seller_id']) {
-        // Perform any necessary actions here when 'seller_id' is present in the route
-        // For example, you can fetch seller-specific data based on 'seller_id'
-      }
-
-      // If needed, you can call the method to reload consumer products here
-      this.loadWishlist();
-    });
-  }
 
   ngOnDestroy(): void {
     // Unsubscribe from the route parameter subscription to avoid memory leaks

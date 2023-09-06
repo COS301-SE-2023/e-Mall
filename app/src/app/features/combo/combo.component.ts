@@ -58,28 +58,23 @@ export class ComboComponent implements OnInit, OnDestroy {
     });
     this.paramMapSubscription = this.route.queryParamMap.subscribe(params => {
       const id = params.get('combo_id');
-
       if (id) {
         this.combo_id = +id;
-        this.combo$ = this.comboFacade.getOneCombo(this.combo_id);
+        this.fetchComboData(this.combo_id);
       }
     });
+  }
+  // Subscribe to route parameter changes and reload data accordingly
 
+  fetchComboData(ComboID: number): void {
+    this.combo$ = this.comboFacade.getOneCombo(ComboID);
     this.combo$.subscribe(data => {
       this.products$ = of(data?.products);
       this.active_users = data?.active_emails;
       this.pending_users = data?.pending_users;
       this.name = data?.name;
     });
-
     this.comboData();
-  }
-  // Subscribe to route parameter changes and reload data accordingly
-
-  ngAfterViewInit(): void {
-    this.routeSubscription = this.route.queryParams.subscribe(params => {
-      // If needed, you can call the method to reload consumer products here
-    });
   }
 
   ngOnDestroy(): void {
@@ -87,6 +82,7 @@ export class ComboComponent implements OnInit, OnDestroy {
     this.routeSubscription.unsubscribe();
     this.combo$ = null as any;
   }
+
   togglePanel(panelNumber: number) {
     this.isPanelOpen[panelNumber] = !this.isPanelOpen[panelNumber];
   }
@@ -98,6 +94,7 @@ export class ComboComponent implements OnInit, OnDestroy {
   goToConstruction() {
     this.router.navigate(['/construction']);
   }
+
   goToComboPage(combo_id: number) {
     const navigationextras: NavigationExtras = {
       queryParams: { combo_id: combo_id },
@@ -112,9 +109,11 @@ export class ComboComponent implements OnInit, OnDestroy {
 
     return imgList[0];
   }
+
   goToWishlist() {
     this.router.navigate(['/wishlist']);
   }
+
   goToProductPage(prod_id: number): void {
     // Create the navigation extras object with the search query as a parameter
 
@@ -148,7 +147,6 @@ export class ComboComponent implements OnInit, OnDestroy {
     this.router.navigate(['/my-combos']);
   }
 
-
   comboData() {
     this.comboData$ = this.comboFacade.getCombos().pipe(
       map(combos => {
@@ -170,6 +168,4 @@ export class ComboComponent implements OnInit, OnDestroy {
       })
     );
   }
-
 }
-
