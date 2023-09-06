@@ -17,6 +17,8 @@ import numpy as np
 import pandas as pd
 from notification.utils import update_wishlist
 from notification.utils import update_followed_users
+from celery import shared_task
+from cust_analytics.views import post, my_custom_function
 
 
 @api_view(["POST"])
@@ -162,7 +164,7 @@ def get_followed_seller_details(request):
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-@api_view(["POST"])
+@shared_task
 def update_recommended_products(request):
     try:
         user = request.user
@@ -209,6 +211,9 @@ def get_recommended_products(request):
         if user is None:
             raise Exception("User not found")
         if user.type == "consumer":
+            post().delay()
+            update_recommended_products(request).delay()
+            # my_custom_function().delay()
             if (
                 user.recommended_products is not None
                 and len(user.recommended_products) > 0
