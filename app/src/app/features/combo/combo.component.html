@@ -66,45 +66,10 @@
             </ion-card-content>
           </ion-card>
         </div>
-        <div class="collection-cards" *ngIf="comboData$ | async as combos">
-          <ion-card class="collection-card">
-            <ion-card-header (click)="togglePanel(3)">
-              <div class="users">
-                <ion-card-title>My Collections</ion-card-title>
-                <ion-icon
-                  *ngIf="!isPanelOpen[3]"
-                  name="chevron-down"
-                  class="arrow"></ion-icon>
-                <ion-icon
-                  *ngIf="isPanelOpen[3]"
-                  name="chevron-up"
-                  class="arrow"></ion-icon>
-              </div>
-            </ion-card-header>
-            <ion-card-content [hidden]="!isPanelOpen[3]">
-              <ion-list>
-                <ion-item
-                  [routerLink]="['/wishlist']"
-                  routerLinkActive="active"
-                  class="nav-item">
-                  <ion-label>Wishlist</ion-label>
-                </ion-item>
-                <div *ngFor="let combo of combos">
-                  <ion-item
-                    [routerLink]="['/combo']"
-                    [queryParams]="{ combo_id: combo.id }"
-                    routerLinkActive="active"
-                    class="nav-item">
-                    <ion-label>{{ combo.name }}</ion-label>
-                  </ion-item>
-                </div>
-              </ion-list>
-            </ion-card-content>
-          </ion-card>
-        </div>
       </div>
-      <div class="combo-container-nocards" *ngIf="!combo$">
-        <div class="product-card-no">
+      <div class="main"*ngIf="combo$ | async as comboData">
+      <div class="combo-container-nocards"*ngIf="comboData.products?.length===0" >
+        <div class="product-card-no" >
           <img
             src="assets\images\no-image.jpeg"
             alt="No Product Found"
@@ -116,7 +81,7 @@
         </p>
       </div>
 
-      <div class="combo-container-cards" *ngIf="combo$">
+      <div class="combo-container-cards">
         <div class="product-card">
           <div
             style="display: flex; justify-content: center; align-items: center"
@@ -138,6 +103,27 @@
           </ng-container>
         </div>
       </div>
+
+      <div class="collection-cards" *ngIf="comboData$ | async as combos">
+        <ion-card class="collection-card">
+          <ion-card-header>
+              <ion-card-title>My Collections</ion-card-title>
+          </ion-card-header>
+          <ion-card-content >
+            <ion-list> 
+              <ion-item (click)="goToWishlist()">
+                <ion-label>Wishlist</ion-label>
+              </ion-item>
+              <div *ngFor="let combo of combos">
+              <ion-item (click)="goToComboPage(combo.id)">
+                <ion-label>{{ combo.name }}</ion-label>
+              </ion-item>
+            </div>
+          </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
     </div>
   </div>
 </ion-content>

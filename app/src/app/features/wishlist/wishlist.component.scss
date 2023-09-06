@@ -52,3 +52,38 @@
     opacity: 30%;
     align-items: center;
 }
+
+
+.collection-cards{
+  display: flex;
+}
+
+.collection-card{
+  width:max-content;
+height: fit-content;
+  ion-item {
+    
+  --border-width: 0;
+  --inner-border-width: 0;
+    border-radius: 16px;
+    --ion-background-color: transparent; /* Remove the background color of the item */
+    --ion-item-background-color: transparent; /* Remove the background color of the item */
+    --ion-item-box-shadow: none; /* Remove the box shadow */
+    --ion-item-border-radius: 0; /* Remove the border radius */
+    transition: background-color 0.3s ease; /* Add transition for smooth color change */
+  }
+  
+  ion-item:hover {
+    background-color: #37d0d6; /* Set the desired background color when hovering */
+    ion-label,ion-icon{
+      color: #FFF;
+    }
+    cursor: pointer;
+  }
+  
+}
+
+.main{
+  display: flex;
+  flex-wrap: wrap;
+}
