@@ -1,41 +1,36 @@
-
 .content-container {
-    display: flex;
-    justify-content: space-between; 
-  }
-  
-
-.side-nav-container {
-    flex: 1; 
-    padding: 20px; 
-    max-width: 250px;
-  }
-  
-.ion-content-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
 }
 
+.side-nav-container {
+  flex: 1;
+  padding: 20px;
+  max-width: 250px;
+}
+
+.ion-content-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
 
 .wishlist-container {
-  
   margin-top: 30px;
   flex: 1;
   padding-left: 5%;
   padding-right: 3%;
 }
 
-.wishlist-container h2{
+.wishlist-container h2 {
   margin-left: 15px;
-  margin-top: 0px
+  margin-top: 0px;
 }
 
-
 .wishlist-container-cards {
-    flex: 1;
-    margin-top: 10px;
+  flex: 1;
+  margin-top: 10px;
 }
 
 .wishlist-container-nocards {
@@ -46,25 +41,23 @@
 }
 
 .nimage {
-    width: 300px;
-    height: 300px;
-    justify-content: center;
-    opacity: 30%;
-    align-items: center;
+  width: 300px;
+  height: 300px;
+  justify-content: center;
+  opacity: 30%;
+  align-items: center;
 }
 
-
-.collection-cards{
+.collection-cards {
   display: flex;
 }
 
-.collection-card{
-  width:max-content;
-height: fit-content;
+.collection-card {
+  width: max-content;
+  height: fit-content;
   ion-item {
-    
-  --border-width: 0;
-  --inner-border-width: 0;
+    --border-width: 0;
+    --inner-border-width: 0;
     border-radius: 16px;
     --ion-background-color: transparent; /* Remove the background color of the item */
     --ion-item-background-color: transparent; /* Remove the background color of the item */
@@ -72,18 +65,26 @@ height: fit-content;
     --ion-item-border-radius: 0; /* Remove the border radius */
     transition: background-color 0.3s ease; /* Add transition for smooth color change */
   }
-  
+
   ion-item:hover {
     background-color: #37d0d6; /* Set the desired background color when hovering */
-    ion-label,ion-icon{
-      color: #FFF;
+    ion-label,
+    ion-icon {
+      color: #fff;
     }
     cursor: pointer;
   }
-  
+
+  .active {
+    background-color: #37d0d6; /* Set the desired background color when hovering */
+    ion-label,
+    ion-icon {
+      color: #fff;
+    }
+  }
 }
 
-.main{
+.main {
   display: flex;
   flex-wrap: wrap;
 }

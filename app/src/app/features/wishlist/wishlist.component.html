@@ -67,11 +67,18 @@
             </ion-card-header>
             <ion-card-content>
               <ion-list>
-                <ion-item>
+                <ion-item
+                  [routerLink]="['/wishlist']"
+                  routerLinkActive="active"
+                  class="nav-item">
                   <ion-label>Wishlist</ion-label>
                 </ion-item>
                 <div *ngFor="let combo of combos">
-                  <ion-item (click)="goToComboPage(combo.id)">
+                  <ion-item
+                    [routerLink]="['/combo']"
+                    [queryParams]="{ combo_id: combo.id }"
+                    routerLinkActive="active"
+                    class="nav-item">
                     <ion-label>{{ combo.name }}</ion-label>
                   </ion-item>
                 </div>

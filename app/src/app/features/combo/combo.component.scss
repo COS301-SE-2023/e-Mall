@@ -96,8 +96,8 @@ ion-item {
   display: flex;
 }
 
-.collection-card{
-  width:max-content;
+.collection-card {
+  width: max-content;
 
   ion-item {
     border-radius: 16px;
@@ -107,18 +107,26 @@ ion-item {
     --ion-item-border-radius: 0; /* Remove the border radius */
     transition: background-color 0.3s ease; /* Add transition for smooth color change */
   }
-  
+
   ion-item:hover {
     background-color: #37d0d6; /* Set the desired background color when hovering */
-    ion-label,ion-icon{
-      color: #FFF;
+    ion-label,
+    ion-icon {
+      color: #fff;
     }
     cursor: pointer;
   }
-  
+
+  .active {
+    background-color: #37d0d6; /* Set the desired background color when hovering */
+    ion-label,
+    ion-icon {
+      color: #fff;
+    }
+  }
 }
 
-.main{
+.main {
   display: flex;
   flex-wrap: wrap;
 }
