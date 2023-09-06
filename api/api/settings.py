@@ -18,9 +18,6 @@ from firebase_admin import credentials
 import os
 
 
-
-
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -187,8 +184,9 @@ cred = credentials.Certificate(BASE_DIR / "api/serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
 
 # Celery configuration
-CELERY_BROKER_URL = 'django://'
+CELERY_BROKER_URL = "django://"
 CELERY_RESULT_BACKEND = f'db+postgresql://{env("DB_USER")}:{env("DB_PASSWORD")}@{env("DB_HOST")}:{env("DB_PORT")}/{env("DB_NAME")}'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = "Africa/Johannesburg"
