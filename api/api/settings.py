@@ -183,9 +183,33 @@ COGNITO_CONFIG = {
 cred = credentials.Certificate(BASE_DIR / "api/serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
 
+
+# settings.py
+
+import os
+
+# Caching configuration using Redis
+CACHE_TTL = 60 * 15  # 15 minutes
+CACHE_LOCATION = os.environ.get("CACHE_LOCATION", "redis://localhost:6379/1")
+
+CACHE = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": CACHE_LOCATION,
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+    }
+}
+
+
+# Session storage using Redis
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+
 # Celery configuration
-CELERY_BROKER_URL = "django://"
-CELERY_RESULT_BACKEND = f'db+postgresql://{env("DB_USER")}:{env("DB_PASSWORD")}@{env("DB_HOST")}:{env("DB_PORT")}/{env("DB_NAME")}'
+CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_RESULT_BACKEND = "redis://localhost:6379"
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
