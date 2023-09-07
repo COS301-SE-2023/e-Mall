@@ -44,7 +44,15 @@ export class ComboState {
           for (const combo of draft.combos) {
             for (const id of action.payload.combo_ids)
               if (combo.id === Number(id)) {
-                combo.products.push(action.payload.product);
+                if (
+                  combo.products.find(
+                    product => product.id === action.payload.product.id
+                  )
+                ) {
+                  return;
+                } else {
+                  combo.products.push(action.payload.product);
+                }
               }
           }
         }
@@ -61,11 +69,11 @@ export class ComboState {
       produce((draft: ComboStateModel) => {
         if (draft.combos) {
           for (const combo of draft.combos) {
-              if (combo.id === Number(action.payload.combo_id)) {
-                combo.products = combo.products.filter(
-                  product => product.id !== action.payload.product_id
-                );
-              }
+            if (combo.id === Number(action.payload.combo_id)) {
+              combo.products = combo.products.filter(
+                product => product.id !== action.payload.product_id
+              );
+            }
           }
         }
       })
