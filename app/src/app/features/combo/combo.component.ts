@@ -127,7 +127,21 @@ export class ComboComponent implements OnInit, OnDestroy {
   edit() {
     this.openComboPopover();
   }
-
+  public alertButtons = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      cssClass: 'exit-button',
+    },
+    {
+      text: 'Confirm',
+      role: 'confirm',
+      cssClass: 'cancel-button',
+      handler: () => {
+        this.leaveCombo();
+      },
+    },
+  ];
   async openComboPopover() {
     const modal = await this.modalController.create({
       component: ComboEditComponent,

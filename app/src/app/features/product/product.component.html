@@ -53,20 +53,7 @@
               </div>
               <mat-card-actions>
                 <span class="button-container">
-                  <ion-button
-                    (click)="toggleBookmark()"
-                    class="bookmark-button"
-                    shape="round"
-                    fill="clear"
-                    mode="ios">
-                    <ion-icon
-                      [name]="
-                        (isBookmark | async)
-                          ? 'bookmark-outline'
-                          : 'bookmark-outline'
-                      "
-                      style="color: var(--c-5-a, #37d0d6)"></ion-icon>
-                  </ion-button>
+                 
                 </span>
               </mat-card-actions>
             </mat-card>
@@ -81,8 +68,16 @@
               <h4>{{ product.brand }}</h4>
               <p>{{ product.description }}</p>
               <p>
-                Compare prices from
-                <b>R{{ product.min_price }}</b>
+                <ion-button
+                (click)="toggleBookmark()"
+                class="bookmark-button"
+                shape="round"
+                fill="clear"
+                mode="ios">
+                <ion-icon
+                  [name]="'bookmark-outline'"
+                  style="color: var(--c-5-a, #37d0d6)"></ion-icon>
+              </ion-button>
               </p>
             </div>
           </div>
