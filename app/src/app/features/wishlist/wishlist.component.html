@@ -37,12 +37,18 @@
                 </div>-->
       <div class="wishlist-container-cards">
         <div class="product-card">
-          <div
+          <!--<div
             style="display: flex; justify-content: center; align-items: center"
             *ngIf="(products$ | async) === null">
             <mat-spinner></mat-spinner>
+          </div>-->
+          <div class="spinner-container" *ngIf="showSpinner">
+            <div class="spinner">
+              <ion-spinner style="color: #99e3dc"></ion-spinner>
+            </div>
           </div>
           <ng-container *ngIf="products$ | async as products">
+            <div *ngIf="!showSpinner">
             <div class="row" style="grid-auto-rows: auto">
               <div
                 class="col-md-3 col-12"
@@ -58,6 +64,7 @@
                     i + 1 !== products.length
                   "></div>
               </div>
+            </div>
             </div>
           </ng-container>
         </div>
