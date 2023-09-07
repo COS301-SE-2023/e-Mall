@@ -10,7 +10,10 @@ export class SignOutAction {
 }
 export class Update {
   static readonly type = '[Notification] Update Notifications';
-  constructor(public notifications: INotification[]) {}
+  constructor(
+    public notifications: INotification[],
+    public has_next: boolean
+  ) {}
 }
 export class NewNotification {
   static readonly type = '[Notification] New Notification received';
@@ -31,4 +34,7 @@ export class SetUnreadCount {
 export class Delete {
   static readonly type = '[Notification] Delete Notification';
   constructor(public id: string) {}
+}
+export class ResetNotifications {
+  static readonly type = '[Notification] Reset Notifications';
 }

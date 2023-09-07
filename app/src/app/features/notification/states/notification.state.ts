@@ -7,6 +7,7 @@ import produce from 'immer';
 export interface NotificationStateModel {
   token: string | null;
   notifications: INotification[] | null;
+  has_next: boolean;
   count: number;
   last_notification: string | null;
   unread_count: number;
@@ -17,6 +18,7 @@ export interface NotificationStateModel {
   defaults: {
     token: null,
     notifications: null,
+    has_next: false,
     last_notification: null,
     count: 0,
     unread_count: 0,
@@ -32,6 +34,7 @@ export class NotificationState {
     ctx.setState({
       token: action.token,
       notifications: null,
+      has_next: false,
       last_notification: null,
       count: 0,
       unread_count: 0,
@@ -43,6 +46,7 @@ export class NotificationState {
     ctx.setState({
       token: null,
       notifications: null,
+      has_next: false,
       last_notification: null,
       count: 0,
       unread_count: 0,
@@ -53,7 +57,7 @@ export class NotificationState {
     ctx: StateContext<NotificationStateModel>,
     action: NotificationActions.Update
   ) {
-    if (action.notifications != null && action.notifications.length > 0) {
+    if (action.notifications != null) {
       ctx.setState(
         produce(draft => {
           if (draft.notifications) {
@@ -61,9 +65,12 @@ export class NotificationState {
           } else {
             draft.notifications = action.notifications;
           }
+          draft.has_next = action.has_next;
           draft.count = draft.notifications.length;
-          draft.last_notification =
-            action.notifications[action.notifications.length - 1].id;
+          if (draft.notifications.length > 0) {
+            draft.last_notification =
+              action.notifications[action.notifications.length - 1].id;
+          }
         })
       );
     }
@@ -116,10 +123,19 @@ export class NotificationState {
     ctx: StateContext<NotificationStateModel>,
     action: NotificationActions.SetUnreadCount
   ) {
-    console.log('setUnreadCount');
     ctx.setState(
       produce(draft => {
         draft.unread_count = action.count;
+      })
+    );
+  }
+  @Action(NotificationActions.ResetNotifications)
+  resetNotifications(ctx: StateContext<NotificationStateModel>) {
+    ctx.setState(
+      produce(draft => {
+        draft.has_next = false;
+        draft.notifications = null;
+        draft.last_notification = null;
       })
     );
   }
@@ -146,6 +162,9 @@ export class NotificationState {
               draft.notifications = null;
               draft.count = 0;
               draft.unread_count = 0;
+              draft.last_notification = null;
+            } else {
+              draft.last_notification = draft.notifications[-1].id;
             }
           }
         }

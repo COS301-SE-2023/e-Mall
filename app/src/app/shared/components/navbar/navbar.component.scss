@@ -25,22 +25,24 @@ i.arrow {
 .label {
   text-transform: none; /* Reset the text-transform to none */
 }
-button,.label,.profile  {
+button,
+.label,
+.profile {
   color: var(--c-1-a, #151515);
 
   /* Button/Default */
-  font-family: Poppins,sans-serif;
+  font-family: Poppins, sans-serif;
   font-size: 15px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
 }
-.profile{
+.profile {
   font-size: 30px;
   margin-right: 35px;
   margin-top: 15px;
 }
-.authButton{
+.authButton {
   margin-right: 15px;
   color: var(--c-1-a, #151515);
 }
@@ -59,7 +61,7 @@ button,.label,.profile  {
   flex-grow: 1;
 }
 
-.toolbar-button{
+.toolbar-button {
   flex-shrink: 0;
   height: 100%;
   font-size: medium;
@@ -72,7 +74,6 @@ button,.label,.profile  {
   height: 100%;
   vertical-align: bottom;
   margin-right: 30px;
-  
 }
 
 .circular-button {
@@ -81,5 +82,34 @@ button,.label,.profile  {
   width: 50px;
   height: 50px;
   //margin-top: 7px;
-  margin-right:30px
+  margin-right: 30px;
+}
+.button-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+ion-button {
+  --padding-start: 0;
+  --padding-end: 0;
+  padding: 0px;
+  margin: 0;
+  box-shadow: none;
+  background: transparent;
+  font-size: large;
+}
+
+::part(native) {
+  padding-left: 0%;
+  padding-right: 20px;
+  margin: 0;
+}
+
+ion-badge {
+  background-color: var(--c-5-a, #37d0d6);
+  color: white;
+  position: absolute;
+  top: 0; /* Place it at the top */
+  right: 0; /* Place it at the right */
+  transform: translate(50%, -50%); /* Center it within the top-right corner */
 }

@@ -18,10 +18,18 @@ export class NotificationSelectors {
   }
   @Selector([NotificationState])
   static getLastNotification(state: NotificationStateModel): string | null {
-    return state.token;
+    return state.last_notification;
   }
   @Selector([NotificationState])
   static getCount(state: NotificationStateModel): number {
     return state.count;
+  }
+  @Selector([NotificationState])
+  static getUnreadCount(state: NotificationStateModel): number {
+    return state.unread_count;
+  }
+  @Selector([NotificationState])
+  static hasNext(state: NotificationStateModel): boolean {
+    return state.has_next;
   }
 }

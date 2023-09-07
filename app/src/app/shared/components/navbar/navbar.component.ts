@@ -9,6 +9,8 @@ import { PopoverController } from '@ionic/angular';
 import { DropdownPopoverComponent } from '@shared/components/dropdown-popover/dropdown-popover.component';
 import { ModalController } from '@ionic/angular';
 import { NavbarPopupComponent } from '@shared/components/navbar-popup/navbar-popup.component';
+import { NotificationFacade } from '@features/notification/services/notification.facade';
+import { NotificationDropdownComponent } from '@features/notification/components/notification-dropdown/notification-dropdown.component';
 
 @Component({
   selector: 'app-navbar',
@@ -18,14 +20,18 @@ import { NavbarPopupComponent } from '@shared/components/navbar-popup/navbar-pop
 export class NavbarComponent {
   isAuthenticated: Observable<IUser | null>;
   isCategoryOpened = false;
+  notificationUnreadCount$: Observable<number>;
+
   constructor(
     private router: Router,
     private authFacade: AuthFacade,
     private profileFacde: ProfileFacade,
     private popoverController: PopoverController,
-    public modalController: ModalController
+    public modalController: ModalController,
+    private notificationFacade: NotificationFacade
   ) {
     this.isAuthenticated = this.authFacade.getCurrentUser();
+    this.notificationUnreadCount$ = this.notificationFacade.unread_count$;
   }
 
   search(searchQuery: string): void {
@@ -76,6 +82,21 @@ export class NavbarComponent {
       }, */
       //mode: 'ios',
       cssClass: 'inventory-popover',
+      showBackdrop: true,
+      backdropDismiss: true,
+      event: event,
+      translucent: true,
+    });
+    return await popover.present();
+  }
+  async openNotificationPopover(event: MouseEvent) {
+    const popover = await this.popoverController.create({
+      component: NotificationDropdownComponent,
+      /* componentProps: {
+        product: product,
+      }, */
+      mode: 'ios',
+      // cssClass: 'inventory-popover',
       showBackdrop: true,
       backdropDismiss: true,
       event: event,
