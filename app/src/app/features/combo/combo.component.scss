@@ -130,3 +130,13 @@ ion-item {
   display: flex;
   flex-wrap: wrap;
 }
+
+.custom-alert {
+  button.alert-button.exit-button{
+    color: red;
+  }
+
+  button.alert-button.cancel-button{
+    color: green;
+  }
+}
