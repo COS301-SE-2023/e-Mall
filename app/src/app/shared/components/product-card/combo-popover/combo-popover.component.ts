@@ -108,10 +108,11 @@ export class ComboPopoverComponent implements OnInit {
 
   UpdateExistingCombo() {
     if (this.selectForm.valid) {
-      console.log(this.selectForm.value.selectedOptions)
+
       if (this.selectForm.value.selectedOptions[0] == 'wishlist') {
         this.favClickAnalytics();
         this.profileFacade.toggleWishlist(this.product.id);
+        
         if(this.selectForm.value.selectedOptions.length>1 ){
           const options = this.selectForm.value.selectedOptions.slice(1);
           const data = {
