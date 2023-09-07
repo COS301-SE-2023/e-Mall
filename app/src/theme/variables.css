@@ -264,7 +264,7 @@ ion-toast.custom-notification::part(button) {
 .spinner ion-spinner{
   width: 100px; 
   height: 80px;
-  --color:black;
+  --color: #99e3dc;
 }
 
 .spinner {
@@ -274,6 +274,7 @@ ion-toast.custom-notification::part(button) {
   text-align: center;
 }
 
+/*
 .custom-loader {
   background-color: rgb(0, 0, 0, 0.96);
   box-shadow: none; 
@@ -282,5 +283,5 @@ ion-toast.custom-notification::part(button) {
   color: #000; 
   font-size: 18px; 
   
-}
+}*/
 

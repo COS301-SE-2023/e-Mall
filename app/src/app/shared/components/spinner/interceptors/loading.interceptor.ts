@@ -17,14 +17,20 @@ export class LoadingInterceptor implements HttpInterceptor {
 
   constructor(private loadingService: LoaderService) {}
 
-    intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    console.log('caught')
+  
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    
+    if (this.totalRequests === 0) {
+      // If there are no active requests, show the loading spinner
+      this.loadingService.setLoading(true);
+      console.log('caught')
+    }
     this.totalRequests++;
-    this.loadingService.setLoading(true);
+
     return next.handle(request).pipe(
       finalize(() => {
         this.totalRequests--;
-        if (this.totalRequests == 0) {
+        if (this.totalRequests === 0) {
           this.loadingService.setLoading(false);
         }
       })

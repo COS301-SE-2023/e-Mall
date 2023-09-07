@@ -7,6 +7,10 @@ import { LoaderService } from '@shared/components/spinner/services/loader.servic
   styleUrls: ['./spinner.component.scss'],
   encapsulation: ViewEncapsulation.ShadowDom
 })
-export class SpinnerComponent {
+export class SpinnerComponent{
+
   constructor(public loader: LoaderService) { }
+
+  
 }
+
