@@ -34,6 +34,7 @@ export class SalesComponent implements OnInit {
   conversionRate!: number[];
   categories!: string[];
   categoryPercentage!: number[];
+  showSpinner = true;
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(
     private analytics: AnalyticsService,
@@ -41,6 +42,14 @@ export class SalesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
+    this.showSpinner = true;
+    
+    setTimeout(() => {
+      this.showSpinner = false;
+      
+    }, 4500);
+    
     console.log('sales component initialized');
     this.profileFacade.getProfile().subscribe(profile => {
       if (profile) {

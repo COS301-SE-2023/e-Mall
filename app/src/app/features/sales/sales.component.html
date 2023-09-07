@@ -4,7 +4,14 @@
     <ion-text color="settings-header">
       <h2 class="dashboard-header-padding">Analytics</h2>
       </ion-text>
+      <div class="spinner-container" *ngIf="showSpinner">
+        <div class="spinner">
+          <ion-spinner style="color: #99e3dc"></ion-spinner>
+        </div>
+      </div>
+    <div *ngIf="!showSpinner"> 
     <div class="todays-sales">
+
       <ion-card class="summary">
         <div style="
             display: flex;
@@ -62,6 +69,7 @@
       <div class="product-performance">
         <canvas id="product-performance-chart"></canvas>
       </div>
+    </div>
     </div>
   </div>
 </ion-content>
