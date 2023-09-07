@@ -7,59 +7,98 @@
     </div>
     <div class="combos-container">
       <h2>My Collections</h2>
-      <div class="row-combos-container-cards" *ngIf="comboData$ | async as comboData">
-        <ng-container >
-          <div class="row" style="grid-auto-rows: auto">
-            <div class="col-md-3 col-12 combo-card"
-            style="grid-auto-columns: auto; min-width: 300px">
-              <ion-card class="collage-card" (click)="goToWishlist()">
-                <div class="collage-images">
-                  <div class="image-container">
-                    <img [src]="wishlistImages[0]" alt="Image 1" />
+      <div class="head">
+        <div class="invite-container">
+          <ion-card class="invite-card">
+            <ion-card-header (click)="togglePanel(1)">
+              <div class="invites">
+                <ion-card-title>Pending invitations</ion-card-title>
+                <ion-icon
+                  *ngIf="!isPanelOpen[1]"
+                  name="chevron-down"
+                  class="arrow"></ion-icon>
+                <ion-icon
+                  *ngIf="isPanelOpen[1]"
+                  name="chevron-up"
+                  class="arrow"></ion-icon>
+              </div>
+            </ion-card-header>
+            <ion-card-content [hidden]="!isPanelOpen[1]">
+              <ion-list>
+                <div > <!--loop through invites here-->
+                  <ion-item class="invite-info">
+                    <ion-label>invite</ion-label>
+                    <div class="invite-buttons">
+                    <ion-button >Accept</ion-button>
+                    <ion-button class="reject-button" >Reject</ion-button>
                   </div>
-                  <div class="image-container">
-                    <img [src]="wishlistImages[1]" alt="Image 2" />
-                  </div>
-                  <div class="image-container">
-                    <img [src]="wishlistImages[2]" alt="Image 3" />
-                  </div>
-                  <div class="image-container">
-                    <img [src]="wishlistImages[3]" alt="Image 4" />
-                  </div>
+                  </ion-item>
                 </div>
-                <ion-card-header>
-                  <ion-card-title>My Wishlist</ion-card-title>
-                </ion-card-header>
-              </ion-card>
-            </div>
-            <div
-              class="col-md-3 col-12"
-              style="grid-auto-columns: auto; min-width: 300px"
-              *ngFor="let combo of comboData; let i = index">
-            <div class="combo-card">
-              <ion-card class="collage-card" (click)="goToComboPage(combo.id)">
-                <div class="collage-images">
-                  <div class="image-container">
-                    <img [src]="combo.images[0]" alt="Image 1" />
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </div>
+      <div class="combos">
+        <div
+          class="row-combos-container-cards"
+          *ngIf="comboData$ | async as comboData">
+          <ng-container>
+            <div class="row" style="grid-auto-rows: auto">
+              <div
+                class="col-md-3 col-12 combo-card"
+                style="grid-auto-columns: auto; min-width: 300px">
+                <ion-card class="collage-card" (click)="goToWishlist()">
+                  <div class="collage-images">
+                    <div class="image-container">
+                      <img [src]="wishlistImages[0]" alt="Image 1" />
+                    </div>
+                    <div class="image-container">
+                      <img [src]="wishlistImages[1]" alt="Image 2" />
+                    </div>
+                    <div class="image-container">
+                      <img [src]="wishlistImages[2]" alt="Image 3" />
+                    </div>
+                    <div class="image-container">
+                      <img [src]="wishlistImages[3]" alt="Image 4" />
+                    </div>
                   </div>
-                  <div class="image-container">
-                    <img [src]="combo.images[1]" alt="Image 2" />
-                  </div>
-                  <div class="image-container">
-                    <img [src]="combo.images[2]" alt="Image 3" />
-                  </div>
-                  <div class="image-container">
-                    <img [src]="combo.images[3]" alt="Image 4" />
-                  </div>
+                  <ion-card-header>
+                    <ion-card-title>My Wishlist</ion-card-title>
+                  </ion-card-header>
+                </ion-card>
+              </div>
+              <div
+                class="col-md-3 col-12"
+                style="grid-auto-columns: auto; min-width: 300px"
+                *ngFor="let combo of comboData; let i = index">
+                <div class="combo-card">
+                  <ion-card
+                    class="collage-card"
+                    (click)="goToComboPage(combo.id)">
+                    <div class="collage-images">
+                      <div class="image-container">
+                        <img [src]="combo.images[0]" alt="Image 1" />
+                      </div>
+                      <div class="image-container">
+                        <img [src]="combo.images[1]" alt="Image 2" />
+                      </div>
+                      <div class="image-container">
+                        <img [src]="combo.images[2]" alt="Image 3" />
+                      </div>
+                      <div class="image-container">
+                        <img [src]="combo.images[3]" alt="Image 4" />
+                      </div>
+                    </div>
+                    <ion-card-header>
+                      <ion-card-title>{{ combo.name }}</ion-card-title>
+                    </ion-card-header>
+                  </ion-card>
                 </div>
-                <ion-card-header>
-                  <ion-card-title>{{ combo.name }}</ion-card-title>
-                </ion-card-header>
-              </ion-card>
+              </div>
             </div>
-          </div>
-          </div>
-        </ng-container>
+          </ng-container>
+        </div>
       </div>
     </div>
   </div>

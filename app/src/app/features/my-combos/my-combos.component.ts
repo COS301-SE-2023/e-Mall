@@ -30,7 +30,7 @@ export class MyCombosComponent implements OnInit, OnDestroy {
   private routeSubscription: Subscription = new Subscription();
   imgs: string[] = [];
   wishlistImages: string[] = []
-
+  isPanelOpen: { [key: number]: boolean } = {};
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -62,6 +62,9 @@ export class MyCombosComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.routeSubscription.unsubscribe();
     console.log('My-combos destoryed');
+  }
+  togglePanel(panelNumber: number) {
+    this.isPanelOpen[panelNumber] = !this.isPanelOpen[panelNumber];
   }
 
   goToCustomerProfile() {
