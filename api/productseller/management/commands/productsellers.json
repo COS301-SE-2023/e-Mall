@@ -20,7 +20,7 @@
     "original_price": 1360.00,
     "price": 1180.00,
     "discount": 180.00,
-    "discount_rate": 13.24,
+    "discount_rate": 0.13,
     "product_url": "https://www.wizebooks.co.za/Get/9781119587965-applied-calculus-6e",
     "in_stock": true,
     "img_array": [
@@ -30,7 +30,7 @@
     ]
   },
   "3": {
-    "seller_name": "Van Schaik",
+    "seller_name": "Van Schaik Bookstore",
     "product_name": "Applied Calculus",
     "original_price": 1443.50,
     "price": 1443.50,
@@ -65,7 +65,7 @@
     "original_price": 220.00,
     "price": 190.00,
     "discount": 30.00,
-    "discount_rate": 13.64,
+    "discount_rate": 0.14,
     "product_url": "https://www.wizebooks.co.za/Get/9780722532935-alchemist-pb",
     "in_stock": false,
     "img_array": [
@@ -75,7 +75,7 @@
     ]
   },
   "6": {
-    "seller_name": "Van Schaik",
+    "seller_name": "Van Schaik Bookstore",
     "product_name": "The Alchemist",
     "original_price": 189.95,
     "price": 189.95,
@@ -108,7 +108,7 @@
     "original_price": 230.00,
     "price": 200.00,
     "discount": 30.00,
-    "discount_rate": 13.04,
+    "discount_rate": 0.13,
     "product_url": "https://www.wizebooks.co.za/Get/9780099419785-to-kill-a-mockingbird",
     "in_stock": false,
     "img_array": [
@@ -116,7 +116,7 @@
     ]
   },
   "9": {
-    "seller_name": "Van Schaik",
+    "seller_name": "Van Schaik Bookstore",
     "product_name": "To Kill a Mockingbird",
     "original_price": 195.50,
     "price": 195.50,
@@ -160,7 +160,7 @@
     "original_price": 80.00,
     "price": 70.00,
     "discount": 10.00,
-    "discount_rate": 12.50,
+    "discount_rate": 0.13,
     "product_url": "https://www.wizebooks.co.za/Get/9781432303280-pass-new-official-k53-manual",
     "in_stock": true,
     "img_array": [
@@ -168,7 +168,7 @@
     ]
   },
   "13": {
-    "seller_name": "Van Schaik",
+    "seller_name": "Van Schaik Bookstore",
     "product_name": "The New Official K53 Manual",
     "original_price": 104.50,
     "price": 104.50,
@@ -194,7 +194,7 @@
     ]
   },
   "15": {
-    "seller_name": "Van Schaik",
+    "seller_name": "Van Schaik Bookstore",
     "product_name": "8115 A PRISONERS HOME",
     "original_price": 200.00,
     "price": 200.00,
@@ -212,7 +212,7 @@
     "original_price": 250.00,
     "price": 220.00,
     "discount": 30.00,
-    "discount_rate": 12.00,
+    "discount_rate": 0.12,
     "product_url": "https://www.wizebooks.co.za/Get/9781612681139-rich-dad-poor-dad-25-anniversary-edition",
     "in_stock": false,
     "img_array": [
@@ -233,7 +233,7 @@
     ]
   },
   "18": {
-    "seller_name": "Van Schaik",
+    "seller_name": "Van Schaik Bookstore",
     "product_name": "Business Cases from South African Companies",
     "original_price": 219.00,
     "price": 219.00,
@@ -251,7 +251,7 @@
     "original_price": 250.00,
     "price": 220.00,
     "discount": 30.00,
-    "discount_rate": 12.00,
+    "discount_rate": 0.12,
     "product_url": "https://www.wizebooks.co.za/Get/9781485130864-business-cases-from-south-african-compan",
     "in_stock": true,
     "img_array": [
@@ -264,7 +264,7 @@
     "original_price": 410.00,
     "price": 360.00,
     "discount": 50.00,
-    "discount_rate": 12.20,
+    "discount_rate": 0.12,
     "product_url": "https://www.wizebooks.co.za/Get/9781861972781-48-laws-of-power-tbp",
     "in_stock": true,
     "img_array": [
@@ -272,7 +272,7 @@
     ]
   },
   "21": {
-    "seller_name": "Van Schaik",
+    "seller_name": "Van Schaik Bookstore",
     "product_name": "48 Laws Of Power",
     "original_price": 405.50,
     "price": 405.50,
@@ -290,7 +290,7 @@
     "original_price": 250.00,
     "price": 200.00,
     "discount": 50.00,
-    "discount_rate": 20.00,
+    "discount_rate": 0.20,
     "product_url": "https://aristata.co.za/general-books/newly-published/stasies/",
     "in_stock": true,
     "img_array": [
@@ -303,7 +303,7 @@
     "original_price": 370.00,
     "price": 320.00,
     "discount": 50.00,
-    "discount_rate": 13.51,
+    "discount_rate": 0.14,
     "product_url": "https://www.wizebooks.co.za/Get/9781776190164-winnie-nelson-tpb",
     "in_stock": false,
     "img_array": [
@@ -311,7 +311,7 @@
     ]
   },
   "24": {
-    "seller_name": "Van Schaik",
+    "seller_name": "Van Schaik Bookstore",
     "product_name": "Winnie and Nelson",
     "original_price": 359.95,
     "price": 359.95,
@@ -329,7 +329,7 @@
     "original_price": 390.00,
     "price": 340.00,
     "discount": 50.00,
-    "discount_rate": 12.82,
+    "discount_rate": 0.13,
     "product_url": "https://www.wizebooks.co.za/Get/9781485132523-business-management-for-entrepreneurs-5e",
     "in_stock": false,
     "img_array": [
@@ -337,7 +337,7 @@
     ]
   },
   "26": {
-    "seller_name": "Van Schaik",
+    "seller_name": "Van Schaik Bookstore",
     "product_name": "Business Management for Entrepreneurs 5th Edition",
     "original_price": 375.50,
     "price": 375.50,
@@ -351,7 +351,7 @@
   },
   "27": {
     "seller_name": "Protea Boekwinkel",
-    "product_name": "Business Management for Entrepreneurs 4th Edition",
+    "product_name": "Business Management For Entrepreneurs 4th Edition",
     "original_price": 477.50,
     "price": 477.50,
     "discount": 0,
@@ -381,7 +381,7 @@
     "original_price": 1540.00,
     "price": 1340.00,
     "discount": 200.00,
-    "discount_rate": 12.99,
+    "discount_rate": 0.13,
     "product_url": "https://www.wizebooks.co.za/Get/9781292222332-starting-out-with-c-from-control-struc",
     "in_stock": false,
     "img_array": [
@@ -409,7 +409,7 @@
     "original_price": 900.00,
     "price": 700.00,
     "discount": 200.00,
-    "discount_rate": 22.22,
+    "discount_rate": 0.22,
     "product_url": "https://www.cool-collectables.co.za/product/naruto-gift-set/",
     "in_stock": true,
     "img_array": [
@@ -469,7 +469,7 @@
     "original_price": 15199.00,
     "price": 14199.00,
     "discount": 1000.00,
-    "discount_rate": 1000.00,
+    "discount_rate": 0.07,
     "product_url": "https://nexushub.co.za/product/xbox-series-x-diablo-ivcarbon-black-controller-bundle-pid271110.html",
     "in_stock": true,
     "img_array": [
@@ -509,7 +509,7 @@
     ]
   },
   "38": {
-    "seller_name": "Props and Collectables",
+    "seller_name": "Props and Collectibles",
     "product_name": "CLUEDO: HARRY POTTER",
     "original_price": 649.00,
     "price": 599.00,
@@ -527,7 +527,7 @@
     "original_price": 841.00,
     "price": 667.31,
     "discount": 173.69,
-    "discount_rate": 26.00,
+    "discount_rate": 0.26,
     "product_url": "https://www.bobshop.co.za/item/591473551/LEGO_Brawls_PS4.html",
     "in_stock": true,
     "img_array": [
@@ -557,7 +557,7 @@
     "original_price": 1399.00,
     "price": 1214.29,
     "discount": 184.71,
-    "discount_rate": 13.00,
+    "discount_rate": 0.13,
     "product_url": "https://www.bobshop.co.za/item/591473543/FIFA_23_XBSX.html",
     "in_stock": true,
     "img_array": [
@@ -671,7 +671,7 @@
     "original_price": 250.00,
     "price": 180.00,
     "discount": 70.00,
-    "discount_rate": 28.00,
+    "discount_rate": 0.28,
     "product_url": "https://www.cool-collectables.co.za/product/infinity-gauntlet-bottle-opener/",
     "in_stock": true,
     "img_array": [
@@ -916,7 +916,7 @@
     "original_price": 425.00,
     "price": 361.25,
     "discount": 63.75,
-    "discount_rate": 15.00,
+    "discount_rate": 0.15,
     "product_url": "https://salon500.co.za/products/loreal-curl-expression-long-lasting-intensive-leave-in-moisturizer-200ml?_pos=2&_sid=24896971f&_ss=r",
     "in_stock": true,
     "img_array": [
@@ -931,7 +931,7 @@
     "original_price": 470.00,
     "price": 399.50,
     "discount": 70.50,
-    "discount_rate": 15.00,
+    "discount_rate": 0.15,
     "product_url": "https://www.retailbox.co.za/products/loreal-curl-expression-long-lasting-intensive-moisturizer-200ml?pr_prod_strat=use_description&pr_rec_id=316fe307e&pr_rec_pid=7488314802326&pr_ref_pid=7441209491606&pr_seq=uniform",
     "in_stock": true,
     "img_array": [
@@ -1073,7 +1073,7 @@
     "original_price": 699.00,
     "price": 549.00,
     "discount": 150.00,
-    "discount_rate": 21.46,
+    "discount_rate": 0.21,
     "product_url": "https://prosoccer.co.za/shop/index.php?route=product/product&path=85_101&product_id=2956",
     "in_stock": false,
     "img_array": [
@@ -1146,7 +1146,7 @@
     "original_price": 460.00,
     "price": 400.00,
     "discount": 60.00,
-    "discount_rate": 13.04,
+    "discount_rate": 0.13,
     "product_url": "https://www.wizebooks.co.za/Get/6009545403790-volkano-phonic-bluetooth-headphones",
     "in_stock": true,
     "img_array": [
@@ -1159,7 +1159,7 @@
     "original_price": 440.00,
     "price": 380.00,
     "discount": 60.00,
-    "discount_rate": 13.64,
+    "discount_rate": 0.14,
     "product_url": "https://www.wizebooks.co.za/Get/6009545494743-volkano-equinox-series-true-wireless-earphones",
     "in_stock": true,
     "img_array": [
@@ -1172,7 +1172,7 @@
     "original_price": 599.00,
     "price": 549.00,
     "discount": 50.00,
-    "discount_rate": 8.35,
+    "discount_rate": 0.08,
     "product_url": "https://www.bargainsonline.co.za/product/conti-stick-vacuum-cleaner/",
     "in_stock": false,
     "img_array": [
@@ -1180,7 +1180,7 @@
     ]
   },
   "85": {
-    "seller_name": "Van Schaik",
+    "seller_name": "Van Schaik Bookstore",
     "product_name": "CYCLONE VACUUM CLEARNER CONTI HAND HELD",
     "original_price": 729.50,
     "price": 729.50,
@@ -1198,7 +1198,7 @@
     "original_price": 2799.00,
     "price": 2599.00,
     "discount": 200.00,
-    "discount_rate": 7.15,
+    "discount_rate": 0.07,
     "product_url": "https://www.bargainsonline.co.za/product/goldair-2-gas-2-electric-hob-ggeh-200/",
     "in_stock": true,
     "img_array": [
@@ -1206,7 +1206,7 @@
     ]
   },
   "87": {
-    "seller_name": "Van Schaik",
+    "seller_name": "Van Schaik Bookstore",
     "product_name": "2 GAS 2 ELECTRIC HOB GOLDAIR",
     "original_price": 2055.50,
     "price": 2055.50,
@@ -1224,7 +1224,7 @@
     "original_price": 259.00,
     "price": 249.00,
     "discount": 10.00,
-    "discount_rate": 3.86,
+    "discount_rate": 0.04,
     "product_url": "https://www.bargainsonline.co.za/product/sunbeam-garment-steamer/",
     "in_stock": true,
     "img_array": [
@@ -1232,7 +1232,7 @@
     ]
   },
   "89": {
-    "seller_name": "Van Schaik",
+    "seller_name": "Van Schaik Bookstore",
     "product_name": "Sunbeam Garment Steamer",
     "original_price": 241.95,
     "price": 241.95,
@@ -1250,7 +1250,7 @@
     "original_price": 3599.00,
     "price": 3399.00,
     "discount": 200.00,
-    "discount_rate": 5.56,
+    "discount_rate": 0.06,
     "product_url": "https://www.bargainsonline.co.za/product/ferre-50cm-gas-stove/",
     "in_stock": true,
     "img_array": [
@@ -1263,7 +1263,7 @@
     "original_price": 299.00,
     "price": 219.00,
     "discount": 80.00,
-    "discount_rate": 26.76,
+    "discount_rate": 0.27,
     "product_url": "https://www.bargainsonline.co.za/product/ellies-high-surge-safe-power-protector-with-euro-socket/",
     "in_stock": true,
     "img_array": [
@@ -1271,7 +1271,7 @@
     ]
   },
   "92": {
-    "seller_name": "Van Schaik",
+    "seller_name": "Van Schaik Bookstore",
     "product_name": "AIR FRYER GAF-800",
     "original_price": 1703.50,
     "price": 1703.50,
