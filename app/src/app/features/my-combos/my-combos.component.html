@@ -5,26 +5,33 @@
       <app-customer-profile-sidenav [profile]="{ username: profile.username }">
       </app-customer-profile-sidenav>
     </div>
-
-    <div class="combos-container" *ngIf="!comboData">
-      <h2>My combos</h2>
-
-      <div class="combos-container-nocards">
-        <div class="product-card-no">
-          <img
-            src="assets\images\no-image.jpeg"
-            alt="No Product Found"
-            class="nimage" />
-        </div>
-        <h3>Oops! It's empty here!</h3>
-        <p>Create combos by clicking the bookmark icon on a product.</p>
-      </div>
-    </div>
-    <div class="combos-container" *ngIf="comboData">
-      <h2>My Combos</h2>
-      <div class="row-combos-container-cards">
+    <div class="combos-container">
+      <h2>My Collections</h2>
+      <div class="row-combos-container-cards" *ngIf="comboData$ | async as comboData">
         <ng-container >
           <div class="row" style="grid-auto-rows: auto">
+            <div class="col-md-3 col-12 combo-card"
+            style="grid-auto-columns: auto; min-width: 300px">
+              <ion-card class="collage-card" (click)="goToWishlist()">
+                <div class="collage-images">
+                  <div class="image-container">
+                    <img [src]="wishlistImages[0]" alt="Image 1" />
+                  </div>
+                  <div class="image-container">
+                    <img [src]="wishlistImages[1]" alt="Image 2" />
+                  </div>
+                  <div class="image-container">
+                    <img [src]="wishlistImages[2]" alt="Image 3" />
+                  </div>
+                  <div class="image-container">
+                    <img [src]="wishlistImages[3]" alt="Image 4" />
+                  </div>
+                </div>
+                <ion-card-header>
+                  <ion-card-title>My Wishlist</ion-card-title>
+                </ion-card-header>
+              </ion-card>
+            </div>
             <div
               class="col-md-3 col-12"
               style="grid-auto-columns: auto; min-width: 300px"
@@ -50,18 +57,10 @@
                 </ion-card-header>
               </ion-card>
             </div>
-            <div
-            class="col-md-1"
-            *ngIf="
-              (i + 1) % 4 === 0 &&
-              comboData.length > 4 &&
-              i + 1 !== comboData.length
-            "></div>
           </div>
           </div>
         </ng-container>
       </div>
     </div>
-    
   </div>
 </ion-content>

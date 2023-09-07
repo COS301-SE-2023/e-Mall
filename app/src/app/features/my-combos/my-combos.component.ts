@@ -5,7 +5,7 @@ import { ISellerProfile } from '../profile/models/seller-profile.interface';
 import { IConsumerProfile } from '../profile/models/consumer-profile.interface';
 import { ICombo } from '@features/combo-state/models/combo.interface';
 import { ComboFacade } from '@features/combo-state/services/combo.facade';
-import { Observable, Subscription, of } from 'rxjs';
+import { Observable, Subscription, map, of } from 'rxjs';
 import { EmailValidator, FormControl, FormGroup } from '@angular/forms';
 import { IProduct } from '@shared/models/product/product.interface';
 import { ConsumerService } from '@shared/servicies/consumer/consumer.service';
@@ -22,13 +22,15 @@ import { ActivatedRoute } from '@angular/router';
 export class MyCombosComponent implements OnInit, OnDestroy {
   products$!: Observable<IProduct[] | null>;
   combos$!: Observable<ICombo[] | null>;
-  comboData: { id: number; name: string; images: string[] }[] = [];
+  comboData$: Observable<any> | undefined;
   bool = true;
   //isAuthenticated: Observable<IUser | null>;
   profile$!: Observable<ISellerProfile | IConsumerProfile | null>;
   email!: string;
   private routeSubscription: Subscription = new Subscription();
   imgs: string[] = [];
+  wishlistImages: string[] = []
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -41,10 +43,10 @@ export class MyCombosComponent implements OnInit, OnDestroy {
     this.profile$.subscribe(profile => {
       if (profile) {
         this.email = profile.email;
-        this.loadcombos();
       }
     });
     this.collage();
+    this.wishlistCollage();
   }
 
   ngAfterViewInit(): void {
@@ -59,14 +61,9 @@ export class MyCombosComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.routeSubscription.unsubscribe();
-    this.comboData = [];
-    console.log('here');
+    console.log('My-combos destoryed');
   }
-  loadcombos() {
-    this.comboFacade.getCombos().subscribe(data => {
-      if (data) this.combos$ = of(data);
-    });
-  }
+
   goToCustomerProfile() {
     this.router.navigate(['/customer-profile']);
   }
@@ -74,6 +71,12 @@ export class MyCombosComponent implements OnInit, OnDestroy {
   goToConstruction() {
     this.router.navigate(['/construction']);
   }
+
+  
+  goToWishlist() {
+    this.router.navigate(['/wishlist']);
+  }
+
   goToComboPage(combo_id: number) {
     const navigationextras: NavigationExtras = {
       queryParams: { combo_id: combo_id },
@@ -90,31 +93,54 @@ export class MyCombosComponent implements OnInit, OnDestroy {
   }
 
   collage() {
-    this.combos$.subscribe(combos => {
-      if (combos) {
-        combos.forEach((combo: ICombo) => {
-          if (combo.products) {
-            this.imgs = [];
+    this.comboData$ = this.comboFacade.getCombos().pipe(
+      map(combos => {
+        if (combos) {
+          const comboData: any[] = [];
 
-            for (let i = 0; i < 4; i++) {
-              this.imgs[i] = 'assets/images/logo-black-no-bg.png';
-            }
-            let image_count = 0;
-            combo.products.forEach((product: IProduct) => {
-              if (product.min_price_img_array && image_count < 4) {
-                this.imgs[image_count] = product.min_price_img_array[0];
-                image_count++;
+          combos.forEach((combo: ICombo) => {
+            if (combo.products) {
+              this.imgs = [];
+
+              for (let i = 0; i < 4; i++) {
+                this.imgs[i] = 'assets/images/logo-black-no-bg.png';
               }
-            });
-            const comboObj = {
-              id: combo.id,
-              name: combo.name,
-              images: this.imgs,
-            };
-            this.comboData.push(comboObj);
-          }
-        });
+              let image_count = 0;
+              combo.products.forEach((product: IProduct) => {
+                if (product.min_price_img_array && image_count < 4) {
+                  this.imgs[image_count] = product.min_price_img_array[0];
+                  image_count++;
+                }
+              });
+              const comboObj = {
+                id: combo.id,
+                name: combo.name,
+                images: this.imgs,
+              };
+              comboData.push(comboObj);
+            }
+          });
+          return comboData;
+        } else {
+          return [];
+        }
+      })
+    );
+  }
+
+
+  wishlistCollage(){
+    this.consumerService.getConsumerInfo(this.email).subscribe(data => {
+      for (let i = 0; i < 4; i++) {
+        this.wishlistImages[i] = 'assets/images/logo-black-no-bg.png';
       }
+      let image_count = 0;
+      data.products.forEach((product: IProduct) => {
+        if (product.min_price_img_array && image_count < 4) {
+          this.wishlistImages[image_count] = product.min_price_img_array[0];
+          image_count++;
+        }
+      });
     });
   }
 }

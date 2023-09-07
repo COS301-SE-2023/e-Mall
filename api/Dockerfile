@@ -21,6 +21,7 @@ RUN pip install -r requirements.txt
 
 # Copy the rest of the project files into the container
 COPY . .
+COPY docker-entrypoint.prod.sh .
 
 #database migration
 # RUN sudo apt install build-essential libpq-dev python3-dev

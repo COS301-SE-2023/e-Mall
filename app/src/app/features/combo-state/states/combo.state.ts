@@ -44,16 +44,27 @@ export class ComboState {
           for (const combo of draft.combos) {
             for (const id of action.payload.combo_ids)
               if (combo.id === Number(id)) {
-                //check if the product is already in the combo and if so , remove , else push
-                if (
-                  combo.products.find(
-                    product => product.id === action.payload.product.id
-                  )
-                ) {
-                  combo.products = combo.products.filter(
-                    product => product.id !== action.payload.product.id
-                  );
-                } else combo.products.push(action.payload.product);
+                combo.products.push(action.payload.product);
+              }
+          }
+        }
+      })
+    );
+  }
+
+  @Action(ComboActions.RemoveProductFromCombo)
+  RemoveProduct(
+    ctx: StateContext<ComboStateModel>,
+    action: ComboActions.RemoveProductFromCombo
+  ) {
+    ctx.setState(
+      produce((draft: ComboStateModel) => {
+        if (draft.combos) {
+          for (const combo of draft.combos) {
+              if (combo.id === Number(action.payload.combo_id)) {
+                combo.products = combo.products.filter(
+                  product => product.id !== action.payload.product_id
+                );
               }
           }
         }
@@ -117,9 +128,7 @@ export class ComboState {
     const newCombo = {
       id: newComboId,
       name: action.payload.combo_name,
-      products: action.payload.product_ids.map(
-        (id: number) => action.payload.product
-      ),
+      products: [action.payload.product],
       active_emails: action.payload.user_emails.slice(0, 1),
       active_usernames: action.payload.username,
       pending_users: action.payload.user_emails.slice(1),
@@ -145,7 +154,7 @@ export class ComboState {
             if (combo.id === action.payload.combo_id) {
               combo.name = action.payload.combo_name;
               if (action.payload.user_emails[0] !== '') {
-                for(const email of action.payload.user_emails){
+                for (const email of action.payload.user_emails) {
                   combo.pending_users.push(email);
                 }
               }

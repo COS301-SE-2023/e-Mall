@@ -13,32 +13,36 @@
 .ion-content-wrapper {
   display: flex;
   flex-direction: row;
-  //border: 1px solid red ;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .combo-container {
-  margin-top: 20px;
+  margin-top: 30px;
   flex: 1;
-  //border: 1px solid blue ;
-  padding-left: 5%;
+  margin-left: 5%;
   padding-right: 3%;
-  //padding-right: 10%;
-  //justify-content: center;
-  //text-align: center;
 }
-.head{
-  display:flex;
-justify-content: space-between;
-
-
-}
-.users{
+.head {
   display: flex;
   justify-content: space-between;
+
+  .head-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 5%;
+  }
 }
+.user-cards {
+  display: flex;
+  flex-wrap: wrap;
+  width: 70%;
+}
+
 ion-card {
-  width: 40%;
-  ion-icon{
+  width: 30%;
+  height: fit-content;
+  ion-icon {
     justify-content: flex-end;
     align-items: flex-end;
   }
@@ -47,17 +51,12 @@ ion-item {
   --border-width: 0;
   --inner-border-width: 0;
 }
-
+.users {
+  display: flex;
+  justify-content: space-between;
+}
 .arrow {
   justify-content: flex-end;
-}
-.combo-container1 {
-  flex: 1;
-  //border: 1px solid blue ;
-  padding-left: 8%;
-  //padding-right: 10%;
-  //justify-content: center;
-  //text-align: center;
 }
 
 .combo-container h2 {
@@ -73,6 +72,7 @@ ion-item {
 .combo-container-cards {
   flex: 1;
   margin-top: 10px;
+  width: fit-content;
 }
 
 .combo-container-nocards {
@@ -80,6 +80,8 @@ ion-item {
   margin-top: 50px;
   text-align: center;
   padding-right: 100px;
+  justify-content: center;
+  align-items: center;
 }
 
 .nimage {
@@ -88,4 +90,43 @@ ion-item {
   justify-content: center;
   opacity: 30%;
   align-items: center;
+}
+
+.collection-cards {
+  display: flex;
+}
+
+.collection-card {
+  width: max-content;
+
+  ion-item {
+    border-radius: 16px;
+    --ion-background-color: transparent; /* Remove the background color of the item */
+    --ion-item-background-color: transparent; /* Remove the background color of the item */
+    --ion-item-box-shadow: none; /* Remove the box shadow */
+    --ion-item-border-radius: 0; /* Remove the border radius */
+    transition: background-color 0.3s ease; /* Add transition for smooth color change */
+  }
+
+  ion-item:hover {
+    background-color: #37d0d6; /* Set the desired background color when hovering */
+    ion-label,
+    ion-icon {
+      color: #fff;
+    }
+    cursor: pointer;
+  }
+
+  .active {
+    background-color: #37d0d6; /* Set the desired background color when hovering */
+    ion-label,
+    ion-icon {
+      color: #fff;
+    }
+  }
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
 }

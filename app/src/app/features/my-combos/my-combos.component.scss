@@ -1,38 +1,51 @@
 .content-container {
-    display: flex;
-    justify-content: space-between; 
-  }
-  
+  display: flex;
+  justify-content: space-between;
+}
 
 .side-nav-container {
-    flex: 1; 
-    padding: 20px; 
-    //border: 1px solid green ;
-    max-width: 250px;
-  }
-  
-.ion-content-wrapper {
-    display: flex;
-    flex-direction: row;
-    //border: 1px solid red ;
+  flex: 1;
+  padding: 20px;
+  //border: 1px solid green ;
+  max-width: 250px;
 }
 
+.ion-content-wrapper {
+  display: flex;
+  flex-direction: row;
+  //border: 1px solid red ;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+/* component.css or your CSS file */
+.combo-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+  gap: 20px; 
+}
+
+
+.content {
+  display: flex;
+  flex-direction: row;
+}
 
 .combos-container {
-    flex: 1;
-    padding-left: 5%;
-    margin-top: 20px;
+  flex: 1;
+  padding-left: 5%;
+  margin-top: 30px;
 }
 
-.combos-container h2{
+.combos-container h2 {
   margin-left: 15px;
-  margin-top: 0px
+  margin-top: 0px;
 }
-
 
 .combos-container-cards {
-    flex: 1;
-    margin-top: 50px;
+  flex: 1;
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .combos-container-nocards {
@@ -43,11 +56,11 @@
 }
 
 .nimage {
-    width: 300px;
-    height: 300px;
-    justify-content: center;
-    opacity: 30%;
-    align-items: center;
+  width: 300px;
+  height: 300px;
+  justify-content: center;
+  opacity: 30%;
+  align-items: center;
 }
 
 ion-card {
@@ -103,6 +116,6 @@ ion-card-title {
   text-align: center;
 }
 
-.row-combos-container-cards{
+.row-combos-container-cards {
   display: flex;
 }

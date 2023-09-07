@@ -98,6 +98,21 @@ export class ComboService {
     return res.body;
   }
 
+  async removeProduct(data: any): Promise<any> {
+    const url = `${this.apiUrl}remove_product/`;
+    const res = await lastValueFrom(
+      this.http
+        .post(url, data, {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+          observe: 'response',
+        })
+        .pipe(take(1), shareReplay(1))
+    );
+    return res.body;
+  }
+
   async editCombo(data: any): Promise<any> {
     const url = `${this.apiUrl}edit/`;
     const res = await lastValueFrom(

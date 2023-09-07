@@ -31,6 +31,8 @@ export class ProductComponent implements OnInit, OnDestroy {
   product_category!: string;
   selectedImage!: string;
   isHearted = of(false);
+  product_params!: IProduct;
+
   
   isBookmark = of(false);
 
@@ -75,6 +77,9 @@ export class ProductComponent implements OnInit, OnDestroy {
       if (id) {
         this.prod_id = +id;
         this.product$ = this.productService.getProductData(this.prod_id);
+        this.product$.subscribe(data =>{
+          this.product_params = data;
+        })
         this.sellers$ = this.productService.getSellerList(
           this.prod_id,
           'default'
@@ -87,9 +92,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 
     this.prodClickAnalytics();
   }
-  toggleHeart() {
-    this.profileFacade.toggleWishlist(this.prod_id);
-  }
+
   toggleBookmark() {
     this.isBookmark = of(true);
     this.openComboPopover(); 
@@ -98,8 +101,14 @@ export class ProductComponent implements OnInit, OnDestroy {
     const modal = await this.modalController.create({
       component: ComboPopoverComponent,
       componentProps: {
-        product: this.product$, // Pass the product as a property
+        product: this.product_params,
+        consumer_email: this.consumer_email
       },
+      cssClass: ['inventory-modal'],
+      backdropDismiss: false,
+      animated: true,
+      mode: 'md',
+      presentingElement: await this.modalController.getTop(),
     });
     return await modal.present();
   }

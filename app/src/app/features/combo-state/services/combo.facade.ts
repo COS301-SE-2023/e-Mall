@@ -59,8 +59,6 @@ export class ComboFacade implements OnDestroy {
     }
   }
 
-
-
   @Dispatch()
   updateUsers(data: any) {
     try {
@@ -70,6 +68,17 @@ export class ComboFacade implements OnDestroy {
       return this.setError(error);
     }
   }
+
+  @Dispatch()
+  removeProduct(data: any) {
+    try {
+      this.comboService.removeProduct(data);
+      return new ComboActions.RemoveProductFromCombo(data);
+    } catch (error) {
+      return this.setError(error);
+    }
+  }
+  
 
   @Dispatch()
   editCombo(data: any) {
@@ -83,12 +92,12 @@ export class ComboFacade implements OnDestroy {
 
   @Dispatch()
   deleteUser(data: any) {
-      try {
-          this.comboService.deleteUser(data);
-          return new ComboActions.DeleteUser(data);
-      } catch (error) {
-          return this.setError(error);
-      }
+    try {
+      this.comboService.deleteUser(data);
+      return new ComboActions.DeleteUser(data);
+    } catch (error) {
+      return this.setError(error);
+    }
   }
 
   @Dispatch()

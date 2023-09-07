@@ -26,6 +26,7 @@ factory-boy==3.2.1
 Faker==18.10.1
 faker-commerce==1.0.3
 firebase-admin==6.2.0
+fuzzywuzzy==0.18.0
 gcloud==0.18.3
 google-api-core==2.11.1
 google-api-python-client==2.97.0

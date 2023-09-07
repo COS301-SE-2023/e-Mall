@@ -4,7 +4,7 @@ import { ProfileFacade } from '../profile/services/profile.facade';
 import { ISellerProfile } from '../profile/models/seller-profile.interface';
 import { IConsumerProfile } from '../profile/models/consumer-profile.interface';
 import { ICombo } from '@features/combo-state/models/combo.interface';
-import { Observable, Subscription, of } from 'rxjs';
+import { Observable, Subscription, map, of } from 'rxjs';
 import { EmailValidator, FormControl, FormGroup } from '@angular/forms';
 import { IProduct } from '@shared/models/product/product.interface';
 import { ConsumerService } from '@shared/servicies/consumer/consumer.service';
@@ -22,6 +22,7 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./combo.component.scss'],
 })
 export class ComboComponent implements OnInit, OnDestroy {
+  comboData$: Observable<any> | undefined;
   products$!: Observable<IProduct[] | undefined>;
   bool = true;
   profile$!: Observable<ISellerProfile | IConsumerProfile | null>;
@@ -57,34 +58,31 @@ export class ComboComponent implements OnInit, OnDestroy {
     });
     this.paramMapSubscription = this.route.queryParamMap.subscribe(params => {
       const id = params.get('combo_id');
-
       if (id) {
         this.combo_id = +id;
-        this.combo$ = this.comboFacade.getOneCombo(this.combo_id);
+        this.fetchComboData(this.combo_id);
       }
     });
+  }
+  // Subscribe to route parameter changes and reload data accordingly
 
+  fetchComboData(ComboID: number): void {
+    this.combo$ = this.comboFacade.getOneCombo(ComboID);
     this.combo$.subscribe(data => {
       this.products$ = of(data?.products);
       this.active_users = data?.active_emails;
       this.pending_users = data?.pending_users;
       this.name = data?.name;
     });
-  }
-  // Subscribe to route parameter changes and reload data accordingly
-
-  ngAfterViewInit(): void {
-    this.routeSubscription = this.route.queryParams.subscribe(params => {
-      // If needed, you can call the method to reload consumer products here
-    });
+    this.comboData();
   }
 
   ngOnDestroy(): void {
     // Unsubscribe from the route parameter subscription to avoid memory leaks
     this.routeSubscription.unsubscribe();
     this.combo$ = null as any;
-    console.log('destroyed');
   }
+
   togglePanel(panelNumber: number) {
     this.isPanelOpen[panelNumber] = !this.isPanelOpen[panelNumber];
   }
@@ -97,12 +95,23 @@ export class ComboComponent implements OnInit, OnDestroy {
     this.router.navigate(['/construction']);
   }
 
+  goToComboPage(combo_id: number) {
+    const navigationextras: NavigationExtras = {
+      queryParams: { combo_id: combo_id },
+    };
+    this.router.navigate(['/combo'], navigationextras);
+  }
+
   getOneImg(imgList?: string[]) {
     //remove following when no need to have mock data
     if (!imgList || imgList.length < 1)
       return 'https://www.incredible.co.za/media/catalog/product/cache/7ce9addd40d23ee411c2cc726ad5e7ed/s/c/screenshot_2022-05-03_142633.jpg';
 
     return imgList[0];
+  }
+
+  goToWishlist() {
+    this.router.navigate(['/wishlist']);
   }
 
   goToProductPage(prod_id: number): void {
@@ -136,5 +145,27 @@ export class ComboComponent implements OnInit, OnDestroy {
     };
     this.comboFacade.deleteUser(data);
     this.router.navigate(['/my-combos']);
+  }
+
+  comboData() {
+    this.comboData$ = this.comboFacade.getCombos().pipe(
+      map(combos => {
+        if (combos) {
+          const comboData: any[] = [];
+          combos.forEach((combo: ICombo) => {
+            if (combo.products) {
+              const comboObj = {
+                id: combo.id,
+                name: combo.name,
+              };
+              comboData.push(comboObj);
+            }
+          });
+          return comboData;
+        } else {
+          return [];
+        }
+      })
+    );
   }
 }

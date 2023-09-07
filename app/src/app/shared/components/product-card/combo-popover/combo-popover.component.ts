@@ -8,6 +8,8 @@ import { Observable, of } from 'rxjs';
 import { NavParams } from '@ionic/angular';
 import { IProduct } from '@shared/models/product/product.interface';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
+import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
+
 @Component({
   selector: 'app-combo-popover',
   templateUrl: './combo-popover.component.html',
@@ -21,8 +23,8 @@ export class ComboPopoverComponent implements OnInit {
   product!: IProduct;
   userEmail!: string;
   username!: string | undefined;
-  comboName!: string;
-  comboEmail!:string;
+  addEmails: string[] = [];
+  consumer_email!: string;
 
   constructor(
     private fb: FormBuilder,
@@ -30,7 +32,8 @@ export class ComboPopoverComponent implements OnInit {
     private modalController: ModalController,
     private comboFacade: ComboFacade,
     private navParams: NavParams,
-    private profileFacade: ProfileFacade
+    private profileFacade: ProfileFacade,
+    private analytics: AnalyticsService
   ) {}
 
   ngOnInit() {
@@ -41,6 +44,7 @@ export class ComboPopoverComponent implements OnInit {
       }
     });
     this.product = this.navParams.get('product');
+    this.consumer_email = this.navParams.get('consumer_email');
 
     this.selectForm = this.fb.group({
       selectedOptions: [[]],
@@ -48,7 +52,7 @@ export class ComboPopoverComponent implements OnInit {
 
     this.newForm = this.fb.group({
       newName: ['', Validators.required],
-      newEmails: ['', [ Validators.email]],
+      newEmails: ['', [Validators.email]],
     });
 
     this.comboFacade.getCombos().subscribe(data => {
@@ -60,18 +64,29 @@ export class ComboPopoverComponent implements OnInit {
     this.newClicked = true;
   }
 
-  sendData(){
-     console.log();
+  createNewComboAndClearInput() {
+    // Get the "newEmails" form control
+    console.log('enter');
+    const newEmailsControl = this.newForm.get('newEmails');
+
+    // Check if the control exists and is not null or undefined
+    if (newEmailsControl && newEmailsControl.valid) {
+      console.log('here');
+      // Push the value from the form control to your array (assuming "addEmails" is an array)
+      this.addEmails.push(newEmailsControl.value);
+
+      // Reset the "newEmails" form control to clear the input field
+      newEmailsControl.reset();
+    }
   }
 
   createNewCombo() {
     if (this.newForm.valid) {
       // Get form values
       const newName = this.newForm.value.newName;
-      const newEmails = this.newForm.value.newEmails;
 
       // Split emails into an array
-      const useremailsarray = newEmails.split(',');
+      const useremailsarray = this.addEmails;
       useremailsarray.unshift(this.userEmail);
 
       // Create data object
@@ -79,7 +94,8 @@ export class ComboPopoverComponent implements OnInit {
         combo_name: newName,
         user_emails: useremailsarray,
         product_ids: [this.product.id], // You need to define 'this.product'
-        username: [this.username], // You need to define 'this.username'
+        username: [this.username], // You need to define 'this.username',
+        product: this.product,
       };
 
       // Reset the form
@@ -92,18 +108,34 @@ export class ComboPopoverComponent implements OnInit {
 
   UpdateExistingCombo() {
     if (this.selectForm.valid) {
-      const data = {
-        combo_ids: this.selectForm.value.selectedOptions,
-        product_id: this.product.id,
-        product: this.product,
-      };
-      this.updateCombo(data);
+      console.log(this.selectForm.value.selectedOptions)
+      if (this.selectForm.value.selectedOptions[0] == 'wishlist') {
+        this.favClickAnalytics();
+        this.profileFacade.toggleWishlist(this.product.id);
+        if(this.selectForm.value.selectedOptions.length>1 ){
+          const options = this.selectForm.value.selectedOptions.slice(1);
+          const data = {
+            combo_ids:options,
+            product_id: this.product.id,
+            product: this.product,
+          };
+          this.updateCombo(data);
+        }
+        this.closePopover();
+      } else {
+        const data = {
+          combo_ids: this.selectForm.value.selectedOptions,
+          product_id: this.product.id,
+          product: this.product,
+        };
+        this.updateCombo(data);
+        this.closePopover();
+      }
     }
   }
 
   updateCombo(data: any) {
     this.comboFacade.updateCombo(data);
-    this.closePopover();
   }
 
   addCombo(data: any) {
@@ -112,5 +144,19 @@ export class ComboPopoverComponent implements OnInit {
   }
   async closePopover() {
     await this.modalController.dismiss();
+  }
+
+  favClickAnalytics(): void {
+    if (this.product) {
+      const data = {
+        seller: this.product.min_price_seller_business_name,
+        product: this.product.name,
+        product_category: this.product.category,
+        consumer_email: this.consumer_email,
+        event_type: 'favourited_product',
+        metadata: null,
+      };
+      this.analytics.createAnalyticsData(data);
+    }
   }
 }

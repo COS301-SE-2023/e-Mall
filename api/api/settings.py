@@ -31,7 +31,7 @@ if env_path.exists():
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env("DEBUG")
+DEBUG = True if env("DEBUG") in [True, "True"] else False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -61,8 +61,8 @@ INSTALLED_APPS = [
     "custom_auth.apps.CustomAuthConfig",
     "ca_matrix.apps.CaMatrixConfig",
     "cust_analytics.apps.CustAnalyticsConfig",
-    "combos.apps.CombosConfig",
     "notification.apps.NotificationConfig",
+    "combos.apps.CombosConfig",
 ]
 
 MIDDLEWARE = [
@@ -133,9 +133,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 
-STATIC_ROOT = "/static/"
 STATIC_URL = "/static/"
 
+STATIC_ROOT = BASE_DIR / "static"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

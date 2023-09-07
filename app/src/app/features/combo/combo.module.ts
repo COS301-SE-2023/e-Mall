@@ -8,22 +8,25 @@ import { ProductCardModule } from "@shared/components/product-card/product-card.
 import { CustomerProfileSidenavModule } from '@shared/components/customer-profile-sidenav/customer-profile-sidenav.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ComboEditModule } from './combo-edit/combo-edit.module';
+import { RouterModule, Routes } from '@angular/router';
 
 
-
+const routes: Routes = [
+  { path: '', pathMatch: 'full', component: ComboComponent },
+];
 @NgModule({
-  declarations: [
-    ComboComponent
-  ],
+  declarations:[ComboComponent],
   imports: [
     CommonModule,
     FooterModule,
     NavbarModule,
     IonicModule,
-    ProductCardModule,
     CustomerProfileSidenavModule,
     MatProgressSpinnerModule,
-    ComboEditModule
-  ]
+    ProductCardModule,
+    ComboEditModule,
+    RouterModule.forChild(routes),
+  ],
+  exports:[RouterModule]
 })
 export class ComboModule { }

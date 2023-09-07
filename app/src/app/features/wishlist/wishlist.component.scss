@@ -1,58 +1,36 @@
-
 .content-container {
-    display: flex;
-    justify-content: space-between; 
-  }
-  
+  display: flex;
+  justify-content: space-between;
+}
 
 .side-nav-container {
-    flex: 1; 
-    padding: 20px; 
-    //border: 1px solid green ;
-    max-width: 250px;
-  }
-  
-.ion-content-wrapper {
-    display: flex;
-    flex-direction: row;
-  
-    //border: 1px solid red ;
+  flex: 1;
+  padding: 20px;
+  max-width: 250px;
 }
 
+.ion-content-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
 
 .wishlist-container {
-    flex: 1;
-    //border: 1px solid blue ;
-    padding-left: 8%;
-    margin-top: 20px;
-    //padding-right: 10%;
-    //justify-content: center;
-    //text-align: center;
-}
-
-.wishlist-container1 {
+  margin-top: 30px;
   flex: 1;
-  //border: 1px solid blue ;
-  padding-left: 8%;
-  margin-top: 20px;
-  //padding-right: 10%;
-  //justify-content: center;
-  //text-align: center;
+  padding-left: 5%;
+  padding-right: 3%;
 }
 
-.wishlist-container h2{
+.wishlist-container h2 {
   margin-left: 15px;
-  margin-top: 0px
-}
-
-.wishlist-container1 h2{
-  margin-left: 15px;
-  margin-top:60px
+  margin-top: 0px;
 }
 
 .wishlist-container-cards {
-    flex: 1;
-    margin-top: 50px;
+  flex: 1;
+  margin-top: 10px;
 }
 
 .wishlist-container-nocards {
@@ -63,9 +41,50 @@
 }
 
 .nimage {
-    width: 300px;
-    height: 300px;
-    justify-content: center;
-    opacity: 30%;
-    align-items: center;
+  width: 300px;
+  height: 300px;
+  justify-content: center;
+  opacity: 30%;
+  align-items: center;
+}
+
+.collection-cards {
+  display: flex;
+}
+
+.collection-card {
+  width: max-content;
+  height: fit-content;
+  ion-item {
+    --border-width: 0;
+    --inner-border-width: 0;
+    border-radius: 16px;
+    --ion-background-color: transparent; /* Remove the background color of the item */
+    --ion-item-background-color: transparent; /* Remove the background color of the item */
+    --ion-item-box-shadow: none; /* Remove the box shadow */
+    --ion-item-border-radius: 0; /* Remove the border radius */
+    transition: background-color 0.3s ease; /* Add transition for smooth color change */
+  }
+
+  ion-item:hover {
+    background-color: #37d0d6; /* Set the desired background color when hovering */
+    ion-label,
+    ion-icon {
+      color: #fff;
+    }
+    cursor: pointer;
+  }
+
+  .active {
+    background-color: #37d0d6; /* Set the desired background color when hovering */
+    ion-label,
+    ion-icon {
+      color: #fff;
+    }
+  }
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
 }

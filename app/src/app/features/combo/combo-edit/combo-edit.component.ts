@@ -24,6 +24,8 @@ export class ComboEditComponent implements OnInit {
   comboName!: string;
   comboEmail!: string;
   isChanged = false;
+  
+  addEmails:string[]=[];
 
   constructor(
     private fb: FormBuilder,
@@ -57,19 +59,23 @@ export class ComboEditComponent implements OnInit {
       if (data) this.combos$ = of(data);
     });
   }
-
-  sendData() {
-    console.log();
+  AddEmail() {
+    const newEmailsControl = this.newForm.get('newEmails');
+    if (newEmailsControl&&newEmailsControl.valid) {
+      this.addEmails.push(newEmailsControl.value);
+      newEmailsControl.reset();
+      this.isChanged = true;
+    }
   }
+  
 
   editCombo() {
     if (this.newForm.valid) {
       // Get form values
       const newName = this.newForm.value.newName;
-      const newEmails = this.newForm.value.newEmails;
 
       // Split emails into an array
-      const useremailsarray = newEmails.split(',');
+      const useremailsarray = this.addEmails;
 
       // Create data object
       const data = {
@@ -78,7 +84,6 @@ export class ComboEditComponent implements OnInit {
         user_emails: useremailsarray,
       };
 
-      console.log(data);
       // Reset the form
       this.newForm.reset();
 

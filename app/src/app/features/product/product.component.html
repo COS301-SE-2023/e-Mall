@@ -42,7 +42,12 @@
                   <span
                     class="discount-tag"
                     *ngIf="product.min_price_discount_rate !== 0">
-                    <ion-label> -{{ ((product.min_price_discount_rate ?? 0) * 100 | number:'1.0-0') }}%</ion-label>
+                    <ion-label>
+                      -{{
+                        (product.min_price_discount_rate ?? 0) * 100
+                          | number : '1.0-0'
+                      }}%</ion-label
+                    >
                   </span>
                 </div>
               </div>
@@ -55,18 +60,12 @@
                     fill="clear"
                     mode="ios">
                     <ion-icon
-                      [name]="(isBookmark | async) ? 'add' : 'add-outline'"
+                      [name]="
+                        (isBookmark | async)
+                          ? 'bookmark-outline'
+                          : 'bookmark-outline'
+                      "
                       style="color: var(--c-5-a, #37d0d6)"></ion-icon>
-                  </ion-button>
-                  <ion-button
-                    (click)="toggleHeart()"
-                    class="wishlist-button"
-                    shape="round"
-                    fill="clear"
-                    mode="ios">
-                    <ion-icon
-                      [name]="(isHearted | async) ? 'heart' : 'heart-outline'"
-                      style="color: red"></ion-icon>
                   </ion-button>
                 </span>
               </mat-card-actions>
@@ -145,14 +144,15 @@
                 <mat-accordion>
                   <mat-expansion-panel hideToggle disabled>
                     <mat-expansion-panel-header>
-                      <mat-panel-title >
-                        <mat-card-title class="seller-name" (click)="goToSellerPage(seller.seller)">{{
-                          seller.business_name
-                        }}</mat-card-title>
+                      <mat-panel-title>
+                        <mat-card-title
+                          class="seller-name"
+                          (click)="goToSellerPage(seller.seller)"
+                          >{{ seller.business_name }}</mat-card-title
+                        >
                       </mat-panel-title>
                       <mat-panel-description></mat-panel-description>
                     </mat-expansion-panel-header>
-                    
                   </mat-expansion-panel>
                   <mat-card-header class="seller-product-name-price">
                     <div class="container-fluid card-title-container">
@@ -218,7 +218,7 @@
             </div>
           </ng-container>
         </div>
-</div>
+      </div>
     </div>
   </div>
   <app-footer></app-footer>
