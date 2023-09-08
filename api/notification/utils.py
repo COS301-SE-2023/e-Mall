@@ -5,9 +5,62 @@ from rest_framework.response import Response
 db = firestore.client()
 user_collection = "users"
 product_collection = "products"
-message_types = ["user", "query", "wishlist", "follower"]
+combo_collection = "combos"
+message_types = ["user", "query", "wishlist", "follower", "combo"]
 singe_msg_collection_name = "logs"  # sent to user
 multi_msg_collection_name = "follower_logs"  # sent to followers
+
+
+def update_combo(user_ids, combo_id, action):
+    try:
+        combo_id = str(combo_id)
+        current_user_array = [str(user_ids[0])]
+        pending_ids_array = []
+        if len(user_ids) > 1:
+            for user_id in user_ids[:1]:
+                pending_ids_array.append(str(user_id))
+        if not all([user_ids, combo_id, action]):
+            raise Exception("Missing required parameters")
+
+        combo_ref = db.collection(combo_collection).document(combo_id)
+        combo_doc = combo_ref.get()
+
+        if action == "create":
+            update_data = {
+                "pending_users": firestore.ArrayUnion(pending_ids_array),
+                "active_users": firestore.ArrayUnion(current_user_array),
+            }
+        elif action == "leave":
+            update_data = {"active_users": firestore.ArrayRemove(current_user_array)}
+        elif action == "accept":
+            update_data = {
+                "pending_users": firestore.ArrayRemove(pending_ids_array),
+                "active_users": firestore.ArrayUnion(current_user_array),
+            }
+        elif action == "reject":
+            update_data = {"pending_users": firestore.ArrayRemove(pending_ids_array)}
+        else:
+            raise Exception("Invalid action")
+
+        if combo_doc.exists:
+            combo_ref.update(update_data)
+        else:
+            if action == "create":
+                combo_ref.set(
+                    {
+                        "pending_users": pending_ids_array,
+                        "active_users": current_user_array,
+                    }
+                )
+
+        return Response(
+            {
+                "status": "success",
+                "message": f'Combo {combo_id} {"created" if action == "create" else "removed"}',
+            }
+        )
+    except Exception as e:
+        return Response({"status": "error", "message": str(e)})
 
 
 def update_wishlist(user_id, product_id, action):
