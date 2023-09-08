@@ -99,13 +99,13 @@
     "name": "PlayStation 5 (PS5)",
     "description": "Sony PlayStation 5 (PS5) Console",
     "brand": "Sony",
-    "category": "toys and games"
+    "category": "electronics"
   },
   "18": {
     "name": "Xbox Series X Diablo IV & Carbon Black Controller Bundle",
     "description": "Xbox Series X Diablo IV & Carbon Black Controller Bundle",
     "brand": "Xbox",
-    "category": "toys and games"
+    "category": "electronics"
   },
   "19": {
     "name": "Monopoly Warhammer 40k",
@@ -358,5 +358,305 @@
     "description": "Lenovo ThinkVision TIO22 21.5-inch Monitor",
     "brand": "Lenovo",
     "category": "electronics"
+  },
+  "61": {
+    "name": "LG 20MK400H 19.5' Monitor",
+    "description": "LG 20MK400H 19.5' Monitor",
+    "brand": "LG",
+    "category": "electronics"
+  },
+  "62": {
+    "name": "ORICO 7.4cm Desktop Monitor Stand with Drawers - White",
+    "description": "The Orico Monitor Stand Riser is a great way to keep your desk organized while at the same time improving your overall posture. It features a functional design that keeps your workspace as tidy as possible. It also features a desk organizer with 3 drawers that can store almost all of your small daily supplies and stationery. It also comes with a convenient phone and tablet holder which is a groove on top of the stand that helps you hold your cellphone or tablet while watching your favourite videos. The Stand Riser is made from a thick ABS material, making it not only durable but water-proof and scratch-resistant.",
+    "brand": "Orico",
+    "category": "electronics"
+  },
+  "63": {
+    "name": "Corsair K70 RGB PRO Mechanical Gaming Keyboard with PBT DOUBLE SHOT PRO Keycaps - CHERRY MX Blue",
+    "description": "Corsair K70 RGB PRO Mechanical Gaming Keyboard with PBT DOUBLE SHOT PRO Keycaps - CHERRY MX Blue",
+    "brand": "Corsair",
+    "category": "electronics"
+  },
+  "64": {
+    "name": "Corsair HS35 Stereo Gaming Headset Green",
+    "description": "HS35 Stereo Gaming Headset — Green",
+    "brand": "Corsair",
+    "category": "electronics"
+  },
+  "65": {
+    "name": "Razer Kaira Wireless Gaming Headset for Xbox Series X|S",
+    "description": "Razer Kaira Wireless Gaming Headset for Xbox Series X|S",
+    "brand": "Razer",
+    "category": "electronics"
+  },
+  "66": {
+    "name": "4Gamers MARAUDER Gaming Headset",
+    "description": "The MARAUDER is a multi-platform Gaming Headset. Compatible with PS4, PS5, Xbox One, Series S, Series X, Nintendo Switch, PC and mobile devices. It has a super lightweight, comfortable design featuring soft-foam, leatherette ear cushions and padded headband with a flexible mic. The MARAUDER speakers and mic are designed for immersive game audio and clear chat during gaming sessions with friends. In-line controls make adjusting game audio and chat volume simple and easy to reach.",
+    "brand": "4Gamers",
+    "category": "electronics"
+  },
+  "67": {
+    "name": "Asus ROG Strix Arion S500 Portable SSD 500GB",
+    "description": "Asus ROG Strix Arion S500 Portable SSD 500GB",
+    "brand": "Asus",
+    "category": "electronics"
+  },
+  "68": {
+    "name": "Adata ED600 External Enclosure",
+    "description": "Adata ED600 External Enclosure",
+    "brand": "Adata",
+    "category": "electronics"
+  },
+  "69": {
+    "name": "Intel Core i5-13600KF Processor",
+    "description": "Intel Core i5-13600KF Processor - No Fan. 24M Cache, up to 5.10 GHz",
+    "brand": "Intel",
+    "category": "electronics"
+  },
+  "70": {
+    "name": "Intel Core i7-13700K Processor",
+    "description": "Intel Core i7-13700K Processor - No Fan. 30M Cache, up to 5.40 GHz",
+    "brand": "Intel",
+    "category": "electronics"
+  },
+  "71": {
+    "name": "Intel Core i9-13900KF Processor",
+    "description": "Intel Core i9-13900KF Processor - No Fan. 36M Cache, up to 5.80 GHz",
+    "brand": "Intel",
+    "category": "electronics"
+  },
+  "72": {
+    "name": "AORUS GeForce RTX 4080 16GB MASTER",
+    "description": "AORUS GeForce RTX 4080 16GB MASTER",
+    "brand": "Aorus",
+    "category": "electronics"
+  },
+  "73": {
+    "name": "Adata P20000D Portable Power Bank 20000mAh",
+    "description": "The ADATA P20000D Portable Power Bank makes it clear what a flagship power bank is. Packing 20000mAh, this beast is tamed with a high precision digital display that lets you know exactly how much power remains. It also has a bright LED flashlight for added utility and safety. We placed dual USB charging ports on the P20000D so you can top up two devices at once to save time, and bulked it up with robust protective measures. The P20000D embodies ultimate – it’s the envy of all other power banks!",
+    "brand": "Adata",
+    "category": "electronics"
+  },
+  "74": {
+    "name": "Bitty Boomers TMNT Bebop Bluetooth Speaker",
+    "description": "Cowabunga, Dude! The bungling bad guy Bebop now comes in a 2' tall ultra-portable Bluetooth speaker. Don't be fooled though, what they lack in size they make up for with mind-blowing sound.",
+    "brand": "Bitty Boomers",
+    "category": "electronics"
+  },
+  "75": {
+    "name": "Corsair CX Series CX750F RGB 750W 80 Plus Bronze Certified Fully Modular RGB PSU - Opened Box",
+    "description": "Corsair CX Series CX750F RGB — 750 Watt 80 Plus Bronze Certified Fully Modular RGB PSU. *PLEASE NOTE* The box has been opened but the PSU is still brand new and full warranty is still applicable. CORSAIR CX-750F RGB Series fully modular power supplies deliver reliable 80 PLUS Bronze efficient power to your system, alongside vibrant customizable lighting from a 120mm RGB fan and a clean aesthetic.",
+    "brand": "Corsair",
+    "category": "electronics"
+  },
+  "76": {
+    "name": "TITAN Elecstor Mini DC UPS 12000mAh – Backup Power for Router",
+    "description": "Titan Elecstor 18W Mini DC UPS 12000mAh – 38WH will power your router and fibre box during power outages. Lasts between 3-5 hours. The Titan 18W 12000mAh 38Wh Elecstor Mini DC UPS is simple to install and can power multiple devices during a power outage. With multiple-voltage DC outputs, this UPS can power both a router and fibre ONU (Optical Network Unit) for uninterrupted internet usage while working, streaming, or gaming. This device can also charge cell phones, tablets, and other digital devices via the USB port. The Titan Elecstor Mini UPS features LiFeP04 batteries (12000mAh) with safety protocols such as over-charge, over-discharge, and short circuit protection.",
+    "brand": "Titan",
+    "category": "electronics"
+  },
+  "77": {
+    "name": "Candy Breeze Bagless Vacuum Cleaner CBR2020016",
+    "description": "Introducing the Candy Breeze Bagless Vacuum Cleaner CBR2020016. With 2000W power, 2L cyclonic capacity, and Hepa 12 filter, it ensures thorough cleaning. Quiet at 78dBA, its telescopic metal pipes and 5m cable provide effortless reach. Comes with a variety of accessories for versatile cleaning.",
+    "brand": "Candy Breeze",
+    "category": "home and kitchen"
+  },
+  "78": {
+    "name": "Salton Y Peeler",
+    "description": "TPR handle and stainless-steel for firm grip. Food safe. Easy to clean.",
+    "brand": "Salton",
+    "category": "home and kitchen"
+  },
+  "79": {
+    "name": "Russell Hobbs Electric Can Opener",
+    "description": "Opening cans has never been more efficient with the Russell Hobbs Can Opener. Its stainless steel decoration and embedded grindstone will give you the edge in your kitchen. The machine automatically opens cans which makes this appliance hassle-free and stylish. Convenience has never looked so good.",
+    "brand": "Russell Hobbs",
+    "category": "home and kitchen"
+  },
+  "80": {
+    "name": "Salton 3pce XL Pot Set",
+    "description": "Salton 3pce XL Pot Set",
+    "brand": "Salton",
+    "category": "home and kitchen"
+  },
+  "81": {
+    "name": "Stingray Casa Red Glass Kitchen Scale",
+    "description": "Stingray Casa Red Glass Kitchen Scale",
+    "brand": "Stingray",
+    "category": "home and kitchen"
+  },
+  "82": {
+    "name": "Stainless Steel Braai Tongs",
+    "description": "Totai Stainless Steel Braai Tongs",
+    "brand": "Totai",
+    "category": "home and kitchen"
+  },
+  "83": {
+    "name": "Glass Square Container French Lock 800ML",
+    "description": "Glass Square Container French Lock 800ML",
+    "brand": "",
+    "category": "home and kitchen"
+  },
+  "84": {
+    "name": "Novus Silicone Brush",
+    "description": "Novus Silicone Brush",
+    "brand": "Novus",
+    "category": "home and kitchen"
+  },
+  "85": {
+    "name": "Samsung 50″ UHD 4K Smart TV",
+    "description": "Experience lifelike picture quality with the Samsung 50″ CU7000 Crystal UHD 4K Smart TV. Its PurColor technology delivers vibrant colors, while the Crystal Processor 4K ensures stunning 4K resolution. With Smart Hub and SmartThings, you can easily access and control your favorite content and smart devices. Enjoy immersive sound and a sleek design.",
+    "brand": "Samsung",
+    "category": "electronics"
+  },
+  "86": {
+    "name": "Russell Hobbs 30L Electronic Microwave",
+    "description": "The Russell Hobbs 30L Electronic Microwave 862882 offers convenient and efficient cooking. With its 900W power output, 11 power levels, and programmable multi-stage cooking, it ensures precision and versatility. The microwave features a user-friendly control panel, 6 auto menus, a 99-minute cooking timer, and defrost options.",
+    "brand": "Russell Hobbs",
+    "category": "home and kitchen"
+  },
+  "87": {
+    "name": "Alliance 8L Digital Air Fryer",
+    "description": "Introducing the Alliance 8L Digital Air Fryer. With 1700W power, 7 pre-sets, and adjustable temperature settings, it delivers crispy and delicious results. The detachable basket, non-stick coating, and over heating protection make cooking easy and safe. Upgrade your kitchen with this versatile air fryer today.",
+    "brand": "Alliance",
+    "category": "home and kitchen"
+  },
+  "88": {
+    "name": "Alliance 3L Gas/Stovetop Kettle",
+    "description": "Introducing the Alliance 3L Gas/Stovetop Kettle AHA-SK-30-B. This versatile kettle is suitable for Gas, Electric, Induction, and Ceramic cooktops. With its sleek glass and stainless-steel finish, 3L capacity, and convenient features like the automatic lid opener and whistle function, it’s the perfect addition to any kitchen.",
+    "brand": "Alliance",
+    "category": "home and kitchen"
+  },
+  "89": {
+    "name": "Papaya Punch Shatter Short Sleeve T-Shirt",
+    "description": "Papaya Punch Shatter Short Sleeve T-Shirt",
+    "brand": "DC Shoes",
+    "category": "clothing"
+  },
+  "90": {
+    "name": "Pastel Pink Rea Cotton Piqué Polo Shirt",
+    "description": "Pastel Pink Rea Cotton Piqué Polo Shirt",
+    "brand": "Mango",
+    "category": "clothing"
+  },
+  "91": {
+    "name": "Dahlia Mauve Sportswear Logo Graphic Tee",
+    "description": "Dahlia Mauve Sportswear Logo Graphic Tee",
+    "brand": "Levi's",
+    "category": "clothing"
+  },
+  "92": {
+    "name": "Dusty Rose Contrast Polo",
+    "description": "Dusty Rose Contrast Polo",
+    "brand": "Original Penguin",
+    "category": "clothing"
+  },
+  "93": {
+    "name": "Light Pink Blue Classic Pique Golfer",
+    "description": "Light Pink Blue Classic Pique Golfer",
+    "brand": "Polo",
+    "category": "clothing"
+  },
+  "94": {
+    "name": "Dusty Pink Navigate SS Tee",
+    "description": "Dusty Pink Navigate SS Tee",
+    "brand": "RVCA",
+    "category": "clothing"
+  },
+  "95": {
+    "name": "Beige Regular Fit Hooded Sweatshirt",
+    "description": "Beige Regular Fit Hooded Sweatshirt",
+    "brand": "Trendyol",
+    "category": "clothing"
+  },
+  "96": {
+    "name": "Pink Women's Jumpsuit",
+    "description": "Pink Women's Jumpsuit",
+    "brand": "Daily Refinery",
+    "category": "clothing"
+  },
+  "97": {
+    "name": "Pink Ruffle Short Sleeve Dress",
+    "description": "Pink Ruffle Short Sleeve Dress",
+    "brand": "Missguided",
+    "category": "clothing"
+  },
+  "98": {
+    "name": "Pink Logo Short Sleeve Playsuit",
+    "description": "Pink Logo Short Sleeve Playsuit",
+    "brand": "Missguided",
+    "category": "clothing"
+  },
+  "99": {
+    "name": "Pink Off Shoulder Playsuit",
+    "description": "Pink Off Shoulder Playsuit",
+    "brand": "RFO",
+    "category": "clothing"
+  },
+  "100": {
+    "name": "Green Long Sleeve Smock Dress",
+    "description": "Green Long Sleeve Smock Dress",
+    "brand": "Brave Soul",
+    "category": "clothing"
+  },
+  "101": {
+    "name": "Black & White V-Neck Wrap Dress",
+    "description": "Black & White V-Neck Wrap Dress",
+    "brand": "Daily Refinery",
+    "category": "clothing"
+  },
+  "102": {
+    "name": "Cosmo Pink Quest Jacket",
+    "description": "Cosmo Pink Quest Jacket",
+    "brand": "The North Face",
+    "category": "clothing"
+  },
+  "103": {
+    "name": "Green & Grey Outdoor All Terrain Skirt",
+    "description": "Green & Grey Outdoor All Terrain Skirt",
+    "brand": "New Balance",
+    "category": "clothing"
+  },
+  "104": {
+    "name": "Pink Scoop Neck Sleeveless Sports Bra",
+    "description": "Pink Scoop Neck Sleeveless Sports Bra",
+    "brand": "Forever 21",
+    "category": "clothing"
+  },
+  "105": {
+    "name": "Balsam Green Mountain Athletics Pullover",
+    "description": "Balsam Green Mountain Athletics Pullover",
+    "brand": "The North Face",
+    "category": "clothing"
+  },
+  "106": {
+    "name": "Brick Dust Transition Down Jacket",
+    "description": "Brick Dust Transition Down Jacket",
+    "brand": "Salomon",
+    "category": "clothing"
+  },
+  "107": {
+    "name": "Girls Snoopy Pink & Purple Mesh Overlay Long Sleeve Dress",
+    "description": "Girls Snoopy Pink & Purple Mesh Overlay Long Sleeve Dress",
+    "brand": "Snoopy",
+    "category": "clothing"
+  },
+  "108": {
+    "name": "Kids White Skylar Golfer Dress & Leggings Set",
+    "description": "Kids White Skylar Golfer Dress & Leggings Set",
+    "brand": "Polo",
+    "category": "clothing"
+  },
+  "109": {
+    "name": "Blue Long Sleeve Tee & Leggings Set",
+    "description": "Blue Long Sleeve Tee & Leggings Set",
+    "brand": "Guess",
+    "category": "clothing"
+  },
+  "110": {
+    "name": "Kids Red Gabriella Hooded Sweater Dress",
+    "description": "Kids Red Gabriella Hooded Sweater Dress",
+    "brand": "Polo",
+    "category": "clothing"
   }
 }
