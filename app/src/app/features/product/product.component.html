@@ -286,7 +286,8 @@
           style="padding-left: 30px; padding-right: 30px"
           #product_info
           class="container-fluid full-product-info"
-          id="full-product-info">
+          id="full-product-info" >
+          <div *ngIf="!showSpinner2">
           <h3>Products Information</h3>
           <ng-container *ngIf="sellers$ | async as sellers">
             <div *ngFor="let seller of sellers; let i = index"></div>
@@ -304,6 +305,7 @@
               <p>{{ product.description }}</p>
             </div>
           </ng-container>
+          </div>
         </div>
 
         <!--<div class="container-fluid reviews" id="reviews">
