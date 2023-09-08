@@ -1,0 +1,52 @@
+.notification-dropdown-container {
+  height: 500px;
+  background-color: green;
+  // overflow: auto;
+  // margin-bottom: auto;
+}
+ion-accordi.custom-notification::part(message) {
+  font-style: italic;
+  color: #000000;
+  text-align: start;
+  padding: 20px;
+  max-height: 10rem;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+// ion-content::part(scroll) {
+//   height: 100%;
+// }
+// .menu-content {
+//   width: 100% !important;
+// }
+
+ion-item {
+  --padding-top: 0.5rem;
+  --padding-bottom: 0.5rem;
+  --padding-start: 2.5rem;
+  --padding-end: 1.5rem;
+  // --padding-left: 2rem;
+}
+
+ion-icon {
+  font-size: 0.5rem;
+}
+.read-icon {
+  color: rgb(187, 187, 187);
+}
+
+.accordion-timestamp {
+  color: grey;
+  font-style: italic;
+  font-size: smaller;
+}
+
+ion-content {
+  --offset-bottom: auto !important;
+  --overflow: hidden;
+  overflow: auto;
+  scrollbar-width: none;
+}
+ion-content::-webkit-scrollbar {
+  display: none;
+}

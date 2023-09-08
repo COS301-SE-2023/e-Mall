@@ -1,3 +1,4 @@
+@import 'mixins';
 .navbar {
   height: 65px;
   background-color: #ecf6f6;
@@ -112,4 +113,21 @@ ion-badge {
   top: 0; /* Place it at the top */
   right: 0; /* Place it at the right */
   transform: translate(50%, -50%); /* Center it within the top-right corner */
+}
+
+// @media (max-width: var(--screen-small)) {
+//   ion-menu::part(container) {
+//     --width: 100% !important;
+//     width: 100% !important;
+//   }
+// }
+
+ion-menu {
+  --width: 412px;
+}
+@include screen-medium {
+  ion-menu::part(container) {
+    --width: 100% !important;
+    width: 100% !important;
+  }
 }

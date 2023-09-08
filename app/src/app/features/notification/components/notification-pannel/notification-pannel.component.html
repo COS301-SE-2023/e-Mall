@@ -1,0 +1,59 @@
+<!-- <div class="menu-content"> -->
+<ion-header>
+  <ion-toolbar style="height: 65px" color="primary">
+    <ion-title>Notification</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <!-- <div class="notification-dropdown-container"> -->
+  <ng-container *ngIf="notificationList$ | async as notificationList">
+    <ion-accordion-group
+      (ionChange)="onIonChange($event)"
+      *ngIf="notificationList.length > 0; else noNotifications">
+      <ion-accordion
+        *ngFor="let item of notificationList; let index = index"
+        [value]="item">
+        <ion-item slot="header">
+          <ion-icon
+            *ngIf="!item.is_read; else readIcon"
+            name="ellipse"
+            color="danger"
+            slot="start"></ion-icon>
+          <ng-template #readIcon>
+            <ion-icon name="ellipse" class="read-icon" slot="start"></ion-icon>
+          </ng-template>
+          <ion-label>{{ item.notification.title }}</ion-label>
+          <ion-label class="accordion-timestamp" slot="end">{{
+            reactiveFormatTime(item.timestamp)
+          }}</ion-label>
+          <ion-icon
+            class="ion-accordion-toggle-icon"
+            style="display: none"
+            name="logo-ionic"
+            slot="end"
+            color="white">
+          </ion-icon>
+        </ion-item>
+
+        <app-notification-card
+          slot="content"
+          [item]="item"
+          [calculatedTime]="formatTime(item.timestamp)">
+        </app-notification-card>
+      </ion-accordion>
+    </ion-accordion-group>
+    <!-- <div *ngIf="notificationList.length > 0; else noNotifications">
+      <app-notification-card
+        *ngFor="let item of notificationList; let index = index"
+        [item]="item"></app-notification-card>
+    </div> -->
+    <ng-template #noNotifications>
+      <p>No notifications received</p>
+    </ng-template>
+    <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ng-container>
+  <!-- </div> -->
+</ion-content>
+<!-- </div> -->

@@ -29,7 +29,7 @@ exports.userNotification = functions
               },
               data: {
                 id: data.id,
-                is_read: isRead.toString(),
+                is_read: isRead,
                 timestamp: unixTimestamp.toString(),
               },
               token: deviceToken,

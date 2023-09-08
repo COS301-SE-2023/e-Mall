@@ -1,0 +1,19 @@
+<ion-card>
+  <ion-card-header>
+    <!-- <ion-card-title></ion-card-title> -->
+    <span
+      style="
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      ">
+      {{ item.notification.title }}
+      <div style="flex-grow: 1"></div>
+      {{ calculatedTime }}
+    </span>
+  </ion-card-header>
+
+  <ion-card-content>
+    {{ item.notification.body }}
+  </ion-card-content>
+</ion-card>

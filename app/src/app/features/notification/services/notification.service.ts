@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, Optional } from '@angular/core';
-import { Messaging, getToken, onMessage } from '@angular/fire/messaging';
+import {
+  Messaging,
+  getToken,
+  onMessage,
+  deleteToken,
+} from '@angular/fire/messaging';
 import { AuthFacade } from '@features/auth/services/auth.facade';
 import { environment } from 'environments/env';
 import { firstValueFrom, EMPTY, Observable, from } from 'rxjs';
@@ -9,7 +14,7 @@ import { firstValueFrom, EMPTY, Observable, from } from 'rxjs';
 @Injectable()
 export class NotificationService {
   private apiUrl = '/api/notification/';
-  token$: Observable<any> = EMPTY;
+  // token$: Observable<any> = EMPTY;
   message$: Observable<any> = EMPTY;
 
   constructor(
@@ -21,6 +26,16 @@ export class NotificationService {
       // this.token$ = this.getToken();
       this.message$ = this.getMessage();
     }
+  }
+
+  async signOut() {
+    await deleteToken(this.messaging)
+      .then(() => {
+        console.log('Token deleted.');
+      })
+      .catch(err => {
+        console.log('Unable to delete token. ', err);
+      });
   }
   getToken() {
     return from(
@@ -49,6 +64,23 @@ export class NotificationService {
         url,
         {
           device_token: token,
+        },
+        {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+        }
+      )
+    );
+  }
+  async read(id: string) {
+    console.log('read in service', id);
+    const url = `${this.apiUrl}read/`;
+    return await firstValueFrom(
+      this.http.post(
+        url,
+        {
+          notification_id: id,
         },
         {
           headers: new HttpHeaders()
@@ -88,7 +120,7 @@ export class NotificationService {
     );
     return res;
   }
-  getTokenObservable() {
-    return this.token$;
-  }
+  // getTokenObservable() {
+  //   return this.token$;
+  // }
 }

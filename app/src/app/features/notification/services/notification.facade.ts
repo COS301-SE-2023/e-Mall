@@ -20,6 +20,7 @@ import { IUser } from '../../auth/models/user.interface';
 import { Select } from '@ngxs/store';
 import { NotificationSelectors } from '../states/notification.selector';
 import { transformMessage } from '../utils/transformMessage';
+import { Messaging, deleteToken } from '@angular/fire/messaging';
 @Injectable()
 export class NotificationFacade implements OnDestroy {
   @Select(NotificationSelectors.getUnreadCount)
@@ -30,20 +31,24 @@ export class NotificationFacade implements OnDestroy {
   lastNotification$!: Observable<string | null>;
   @Select(NotificationSelectors.hasNext)
   hasNext$!: Observable<boolean>;
+  @Select(NotificationSelectors.getCount)
+  count$!: Observable<number>;
 
   newMessage$ = new BehaviorSubject<INotification | null>(null);
   messageListenSubs = new Subscription();
   authSubs = new Subscription();
-
+  isMenuOpen$ = new BehaviorSubject<boolean>(false);
+  token = '';
   constructor(
     private notificationService: NotificationService,
     private notificationState: NotificationState,
-    private authfacade: AuthFacade
+    private authfacade: AuthFacade,
+    private messaging: Messaging
   ) {
     console.log('Notification Facade initialized');
     this.authSubs = authfacade
       .getCurrentUser()
-      .pipe(debounceTime(1000))
+      .pipe(debounceTime(100))
       .subscribe(async (user: IUser | null) => {
         if (user != null) {
           await notificationService.request().then(permission => {
@@ -66,6 +71,7 @@ export class NotificationFacade implements OnDestroy {
   }
   async init(token: string) {
     await this.updateDeviceToken(token);
+    this.token = token;
     this.resetNotifications();
     this.getUnreadCount();
 
@@ -74,17 +80,32 @@ export class NotificationFacade implements OnDestroy {
       .subscribe((message: any) => {
         console.log('Listening for messages');
         if (message) {
+          console.log(message);
           const payload = transformMessage(message);
           this.newNotification(payload);
         }
       });
   }
-
   async getNotifications() {
+    const initial = (await firstValueFrom(this.notificationList$)) === null;
+    if (initial) {
+      const lastNotificationId = await firstValueFrom(this.lastNotification$);
+      const res = await this.notificationService.getNotifications(
+        lastNotificationId
+      );
+      let tmp_list = [];
+      if (res.notifications.length > 0) {
+        tmp_list = res.notifications.map(transformMessage);
+      }
+      this.updateNotificationList(tmp_list, res.has_next);
+    }
+  }
+
+  async loadMoreNotifications() {
     try {
       const hasNext = await firstValueFrom(this.hasNext$);
-      const initial = (await firstValueFrom(this.notificationList$)) === null;
-      if (initial || hasNext) {
+
+      if (hasNext) {
         const lastNotificationId = await firstValueFrom(this.lastNotification$);
         const res = await this.notificationService.getNotifications(
           lastNotificationId
@@ -100,10 +121,19 @@ export class NotificationFacade implements OnDestroy {
       return this.setError(error);
     }
   }
+  async read(id: string) {
+    try {
+      this.markReadInState(id);
+      const res = await this.notificationService.read(id);
+      return res;
+    } catch (error) {
+      return this.setError(error);
+    }
+  }
 
   async signOut() {
     // Delete the FCM registration token
-
+    await this.notificationService.signOut();
     // Unregister the service worker
     navigator.serviceWorker
       .getRegistrations()
@@ -115,6 +145,11 @@ export class NotificationFacade implements OnDestroy {
       .catch(function (err) {
         console.log('Service Worker registration failed: ', err);
       });
+  }
+
+  @Dispatch()
+  markReadInState(id: string) {
+    return new NotificationActions.Read(id);
   }
 
   @Dispatch()

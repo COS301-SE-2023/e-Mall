@@ -134,7 +134,7 @@ def read_all(request):
 def get(request):
     try:
         user_id = str(request.user.id)
-        page_size = 5
+        page_size = 15
         start_after = request.data.get("notification_id")
 
         logs_ref = (
@@ -166,7 +166,7 @@ def get(request):
                 },
                 "data": {
                     "id": doc.id,
-                    "is_read": str(doc.to_dict()["is_read"]),
+                    "is_read": doc.to_dict()["is_read"],
                     "timestamp": doc.to_dict()["timestamp"],
                 },
             }
