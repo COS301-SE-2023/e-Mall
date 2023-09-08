@@ -8,7 +8,8 @@ from .swagger.decorator import *
 db = firestore.client()
 user_collection = "users"
 product_collection = "products"
-message_types = ["user", "query", "wishlist", "follower"]
+combo_collection = "combos"
+message_types = ["user", "query", "wishlist", "follower","combo"]
 singe_msg_collection_name = "logs"  # sent to user
 multi_msg_collection_name = "follower_logs"  # sent to followers
 
@@ -32,6 +33,8 @@ def send_message_api(request):
             sub_collection_name = multi_msg_collection_name
         elif msg_type == "wishlist":
             main_collection_name = product_collection
+        elif msg_type == "combo":
+            main_collection_name = combo_collection
 
         doc_ref = (
             db.collection(main_collection_name)
