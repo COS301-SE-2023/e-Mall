@@ -146,12 +146,12 @@
 
         <div #comp_products id="comp_products"></div>
 
-          <div class="spinner-container" *ngIf="showSpinner">
+          <div class="spinner-container" *ngIf="showSpinner2">
             <div class="spinner">
               <ion-spinner style="color: #99e3dc"></ion-spinner>
             </div>
           </div>
-        <div *ngIf="!showSpinner">
+        <div *ngIf="!showSpinner2">
         <ng-container *ngIf="sellers$ | async as sellers">
           <ul style="padding-left: 20px" class="seller-list">
             <li *ngFor="let seller of sellers">
