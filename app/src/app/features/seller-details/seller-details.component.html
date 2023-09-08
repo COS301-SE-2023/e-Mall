@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <ion-content>
-  <div class="spinner" *ngIf="showSpinner">
-    <ion-spinner ></ion-spinner>
+  <div class="spinner" *ngIf="showSpinner" style="margin-top: 200px;">
+    <ion-spinner></ion-spinner>
   </div>
   <ng-container *ngIf="seller$ | async as seller">
     <div *ngIf="!showSpinner">

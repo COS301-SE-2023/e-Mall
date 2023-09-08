@@ -40,8 +40,11 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-              " *ngIf="showSpinner">
-              <mat-spinner></mat-spinner>
+                margin-top: 200px;
+                
+              " class="spinner" *ngIf="showSpinner">
+              <!--<mat-spinner></mat-spinner>-->
+              <ion-spinner style="color: #99e3dc;"></ion-spinner>
             </div>
             <div *ngIf="!showSpinner">
             <ng-container *ngIf="categoryProducts$ | async as products">
