@@ -14,31 +14,27 @@ multi_msg_collection_name = "follower_logs"  # sent to followers
 def update_combo(user_ids, combo_id, action):
     try:
         combo_id = str(combo_id)
-        current_user_array = [str(user_ids[0])]
-        pending_ids_array = []
-        if len(user_ids) > 1:
-            for user_id in user_ids[:1]:
-                pending_ids_array.append(str(user_id))
         if not all([user_ids, combo_id, action]):
             raise Exception("Missing required parameters")
 
         combo_ref = db.collection(combo_collection).document(combo_id)
         combo_doc = combo_ref.get()
 
+        pending_ids_array = [str(user_id) for user_id in user_ids[1:]]
+        current_user_array = [str(user_ids[0])]
+
+        update_data = {}
+
         if action == "create":
-            update_data = {
-                "pending_users": firestore.ArrayUnion(pending_ids_array),
-                "active_users": firestore.ArrayUnion(current_user_array),
-            }
+            update_data["pending_users"] = firestore.ArrayUnion(pending_ids_array)
+            update_data["active_users"] = firestore.ArrayUnion(current_user_array)
         elif action == "leave":
-            update_data = {"active_users": firestore.ArrayRemove(current_user_array)}
+            update_data["active_users"] = firestore.ArrayRemove(current_user_array)
         elif action == "accept":
-            update_data = {
-                "pending_users": firestore.ArrayRemove(pending_ids_array),
-                "active_users": firestore.ArrayUnion(current_user_array),
-            }
+            update_data["pending_users"] = firestore.ArrayRemove(pending_ids_array)
+            update_data["active_users"] = firestore.ArrayUnion(current_user_array)
         elif action == "reject":
-            update_data = {"pending_users": firestore.ArrayRemove(pending_ids_array)}
+            update_data["pending_users"] = firestore.ArrayRemove(pending_ids_array)
         else:
             raise Exception("Invalid action")
 
@@ -53,10 +49,23 @@ def update_combo(user_ids, combo_id, action):
                     }
                 )
 
+        if action == "create":
+            message = (
+                f'Combo {combo_id} created with user {", ".join(current_user_array)}'
+            )
+        elif action == "leave":
+            message = f'User {", ".join(current_user_array)} left combo {combo_id}'
+        elif action == "accept":
+            message = f'User {", ".join(current_user_array)} accepted the invitation to combo {combo_id}'
+        elif action == "reject":
+            message = f'User {", ".join(pending_ids_array)} rejected the invitation to combo {combo_id}'
+        else:
+            message = ""
+
         return Response(
             {
                 "status": "success",
-                "message": f'Combo {combo_id} {"created" if action == "create" else "removed"}',
+                "message": message,
             }
         )
     except Exception as e:
