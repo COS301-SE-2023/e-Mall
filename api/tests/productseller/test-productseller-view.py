@@ -201,7 +201,7 @@ class ProductSellerBackendAPIViewTestCase(APITestCase):
             f"/api/productseller/backend/?prod_id={self.product1.id}&sort=discount"
         )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 2)
+        self.assertEqual(len(response.data), 3)
         self.assertEqual(response.data[0]["discount_rate"], "0.10")
 
 
