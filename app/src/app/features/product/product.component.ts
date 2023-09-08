@@ -57,7 +57,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    
+    console.log("ng called");
     this.showSpinner = true;
     this.showSpinner2 = true;
     

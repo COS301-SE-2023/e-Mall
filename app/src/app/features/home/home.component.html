@@ -15,19 +15,19 @@
     <div style="align-items: center">
       <h3 #recommendedHeading>{{ (forYouProducts$ | async) ? 'Recommended For You' : 'Most Popular Products' }}</h3>
     </div>
+    <div class="spinner-container" *ngIf="showSpinner">
+      <div class="spinner">
+        <ion-spinner style="color: #99e3dc"></ion-spinner>
+      </div>
+    </div>
     <div
       style="
         width: 80%;
         display: flex;
         justify-content: center;
         align-items: center;
-      ">
-      <div class="spinner-container" *ngIf="showSpinner">
-        <div class="spinner">
-          <ion-spinner style="color: #99e3dc"></ion-spinner>
-        </div>
-      </div>
-      <div *ngIf="!showSpinner">
+      " *ngIf="!showSpinner">
+      <div >
       <div *ngIf="(forYouProducts$ | async) === null">
 
         <ngb-carousel *ngIf="popProducts$ | async as products" [wrap]="true">
