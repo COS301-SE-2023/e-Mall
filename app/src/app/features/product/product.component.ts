@@ -65,7 +65,7 @@ export class ProductComponent implements OnInit, OnDestroy {
       this.showSpinner = false;
       this.showSpinner2 = false;
       
-    }, 6000); 
+    }, 6500); 
 
     this.paramMapSubscription = this.route.queryParamMap.subscribe(params => {
       this.selectedImage = '';
@@ -187,7 +187,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.showSpinner2 = false;
       
-    }, 6000);
+    }, 5000);
 
     this.divClicked = !this.divClicked;
 
