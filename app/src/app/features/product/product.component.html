@@ -9,11 +9,11 @@
   <div class="ion-content-wrapper">
     <div class="container-fluid body-container">
       <div class="container-fluid prices" id="prices">
-        <div class="spinner-container" *ngIf="showSpinner">
-          <div class="spinner">
+        <!--<div class="spinner-container" >-->
+          <div class="spinner" *ngIf="showSpinner">
             <ion-spinner style="color: #99e3dc"></ion-spinner>
           </div>
-        </div>
+        <!--</div>-->
         <div
           class="row product-img-info-container"
           style="margin-left: 10px; margin-right: 10px" *ngIf="!showSpinner">
