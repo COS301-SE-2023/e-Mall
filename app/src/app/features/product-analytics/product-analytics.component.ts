@@ -56,7 +56,7 @@ export class ProductAnalyticsComponent implements OnInit {
     setTimeout(() => {
       this.showSpinner = false;
       
-    }, 4500);
+    }, 6000);
 
     this.productNames = [];
     this.selectedSortOption = 'product_name';

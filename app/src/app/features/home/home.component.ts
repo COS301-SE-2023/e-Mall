@@ -56,12 +56,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    console.log("ng called");
     this.showSpinner = true;
     
     setTimeout(() => {
       this.showSpinner = false;
       
-    }, 4500);
+    }, 6000);
     this.fetchPopProducts();
     this.fetchTrendingProducts();
 

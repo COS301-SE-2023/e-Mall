@@ -53,7 +53,7 @@ export class WishlistComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.showSpinner = false;
       
-    }, 4500);
+    }, 6000);
     
     this.profile$ = this.profileFacade.getProfile();
     this.profile$.subscribe(profile => {

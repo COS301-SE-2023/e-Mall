@@ -32,7 +32,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.showSpinner = false;
       
-    }, 4500);
+    }, 6000);
     
     this.route.params.subscribe(params => {
       this.categoryName = params['category'];

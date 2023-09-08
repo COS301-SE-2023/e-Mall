@@ -68,7 +68,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.showSpinner = false;
       
-    }, 4500);
+    }, 6000);
     
     this.minPrice = 0;
     this.maxPrice = 5000;

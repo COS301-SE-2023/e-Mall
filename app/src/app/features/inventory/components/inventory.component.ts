@@ -80,7 +80,7 @@ export class InventoryComponent implements OnInit{
     setTimeout(() => {
       this.showSpinner = false;
       
-    }, 4500);
+    }, 6000);
   }
 
   onSearchInputChange(event: any) {

@@ -48,7 +48,7 @@ export class SalesComponent implements OnInit {
     setTimeout(() => {
       this.showSpinner = false;
       
-    }, 4500);
+    }, 6000);
     
     console.log('sales component initialized');
     this.profileFacade.getProfile().subscribe(profile => {

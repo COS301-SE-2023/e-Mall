@@ -7,9 +7,9 @@
       </app-customer-profile-sidenav>
     </div>
 
-    <h2 style="margin-bottom: 28%; margin-left: 10%">My Wishlist</h2>
+    
     <div class="wishlist-container1" *ngIf="(products$ | async)?.length === 0">
-      
+      <h2>My Wishlist</h2>
 
       <div class="wishlist-container-nocards">
         <div class="product-card-no">
@@ -49,6 +49,7 @@
           </div>
           <ng-container *ngIf="products$ | async as products">
             <div *ngIf="!showSpinner">
+            <h2>My Wishlist</h2>
             <div class="row" style="grid-auto-rows: auto">
               <div
                 class="col-md-3 col-12"
