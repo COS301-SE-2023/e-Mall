@@ -6,7 +6,6 @@ import { IUser } from '@app/features/auth/models/user.interface';
 import { Observable, Subscription, debounceTime } from 'rxjs';
 import { MenuController, PopoverController } from '@ionic/angular';
 import { DropdownPopoverComponent } from '@shared/components/dropdown-popover/dropdown-popover.component';
-import { ModalController } from '@ionic/angular';
 import { NavbarPopupComponent } from '@shared/components/navbar-popup/navbar-popup.component';
 import { NotificationFacade } from '@features/notification/services/notification.facade';
 
@@ -26,7 +25,6 @@ export class NavbarComponent implements OnDestroy {
     private authFacade: AuthFacade,
     private popoverController: PopoverController,
     private menuController: MenuController,
-    public modalController: ModalController,
     public notificationFacade: NotificationFacade
   ) {
     this.isAuthenticated = this.authFacade.getCurrentUser();
@@ -98,7 +96,7 @@ export class NavbarComponent implements OnDestroy {
     return await popover.present();
   }
 
-  async openMenu(menuId: string) {
+  async openMenu() {
     this.notificationFacade.isMenuOpen$.next(true);
   }
   notificationMenuClosed() {

@@ -10,7 +10,6 @@ import {
   firstValueFrom,
 } from 'rxjs';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
-import { NotificationState } from '../states/notification.state';
 import { INotification } from '../models/notification.interface';
 import { AuthFacade } from '@features/auth/services/auth.facade';
 import { SetError } from '@features/error/states/error.action';
@@ -20,7 +19,6 @@ import { IUser } from '../../auth/models/user.interface';
 import { Select } from '@ngxs/store';
 import { NotificationSelectors } from '../states/notification.selector';
 import { transformMessage } from '../utils/transformMessage';
-import { Messaging, deleteToken } from '@angular/fire/messaging';
 @Injectable()
 export class NotificationFacade implements OnDestroy {
   @Select(NotificationSelectors.getUnreadCount)
@@ -42,9 +40,7 @@ export class NotificationFacade implements OnDestroy {
   token = '';
   constructor(
     private notificationService: NotificationService,
-    private notificationState: NotificationState,
-    private authfacade: AuthFacade,
-    private messaging: Messaging
+    authfacade: AuthFacade
   ) {
     console.log('Notification Facade initialized');
     this.authSubs = authfacade
@@ -89,7 +85,6 @@ export class NotificationFacade implements OnDestroy {
       });
   }
   async getNotifications() {
-    // const initial = (await firstValueFrom(this.notificationList$)) === null;
     if (this.isInitial) {
       this.isInitial = false;
       const lastNotificationId = await firstValueFrom(this.lastNotification$);

@@ -2,12 +2,11 @@
 import { ChangeDetectorRef, Component, OnDestroy, Input } from '@angular/core';
 import { INotification } from '@features/notification/models/notification.interface';
 import { NotificationFacade } from '@features/notification/services/notification.facade';
-import { Observable, Subscription, take } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import {
   reactiveTimeFormat,
   timeFormat,
 } from '@features/notification/utils/calculateTime';
-import { MenuController } from '@ionic/angular';
 @Component({
   selector: 'app-notification-pannel',
   templateUrl: './notification-pannel.component.html',
@@ -20,7 +19,7 @@ export class NotificationPannelComponent implements OnDestroy {
   lastNotification$: Observable<string | null>;
   opendAccordionNotification: any = undefined;
   menuOpenedSubs = new Subscription();
-  settings: boolean = false;
+  settings = false;
   constructor(
     public notificationFacade: NotificationFacade,
     private cdr: ChangeDetectorRef
