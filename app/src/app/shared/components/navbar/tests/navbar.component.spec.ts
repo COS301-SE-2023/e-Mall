@@ -19,6 +19,7 @@ import { NgxsModule } from '@ngxs/store';
 import { AuthModule } from '@app/features/auth/auth.module';
 import { ProfileModule } from '@features/profile/profile.module';
 import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
+import { NotificationModule } from '@app/features/notification/notification.module';
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
@@ -45,6 +46,7 @@ describe('NavbarComponent', () => {
         IonicModule,
         AuthModule,
         ProfileModule,
+        NotificationModule,
       ],
       declarations: [NavbarComponent],
       providers: [],
@@ -68,7 +70,7 @@ describe('NavbarComponent', () => {
       done();
     });
   });
-  
+
   it('should navigate to search results page with search query', () => {
     const routerspy = spyOn(component['router'], 'navigate');
 

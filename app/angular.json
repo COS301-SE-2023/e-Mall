@@ -233,6 +233,9 @@
             "polyfills": ["src/polyfills.ts", "zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/app"]
+            },
             "assets": [
               "src/favicon.ico",
               "src/assets",
