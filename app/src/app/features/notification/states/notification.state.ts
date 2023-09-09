@@ -84,9 +84,11 @@ export class NotificationState {
       ctx.setState(
         produce(draft => {
           if (draft.notifications === null) {
-            draft.notifications = [action.notification];
-            draft.count = 1;
-            draft.last_notification = action.notification.id;
+            if (action.isInitial) {
+              draft.notifications = [action.notification];
+              draft.count = 1;
+              draft.last_notification = action.notification.id;
+            }
           } else {
             draft.notifications.unshift(action.notification);
             draft.count = draft.notifications.length;
@@ -167,6 +169,32 @@ export class NotificationState {
               draft.last_notification = draft.notifications[-1].id;
             }
           }
+        }
+      })
+    );
+  }
+  @Action(NotificationActions.DeleteAll)
+  deleteAll(ctx: StateContext<NotificationStateModel>) {
+    ctx.setState(
+      produce(draft => {
+        draft.has_next = false;
+        draft.notifications = [];
+        draft.last_notification = null;
+        draft.unread_count = 0;
+      })
+    );
+  }
+  @Action(NotificationActions.ReadAll)
+  readAll(ctx: StateContext<NotificationStateModel>) {
+    ctx.setState(
+      produce(draft => {
+        if (draft.notifications !== null) {
+          draft.notifications.forEach(notification => {
+            if (!notification.is_read) {
+              notification.is_read = true;
+            }
+          });
+          draft.unread_count = 0;
         }
       })
     );

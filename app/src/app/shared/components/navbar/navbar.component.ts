@@ -3,7 +3,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { AuthFacade } from '@app/features/auth/services/auth.facade';
 import { IUser } from '@app/features/auth/models/user.interface';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, debounceTime } from 'rxjs';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { MenuController, PopoverController } from '@ionic/angular';
 import { DropdownPopoverComponent } from '@shared/components/dropdown-popover/dropdown-popover.component';
@@ -33,8 +33,9 @@ export class NavbarComponent implements OnDestroy {
   ) {
     this.isAuthenticated = this.authFacade.getCurrentUser();
     this.notificationUnreadCount$ = this.notificationFacade.unread_count$;
-    this.notificationMenuSubs = this.notificationFacade.isMenuOpen$.subscribe(
-      async val => {
+    this.notificationMenuSubs = this.notificationFacade.isMenuOpen$
+      .pipe(debounceTime(100))
+      .subscribe(async val => {
         if (val === true) {
           this.notificationFacade.getNotifications();
           await this.menuController.enable(true, 'notification');
@@ -42,8 +43,7 @@ export class NavbarComponent implements OnDestroy {
         } else {
           await this.menuController.close('notification');
         }
-      }
-    );
+      });
   }
   ngOnDestroy(): void {
     this.notificationMenuSubs.unsubscribe();

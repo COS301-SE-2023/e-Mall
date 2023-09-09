@@ -17,9 +17,18 @@ export function transformMessage(message: any): INotification {
       'yyyy-MM-dd HH:mm:ss'
     );
   }
+  let is_read = false;
+  if (typeof message.data.is_read === 'string') {
+    const isReadString = message.data.is_read.toLowerCase();
+    if (isReadString === 'true') {
+      is_read = true;
+    }
+  } else if (message.data.is_read) {
+    is_read = true;
+  }
   return {
     id: message.data.id,
-    is_read: message.data.is_read,
+    is_read: is_read,
     timestamp: message.data.timestamp,
     timestamp_locale: readable_time,
     notification: {

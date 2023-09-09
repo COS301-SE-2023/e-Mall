@@ -38,6 +38,7 @@ export class NotificationFacade implements OnDestroy {
   messageListenSubs = new Subscription();
   authSubs = new Subscription();
   isMenuOpen$ = new BehaviorSubject<boolean>(false);
+  isInitial = true;
   token = '';
   constructor(
     private notificationService: NotificationService,
@@ -73,6 +74,7 @@ export class NotificationFacade implements OnDestroy {
     await this.updateDeviceToken(token);
     this.token = token;
     this.resetNotifications();
+    this.isInitial = true;
     this.getUnreadCount();
 
     this.messageListenSubs = this.notificationService.message$
@@ -87,8 +89,9 @@ export class NotificationFacade implements OnDestroy {
       });
   }
   async getNotifications() {
-    const initial = (await firstValueFrom(this.notificationList$)) === null;
-    if (initial) {
+    // const initial = (await firstValueFrom(this.notificationList$)) === null;
+    if (this.isInitial) {
+      this.isInitial = false;
       const lastNotificationId = await firstValueFrom(this.lastNotification$);
       const res = await this.notificationService.getNotifications(
         lastNotificationId
@@ -146,10 +149,36 @@ export class NotificationFacade implements OnDestroy {
         console.log('Service Worker registration failed: ', err);
       });
   }
+  async readAll() {
+    try {
+      this.readAllState();
+      const res = await this.notificationService.readAll();
+      return res;
+    } catch (error) {
+      return this.setError(error);
+    }
+  }
+  async deleteAll() {
+    try {
+      const res = await this.notificationService.deleteAll();
+      this.deleteAllState();
+      return res;
+    } catch (error) {
+      return this.setError(error);
+    }
+  }
 
   @Dispatch()
   markReadInState(id: string) {
     return new NotificationActions.Read(id);
+  }
+  @Dispatch()
+  deleteAllState() {
+    return new NotificationActions.DeleteAll();
+  }
+  @Dispatch()
+  readAllState() {
+    return new NotificationActions.ReadAll();
   }
 
   @Dispatch()
@@ -173,7 +202,7 @@ export class NotificationFacade implements OnDestroy {
   async newNotification(message: INotification) {
     try {
       this.newMessage$.next(message);
-      return new NotificationActions.NewNotification(message);
+      return new NotificationActions.NewNotification(message, this.isInitial);
     } catch (error) {
       return this.setError(error);
     }

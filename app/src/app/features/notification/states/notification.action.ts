@@ -17,7 +17,7 @@ export class Update {
 }
 export class NewNotification {
   static readonly type = '[Notification] New Notification received';
-  constructor(public notification: INotification) {}
+  constructor(public notification: INotification, public isInitial: boolean) {}
 }
 
 export class Read {
@@ -37,4 +37,13 @@ export class Delete {
 }
 export class ResetNotifications {
   static readonly type = '[Notification] Reset Notifications';
+}
+export class DeleteAll {
+  static readonly type = '[Notification] Delete All';
+}
+export class ReadAll {
+  static readonly type = '[Notification] Read All';
+}
+export class EmptyAction {
+  static readonly type = '[Notification] Empty Action';
 }

@@ -16,13 +16,21 @@ export class NotificationComponent implements OnInit, OnDestroy {
   isToastPresented = false;
   messageMaxLength = 200;
   newMessageSubs = new Subscription();
+  isMenuOpened = false;
+  menuOpenedSubs = new Subscription();
   constructor(
     private notificationFacade: NotificationFacade,
     private toastController: ToastController
   ) {
+    this.menuOpenedSubs = notificationFacade.isMenuOpen$.subscribe(
+      (val: boolean) => {
+        this.isMenuOpened = val;
+      }
+    );
+
     this.newMessageSubs = this.notificationFacade.newMessage$.subscribe(
       (message: INotification | null) => {
-        if (message !== null) {
+        if (message !== null && !this.isMenuOpened) {
           this.showMessage(message);
         }
       }
@@ -81,6 +89,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
         translucent: true,
         mode: 'ios',
         cssClass: 'custom-notification',
+        duration: 3000,
         buttons: [
           {
             side: 'end',

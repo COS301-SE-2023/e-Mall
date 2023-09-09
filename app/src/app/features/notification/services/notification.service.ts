@@ -44,7 +44,7 @@ export class NotificationService {
         .then(serviceWorkerRegistration =>
           getToken(this.messaging, {
             serviceWorkerRegistration,
-            vapidKey: environment.vapidKey,
+            vapidKey: environment.firebase.vapidKey,
           })
         )
     );
@@ -120,7 +120,32 @@ export class NotificationService {
     );
     return res;
   }
-  // getTokenObservable() {
-  //   return this.token$;
-  // }
+  async readAll() {
+    const url = `${this.apiUrl}read/all/`;
+    return await firstValueFrom(
+      this.http.post(
+        url,
+        {},
+        {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+        }
+      )
+    );
+  }
+  async deleteAll() {
+    const url = `${this.apiUrl}delete/all/`;
+    return await firstValueFrom(
+      this.http.post(
+        url,
+        {},
+        {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+        }
+      )
+    );
+  }
 }

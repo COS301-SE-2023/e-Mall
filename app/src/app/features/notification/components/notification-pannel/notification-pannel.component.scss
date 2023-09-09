@@ -4,15 +4,15 @@
   // overflow: auto;
   // margin-bottom: auto;
 }
-ion-accordi.custom-notification::part(message) {
-  font-style: italic;
-  color: #000000;
-  text-align: start;
-  padding: 20px;
-  max-height: 10rem;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-}
+// ion-accordi.custom-notification::part(message) {
+//   font-style: italic;
+//   color: #000000;
+//   text-align: start;
+//   padding: 20px;
+//   max-height: 10rem;
+//   overflow: hidden !important;
+//   text-overflow: ellipsis !important;
+// }
 // ion-content::part(scroll) {
 //   height: 100%;
 // }
@@ -47,15 +47,27 @@ ion-icon {
   font-size: smaller;
 }
 
-ion-content {
-  --offset-bottom: auto !important;
-  --overflow: hidden;
-  overflow: auto;
-  scrollbar-width: none;
-}
-ion-content::-webkit-scrollbar {
-  display: none;
-}
+// ion-content {
+//   --offset-bottom: auto !important;
+//   --overflow: hidden;
+//   overflow: auto;
+//   scrollbar-width: none;
+// }
+// ion-content::-webkit-scrollbar {
+//   display: none;
+// }
 .toolbar-container {
   height: 100%;
+}
+
+ion-accordion.accordion-expanding ion-item[slot='header'],
+ion-accordion.accordion-expanded ion-item[slot='header'] {
+  --background: var(--ion-color-primary);
+  --color: var(--ion-color-primary-contrast);
+}
+.nimage {
+  width: 100%;
+  justify-content: center;
+  opacity: 30%;
+  align-items: center;
 }

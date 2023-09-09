@@ -1,9 +1,4 @@
-<ion-menu
-  side="end"
-  menuId="notification"
-  contentId="main-content"
-  (ionWillOpen)="notificationFacade.isMenuOpen$.next(true)"
-  (ionDidClose)="notificationFacade.isMenuOpen$.next(false)">
+<ion-menu side="end" menuId="notification" contentId="main-content">
   <app-notification-pannel
     *ngIf="this.notificationFacade.isMenuOpen$ | async"
     menuId="notification"

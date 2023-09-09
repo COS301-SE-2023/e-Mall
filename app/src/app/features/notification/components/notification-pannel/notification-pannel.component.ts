@@ -53,7 +53,6 @@ export class NotificationPannelComponent implements OnDestroy {
 
   async read(item: INotification) {
     if (!item.is_read) this.notificationFacade.read(item.id);
-    return;
   }
   onIonChange(event: any) {
     const currentNotification = event.detail.value;
@@ -63,14 +62,16 @@ export class NotificationPannelComponent implements OnDestroy {
         this.opendAccordionNotification &&
         currentNotification != this.opendAccordionNotification)
     ) {
-      this.read(this.opendAccordionNotification);
-      this.opendAccordionNotification = undefined;
+      this.readPrevClicked();
     }
     this.opendAccordionNotification = currentNotification;
   }
 
   async closeMenu() {
     // await this.menuController.  enable(true, this.menuId);
+    if (this.opendAccordionNotification) {
+      this.readPrevClicked();
+    }
     this.notificationFacade.isMenuOpen$.next(false);
     // return await this.menuController.close(this.menuId);
   }
@@ -79,5 +80,16 @@ export class NotificationPannelComponent implements OnDestroy {
   }
   async back() {
     this.settings = false;
+  }
+  async readAll() {
+    await this.notificationFacade.readAll();
+  }
+  async deleteAll() {
+    await this.notificationFacade.deleteAll();
+    this.cdr.markForCheck();
+  }
+  readPrevClicked() {
+    this.read(this.opendAccordionNotification);
+    this.opendAccordionNotification = undefined;
   }
 }

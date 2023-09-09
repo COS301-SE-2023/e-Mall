@@ -6,6 +6,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { INotification } from '@features/notification/models/notification.interface';
 import { NotificationFacade } from '@features/notification/services/notification.facade';
 import { ViewWillEnter } from '@ionic/angular';
@@ -20,11 +21,13 @@ import { Subscription, combineLatest } from 'rxjs';
 export class NotificationCardComponent implements OnInit, OnDestroy {
   @Input() item!: INotification;
   @Input() calculatedTime!: string;
+  test: any =
+    '<ion-button>this is test message</ion-button><ion-label>hello</ion-label>';
   // menuSubs = new Subscription();
   // custom_time = '';
-  constructor() // private notificationFacade: NotificationFacade,
-  // private cdr: ChangeDetectorRef
-  {}
+  constructor(
+    private sanitizer: DomSanitizer // private cdr: ChangeDetectorRef // private notificationFacade: NotificationFacade,
+  ) {}
 
   ngOnInit(): void {
     //   this.menuSubs = combineLatest([
@@ -39,7 +42,9 @@ export class NotificationCardComponent implements OnInit, OnDestroy {
     //     }
     //   });
   }
-
+  getSafeHtml(test: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(test);
+  }
   ngOnDestroy(): void {
     // this.menuSubs.unsubscribe();
   }

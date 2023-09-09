@@ -6,11 +6,15 @@ export function reactiveTimeFormat(time: string): string {
   const delta = moment.duration(now.diff(timestamp));
   let customTime: string;
   if (delta.asMinutes() < 1) {
-    customTime = '<1m';
+    customTime = '<1 min';
   } else if (delta.asHours() < 1) {
-    customTime = `${Math.floor(delta.asMinutes())} min ago`;
-  } else if (delta.asDays() < 1) {
+    customTime = `${Math.floor(delta.asMinutes())} mins ago`;
+  } else if (delta.asHours() === 1) {
     customTime = `${Math.floor(delta.asHours())} hour ago`;
+  } else if (delta.asDays() < 1) {
+    customTime = `${Math.floor(delta.asHours())} hours ago`;
+  } else if (delta.asDays() === 1) {
+    customTime = `${Math.floor(delta.asDays())} day ago`;
   } else if (delta.asDays() < 10) {
     customTime = `${Math.floor(delta.asDays())} days ago`;
   } else if (delta.asDays() < 365) {
@@ -28,9 +32,9 @@ export function timeFormat(time: string): string {
   if (now.isSame(timestamp, 'day')) {
     customTime = timestamp.format('HH:mm');
   } else if (now.isSame(timestamp, 'year')) {
-    customTime = timestamp.format('DD.MM HH:mm');
+    customTime = timestamp.format('DD/MM  HH:mm');
   } else {
-    customTime = timestamp.format('DD.MM.YYYY');
+    customTime = timestamp.format('DD/MM/YYYY');
   }
   return customTime;
 }

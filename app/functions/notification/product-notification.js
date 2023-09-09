@@ -35,7 +35,7 @@ exports.productNotification = functions
                   },
                   data: {
                     id: data.id,
-                    is_read: isRead,
+                    is_read: isRead.toString(),
                     timestamp: unixTimestamp.toString(),
                   },
                   tokens: deviceTokens,
