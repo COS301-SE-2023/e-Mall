@@ -33,6 +33,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   currencyCode = 'ZAR';
 
   showSpinner = true;
+  showSpinner2 = true;
 
   // Your timer function
   
@@ -56,13 +57,15 @@ export class ProductComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    
+    console.log("ng called");
     this.showSpinner = true;
+    this.showSpinner2 = true;
     
     setTimeout(() => {
       this.showSpinner = false;
+      this.showSpinner2 = false;
       
-    }, 4500); 
+    }, 6500); 
 
     this.paramMapSubscription = this.route.queryParamMap.subscribe(params => {
       this.selectedImage = '';
@@ -179,6 +182,13 @@ export class ProductComponent implements OnInit, OnDestroy {
     el.scrollIntoView();
   }
   onlyInStockToggler() {
+    this.showSpinner2 = true;
+    
+    setTimeout(() => {
+      this.showSpinner2 = false;
+      
+    }, 5000);
+
     this.divClicked = !this.divClicked;
 
     this.sellers$ = this.productService.getSellerList(

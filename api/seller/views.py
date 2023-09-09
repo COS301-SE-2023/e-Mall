@@ -76,7 +76,7 @@ from faker import Faker
 def register(request):
     request.data["username"] = Faker().user_name()[:15]
     request.data["reg_no"] = Faker().bothify("##############")
-    request.data["business_name"] = Faker().company()
+    request.data["business_name"] = Faker().company()[:30]
     request.data["support_email"] = Faker().email()
     request.data["landline_number"] = Faker().bothify("##########")
     request.data["address"] = Faker().address()

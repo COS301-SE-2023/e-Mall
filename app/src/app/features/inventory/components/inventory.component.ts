@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import {
@@ -19,7 +19,7 @@ import { InventoryFacade } from '../servicies/inventory.facade';
   templateUrl: './inventory.component.html',
   styleUrls: ['./inventory.component.scss'],
 })
-export class InventoryComponent {
+export class InventoryComponent implements OnInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(IonContent)
   content!: IonContent;
@@ -53,6 +53,8 @@ export class InventoryComponent {
   filter_changed = false;
   // isLoading$: Observable<ActionsExecuting>;
   loading: HTMLIonLoadingElement | null | undefined;
+  showSpinner = true;
+  
 
   constructor(
     private inventoryFacade: InventoryFacade,
@@ -70,6 +72,17 @@ export class InventoryComponent {
     this.searchResults$ = this.inventoryFacade.products$;
     this.totalSearchCount$ = this.inventoryFacade.totalCount$;
   }
+
+  ngOnInit(): void {
+    
+    this.showSpinner = true;
+    
+    setTimeout(() => {
+      this.showSpinner = false;
+      
+    }, 6000);
+  }
+
   onSearchInputChange(event: any) {
     if (event) {
       console.log(

@@ -1,4 +1,4 @@
-name: dev-v1
+name: test-v2
 
 on:
   push:
@@ -19,10 +19,22 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "${{ secrets.API_ENV}}" > ./api/api/.env
-          echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod
+          cat > ./api/api/.env <<EOL
+          ${{ secrets.API_ENV }}
+          EOL
+          cat > ./api/api/env.prod <<EOL
+          ${{ secrets.API_ENV_PROD }}
+          EOL
           echo "${{secrets.APP_ENV_TS}}" > ./app/src/environments/env.ts
           echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
+          echo "${{secrets.FIREBASE_SW}}" > ./app/src/firebase-messaging-sw.js
+
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@v1.2.2
+        with:
+          name: "./api/api/serviceAccountKey.json"
+          json: ${{ secrets.SERVICE_ACCOUNT }}
 
       - name: Check if env files exists
         run: |

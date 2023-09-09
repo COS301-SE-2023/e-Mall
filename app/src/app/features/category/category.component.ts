@@ -14,6 +14,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
   categoryName!: string;
   categoryTitle!: string;
   categoryProducts$: Observable<IProduct[]> | undefined;
+  showSpinner = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,6 +26,14 @@ export class CategoryComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+    this.showSpinner = true;
+    
+    setTimeout(() => {
+      this.showSpinner = false;
+      
+    }, 6000);
+    
     this.route.params.subscribe(params => {
       this.categoryName = params['category'];
       this.selectedSortOption='name'

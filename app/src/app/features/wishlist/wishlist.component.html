@@ -7,6 +7,7 @@
       </app-customer-profile-sidenav>
     </div>
 
+    
     <div class="wishlist-container1" *ngIf="(products$ | async)?.length === 0">
       <h2>My Wishlist</h2>
 
@@ -27,7 +28,6 @@
     </div>
 
     <div class="wishlist-container" *ngIf="(products$ | async)?.length !== 0">
-      <h2>My Wishlist</h2>
       <!--<div class="row" style="grid-auto-rows: auto">
                     <div class="col-md-3 col-12" style="grid-auto-columns: auto; min-width: 300px">
                         <app-product-card ></app-product-card>
@@ -37,12 +37,19 @@
                 </div>-->
       <div class="wishlist-container-cards">
         <div class="product-card">
-          <div
+          <!--<div
             style="display: flex; justify-content: center; align-items: center"
             *ngIf="(products$ | async) === null">
             <mat-spinner></mat-spinner>
+          </div>-->
+          <div class="spinner-container" *ngIf="showSpinner">
+            <div class="spinner">
+              <ion-spinner style="color: #99e3dc"></ion-spinner>
+            </div>
           </div>
           <ng-container *ngIf="products$ | async as products">
+            <div *ngIf="!showSpinner">
+            <h2>My Wishlist</h2>
             <div class="row" style="grid-auto-rows: auto">
               <div
                 class="col-md-3 col-12"
@@ -58,6 +65,7 @@
                     i + 1 !== products.length
                   "></div>
               </div>
+            </div>
             </div>
           </ng-container>
         </div>

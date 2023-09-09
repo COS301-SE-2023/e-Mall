@@ -15,16 +15,23 @@
     <div style="align-items: center">
       <h3 #recommendedHeading>{{ (forYouProducts$ | async) ? 'Recommended For You' : 'Most Popular Products' }}</h3>
     </div>
+    <div class="spinner-container" *ngIf="showSpinner">
+      <div class="spinner">
+        <ion-spinner style="color: #99e3dc"></ion-spinner>
+      </div>
+    </div>
     <div
       style="
         width: 80%;
         display: flex;
         justify-content: center;
         align-items: center;
-      ">
+      " *ngIf="!showSpinner">
+      <div >
       <div *ngIf="(forYouProducts$ | async) === null">
 
         <ngb-carousel *ngIf="popProducts$ | async as products" [wrap]="true">
+        
         <ng-template ngbSlide>
           <div class="row">
             <div
@@ -54,6 +61,8 @@
         </ng-template>
       </ngb-carousel>
       </div>
+     
+      
       <ngb-carousel *ngIf="forYouProducts$ | async as products" [wrap]="true">
         <ng-template ngbSlide>
           <div class="row">
@@ -83,6 +92,7 @@
           </div>
         </ng-template>
       </ngb-carousel>
+       </div>
     </div>
 
     <br /><br />
@@ -97,9 +107,15 @@
         justify-content: center;
         align-items: center;
       ">
-      <div *ngIf="(trendingProducts$ | async) === null">
+      <!--<div *ngIf="(trendingProducts$ | async) === null">
         <mat-spinner></mat-spinner>
-      </div> 
+      </div>-->
+      <div class="spinner-container" *ngIf="showSpinner">
+        <div class="spinner">
+          <ion-spinner style="color: #99e3dc"></ion-spinner>
+        </div>
+      </div>
+      <div *ngIf="!showSpinner">
       <ngb-carousel *ngIf="trendingProducts$ | async as products" [wrap]="true" class="custom-carousel-arrows" style="color:black">
         <ng-template ngbSlide >
           <div class="row">
@@ -129,6 +145,7 @@
           </div>
         </ng-template>
       </ngb-carousel>
+      </div>
     </div>
     <ng-container *ngIf="imageObject !== null && imageObject.length > 0">
       <br /><br />

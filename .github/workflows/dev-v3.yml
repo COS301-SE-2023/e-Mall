@@ -1,4 +1,4 @@
-name: dev-v2
+name: dev-v3
 
 on:
   push:
@@ -28,6 +28,7 @@ jobs:
         run: |
           echo "${{secrets.APP_ENV_TS}}" > ./app/src/environments/env.ts
           echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
+          echo "${{secrets.FIREBASE_SW}}" > ./app/src/firebase-messaging-sw.js
 
       - name: Check if env files exists
         run: |
@@ -78,8 +79,18 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "${{ secrets.API_ENV}}" > ./api/api/.env
-          echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod
+          cat > ./api/api/.env <<EOL
+          ${{ secrets.API_ENV }}
+          EOL
+          cat > ./api/api/env.prod <<EOL
+          ${{ secrets.API_ENV_PROD }}
+          EOL
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@v1.2.2
+        with:
+          name: "./api/api/serviceAccountKey.json"
+          json: ${{ secrets.SERVICE_ACCOUNT }}
 
       - name: Check if env files exists
         run: |
@@ -190,10 +201,22 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "${{ secrets.API_ENV}}" > ./api/api/.env
-          echo "${{ secrets.API_ENV_PROD}}" > ./api/api/env.prod
+          cat > ./api/api/.env <<EOL
+          ${{ secrets.API_ENV }}
+          EOL
+          cat > ./api/api/env.prod <<EOL
+          ${{ secrets.API_ENV_PROD }}
+          EOL
           echo "${{secrets.APP_ENV_TS}}" > ./app/src/environments/env.ts
           echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
+          echo "${{secrets.FIREBASE_SW}}" > ./app/src/firebase-messaging-sw.js
+
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@v1.2.2
+        with:
+          name: "./api/api/serviceAccountKey.json"
+          json: ${{ secrets.SERVICE_ACCOUNT }}
 
       - name: Get node_modules cache
         uses: actions/cache@v3
@@ -225,7 +248,7 @@ jobs:
           echo "[Django] server is up!"
           echo "[Angular] waiting for server..."
           timeout 3m bash -c 'until $(curl --output /dev/null --silent --head --fail http://localhost:4200); do sleep 5; done'
-          echo "[Angular] server is up!"  
+          echo "[Angular] server is up!"
           yarn cypress:run --config video=false
 
       - name: Upload cypress coverage report

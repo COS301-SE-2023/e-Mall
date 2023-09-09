@@ -76,7 +76,7 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.showSpinner = false;
       
-    }, 4500); 
+    }, 6000); 
 
     // Subscribe to changes in the query parameters (seller_id)
     console.log('seller details init');

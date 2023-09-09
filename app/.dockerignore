@@ -234,3 +234,5 @@ cypress
 .angular
 .angular/
 coverage
+
+functions/

@@ -26,6 +26,8 @@ export class WishlistComponent implements OnInit, OnDestroy {
   profile$!: Observable<ISellerProfile | IConsumerProfile | null>;
   email!: string;
   private routeSubscription: Subscription = new Subscription();
+  showSpinner = true;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -46,6 +48,13 @@ export class WishlistComponent implements OnInit, OnDestroy {
      }*/
 
   ngOnInit(): void {
+    this.showSpinner = true;
+    
+    setTimeout(() => {
+      this.showSpinner = false;
+      
+    }, 6000);
+    
     this.profile$ = this.profileFacade.getProfile();
     this.profile$.subscribe(profile => {
       if (profile) {

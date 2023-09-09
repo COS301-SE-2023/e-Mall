@@ -13,6 +13,8 @@ import { IConsumerForm } from '@features/sign-up/consumer/models/consumer.interf
 import { IError } from '@app/features/error/models/error.interface';
 import * as ErrorActions from '@features/error/states/error.action';
 //import { LoaderFacade } from '../../../shared/components/loader/loader.facade';
+import { StateResetAll } from 'ngxs-reset-plugin';
+//import { LoaderFacade } from '../../../shared/components/loader/loader.facade';
 @Injectable()
 export class AuthFacade {
   @Select(AuthSelectors.currentUser)
@@ -80,7 +82,8 @@ export class AuthFacade {
         return new Navigate(['home']);
       }
       await this.authService.signOut();
-      return [new AuthActions.SignOutAction(), new Navigate(['home'])];
+      return [new StateResetAll(), new Navigate(['home'])];
+      // return [new AuthActions.SignOutAction(), new Navigate(['home'])];
     } catch (error) {
       return new SetError('auth', error as IError);
     }
