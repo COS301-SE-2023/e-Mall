@@ -19,25 +19,31 @@ export class NotificationPannelComponent implements OnDestroy {
   notificationList$: Observable<INotification[] | null>;
   lastNotification$: Observable<string | null>;
   opendAccordionNotification: any = undefined;
-  isClosed: boolean = false;
+  menuOpenedSubs = new Subscription();
   settings: boolean = false;
   constructor(
     public notificationFacade: NotificationFacade,
-    private cdr: ChangeDetectorRef,
-    private menuController: MenuController
+    private cdr: ChangeDetectorRef
   ) {
     console.log('Notification dropdown component initialized');
+    this.menuOpenedSubs = notificationFacade.isMenuOpen$.subscribe(
+      (val: boolean) => {
+        if (!val && this.opendAccordionNotification) {
+          this.readPrevClicked();
+        }
+      }
+    );
 
     this.notificationList$ = notificationFacade.notificationList$;
-    // this.notificationList$.subscribe(() => this.cdr.markForCheck());
     this.lastNotification$ = notificationFacade.lastNotification$;
   }
   ngOnDestroy(): void {
+    this.menuOpenedSubs.unsubscribe();
     console.log('dropdown component destroyed');
   }
 
   onIonInfinite(event: any) {
-    console.log('onIonInfinite event');
+    console.log('load more');
     this.notificationFacade.loadMoreNotifications().then(() => {
       event.target.complete();
     });
@@ -68,12 +74,10 @@ export class NotificationPannelComponent implements OnDestroy {
   }
 
   async closeMenu() {
-    // await this.menuController.  enable(true, this.menuId);
     if (this.opendAccordionNotification) {
       this.readPrevClicked();
     }
     this.notificationFacade.isMenuOpen$.next(false);
-    // return await this.menuController.close(this.menuId);
   }
   async openSettings() {
     this.settings = true;

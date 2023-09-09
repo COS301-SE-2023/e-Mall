@@ -1,4 +1,8 @@
-<ion-menu side="end" menuId="notification" contentId="main-content">
+<ion-menu
+  side="end"
+  menuId="notification"
+  contentId="main-content"
+  (ionWillClose)="notificationMenuClosed()">
   <app-notification-pannel
     *ngIf="this.notificationFacade.isMenuOpen$ | async"
     menuId="notification"

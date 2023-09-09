@@ -4,13 +4,11 @@ import { Router, NavigationExtras } from '@angular/router';
 import { AuthFacade } from '@app/features/auth/services/auth.facade';
 import { IUser } from '@app/features/auth/models/user.interface';
 import { Observable, Subscription, debounceTime } from 'rxjs';
-import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { MenuController, PopoverController } from '@ionic/angular';
 import { DropdownPopoverComponent } from '@shared/components/dropdown-popover/dropdown-popover.component';
 import { ModalController } from '@ionic/angular';
 import { NavbarPopupComponent } from '@shared/components/navbar-popup/navbar-popup.component';
 import { NotificationFacade } from '@features/notification/services/notification.facade';
-import { NotificationPannelComponent } from '@features/notification/components/notification-pannel/notification-pannel.component';
 
 @Component({
   selector: 'app-navbar',
@@ -40,7 +38,7 @@ export class NavbarComponent implements OnDestroy {
           this.notificationFacade.getNotifications();
           await this.menuController.enable(true, 'notification');
           await this.menuController.open('notification');
-        } else {
+        } else if (await this.menuController.isOpen('notification')) {
           await this.menuController.close('notification');
         }
       });
@@ -50,7 +48,6 @@ export class NavbarComponent implements OnDestroy {
   }
 
   search(searchQuery: string): void {
-    // Create the navigation extras object with the search query as a parameter
     const navigationextras: NavigationExtras = {
       queryParams: { search: searchQuery },
     };
@@ -92,10 +89,6 @@ export class NavbarComponent implements OnDestroy {
   async openPopover(event: MouseEvent) {
     const popover = await this.popoverController.create({
       component: NavbarPopupComponent,
-      /* componentProps: {
-        product: product,
-      }, */
-      //mode: 'ios',
       cssClass: 'inventory-popover',
       showBackdrop: true,
       backdropDismiss: true,
@@ -105,26 +98,10 @@ export class NavbarComponent implements OnDestroy {
     return await popover.present();
   }
 
-  // async openNotificationPopover(event: MouseEvent) {
-  //   const popover = await this.popoverController.create({
-  //     component: NotificationPannelComponent,
-  //     /* componentProps: {
-  //       product: product,
-  //     }, */
-  //     mode: 'ios',
-  //     cssClass: 'notification-popover',
-  //     showBackdrop: true,
-  //     backdropDismiss: true,
-  //     event: event,
-  //     translucent: true,
-  //   });
-  //   return await popover.present();
-  // }
-
   async openMenu(menuId: string) {
     this.notificationFacade.isMenuOpen$.next(true);
-    // this.notificationFacade.getNotifications();
-    // await this.menuController.enable(true, menuId);
-    // return await this.menuController.open(menuId);
+  }
+  notificationMenuClosed() {
+    this.notificationFacade.isMenuOpen$.next(false);
   }
 }
