@@ -11,6 +11,7 @@ from product.models import Product
 from user.models import User
 from consumer.models import Consumer
 from consumer.serializers import ConsumerSerializer
+from notification.utils import update_combo
 
 
 # Create your views here.
@@ -38,6 +39,11 @@ def create(request):
                 pending_emails=pending_emails,
             )
             combo.save()
+            # send notification to all users
+            # get user ids
+            users = Consumer.objects.filter(email__in=combo.user_emails)
+            user_ids = [user.id for user in users]
+            update_combo(user_ids, combo.id, "create")
         return Response({"success": "Combo created successfully"})
     except Exception as e:
         # handle other exceptions here
@@ -62,6 +68,7 @@ def update_user(request):
                     combo.pending_emails.remove(user.email)
                     combo.user_emails.append(user.email)
                     combo.save()
+                    update_combo([user.id], combo.id, "accept")
                     return Response({"success": "User added to Combo successfully"})
 
             if action == "Reject":
@@ -74,6 +81,7 @@ def update_user(request):
                     else:
                         combo.pending_emails.remove(user.email)
                         combo.save()
+                        update_combo([user.id], combo.id, "reject")
                     return Response(
                         {"success": "User removed from pending emails successfully"}
                     )
@@ -153,6 +161,10 @@ def edit(request):
                     if email not in combo.pending_emails:
                         combo.pending_emails.append(email)
             combo.save()
+            # get user ids
+            users = Consumer.objects.filter(email__in=combo.user_emails)
+            user_ids = [user.id for user in users]
+            update_combo(user_ids, combo.id, "edit")
         return Response({"success": "Combo edited successfully"})
     except Exception as e:
         # handle other exceptions here
@@ -174,10 +186,12 @@ def delete(request):
             # check if user email is last email in the list
             if len(combo.user_emails) == 1 and combo.user_emails[0] == user.email:
                 combo.delete()
+                update_combo([user.id], combo.id, "leave")
                 return Response({"success": "Combo deleted successfully"})
             elif user.email in combo.user_emails:
                 combo.user_emails.remove(user.email)
                 combo.save()
+                update_combo([user.id], combo.id, "leave")
                 return Response({"success": "User removed from Combo successfully"})
             else:
                 raise Exception("User not found in Combo")

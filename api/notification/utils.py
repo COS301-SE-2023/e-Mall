@@ -19,15 +19,20 @@ def update_combo(user_ids, combo_id, action):
 
         combo_ref = db.collection(combo_collection).document(combo_id)
         combo_doc = combo_ref.get()
-
+        print("combo_doc", combo_doc)
+        print("combo_doc.exists", combo_doc.exists)
+        users_array = [str(user_id) for user_id in user_ids]
         pending_ids_array = [str(user_id) for user_id in user_ids[1:]]
         current_user_array = [str(user_ids[0])]
 
         update_data = {}
 
         if action == "create":
-            update_data["pending_users"] = firestore.ArrayUnion(pending_ids_array)
-            update_data["active_users"] = firestore.ArrayUnion(current_user_array)
+            if pending_ids_array != []:
+                update_data["pending_users"] = firestore.ArrayUnion(pending_ids_array)
+                update_data["active_users"] = firestore.ArrayUnion(current_user_array)
+            else:
+                update_data["active_users"] = firestore.ArrayUnion(users_array)
         elif action == "leave":
             update_data["active_users"] = firestore.ArrayRemove(current_user_array)
         elif action == "accept":
@@ -35,13 +40,17 @@ def update_combo(user_ids, combo_id, action):
             update_data["active_users"] = firestore.ArrayUnion(current_user_array)
         elif action == "reject":
             update_data["pending_users"] = firestore.ArrayRemove(pending_ids_array)
+        elif action == "edit":
+            update_data["pending_users"] = firestore.ArrayUnion(users_array)
         else:
             raise Exception("Invalid action")
 
         if combo_doc.exists:
+            print("update_data,doc exists", update_data)
             combo_ref.update(update_data)
         else:
             if action == "create":
+                print("update_data, doc doesnt exist", update_data)
                 combo_ref.set(
                     {
                         "pending_users": pending_ids_array,
@@ -59,6 +68,8 @@ def update_combo(user_ids, combo_id, action):
             message = f'User {", ".join(current_user_array)} accepted the invitation to combo {combo_id}'
         elif action == "reject":
             message = f'User {", ".join(pending_ids_array)} rejected the invitation to combo {combo_id}'
+        elif action == "edit":
+            message = f'Combo {combo_id} edited with users {", ".join(users_array)}'
         else:
             message = ""
 
