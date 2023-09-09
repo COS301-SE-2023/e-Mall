@@ -12,6 +12,7 @@ import { IProduct } from '@shared/models/product/product.interface';
 import { Observable, Subscription, of } from 'rxjs';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { ProfileService } from '@features/profile/services/profile.service';
+import { ComboFacade } from '@features/combo-state/services/combo.facade';
 
 //import { register } from 'swiper/element/bundle';
 //register();
@@ -38,7 +39,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     private router: Router,
     private productService: ProductService,
     private profileFacade: ProfileFacade,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private comboFacade: ComboFacade
+
   ) {
     this.followedSellers$ = of(null);
     this.forYouProducts$ = of(null);

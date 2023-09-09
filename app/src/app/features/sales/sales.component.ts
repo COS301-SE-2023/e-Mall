@@ -87,8 +87,6 @@ export class SalesComponent implements OnInit {
         this.categoryPercentage = data.map(
           (item: { [x: string]: any }) => item['percentage']
         );
-        console.log(this.categories);
-        console.log(this.categoryPercentage);
       });
       this.createCategoryPercentageChart();
     });

@@ -74,7 +74,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.maxPrice = 5000;
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params['search'];
-      console.log('filter options' + this.filterOptions);
       this.selectedSortOption = 'price';
       this.productService
         .searchProducts(
@@ -87,8 +86,6 @@ export class SearchComponent implements OnInit, OnDestroy {
         .subscribe(result => {
           this.searchResults$ = of(result.products);
           this.totalSearchCount$ = of(result.totalCount);
-          console.log('totalSearchCount$');
-          console.log(this.totalSearchCount$);
 
           // Fetch the brand names from the search results and populate the brandOptions array
           this.searchResults$
@@ -164,7 +161,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   onSortOptionChange(): void {
-    console.log('onSortOptionChange');
     this.productService
       .searchProducts(
         this.searchQuery,
@@ -177,18 +173,11 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.searchResults$ = of(result.products);
         this.totalSearchCount$ = of(result.totalCount);
       });
-
-    this.searchResults$?.subscribe((res: IProduct[]) => {
-      console.log('getSortedProductList');
-      console.log(res);
-    });
   }
 
   onPageChange(event: PageEvent) {
     this.currentPage = event.pageIndex;
     this.itemsPerPage = event.pageSize;
-    console.log('Page size: ' + event.pageSize);
-    console.log('Page index: ' + event.pageIndex);
     this.productService
       .searchProducts(
         this.searchQuery,
@@ -200,8 +189,6 @@ export class SearchComponent implements OnInit, OnDestroy {
       .subscribe(result => {
         this.searchResults$ = of(result.products);
         this.totalSearchCount$ = of(result.totalCount);
-        console.log('totalSearchCount$');
-        console.log(result.totalCount);
       });
   }
 

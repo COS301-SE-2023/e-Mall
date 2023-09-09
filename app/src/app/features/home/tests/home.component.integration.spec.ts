@@ -11,6 +11,7 @@ import { AuthModule } from '@features/auth/auth.module';
 import { ProfileModule } from '@features/profile/profile.module';
 import { NgxsModule } from '@ngxs/store';
 import { ElementRef } from '@angular/core';
+import { ComboStateModule } from '@features/combo-state/combo-state.module';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -22,6 +23,7 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
+        ComboStateModule,
         HttpClientTestingModule,
         AuthModule,
         ProfileModule,

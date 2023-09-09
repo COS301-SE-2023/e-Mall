@@ -202,7 +202,7 @@ class ProductSellerBackendAPIViewTestCase(APITestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 2)
-        self.assertEqual(response.data[0]["discount_rate"], "0.10")
+        self.assertEqual(response.data[0]["discount_rate"], "0.100")
 
 
 class ProductSellerProdUpdateAPIViewTestCase(APITestCase):

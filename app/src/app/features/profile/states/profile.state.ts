@@ -25,6 +25,7 @@ export class ProfileState {
   ) {
     ctx.setState({ profile: action.profile });
   }
+
   @Action(ProfileActions.UpdateProfile)
   UpdateProfile(
     ctx: StateContext<ProfileStateModel>,
@@ -119,9 +120,24 @@ export class ProfileState {
           const index = draft.profile.details.wishlist.indexOf(action.id);
           if (index === -1) {
             draft.profile.details.wishlist.push(action.id);
-          } else {
-            draft.profile.details.wishlist.splice(index, 1);
           }
+        }
+      })
+    );
+  }
+
+  @Action(ProfileActions.RemoveProductFromWishlist)
+  removeProductFromWishlist(
+    ctx: StateContext<ProfileStateModel>,
+    action: ProfileActions.RemoveProductFromWishlist
+  ) {
+    ctx.setState(
+      produce(draft => {
+        if (draft.profile) {
+          draft.profile.details.wishlist.splice(
+            draft.profile.details.wishlist.indexOf(action.id),
+            1
+          );
         }
       })
     );

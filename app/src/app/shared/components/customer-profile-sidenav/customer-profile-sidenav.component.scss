@@ -2,11 +2,14 @@
 .side-nav ion-list {
   background-color: #ecf6f6;
   font-family: 'Poppins',sans-serif;
-}
 
+ ion-item {
+  --border-width: 0; /* Set border width to 0 to remove the lines */
+  --inner-border-width: 0; /* Set inner border width to 0 as well */
+}}
 .side-nav {
   display: flex;
-  width: 326px;
+  max-width: 250px;
 //width: 25%;
 min-height: 1024px;
 //border: 1px solid red;
@@ -34,7 +37,7 @@ align-items: center;
 
 .side-nav ion-item {
   display: flex;
-  width: 252px;
+  width: auto;
   height: 64px;
   padding: 16px 10px;
   align-items: center;

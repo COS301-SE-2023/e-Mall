@@ -17,10 +17,17 @@ import { WishlistComponent } from '@features/wishlist/wishlist.component';
 import { EditCustomerProfileComponent } from '@features/edit-customer-profile/edit-customer-profile.component';
 import { SellerDashboardSettingsComponent } from '@features/seller-dashboard-settings/seller-dashboard-settings.component';
 import { consumerTypeGuard } from '@shared/guards/consumer-type.guard';
+import { MyCombosComponent } from '@features/my-combos/my-combos.component';
+import { ComboComponent } from '@features/combo/combo.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent, canActivate: [baseGuard] },
+
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [baseGuard],
+  },
   {
     path: 'construction',
     loadChildren: () =>
@@ -114,19 +121,40 @@ const routes: Routes = [
   {
     path: 'customer-profile',
     component: CustomerProfileComponent,
+    canActivate: [baseGuard, consumerTypeGuard],
   },
   {
     path: 'wishlist',
-    component: WishlistComponent,
+    loadChildren: () =>
+      import('@app/features/wishlist/wishlist.module').then(
+        m => m.WishlistModule
+      ),
+    canActivate: [consumerTypeGuard],
+  },
+  {
+    path: 'my-combos',
+    loadChildren: () =>
+      import('@app/features/my-combos/my-combos.module').then(
+        m => m.MyCombosModule
+      ),
+    canActivate: [consumerTypeGuard],
+    runGuardsAndResolvers: 'always',
+  },
+  {
+    path: 'combo',
+    loadChildren: () =>
+      import('@app/features/combo/combo.module').then(m => m.ComboModule),
     canActivate: [consumerTypeGuard],
   },
   {
     path: 'edit-customer-profile',
     component: EditCustomerProfileComponent,
+    canActivate: [consumerTypeGuard],
   },
   {
     path: 'seller-dashboard-settings',
-    component: SellerDashboardSettingsComponent
+    component: SellerDashboardSettingsComponent,
+    canActivate: [sellerTypeGuard],
   },
   // {
   //   path: 'profile',

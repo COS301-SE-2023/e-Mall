@@ -1,12 +1,10 @@
 <app-navbar></app-navbar>
 <ion-content class="global-ion-content">
   <div class="ion-content-wrapper">
-    <!--<div class="container">-->
     <div class="side-nav-container" *ngIf="profile$ | async as profile">
       <app-customer-profile-sidenav [profile]="{ username: profile.username }">
       </app-customer-profile-sidenav>
     </div>
-
     
     <div class="wishlist-container1" *ngIf="(products$ | async)?.length === 0">
       <h2>My Wishlist</h2>
@@ -58,12 +56,21 @@
                 <app-product-card [product]="product"></app-product-card>
                 <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
                 <div
-                  class="col-md-1"
-                  *ngIf="
-                    (i + 1) % 4 === 0 &&
-                    products.length > 4 &&
-                    i + 1 !== products.length
-                  "></div>
+                  class="col-md-3 col-12"
+                  style="grid-auto-columns: auto; min-width: 270px"
+                  *ngFor="let product of products; let i = index">
+                  <app-product-card
+                    [product]="product"
+                    [pageType]="'wishlistPage'"></app-product-card>
+                  <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
+                  <div
+                    class="col-md-1"
+                    *ngIf="
+                      (i + 1) % 4 === 0 &&
+                      products.length > 4 &&
+                      i + 1 !== products.length
+                    "></div>
+                </div>
               </div>
             </div>
             </div>
@@ -71,7 +78,5 @@
         </div>
       </div>
     </div>
-    <!--</div>-->
   </div>
-  <app-footer></app-footer>
 </ion-content>
