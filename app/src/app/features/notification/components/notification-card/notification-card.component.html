@@ -1,19 +1,31 @@
+<!-- =
 <ion-card>
   <ion-card-header>
-    <!-- <ion-card-title></ion-card-title> -->
+=
     <span
       style="
         display: flex;
         flex-direction: row;
         justify-content: space-between;
       ">
-      {{ item.notification.title }}
+=
       <div style="flex-grow: 1"></div>
       {{ calculatedTime }}
     </span>
   </ion-card-header>
 
-  <ion-card-content>
+  <ion-card-content style="width: 100%; --width: 100%">
     {{ item.notification.body }}
   </ion-card-content>
 </ion-card>
+= -->
+<ion-item>
+  <div style="width: 100%; display: flex; flex-direction: column">
+    <div style="flex-grow: 1">
+      {{ item.notification.body }}
+    </div>
+    <div style="height: fit-content">
+      {{ calculatedTime }}
+    </div>
+  </div>
+</ion-item>

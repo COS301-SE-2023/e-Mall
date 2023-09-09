@@ -4,8 +4,16 @@
   contentId="main-content"
   (ionWillOpen)="notificationFacade.isMenuOpen$.next(true)"
   (ionDidClose)="notificationFacade.isMenuOpen$.next(false)">
-  <app-notification-pannel style="height: 100%"></app-notification-pannel>
+  <app-notification-pannel
+    *ngIf="this.notificationFacade.isMenuOpen$ | async"
+    menuId="notification"
+    style="height: 100%"></app-notification-pannel>
 </ion-menu>
+<!-- <ion-menu side="end" menuId="settings" contentId="main-content">
+  <app-settings-pannel
+    menuId="settings"
+    style="height: 100%"></app-settings-pannel>
+</ion-menu> -->
 
 <ion-header>
   <ion-toolbar color="primary" class="navbar">

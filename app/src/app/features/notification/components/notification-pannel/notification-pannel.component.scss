@@ -27,6 +27,12 @@ ion-item {
   --padding-end: 1.5rem;
   // --padding-left: 2rem;
 }
+ion-toolbar {
+  --padding-top: 0.5rem;
+  // --padding-bottom: 0.5rem;
+  // --padding-start: 1rem;
+  --padding-end: 1rem;
+}
 
 ion-icon {
   font-size: 0.5rem;
@@ -49,4 +55,7 @@ ion-content {
 }
 ion-content::-webkit-scrollbar {
   display: none;
+}
+.toolbar-container {
+  height: 100%;
 }

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { AuthFacade } from '@app/features/auth/services/auth.facade';
 import { IUser } from '@app/features/auth/models/user.interface';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { MenuController, PopoverController } from '@ionic/angular';
 import { DropdownPopoverComponent } from '@shared/components/dropdown-popover/dropdown-popover.component';
@@ -17,15 +17,15 @@ import { NotificationPannelComponent } from '@features/notification/components/n
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnDestroy {
   isAuthenticated: Observable<IUser | null>;
   isCategoryOpened = false;
   notificationUnreadCount$: Observable<number>;
+  notificationMenuSubs = new Subscription();
 
   constructor(
     private router: Router,
     private authFacade: AuthFacade,
-    private profileFacde: ProfileFacade,
     private popoverController: PopoverController,
     private menuController: MenuController,
     public modalController: ModalController,
@@ -33,6 +33,20 @@ export class NavbarComponent {
   ) {
     this.isAuthenticated = this.authFacade.getCurrentUser();
     this.notificationUnreadCount$ = this.notificationFacade.unread_count$;
+    this.notificationMenuSubs = this.notificationFacade.isMenuOpen$.subscribe(
+      async val => {
+        if (val === true) {
+          this.notificationFacade.getNotifications();
+          await this.menuController.enable(true, 'notification');
+          await this.menuController.open('notification');
+        } else {
+          await this.menuController.close('notification');
+        }
+      }
+    );
+  }
+  ngOnDestroy(): void {
+    this.notificationMenuSubs.unsubscribe();
   }
 
   search(searchQuery: string): void {
@@ -108,8 +122,9 @@ export class NavbarComponent {
   // }
 
   async openMenu(menuId: string) {
-    this.notificationFacade.getNotifications();
-    await this.menuController.enable(true, menuId);
-    return await this.menuController.open(menuId);
+    this.notificationFacade.isMenuOpen$.next(true);
+    // this.notificationFacade.getNotifications();
+    // await this.menuController.enable(true, menuId);
+    // return await this.menuController.open(menuId);
   }
 }
