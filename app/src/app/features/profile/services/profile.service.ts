@@ -124,7 +124,7 @@ export class ProfileService {
 
   async fetchRecommendedProducts(): Promise<IProduct[]> {
     console.log('fetchRecommendedProducts start');
-    await this.updateRecommendedProducts();
+    // await this.updateRecommendedProducts();
     const url = `${this.apiUrl}fetchRecommendedProducts/`;
 
     const response = await lastValueFrom(

@@ -1,19 +1,26 @@
 <app-navbar></app-navbar>
 
-<ion-content class="global-ion-content">
+<ion-content class="global-ion-content" id="main-content">
   <div class="ion-content-wrapper">
     <div class="banner">
       <div class="image-container">
         <img [src]="images" alt="Home banner" />
-        <!--<ion-button class="overlay-button" (click)="onAllClick()"
-          >Shop For You</ion-button>-->
+        <ion-button class="overlay-button" (click)="onAllClick()"
+          >Shop For You</ion-button
+        >
       </div>
     </div>
 
     <br /><br />
     <!--Product carousel-->
     <div style="align-items: center">
-      <h3 #recommendedHeading>{{ (forYouProducts$ | async) ? 'Recommended For You' : 'Most Popular Products' }}</h3>
+      <h3 #recommendedHeading>
+        {{
+          (forYouProducts$ | async)
+            ? 'Recommended For You'
+            : 'Most Popular Products'
+        }}
+      </h3>
     </div>
     <div class="spinner-container" *ngIf="showSpinner">
       <div class="spinner">
@@ -31,35 +38,40 @@
       <div *ngIf="(forYouProducts$ | async) === null">
 
         <ngb-carousel *ngIf="popProducts$ | async as products" [wrap]="true">
-        
-        <ng-template ngbSlide>
-          <div class="row">
-            <div
-              class="col-md-3"
-              *ngFor="let product of products.slice(0, 4); let i = index">
-              <app-product-card [product]="product" [pageType]="'normal'"></app-product-card>
+          <ng-template ngbSlide>
+            <div class="row">
+              <div
+                class="col-md-3"
+                *ngFor="let product of products.slice(0, 4); let i = index">
+                <app-product-card
+                  [product]="product"
+                  [pageType]="'normal'"></app-product-card>
+              </div>
             </div>
-          </div>
-        </ng-template>
-        <ng-template ngbSlide>
-          <div class="row">
-            <div
-              class="col-md-3"
-              *ngFor="let product of products.slice(4, 8); let i = index">
-              <app-product-card [product]="product" [pageType]="'normal'"></app-product-card>
+          </ng-template>
+          <ng-template ngbSlide>
+            <div class="row">
+              <div
+                class="col-md-3"
+                *ngFor="let product of products.slice(4, 8); let i = index">
+                <app-product-card
+                  [product]="product"
+                  [pageType]="'normal'"></app-product-card>
+              </div>
             </div>
-          </div>
-        </ng-template>
-        <ng-template ngbSlide>
-          <div class="row">
-            <div
-              class="col-md-3"
-              *ngFor="let product of products.slice(8, 12); let i = index">
-              <app-product-card [product]="product" [pageType]="'normal'"></app-product-card>
+          </ng-template>
+          <ng-template ngbSlide>
+            <div class="row">
+              <div
+                class="col-md-3"
+                *ngFor="let product of products.slice(8, 12); let i = index">
+                <app-product-card
+                  [product]="product"
+                  [pageType]="'normal'"></app-product-card>
+              </div>
             </div>
-          </div>
-        </ng-template>
-      </ngb-carousel>
+          </ng-template>
+        </ngb-carousel>
       </div>
      
       
@@ -69,7 +81,9 @@
             <div
               class="col-md-3"
               *ngFor="let product of products.slice(0, 4); let i = index">
-              <app-product-card [product]="product" [pageType]="'normal'"></app-product-card>
+              <app-product-card
+                [product]="product"
+                [pageType]="'normal'"></app-product-card>
             </div>
           </div>
         </ng-template>
@@ -78,7 +92,9 @@
             <div
               class="col-md-3"
               *ngFor="let product of products.slice(4, 8); let i = index">
-              <app-product-card [product]="product"[pageType]="'normal'"></app-product-card>
+              <app-product-card
+                [product]="product"
+                [pageType]="'normal'"></app-product-card>
             </div>
           </div>
         </ng-template>
@@ -87,7 +103,9 @@
             <div
               class="col-md-6"
               *ngFor="let product of products.slice(8, 12); let i = index">
-              <app-product-card [product]="product"[pageType]="'normal'"></app-product-card>
+              <app-product-card
+                [product]="product"
+                [pageType]="'normal'"></app-product-card>
             </div>
           </div>
         </ng-template>
@@ -122,7 +140,9 @@
             <div
               class="col-md-3"
               *ngFor="let product of products.slice(0, 4); let i = index">
-              <app-product-card [product]="product" [pageType]="'normal'"></app-product-card>
+              <app-product-card
+                [product]="product"
+                [pageType]="'normal'"></app-product-card>
             </div>
           </div>
         </ng-template>
@@ -131,7 +151,9 @@
             <div
               class="col-md-3"
               *ngFor="let product of products.slice(4, 8); let i = index">
-              <app-product-card [product]="product" [pageType]="'normal'"></app-product-card>
+              <app-product-card
+                [product]="product"
+                [pageType]="'normal'"></app-product-card>
             </div>
           </div>
         </ng-template>
@@ -140,7 +162,9 @@
             <div
               class="col-md-6"
               *ngFor="let product of products.slice(8, 10); let i = index">
-              <app-product-card [product]="product"[pageType]="'normal'"></app-product-card>
+              <app-product-card
+                [product]="product"
+                [pageType]="'normal'"></app-product-card>
             </div>
           </div>
         </ng-template>

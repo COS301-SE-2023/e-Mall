@@ -15,6 +15,8 @@ from environ import Env
 import json
 import firebase_admin
 from firebase_admin import credentials
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -180,3 +182,36 @@ COGNITO_CONFIG = {
 }
 cred = credentials.Certificate(BASE_DIR / "api/serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
+
+
+# settings.py
+
+import os
+
+# Caching configuration using Redis
+CACHE_TTL = 60 * 15  # 15 minutes
+# settings.py
+CACHE_LOCATION = "redis:6379/1"
+
+CACHE = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": CACHE_LOCATION,
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+    }
+}
+
+
+# Session storage using Redis
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+
+# Celery configuration
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://redis:6379")
+CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER", "redis://redis:6379")
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = "Africa/Johannesburg"
