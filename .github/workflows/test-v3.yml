@@ -40,6 +40,7 @@ jobs:
         with:
           node-version: ${{env.node_version}}
           cache: "yarn"
+          cache-dependency-path: "./app/yarn.lock"
 
       # - name: Get node_modules cache
       #   uses: actions/cache@v3
