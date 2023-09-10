@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NotificationFacade } from './features/notification/services/notification.facade';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  constructor(public notificationFacade: NotificationFacade) {}
+  notificationMenuClosed() {
+    this.notificationFacade.isMenuOpen$.next(false);
+  }
 }

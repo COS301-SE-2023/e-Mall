@@ -1,13 +1,3 @@
-<ion-menu
-  side="end"
-  menuId="notification"
-  contentId="main-content"
-  (ionWillClose)="notificationMenuClosed()">
-  <app-notification-pannel
-    *ngIf="this.notificationFacade.isMenuOpen$ | async"
-    menuId="notification"
-    style="height: 100%"></app-notification-pannel>
-</ion-menu>
 <!-- <ion-menu side="end" menuId="settings" contentId="main-content">
   <app-settings-pannel
     menuId="settings"
