@@ -58,7 +58,7 @@ jobs:
 
       - name: Lint and build
         working-directory: ./app
-        run: yarn lint
+        run: yarn lint && yarn build &
 
       - name: Frontend unit and integration tests
         working-directory: ./app
