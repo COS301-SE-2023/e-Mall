@@ -55,7 +55,7 @@ class CAMatrixView(APIView):
                             value = 0
 
                         # Create or update CAMatrix entry
-                        existing_entry, created = ca_matrix.objects.update_or_create(
+                        _, _ = ca_matrix.objects.update_or_create(
                             product=product_name,
                             user_email=user_email,
                             defaults={"value": value},
