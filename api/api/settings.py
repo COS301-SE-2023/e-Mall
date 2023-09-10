@@ -190,7 +190,8 @@ import os
 
 # Caching configuration using Redis
 CACHE_TTL = 60 * 15  # 15 minutes
-CACHE_LOCATION = os.environ.get("CACHE_LOCATION", "redis://localhost:6379/1")
+# settings.py
+CACHE_LOCATION = "redis:6379/1"
 
 CACHE = {
     "default": {
@@ -208,8 +209,8 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
 
 # Celery configuration
-CELERY_BROKER_URL = "redis://localhost:6379"
-CELERY_RESULT_BACKEND = "redis://localhost:6379"
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://redis:6379")
+CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER", "redis://redis:6379")
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"

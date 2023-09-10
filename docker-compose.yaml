@@ -13,6 +13,9 @@ services:
         condition: service_healthy
     links:
       - db:db
+    environment:
+      - CELERY_BROKER=redis://redis:6379/0
+      - CELERY_BACKEND=redis://redis:6379/0
   db:
     image: postgres:14.7
     healthcheck:
@@ -29,6 +32,14 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+  celery:
+    build: ./api
+    command: celery -A api.celery worker --loglevel=info
+    volumes:
+      - ./api:/api
+    depends_on:
+      - db
+      - redis
   redis:
     image: redis:latest
     ports:

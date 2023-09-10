@@ -165,27 +165,25 @@ def get_followed_seller_details(request):
 
 
 @shared_task
-def update_recommended_products(request):
+def update_recommended_products(email):
     try:
-        user = request.user
-        if user is None:
-            raise Exception("User not found")
-        if user.type == "consumer":
+        print(email)
+        if email is None:
+            return {"error": "User not found"}
+        else:
             rec_prods = []
             # get the predictions data
             predictions_data = ca_matrix.objects.all()
             # create the df table
             df, df1 = createTables(predictions_data)
-            for m in df[df[user.email] == 0].index.tolist():
+            for m in df[df[email] == 0].index.tolist():
                 index_df = df.index.tolist().index(m)
-                predicted_rating = df1.iloc[
-                    index_df, df1.columns.tolist().index(user.email)
-                ]
+                predicted_rating = df1.iloc[index_df, df1.columns.tolist().index(email)]
                 rec_prods.append((m, predicted_rating))
 
             sorted_rm = sorted(rec_prods, key=lambda x: x[1], reverse=True)
             # find the consumer
-            consumer = Consumer.objects.get(email=user.email)
+            consumer = Consumer.objects.get(email=email)
             # remove old similar products array
             consumer.recommended_products = []
             # #add new similar products array
@@ -195,13 +193,11 @@ def update_recommended_products(request):
 
             consumer.save()
 
-            return Response({"success": True})
+            return {"success": True}
 
-        else:
-            raise Exception("User is seller")
     except Exception as e:
         # handle other exceptions here
-        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return {"error": str(e)}  # Return a dictionary with the error message
 
 
 @api_view(["POST"])
@@ -211,9 +207,9 @@ def get_recommended_products(request):
         if user is None:
             raise Exception("User not found")
         if user.type == "consumer":
-            post().delay()
-            update_recommended_products(request).delay()
-            # my_custom_function().delay()
+            post.delay()
+            email = user.email
+            update_recommended_products.delay(email)
             if (
                 user.recommended_products is not None
                 and len(user.recommended_products) > 0

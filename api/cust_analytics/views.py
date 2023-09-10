@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from rest_framework.response import Response
 from ca_matrix.models import ca_matrix
 from ca_matrix.views import CAMatrixView
 from rest_framework.permissions import AllowAny
@@ -23,24 +22,23 @@ def post():
             # for the cust_analytics model
             create_initial_matrix()
 
-            # copy of initial data from ca_matrix
-            predictions_data = ca_matrix.objects.all()
+        # copy of initial data from ca_matrix
+        predictions_data = ca_matrix.objects.all()
 
-            predicated_values = calculate_predicted_values(predictions_data)
+        predicated_values = calculate_predicted_values(predictions_data)
 
-            # Store predictions in the CustAnalytics model
-            for index, row in predicated_values.iterrows():
-                for user_email in row.index:
-                    cust_analytics.objects.update_or_create(
-                        product=index,
-                        user_email=user_email,
-                        defaults={"value": row[user_email]},
-                    )
-
-        return Response({"message": "Predictions created successfully"}, status=200)
+        # Store predictions in the CustAnalytics model
+        for index, row in predicated_values.iterrows():
+            for user_email in row.index:
+                cust_analytics.objects.update_or_create(
+                    product=index,
+                    user_email=user_email,
+                    defaults={"value": row[user_email]},
+                )
+        return {"message": "Predictions created successfully"}  # Return a dictionary
 
     except Exception as e:
-        return Response({"error": str(e)}, status=500)
+        return {"error": str(e)}  # Return a dictionary with the error message
 
 
 def create_initial_matrix():
@@ -56,12 +54,21 @@ def create_initial_matrix():
         response = camatrix_view(request)
 
         if response.status_code == 200:
-            return "Initial matrix created successfully"
+            return {
+                "message": "Initial matrix created successfully",
+                "status_code": 200,
+            }
         else:
-            return "Error creating initial matrix"
+            return {
+                "error": "Error creating initial matrix",
+                "status_code": response.status_code,
+            }
 
     except Exception as e:
-        return str(e)
+        return {
+            "error": str(e),
+            "status_code": 500,
+        }
 
 
 def calculate_predicted_values(predictions_data):
@@ -170,4 +177,4 @@ def create_user_product_matrix(user_indices, product_indices, values):
 @shared_task
 def my_custom_function():
     # Your custom code here
-    print("Running custom function in the background")
+    print("Hello World!")
