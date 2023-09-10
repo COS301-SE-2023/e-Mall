@@ -65,9 +65,9 @@ export class NavbarComponent implements OnDestroy {
     return await popover.present();
   }
 
-  async wishlist(event: Event) {
+  async combos(event: Event) {
     if (await this.authFacade.isLoggedIn()) {
-      this.router.navigate(['/wishlist']);
+      this.router.navigate(['/my-combos']);
     } else {
       this.router.navigate(['/sign-in']);
     }

@@ -106,13 +106,6 @@ describe('NavbarComponentIntegration', () => {
     });
   });
 
-  it('should navigate to wishlist', () => {
-    const routerNavigateSpy = spyOn(router, 'navigate');
-    const event = {} as Event;
-    component.wishlist(event);
-    //  expect(routerNavigateSpy).toHaveBeenCalledWith(['/wishlist']);
-  });
-
   it('should navigate to sign-in page', () => {
     const routerNavigateSpy = spyOn(router, 'navigate');
 

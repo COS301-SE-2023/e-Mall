@@ -201,8 +201,25 @@ export class ProfileFacade implements OnDestroy {
     }
   }
 
+  @Dispatch()
+  async removeProductFromWishlist(id: number) {
+    if (!(await this.authFacade.isLoggedIn())) {
+      this.setError('You must be logged in to remove from wishlist');
+      return new Navigate(['sign-in']);
+    } else if ((await this.authFacade.getUserType()) === 'seller') {
+      this.setError('Sellers cannot remove from wishlist');
+      return new Navigate(['sales']);
+    } else {
+      try {
+        this.profileService.removeProductFromWishlist(id);
+        return new ProfileActions.RemoveProductFromWishlist(id);
+      } catch (error) {
+        return this.setError(error);
+      }
+    }
+  }
+
   ngOnDestroy() {
-    console.log('profile facade destroyed');
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
     }

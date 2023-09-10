@@ -121,6 +121,24 @@ height: 400px;
   //padding: 20px;
 }
 
+.discount-tag {
+  position: absolute; 
+  display: inline-flex;
+  padding: 0px 8px;
+  align-items: center;
+  gap: 10px;
+  z-index: 100; 
+  border-radius: 12px;
+  background: var(--c-5-e, #ecf6f6);
+  ion-label {
+    color: var(--c-5-a, #37d0d6);
+    font-family: Poppins,sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+}
 .position-relative {
   position: relative;
 }
@@ -144,26 +162,8 @@ height: 400px;
    color: red;
 }
 
-/*
-.main-img-small-container{
-//border: 3px solid black;
-margin: 5px;
-height: 300px;
-width: 300px;
-border-radius: 10px;
-background-color: $color_type_8;
-}
-
-.main-img-small-container img{
-  max-width: 100%;
-  height: 300px;
-  border-radius: 10px;
-}*/
 
 .product-card {
-  // margin-top: 4.5rem;
-  // margin-left: 2rem;
-  // margin: 0 0 1rem 0; # commented out coz sonarCloud
   border: 1px solid #ccc;
   border-radius: 0.25rem;
   padding: 1rem;
@@ -183,18 +183,18 @@ background-color: $color_type_8;
 
 
 .upper-product-info-container{
-  margin-top: 10px;
+ // margin-top: 10px;
   margin-right: 0;
   width: 45%;
 
 }
 
 .upper-product-info-container p{
-  margin-top: 30px;
+  margin-top: 15px;
 }
 
 .upper-product-info-container h2{
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
 .lower-body-container{
@@ -651,34 +651,34 @@ html {
   margin: 20px;
 }
 
-
-// .footer{
-//   background-color: $color_type_8;
-//   padding-top: 60px;
-//   //margin-top: 30%;
-// }
-
-// .footer a {
-//   transition: color 0.3s ease-in-out; 
-//   color: #444;
-//   text-decoration: none;
-// }
-
-// .footer a:hover {
-//   text-decoration: underline;
-// }
-
 .icons {
   margin-top: 20px;
   padding-top: 20px;
   border-top: 2px solid #444 ;
  
 }
-// .welcomeMsg_logo_footer {
-//   width:100px;
-//   height: 100px;
-//   margin-left: auto;
-//   margin-right: auto;
-// }
-  
-  
+
+.button-container {
+  display: flex;
+  align-items: center;
+}
+
+ion-button {
+  --padding-start: 0;
+  --padding-end: 0;
+  padding: 2px;
+  margin: 0;
+  box-shadow: none;
+  background: transparent;
+}
+ion-icon{
+  margin: 0;
+}
+
+::part(native) {
+  padding: 0;
+}
+
+mat-card-actions{
+  justify-content: right;
+}

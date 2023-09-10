@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     "ca_matrix.apps.CaMatrixConfig",
     "cust_analytics.apps.CustAnalyticsConfig",
     "notification.apps.NotificationConfig",
+    "combos.apps.CombosConfig",
 ]
 
 MIDDLEWARE = [

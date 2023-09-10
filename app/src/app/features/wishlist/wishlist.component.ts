@@ -3,11 +3,15 @@ import { Router, NavigationExtras } from '@angular/router';
 import { ProfileFacade } from '../profile/services/profile.facade';
 import { ISellerProfile } from '../profile/models/seller-profile.interface';
 import { IConsumerProfile } from '../profile/models/consumer-profile.interface';
-import { Observable, Subscription, of } from 'rxjs';
+import { Observable, Subscription, map, of } from 'rxjs';
 import { EmailValidator, FormControl, FormGroup } from '@angular/forms';
 import { IProduct } from '@shared/models/product/product.interface';
 import { ConsumerService } from '@shared/servicies/consumer/consumer.service';
 import { ActivatedRoute } from '@angular/router';
+
+import { ComboFacade } from '@features/combo-state/services/combo.facade';
+import { ICombo } from '@features/combo-state/models/combo.interface';
+
 //import { AuthFacade } from '@app/features/auth/services/auth.facade';
 //import { IUser } from '@app/features/auth/models/user.interface';
 //import { Observable } from 'rxjs';
@@ -19,7 +23,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class WishlistComponent implements OnInit, OnDestroy {
   products$!: Observable<IProduct[] | null>;
-
+  comboData$: Observable<any> | undefined;
   bool = true;
   //isAuthenticated: Observable<IUser | null>;
   customerprofileForm: FormGroup;
@@ -30,7 +34,8 @@ export class WishlistComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     public profileFacade: ProfileFacade,
-    private consumerService: ConsumerService
+    private consumerService: ConsumerService,
+    private comboFacade: ComboFacade,
   ) {
     this.customerprofileForm = new FormGroup({
       username: new FormControl(),
@@ -53,21 +58,10 @@ export class WishlistComponent implements OnInit, OnDestroy {
         this.loadWishlist();
       }
     });
+    this.comboData();
   }
   // Subscribe to route parameter changes and reload data accordingly
 
-  ngAfterViewInit(): void {
-    this.routeSubscription = this.route.queryParams.subscribe(params => {
-      // Check if the 'seller_id' query parameter exists in the route
-      if (params['seller_id']) {
-        // Perform any necessary actions here when 'seller_id' is present in the route
-        // For example, you can fetch seller-specific data based on 'seller_id'
-      }
-
-      // If needed, you can call the method to reload consumer products here
-      this.loadWishlist();
-    });
-  }
 
   ngOnDestroy(): void {
     // Unsubscribe from the route parameter subscription to avoid memory leaks
@@ -77,13 +71,19 @@ export class WishlistComponent implements OnInit, OnDestroy {
     if (!this.email) return;
 
     this.consumerService.getConsumerInfo(this.email).subscribe(data => {
-      console.log(data.products);
       this.products$ = of(data.products);
     });
   }
   goToCustomerProfile() {
     this.router.navigate(['/customer-profile']);
   }
+  goToComboPage(combo_id: number) {
+    const navigationextras: NavigationExtras = {
+      queryParams: { combo_id: combo_id },
+    };
+    this.router.navigate(['/combo'], navigationextras);
+  }
+
 
   goToConstruction() {
     this.router.navigate(['/construction']);
@@ -105,5 +105,27 @@ export class WishlistComponent implements OnInit, OnDestroy {
     };
 
     this.router.navigate(['products'], navigationextras);
+  }
+
+  comboData() {
+    this.comboData$ = this.comboFacade.getCombos().pipe(
+      map(combos => {
+        if (combos) {
+          const comboData: any[] = [];
+          combos.forEach((combo: ICombo) => {
+            if (combo.products) {
+              const comboObj = {
+                id: combo.id,
+                name: combo.name,
+              };
+              comboData.push(comboObj);
+            }
+          });
+          return comboData;
+        } else {
+          return [];
+        }
+      })
+    );
   }
 }

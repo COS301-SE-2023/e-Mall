@@ -10,6 +10,8 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { NavigationExtras, Router } from '@angular/router';
+import { ModalController, PopoverController } from '@ionic/angular';
+import { ComboPopoverComponent } from '@shared/components/product-card/combo-popover/combo-popover.component';
 
 @Component({
   selector: 'app-product',
@@ -29,6 +31,10 @@ export class ProductComponent implements OnInit, OnDestroy {
   product_category!: string;
   selectedImage!: string;
   isHearted = of(false);
+  product_params!: IProduct;
+
+  
+  isBookmark = of(false);
 
   currencyCode = 'ZAR';
 
@@ -38,6 +44,8 @@ export class ProductComponent implements OnInit, OnDestroy {
   divClicked = false;
   private paramMapSubscription: Subscription;
   constructor(
+    private popoverController: PopoverController,
+    private modalController: ModalController,
     private productService: ProductService,
     private route: ActivatedRoute,
     private router: Router,
@@ -69,6 +77,9 @@ export class ProductComponent implements OnInit, OnDestroy {
       if (id) {
         this.prod_id = +id;
         this.product$ = this.productService.getProductData(this.prod_id);
+        this.product$.subscribe(data =>{
+          this.product_params = data;
+        })
         this.sellers$ = this.productService.getSellerList(
           this.prod_id,
           'default'
@@ -81,10 +92,26 @@ export class ProductComponent implements OnInit, OnDestroy {
 
     this.prodClickAnalytics();
   }
-  toggleHeart() {
-    this.profileFacade.toggleWishlist(this.prod_id);
-  }
 
+  toggleBookmark() {
+    this.isBookmark = of(true);
+    this.openComboPopover(); 
+  }
+  async openComboPopover() {
+    const modal = await this.modalController.create({
+      component: ComboPopoverComponent,
+      componentProps: {
+        product: this.product_params,
+        consumer_email: this.consumer_email
+      },
+      cssClass: ['inventory-modal'],
+      backdropDismiss: false,
+      animated: true,
+      mode: 'md',
+      presentingElement: await this.modalController.getTop(),
+    });
+    return await modal.present();
+  }
   prodClickAnalytics(): void {
     if (this.product$) {
       this.product$.subscribe(product => {
