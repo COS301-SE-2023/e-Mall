@@ -12,7 +12,7 @@ import { SetError } from '@app/features/error/states/error.action';
 import { IConsumerForm } from '@features/sign-up/consumer/models/consumer.interface';
 import { IError } from '@app/features/error/models/error.interface';
 import * as ErrorActions from '@features/error/states/error.action';
-import { LoaderFacade } from '../../../shared/components/loader/loader.facade';
+import { LoaderFacade } from '../../../shared/components/loader/loader-for-state.facade';
 import { StateResetAll } from 'ngxs-reset-plugin';
 @Injectable()
 export class AuthFacade {

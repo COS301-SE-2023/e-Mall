@@ -19,7 +19,11 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ng-container *ngIf="notificationList$ | async as notificationList">
+    <ng-container
+      *ngIf="
+        notificationList$ | async as notificationList;
+        else noNotifications
+      ">
       <ng-container
         *ngIf="
           notificationList !== null && notificationList.length > 0;
@@ -103,9 +107,44 @@
     </ng-container> </ion-content
 ></ng-container>
 
+<ng-template #loading>
+  <ion-card mode="md">
+    <ion-card-header
+      style="border-bottom: 0.5px solid rgba(190, 190, 190, 0.541)">
+      <ion-card-title style="font-size: medium">
+        <ion-skeleton-text
+          [animated]="true"
+          style="width: 80px"></ion-skeleton-text>
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content style="width: 100%; --width: 100%; min-height: 100%">
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+        ">
+        <ion-skeleton-text
+          [animated]="true"
+          style="width: 80%"></ion-skeleton-text
+        ><ion-skeleton-text
+          [animated]="true"
+          style="width: 60%"></ion-skeleton-text>
+        <ion-label style="text-align: end; font-style: italic; font-size: small"
+          ><ion-skeleton-text
+            [animated]="true"
+            style="width: 100%"></ion-skeleton-text
+        ></ion-label>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ng-template>
+
 <ng-template #noNotifications>
   <div
     style="
+      position: relative;
       display: flex;
       height: 100%;
       justify-content: center;
@@ -118,6 +157,24 @@
       src="assets\images\inbox.jpeg"
       alt="No notifications received"
       class="nimage" />
+    <div
+      *ngIf="(notificationList$ | async) === null"
+      style="
+        display: flex;
+        flex-direction: column;
+        vertical-align: middle;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+      ">
+      <ion-spinner name="lines" style="height: 3rem; width: 3rem"></ion-spinner>
+    </div>
   </div>
 </ng-template>
 <ng-template #settingsPannel>
