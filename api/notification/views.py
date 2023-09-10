@@ -134,7 +134,7 @@ def read_all(request):
 def get(request):
     try:
         user_id = str(request.user.id)
-        page_size = 5
+        page_size = 15
         start_after = request.data.get("notification_id")
 
         logs_ref = (
@@ -154,8 +154,26 @@ def get(request):
             )
             logs_ref = logs_ref.start_after(start_after_doc)
 
-        logs = [doc.to_dict() for doc in logs_ref.stream()]
-        last_log = logs[-1]
+        docs = list(logs_ref.stream())
+        if not docs:
+            return Response({"has_next": False, "notifications": []})
+        logs = [
+            {
+                "notification": {
+                    "title": doc.to_dict()["title"],
+                    "body": doc.to_dict()["message"],
+                    "image": doc.to_dict()["image"],
+                },
+                "data": {
+                    "id": doc.id,
+                    "is_read": doc.to_dict()["is_read"],
+                    "timestamp": doc.to_dict()["timestamp"],
+                },
+            }
+            for doc in docs
+        ]
+        last_log = docs[-1]
+
         if len(logs) == page_size:
             next_logs = (
                 db.collection(user_collection)
@@ -166,6 +184,7 @@ def get(request):
                 .start_after(last_log)
                 .stream()
             )
+
             hasNext = any(next_logs)
         else:
             hasNext = False
@@ -176,6 +195,7 @@ def get(request):
         }
         return Response(response_data)
     except Exception as e:
+        print(e)
         return Response({"status": "error", "message": str(e)})
 
 

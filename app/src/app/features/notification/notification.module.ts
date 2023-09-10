@@ -6,15 +6,30 @@ import { NotificationFacade } from './services/notification.facade';
 import { IonicModule } from '@ionic/angular';
 import { NotificationState } from './states/notification.state';
 import { NgxsModule } from '@ngxs/store';
-
+import { NotificationPannelComponent } from './components/notification-pannel/notification-pannel.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { NotificationCardComponent } from './components/notification-card/notification-card.component';
+import { SettingsPannelComponent } from './components/settings-pannel/settings-pannel.component';
 @NgModule({
-  declarations: [NotificationComponent],
+  declarations: [
+    NotificationComponent,
+    NotificationPannelComponent,
+    NotificationCardComponent,
+    SettingsPannelComponent,
+  ],
   imports: [
     CommonModule,
     NgxsModule.forFeature([NotificationState]),
     IonicModule,
+    ScrollingModule,
   ],
-  exports: [NotificationComponent],
+  exports: [
+    NotificationComponent,
+    NotificationPannelComponent,
+    SettingsPannelComponent,
+    NotificationCardComponent,
+    NotificationCardComponent,
+  ],
   providers: [NotificationService, NotificationFacade],
 })
 export class NotificationModule {}
