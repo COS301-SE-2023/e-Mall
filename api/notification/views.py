@@ -3,7 +3,7 @@ from django.conf import settings
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .swagger.decorator import *
-
+from rest_framework import status
 # Initialize Firebase
 db = firestore.client()
 user_collection = "users"
@@ -55,7 +55,7 @@ def send_message_api(request):
 
         return Response({"status": "success"})
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
 
 
 @delete_decorator
@@ -64,12 +64,14 @@ def delete(request):
     try:
         user_id = str(request.user.id)
         log_id = request.data.get("notification_id")
+        if(log_id is None):
+            raise Exception('notification_id is required')
         db.collection(user_collection).document(user_id).collection(
             singe_msg_collection_name
         ).document(log_id).delete()
         return Response({"status": "success"})
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
 
 
 @delete_all_decorator
@@ -90,7 +92,7 @@ def delete_all(request):
         batch.commit()
         return Response({"status": "success"})
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
 
 
 @read_decorator
@@ -99,12 +101,15 @@ def read(request):
     try:
         user_id = str(request.user.id)
         log_id = request.data.get("notification_id")
+        if(log_id is None):
+            raise Exception('notification_id is required')
         db.collection(user_collection).document(user_id).collection(
             singe_msg_collection_name
         ).document(log_id).update({"is_read": True})
         return Response({"status": "success"})
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        print(e)
+        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
 
 
 @read_all_decorator
@@ -126,7 +131,7 @@ def read_all(request):
         batch.commit()
         return Response({"status": "success"})
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
 
 
 @get_decorator
@@ -196,7 +201,7 @@ def get(request):
         return Response(response_data)
     except Exception as e:
         print(e)
-        return Response({"status": "error", "message": str(e)})
+        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
 
 
 @update_device_token_decorator
@@ -221,7 +226,7 @@ def update_device_token(request):
             {"status": "success", "message": "Device token updated successfully"}
         )
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
 
 
 @update_settings_decorator
@@ -245,7 +250,7 @@ def update_settings(request):
             {"status": "success", "message": "Settings updated successfully"}
         )
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
 
 
 @count_unread_notifications_decorator
@@ -266,4 +271,4 @@ def count_unread_notifications(request):
         }
         return Response(response_data)
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
