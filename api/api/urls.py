@@ -66,6 +66,7 @@ urlpatterns = [
     path("api/inventory/", include("inventory.urls")),
     path("api/camatrix/", include("ca_matrix.urls")),
     path("api/custanalytics/", include("cust_analytics.urls")),
+    path("api/combos/", include("combos.urls")),
     path("api/notification/", include("notification.urls")),
     path(
         "api/",

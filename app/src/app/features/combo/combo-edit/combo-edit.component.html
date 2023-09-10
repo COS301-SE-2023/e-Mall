@@ -1,0 +1,53 @@
+<div class="modal-container">
+  <ion-item lines="none" class="modal-header-item">
+    <ion-text class="modal-header"> Edit Combo </ion-text>
+    <ion-button
+      class="close-button"
+      fill="clear"
+      shape="round"
+      mode="ios"
+      slot="end"
+      (click)="closePopover()">
+      <ion-icon size="large" name="close-outline"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <div class="modal-container" *ngIf="combos$">
+    <form [formGroup]="newForm">
+      <!-- Wrap form elements in a formGroup -->
+      <ion-list>
+        <ion-item class="input">
+          <ion-label position="floating">Name:</ion-label>
+          <ion-input
+            (input)="onChange()"
+            formControlName="newName"
+            clearInput></ion-input>
+        </ion-item>
+
+        <ion-item class="input">
+          <ion-label position="floating">Add Emails:</ion-label>
+          <ion-input
+            formControlName="newEmails"
+            clearInput
+            (keyup.enter)="AddEmail()"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="addEmails?.length !== 0">
+          <ion-list>
+            <div *ngFor="let email of addEmails">
+              <ion-item>
+                <ion-label class="emails">{{ email }}</ion-label>
+              </ion-item>
+            </div>
+          </ion-list>
+        </ion-item>
+      </ion-list>
+      <ion-button
+        mode="ios"
+        color="primary"
+        (click)="editCombo()"
+        [disabled]="!isChanged"
+        >Done</ion-button
+      >
+    </form>
+  </div>
+</div>

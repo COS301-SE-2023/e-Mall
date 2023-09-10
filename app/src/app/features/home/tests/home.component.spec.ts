@@ -16,6 +16,7 @@ import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { ProfileService } from '@features/profile/services/profile.service';
+import { ComboStateModule } from '@features/combo-state/combo-state.module';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -44,7 +45,8 @@ describe('HomeComponent', () => {
         IonicModule,
         AuthModule,
         ProfileModule,
-        RouterTestingModule
+        RouterTestingModule,
+        ComboStateModule
       ],
       providers: [HomeComponent,{ provide: ProductService, useValue: productServiceSpy }, { provide: ProfileService, useValue: profileServiceSpy } ],
     });

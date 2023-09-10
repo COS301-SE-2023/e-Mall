@@ -295,7 +295,6 @@ export class ProductAnalyticsComponent implements OnInit {
     if (period) {
       this.selectedPeriodOption = period;
     }
-    console.log('Selected Period:', period);
     const data = {
       seller_name: this.sellerName,
       product_names: this.productNames,

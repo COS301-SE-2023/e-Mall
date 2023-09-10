@@ -36,7 +36,9 @@
               <div
                 class="col-md-3"
                 *ngFor="let product of products.slice(0, 4); let i = index">
-                <app-product-card [product]="product"></app-product-card>
+                <app-product-card
+                  [product]="product"
+                  [pageType]="'normal'"></app-product-card>
               </div>
             </div>
           </ng-template>
@@ -45,7 +47,9 @@
               <div
                 class="col-md-3"
                 *ngFor="let product of products.slice(4, 8); let i = index">
-                <app-product-card [product]="product"></app-product-card>
+                <app-product-card
+                  [product]="product"
+                  [pageType]="'normal'"></app-product-card>
               </div>
             </div>
           </ng-template>
@@ -54,7 +58,9 @@
               <div
                 class="col-md-3"
                 *ngFor="let product of products.slice(8, 12); let i = index">
-                <app-product-card [product]="product"></app-product-card>
+                <app-product-card
+                  [product]="product"
+                  [pageType]="'normal'"></app-product-card>
               </div>
             </div>
           </ng-template>
@@ -66,7 +72,9 @@
             <div
               class="col-md-3"
               *ngFor="let product of products.slice(0, 4); let i = index">
-              <app-product-card [product]="product"></app-product-card>
+              <app-product-card
+                [product]="product"
+                [pageType]="'normal'"></app-product-card>
             </div>
           </div>
         </ng-template>
@@ -75,7 +83,9 @@
             <div
               class="col-md-3"
               *ngFor="let product of products.slice(4, 8); let i = index">
-              <app-product-card [product]="product"></app-product-card>
+              <app-product-card
+                [product]="product"
+                [pageType]="'normal'"></app-product-card>
             </div>
           </div>
         </ng-template>
@@ -84,7 +94,9 @@
             <div
               class="col-md-6"
               *ngFor="let product of products.slice(8, 12); let i = index">
-              <app-product-card [product]="product"></app-product-card>
+              <app-product-card
+                [product]="product"
+                [pageType]="'normal'"></app-product-card>
             </div>
           </div>
         </ng-template>
@@ -112,7 +124,9 @@
             <div
               class="col-md-3"
               *ngFor="let product of products.slice(0, 4); let i = index">
-              <app-product-card [product]="product"></app-product-card>
+              <app-product-card
+                [product]="product"
+                [pageType]="'normal'"></app-product-card>
             </div>
           </div>
         </ng-template>
@@ -121,7 +135,9 @@
             <div
               class="col-md-3"
               *ngFor="let product of products.slice(4, 8); let i = index">
-              <app-product-card [product]="product"></app-product-card>
+              <app-product-card
+                [product]="product"
+                [pageType]="'normal'"></app-product-card>
             </div>
           </div>
         </ng-template>
@@ -130,7 +146,9 @@
             <div
               class="col-md-6"
               *ngFor="let product of products.slice(8, 10); let i = index">
-              <app-product-card [product]="product"></app-product-card>
+              <app-product-card
+                [product]="product"
+                [pageType]="'normal'"></app-product-card>
             </div>
           </div>
         </ng-template>

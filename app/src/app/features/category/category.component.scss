@@ -184,3 +184,46 @@ ion-range {
   --bar-height: 6px;
   --bar-border-radius: 8px;
 }
+
+/* Media queries for responsiveness */
+@media (max-width: 1250px) {
+  .body {
+    min-width: auto;
+    padding: 25px;
+    padding-left: 20px;
+  }
+
+  .top {
+    max-width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sort-condition {
+    margin-left: 1rem;
+  }
+
+  .sort-panel {
+    margin-left: 20px;
+  }
+
+  .search-results {
+    min-width: auto;
+    padding: 10px;
+  }
+
+  .dropbtn {
+    margin-left: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .mat-paginator {
+    margin-left: 0;
+  }
+
+  .filter-menu {
+    width: 100%;
+    margin-left: 0;
+    padding-right: 20px;
+  }
+}
