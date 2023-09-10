@@ -78,6 +78,10 @@ jobs:
           cache: "yarn"
           cache-dependency-path: "./app/yarn.lock"
 
+      - name: Install dependencies
+        working-directory: ./app
+        run: yarn install --frozen-lockfile
+
       - uses: actions/download-artifact@v3
         with:
           name: release.zip
