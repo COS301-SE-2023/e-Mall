@@ -7,11 +7,12 @@ from analytics.models import Analytics
 from product.models import Product
 from rest_framework.permissions import AllowAny
 from django.db import transaction
+from django.http import JsonResponse
 
 
 class CAMatrixView(APIView):
     permission_classes = [AllowAny]
-    
+
     def post(self, request):
         try:
             with transaction.atomic():
@@ -19,20 +20,34 @@ class CAMatrixView(APIView):
                 ca_matrix.objects.all().delete()
 
                 # Fetch all unique products and users
-                unique_products = Analytics.objects.values_list('product', flat=True).distinct()
-                unique_users = Analytics.objects.filter(consumer_email__isnull=False).values_list('consumer_email', flat=True).distinct()
+                unique_products = Analytics.objects.values_list(
+                    "product", flat=True
+                ).distinct()
+                unique_users = (
+                    Analytics.objects.filter(consumer_email__isnull=False)
+                    .values_list("consumer_email", flat=True)
+                    .distinct()
+                )
 
                 # Loop through each product and user to create/update CAMatrix entries
                 for product_name in unique_products:
                     for user_email in unique_users:
                         # Check if there's an interaction for the product and user
-                        interaction = Analytics.objects.filter(product=product_name, consumer_email=user_email, event_type__in=['	product_click', 'link_click', 'favourited_product']).first()
+                        interaction = Analytics.objects.filter(
+                            product=product_name,
+                            consumer_email=user_email,
+                            event_type__in=[
+                                "product_click",
+                                "link_click",
+                                "favourited_product",
+                            ],
+                        ).first()
 
                         if interaction:
                             event_type = interaction.event_type
-                            if event_type == 'favourited_product':
+                            if event_type == "favourited_product":
                                 value = 3
-                            elif event_type == 'link_click':
+                            elif event_type == "link_click":
                                 value = 2
                             else:  # link_click
                                 value = 1
@@ -40,16 +55,15 @@ class CAMatrixView(APIView):
                             value = 0
 
                         # Create or update CAMatrix entry
-                        existing_entry, created = ca_matrix.objects.update_or_create(
+                        _, _ = ca_matrix.objects.update_or_create(
                             product=product_name,
                             user_email=user_email,
-                            defaults={'value': value}
+                            defaults={"value": value},
                         )
 
-            return JsonResponse({"message": "Initial matrix created successfully"}, status=200)
+            return JsonResponse(
+                {"message": "Initial matrix created successfully"}, status=200
+            )
 
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)
-
-
-
