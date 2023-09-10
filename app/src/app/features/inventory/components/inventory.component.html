@@ -81,6 +81,10 @@
             </ion-list>
           </div>
         </div>
+        <div class="spinner" *ngIf="showSpinner" style="margin-top: 100px;">
+          <ion-spinner style="color: #99e3dc"></ion-spinner>
+        </div>
+        <div *ngIf="!showSpinner">
         <ion-grid>
           <ion-row class="table-header">
             <!-- <ion-col size="1">ID</ion-col> -->
@@ -171,6 +175,7 @@
             </ng-template>
           </ng-container>
         </ion-grid>
+      </div>
       </div>
     </ng-container>
   </div>
