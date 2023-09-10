@@ -3,11 +3,21 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import 'zone.js/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NotificationModule } from './features/notification/notification.module';
+import { NgxsModule } from '@ngxs/store';
+import { HttpClient } from '@angular/common/http';
+import { AppModule } from './app.module';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [
+        AppModule,
+        RouterTestingModule,
+        NotificationModule,
+        // NgxsModule.forRoot(),
+        // HttpClient,
+      ],
       declarations: [AppComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
