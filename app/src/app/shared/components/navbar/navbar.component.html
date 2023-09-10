@@ -41,14 +41,22 @@
         </ion-button>
       </ion-buttons>
 
-      <ion-buttons slot="start">
+      <!-- <ion-buttons slot="start">
         <ion-button class="toolbar-button" (click)="wishlist($event)">
           <span class="label">Wishlist</span>
         </ion-button>
-      </ion-buttons>
+      </ion-buttons> -->
 
       <div class="navbar-spacer"></div>
       <app-search-bar class="search-bar"></app-search-bar>
+      <ion-button
+        (click)="combos($event)"
+        class="bookmark-button"
+        shape="round"
+        fill="clear"
+        mode="ios">
+        <ion-icon [name]="'bookmark'" style="color: black"></ion-icon>
+      </ion-button>
       <ion-button
         (click)="openMenu()"
         class="wishlist-button"
