@@ -7,7 +7,7 @@ import { NotificationFacade } from './features/notification/services/notificatio
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'app';
+  title = 'e-Mall';
   constructor(public notificationFacade: NotificationFacade) {}
   notificationMenuClosed() {
     this.notificationFacade.isMenuOpen$.next(false);
