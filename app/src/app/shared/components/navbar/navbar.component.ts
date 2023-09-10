@@ -1,35 +1,51 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { AuthFacade } from '@app/features/auth/services/auth.facade';
 import { IUser } from '@app/features/auth/models/user.interface';
-import { Observable } from 'rxjs';
-import { ProfileFacade } from '@features/profile/services/profile.facade';
-import { PopoverController } from '@ionic/angular';
+import { Observable, Subscription, debounceTime } from 'rxjs';
+import { MenuController, PopoverController } from '@ionic/angular';
 import { DropdownPopoverComponent } from '@shared/components/dropdown-popover/dropdown-popover.component';
-import { ModalController } from '@ionic/angular';
 import { NavbarPopupComponent } from '@shared/components/navbar-popup/navbar-popup.component';
+import { NotificationFacade } from '@features/notification/services/notification.facade';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnDestroy {
   isAuthenticated: Observable<IUser | null>;
   isCategoryOpened = false;
+  notificationUnreadCount$: Observable<number>;
+  notificationMenuSubs = new Subscription();
+
   constructor(
     private router: Router,
     private authFacade: AuthFacade,
-    private profileFacde: ProfileFacade,
     private popoverController: PopoverController,
-    public modalController: ModalController
+    private menuController: MenuController,
+    public notificationFacade: NotificationFacade
   ) {
     this.isAuthenticated = this.authFacade.getCurrentUser();
+    this.notificationUnreadCount$ = this.notificationFacade.unread_count$;
+    this.notificationMenuSubs = this.notificationFacade.isMenuOpen$
+      .pipe(debounceTime(100))
+      .subscribe(async val => {
+        if (val === true) {
+          this.notificationFacade.getNotifications();
+          await this.menuController.enable(true, 'notification');
+          await this.menuController.open('notification');
+        } else if (await this.menuController.isOpen('notification')) {
+          await this.menuController.close('notification');
+        }
+      });
+  }
+  ngOnDestroy(): void {
+    this.notificationMenuSubs.unsubscribe();
   }
 
   search(searchQuery: string): void {
-    // Create the navigation extras object with the search query as a parameter
     const navigationextras: NavigationExtras = {
       queryParams: { search: searchQuery },
     };
@@ -49,9 +65,9 @@ export class NavbarComponent {
     return await popover.present();
   }
 
-  async wishlist(event: Event) {
+  async combos(event: Event) {
     if (await this.authFacade.isLoggedIn()) {
-      this.router.navigate(['/wishlist']);
+      this.router.navigate(['/my-combos']);
     } else {
       this.router.navigate(['/sign-in']);
     }
@@ -71,10 +87,6 @@ export class NavbarComponent {
   async openPopover(event: MouseEvent) {
     const popover = await this.popoverController.create({
       component: NavbarPopupComponent,
-      /* componentProps: {
-        product: product,
-      }, */
-      //mode: 'ios',
       cssClass: 'inventory-popover',
       showBackdrop: true,
       backdropDismiss: true,
@@ -82,5 +94,12 @@ export class NavbarComponent {
       translucent: true,
     });
     return await popover.present();
+  }
+
+  async openMenu() {
+    this.notificationFacade.isMenuOpen$.next(true);
+  }
+  notificationMenuClosed() {
+    this.notificationFacade.isMenuOpen$.next(false);
   }
 }

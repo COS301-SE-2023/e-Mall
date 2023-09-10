@@ -34,6 +34,7 @@ exports.productNotification = functions
                     image: image,
                   },
                   data: {
+                    id: data.id,
                     is_read: isRead.toString(),
                     timestamp: unixTimestamp.toString(),
                   },

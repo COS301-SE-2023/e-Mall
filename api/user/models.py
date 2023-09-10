@@ -14,7 +14,7 @@ class User(models.Model):
         default=uuid.uuid4,
         editable=False)
     username = models.CharField(
-        max_length=15, unique=True,)
+        max_length=40, unique=True,)
     email = models.EmailField(
         max_length=30, unique=True)
     type = models.CharField(

@@ -17,6 +17,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/app"]
+            },
             "allowedCommonJsDependencies": [
               "lodash",
               "url",
@@ -230,6 +233,9 @@
             "polyfills": ["src/polyfills.ts", "zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/app"]
+            },
             "assets": [
               "src/favicon.ico",
               "src/assets",

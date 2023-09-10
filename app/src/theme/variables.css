@@ -88,6 +88,10 @@
   --searchbar-height: 45px;
   /* popover */ 
   --ion-color-clear-button: #000000;
+  --ion-color-read: #ebebeb;
+  --ion-color-read-contrast: #000000;
+  --ion-color-unread: #ffffff;
+  
 }
 
 ion-content.global-ion-content {
@@ -159,7 +163,7 @@ p {
 
   /* Body/Default */
   font-family: 'Open Sans', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -196,6 +200,12 @@ ion-modal.inventory-modal{
   --width:300px;
   --height:auto;
   
+}
+/*nabvar pop over*/
+.notification-popover {
+  --width: 300px;
+  --height: 200px;
+  /* overflow: auto; */
 }
 
 .modal-buttons ion-button {

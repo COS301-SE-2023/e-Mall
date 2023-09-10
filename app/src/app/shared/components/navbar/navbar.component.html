@@ -1,9 +1,28 @@
+<ion-menu
+  side="end"
+  menuId="notification"
+  contentId="main-content"
+  (ionWillClose)="notificationMenuClosed()">
+  <app-notification-pannel
+    *ngIf="this.notificationFacade.isMenuOpen$ | async"
+    menuId="notification"
+    style="height: 100%"></app-notification-pannel>
+</ion-menu>
+<!-- <ion-menu side="end" menuId="settings" contentId="main-content">
+  <app-settings-pannel
+    menuId="settings"
+    style="height: 100%"></app-settings-pannel>
+</ion-menu> -->
+
 <ion-header>
   <ion-toolbar color="primary" class="navbar">
     <div class="flex-container">
       <div class="toolbar-button">
         <a class="navbar-brand">
-          <img class="navbar-logo" src="assets/images/logo-black-no-bg.png" alt="e-Mall logo"
+          <img
+            class="navbar-logo"
+            src="assets/images/logo-black-no-bg.png"
+            alt="e-Mall logo"
             (click)="redirect('home')" />
         </a>
       </div>
@@ -11,31 +30,63 @@
       <ion-buttons slot="start">
         <ion-button class="toolbar-button" (click)="toggleCategory($event)">
           <span class="label">All Categories</span>
-          <ion-icon *ngIf="!isCategoryOpened" name="chevron-down" class="arrow"></ion-icon>
-          <ion-icon *ngIf="isCategoryOpened" name="chevron-up" class="arrow"></ion-icon>
+          <ion-icon
+            *ngIf="!isCategoryOpened"
+            name="chevron-down"
+            class="arrow"></ion-icon>
+          <ion-icon
+            *ngIf="isCategoryOpened"
+            name="chevron-up"
+            class="arrow"></ion-icon>
         </ion-button>
       </ion-buttons>
 
-      <ion-buttons slot="start">
+      <!-- <ion-buttons slot="start">
         <ion-button class="toolbar-button" (click)="wishlist($event)">
           <span class="label">Wishlist</span>
         </ion-button>
-      </ion-buttons>
+      </ion-buttons> -->
 
       <div class="navbar-spacer"></div>
       <app-search-bar class="search-bar"></app-search-bar>
+      <ion-button
+        (click)="combos($event)"
+        class="bookmark-button"
+        shape="round"
+        fill="clear"
+        mode="ios">
+        <ion-icon [name]="'bookmark'" style="color: black"></ion-icon>
+      </ion-button>
+      <ion-button
+        (click)="openMenu()"
+        class="wishlist-button"
+        shape="round"
+        fill="clear"
+        *ngIf="(isAuthenticated | async) !== null"
+        mode="ios">
+        <ion-icon [name]="'notifications'" style="color: black"></ion-icon>
+        <ng-container *ngIf="notificationUnreadCount$ | async as unread_count">
+          <ion-badge *ngIf="unread_count > 0">{{ unread_count }}</ion-badge>
+        </ng-container>
+      </ion-button>
       <div class="authButton">
-        <button mat-button class="toolbar-button" *ngIf="(isAuthenticated | async) === null" (click)="signIn()">
+        <button
+          mat-button
+          class="toolbar-button"
+          *ngIf="(isAuthenticated | async) === null"
+          (click)="signIn()">
           Sign in
         </button>
         <div
-        *ngIf="(isAuthenticated | async) !== null" 
-        style="margin-top: 5px;"
-        (click)="openPopover($event)">
-       <ion-icon name="person-circle" aria-hidden="true" class="circular-button"></ion-icon>
-     </div>
+          *ngIf="(isAuthenticated | async) !== null"
+          style="margin-top: 5px"
+          (click)="openPopover($event)">
+          <ion-icon
+            name="person-circle"
+            aria-hidden="true"
+            class="circular-button"></ion-icon>
+        </div>
       </div>
-     
     </div>
   </ion-toolbar>
 </ion-header>

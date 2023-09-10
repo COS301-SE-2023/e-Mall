@@ -16,13 +16,13 @@ import { ViewSizeModule } from '@shared/directives/view-size/view-size.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationExtras, Router } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, PopoverController } from '@ionic/angular';
 import { AuthModule } from '@app/features/auth/auth.module';
 import { AuthState } from '@app/features/auth/states/auth.state';
 import { NgxsModule } from '@ngxs/store';
 import { ProfileModule } from '@features/profile/profile.module';
 import { DropdownPopoverComponent } from '@shared/components/dropdown-popover/dropdown-popover.component';
-import { PopoverController } from '@ionic/angular';
+import { NotificationModule } from '@app/features/notification/notification.module';
 
 describe('NavbarComponentIntegration', () => {
   let component: NavbarComponent;
@@ -58,6 +58,7 @@ describe('NavbarComponentIntegration', () => {
         IonicModule,
         AuthModule,
         ProfileModule,
+        NotificationModule,
       ],
       declarations: [NavbarComponent],
       providers: [
@@ -102,14 +103,6 @@ describe('NavbarComponentIntegration', () => {
         parameterData: 'Cat',
       },
     });
-  });
-
-
-  it('should navigate to wishlist', () => {
-    const routerNavigateSpy = spyOn(router, 'navigate');
-    const event = {} as Event;
-    component.wishlist(event);
-    //  expect(routerNavigateSpy).toHaveBeenCalledWith(['/wishlist']);
   });
 
   it('should navigate to sign-in page', () => {

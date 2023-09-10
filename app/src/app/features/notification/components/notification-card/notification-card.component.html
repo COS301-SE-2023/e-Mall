@@ -1,0 +1,28 @@
+<ion-card mode="md">
+  <ion-card-header
+    style="border-bottom: 0.5px solid rgba(190, 190, 190, 0.541)">
+    <ion-label position="stacked">Title</ion-label>
+    <ion-card-title style="font-size: medium">
+      {{ item.notification.title }}
+    </ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content style="width: 100%; --width: 100%; min-height: 100%">
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+      ">
+      <ion-label style="margin-bottom: 5px" position="stacked"
+        >Content</ion-label
+      >
+
+      {{ item.notification.body }}
+      <ion-label
+        style="text-align: end; font-style: italic; font-size: small"
+        >{{ calculatedTime }}</ion-label
+      >
+    </div>
+  </ion-card-content>
+</ion-card>

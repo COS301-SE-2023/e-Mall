@@ -123,7 +123,6 @@ class AllProductAnalyticsAPIView(APIView):
         return Response({"data": response_data, "total_count": paginator.count})
 
 
-
 class CreateProductAnalyticsAPIView(APIView):
     permission_classes = [AllowAny]
 
@@ -141,14 +140,14 @@ class CreateProductAnalyticsAPIView(APIView):
                 seller=seller,
                 product=product,
                 consumer_email=consumer_email,
-                event_type=event_type
+                event_type="favourited_product",
             ).first()
 
             if existing_entry:
                 # Entry already exists, remove it
                 existing_entry.delete()
                 return Response(
-                    {"message": "Existing Product Analytics entry removed"}, status=200
+                    {"message": "Existing Wishlist Analytics entry removed"}, status=200
                 )
             else:
                 # Entry doesn't exist, create it
@@ -168,7 +167,6 @@ class CreateProductAnalyticsAPIView(APIView):
 
         except Exception as e:
             return Response({"message": str(e)}, status=400)
-
 
 
 class ConversionRateAPIView(APIView):
