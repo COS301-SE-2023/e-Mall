@@ -12,21 +12,21 @@ import { SetError } from '@app/features/error/states/error.action';
 import { IConsumerForm } from '@features/sign-up/consumer/models/consumer.interface';
 import { IError } from '@app/features/error/models/error.interface';
 import * as ErrorActions from '@features/error/states/error.action';
-import { LoaderFacade } from '../../../shared/components/loader/loader-for-state.facade';
+//import { LoaderFacade } from '../../../shared/components/loader/loader.facade';
 import { StateResetAll } from 'ngxs-reset-plugin';
+//import { LoaderFacade } from '../../../shared/components/loader/loader.facade';
 @Injectable()
 export class AuthFacade {
   @Select(AuthSelectors.currentUser)
   private currentUser$!: Observable<IUser>;
   private redirectUrl: string | null = null;
   constructor(
-    private authService: AuthService,
-    private loaderService: LoaderFacade
+    private authService: AuthService //private loaderService: LoaderFacade
   ) {
-    loaderService.addActions([
+    /*loaderService.addActions([
       AuthActions.SignOutAction,
       AuthActions.SetCurrentUser,
-    ]);
+    ]);*/
   }
 
   @Dispatch()

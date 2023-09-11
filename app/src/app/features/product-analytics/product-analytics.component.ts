@@ -41,6 +41,7 @@ export class ProductAnalyticsComponent implements OnInit {
   currentPage!: number;
   itemsPerPage!: number;
   totalSearchCount$: Observable<number> | undefined;
+  showSpinner = true;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(
@@ -49,6 +50,14 @@ export class ProductAnalyticsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
+    this.showSpinner = true;
+    
+    setTimeout(() => {
+      this.showSpinner = false;
+      
+    }, 6000);
+
     this.productNames = [];
     this.selectedSortOption = 'product_name';
     this.profileFacade.getProfile().subscribe(profile => {

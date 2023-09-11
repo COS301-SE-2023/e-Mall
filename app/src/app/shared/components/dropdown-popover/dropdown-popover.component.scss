@@ -20,4 +20,24 @@ ion-list {
       border-bottom: 1px solid;
     }
   }
+
+ /* styles.css or your component-specific CSS file */
+.category-item {
+  /* Your default styles for the item */
+  /* For example, setting a background color and text color */
+  //background-color: #fff;
+  //color: #333;
+  transition: background-color 0.3s, color 0.3s; /* Add a smooth transition effect */
+
+  /* Optional: Add padding, border, or other styles as needed */
+  //padding: 10px;
+}
+
+.category-item:hover {
+  /* Styles to apply when the item is hovered over */
+  background-color: #37D0D6; /* Change background color on hover */
+  color: #fff; /* Change text color on hover */
+  cursor: pointer; /* Change cursor to a pointer on hover */
+}
+
 }
