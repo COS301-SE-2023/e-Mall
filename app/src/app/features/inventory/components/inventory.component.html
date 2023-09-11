@@ -22,7 +22,10 @@
               <ion-label>{{ option.value }}</ion-label>
             </ion-segment-button>
           </ion-segment>
-        </div>
+          <ion-button mode="ios" (click)="presentNewModal()">
+            <ion-icon name="add"></ion-icon>
+            </ion-button>        
+          </div>
 
         <mat-divider></mat-divider>
 
@@ -81,101 +84,101 @@
             </ion-list>
           </div>
         </div>
-        <div class="spinner" *ngIf="showSpinner" style="margin-top: 100px;">
+        <div class="spinner" *ngIf="showSpinner" style="margin-top: 100px">
           <ion-spinner style="color: #99e3dc"></ion-spinner>
         </div>
         <div *ngIf="!showSpinner">
-        <ion-grid>
-          <ion-row class="table-header">
-            <!-- <ion-col size="1">ID</ion-col> -->
-            <ion-col size="6">Name</ion-col>
-            <ion-col size="1">Stock</ion-col>
-            <ion-col size="2">Original Price (R)</ion-col>
-            <ion-col size="1">Discount Rate</ion-col>
-            <ion-col size="2">Current Price (R)</ion-col>
-          </ion-row>
-          <ng-container *ngIf="searchResults$ | async as products">
-            <ng-container *ngIf="products?.length === 0; else result">
-              <div class="search-results-container">
-                <h3>No Products Found</h3>
+          <ion-grid>
+            <ion-row class="table-header">
+              <!-- <ion-col size="1">ID</ion-col> -->
+              <ion-col size="6">Name</ion-col>
+              <ion-col size="1">Stock</ion-col>
+              <ion-col size="2">Original Price (R)</ion-col>
+              <ion-col size="1">Discount Rate</ion-col>
+              <ion-col size="2">Current Price (R)</ion-col>
+            </ion-row>
+            <ng-container *ngIf="searchResults$ | async as products">
+              <ng-container *ngIf="products?.length === 0; else result">
+                <div class="search-results-container">
+                  <h3>No Products Found</h3>
 
-                <p>
-                  Please try again with a different keyword or refine your
-                  search criteria.
-                </p>
-                <img
-                  src="assets\images\no-image.jpeg"
-                  alt="No Product Found"
-                  class="nimage" />
-              </div>
+                  <p>
+                    Please try again with a different keyword or refine your
+                    search criteria.
+                  </p>
+                  <img
+                    src="assets\images\no-image.jpeg"
+                    alt="No Product Found"
+                    class="nimage" />
+                </div>
+              </ng-container>
+              <ng-template #result>
+                <ion-row
+                  *ngFor="let product of searchResults$ | async"
+                  (click)="openModal(product)">
+                  <!-- <ion-col size="1">{{ product.product }}</ion-col> -->
+                  <ion-col size="6"
+                    ><div class="truncate-text">
+                      {{ product.product_name }}
+                    </div></ion-col
+                  >
+                  <ion-col size="1">
+                    <ion-icon
+                      class="stock-icon"
+                      color="success"
+                      *ngIf="product.in_stock"
+                      name="checkmark"></ion-icon>
+                    <ion-icon
+                      class="stock-icon"
+                      color="danger"
+                      *ngIf="!product.in_stock"
+                      name="close"></ion-icon
+                  ></ion-col>
+                  <ion-col size="2">
+                    <div class="original-price-chip">
+                      {{ product.original_price }}
+                    </div>
+                  </ion-col>
+                  <ion-col size="1">
+                    <div class="discount-chip">
+                      <ng-container
+                        *ngIf="
+                          product.discount_rate === undefined ||
+                            +product.discount_rate === 0;
+                          else percentage
+                        ">
+                        -
+                      </ng-container>
+                      <ng-template #percentage>
+                        {{ product.discount_rate! * 100 | number : '2.2-2' }}%
+                      </ng-template>
+                    </div></ion-col
+                  >
+                  <ion-col size="2"
+                    ><div class="current-price-chip">
+                      {{ product.price }}
+                    </div></ion-col
+                  >
+                </ion-row>
+                <ion-row style="margin-bottom: 25px; margin-top: 25px">
+                  <ion-col>
+                    <ion-item>
+                      <mat-paginator
+                        [disabled]="products.length === 0"
+                        #paginator
+                        [length]="totalSearchCount$ | async"
+                        [pageSizeOptions]="[10, 20, 50, 100]"
+                        aria-label="Select page"
+                        [pageIndex]="query.page"
+                        [pageSize]="query.per_page"
+                        (page)="onPageChange($event)"></mat-paginator>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ng-template>
             </ng-container>
-            <ng-template #result>
-              <ion-row
-                *ngFor="let product of searchResults$ | async"
-                (click)="openModal(product)">
-                <!-- <ion-col size="1">{{ product.product }}</ion-col> -->
-                <ion-col size="6"
-                  ><div class="truncate-text">
-                    {{ product.product_name }}
-                  </div></ion-col
-                >
-                <ion-col size="1">
-                  <ion-icon
-                    class="stock-icon"
-                    color="success"
-                    *ngIf="product.in_stock"
-                    name="checkmark"></ion-icon>
-                  <ion-icon
-                    class="stock-icon"
-                    color="danger"
-                    *ngIf="!product.in_stock"
-                    name="close"></ion-icon
-                ></ion-col>
-                <ion-col size="2">
-                  <div class="original-price-chip">
-                    {{ product.original_price }}
-                  </div>
-                </ion-col>
-                <ion-col size="1">
-                  <div class="discount-chip">
-                    <ng-container
-                      *ngIf="
-                        product.discount_rate === undefined ||
-                          +product.discount_rate === 0;
-                        else percentage
-                      ">
-                      -
-                    </ng-container>
-                    <ng-template #percentage>
-                      {{ product.discount_rate! * 100 | number : '2.2-2' }}%
-                    </ng-template>
-                  </div></ion-col
-                >
-                <ion-col size="2"
-                  ><div class="current-price-chip">
-                    {{ product.price }}
-                  </div></ion-col
-                >
-              </ion-row>
-              <ion-row style="margin-bottom: 25px; margin-top: 25px">
-                <ion-col>
-                  <ion-item>
-                    <mat-paginator
-                      [disabled]="products.length === 0"
-                      #paginator
-                      [length]="totalSearchCount$ | async"
-                      [pageSizeOptions]="[10, 20, 50, 100]"
-                      aria-label="Select page"
-                      [pageIndex]="query.page"
-                      [pageSize]="query.per_page"
-                      (page)="onPageChange($event)"></mat-paginator>
-                  </ion-item>
-                </ion-col>
-              </ion-row>
-            </ng-template>
-          </ng-container>
-        </ion-grid>
-      </div>
+          </ion-grid>
+        </div>
       </div>
     </ng-container>
   </div>

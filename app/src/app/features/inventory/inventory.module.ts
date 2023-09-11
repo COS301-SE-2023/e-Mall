@@ -10,6 +10,7 @@ import { SellerNavModule } from '@shared/components/seller-nav/seller-nav.module
 import { InventoryService } from './servicies/inventory.service';
 import { InventoryFacade } from './servicies/inventory.facade';
 import { PopovereditModule } from './components/popoveredit/popoveredit.module';
+import { PopovernewModule } from './components/popovernew/popovernew.module';
 import { NgxsModule } from '@ngxs/store';
 import { InventoryState } from './states/inventory.state';
 
@@ -26,6 +27,7 @@ import { InventoryState } from './states/inventory.state';
     InventoryRoutingModule,
     SellerNavModule,
     PopovereditModule,
+    PopovernewModule,
   ],
   exports: [InventoryComponent],
   providers: [InventoryService, InventoryFacade],

@@ -195,3 +195,14 @@ ion-content {
   opacity: 30%;
   align-items: center;
 }
+.title-stock-row{
+  display:flex;
+  justify-content: space-between;
+
+  ion-button {
+  border-radius: 16px;
+  --background: #37d0d6;
+  --color: #ffffff;
+  box-shadow: 0px 20px 50px 0px rgba(55, 69, 87, 0.1);
+}
+}

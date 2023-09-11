@@ -13,6 +13,7 @@ import { PopovereditComponent } from './popoveredit/popoveredit.component';
 import { IInventoryItem } from '../models/inventory-item.interface';
 import { ISearchOptions } from '../models/search-options.interface';
 import { InventoryFacade } from '../servicies/inventory.facade';
+import { PopovernewComponent } from './popovernew/popovernew.component';
 
 @Component({
   selector: 'app-inventory',
@@ -185,5 +186,14 @@ export class InventoryComponent implements OnInit{
       },
     });
     return await popover.present();
+  }
+
+  async presentNewModal() {
+    const modal = await this.modalController.create({
+      component: PopovernewComponent,
+      mode: 'ios',
+      cssClass: ['inventory-modal'],
+    });
+    return await modal.present();
   }
 }
