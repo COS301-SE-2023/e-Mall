@@ -92,11 +92,12 @@ export class ProductService {
 
   getCategoryProducts(
     category: string,
-    sortOption?: any
+    sortOption?: any,
+
   ): Observable<IProduct[]> {
     let url = `${this.apiUrl}products/backend/?filter_category=${category}`;
     // filterOptions = { };
-
+    url += '&per_page=100'
     if (sortOption) {
       url += '&sort=' + sortOption;
     }
