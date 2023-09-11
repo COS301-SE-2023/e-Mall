@@ -1,0 +1,28 @@
+$screen-small: 574px;
+$screen-medium: 768px;
+$screen-large: 992px;
+$screen-extra: 1200px;
+
+@mixin screen-small {
+  @media (max-width: $screen-small) {
+    @content;
+  }
+}
+
+@mixin screen-medium {
+  @media (max-width: $screen-medium) {
+    @content;
+  }
+}
+
+@mixin screen-large {
+  @media (max-width: $screen-large) {
+    @content;
+  }
+}
+
+@mixin screen-extra {
+  @media (max-width: $screen-extra) {
+    @content;
+  }
+}

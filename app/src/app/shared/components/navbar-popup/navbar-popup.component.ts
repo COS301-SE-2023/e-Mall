@@ -40,8 +40,9 @@ export class NavbarPopupComponent {
     this.popoverController.dismiss();
   }
 
-  public signOut(): void {
+  async signOut(): Promise<void> {
     this.popoverController.dismiss();
-    this.authFacade.signOut();
+    await this.authFacade.signOut();
+    window.location.reload();
   }
 }

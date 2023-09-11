@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import PredictCustAnalyticsView
+from .views import post
 
 urlpatterns = [
-    path('predicted_matrix/', PredictCustAnalyticsView.as_view(), name='predicted_matrix'),
+    path("predicted_matrix/", post, name="predicted_matrix"),
 ]

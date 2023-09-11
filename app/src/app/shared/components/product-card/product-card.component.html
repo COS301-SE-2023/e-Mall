@@ -21,7 +21,6 @@
         <h4>R{{ product.min_price | number : '1.0-0' }}</h4>
         <div class="button-container">
           <ion-button
-            *ngIf="pageType === 'normal'"
             (click)="toggleBookmark()"
             class="bookmark-button"
             shape="round"

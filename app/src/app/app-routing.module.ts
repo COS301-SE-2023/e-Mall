@@ -25,8 +25,9 @@ const routes: Routes = [
 
   {
     path: 'home',
-    component: HomeComponent,
-    canActivate: [baseGuard, consumerTypeGuard],
+    loadChildren: () =>
+      import('@app/features/home/home.module').then(m => m.HomeModule),
+    canActivate: [baseGuard],
   },
   {
     path: 'construction',
@@ -40,7 +41,7 @@ const routes: Routes = [
     path: 'search-results',
     loadChildren: () =>
       import('@app/features/search/search.module').then(m => m.SearchModule),
-    canActivate: [baseGuard, consumerTypeGuard],
+    canActivate: [baseGuard],
   },
   { path: 'category/:category', component: CategoryComponent },
   {
@@ -78,7 +79,7 @@ const routes: Routes = [
     path: 'about',
     loadChildren: () =>
       import('@app/features/about/about.module').then(m => m.AboutModule),
-    canActivate: [baseGuard, consumerTypeGuard],
+    canActivate: [baseGuard],
   },
   {
     path: 'sales',
@@ -99,13 +100,13 @@ const routes: Routes = [
     path: 'contact',
     loadChildren: () =>
       import('@app/features/contact/contact.module').then(m => m.ContactModule),
-    canActivate: [baseGuard, consumerTypeGuard],
+    canActivate: [baseGuard],
   },
   {
     path: 'products',
     loadChildren: () =>
       import('@app/features/product/product.module').then(m => m.ProductModule),
-    canActivate: [baseGuard, consumerTypeGuard],
+    canActivate: [baseGuard],
   },
   { path: 'policies-and-privacy', redirectTo: '/construction' },
   { path: 'ads', redirectTo: '/construction' },

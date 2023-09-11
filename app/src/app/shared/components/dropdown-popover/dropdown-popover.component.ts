@@ -23,7 +23,7 @@ export class DropdownPopoverComponent implements OnInit {
     { title: 'Health and Beauty', path: '/category/Health%20and%20Beauty', nav: '' },
     { title: 'Toys and Games', path: '/category/Toys%20and%20Games', nav: '' },
     { title: 'Books', path: '/category/Books', nav:'' }
-  ];
+  ];  
 
   sel_pages = [
     { title: 'Amazon', path: 'seller-details', nav: '36cc45f7-82ce-45b5-b56d-98683c0e06bf' },

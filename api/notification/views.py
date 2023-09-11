@@ -3,7 +3,7 @@ from django.conf import settings
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .swagger.decorator import *
-
+from rest_framework import status
 # Initialize Firebase
 db = firestore.client()
 user_collection = "users"
@@ -58,7 +58,7 @@ def send_message_api(request):
 
         return Response({"status": "success"})
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
 
 
 @delete_decorator
@@ -67,12 +67,14 @@ def delete(request):
     try:
         user_id = str(request.user.id)
         log_id = request.data.get("notification_id")
+        if(log_id is None):
+            raise Exception('notification_id is required')
         db.collection(user_collection).document(user_id).collection(
             singe_msg_collection_name
         ).document(log_id).delete()
         return Response({"status": "success"})
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
 
 
 @delete_all_decorator
@@ -93,7 +95,7 @@ def delete_all(request):
         batch.commit()
         return Response({"status": "success"})
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
 
 
 @read_decorator
@@ -102,12 +104,15 @@ def read(request):
     try:
         user_id = str(request.user.id)
         log_id = request.data.get("notification_id")
+        if(log_id is None):
+            raise Exception('notification_id is required')
         db.collection(user_collection).document(user_id).collection(
             singe_msg_collection_name
         ).document(log_id).update({"is_read": True})
         return Response({"status": "success"})
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        print(e)
+        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
 
 
 @read_all_decorator
@@ -129,15 +134,14 @@ def read_all(request):
         batch.commit()
         return Response({"status": "success"})
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
 
 
 @get_decorator
 @api_view(["POST"])
-def get(request):
+def get(request, page_size= 15):
     try:
         user_id = str(request.user.id)
-        page_size = 5
         start_after = request.data.get("notification_id")
 
         logs_ref = (
@@ -157,8 +161,26 @@ def get(request):
             )
             logs_ref = logs_ref.start_after(start_after_doc)
 
-        logs = [doc.to_dict() for doc in logs_ref.stream()]
-        last_log = logs[-1]
+        docs = list(logs_ref.stream())
+        if not docs:
+            return Response({"has_next": False, "notifications": []})
+        logs = [
+            {
+                "notification": {
+                    "title": doc.to_dict()["title"],
+                    "body": doc.to_dict()["message"],
+                    "image": doc.to_dict()["image"],
+                },
+                "data": {
+                    "id": doc.id,
+                    "is_read": doc.to_dict()["is_read"],
+                    "timestamp": doc.to_dict()["timestamp"],
+                },
+            }
+            for doc in docs
+        ]
+        last_log = docs[-1]
+
         if len(logs) == page_size:
             next_logs = (
                 db.collection(user_collection)
@@ -169,6 +191,7 @@ def get(request):
                 .start_after(last_log)
                 .stream()
             )
+
             hasNext = any(next_logs)
         else:
             hasNext = False
@@ -179,7 +202,7 @@ def get(request):
         }
         return Response(response_data)
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
 
 
 @update_device_token_decorator
@@ -203,8 +226,8 @@ def update_device_token(request):
         return Response(
             {"status": "success", "message": "Device token updated successfully"}
         )
-    except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+    except Exception as e:        
+        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
 
 
 @update_settings_decorator
@@ -220,15 +243,17 @@ def update_settings(request):
             settings = {field: True for field in valid_fields}
 
         for field in settings:
-            if field not in valid_fields or not isinstance(settings[field], bool):
+            if field not in valid_fields :
                 raise Exception(f"Invalid field or value: {field}={settings[field]}")
+            elif isinstance(settings[field],str) and (settings[field].lower() not in ["true", "false"]):                
+                raise Exception(f"Invalid value: {field}={settings[field]}")
 
         user_ref.set({"settings": settings}, merge=True)
         return Response(
             {"status": "success", "message": "Settings updated successfully"}
         )
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
 
 
 @count_unread_notifications_decorator
@@ -242,11 +267,11 @@ def count_unread_notifications(request):
             .collection(singe_msg_collection_name)
             .where("is_read", "==", False)
         )
-        count = len(logs_ref.get())
+        count = len(list(logs_ref.get()))
         response_data = {
             "status": "success",
             "unread_count": count,
         }
         return Response(response_data)
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)

@@ -1,0 +1,201 @@
+<!-- <div class="menu-content"> -->
+<ng-container *ngIf="!settings; else settingsPannel">
+  <ion-header style="height: 65px">
+    <ion-toolbar style="height: 100%" color="primary">
+      <ion-title> Notification </ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="openSettings()">
+          <ion-icon
+            style="font-size: 1.5rem; color: grey"
+            name="settings-sharp"></ion-icon>
+        </ion-button>
+
+        <ion-button (click)="closeMenu()">
+          <ion-icon
+            style="font-size: 2rem; color: grey"
+            name="close-sharp"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ng-container
+      *ngIf="
+        notificationList$ | async as notificationList;
+        else noNotifications
+      ">
+      <ng-container
+        *ngIf="
+          notificationList !== null && notificationList.length > 0;
+          else noNotifications
+        ">
+        <div
+          style="
+            display: flex;
+            align-items: end;
+            justify-content: right;
+            padding-right: 1.5rem;
+          ">
+          <ion-button
+            fill="clear"
+            size="small"
+            mode="ios"
+            color="secondary"
+            (click)="readAll()">
+            <ion-icon
+              style="font-size: 1rem"
+              slot="start"
+              name="checkmark-done-outline"></ion-icon>
+            Mark all</ion-button
+          >
+          <ion-button
+            fill="clear"
+            size="small"
+            mode="ios"
+            color="secondary"
+            (click)="deleteAll()">
+            <ion-icon
+              style="font-size: 1rem"
+              slot="start"
+              name="trash-outline"></ion-icon>
+            Delete all</ion-button
+          >
+        </div>
+        <ion-accordion-group
+          (ionChange)="onIonChange($event)"
+          (ionBlur)="readPrevClicked()">
+          <ion-accordion
+            *ngFor="let item of notificationList; let index = index"
+            [value]="item">
+            <ion-item slot="header">
+              <ion-icon
+                *ngIf="!item.is_read; else readIcon"
+                name="ellipse"
+                color="danger"
+                slot="start"></ion-icon>
+              <ng-template #readIcon>
+                <ion-icon
+                  name="ellipse"
+                  class="read-icon"
+                  slot="start"></ion-icon>
+              </ng-template>
+              <ion-label>{{ item.notification.title }}</ion-label>
+              <ion-label class="accordion-timestamp" slot="end">{{
+                reactiveFormatTime(item.timestamp)
+              }}</ion-label>
+              <ion-icon
+                class="ion-accordion-toggle-icon"
+                style="display: none"
+                name="logo-ionic"
+                slot="end"
+                color="white">
+              </ion-icon>
+            </ion-item>
+
+            <app-notification-card
+              slot="content"
+              [item]="item"
+              [calculatedTime]="formatTime(item.timestamp)">
+            </app-notification-card>
+          </ion-accordion>
+        </ion-accordion-group>
+
+        <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+          <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </ng-container>
+    </ng-container> </ion-content
+></ng-container>
+
+<ng-template #loading>
+  <ion-card mode="md">
+    <ion-card-header
+      style="border-bottom: 0.5px solid rgba(190, 190, 190, 0.541)">
+      <ion-card-title style="font-size: medium">
+        <ion-skeleton-text
+          [animated]="true"
+          style="width: 80px"></ion-skeleton-text>
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content style="width: 100%; --width: 100%; min-height: 100%">
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+        ">
+        <ion-skeleton-text
+          [animated]="true"
+          style="width: 80%"></ion-skeleton-text
+        ><ion-skeleton-text
+          [animated]="true"
+          style="width: 60%"></ion-skeleton-text>
+        <ion-label style="text-align: end; font-style: italic; font-size: small"
+          ><ion-skeleton-text
+            [animated]="true"
+            style="width: 100%"></ion-skeleton-text
+        ></ion-label>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ng-template>
+
+<ng-template #noNotifications>
+  <div
+    style="
+      position: relative;
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      vertical-align: middle;
+      flex-direction: column;
+      text-align: center;
+    ">
+    <ion-label style="opacity: 0.5">Empty notification</ion-label>
+    <img
+      src="assets\images\inbox.jpeg"
+      alt="No notifications received"
+      class="nimage" />
+    <div
+      *ngIf="(notificationList$ | async) === null"
+      style="
+        display: flex;
+        flex-direction: column;
+        vertical-align: middle;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+      ">
+      <ion-spinner name="lines" style="height: 3rem; width: 3rem"></ion-spinner>
+    </div>
+  </div>
+</ng-template>
+<ng-template #settingsPannel>
+  <ion-header style="height: 65px">
+    <ion-toolbar style="height: 100%" color="primary">
+      <ion-buttons slot="start">
+        <ion-button (click)="back()">
+          <ion-icon
+            style="font-size: 1.9rem; color: grey"
+            name="arrow-back-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title> Settings </ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="closeMenu()">
+          <ion-icon
+            style="font-size: 2rem; color: grey"
+            name="close-sharp"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <app-settings-pannel></app-settings-pannel
+></ng-template>

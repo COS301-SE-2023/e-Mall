@@ -1,15 +1,25 @@
 <app-navbar></app-navbar>
-<ion-content class="global-ion-content">
+
+<ion-content class="global-ion-content" >
+
   <ng-container *ngIf="product$ | async as product">
     <app-category-breadcrumb
-      [categoryList]="product.category"></app-category-breadcrumb>
+      [categoryList]="product.category" *ngIf="!showSpinner"></app-category-breadcrumb>
   </ng-container>
   <div class="ion-content-wrapper">
     <div class="container-fluid body-container">
       <div class="container-fluid prices" id="prices">
+        <!--<div class="spinner-container" >-->
+          <div class="spinner" *ngIf="showSpinner">
+            <ion-spinner style="color: #99e3dc"></ion-spinner>
+          </div>
+        <!--</div>-->
         <div
           class="row product-img-info-container"
-          style="margin-left: 10px; margin-right: 10px">
+          style="margin-left: 10px; margin-right: 10px" *ngIf="!showSpinner">
+          <!--<div *ngIf="(product$ | async) === null">
+            <mat-spinner></mat-spinner>
+          </div>-->
           <div class="col-sm-4 col-md-4 col-lg-4 mini-imgs-container">
             <div
               class="mini-imgs-small-container"
@@ -24,7 +34,7 @@
             </div>
           </div>
 
-          <div class="col-sm-4 col-md-4 col-lg-4 main-img-container">
+          <div class="col-sm-4 col-md-4 col-lg-4 main-img-container" >
             <mat-card class="product-card">
               <div class="position-relative">
                 <img
@@ -34,7 +44,7 @@
                       ? selectedImage
                       : getOneImg((product$ | async)?.min_price_img_array)
                   "
-                  alt="Product Image"
+                  
                   class="product-image" />
                 <div
                   class="min-price-discount_rate"
@@ -53,20 +63,7 @@
               </div>
               <mat-card-actions>
                 <span class="button-container">
-                  <ion-button
-                    (click)="toggleBookmark()"
-                    class="bookmark-button"
-                    shape="round"
-                    fill="clear"
-                    mode="ios">
-                    <ion-icon
-                      [name]="
-                        (isBookmark | async)
-                          ? 'bookmark-outline'
-                          : 'bookmark-outline'
-                      "
-                      style="color: var(--c-5-a, #37d0d6)"></ion-icon>
-                  </ion-button>
+                 
                 </span>
               </mat-card-actions>
             </mat-card>
@@ -81,8 +78,16 @@
               <h4>{{ product.brand }}</h4>
               <p>{{ product.description }}</p>
               <p>
-                Compare prices from
-                <b>R{{ product.min_price }}</b>
+                <ion-button
+                (click)="toggleBookmark()"
+                class="bookmark-button"
+                shape="round"
+                fill="clear"
+                mode="ios">
+                <ion-icon
+                  [name]="'bookmark-outline'"
+                  style="color: var(--c-5-a, #37d0d6)"></ion-icon>
+              </ion-button>
               </p>
             </div>
           </div>
@@ -137,6 +142,13 @@
         </div>
 
         <div #comp_products id="comp_products"></div>
+
+          <div class="spinner-container" *ngIf="showSpinner2">
+            <div class="spinner">
+              <ion-spinner style="color: #99e3dc"></ion-spinner>
+            </div>
+          </div>
+        <div *ngIf="!showSpinner2">
         <ng-container *ngIf="sellers$ | async as sellers">
           <ul style="padding-left: 20px" class="seller-list">
             <li *ngFor="let seller of sellers">
@@ -194,12 +206,14 @@
             </li>
           </ul>
         </ng-container>
+        </div>
 
         <div
           style="padding-left: 30px; padding-right: 30px"
           #product_info
           class="container-fluid full-product-info"
-          id="full-product-info">
+          id="full-product-info" >
+          <div *ngIf="!showSpinner2">
           <h3>Products Information</h3>
           <ng-container *ngIf="sellers$ | async as sellers">
             <div *ngFor="let seller of sellers; let i = index"></div>
@@ -217,6 +231,7 @@
               <p>{{ product.description }}</p>
             </div>
           </ng-container>
+          </div>
         </div>
       </div>
     </div>

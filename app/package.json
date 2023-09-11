@@ -76,6 +76,7 @@
     "eslint-plugin-eslint-plugin": "^5.1.1",
     "global": "^4.4.0",
     "lint": "^1.1.2",
+    "moment": "^2.29.4",
     "ngxs-reset-plugin": "^3.0.0",
     "prettier": "^2.8.8",
     "rxjs": "~7.8.1",

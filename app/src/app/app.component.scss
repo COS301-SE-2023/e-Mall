@@ -1,1 +1,10 @@
-
+@import 'mixins';
+ion-menu {
+  --width: 412px;
+}
+@include screen-medium {
+  ion-menu::part(container) {
+    --width: 100% !important;
+    width: 100% !important;
+  }
+}
