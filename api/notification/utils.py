@@ -6,9 +6,12 @@ db = firestore.client()
 user_collection = "users"
 product_collection = "products"
 combo_collection = "combos"
-message_types = ["user", "query", "wishlist", "follower", "combo"]
-singe_msg_collection_name = "logs"  # sent to user
-multi_msg_collection_name = "follower_logs"  # sent to followers
+message_types = ["user", "query", "wishlist", "follower","combo"]
+user_logs_collection = "logs"  # sent to user
+follower_logs_collection = "follower_logs"  # sent to followers
+combo_logs_collection = "combo_logs"  # sent to followers
+
+
 
 # when 'create' adding to pending collection
    # inivting (request.user) is always active user
@@ -25,27 +28,12 @@ def update_combo(user_ids, combo_id, action, owner_id= None):
         
         combo_ref = db.collection(combo_collection).document(combo_id)
         combo_doc = combo_ref.get()
-        # print("combo_doc", combo_doc)
-        # print("combo_doc.exists", combo_doc.exists)
-        # users_array = [str(user_id) for user_id in user_ids]
-        # pending_ids_array = [str(user_id) for user_id in user_ids[1:]]
-        # current_user_array = [str(user_ids[0])]
 
-        # update_data = {}
-        
         if action == "create" and owner_id is not None:
-
             owner_id= str(owner_id)
-            # if pending_ids_array != []:
-            print('user_ids', user_ids)
-            print('owener_id ',owner_id)
             update_data= {"pending_users" : firestore.ArrayUnion(user_ids),"active_users" : firestore.ArrayUnion([owner_id])}
-                # update_data["active_users"] = firestore.ArrayUnion(current_user_array)
-            # else:
-                # update_data["active_users"] = firestore.ArrayUnion(users_array)
         elif action == "leave":
             update_data= {"active_users" : firestore.ArrayRemove(user_ids)}
-            # update_data["active_users"] = firestore.ArrayRemove(user_ids)
         elif action == "accept":
             update_data= {"pending_users" : firestore.ArrayRemove(user_ids)}
             update_data= {"active_users" : firestore.ArrayRemove(user_ids)}
@@ -68,29 +56,6 @@ def update_combo(user_ids, combo_id, action, owner_id= None):
                 combo_ref.set(update_data)
             else:
                 combo_ref.set({"active_users": [], "pending_users": []})
-
-                
-                # combo_ref.set(
-                #     {
-                #         "pending_users": pending_ids_array,
-                #         "active_users": current_user_array,
-                #     }
-                # )
-
-        # if action == "create":
-        #     message = (
-        #         f'Combo {combo_id} created with user {", ".join(current_user_array)}'
-        #     )
-        # elif action == "leave":
-        #     message = f'User {", ".join(current_user_array)} left combo {combo_id}'
-        # elif action == "accept":
-        #     message = f'User {", ".join(current_user_array)} accepted the invitation to combo {combo_id}'
-        # elif action == "reject":
-        #     message = f'User {", ".join(pending_ids_array)} rejected the invitation to combo {combo_id}'
-        # elif action == "edit":
-        #     message = f'Combo {combo_id} edited with users {", ".join(users_array)}'
-        # else:
-        #     message = ""
 
         return Response(
             {
@@ -146,14 +111,38 @@ def send_message(data):
         image = data.get("image")
         message = data.get("message")
         title = data.get("title")
+        sender= str(data.user.id)
+        target= str(target_id) 
+                
+        data = {
+            "image": image,
+            "is_read": False,
+            "message": message,
+            "message_type": msg_type,
+            "timestamp": firestore.SERVER_TIMESTAMP,
+            "title": title,
+            "sender": sender,
+            "target": target
+        }
+
         if msg_type not in message_types:
             raise Exception("invalid parameter")
 
-        sub_collection_name = singe_msg_collection_name
-        if msg_type == "follower":
-            sub_collection_name = multi_msg_collection_name
+        sub_collection_name = user_logs_collection
+        
+        #new follower, follwing seller has new update
+        if msg_type == "follower": 
+            sub_collection_name = follower_logs_collection
+        
+        #new follwing product has new update
         elif msg_type == "wishlist":
             main_collection_name = product_collection
+        
+        #update on active user list, new pending user
+        elif msg_type == "combo":
+            main_collection_name = combo_collection
+            sub_collection_name= combo_logs_collection
+            
         doc_ref = (
             db.collection(main_collection_name)
             .document(target_id)
@@ -161,16 +150,7 @@ def send_message(data):
             .document()
         )
         doc_id = doc_ref.id
-
-        data = {
-            "id": doc_id,
-            "image": image,
-            "is_read": False,
-            "message": message,
-            "message_type": msg_type,
-            "timestamp": firestore.SERVER_TIMESTAMP,
-            "title": title,
-        }
+        data['id']= doc_id
 
         doc_ref.set(data)
 

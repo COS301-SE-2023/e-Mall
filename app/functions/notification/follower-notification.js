@@ -9,10 +9,12 @@ exports.followerNotification = functions
       const data = snap.data();
       const title = data.title;
       const body = data.message;
-      const image = data.image;
+      const image = data.image ? data.image : "";
       const isRead = data.is_read;
       const timestamp = data.timestamp;
       const unixTimestamp = timestamp.toMillis();
+      const sender = data.sender;
+      const target = data.target;
       // Get the list of following users from the parent document
       const parentRef = snap.ref.parent.parent;
       return parentRef.get().then((parentDoc) => {
@@ -37,7 +39,9 @@ exports.followerNotification = functions
                     id: data.id,
                     is_read: isRead.toString(),
                     timestamp: unixTimestamp.toString(),
-                    type: data.msg_type,
+                    type: data.message_type,
+                    sender: sender,
+                    target: target,
                   },
                   tokens: deviceTokens,
                 };

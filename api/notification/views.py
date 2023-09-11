@@ -10,8 +10,9 @@ user_collection = "users"
 product_collection = "products"
 combo_collection = "combos"
 message_types = ["user", "query", "wishlist", "follower","combo"]
-singe_msg_collection_name = "logs"  # sent to user
-multi_msg_collection_name = "follower_logs"  # sent to followers
+user_logs_collection = "logs"  # sent to user
+follower_logs_collection = "follower_logs"  # sent to followers
+combo_logs_collection = "combo_logs"  # sent to followers
 
 
 @send_message_api_decorator
@@ -21,20 +22,40 @@ def send_message_api(request):
         main_collection_name = user_collection
         target_id = request.data.get("target")
         msg_type = request.data.get("message_type")
-        image = request.data.get("image")
+        image = request.data.get("image") if request.data.get("image") is not None else ""
         message = request.data.get("message")
         title = request.data.get("title")
 
+        sender= str(request.user.id)
+        target= str(target_id)
+
+        data = {
+            "image": image,
+            "is_read": False,
+            "message": message,
+            "message_type": msg_type,
+            "timestamp": firestore.SERVER_TIMESTAMP,
+            "title": title,
+            "sender": sender,
+            "target": target
+        }
         if msg_type not in message_types:
             raise Exception("invalid parameter")
 
-        sub_collection_name = singe_msg_collection_name
-        if msg_type == "follower":
-            sub_collection_name = multi_msg_collection_name
+        sub_collection_name = user_logs_collection
+        
+        #new follower, follwing seller has new update
+        if msg_type == "follower": 
+            sub_collection_name = follower_logs_collection
+        
+        #new follwing product has new update
         elif msg_type == "wishlist":
             main_collection_name = product_collection
+        
+        #update on active user list, new pending user
         elif msg_type == "combo":
             main_collection_name = combo_collection
+            sub_collection_name= combo_logs_collection
 
         doc_ref = (
             db.collection(main_collection_name)
@@ -43,16 +64,8 @@ def send_message_api(request):
             .document()
         )
         doc_id = doc_ref.id
+        data['id']= doc_id
 
-        data = {
-            "id": doc_id,
-            "image": image,
-            "is_read": False,
-            "message": message,
-            "message_type": msg_type,
-            "timestamp": firestore.SERVER_TIMESTAMP,
-            "title": title,
-        }
 
         doc_ref.set(data)
 
@@ -70,7 +83,7 @@ def delete(request):
         if(log_id is None):
             raise Exception('notification_id is required')
         db.collection(user_collection).document(user_id).collection(
-            singe_msg_collection_name
+            user_logs_collection
         ).document(log_id).delete()
         return Response({"status": "success"})
     except Exception as e:
@@ -86,7 +99,7 @@ def delete_all(request):
         docs = (
             db.collection(user_collection)
             .document(user_id)
-            .collection(singe_msg_collection_name)
+            .collection(user_logs_collection)
             .stream()
         )
         for doc in docs:
@@ -107,7 +120,7 @@ def read(request):
         if(log_id is None):
             raise Exception('notification_id is required')
         db.collection(user_collection).document(user_id).collection(
-            singe_msg_collection_name
+            user_logs_collection
         ).document(log_id).update({"is_read": True})
         return Response({"status": "success"})
     except Exception as e:
@@ -124,7 +137,7 @@ def read_all(request):
         docs = (
             db.collection(user_collection)
             .document(user_id)
-            .collection(singe_msg_collection_name)
+            .collection(user_logs_collection)
             .where("is_read", "==", False)
             .stream()
         )
@@ -147,7 +160,7 @@ def get(request, page_size= 15):
         logs_ref = (
             db.collection(user_collection)
             .document(user_id)
-            .collection(singe_msg_collection_name)
+            .collection(user_logs_collection)
             .order_by("timestamp", direction=firestore.Query.DESCENDING)
             .limit(page_size)
         )
@@ -155,7 +168,7 @@ def get(request, page_size= 15):
             start_after_doc = (
                 db.collection(user_collection)
                 .document(user_id)
-                .collection(singe_msg_collection_name)
+                .collection(user_logs_collection)
                 .document(start_after)
                 .get()
             )
@@ -185,7 +198,7 @@ def get(request, page_size= 15):
             next_logs = (
                 db.collection(user_collection)
                 .document(user_id)
-                .collection(singe_msg_collection_name)
+                .collection(user_logs_collection)
                 .order_by("timestamp", direction=firestore.Query.DESCENDING)
                 .limit(1)
                 .start_after(last_log)
@@ -264,7 +277,7 @@ def count_unread_notifications(request):
         logs_ref = (
             db.collection(user_collection)
             .document(user_id)
-            .collection(singe_msg_collection_name)
+            .collection(user_logs_collection)
             .where("is_read", "==", False)
         )
         count = len(list(logs_ref.get()))
