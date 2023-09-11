@@ -73,6 +73,9 @@ export class ProfileFacade implements OnDestroy {
       )
       .subscribe(profile => {
         if (profile) {
+          if (profile.type === 'seller') {
+            return;
+          }
           this.fetchRecommendedProducts();
         }
       });

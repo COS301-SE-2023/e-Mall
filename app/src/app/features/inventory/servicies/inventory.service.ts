@@ -64,4 +64,46 @@ export class InventoryService {
         .pipe(take(1))
     );
   }
+
+  public async getSimilarProducts(data: object): Promise<any> {
+    const url = `${this.apiUrl}/getSimilarProducts/`;
+    return await lastValueFrom(
+      this.http
+        .post(url, data, {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+          observe: 'response',
+        })
+        .pipe(take(1))
+    );
+  }
+
+  public async addSimilarProduct(data: object): Promise<any> {
+    const url = `${this.apiUrl}/createSimilarProduct/`;
+    return await lastValueFrom(
+      this.http
+        .post(url, data, {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+          observe: 'response',
+        })
+        .pipe(take(1))
+    );
+  }
+
+  public async addnewProduct(data: object): Promise<any> {
+    const url = `${this.apiUrl}/createNewProduct/`;
+    return await lastValueFrom(
+      this.http
+        .post(url, data, {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+          observe: 'response',
+        })
+        .pipe(take(1))
+    );
+  }
 }

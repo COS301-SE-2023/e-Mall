@@ -162,4 +162,15 @@ export class InventoryState {
       totalCount: 0,
     });
   }
+  @Action(InventoryActions.AddProduct)
+  addProduct(
+    ctx: StateContext<InventoryStateModel>,
+    action: InventoryActions.AddProduct
+  ) {
+    ctx.setState(
+      produce((draft: InventoryStateModel) => {
+        draft.products?.push(action.data);
+      })
+    );
+  }
 }
