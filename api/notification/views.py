@@ -223,7 +223,7 @@ def update_device_token(request):
         return Response(
             {"status": "success", "message": "Device token updated successfully"}
         )
-    except Exception as e:
+    except Exception as e:        
         return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -240,8 +240,10 @@ def update_settings(request):
             settings = {field: True for field in valid_fields}
 
         for field in settings:
-            if field not in valid_fields or not isinstance(settings[field], bool):
+            if field not in valid_fields :
                 raise Exception(f"Invalid field or value: {field}={settings[field]}")
+            elif isinstance(settings[field],str) and (settings[field].lower() not in ["true", "false"]):                
+                raise Exception(f"Invalid value: {field}={settings[field]}")
 
         user_ref.set({"settings": settings}, merge=True)
         return Response(
@@ -262,7 +264,7 @@ def count_unread_notifications(request):
             .collection(singe_msg_collection_name)
             .where("is_read", "==", False)
         )
-        count = len(logs_ref.get())
+        count = len(list(logs_ref.get()))
         response_data = {
             "status": "success",
             "unread_count": count,

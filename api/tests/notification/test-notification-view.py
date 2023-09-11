@@ -1,3 +1,4 @@
+
 from django.test import RequestFactory, TestCase
 from unittest.mock import MagicMock, patch
 from rest_framework import status
@@ -370,3 +371,133 @@ class TestGetAPI(TestCase):
         response = get(request)
 
         self.assertEqual(response.status_code, 400)
+        
+from django.core.handlers.wsgi import WSGIRequest     
+class TestNotificationRemainingViews(TestCase):
+    def setUp(self):
+        self.api_client = RequestFactory()
+        self.consumer = Consumer(id="test1234", username="test", email="test@example.com", type="consumer")
+        self.mock_authenticate = patch("auth.authentication.CognitoAuthentication.authenticate").start()
+        self.mock_has_permission = patch("auth.permissions.CognitoPermission.has_permission").start()
+        self.mock_db = patch("notification.views.db", new_callable=MockFirestore).start()
+        # Ensure authenticate returns a user and a token (None in this case)
+        self.mock_authenticate.return_value = (self.consumer, None)
+        self.mock_has_permission.return_value = True
+        user = self.consumer
+        self.api_client.user = user
+        
+        mock_document1 = MagicMock()
+        mock_document1.to_dict.return_value = {
+            "id": "document1",
+            "image": "image1",
+            "is_read": True,
+            "message": "test message 1",
+            "message_type": "user",
+            "timestamp": "September 10, 2023 at 4:17:28 PM UTC+2",
+            "title": "Wishlist alert"
+        }
+        mock_document2 = MagicMock()
+        mock_document2.to_dict.return_value = {
+            "id": "document2",
+            "image": "image2",
+            "is_read": False,
+            "message": "test message 2",
+            "message_type": "user",
+            "timestamp": "September 10, 2023 at 4:19:30 PM UTC+2",
+            "title": "Wishlist alert"
+        }
+        mock_document3 = MagicMock()
+        mock_document3.to_dict.return_value = {
+            "id": "document3",
+            "image": "image3",
+            "is_read": True,
+            "message": "test message 3",
+            "message_type": "user",
+            "timestamp": "September 10, 2023 at 4:18:28 PM UTC+2",
+            "title": "Wishlist alert"
+        }
+        self.mock_db.collection('users').document(user.id).set({'device_token':'123'})
+        self.mock_db.collection('users').document(user.id).collection('logs').document(mock_document1.to_dict()['id']).set(mock_document1.to_dict())
+        self.mock_db.collection('users').document(user.id).collection('logs').document(mock_document2.to_dict()['id']).set(mock_document2.to_dict())
+        self.mock_db.collection('users').document(user.id).collection('logs').document(mock_document3.to_dict()['id']).set(mock_document3.to_dict())
+        
+
+    def tearDown(self):
+        patch.stopall()
+
+    def test_update_device_token_success_with_user(self):
+        request = self.api_client.post('/api/notification/device/', {"device_token": "new_token"})
+        response = update_device_token(request)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['status'], 'success')
+        updated_document1 = self.mock_db.collection('users').document(self.consumer.id).get()
+        self.assertEqual(updated_document1.to_dict()['device_token'], 'new_token')
+
+    def test_update_device_token_success_with_same_token(self):
+        request = self.api_client.post('/api/notification/device/', {"device_token": "123"})
+        response = update_device_token(request)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['message'], 'Device token is already up to date')
+
+    @patch('notification.views.db.collection', side_effect=Exception('Test exception'))
+    def test_update_device_token_fail(self,mock_data):
+        request = self.api_client.post('/api/notification/device/', {"device_token": "new_token"})
+        response = update_device_token(request)
+        self.assertEqual(response.status_code, 400)
+        
+    def test_update_settings_success_all_false(self):
+        data = {
+            "all": False,
+            "following": False,
+            "general": False,
+            "wishlist": False
+        }
+        request = self.api_client.post('/api/notification/update_settings/', data)
+        response = update_settings(request)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['status'], 'success')
+
+    def test_update_settings_success_all_true(self):
+        data = {
+            "all": True,
+            "following": True,
+            "general": True,
+            "wishlist": True
+        }
+        request = self.api_client.post('/api/notification/update_settings/', data)
+        response = update_settings(request)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['status'], 'success')
+
+    def test_update_settings_success_empty(self):
+        request = self.api_client.post('/api/notification/update_settings/', {})
+        response = update_settings(request)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['status'], 'success')
+        updated_document1 = self.mock_db.collection('users').document(self.consumer.id).get()
+        self.assertTrue(updated_document1.to_dict()['settings']['general'])
+        
+
+    def test_update_settings_fail_invalid_field(self):
+        request = self.api_client.post('/api/notification/update_settings/', {"invalid_field": True})
+        response = update_settings(request)
+        self.assertEqual(response.status_code, 400)
+        
+
+    def test_update_settings_fail_invalid_value(self):
+        request = self.api_client.post('/api/notification/update_settings/', {"general": "invalid_value"})
+        response = update_settings(request)
+        self.assertEqual(response.status_code, 400)
+        
+    def test_count_unread_notifications_success(self):
+        request = self.api_client.post('/api/notification/count/unread/')
+        response = count_unread_notifications(request)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['unread_count'], 1)
+
+    @patch('notification.views.db.collection', side_effect=Exception('Test exception'))
+    def test_count_unread_notifications_fail(self,mock_collection):
+        request = self.api_client.post('/api/notification/count/unread/')
+        response = count_unread_notifications(request)
+        self.assertEqual(response.status_code, 400)
+        

@@ -12,11 +12,13 @@ multi_msg_collection_name = "follower_logs"  # sent to followers
 
 def update_wishlist(user_id, product_id, action):
     try:
-        user_id = str(user_id)
-        product_id = str(product_id)
         if not all([user_id, product_id, action]):
             raise Exception("Missing required parameters")
-
+        
+        user_id = str(user_id)
+        
+        product_id = str(product_id)
+        
         product_ref = db.collection(product_collection).document(product_id)
         product_doc = product_ref.get()
 
@@ -26,32 +28,31 @@ def update_wishlist(user_id, product_id, action):
             update_data = {"wishlisted_users": firestore.ArrayRemove([user_id])}
         else:
             raise Exception("Invalid action")
-
         if product_doc.exists:
             product_ref.update(update_data)
-        else:
+        else:  
             if action == "add":
                 product_ref.set({"wishlisted_users": [user_id]})
-
-        return Response(
-            {
+            else:
+                product_ref.set({"wishlisted_users": []})
+                
+        return {
                 "status": "success",
                 "message": f'Product {product_id} {"added to" if action == "add" else "removed from"} wishlist for user {user_id}',
             }
-        )
+        
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        return {"status": "error", "message": str(e)}
 
 
 def send_message(data):
     try:
         main_collection_name = user_collection
         target_id = data.get("target")
-        msg_type = data.get("msg_type")
+        msg_type = data.get("message_type")
         image = data.get("image")
         message = data.get("message")
         title = data.get("title")
-
         if msg_type not in message_types:
             raise Exception("invalid parameter")
 
@@ -87,11 +88,12 @@ def send_message(data):
 
 def update_followed_users(customer_id, seller_id, action):
     try:
-        seller_id = str(seller_id)
-        customer_id = str(customer_id)
         if not all([seller_id, customer_id, action]):
             raise Exception("Missing required parameters")
 
+        seller_id = str(seller_id)
+        customer_id = str(customer_id)
+        
         user_ref = db.collection(user_collection).document(seller_id)
         user_doc = user_ref.get()
 
@@ -107,12 +109,13 @@ def update_followed_users(customer_id, seller_id, action):
         else:
             if action == "add":
                 user_ref.set({"followed_users": [customer_id]})
+            else:
+                user_ref.set({"followed_users": []})
 
-        return Response(
-            {
+        return {
                 "status": "success",
                 "message": f'User {customer_id} {"added to" if action == "add" else "removed from"} followed users for user {seller_id}',
             }
-        )
+        
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        return {"status": "error", "message": str(e)}
