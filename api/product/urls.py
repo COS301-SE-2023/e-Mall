@@ -4,9 +4,6 @@ from .views import (
     ProductBackendAPIView,
     ProductTestAPIView,
     GetPopularProductsAPIView,
-    CreateAPIView,
-    CreateSimilarProductAPIView,
-    CreateNewProductAPIView,
 )
 
 urlpatterns = [
@@ -15,14 +12,5 @@ urlpatterns = [
     path("test/", ProductTestAPIView.as_view()),
     path(
         "popularproducts/", GetPopularProductsAPIView.as_view(), name="popularproducts"
-    ),
-    path("create/", CreateAPIView.as_view(), name="create"),
-    path(
-        "createsimilarproduct/",
-        CreateSimilarProductAPIView.as_view(),
-        name="createsimilarproduct",
-    ),
-    path(
-        "createnewproduct/", CreateNewProductAPIView.as_view(), name="createnewproduct"
     ),
 ]
