@@ -1,0 +1,75 @@
+<div class="modal-container">
+  <ion-item lines="none" class="modal-header-item">
+    <ion-text class="modal-header"> Add to Collections </ion-text>
+    <ion-button
+      class="close-button"
+      fill="clear"
+      shape="round"
+      mode="ios"
+      slot="end"
+      (click)="closeModal()">
+      <ion-icon size="large" name="close-outline"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <div class="content-container">
+    <ng-container *ngIf="!nextClicked; else next">
+      <ion-list class="newList">
+        <ion-item class="input">
+          <ion-label position="floating">Name:</ion-label>
+          <ion-input formControlName="newName" clearInput></ion-input>
+        </ion-item>
+      </ion-list>
+      <form [formGroup]="selectForm">
+        <ion-item class="item-padding" lines="none"> </ion-item>
+        <ion-item class="item-padding" lines="none">
+          <ion-button mode="ios" color="primary" (click)="nextClick()">
+            Next
+          </ion-button>
+        </ion-item>
+      </form>
+    </ng-container>
+
+    <ng-template #next>
+      <ng-container *ngIf="!newClicked">
+        <ion-item class="item-padding" lines="none">
+          <ion-button mode="ios" color="primary" (click)="nextClick()">
+            Done
+          </ion-button>
+          <ion-button mode="ios" color="primary" (click)="newClick()">
+            Create New
+          </ion-button>
+          <ion-button mode="ios" color="primary" (click)="nextClick()">
+            Back
+          </ion-button>
+        </ion-item>
+      </ng-container>
+      <ng-container *ngIf="newClicked"> </ng-container>
+      <!-- <form [formGroup]="newForm">
+        <ion-list class="newList">
+            <ion-item class="input">
+              <ion-label position="floating">Name:</ion-label>
+              <ion-input formControlName="newName" clearInput></ion-input>
+            </ion-item>
+  
+            <ion-item class="input">
+              <ion-label position="floating">Emails:</ion-label>
+              <ion-input
+                formControlName="newEmails"
+                clearInput
+                (keyup.enter)="createNewComboAndClearInput()"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="addEmails?.length !== 0" class="email">
+              <ion-list>
+                <div *ngFor="let email of addEmails">
+                  <ion-item class="email">
+                    <ion-label class="emails">{{ email }}</ion-label>
+                  </ion-item>
+                </div>
+              </ion-list>
+            </ion-item>
+          </ion-list>
+        <ion-button mode="ios" color="primary">Create</ion-button>
+      </form> -->
+    </ng-template>
+  </div>
+</div>
