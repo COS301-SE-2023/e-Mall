@@ -49,12 +49,7 @@
             <div *ngIf="!showSpinner">
             <h2>My Wishlist</h2>
             <div class="row" style="grid-auto-rows: auto">
-              <div
-                class="col-md-3 col-12"
-                style="grid-auto-columns: auto; min-width: 300px"
-                *ngFor="let product of products; let i = index">
-                <app-product-card [product]="product"></app-product-card>
-                <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
+              
                 <div
                   class="col-md-3 col-12"
                   style="grid-auto-columns: auto; min-width: 270px"
@@ -70,7 +65,6 @@
                       products.length > 4 &&
                       i + 1 !== products.length
                     "></div>
-                </div>
               </div>
             </div>
             </div>
