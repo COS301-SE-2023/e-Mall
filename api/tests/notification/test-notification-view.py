@@ -270,3 +270,103 @@ class TestReadAPI(TestCase):
         response = read(request)
 
         self.assertEqual(response.status_code, 400)
+
+class TestGetAPI(TestCase):
+    def setUp(self):
+        self.api_client = RequestFactory()
+        self.consumer = Consumer(id="test1234", username="test", email="test@example.com", type="consumer")
+        self.mock_authenticate = patch("auth.authentication.CognitoAuthentication.authenticate").start()
+        self.mock_has_permission = patch("auth.permissions.CognitoPermission.has_permission").start()
+        self.mock_db = patch("notification.views.db", new_callable=MockFirestore).start()
+        # self.patcher = patch.object(get, 'page_size', new=2).start()
+        # Ensure authenticate returns a user and a token (None in this case)
+        self.mock_authenticate.return_value = (self.consumer, None)
+        self.mock_has_permission.return_value = True
+        
+        user = self.consumer
+        self.api_client.user = user
+        
+        mock_document1 = MagicMock()
+        mock_document1.to_dict.return_value = {
+            "id": "document1",
+            "image": "image1",
+            "is_read": True,
+            "message": "test message 1",
+            "message_type": "user",
+            "timestamp": "September 10, 2023 at 4:17:28 PM UTC+2",
+            "title": "Wishlist alert"
+        }
+        mock_document2 = MagicMock()
+        mock_document2.to_dict.return_value = {
+            "id": "document2",
+            "image": "image2",
+            "is_read": False,
+            "message": "test message 2",
+            "message_type": "user",
+            "timestamp": "September 10, 2023 at 4:19:30 PM UTC+2",
+            "title": "Wishlist alert"
+        }
+        mock_document3 = MagicMock()
+        mock_document3.to_dict.return_value = {
+            "id": "document3",
+            "image": "image3",
+            "is_read": True,
+            "message": "test message 3",
+            "message_type": "user",
+            "timestamp": "September 10, 2023 at 4:18:28 PM UTC+2",
+            "title": "Wishlist alert"
+        }
+        self.mock_db.collection('users').document(user.id).set({'device_token':'123'})
+        self.mock_db.collection('users').document(user.id).collection('logs').document(mock_document1.to_dict()['id']).set(mock_document1.to_dict())
+        self.mock_db.collection('users').document(user.id).collection('logs').document(mock_document2.to_dict()['id']).set(mock_document2.to_dict())
+        self.mock_db.collection('users').document(user.id).collection('logs').document(mock_document3.to_dict()['id']).set(mock_document3.to_dict())
+        
+
+    def tearDown(self):
+        patch.stopall()
+        
+    def test_get_success_load_more(self):
+        self._test_get_success('document2', False)
+
+    def test_get_success_initial(self):
+        self._test_get_success(value=True)
+
+    def test_get_success_empty_list(self):
+        self._test_empty_success()
+        
+    def test_get_fail(self):
+        self._test_get_failure()
+
+
+    def _test_get_success(self,id=None,value=None):
+        if(id):
+            request = self.api_client.post('/api/notification/get/', {"notification_id": id})
+        else:
+            request = self.api_client.post('/api/notification/get/', {})
+        response = get(request, 2)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['has_next'], value)
+    def _test_empty_success(self):
+        
+        logs_ref = self.mock_db.collection('users').document(self.consumer.id).collection('logs')
+        docs = logs_ref.stream()
+        for doc in docs:
+            doc.reference.delete()
+        
+        request = self.api_client.post('/api/notification/get/', {})
+        response = get(request, 2)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['has_next'], False)
+        self.assertEqual(len(response.data['notifications']), 0)
+
+    @patch('notification.views.db.collection', side_effect=Exception('Test exception'))
+    def _test_get_failure(self,id=None):
+
+        # Mock db.collection().document().collection().order_by().limit().stream to raise an exception
+        
+        request = self.api_client.post('/api/notification/get/', {"notification_id": "123"})
+        response = get(request)
+
+        self.assertEqual(response.status_code, 400)

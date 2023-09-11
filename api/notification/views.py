@@ -136,10 +136,9 @@ def read_all(request):
 
 @get_decorator
 @api_view(["POST"])
-def get(request):
+def get(request, page_size= 15):
     try:
         user_id = str(request.user.id)
-        page_size = 15
         start_after = request.data.get("notification_id")
 
         logs_ref = (
@@ -200,7 +199,6 @@ def get(request):
         }
         return Response(response_data)
     except Exception as e:
-        print(e)
         return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
 
 
