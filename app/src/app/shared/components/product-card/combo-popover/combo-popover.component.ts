@@ -87,7 +87,6 @@ export class ComboPopoverComponent implements OnInit {
 
       // Split emails into an array
       const useremailsarray = this.addEmails;
-      useremailsarray.unshift(this.userEmail);
 
       // Create data object
       const data = {
@@ -108,15 +107,14 @@ export class ComboPopoverComponent implements OnInit {
 
   UpdateExistingCombo() {
     if (this.selectForm.valid) {
-
       if (this.selectForm.value.selectedOptions[0] == 'wishlist') {
         this.favClickAnalytics();
         this.profileFacade.toggleWishlist(this.product.id);
-        
-        if(this.selectForm.value.selectedOptions.length>1 ){
+
+        if (this.selectForm.value.selectedOptions.length > 1) {
           const options = this.selectForm.value.selectedOptions.slice(1);
           const data = {
-            combo_ids:options,
+            combo_ids: options,
             product_id: this.product.id,
             product: this.product,
           };

@@ -22,9 +22,8 @@ def create(request):
     try:
         user = request.user
         combo_name = request.data["combo_name"]
-        user_emails = request.data["user_emails"]
         product_ids = request.data["product_ids"]
-        pending_emails = user_emails[1:] if len(user_emails) > 1 else []
+        pending_emails = request.data["user_emails"]
         if user is None:
             raise Exception("User not found")
         if user.type == "seller":
@@ -34,7 +33,7 @@ def create(request):
 
             combo = Combos(
                 combo_name=combo_name,
-                user_emails=[user_emails[0]],
+                user_emails=[user.email],
                 product_ids=product_ids,
                 pending_emails=pending_emails,
             )
