@@ -40,9 +40,10 @@ def create(request):
             combo.save()
             # send notification to all users
             # get user ids
-            users = Consumer.objects.filter(email__in=combo.user_emails)
-            user_ids = [user.id for user in users]
-            update_combo(user_ids, combo.id, "create")
+            users = Consumer.objects.filter(email__in=combo.pending_emails)
+            user_ids = [target_user.id for target_user in users]
+            print(user_ids)
+            update_combo(user_ids, combo.id, "create",owner_id=user.id )
         return Response({"success": "Combo created successfully"})
     except Exception as e:
         # handle other exceptions here
@@ -145,7 +146,7 @@ def edit(request):
     try:
         user = request.user
         combo_id = request.data["combo_id"]
-        combo_name = request.data["combo_name"]
+        # combo_name = request.data["combo_name"]
         user_emails = request.data["user_emails"]
         if user is None:
             raise Exception("User not found")
@@ -154,7 +155,7 @@ def edit(request):
         if user.type == "consumer":
             # update existing combo
             combo = Combos.objects.get(id=combo_id)
-            combo.combo_name = combo_name
+            combo.combo_name = combo.combo_name
             if user_emails[0] != "":
                 for email in user_emails:
                     if email not in combo.pending_emails:

@@ -10,38 +10,52 @@ message_types = ["user", "query", "wishlist", "follower", "combo"]
 singe_msg_collection_name = "logs"  # sent to user
 multi_msg_collection_name = "follower_logs"  # sent to followers
 
+# when 'create' adding to pending collection
+   # inivting (request.user) is always active user
+   # target_users are a list of users to be added to pending collection
+# when 'accect' adding to active collection
+# when 'leave' removing from active collection
 
-def update_combo(user_ids, combo_id, action):
+def update_combo(user_ids, combo_id, action, owner_id= None):
     try:
-        combo_id = str(combo_id)
         if not all([user_ids, combo_id, action]):
             raise Exception("Missing required parameters")
-
+        user_ids = [str(user_id) for user_id in user_ids]
+        combo_id = str(combo_id)
+        
         combo_ref = db.collection(combo_collection).document(combo_id)
         combo_doc = combo_ref.get()
-        print("combo_doc", combo_doc)
-        print("combo_doc.exists", combo_doc.exists)
-        users_array = [str(user_id) for user_id in user_ids]
-        pending_ids_array = [str(user_id) for user_id in user_ids[1:]]
-        current_user_array = [str(user_ids[0])]
+        # print("combo_doc", combo_doc)
+        # print("combo_doc.exists", combo_doc.exists)
+        # users_array = [str(user_id) for user_id in user_ids]
+        # pending_ids_array = [str(user_id) for user_id in user_ids[1:]]
+        # current_user_array = [str(user_ids[0])]
 
-        update_data = {}
+        # update_data = {}
+        
+        if action == "create" and owner_id is not None:
 
-        if action == "create":
-            if pending_ids_array != []:
-                update_data["pending_users"] = firestore.ArrayUnion(pending_ids_array)
-                update_data["active_users"] = firestore.ArrayUnion(current_user_array)
-            else:
-                update_data["active_users"] = firestore.ArrayUnion(users_array)
+            owner_id= str(owner_id)
+            # if pending_ids_array != []:
+            print('user_ids', user_ids)
+            print('owener_id ',owner_id)
+            update_data= {"pending_users" : firestore.ArrayUnion(user_ids),"active_users" : firestore.ArrayUnion([owner_id])}
+                # update_data["active_users"] = firestore.ArrayUnion(current_user_array)
+            # else:
+                # update_data["active_users"] = firestore.ArrayUnion(users_array)
         elif action == "leave":
-            update_data["active_users"] = firestore.ArrayRemove(current_user_array)
+            update_data= {"active_users" : firestore.ArrayRemove(user_ids)}
+            # update_data["active_users"] = firestore.ArrayRemove(user_ids)
         elif action == "accept":
-            update_data["pending_users"] = firestore.ArrayRemove(pending_ids_array)
-            update_data["active_users"] = firestore.ArrayUnion(current_user_array)
+            update_data= {"pending_users" : firestore.ArrayRemove(user_ids)}
+            update_data= {"active_users" : firestore.ArrayRemove(user_ids)}
+
         elif action == "reject":
-            update_data["pending_users"] = firestore.ArrayRemove(pending_ids_array)
+            update_data= {"pending_users" : firestore.ArrayRemove(user_ids)}
+            
         elif action == "edit":
-            update_data["pending_users"] = firestore.ArrayUnion(users_array)
+            update_data= {"pending_users" : firestore.ArrayUnion(user_ids)}
+            
         else:
             raise Exception("Invalid action")
 
@@ -49,37 +63,43 @@ def update_combo(user_ids, combo_id, action):
             print("update_data,doc exists", update_data)
             combo_ref.update(update_data)
         else:
-            if action == "create":
+            if action == "create": #when creating new one
                 print("update_data, doc doesnt exist", update_data)
-                combo_ref.set(
-                    {
-                        "pending_users": pending_ids_array,
-                        "active_users": current_user_array,
-                    }
-                )
+                combo_ref.set(update_data)
+            else:
+                combo_ref.set({"active_users": [], "pending_users": []})
 
-        if action == "create":
-            message = (
-                f'Combo {combo_id} created with user {", ".join(current_user_array)}'
-            )
-        elif action == "leave":
-            message = f'User {", ".join(current_user_array)} left combo {combo_id}'
-        elif action == "accept":
-            message = f'User {", ".join(current_user_array)} accepted the invitation to combo {combo_id}'
-        elif action == "reject":
-            message = f'User {", ".join(pending_ids_array)} rejected the invitation to combo {combo_id}'
-        elif action == "edit":
-            message = f'Combo {combo_id} edited with users {", ".join(users_array)}'
-        else:
-            message = ""
+                
+                # combo_ref.set(
+                #     {
+                #         "pending_users": pending_ids_array,
+                #         "active_users": current_user_array,
+                #     }
+                # )
+
+        # if action == "create":
+        #     message = (
+        #         f'Combo {combo_id} created with user {", ".join(current_user_array)}'
+        #     )
+        # elif action == "leave":
+        #     message = f'User {", ".join(current_user_array)} left combo {combo_id}'
+        # elif action == "accept":
+        #     message = f'User {", ".join(current_user_array)} accepted the invitation to combo {combo_id}'
+        # elif action == "reject":
+        #     message = f'User {", ".join(pending_ids_array)} rejected the invitation to combo {combo_id}'
+        # elif action == "edit":
+        #     message = f'Combo {combo_id} edited with users {", ".join(users_array)}'
+        # else:
+        #     message = ""
 
         return Response(
             {
                 "status": "success",
-                "message": message,
+                "message": 'message',
             }
         )
     except Exception as e:
+        print(e)
         return Response({"status": "error", "message": str(e)})
 
 
