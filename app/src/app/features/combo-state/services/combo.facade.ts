@@ -31,6 +31,7 @@ export class ComboFacade implements OnDestroy {
       .pipe(
         tap(user => {
           if (user) {
+            if (user.type === 'seller') return;
             this.fetchCombos();
           } else {
             this.clearCombos();
@@ -78,7 +79,6 @@ export class ComboFacade implements OnDestroy {
       return this.setError(error);
     }
   }
-  
 
   @Dispatch()
   editCombo(data: any) {
