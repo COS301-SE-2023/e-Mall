@@ -25,7 +25,8 @@ const routes: Routes = [
 
   {
     path: 'home',
-    component: HomeComponent,
+    loadChildren: () =>
+      import('@app/features/home/home.module').then(m => m.HomeModule),
     canActivate: [baseGuard],
   },
   {
