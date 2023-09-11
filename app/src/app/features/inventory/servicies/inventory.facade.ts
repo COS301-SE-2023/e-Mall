@@ -34,10 +34,7 @@ export class InventoryFacade implements OnDestroy {
     InventoryActions.DeleteItem,
     InventoryActions.UpdateItems,
   ];
-  constructor(
-    private inventoryService: InventoryService,
-    
-  ) {
+  constructor(private inventoryService: InventoryService) {
     //this.loaderFacade.addActions(this.actions);
 
     this.queryTemp = {};
@@ -82,7 +79,7 @@ export class InventoryFacade implements OnDestroy {
         await this.inventoryService.updateProductSellerData(data),
       ];
     } catch (error) {
-      return this.setError(error); 
+      return this.setError(error);
     }
   }
   async removeItem(data: IInventoryItem) {
