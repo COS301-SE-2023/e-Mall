@@ -69,6 +69,7 @@ export class CreateCombo {
   static readonly type = '[Combo] Create Combo';
   constructor(
     public payload: {
+      current_user_email: string;
       combo_name: string;
       user_emails: string[];
       product_ids: number[];
