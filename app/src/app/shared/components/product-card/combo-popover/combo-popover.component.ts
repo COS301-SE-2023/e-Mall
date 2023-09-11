@@ -90,6 +90,7 @@ export class ComboPopoverComponent implements OnInit {
 
       // Create data object
       const data = {
+        current_user_email: this.userEmail,
         combo_name: newName,
         user_emails: useremailsarray,
         product_ids: [this.product.id], // You need to define 'this.product'

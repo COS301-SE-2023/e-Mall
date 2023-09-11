@@ -137,9 +137,9 @@ export class ComboState {
       id: newComboId,
       name: action.payload.combo_name,
       products: [action.payload.product],
-      active_emails: action.payload.user_emails.slice(0, 1),
+      active_emails: [action.payload.current_user_email],
       active_usernames: action.payload.username,
-      pending_users: action.payload.user_emails.slice(1),
+      pending_users: action.payload.user_emails,
     };
     ctx.setState(
       produce((draft: ComboStateModel) => {
