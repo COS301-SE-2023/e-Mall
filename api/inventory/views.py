@@ -192,7 +192,9 @@ def getSimilarProducts(request):
             # Sort similar products by similarity score
             similar_products.sort(key=lambda x: x[1], reverse=True)
 
-            return Response(similar_products)
+            # only show the name
+            similar_products = [product[0] for product in similar_products]
+            return Response(similar_products, status=status.HTTP_200_OK)
 
     except Exception as e:
         # handle other exceptions here
@@ -238,6 +240,7 @@ def createSimilarProduct(request):
     except Exception as e:
         # handle other exceptions here
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 @api_view(["POST"])
 def createNewProduct(self, request):
