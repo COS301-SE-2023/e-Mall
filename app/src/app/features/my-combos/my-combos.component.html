@@ -8,8 +8,8 @@
     <div class="combos-container">
       <h2>My Collections</h2>
       <div class="head">
-        <div class="invite-container">
-          <ion-card class="invite-card">
+        <div class="invite-container" *ngIf="comboInvites$ | async as comboInvites" >
+          <ion-card *ngIf="comboInvites?.length!==0" class="invite-card">
             <ion-card-header (click)="togglePanel(1)">
               <div class="invites">
                 <ion-card-title>Pending invitations</ion-card-title>
@@ -24,19 +24,27 @@
               </div>
             </ion-card-header>
             <ion-card-content [hidden]="!isPanelOpen[1]">
-              <ion-list>
-                <div > <!--loop through invites here-->
+              <ion-list >
+                <div *ngFor="let invite of comboInvites">
+                  <!--loop through invites here-->
                   <ion-item class="invite-info">
-                    <ion-label>invite</ion-label>
+                    <ion-label>{{ invite.name }}</ion-label>
                     <div class="invite-buttons">
-                    <ion-button >Accept</ion-button>
-                    <ion-button class="reject-button" >Reject</ion-button>
-                  </div>
+                      <ion-button (click)="AcceptFunction(invite.id)"
+                        >Accept</ion-button
+                      >
+                      <ion-button
+                        class="reject-button"
+                        (click)="RejectFunction(invite.id)"
+                        >Reject</ion-button
+                      >
+                    </div>
                   </ion-item>
                 </div>
               </ion-list>
             </ion-card-content>
           </ion-card>
+         
         </div>
       </div>
       <div class="combos">
