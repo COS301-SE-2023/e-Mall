@@ -1,6 +1,6 @@
 <div class="modal-container">
   <ion-item lines="none" class="modal-header-item">
-    <ion-text class="modal-header"> Edit Name </ion-text>
+    <ion-text class="modal-header">Invite</ion-text>
     <ion-button
       class="close-button"
       fill="clear"
@@ -16,11 +16,21 @@
       <!-- Wrap form elements in a formGroup -->
       <ion-list>
         <ion-item class="input">
-          <ion-label position="floating">Name:</ion-label>
+          <ion-label position="floating">Add Emails:</ion-label>
           <ion-input
-            (input)="onChange()"
-            formControlName="newName"
-            clearInput></ion-input>
+            formControlName="newEmails"
+            clearInput
+            (keyup.enter)="AddEmail()"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="addEmails?.length !== 0">
+          <ion-list>
+            <div *ngFor="let email of addEmails">
+              <ion-item>
+                <ion-label class="emails">{{ email }}</ion-label>
+              </ion-item>
+            </div>
+          </ion-list>
         </ion-item>
       </ion-list>
       <ion-button

@@ -9,6 +9,7 @@ import { CustomerProfileSidenavModule } from '@shared/components/customer-profil
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ComboEditModule } from './combo-edit/combo-edit.module';
 import { RouterModule, Routes } from '@angular/router';
+import { ComboInviteModule } from './combo-invite/combo-invite.module';
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
     MatProgressSpinnerModule,
     ProductCardModule,
     ComboEditModule,
+    ComboInviteModule,
     RouterModule.forChild(routes),
   ],
   exports:[RouterModule]

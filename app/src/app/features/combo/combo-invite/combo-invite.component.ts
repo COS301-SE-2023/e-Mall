@@ -9,11 +9,11 @@ import { NavParams } from '@ionic/angular';
 import { IProduct } from '@shared/models/product/product.interface';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 @Component({
-  selector: 'app-combo-edit',
-  templateUrl: './combo-edit.component.html',
-  styleUrls: ['./combo-edit.component.scss'],
+  selector: 'app-combo-invite',
+  templateUrl: './combo-invite.component.html',
+  styleUrls: ['./combo-invite.component.scss'],
 })
-export class ComboEditComponent implements OnInit {
+export class ComboInviteComponent implements OnInit {
   selectForm!: FormGroup;
   newForm!: FormGroup;
   newClicked: boolean = false;
@@ -21,7 +21,7 @@ export class ComboEditComponent implements OnInit {
   combo_id!: number;
   userEmail!: string;
   username!: string | undefined;
-  comboName!: string;
+  comboEmail!: string;
   isChanged = false;
   
   addEmails:string[]=[];
@@ -43,29 +43,38 @@ export class ComboEditComponent implements OnInit {
       }
     });
     this.combo_id = this.navParams.get('combo_id');
-    this.comboName = this.navParams.get('combo_name');
 
     this.selectForm = this.fb.group({
       selectedOptions: [[]],
     });
 
     this.newForm = this.fb.group({
-      newName: [this.comboName, Validators.required],
+      newEmails: ['', [Validators.email]],
     });
 
     this.comboFacade.getCombos().subscribe(data => {
       if (data) this.combos$ = of(data);
     });
   }
+  AddEmail() {
+    const newEmailsControl = this.newForm.get('newEmails');
+    if (newEmailsControl&&newEmailsControl.valid) {
+      this.addEmails.push(newEmailsControl.value);
+      newEmailsControl.reset();
+      this.isChanged = true;
+    }
+  }
   
 
   editCombo() {
     if (this.newForm.valid) {
-      const newName = this.newForm.value.newName;
 
+      const useremailsarray = this.addEmails;
+
+      // Create data object
       const data = {
         combo_id: this.navParams.get('combo_id'),
-        combo_name: newName,
+        user_emails: useremailsarray,
       };
 
       // Reset the form
