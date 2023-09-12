@@ -13,20 +13,22 @@
   </ion-item>
   <div class="content-container">
     <ng-container *ngIf="!nextClicked; else next">
+      
+      <form [formGroup]="nameForm">
       <ion-list class="newList">
         <ion-item class="input">
           <ion-label position="floating">Name:</ion-label>
           <ion-input formControlName="newName" clearInput></ion-input>
         </ion-item>
       </ion-list>
-      <form [formGroup]="selectForm">
+      
+    </form>
         <ion-item class="item-padding" lines="none"> </ion-item>
         <ion-item class="item-padding" lines="none">
           <ion-button mode="ios" color="primary" (click)="nextClick()">
             Next
           </ion-button>
         </ion-item>
-      </form>
     </ng-container>
 
     <ng-template #next>
