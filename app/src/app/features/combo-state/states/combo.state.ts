@@ -5,7 +5,7 @@ import * as ComboActions from './combo.actions';
 import produce from 'immer';
 import {
   SetCombos,
-  UpdateCombo,
+  InviteUsers,
   UpdateUsers,
   DeleteUser,
 } from './combo.actions';
@@ -38,27 +38,20 @@ export class ComboState {
     });
   }
 
-  @Action(UpdateCombo)
-  updateCombo(
+  @Action(InviteUsers)
+  inviteUsers(
     ctx: StateContext<ComboStateModel>,
-    action: ComboActions.UpdateCombo
+    action: ComboActions.InviteUsers
   ) {
     ctx.setState(
       produce((draft: ComboStateModel) => {
         if (draft.combos) {
           for (const combo of draft.combos) {
-            for (const id of action.payload.combo_ids)
-              if (combo.id === Number(id)) {
-                if (
-                  combo.products.find(
-                    product => product.id === action.payload.product.id
-                  )
-                ) {
-                  return;
-                } else {
-                  combo.products.push(action.payload.product);
-                }
+            if (combo.id === action.payload.combo_id) {
+              for (const email of action.payload.user_emails) {
+                combo.pending_users.push(email);
               }
+            }
           }
         }
       })
@@ -177,11 +170,6 @@ export class ComboState {
           for (const combo of draft.combos) {
             if (combo.id === action.payload.combo_id) {
               combo.name = action.payload.combo_name;
-              if (action.payload.user_emails[0] !== '') {
-                for (const email of action.payload.user_emails) {
-                  combo.pending_users.push(email);
-                }
-              }
             }
           }
         }

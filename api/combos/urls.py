@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (
     create,
-    update,
+    invite,
     delete,
     get,
     update_user,
@@ -12,7 +12,7 @@ from .views import (
 
 urlpatterns = [
     path("create/", create),
-    path("update/", update),
+    path("invite/", invite),
     path("delete/", delete),
     path("get/", get),
     path("update_user/", update_user),

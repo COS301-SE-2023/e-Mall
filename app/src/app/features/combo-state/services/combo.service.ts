@@ -36,8 +36,8 @@ export class ComboService {
     }
   }
 
-  async updateCombo(data: any): Promise<any> {
-    const url = `${this.apiUrl}update/`;
+  async inviteUsers(data: any): Promise<any> {
+    const url = `${this.apiUrl}invite/`;
 
     const res = await lastValueFrom(
       this.http

@@ -92,16 +92,11 @@ def update_user(request):
 
 
 @api_view(["POST"])
-def update(request):
+def invite(request):
     try:
         user = request.user
         combo_ids = request.data["combo_ids"]
-        if "combo_name" in request.data:
-            combo_name = request.data["combo_name"]
-        else:
-            combo_name = ""
-        product_id = request.data["product_id"]
-
+        user_emails = request.data["user_emails"]
         if user is None:
             raise Exception("User not found")
         if user.type == "seller":
@@ -110,10 +105,12 @@ def update(request):
             # update existing combo
             for id in combo_ids:
                 combo = Combos.objects.get(id=id)
-                combo.product_ids.append(product_id)
-                if combo_name != "":
-                    combo.combo_name = combo_name
+                combo.pending_emails.extend(user_emails)
                 combo.save()
+                # get user ids
+                users = Consumer.objects.filter(email__in=user_emails)
+                user_ids = [user.id for user in users]
+                update_combo(user_ids, combo.id, "invite")
         return Response({"success": "Combo updated successfully"})
     except Exception as e:
         # handle other exceptions here
@@ -156,15 +153,11 @@ def edit(request):
             # update existing combo
             combo = Combos.objects.get(id=combo_id)
             combo.combo_name = combo.combo_name
-            if user_emails[0] != "":
-                for email in user_emails:
-                    if email not in combo.pending_emails:
-                        combo.pending_emails.append(email)
             combo.save()
             # get user ids
             users = Consumer.objects.filter(email__in=combo.user_emails)
             user_ids = [user.id for user in users]
-            update_combo(user_ids, combo.id, "edit")
+            # update_combo(user_ids, combo.id, "edit")
         return Response({"success": "Combo edited successfully"})
     except Exception as e:
         # handle other exceptions here
