@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { Action, Actions, State, StateContext } from '@ngxs/store';
-import { ICombo } from '../models/combo.interface';
+import { ICombo, ICombo_invites } from '../models/combo.interface';
 import * as ComboActions from './combo.actions';
 import produce from 'immer';
 import {
@@ -15,12 +15,14 @@ import { ComboFacade } from '../services/combo.facade';
 
 export interface ComboStateModel {
   combos: ICombo[] | null;
+  combo_invites: ICombo_invites[] | null;
 }
 
 @State<ComboStateModel>({
   name: 'combo',
   defaults: {
     combos: [],
+    combo_invites: [],
   },
 })
 @Injectable()
@@ -30,7 +32,10 @@ export class ComboState {
     ctx: StateContext<ComboStateModel>,
     action: ComboActions.SetCombos
   ) {
-    ctx.setState({ combos: action.combos });
+    ctx.setState({
+      combos: action.payload.combos,
+      combo_invites: action.payload.combo_invites,
+    });
   }
 
   @Action(UpdateCombo)
@@ -89,15 +94,26 @@ export class ComboState {
       produce((draft: ComboStateModel) => {
         if (draft.combos) {
           const comboToUpdate = draft.combos.find(
-            combo => combo.id === action.payload.combo.id
+            combo => combo.id === action.payload.combo_id
           );
+          if (draft.combo_invites) {
+            draft.combo_invites = draft.combo_invites.filter(
+              invite => invite.id !== action.payload.combo_id
+            );
+          }
           if (comboToUpdate) {
-            // Update the active_usernames and pending_users arrays
-            comboToUpdate.active_usernames =
-              action.payload.combo.active_usernames ||
-              comboToUpdate.active_usernames;
-            comboToUpdate.pending_users =
-              action.payload.combo.pending_users || comboToUpdate.pending_users;
+            if (action.payload.action === 'Accept') {
+              // Update the active_usernames and pending_users arrays
+              comboToUpdate.active_usernames.push(action.payload.user_email);
+              //remove user from pending emails array
+              comboToUpdate.pending_users = comboToUpdate.pending_users.filter(
+                email => email !== action.payload.user_email
+              );
+            } else if (action.payload.action === 'Reject') {
+              comboToUpdate.pending_users = comboToUpdate.pending_users.filter(
+                email => email !== action.payload.user_email
+              );
+            }
           }
         }
       })

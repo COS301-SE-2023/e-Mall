@@ -24,14 +24,21 @@
               </div>
             </ion-card-header>
             <ion-card-content [hidden]="!isPanelOpen[1]">
-              <ion-list>
-                <div > <!--loop through invites here-->
+              <ion-list *ngIf="comboInvites$ | async as comboInvites">
+                <div *ngFor="let invite of comboInvites">
+                  <!--loop through invites here-->
                   <ion-item class="invite-info">
-                    <ion-label>invite</ion-label>
+                    <ion-label>{{ invite.name }}</ion-label>
                     <div class="invite-buttons">
-                    <ion-button >Accept</ion-button>
-                    <ion-button class="reject-button" >Reject</ion-button>
-                  </div>
+                      <ion-button (click)="AcceptFunction(invite.id)"
+                        >Accept</ion-button
+                      >
+                      <ion-button
+                        class="reject-button"
+                        (click)="RejectFunction(invite.id)"
+                        >Reject</ion-button
+                      >
+                    </div>
                   </ion-item>
                 </div>
               </ion-list>

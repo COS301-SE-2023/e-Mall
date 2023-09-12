@@ -1,9 +1,14 @@
 import { IProduct } from '@shared/models/product/product.interface';
-import { ICombo } from '../models/combo.interface';
+import { ICombo, ICombo_invites } from '../models/combo.interface';
 
 export class SetCombos {
   static readonly type = '[Combo] Set Combos';
-  constructor(public combos: ICombo[]) {}
+  constructor(
+    public payload: {
+      combos: ICombo[];
+      combo_invites: ICombo_invites[];
+    }
+  ) {}
 }
 
 export class UpdateCombo {
@@ -42,7 +47,9 @@ export class UpdateUsers {
   static readonly type = '[Combo] Update Users';
   constructor(
     public payload: {
-      combo: any;
+      combo_id: number;
+      user_email: string;
+      action: string;
     }
   ) {}
 }

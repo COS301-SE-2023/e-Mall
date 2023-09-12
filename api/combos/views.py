@@ -43,7 +43,7 @@ def create(request):
             users = Consumer.objects.filter(email__in=combo.pending_emails)
             user_ids = [target_user.id for target_user in users]
             print(user_ids)
-            update_combo(user_ids, combo.id, "create",owner_id=user.id )
+            update_combo(user_ids, combo.id, "create", owner_id=user.id)
         return Response({"success": "Combo created successfully"})
     except Exception as e:
         # handle other exceptions here
@@ -232,6 +232,34 @@ def get(request):
 
             return Response({"combos": combo_data})
 
+    except Exception as e:
+        # handle other exceptions here
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(["POST"])
+def getInvites(request):
+    try:
+        user = request.user
+        if user is None:
+            raise Exception("User not found")
+        if user.type == "seller":
+            raise Exception("Seller cannot access combos")
+        if user.type == "consumer":
+            # Get all combos for the user where the user is pending
+            combos = Combos.objects.filter(pending_emails__contains=[user.email])
+
+            combo_data = []
+            for combo in combos:
+                # add id and name to combo_data
+                combo_data.append(
+                    {
+                        "id": combo.id,
+                        "name": combo.combo_name,
+                    }
+                )
+
+            return Response({"combos": combo_data})
     except Exception as e:
         # handle other exceptions here
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

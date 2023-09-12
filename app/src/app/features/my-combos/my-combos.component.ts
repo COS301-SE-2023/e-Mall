@@ -3,7 +3,10 @@ import { Router, NavigationExtras } from '@angular/router';
 import { ProfileFacade } from '../profile/services/profile.facade';
 import { ISellerProfile } from '../profile/models/seller-profile.interface';
 import { IConsumerProfile } from '../profile/models/consumer-profile.interface';
-import { ICombo } from '@features/combo-state/models/combo.interface';
+import {
+  ICombo,
+  ICombo_invites,
+} from '@features/combo-state/models/combo.interface';
 import { ComboFacade } from '@features/combo-state/services/combo.facade';
 import { Observable, Subscription, map, of } from 'rxjs';
 import { EmailValidator, FormControl, FormGroup } from '@angular/forms';
@@ -29,7 +32,8 @@ export class MyCombosComponent implements OnInit, OnDestroy {
   email!: string;
   private routeSubscription: Subscription = new Subscription();
   imgs: string[] = [];
-  wishlistImages: string[] = []
+  wishlistImages: string[] = [];
+  comboInvites$!: Observable<ICombo_invites[] | null>;
   isPanelOpen: { [key: number]: boolean } = {};
   constructor(
     private router: Router,
@@ -47,6 +51,7 @@ export class MyCombosComponent implements OnInit, OnDestroy {
     });
     this.collage();
     this.wishlistCollage();
+    this.invites();
   }
 
   ngAfterViewInit(): void {
@@ -75,7 +80,6 @@ export class MyCombosComponent implements OnInit, OnDestroy {
     this.router.navigate(['/construction']);
   }
 
-  
   goToWishlist() {
     this.router.navigate(['/wishlist']);
   }
@@ -131,8 +135,7 @@ export class MyCombosComponent implements OnInit, OnDestroy {
     );
   }
 
-
-  wishlistCollage(){
+  wishlistCollage() {
     this.consumerService.getConsumerInfo(this.email).subscribe(data => {
       for (let i = 0; i < 4; i++) {
         this.wishlistImages[i] = 'assets/images/logo-black-no-bg.png';
@@ -146,4 +149,35 @@ export class MyCombosComponent implements OnInit, OnDestroy {
       });
     });
   }
+
+  invites() {
+    this.comboFacade.getCombos_invites().subscribe(data => {
+      if (data) {
+        this.comboInvites$ = of(data);
+      }
+    });
+  }
+  AcceptFunction(combo_id: number) {
+    const data = {
+      combo_id: combo_id,
+      user_email: this.email,
+      action: 'Accept',
+    };
+    this.comboFacade.updateUsers(data);
+    window.location.reload();
+  }
+  RejectFunction(combo_id: number) {
+    const data = {
+      combo_id: combo_id,
+      user_email: this.email,
+      action: 'Reject',
+    };
+    this.comboFacade.updateUsers(data);
+    window.location.reload();
+  }
 }
+
+// what frameworks am i familar with
+// recent trends in software development
+// what i use to keep up tp date software
+// what main goal in software engineering an
