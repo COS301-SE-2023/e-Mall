@@ -1,12 +1,18 @@
 from firebase_admin import firestore
 from rest_framework.response import Response
-
+from .message_template import *
 # Initialize Firebase
 db = firestore.client()
 user_collection = "users"
 product_collection = "products"
 combo_collection = "combos"
-message_types = ["user", "query", "wishlist", "follower","combo"]
+# message_types = ["user", "query", "wishlist", "follower","combo"]
+message_types = {
+    'user': ['general', 'alert', 'query'],
+    'wishlist': ['price_alert'],
+    'follower': ['new_follower', 'update'],
+    'combo': ['create','edit', 'accept','reject','leave']
+}
 user_logs_collection = "logs"  # sent to user
 follower_logs_collection = "follower_logs"  # sent to followers
 combo_logs_collection = "combo_logs"  # sent to followers
@@ -21,6 +27,7 @@ combo_logs_collection = "combo_logs"  # sent to followers
 
 def update_combo(user_ids, combo_id, action, owner_id= None):
     try:
+        print(user_ids,combo_id,action)
         if not all([user_ids, combo_id, action]):
             raise Exception("Missing required parameters")
         user_ids = [str(user_id) for user_id in user_ids]
@@ -32,6 +39,7 @@ def update_combo(user_ids, combo_id, action, owner_id= None):
         if action == "create" and owner_id is not None:
             owner_id= str(owner_id)
             update_data= {"pending_users" : firestore.ArrayUnion(user_ids),"active_users" : firestore.ArrayUnion([owner_id])}
+            send_message(target_doc_id=combo_id, sender_id=owner_id, target_user_ids=user_ids,message_type="combo",action=action,template_name="COMBO_INVITE")
         elif action == "leave":
             update_data= {"active_users" : firestore.ArrayRemove(user_ids)}
         elif action == "accept":
@@ -103,49 +111,51 @@ def update_wishlist(user_id, product_id, action):
         return {"status": "error", "message": str(e)}
 
 
-def send_message(data):
+def send_message(params= None,target_doc_id=None, sender_id=None, target_user_ids=None, message_type= None,action=None,template_name=None ):
     try:
+        if(params is not None):
+            target_doc_id = params['target_doc_id']
+            sender_id = params['sender_id']
+            target_user_ids= params['target_users_ids']
+            message_type= params['message_type']
+            action= params['action']
+            template_name= params['template']
+        
+        if None in [target_doc_id, sender_id, target_user_ids, message_type, action,template_name]:
+            raise ValueError("One or more parameters are None")              
+        
+        if (message_type not in message_types) or (action not in message_types[message_type]):
+            raise Exception("invalid type or action")
+        
         main_collection_name = user_collection
-        target_id = data.get("target")
-        msg_type = data.get("message_type")
-        image = data.get("image")
-        message = data.get("message")
-        title = data.get("title")
-        sender= str(data.user.id)
-        target= str(target_id) 
-                
-        data = {
-            "image": image,
-            "is_read": False,
-            "message": message,
-            "message_type": msg_type,
-            "timestamp": firestore.SERVER_TIMESTAMP,
-            "title": title,
-            "sender": sender,
-            "target": target
-        }
-
-        if msg_type not in message_types:
-            raise Exception("invalid parameter")
-
         sub_collection_name = user_logs_collection
         
+        data=templates[template_name].copy()
+        
+        data.update({
+            "is_read": False,
+            "action": action,
+            "timestamp": firestore.SERVER_TIMESTAMP,
+            "sender": sender_id,
+            "targets": target_user_ids 
+        })
+
         #new follower, follwing seller has new update
-        if msg_type == "follower": 
+        if message_type == "follower": 
             sub_collection_name = follower_logs_collection
         
         #new follwing product has new update
-        elif msg_type == "wishlist":
+        elif message_type == "wishlist":
             main_collection_name = product_collection
         
         #update on active user list, new pending user
-        elif msg_type == "combo":
+        elif message_type == "combo":
             main_collection_name = combo_collection
             sub_collection_name= combo_logs_collection
             
         doc_ref = (
             db.collection(main_collection_name)
-            .document(target_id)
+            .document(target_doc_id)
             .collection(sub_collection_name)
             .document()
         )
