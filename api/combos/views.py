@@ -95,7 +95,7 @@ def update_user(request):
 def invite(request):
     try:
         user = request.user
-        combo_ids = request.data["combo_ids"]
+        combo_id = request.data["combo_id"]
         user_emails = request.data["user_emails"]
         if user is None:
             raise Exception("User not found")
@@ -103,14 +103,13 @@ def invite(request):
             raise Exception("Seller cannot create combos")
         if user.type == "consumer":
             # update existing combo
-            for id in combo_ids:
-                combo = Combos.objects.get(id=id)
-                combo.pending_emails.extend(user_emails)
-                combo.save()
-                # get user ids
-                users = Consumer.objects.filter(email__in=user_emails)
-                user_ids = [user.id for user in users]
-                update_combo(user_ids, combo.id, "invite")
+            combo = Combos.objects.get(id=combo_id)
+            combo.pending_emails.extend(user_emails)
+            combo.save()
+            # get user ids
+            users = Consumer.objects.filter(email__in=user_emails)
+            user_ids = [user.id for user in users]
+            update_combo(user_ids, combo.id, "invite")
         return Response({"success": "Combo updated successfully"})
     except Exception as e:
         # handle other exceptions here
@@ -257,12 +256,13 @@ def getInvites(request):
         # handle other exceptions here
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
 @api_view(["POST"])
 def addProduct(request):
     try:
-        user=request.user
-        combo_ids=request.data["combo_ids"]
-        product_id= request.data["product_id"]
+        user = request.user
+        combo_ids = request.data["combo_ids"]
+        product_id = request.data["product_id"]
         if user is None:
             raise Exception("User not found")
         if user.type == "seller":
@@ -280,4 +280,3 @@ def addProduct(request):
     except Exception as e:
         # handle other exceptions here
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    

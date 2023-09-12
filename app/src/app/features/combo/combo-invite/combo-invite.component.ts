@@ -86,7 +86,7 @@ export class ComboInviteComponent implements OnInit {
   }
 
   updateCombo(data: any) {
-    this.comboFacade.editCombo(data);
+    this.comboFacade.inviteUsers(data);
     this.closePopover();
   }
 
