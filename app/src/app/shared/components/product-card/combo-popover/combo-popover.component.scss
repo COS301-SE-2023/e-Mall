@@ -121,7 +121,12 @@ ion-modal .modal-wrapper {
   
 
   
- .input {
-  width: 80%;
-
- }
+  .input {
+    width: 80%;
+    ion-button {
+      border-radius: 16px;
+      --background: #37d0d6;
+      --color: #ffffff;
+      box-shadow: 0px 20px 50px 0px rgba(55, 69, 87, 0.1);
+    }
+  }
