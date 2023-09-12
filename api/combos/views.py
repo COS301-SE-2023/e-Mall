@@ -256,3 +256,28 @@ def getInvites(request):
     except Exception as e:
         # handle other exceptions here
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(["POST"])
+def addProduct(request):
+    try:
+        user=request.user
+        combo_ids=request.data["combo_ids"]
+        product_id= request.data["product_id"]
+        if user is None:
+            raise Exception("User not found")
+        if user.type == "seller":
+            raise Exception("Seller cannot access combos")
+        if user.type == "consumer":
+            for id in combo_ids:
+                combo = Combos.objects.get(id=id)
+                combo.product_ids.append(product_id)
+                combo.save()
+                # get user ids
+                users = Consumer.objects.filter(email__in=combo.user_emails)
+                user_ids = [user.id for user in users]
+                update_combo(user_ids, combo.id, "edit")
+            return Response({"success": "Product added to combo successfully"})
+    except Exception as e:
+        # handle other exceptions here
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    

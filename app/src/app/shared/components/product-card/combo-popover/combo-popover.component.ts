@@ -135,7 +135,7 @@ export class ComboPopoverComponent implements OnInit {
   }
 
   updateCombo(data: any) {
-    this.comboFacade.updateCombo(data);
+    this.comboFacade.addProduct(data);
   }
 
   addCombo(data: any) {

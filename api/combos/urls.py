@@ -8,6 +8,7 @@ from .views import (
     edit,
     removeProduct,
     getInvites,
+    addProduct,
 )
 
 urlpatterns = [
@@ -19,4 +20,5 @@ urlpatterns = [
     path("edit/", edit),
     path("remove_product/", removeProduct),
     path("get_invites/", getInvites),
+    path("add_product/", addProduct),
 ]

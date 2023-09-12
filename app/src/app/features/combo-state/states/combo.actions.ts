@@ -21,6 +21,17 @@ export class InviteUsers {
   ) {}
 }
 
+export class AddProduct {
+  static readonly type = '[Combo] Add Product';
+  constructor(
+    public payload: {
+      combo_ids: number[];
+      product_id: number;
+      product: IProduct;
+    }
+  ) {}
+}
+
 export class RemoveProductFromCombo {
   static readonly type = '[Combo] Remove Product From Combo';
   constructor(

@@ -78,6 +78,24 @@ export class ComboState {
     );
   }
 
+  @Action(ComboActions.AddProduct)
+  AddProduct(
+    ctx: StateContext<ComboStateModel>,
+    action: ComboActions.AddProduct
+  ) {
+    ctx.setState(
+      produce((draft: ComboStateModel) => {
+        if (draft.combos) {
+          for (const combo of draft.combos) {
+            if (action.payload.combo_ids.includes(combo.id)) {
+              combo.products.push(action.payload.product);
+            }
+          }
+        }
+      })
+    );
+  }
+
   @Action(UpdateUsers)
   updateUsers(
     ctx: StateContext<ComboStateModel>,
