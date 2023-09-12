@@ -7,47 +7,50 @@ exports.userNotification = functions
     .onCreate(async (snap, context) => {
       try {
         const data = snap.data();
-        if (data.message_type !== "wishlist") {
-          const title = data.title;
-          const body = data.message;
-          const image = data.image ? data.image : "";
-          const isRead = data.is_read;
-          const timestamp = data.timestamp;
-          const unixTimestamp = timestamp.toMillis();
-          const sender = data.sender;
-          const target = data.target;
-          // Get the device token from the parent document
-          const parentRef = snap.ref.parent.parent;
-          const parentDoc = await parentRef.get();
-          const deviceToken = parentDoc.data().device_token;
+        const title = data.title;
+        const body = data.message;
+        const image = data.image ? data.image : "";
+        // const isRead = data.is_read;
+        // const timestamp = data.timestamp;
+        // const unixTimestamp = timestamp.toMillis();
+        // const sender = data.sender;
+        // const target = data.receiver;
 
-          if (deviceToken && deviceToken !== "") {
-            // Create the notification payload
-            const message = {
-              notification: {
-                title: title,
-                body: body,
-                image: image,
-              },
-              data: {
-                id: data.id,
-                is_read: isRead.toString(),
-                timestamp: unixTimestamp.toString(),
-                type: data.message_type,
-                sender: sender,
-                target: target,
-              },
-              token: deviceToken,
-            };
-
-            // Send the notification
-            return admin.messaging().send(message);
-          } else {
-            return null;
-          }
+        const payload = {
+          id: data.id,
+          sender: data.sender,
+          action: data.action,
+          is_read: data.is_read,
+          timestamp: data.timestamp,
+          doc: data.doc,
+          message_type: data.message_type,
+        };
+        // Get the device token from the parent document
+        const parentRef = snap.ref.parent.parent;
+        const parentDoc = await parentRef.get();
+        const deviceToken = parentDoc.data().device_token;
+        if (deviceToken && deviceToken !== "") {
+          // Create the notification payload
+          const message = {
+            notification: {
+              title: title,
+              body: body,
+              image: image,
+            },
+            data: {
+              data: JSON.stringify(payload),
+            },
+            token: deviceToken,
+          };
+          console.log(message);
+          // Send the notification
+          return admin.messaging().send(message);
+        } else {
+          return null;
         }
       } catch (error) {
         console.error("Error sending notification:", error);
         throw error;// or handle the error as you see fit
       }
     });
+

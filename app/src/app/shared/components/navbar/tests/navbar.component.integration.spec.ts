@@ -22,7 +22,7 @@ import { AuthState } from '@app/features/auth/states/auth.state';
 import { NgxsModule } from '@ngxs/store';
 import { ProfileModule } from '@features/profile/profile.module';
 import { DropdownPopoverComponent } from '@shared/components/dropdown-popover/dropdown-popover.component';
-import { NotificationModule } from '@app/features/notification/notification.module';
+// import { NotificationModule } from '@app/features/notification/notification.module';
 
 describe('NavbarComponentIntegration', () => {
   let component: NavbarComponent;
@@ -58,7 +58,7 @@ describe('NavbarComponentIntegration', () => {
         IonicModule,
         AuthModule,
         ProfileModule,
-        NotificationModule,
+        // NotificationModule,
       ],
       declarations: [NavbarComponent],
       providers: [

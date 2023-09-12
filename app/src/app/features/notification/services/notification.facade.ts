@@ -18,7 +18,10 @@ import * as NotificationActions from '../states/notification.action';
 import { IUser } from '../../auth/models/user.interface';
 import { Select } from '@ngxs/store';
 import { NotificationSelectors } from '../states/notification.selector';
-import { transformMessage } from '../utils/transformMessage';
+import {
+  transformMessage,
+  transformNewMessage,
+} from '../utils/transformMessage';
 @Injectable()
 export class NotificationFacade implements OnDestroy {
   @Select(NotificationSelectors.getUnreadCount)
@@ -37,6 +40,7 @@ export class NotificationFacade implements OnDestroy {
   authSubs = new Subscription();
   isMenuOpen$ = new BehaviorSubject<boolean>(false);
   isInitial = true;
+  isLoading = new BehaviorSubject<boolean>(true);
   token = '';
   constructor(
     private notificationService: NotificationService,
@@ -79,12 +83,13 @@ export class NotificationFacade implements OnDestroy {
         console.log('Listening for messages');
         if (message) {
           console.log(message);
-          const payload = transformMessage(message);
+          const payload = transformNewMessage(message);
           this.newNotification(payload);
         }
       });
   }
   async getNotifications() {
+    this.isLoading.next(true);
     if (this.isInitial) {
       this.isInitial = false;
       const lastNotificationId = await firstValueFrom(this.lastNotification$);
@@ -97,10 +102,13 @@ export class NotificationFacade implements OnDestroy {
       }
       this.updateNotificationList(tmp_list, res.has_next);
     }
+    this.isLoading.next(false);
   }
 
   async loadMoreNotifications() {
     try {
+      this.isLoading.next(true);
+
       const hasNext = await firstValueFrom(this.hasNext$);
 
       if (hasNext) {
@@ -114,6 +122,8 @@ export class NotificationFacade implements OnDestroy {
         }
         this.updateNotificationList(tmp_list, res.has_next);
       }
+      this.isLoading.next(false);
+
       return null;
     } catch (error) {
       return this.setError(error);

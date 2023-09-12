@@ -1,6 +1,5 @@
 from django.shortcuts import render
 import string
-from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
@@ -12,7 +11,9 @@ from user.models import User
 from consumer.models import Consumer
 from consumer.serializers import ConsumerSerializer
 from notification.utils import update_combo
-
+from notification.messaging.templates import ComboTemplate
+from notification.messaging.types import MessageUser, MessageType
+from notification.messaging.messages import Message
 
 # Create your views here.
 
@@ -40,13 +41,35 @@ def create(request):
             combo.save()
             # send notification to all users
             # get user ids
+
+            # build data for message
             users = Consumer.objects.filter(email__in=combo.pending_emails)
-            user_ids = [target_user.id for target_user in users]
-            print(user_ids)
-            update_combo(user_ids, combo.id, "create",owner_id=user.id )
+            receiver = [
+                MessageUser(target_user.id, target_user.username, image="")
+                for target_user in users
+            ]
+            doc = MessageUser(combo.id, combo.combo_name, "")
+            sender = MessageUser(user.id, user.username, "")
+            combo_template = ComboTemplate()
+            params = {
+                "action": MessageType.Combo.CREATE,
+                "template": combo_template.invite,
+                "doc": doc,
+                "sender": sender,
+                "receiver": receiver,
+            }
+
+            Message(**params).send_to_combo()
+
+            # # user_ids = [target_user.id for target_user in users]
+            # print(user_data)
+            # combo_data= {combo.id, combo.name}
+            # owner_data= {user.id,user.username}
+            # update_combo(user_data, combo_data, "create",owner_data )
+
         return Response({"success": "Combo created successfully"})
     except Exception as e:
-        # handle other exceptions here
+        print(e)
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 

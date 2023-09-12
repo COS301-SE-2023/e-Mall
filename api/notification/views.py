@@ -4,12 +4,13 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .swagger.decorator import *
 from rest_framework import status
+
 # Initialize Firebase
 db = firestore.client()
 user_collection = "users"
 product_collection = "products"
 combo_collection = "combos"
-message_types = ["user", "query", "wishlist", "follower","combo"]
+message_types = ["user", "query", "wishlist", "follower", "combo"]
 user_logs_collection = "logs"  # sent to user
 follower_logs_collection = "follower_logs"  # sent to followers
 combo_logs_collection = "combo_logs"  # sent to followers
@@ -22,12 +23,14 @@ def send_message_api(request):
         main_collection_name = user_collection
         target_id = request.data.get("target")
         msg_type = request.data.get("message_type")
-        image = request.data.get("image") if request.data.get("image") is not None else ""
+        image = (
+            request.data.get("image") if request.data.get("image") is not None else ""
+        )
         message = request.data.get("message")
         title = request.data.get("title")
 
-        sender= str(request.user.id)
-        target= str(target_id)
+        sender = str(request.user.id)
+        target = str(target_id)
 
         data = {
             "image": image,
@@ -37,25 +40,25 @@ def send_message_api(request):
             "timestamp": firestore.SERVER_TIMESTAMP,
             "title": title,
             "sender": sender,
-            "target": target
+            "target": target,
         }
         if msg_type not in message_types:
             raise Exception("invalid parameter")
 
         sub_collection_name = user_logs_collection
-        
-        #new follower, follwing seller has new update
-        if msg_type == "follower": 
+
+        # new follower, follwing seller has new update
+        if msg_type == "follower":
             sub_collection_name = follower_logs_collection
-        
-        #new follwing product has new update
+
+        # new follwing product has new update
         elif msg_type == "wishlist":
             main_collection_name = product_collection
-        
-        #update on active user list, new pending user
+
+        # update on active user list, new pending user
         elif msg_type == "combo":
             main_collection_name = combo_collection
-            sub_collection_name= combo_logs_collection
+            sub_collection_name = combo_logs_collection
 
         doc_ref = (
             db.collection(main_collection_name)
@@ -64,14 +67,15 @@ def send_message_api(request):
             .document()
         )
         doc_id = doc_ref.id
-        data['id']= doc_id
-
+        data["id"] = doc_id
 
         doc_ref.set(data)
 
         return Response({"status": "success"})
     except Exception as e:
-        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 @delete_decorator
@@ -80,14 +84,16 @@ def delete(request):
     try:
         user_id = str(request.user.id)
         log_id = request.data.get("notification_id")
-        if(log_id is None):
-            raise Exception('notification_id is required')
+        if log_id is None:
+            raise Exception("notification_id is required")
         db.collection(user_collection).document(user_id).collection(
             user_logs_collection
         ).document(log_id).delete()
         return Response({"status": "success"})
     except Exception as e:
-        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 @delete_all_decorator
@@ -108,7 +114,9 @@ def delete_all(request):
         batch.commit()
         return Response({"status": "success"})
     except Exception as e:
-        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 @read_decorator
@@ -117,15 +125,17 @@ def read(request):
     try:
         user_id = str(request.user.id)
         log_id = request.data.get("notification_id")
-        if(log_id is None):
-            raise Exception('notification_id is required')
+        if log_id is None:
+            raise Exception("notification_id is required")
         db.collection(user_collection).document(user_id).collection(
             user_logs_collection
         ).document(log_id).update({"is_read": True})
         return Response({"status": "success"})
     except Exception as e:
         print(e)
-        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 @read_all_decorator
@@ -147,12 +157,14 @@ def read_all(request):
         batch.commit()
         return Response({"status": "success"})
     except Exception as e:
-        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 @get_decorator
 @api_view(["POST"])
-def get(request, page_size= 15):
+def get(request, page_size=15):
     try:
         user_id = str(request.user.id)
         start_after = request.data.get("notification_id")
@@ -185,9 +197,14 @@ def get(request, page_size= 15):
                     "image": doc.to_dict()["image"],
                 },
                 "data": {
-                    "id": doc.id,
-                    "is_read": doc.to_dict()["is_read"],
-                    "timestamp": doc.to_dict()["timestamp"],
+                    **{
+                        k: v
+                        for k, v in doc.to_dict().items()
+                        if k not in ["targets", "title", "message", "image"]
+                    },
+                    # "id": doc.id,
+                    # "is_read": doc.to_dict()["is_read"],
+                    # "timestamp": doc.to_dict()["timestamp"],
                 },
             }
             for doc in docs
@@ -215,7 +232,9 @@ def get(request, page_size= 15):
         }
         return Response(response_data)
     except Exception as e:
-        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 @update_device_token_decorator
@@ -239,8 +258,10 @@ def update_device_token(request):
         return Response(
             {"status": "success", "message": "Device token updated successfully"}
         )
-    except Exception as e:        
-        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return Response(
+            {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 @update_settings_decorator
@@ -256,9 +277,11 @@ def update_settings(request):
             settings = {field: True for field in valid_fields}
 
         for field in settings:
-            if field not in valid_fields :
+            if field not in valid_fields:
                 raise Exception(f"Invalid field or value: {field}={settings[field]}")
-            elif isinstance(settings[field],str) and (settings[field].lower() not in ["true", "false"]):                
+            elif isinstance(settings[field], str) and (
+                settings[field].lower() not in ["true", "false"]
+            ):
                 raise Exception(f"Invalid value: {field}={settings[field]}")
 
         user_ref.set({"settings": settings}, merge=True)
@@ -266,7 +289,9 @@ def update_settings(request):
             {"status": "success", "message": "Settings updated successfully"}
         )
     except Exception as e:
-        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 @count_unread_notifications_decorator
@@ -287,4 +312,6 @@ def count_unread_notifications(request):
         }
         return Response(response_data)
     except Exception as e:
-        return Response({"status": "error", "message": str(e)},status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
+        )

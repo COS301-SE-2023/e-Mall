@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DatePipe } from '@angular/common';
 import { INotification } from '../models/notification.interface';
+import { INotificationUser } from '../models/notification-user.interface';
 
 export function transformMessage(message: any): INotification {
   let message_time = null;
@@ -26,9 +27,23 @@ export function transformMessage(message: any): INotification {
   } else if (message.data.is_read) {
     is_read = true;
   }
+  const sender: INotificationUser = {
+    id: message.data.sender.id,
+    name: message.data.sender.name,
+    image: message.data.sender.image,
+  };
+  const doc: INotificationUser = {
+    id: message.data.doc.id,
+    name: message.data.doc.name,
+    image: message.data.doc.image,
+  };
   return {
     id: message.data.id,
     is_read: is_read,
+    action: message.data.id,
+    message_type: message.data.message_type,
+    sender: message.data.sender,
+    doc: message.data.doc,
     timestamp: message.data.timestamp,
     timestamp_locale: readable_time,
     notification: {
@@ -38,6 +53,69 @@ export function transformMessage(message: any): INotification {
           ? ''
           : message.notification.body,
       image: message.notification.image,
+    },
+  };
+}
+export function transformNewMessage(message: any): INotification {
+  let message_time = null;
+  let readable_time = null;
+  const data = JSON.parse(message.data.data);
+  console.log('data ', data);
+  const timestamp = data.timestamp;
+  console.log(timestamp);
+  const unixTimestamp =
+    timestamp._seconds * 1000 + timestamp._nanoseconds / 1000000;
+  let timeStampBeforeConversion = '';
+  if (unixTimestamp != null) {
+    if (isNaN(Number(unixTimestamp))) {
+      message_time = new Date(unixTimestamp);
+    } else {
+      message_time = new Date(Number(unixTimestamp));
+      timeStampBeforeConversion = message_time.toISOString();
+    }
+    readable_time = new DatePipe('en-ZA').transform(
+      message_time,
+      'yyyy-MM-dd HH:mm:ss'
+    );
+  }
+  let is_read = false;
+  if (typeof data.is_read === 'string') {
+    const isReadString = data.is_read.toLowerCase();
+    if (isReadString === 'true') {
+      is_read = true;
+    }
+  } else if (data.is_read) {
+    is_read = true;
+  }
+  const sender: INotificationUser = {
+    id: data.sender.id,
+    name: data.sender.name,
+    image: data.sender.image,
+  };
+  const doc: INotificationUser = {
+    id: data.doc.id,
+    name: data.doc.name,
+    image: data.doc.image,
+  };
+  return {
+    id: data.id,
+    is_read: is_read,
+    sender: sender,
+    doc: doc,
+    message_type: data.message_type,
+    action: data.action,
+    timestamp: timeStampBeforeConversion,
+    timestamp_locale: readable_time,
+    notification: {
+      title: message.notification.title,
+      body:
+        message.notification.body === undefined
+          ? ''
+          : message.notification.body,
+      image:
+        message.notification.image === undefined
+          ? ''
+          : message.notification.image,
     },
   };
 }
