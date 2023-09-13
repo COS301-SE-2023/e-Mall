@@ -1,6 +1,8 @@
 from firebase_admin import firestore
 from rest_framework.response import Response
 from .messaging.templates import *
+from .messaging.types import *
+from .messaging.messages import Message
 
 # Initialize Firebase
 db = firestore.client()

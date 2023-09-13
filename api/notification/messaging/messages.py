@@ -8,23 +8,29 @@ db = firestore.client()
 
 
 class Message:
-    def __init__(self, action, template, doc, sender, receiver):
-        if not isinstance(doc, MessageUser):
-            raise Exception("Invalid document")
-        sender = sender.to_dict()
-        receiver = [
-            user.to_dict() for user in receiver if isinstance(user, MessageUser)
-        ]
+    def __init__(self, action, template, doc, sender, receivers):
+        try:
+            doc = MessageUser(doc)
+            sender = MessageUser(sender)
+            receiver = [MessageUser(target_user) for target_user in receivers]
+            if not isinstance(doc, MessageUser):
+                raise Exception("Invalid document")
+            sender = sender.to_dict()
+            receiver = [
+                user.to_dict() for user in receiver if isinstance(user, MessageUser)
+            ]
 
-        self.message_type = MessageType.get_type(action)
-        self.action = action
-        self.template_data = template.getData()
+            self.message_type = MessageType.get_type(action)
+            self.action = action
+            self.template_data = template.getData()
 
-        self.doc = doc
-        self.sender = sender
-        self.receiver = receiver
+            self.doc = doc
+            self.sender = sender
+            self.receiver = receiver
 
-        self.validate()
+            self.validate()
+        except Exception as e:
+            print(e)
 
     def validate(self):
         if None in [
@@ -53,7 +59,6 @@ class Message:
     def send(self, main, doc_id, sub):
         try:
             data = self.template_data
-            print(1)
             data.update(
                 {
                     "doc": self.doc.to_dict(),
@@ -65,7 +70,6 @@ class Message:
                     "targets": self.receiver,
                 }
             )
-            print(2)
 
             doc_ref = (
                 db.collection(main).document(str(doc_id)).collection(sub).document()
@@ -73,7 +77,6 @@ class Message:
             new_doc_id = doc_ref.id
             data["id"] = new_doc_id
             doc_ref.set(data)
-            print(3, main, str(doc_id), sub, new_doc_id)
 
             return {"status": "success"}
         except Exception as e:

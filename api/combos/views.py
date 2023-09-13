@@ -31,7 +31,6 @@ def create(request):
             raise Exception("Seller cannot create combos")
         if user.type == "consumer":
             # add to db
-
             combo = Combos(
                 combo_name=combo_name,
                 user_emails=[user.email],
@@ -39,33 +38,19 @@ def create(request):
                 pending_emails=pending_emails,
             )
             combo.save()
-            # send notification to all users
-            # get user ids
 
             # build data for message
             users = Consumer.objects.filter(email__in=combo.pending_emails)
-            receiver = [
-                MessageUser(target_user.id, target_user.username, image="")
-                for target_user in users
-            ]
-            doc = MessageUser(combo.id, combo.combo_name, "")
-            sender = MessageUser(user.id, user.username, "")
             combo_template = ComboTemplate()
             params = {
                 "action": MessageType.Combo.CREATE,
                 "template": combo_template.invite,
-                "doc": doc,
-                "sender": sender,
-                "receiver": receiver,
+                "doc": combo,
+                "sender": user,
+                "receivers": users,
             }
 
             Message(**params).send_to_combo()
-
-            # # user_ids = [target_user.id for target_user in users]
-            # print(user_data)
-            # combo_data= {combo.id, combo.name}
-            # owner_data= {user.id,user.username}
-            # update_combo(user_data, combo_data, "create",owner_data )
 
         return Response({"success": "Combo created successfully"})
     except Exception as e:
@@ -88,10 +73,21 @@ def update_user(request):
                 # remove user email from pending emails and add to user emails
                 combo = Combos.objects.get(id=combo_id)
                 if user.email in combo.pending_emails:
+                    # build data for message
+                    users = Consumer.objects.filter(email__in=combo.user_emails)
+                    combo_template = ComboTemplate()
+                    params = {
+                        "action": MessageType.Combo.ACCEPT,
+                        "template": combo_template.accept,
+                        "doc": combo,
+                        "sender": user,
+                        "receivers": users,
+                    }
+                    Message(**params).send_to_combo()
+
                     combo.pending_emails.remove(user.email)
                     combo.user_emails.append(user.email)
                     combo.save()
-                    update_combo([user.id], combo.id, "accept")
                     return Response({"success": "User added to Combo successfully"})
 
             if action == "Reject":
@@ -129,10 +125,19 @@ def invite(request):
             combo = Combos.objects.get(id=combo_id)
             combo.pending_emails.extend(user_emails)
             combo.save()
-            # get user ids
+            # build data for message
             users = Consumer.objects.filter(email__in=user_emails)
-            user_ids = [user.id for user in users]
-            update_combo(user_ids, combo.id, "invite")
+            combo_template = ComboTemplate()
+            params = {
+                "action": MessageType.Combo.INVITE,
+                "template": combo_template.invite,
+                "doc": combo,
+                "sender": user,
+                "receivers": users,
+            }
+            Message(**params).send_to_combo()
+            # user_ids = [user.id for user in users]
+            # update_combo(user_ids, combo.id, "invite")
         return Response({"success": "Combo updated successfully"})
     except Exception as e:
         # handle other exceptions here
