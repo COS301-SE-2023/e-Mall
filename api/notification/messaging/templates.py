@@ -29,6 +29,12 @@ class ComboTemplate(MessageTemplate):
         self.message = "[sender] has left from [combo]"
         self.title = "User left from [combo]"
         return self
+    
+    @property
+    def add(self):
+        self.message = "[sender] has added a product to [combo]"
+        self.title = "User added a product to [combo]"
+        return self
 
 
 class UserTemplate(MessageTemplate):

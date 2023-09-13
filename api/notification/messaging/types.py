@@ -21,6 +21,7 @@ class MessageType:
         REJECT = "reject"
         LEAVE = "leave"
         INVITE = "invite"
+        ADD = "add"
 
     @staticmethod
     def get_type(variable):

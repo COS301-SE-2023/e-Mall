@@ -101,6 +101,7 @@ def update_user(request):
                         combo.pending_emails.remove(user.email)
                         combo.save()
                         update_combo([user.id], combo.id, "reject")
+
                     return Response(
                         {"success": "User removed from pending emails successfully"}
                     )
@@ -136,8 +137,6 @@ def invite(request):
                 "receivers": users,
             }
             Message(**params).send_to_combo()
-            # user_ids = [user.id for user in users]
-            # update_combo(user_ids, combo.id, "invite")
         return Response({"success": "Combo updated successfully"})
     except Exception as e:
         # handle other exceptions here
@@ -212,6 +211,18 @@ def delete(request):
                 combo.user_emails.remove(user.email)
                 combo.save()
                 update_combo([user.id], combo.id, "leave")
+                # build data for message
+                users = Consumer.objects.filter(email__in=combo.user_emails)
+                combo_template = ComboTemplate()
+                params = {
+                    "action": MessageType.Combo.LEAVE,
+                    "template": combo_template.leave,
+                    "doc": combo,
+                    "sender": user,
+                    "receivers": users,
+                }
+
+                Message(**params).send_to_combo()
                 return Response({"success": "User removed from Combo successfully"})
             else:
                 raise Exception("User not found in Combo")
@@ -300,10 +311,19 @@ def addProduct(request):
                 combo = Combos.objects.get(id=id)
                 combo.product_ids.append(product_id)
                 combo.save()
-                # get user ids
-                users = Consumer.objects.filter(email__in=combo.user_emails)
-                user_ids = [user.id for user in users]
-                update_combo(user_ids, combo.id, "edit")
+                # build data for message
+                user_emails = combo.user_emails
+                user_emails.remove(user.email)
+                users = Consumer.objects.filter(email__in=user_emails)
+                combo_template = ComboTemplate()
+                params = {
+                    "action": MessageType.Combo.ADD,
+                    "template": combo_template.add,
+                    "doc": combo,
+                    "sender": user,
+                    "receivers": users,
+                }
+                Message(**params).send_to_combo()
             return Response({"success": "Product added to combo successfully"})
     except Exception as e:
         # handle other exceptions here
