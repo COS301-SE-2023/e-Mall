@@ -5,7 +5,7 @@
       <app-customer-profile-sidenav [profile]="{ username: profile.username }">
       </app-customer-profile-sidenav>
     </div>
-    
+
     <div class="wishlist-container1" *ngIf="(products$ | async)?.length === 0">
       <h2>My Wishlist</h2>
 
@@ -47,13 +47,8 @@
           </div>
           <ng-container *ngIf="products$ | async as products">
             <div *ngIf="!showSpinner">
-            <h2>My Wishlist</h2>
-            <div class="row" style="grid-auto-rows: auto">
-              <div
-                class="col-md-3 col-12"
-                style="grid-auto-columns: auto; min-width: 300px"
-                *ngFor="let product of products; let i = index">
-                <app-product-card [product]="product"></app-product-card>
+              <h2>My Wishlist</h2>
+              <div class="row" style="grid-auto-rows: auto">
                 <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
                 <div
                   class="col-md-3 col-12"
@@ -73,10 +68,35 @@
                 </div>
               </div>
             </div>
-            </div>
           </ng-container>
         </div>
       </div>
+    </div>
+    <div class="collection-cards" *ngIf="comboData$ | async as combos">
+      <ion-card class="collection-card">
+        <ion-card-header>
+          <ion-card-title>My Collections</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <ion-item
+              [routerLink]="['/wishlist']"
+              routerLinkActive="active"
+              class="nav-item">
+              <ion-label>Wishlist</ion-label>
+            </ion-item>
+            <div *ngFor="let combo of combos">
+              <ion-item
+                [routerLink]="['/combo']"
+                [queryParams]="{ combo_id: combo.id }"
+                routerLinkActive="active"
+                class="nav-item">
+                <ion-label>{{ combo.name }}</ion-label>
+              </ion-item>
+            </div>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
     </div>
   </div>
 </ion-content>
