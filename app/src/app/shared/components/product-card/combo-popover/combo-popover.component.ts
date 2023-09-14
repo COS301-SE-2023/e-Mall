@@ -66,6 +66,10 @@ export class ComboPopoverComponent implements OnInit {
     this.newClicked = true;
   }
 
+  removeEmail(email: string) {
+    this.addEmails = this.addEmails.filter(e => e !== email);
+  }
+
   addEmailToArray() {
     // Get the "newEmails" form control
     const newEmailsControl = this.newForm.get('newEmails');
@@ -134,6 +138,17 @@ export class ComboPopoverComponent implements OnInit {
 
       // Call your 'addCombo' function with 'data'
       this.addCombo(data);
+    } else {
+      this.toastController
+        .create({
+          header: 'An error has occurred:',
+          message: 'Please enter a name for your combo',
+          duration: 2000,
+          cssClass: 'error-toast',
+        })
+        .then(toast => {
+          toast.present();
+        });
     }
   }
 

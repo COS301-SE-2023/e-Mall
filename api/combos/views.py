@@ -169,8 +169,7 @@ def edit(request):
     try:
         user = request.user
         combo_id = request.data["combo_id"]
-        # combo_name = request.data["combo_name"]
-        user_emails = request.data["user_emails"]
+        combo_name = request.data["combo_name"]
         if user is None:
             raise Exception("User not found")
         if user.type == "seller":
@@ -178,12 +177,8 @@ def edit(request):
         if user.type == "consumer":
             # update existing combo
             combo = Combos.objects.get(id=combo_id)
-            combo.combo_name = combo.combo_name
+            combo.combo_name = combo_name
             combo.save()
-            # get user ids
-            users = Consumer.objects.filter(email__in=combo.user_emails)
-            user_ids = [user.id for user in users]
-            # update_combo(user_ids, combo.id, "edit")
         return Response({"success": "Combo edited successfully"})
     except Exception as e:
         # handle other exceptions here

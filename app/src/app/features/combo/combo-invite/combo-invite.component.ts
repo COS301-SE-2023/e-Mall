@@ -129,4 +129,10 @@ export class ComboInviteComponent implements OnInit {
   onChange() {
     this.isChanged = true;
   }
+  removeEmail(email: string) {
+    this.addEmails = this.addEmails.filter(e => e !== email);
+    if (this.addEmails.length == 0) {
+      this.isChanged = false;
+    }
+  }
 }

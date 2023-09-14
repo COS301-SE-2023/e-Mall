@@ -60,12 +60,11 @@
               formControlName="newEmails"
               clearInput
               (keyup.enter)="addEmailToArray()"></ion-input>
-            <ion-button
-              mode="ios"
-              (click)="addEmailToArray()"
-              clear
-              slot="end">
-              <ion-icon name="add"></ion-icon>
+            <ion-button slot="end">
+              <ion-icon
+                name="add"
+                (click)="addEmailToArray()"
+                style="cursor: pointer; pointer-events: auto"></ion-icon>
             </ion-button>
           </ion-item>
           <ion-item *ngIf="addEmails?.length !== 0" class="email">
@@ -73,6 +72,11 @@
               <div *ngFor="let email of addEmails">
                 <ion-item class="email">
                   <ion-label class="emails">{{ email }}</ion-label>
+                  <ion-icon
+                    name="close-outline"
+                    slot="end"
+                    (click)="removeEmail(email)"
+                    style="cursor: pointer; pointer-events: auto"></ion-icon>
                 </ion-item>
               </div>
             </ion-list>
