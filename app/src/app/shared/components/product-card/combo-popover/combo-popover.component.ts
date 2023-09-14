@@ -10,6 +10,7 @@ import { IProduct } from '@shared/models/product/product.interface';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 import { ToastController } from '@ionic/angular';
+import { WishlistFacade } from '@app/features/wishlist/wishlist-state/services/wishlist.facade';
 
 @Component({
   selector: 'app-combo-popover',
@@ -35,7 +36,8 @@ export class ComboPopoverComponent implements OnInit {
     private navParams: NavParams,
     private profileFacade: ProfileFacade,
     private analytics: AnalyticsService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private wishlistFacade: WishlistFacade
   ) {}
 
   ngOnInit() {
@@ -156,7 +158,7 @@ export class ComboPopoverComponent implements OnInit {
     if (this.selectForm.valid) {
       if (this.selectForm.value.selectedOptions[0] == 'wishlist') {
         this.favClickAnalytics();
-        this.profileFacade.toggleWishlist(this.product.id);
+        this.wishlistFacade.addProductToWishlist(this.product);
 
         if (this.selectForm.value.selectedOptions.length > 1) {
           const options = this.selectForm.value.selectedOptions.slice(1);

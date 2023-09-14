@@ -244,3 +244,23 @@ def createTables(predictions_data):
     df = predictions_df.pivot(index="product", columns="user_email", values="value")
     df1 = df.copy()
     return df, df1
+
+
+@api_view(["POST"])
+def getWishlistedProducts(request):
+    try:
+        user = request.user
+        if user is None:
+            raise Exception("User not found")
+        if user.type == "seller":
+            raise Exception("Seller cannot have wishlist")
+        else:
+            consumer = Consumer.objects.get(email=user.email)
+            wishlisted_products = Product.objects.filter(
+                id__in=consumer.wishlist
+            ).order_by("-created_at")
+            serializer = ProductSerializer(wishlisted_products, many=True)
+            return Response(serializer.data)
+    except Exception as e:
+        # handle other exceptions here
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
