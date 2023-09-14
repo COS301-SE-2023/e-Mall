@@ -9,6 +9,7 @@ import { NavParams } from '@ionic/angular';
 import { IProduct } from '@shared/models/product/product.interface';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-combo-popover',
@@ -33,7 +34,8 @@ export class ComboPopoverComponent implements OnInit {
     private comboFacade: ComboFacade,
     private navParams: NavParams,
     private profileFacade: ProfileFacade,
-    private analytics: AnalyticsService
+    private analytics: AnalyticsService,
+    private toastController: ToastController
   ) {}
 
   ngOnInit() {
@@ -64,16 +66,45 @@ export class ComboPopoverComponent implements OnInit {
     this.newClicked = true;
   }
 
-  createNewComboAndClearInput() {
+  addEmailToArray() {
     // Get the "newEmails" form control
-    console.log('enter');
     const newEmailsControl = this.newForm.get('newEmails');
-
     // Check if the control exists and is not null or undefined
     if (newEmailsControl && newEmailsControl.valid) {
-      console.log('here');
       // Push the value from the form control to your array (assuming "addEmails" is an array)
-      this.addEmails.push(newEmailsControl.value);
+      if (newEmailsControl.value == this.userEmail) {
+        //throw toast error message
+        this.toastController
+          .create({
+            header: 'An error has occurred:',
+            message: 'You cannot add your own email',
+            duration: 2000,
+            cssClass: 'error-toast',
+          })
+          .then(toast => {
+            toast.present();
+          });
+        newEmailsControl.reset();
+        return;
+      } else if (
+        newEmailsControl.value == '' ||
+        newEmailsControl.value == null
+      ) {
+        this.toastController
+          .create({
+            header: 'An error has occurred:',
+            message: 'Please enter an email',
+            duration: 2000,
+            cssClass: 'error-toast',
+          })
+          .then(toast => {
+            toast.present();
+          });
+        newEmailsControl.reset();
+        return;
+      } else {
+        this.addEmails.push(newEmailsControl.value);
+      }
 
       // Reset the "newEmails" form control to clear the input field
       newEmailsControl.reset();

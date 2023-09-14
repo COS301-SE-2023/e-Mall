@@ -8,6 +8,7 @@ import { Observable, of } from 'rxjs';
 import { NavParams } from '@ionic/angular';
 import { IProduct } from '@shared/models/product/product.interface';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
+import { ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-combo-invite',
   templateUrl: './combo-invite.component.html',
@@ -23,8 +24,8 @@ export class ComboInviteComponent implements OnInit {
   username!: string | undefined;
   comboEmail!: string;
   isChanged = false;
-  
-  addEmails:string[]=[];
+
+  addEmails: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -32,7 +33,8 @@ export class ComboInviteComponent implements OnInit {
     private modalController: ModalController,
     private comboFacade: ComboFacade,
     private navParams: NavParams,
-    private profileFacade: ProfileFacade
+    private profileFacade: ProfileFacade,
+    private toastController: ToastController
   ) {}
 
   ngOnInit() {
@@ -58,17 +60,47 @@ export class ComboInviteComponent implements OnInit {
   }
   AddEmail() {
     const newEmailsControl = this.newForm.get('newEmails');
-    if (newEmailsControl&&newEmailsControl.valid) {
-      this.addEmails.push(newEmailsControl.value);
+    if (newEmailsControl && newEmailsControl.valid) {
+      if (newEmailsControl.value == this.userEmail) {
+        //throw toast error message
+        this.toastController
+          .create({
+            header: 'An error has occurred:',
+            message: 'You cannot add your own email',
+            duration: 2000,
+            cssClass: 'error-toast',
+          })
+          .then(toast => {
+            toast.present();
+          });
+        newEmailsControl.reset();
+        return;
+      } else if (
+        newEmailsControl.value == '' ||
+        newEmailsControl.value == null
+      ) {
+        this.toastController
+          .create({
+            header: 'An error has occurred:',
+            message: 'Please enter an email',
+            duration: 2000,
+            cssClass: 'error-toast',
+          })
+          .then(toast => {
+            toast.present();
+          });
+        newEmailsControl.reset();
+        return;
+      } else {
+        this.addEmails.push(newEmailsControl.value);
+      }
       newEmailsControl.reset();
       this.isChanged = true;
     }
   }
-  
 
   editCombo() {
     if (this.newForm.valid) {
-
       const useremailsarray = this.addEmails;
 
       // Create data object
@@ -97,5 +129,4 @@ export class ComboInviteComponent implements OnInit {
   onChange() {
     this.isChanged = true;
   }
-
 }

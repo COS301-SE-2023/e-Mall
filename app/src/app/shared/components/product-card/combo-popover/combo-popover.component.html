@@ -59,10 +59,10 @@
             <ion-input
               formControlName="newEmails"
               clearInput
-              (keyup.enter)="createNewComboAndClearInput()"></ion-input>
+              (keyup.enter)="addEmailToArray()"></ion-input>
             <ion-button
               mode="ios"
-              (click)="createNewComboAndClearInput()"
+              (click)="addEmailToArray()"
               clear
               slot="end">
               <ion-icon name="add"></ion-icon>
