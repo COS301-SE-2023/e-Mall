@@ -3,9 +3,17 @@
   display: flex;
   min-height: fit-content;
   //min-width: 1448px;
-  padding: 25px 45px;
+  padding: 25px 10px;
   flex-direction: column;
   align-items: flex-start; 
+  box-sizing: border-box;
+}
+
+@media (min-width: 1448px) {
+  .body {
+    min-width: 1448px;
+    padding: 25px 45px;
+  }
 }
 
 .top {
@@ -88,7 +96,7 @@ min-width: 150px;
 
 .search-results{
   margin-top: 1rem;
-  min-width: 1300px;
+ // min-width: 1300px;
   padding: 10px;
   // margin-right: 0.5rem;
 }
@@ -178,6 +186,10 @@ ion-range {
   .filter-menu {
     display: block !important; /* Use !important to override Angular's styles */
   }
+
+  .dropdown{
+    display: block !important;
+  }
   
   /* Hide the filter button */
   .filter-button {
@@ -191,9 +203,27 @@ ion-range {
     display: none !important; /* Use !important to override Angular's styles */
   }
 
+  .dropdown{
+    display: none !important;
+  }
+
   /* Show the filter button */
   .filter-button {
-    display: inline-block;
+    display: inline-block !important;
     /* Add styling for the button as needed */
   }
+
+  /*
+  .top {
+    flex-direction: column; /* Stack elements vertically on smaller screens 
+    align-items: flex-start;
+  }
+
+  .toptxt {
+    align-items: flex-start;
+  }
+
+  .dropdown {
+    margin-top: 1rem; /* Add some space between elements 
+  }*/
 }
