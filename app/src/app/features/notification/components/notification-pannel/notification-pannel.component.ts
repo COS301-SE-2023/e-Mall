@@ -88,11 +88,19 @@ export class NotificationPannelComponent implements OnDestroy {
     await this.notificationFacade.readAll();
   }
   async deleteAll() {
+    if (this.opendAccordionNotification !== undefined) {
+      this.notificationFacade.markReadInState(
+        this.opendAccordionNotification.id
+      );
+    }
     await this.notificationFacade.deleteAll();
     this.cdr.markForCheck();
   }
   readPrevClicked() {
     this.read(this.opendAccordionNotification);
     this.opendAccordionNotification = undefined;
+  }
+  async refresh() {
+    await this.notificationFacade.refresh();
   }
 }

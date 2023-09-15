@@ -64,6 +64,19 @@
                 name="trash-outline"></ion-icon>
               Delete all</ion-button
             >
+
+            <ion-button
+              fill="clear"
+              size="small"
+              mode="ios"
+              color="secondary"
+              (click)="refresh()">
+              <ion-icon
+                style="font-size: 1rem"
+                slot="start"
+                name="reload-outline"></ion-icon>
+              Refresh</ion-button
+            >
           </div>
           <ion-accordion-group
             (ionChange)="onIonChange($event)"
