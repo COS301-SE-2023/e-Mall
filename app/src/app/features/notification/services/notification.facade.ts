@@ -138,6 +138,16 @@ export class NotificationFacade implements OnDestroy {
       return this.setError(error);
     }
   }
+  async delete(id: string) {
+    try {
+      console.log(id);
+      this.deleteInState(id);
+      const res = await this.notificationService.delete(id);
+      return res;
+    } catch (error) {
+      return this.setError(error);
+    }
+  }
 
   async signOut() {
     // Delete the FCM registration token
@@ -172,10 +182,25 @@ export class NotificationFacade implements OnDestroy {
       return this.setError(error);
     }
   }
+  async refresh() {
+    try {
+      this.resetNotifications();
+      this.isInitial = true;
+      this.getUnreadCount();
+      this.getNotifications();
+      // return res;
+    } catch (error) {
+      this.setError(error);
+    }
+  }
 
   @Dispatch()
   markReadInState(id: string) {
     return new NotificationActions.Read(id);
+  }
+  @Dispatch()
+  deleteInState(id: string) {
+    return new NotificationActions.Delete(id);
   }
   @Dispatch()
   deleteAllState() {

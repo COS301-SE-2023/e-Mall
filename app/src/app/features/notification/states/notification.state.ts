@@ -166,7 +166,8 @@ export class NotificationState {
               draft.unread_count = 0;
               draft.last_notification = null;
             } else {
-              draft.last_notification = draft.notifications[-1].id;
+              draft.last_notification =
+                draft.notifications[draft.notifications.length - 1].id;
             }
           }
         }

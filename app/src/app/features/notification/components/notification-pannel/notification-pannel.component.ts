@@ -95,4 +95,7 @@ export class NotificationPannelComponent implements OnDestroy {
     this.read(this.opendAccordionNotification);
     this.opendAccordionNotification = undefined;
   }
+  async refresh() {
+    await this.notificationFacade.refresh();
+  }
 }

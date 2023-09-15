@@ -1,6 +1,19 @@
 <ion-card mode="md">
   <ion-card-header
-    style="border-bottom: 0.5px solid rgba(190, 190, 190, 0.541)">
+    style="
+      border-bottom: 0.5px solid rgba(190, 190, 190, 0.541);
+      position: relative;
+    ">
+    <div style="position: absolute; right: 0; top: 0">
+      <ion-button
+        slot="end"
+        fill="clear"
+        mode="ios"
+        style="color: grey"
+        (click)="delete(item.id)">
+        <ion-icon size="small" name="close-outline"></ion-icon>
+      </ion-button>
+    </div>
     <ion-label position="stacked">Title</ion-label>
     <ion-card-title style="font-size: medium">
       {{ item.notification.title }}

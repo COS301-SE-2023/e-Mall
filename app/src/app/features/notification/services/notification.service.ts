@@ -74,8 +74,23 @@ export class NotificationService {
     );
   }
   async read(id: string) {
-    console.log('read in service', id);
     const url = `${this.apiUrl}read/`;
+    return await firstValueFrom(
+      this.http.post(
+        url,
+        {
+          notification_id: id,
+        },
+        {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+        }
+      )
+    );
+  }
+  async delete(id: string) {
+    const url = `${this.apiUrl}delete/`;
     return await firstValueFrom(
       this.http.post(
         url,
