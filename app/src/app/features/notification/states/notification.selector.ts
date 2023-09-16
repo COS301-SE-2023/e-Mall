@@ -4,6 +4,7 @@ import {
   NotificationStateModel,
 } from './notification.state';
 import { INotification } from '../models/notification.interface';
+import { INotificationSettings } from '../models/notification-settings.interface';
 
 export class NotificationSelectors {
   @Selector([NotificationState])
@@ -31,5 +32,11 @@ export class NotificationSelectors {
   @Selector([NotificationState])
   static hasNext(state: NotificationStateModel): boolean {
     return state.has_next;
+  }
+  @Selector([NotificationState])
+  static getNotificationSettings(
+    state: NotificationStateModel
+  ): INotificationSettings {
+    return state.settings;
   }
 }

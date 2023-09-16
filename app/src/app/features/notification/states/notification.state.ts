@@ -3,6 +3,7 @@ import { Action, State, StateContext } from '@ngxs/store';
 import { INotification } from '../models/notification.interface';
 import * as NotificationActions from './notification.action';
 import produce from 'immer';
+import { INotificationSettings } from '../models/notification-settings.interface';
 
 export interface NotificationStateModel {
   token: string | null;
@@ -11,6 +12,7 @@ export interface NotificationStateModel {
   count: number;
   last_notification: string | null;
   unread_count: number;
+  settings: INotificationSettings;
 }
 
 @State<NotificationStateModel>({
@@ -22,6 +24,12 @@ export interface NotificationStateModel {
     last_notification: null,
     count: 0,
     unread_count: 0,
+    settings: {
+      all: false,
+      following: false,
+      general: false,
+      wishlist: false,
+    },
   },
 })
 @Injectable()
@@ -38,6 +46,12 @@ export class NotificationState {
       last_notification: null,
       count: 0,
       unread_count: 0,
+      settings: {
+        all: false,
+        following: false,
+        general: false,
+        wishlist: false,
+      },
     });
   }
 
@@ -50,6 +64,12 @@ export class NotificationState {
       last_notification: null,
       count: 0,
       unread_count: 0,
+      settings: {
+        all: false,
+        following: false,
+        general: false,
+        wishlist: false,
+      },
     });
   }
   @Action(NotificationActions.Update)
@@ -197,6 +217,20 @@ export class NotificationState {
           });
           draft.unread_count = 0;
         }
+      })
+    );
+  }
+  @Action(NotificationActions.updateSettings)
+  updateSettings(
+    ctx: StateContext<NotificationStateModel>,
+    action: NotificationActions.updateSettings
+  ) {
+    ctx.setState(
+      produce(draft => {
+        draft.settings.all = action.settings.all;
+        draft.settings.general = action.settings.general;
+        draft.settings.following = action.settings.following;
+        draft.settings.wishlist = action.settings.wishlist;
       })
     );
   }

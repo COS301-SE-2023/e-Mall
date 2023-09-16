@@ -10,6 +10,7 @@ import { NotificationPannelComponent } from './components/notification-pannel/no
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NotificationCardComponent } from './components/notification-card/notification-card.component';
 import { SettingsPannelComponent } from './components/settings-pannel/settings-pannel.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     NotificationComponent,
