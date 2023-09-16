@@ -148,8 +148,26 @@ swiper-slide {
 a {
   color: var(--ion-color-primary-shade);
 }
+.row{
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Align items vertically in the center */
+  justify-content: center; /* Space the items evenly along the row */
+  background-color: white;
+}
+.carousel-control-next-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='red' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+}
 
-.row {
+.carousel-control-prev-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='red' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+}
+.product-card {
+  flex: 1; /* Adjust the flex property to control width of each product card */
+  padding: 0%;
+  width: min-content;
+}
+.row1 {
   min-width: 100%;
   display: flex;
   flex-direction: row;
