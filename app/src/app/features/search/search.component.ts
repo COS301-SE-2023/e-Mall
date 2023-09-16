@@ -8,6 +8,8 @@ import { Observable, of } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthFacade } from '@features/auth/services/auth.facade';
+import { FilterModalComponent } from './components/filter-modal/filter-modal.component';
+import { ModalController } from '@ionic/angular';
 interface RangeValue {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any;
@@ -53,7 +55,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     private productService: ProductService,
     private router: Router,
     private analytics: AnalyticsService,
-    private authFacade: AuthFacade
+    private authFacade: AuthFacade,
+    private modalController: ModalController
   ) {
     this.priceRangeGroup = new FormGroup({
       lower: new FormControl(0),
@@ -304,4 +307,12 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.maxPrice = upper;
     }
   }
+
+  async openModal() {
+    const modal = await this.modalController.create({
+      component: FilterModalComponent,
+    });
+    return await modal.present();
+  }
+
 }

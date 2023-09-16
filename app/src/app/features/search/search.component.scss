@@ -39,7 +39,7 @@
   align-items: flex-end;
 }
 .dropbtn{
-min-width: 150px;
+  max-width: 150px;
 }
 .dropdown-menu {
   top: 100%;
@@ -177,7 +177,7 @@ ion-range {
 }
 
 /* Initially hide the filter button */
-.filter-button {
+.filter-button-container {
   display: none;
 }
 
@@ -192,9 +192,16 @@ ion-range {
   }
   
   /* Hide the filter button */
-  .filter-button {
+  .filter-button-container{
     display: none;
   }
+
+  //.search-results{
+  //  margin-top: 1rem;
+  //  min-width: 1300px;
+  //  padding: 10px;
+  //  // margin-right: 0.5rem;
+  //}
 }
 
 /* Show the filter button when the screen size is smaller */
@@ -208,10 +215,17 @@ ion-range {
   }
 
   /* Show the filter button */
-  .filter-button {
+  .filter-button-container {
     display: inline-block !important;
     /* Add styling for the button as needed */
   }
+
+  //.search-results{
+  //  margin-top: 1rem;
+  //  min-width: 0px;
+  //  padding: 10px;
+  //  // margin-right: 0.5rem;
+  //}
 
   /*
   .top {
@@ -227,3 +241,15 @@ ion-range {
     margin-top: 1rem; /* Add some space between elements 
   }*/
 }
+
+.filter-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+  text-align: center; /* Center text horizontally */
+}
+
+.label {
+  margin-bottom: 8px; /* Add spacing between label and button */
+}
+

@@ -141,11 +141,16 @@
               <!-- ... -->
             </mat-expansion-panel>
           </mat-accordion>
-          <button class="filter-button">Filter</button>
+          <div class="filter-button-container">
+            <h3 class="label">Filter</h3>
+            <ion-button class="filter-button" (click)="openModal()"> 
+              <ion-icon name="options-outline"></ion-icon>
+            </ion-button>  
+          </div>
 
           <!--products-->
 
-          <div class="product-card">
+          <div class="product-card"> 
             <!--<div
               style="
                 display: flex;
