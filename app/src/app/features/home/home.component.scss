@@ -95,8 +95,52 @@ swiper-slide {
   }
 }
 
-
 .carousel-control-next-icon,
 .carousel-control-prev-icon {
-   filter: invert(1);
+  filter: invert(1);
+}
+
+
+.cat-container {
+  min-height: 100%;
+  min-width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 5%;
+  background-color: var(--ion-color-primary);
+}
+.cat-title {
+  width: 40%;
+  display: flex;
+  justify-self: flex-start;
+  justify-content: center;
+}
+.bubble-container{
+  width: 60%;
+  justify-self: flex-end;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.category-bubble {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--ion-color-secondary); /*background color for the bubbles */
+  color: #ffffff; /* text color to white */
+  border-radius: 20px;
+  padding: 8px 16px; /* Add padding to adjust the size of the bubble */
+  margin: 8px; /* spacing between bubbles */
+  cursor: pointer;
+  white-space: nowrap; /* Prevent category text from wrapping to the next line #2c3e50 */
+}
+
+/* Hover effect */
+.category-bubble:hover {
+  background-color: #37d0d6;
+}
+
+.selected {
+  background-color: #37d0d6; /* Apply your desired style for selected elements */
+  /* Add any other styles you want for selected elements */
 }
