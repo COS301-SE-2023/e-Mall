@@ -36,7 +36,7 @@ h3 {
 }
 
 .overlay-button {
- margin-top: 1%;
+  margin-top: 1%;
   border: none;
   cursor: pointer;
   z-index: 99;
@@ -98,7 +98,6 @@ swiper-slide {
   filter: invert(1);
 }
 
-
 .cat-container {
   min-height: 100%;
   width: 100%;
@@ -113,7 +112,7 @@ swiper-slide {
   justify-self: flex-start;
   justify-content: center;
 }
-.bubble-container{
+.bubble-container {
   width: 60%;
   justify-self: flex-end;
   display: flex;
@@ -124,7 +123,9 @@ swiper-slide {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--ion-color-secondary); /*background color for the bubbles */
+  background-color: var(
+    --ion-color-secondary
+  ); /*background color for the bubbles */
   color: #ffffff; /* text color to white */
   border-radius: 20px;
   padding: 8px 16px; /* Add padding to adjust the size of the bubble */
@@ -143,56 +144,64 @@ swiper-slide {
   /* Add any other styles you want for selected elements */
 }
 
-  a{
-    color: var( --ion-color-primary-shade);
-  }
+a {
+  color: var(--ion-color-primary-shade);
+}
 
+.row {
+  min-width: 100%;
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+}
 
-  .row {
-    min-width: 100%;
+.side-pannel {
+  background: linear-gradient(
+    180deg,
+    #19b2b8 99.99%,
+    rgba(25, 178, 184, 0) 100%
+  );
+  align-items: center;
+  text-align: center;
+  width: 50%;
+  display: block;
+  justify-self: flex-start;
+  justify-content: center;
+  padding-bottom: 2%;
+}
+.side-pannel2 {
+  display: flex;
+  align-items: flex-start;
+  text-align: center;
+  width: 50%;
+  justify-content: flex-start;
+  padding: 2%;
+  padding-left: 5%;
+  flex-wrap: wrap;
+  .top-prod {
     display: flex;
-    flex-direction: row;
-    background-color: white;
-
-  }
-  
-
-  .side-pannel {
-    background: linear-gradient(180deg, #19B2B8 99.99%, rgba(25, 178, 184, 0.00) 100%);
+    width: 100%;
     align-items: center;
     text-align: center;
-    width: 50%;
-    display: block;
-    justify-self: flex-start;
     justify-content: center;
-    padding-bottom: 2%
   }
-  .side-pannel2 {
-    display: flex;
-    align-items: flex-start;
-    text-align: center;
-    width: 50%;
-    justify-content: flex-start;
-    padding: 2%;
-    padding-left: 5%
-  }
-  
-  .welcome-header {
-    color: var(--ion-color-text);
-    margin-bottom: 2rem;
-  }
-  .welcome-header-accent {
-    color: var(--ion-color-text-contrast);
-  }
-  .welcome-footer {
-    color: var(--ion-color-text);
-  }
-  
-  #logo {
-    height: 16rem;
-    width: auto;
-    margin: auto;
-    display: block;
-    margin-bottom: 2rem;
-  }
-  
+}
+
+.welcome-header {
+  color: var(--ion-color-text);
+  margin-bottom: 2rem;
+}
+.welcome-header-accent {
+  color: var(--ion-color-text-contrast);
+}
+.welcome-footer {
+  color: var(--ion-color-text);
+}
+
+#logo {
+  height: 16rem;
+  width: auto;
+  margin: auto;
+  display: block;
+  margin-bottom: 2rem;
+}

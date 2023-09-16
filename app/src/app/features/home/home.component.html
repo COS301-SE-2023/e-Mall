@@ -3,23 +3,33 @@
 <ion-content class="global-ion-content">
   <div class="ion-content-wrapper">
     <div class="row">
-    <div class="side-pannel">
-      <ion-img
-      id="logo"
-      src="assets/images/logo.png"
-      alt="E-Mall"></ion-img>
+      <div class="side-pannel">
+        <ion-img id="logo" src="assets/images/logo.png" alt="E-Mall"></ion-img>
 
-    <h3 class="welcome-footer">
-      Discover<br />Compare<br />Shop<br />E-Mall Has It All!
-    </h3>
-    <ion-button class="overlay-button" (click)="onAllClick()">
-      More About Us
-    </ion-button>
-    </div>
-    <div class="side-pannel2">
-        <h3>Top Product Today</h3>
+        <h3 class="welcome-footer">
+          Discover<br />Compare<br />Shop<br />E-Mall Has It All!
+        </h3>
+        <ion-button class="overlay-button" (click)="onAllClick()">
+          More About Us
+        </ion-button>
       </div>
-
+      <div class="side-pannel2">
+        <h3>Top Product Today</h3>
+        <div class="top-prod">
+          <div class="spinner-container" *ngIf="showSpinner">
+            <div class="spinner">
+              <ion-spinner style="color: #99e3dc"></ion-spinner>
+            </div>
+          </div>
+          <div *ngIf="!showSpinner">
+            <div *ngIf="trendingProducts$ | async as products">
+              <app-product-card
+                [product]="products[0]"
+                [pageType]="'normal'"></app-product-card>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="cat-container">
