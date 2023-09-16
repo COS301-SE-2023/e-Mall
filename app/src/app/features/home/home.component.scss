@@ -19,9 +19,6 @@ $font_type_3: 400 14px/1.35 'Open Sans', Helvetica, Arial, serif;
 $font_type_4: 400 12px/1.33 'Open Sans', Helvetica, Arial, serif;
 $font_type_5: 600 1em/1.39 'Poppins', Helvetica, Arial, serif;
 
-h3 {
-  font-size: 40px;
-}
 
 .carousel-caption {
   color: $color_type_4;
@@ -36,7 +33,7 @@ h3 {
 }
 
 .overlay-button {
-  margin-top: 1%;
+  margin-top: 2rem;
   border: none;
   cursor: pointer;
   z-index: 99;
@@ -100,21 +97,31 @@ swiper-slide {
 
 .cat-container {
   min-height: 100%;
-  width: 100%;
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  width: 50%;
+  justify-content: center;
   padding: 5%;
   background-color: var(--ion-color-primary);
+  flex-wrap: wrap;
 }
 .cat-title {
-  width: 40%;
+  h2{
+    font-size: 400%;
+    color:var(--ion-color-primary-alt);
+  }
+  height: min-content;
+  width: 100%;
   display: flex;
-  justify-self: flex-start;
+  justify-self: center;
   justify-content: center;
+  align-items: center;
 }
+
 .bubble-container {
-  width: 60%;
-  justify-self: flex-end;
+  width: 100%;
+  justify-self: center;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -124,24 +131,18 @@ swiper-slide {
   justify-content: center;
   align-items: center;
   background-color: var(
-    --ion-color-secondary
-  ); /*background color for the bubbles */
-  color: #ffffff; /* text color to white */
+    --ion-color-primary-alt
+  ); 
+  color: #ffffff;
   border-radius: 20px;
-  padding: 8px 16px; /* Add padding to adjust the size of the bubble */
-  margin: 8px; /* spacing between bubbles */
+  padding: 8px 16px; 
+  margin: 8px; 
   cursor: pointer;
-  white-space: nowrap; /* Prevent category text from wrapping to the next line #2c3e50 */
+  white-space: nowrap;
 }
 
-/* Hover effect */
-.category-bubble:hover {
-  background-color: #37d0d6;
-}
-
-.selected {
-  background-color: #37d0d6; /* Apply your desired style for selected elements */
-  /* Add any other styles you want for selected elements */
+.category-bubble:hover, .selected{
+  background-color: var(--ion-color-secondary);
 }
 
 a {
@@ -156,11 +157,7 @@ a {
 }
 
 .side-pannel {
-  background: linear-gradient(
-    180deg,
-    #19b2b8 99.99%,
-    rgba(25, 178, 184, 0) 100%
-  );
+  background-color: var(--ion-color-primary-alt);
   align-items: center;
   text-align: center;
   width: 50%;
@@ -168,13 +165,16 @@ a {
   justify-self: flex-start;
   justify-content: center;
   padding-bottom: 2%;
+  h3{
+    font-size: 200%;
+  }
 }
 .side-pannel2 {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   text-align: center;
   width: 50%;
-  justify-content: flex-start;
+  justify-content: center;
   padding: 2%;
   padding-left: 5%;
   flex-wrap: wrap;
@@ -199,9 +199,8 @@ a {
 }
 
 #logo {
-  height: 16rem;
+  height: 14rem;
   width: auto;
   margin: auto;
   display: block;
-  margin-bottom: 2rem;
 }

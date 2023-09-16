@@ -13,7 +13,21 @@
           More About Us
         </ion-button>
       </div>
-      <div class="side-pannel2">
+
+      <div class="cat-container">
+        <div class="cat-title">
+          <h2>Browse by Category</h2>
+        </div>
+        <div class="bubble-container">
+          <div
+            *ngFor="let page of cat_pages"
+            class="category-bubble"
+            (click)="onCatClicked(page.path)">
+            {{ page.title }}
+          </div>
+        </div>
+      </div>
+      <!-- <div class="side-pannel2">
         <h3>Top Product Today</h3>
         <div class="top-prod">
           <div class="spinner-container" *ngIf="showSpinner">
@@ -29,22 +43,9 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
-    <div class="cat-container">
-      <div class="cat-title">
-        <h2>Browse by Category</h2>
-      </div>
-      <div class="bubble-container">
-        <div
-          *ngFor="let page of cat_pages"
-          class="category-bubble"
-          (click)="onCatClicked(page.path)">
-          {{ page.title }}
-        </div>
-      </div>
-    </div>
 
     <br /><br />
     <!--Product carousel-->
@@ -146,6 +147,9 @@
         </ngb-carousel>
       </div>
     </div>
+
+
+
 
     <br /><br />
     <!--Product carousel-->
