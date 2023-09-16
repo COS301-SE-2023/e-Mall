@@ -14,26 +14,26 @@ class MessageTemplate(ABC):
 class ComboTemplate(MessageTemplate):
     @property
     def accept(self):
-        self.message = "Welcome a new collaborator [receiver]"
-        self.title = "New collaborator to [combo] "
+        self.message = "Welcome a new collaborator @[receiver]"
+        self.title = "New collaborator to '[combo]' "
         return self
 
     @property
     def invite(self):
-        self.message = "[sender] has invited you to [combo]"
-        self.title = "You have been invited to [combo]"
+        self.message = "@[sender] has invited you to '[combo]'"
+        self.title = "You have been invited to '[combo]'"
         return self
 
     @property
     def leave(self):
-        self.message = "[sender] has left from [combo]"
-        self.title = "User left from [combo]"
+        self.message = "@[sender] has left from '[combo]'"
+        self.title = "@[sender] left from '[combo]'"
         return self
-    
+
     @property
     def add(self):
-        self.message = "[sender] has added a product to [combo]"
-        self.title = "User added a product to [combo]"
+        self.message = "@[sender] has added a product to '[combo]'"
+        self.title = "@[sender] added a product to '[combo]'"
         return self
 
 
@@ -42,7 +42,6 @@ class UserTemplate(MessageTemplate):
         super().__init__()
         self.sender = sender
         self.target = targetName
-        return self
 
     @property
     def alert(self):

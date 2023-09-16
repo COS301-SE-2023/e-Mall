@@ -80,7 +80,8 @@
           </div>
           <ion-accordion-group
             (ionChange)="onIonChange($event)"
-            (ionBlur)="readPrevClicked()">
+            (ionBlur)="readPrevClicked()"
+            [value]="selectedItem">
             <ion-accordion
               *ngFor="let item of notificationList; let index = index"
               [value]="item">

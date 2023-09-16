@@ -45,6 +45,7 @@ export class NotificationFacade implements OnDestroy {
   isInitial = true;
   isLoading = new BehaviorSubject<boolean>(true);
   token = '';
+  accordionOpen$ = new BehaviorSubject<INotification | undefined>(undefined);
   constructor(
     private notificationService: NotificationService,
     authfacade: AuthFacade

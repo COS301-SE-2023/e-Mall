@@ -51,7 +51,6 @@ import { LoadingInterceptor } from '@shared/components/spinner/interceptors/load
 import { WishlistStateModule } from './features/wishlist/wishlist-state/wishlist-state.module';
 @NgModule({
   declarations: [AppComponent, SpinnerComponent],
-
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

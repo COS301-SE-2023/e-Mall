@@ -229,8 +229,6 @@ ion-toast.custom-notification{
     --min-height: 7rem;
     --start: 4000;
     --max-height: 15rem;
-            /* overflow: hidden !important; */
-              /* text-overflow: ellipsis !important; */
 }
 
 ion-toast.custom-notification::part(message) {
@@ -239,11 +237,11 @@ ion-toast.custom-notification::part(message) {
   text-align: start;
   padding: 20px;
   max-height: 10rem;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
+  overflow: auto !important;
+  text-overflow: auto !important;
 
 }
-ion-toast.custom-notification::part(message) > ion-avatar {
+/* ion-toast.custom-notification::part(message) > ion-avatar {
   width: 1px !important;
   min-width: 1px !important;
   height: 5px !important;
@@ -252,13 +250,13 @@ ion-avatar.notification-avatar {
   width: 1px !important;
   min-width: 1px !important;
   height: 5px !important;
-}
+} */
 ion-toast.custom-notification::part(button) {
-  color: #030207;
+  color: var(--ion-color-clear-button);
   font-size: 15px;
-  position: fixed;
-  right: 0px;
-  top: 0px;
+  /* position: fixed; */
+  /* right: 0px; */
+  /* top: 0px; */
 }
 
 .carousel-control-prev-icon {

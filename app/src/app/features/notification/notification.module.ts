@@ -9,14 +9,14 @@ import { NgxsModule } from '@ngxs/store';
 import { NotificationPannelComponent } from './components/notification-pannel/notification-pannel.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NotificationCardComponent } from './components/notification-card/notification-card.component';
-import { SettingsPannelComponent } from './components/settings-pannel/settings-pannel.component';
+import { SettingsPannelComponent as NotificationSettingsPannelComponent } from './components/settings-pannel/settings-pannel.component';
 import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     NotificationComponent,
     NotificationPannelComponent,
     NotificationCardComponent,
-    SettingsPannelComponent,
+    NotificationSettingsPannelComponent,
   ],
   imports: [
     CommonModule,
@@ -27,8 +27,7 @@ import { FormsModule } from '@angular/forms';
   exports: [
     NotificationComponent,
     NotificationPannelComponent,
-    SettingsPannelComponent,
-    NotificationCardComponent,
+    NotificationSettingsPannelComponent,
     NotificationCardComponent,
   ],
   providers: [NotificationService, NotificationFacade],

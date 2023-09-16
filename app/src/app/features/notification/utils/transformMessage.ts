@@ -97,7 +97,7 @@ export function transformNewMessage(message: any): INotification {
     name: data.doc.name,
     image: data.doc.image,
   };
-  return {
+  const retData = {
     id: data.id,
     is_read: is_read,
     sender: sender,
@@ -118,4 +118,6 @@ export function transformNewMessage(message: any): INotification {
           : message.notification.image,
     },
   };
+  console.log(retData);
+  return retData;
 }
