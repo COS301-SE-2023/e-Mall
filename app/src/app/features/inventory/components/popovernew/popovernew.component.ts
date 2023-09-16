@@ -71,11 +71,11 @@ export class PopovernewComponent implements OnInit {
   }
   nextClick() {
     if (this.nameForm.valid) {
-      // const newname = this.nameForm.value.newName;
-      // const data = {
-      //   name: newname,
-      // };
-      // this.similarProducts = this.inventoryService.getSimilarProducts(data);
+      const newname = this.nameForm.value.newName;
+      const data = {
+        name: newname,
+      };
+      // this.similarProducts = this.inventoryService.getSimilarProducts(data);  //this line is giving erros
       console.log(this.similarProducts);
       this.nextClicked = true;
     }
