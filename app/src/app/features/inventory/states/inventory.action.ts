@@ -43,21 +43,39 @@ export class ResetInventoryState {
   static readonly type = '[Inventory] Reset Inventory State';
 }
 
-export class AddProduct {
+export class AddNewProduct {
   static readonly type = '[Inventory] Add Product';
   constructor(
     public data: {
-      id: number;
+      seller_name: string;
       name: string;
+      brand: string;
+      category: string;
+      description: string;
+      //prodseller details
       price: number;
       discount: number;
       discount_rate: number;
       original_price: number;
       product_url: string;
       in_stock: boolean;
-      brand: string;
-      description: string;
-      category: string;
+      img_array: string[];
+    }
+  ) {}
+}
+
+export class AddExistingProduct {
+  static readonly type = '[Inventory] Add Existing Product';
+  constructor(
+    public data: {
+      seller_name: string;
+      product_name: string;
+      price: number;
+      discount: number;
+      discount_rate: number;
+      original_price: number;
+      product_url: string;
+      in_stock: boolean;
       img_array: string[];
     }
   ) {}
