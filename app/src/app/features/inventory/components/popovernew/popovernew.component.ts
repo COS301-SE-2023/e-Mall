@@ -18,6 +18,15 @@ export class PopovernewComponent implements OnInit {
   isSelected = false;
   productForm!: FormGroup;
   productSellerForm!:FormGroup;
+  categories: string[] = [
+    'Books',
+    'Clothing',
+    'Electronics',
+    'Health and Beauty',
+    'Home and Kitchen',
+    'Sports and Outdoors',
+    'Toys and Games',
+  ];
 
   constructor(
     private popoverController: PopoverController,
@@ -31,6 +40,25 @@ export class PopovernewComponent implements OnInit {
     this.nameForm = this.fb.group({
       newName: ['', Validators.required],
     });
+    this.productForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      category: [{ value: ''},[Validators.required]],
+      brand: ['',[Validators.required]],
+      description: ['',[Validators.required]],
+    
+    });
+    this.productSellerForm = this.fb.group({
+      productSeller: ['', [Validators.required, Validators.minLength(2)]],
+      price: [{ value: '0.00'}],
+      discount: [
+        '0.00',
+        [Validators.min(0), Validators.max(100), Validators.required],
+      ],
+      stock: ['in'],
+      url: ['',[Validators.required]],
+      imgs: ['',]
+    });
+    console.log(this.categories)
   }
   closeModal() {
     this.modalController.dismiss();
@@ -43,11 +71,11 @@ export class PopovernewComponent implements OnInit {
   }
   nextClick() {
     if (this.nameForm.valid) {
-      const newname = this.nameForm.value.newName;
-      const data = {
-        name: newname,
-      };
-      this.similarProducts = this.inventoryService.getSimilarProducts(data);
+      // const newname = this.nameForm.value.newName;
+      // const data = {
+      //   name: newname,
+      // };
+      // this.similarProducts = this.inventoryService.getSimilarProducts(data);
       console.log(this.similarProducts);
       this.nextClicked = true;
     }

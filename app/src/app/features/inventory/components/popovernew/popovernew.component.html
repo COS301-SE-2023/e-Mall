@@ -1,6 +1,6 @@
 <div class="modal-container">
   <ion-item lines="none" class="modal-header-item">
-    <ion-text class="modal-header"> Add New Product </ion-text>
+    <ion-text class="modal-header"> Create New Product </ion-text>
     <ion-button
       class="close-button"
       fill="clear"
@@ -12,32 +12,30 @@
     </ion-button>
   </ion-item>
   <div class="content-container">
-    <ng-container *ngIf="!nextClicked&&!isSelected&&!newClicked; else next">
-      
+    <ng-container *ngIf="!nextClicked && !isSelected && !newClicked; else next">
       <form [formGroup]="nameForm">
-      <ion-list class="newList">
-        <ion-item class="input">
-          <ion-label position="floating">Name:</ion-label>
-          <ion-input formControlName="newName" clearInput></ion-input>
-        </ion-item>
-      </ion-list>
-      
-    </form>
-        <ion-item class="item-padding" lines="none"> </ion-item>
-        <ion-item class="item-padding" lines="none">
-          <ion-button mode="ios" color="primary" (click)="nextClick()">
-            Next
-          </ion-button>
-        </ion-item>
+        <ion-list class="newList">
+          <ion-item class="input">
+            <ion-label position="floating">Name:</ion-label>
+            <ion-input formControlName="newName" clearInput></ion-input>
+          </ion-item>
+        </ion-list>
+      </form>
+      <ion-item class="item-padding" lines="none"> </ion-item>
+      <ion-item class="item-padding" lines="none">
+        <ion-button mode="ios" color="primary" (click)="nextClick()">
+          Next
+        </ion-button>
+      </ion-item>
     </ng-container>
 
     <ng-template #next>
       <ng-container *ngIf="nextClicked">
         <ion-item class="item-padding" lines="none">
-          <ion-radio-group [allowEmptySelection]="true" >
+          <ion-radio-group [allowEmptySelection]="true">
             <ng-container *ngFor="let prod of similarProducts">
-            <ion-radio  value="{{ prod }}">prod</ion-radio><br />
-          </ng-container>
+              <ion-radio value="{{ prod }}">prod</ion-radio><br />
+            </ng-container>
           </ion-radio-group>
         </ion-item>
         <ion-item class="item-padding" lines="none">
@@ -63,19 +61,32 @@
           <ion-item class="item-padding" lines="none">
             <div class="item-label-new">Category</div>
             <div class="input-container-new">
-              <ion-input formControlName="category"></ion-input>
+              <ion-select
+                multiple="false"
+                interface="popover"
+                label="Select One"
+                label-placement="floating"
+                fill="outline"
+                class="custom-select">
+                <ng-container *ngFor="let category of categories">
+                  {{category}}
+                  <ion-select-option value="{{category}}">
+                    {{ category }}
+                  </ion-select-option>
+                </ng-container>
+              </ion-select>
             </div>
           </ion-item>
           <ion-item class="item-padding" lines="none">
             <div class="item-label-new">Brand</div>
             <div class="input-container-new">
-              <ion-input formControlName="category"></ion-input>
+              <ion-input clearInput="true" formControlName="brand"></ion-input>
             </div>
           </ion-item>
           <ion-item class="item-padding" lines="none">
             <div class="item-label-new">Description</div>
             <div class="input-container-new">
-              <ion-input formControlName="category"></ion-input>
+              <ion-input clearInput="true" formControlName="description"></ion-input>
             </div>
           </ion-item>
           <ion-item class="item-padding" lines="none">
@@ -87,16 +98,16 @@
                 [disabled]="!productForm.valid"
                 >Next</ion-button
               >
-              </div>
-              </ion-item>
-        </form>   
+            </div>
+          </ion-item>
+        </form>
       </ng-container>
-      <ng-container *ngIf="isSelected"> 
+      <ng-container *ngIf="isSelected">
         <form [formGroup]="productSellerForm" (submit)="NewProduct()">
           <ion-item class="item-padding" lines="none">
             <div class="item-label">Product Seller</div>
             <div class="input-container">
-              <ion-input clearInput="true" formControlName="name"></ion-input>
+              <ion-input clearInput="true" formControlName="productSeller"></ion-input>
             </div>
           </ion-item>
           <ion-item class="item-padding" lines="none">
@@ -146,13 +157,13 @@
           <ion-item class="item-padding" lines="none">
             <div class="item-label">Product URL</div>
             <div class="input-container">
-              <ion-input clearInput="true" formControlName="Url"></ion-input>
+              <ion-input clearInput="true" formControlName="url"></ion-input>
             </div>
           </ion-item>
           <ion-item class="item-padding" lines="none">
             <div class="item-label">Images URL's</div>
             <div class="input-container">
-              <ion-input clearInput="true" formControlName="Images"></ion-input>
+              <ion-input clearInput="true" formControlName="imgs"></ion-input>
             </div>
           </ion-item>
           <ion-item class="item-padding" lines="none">
@@ -164,9 +175,9 @@
                 [disabled]="!productForm.valid"
                 >Create</ion-button
               >
-              </div>
-              </ion-item>
-        </form>   
+            </div>
+          </ion-item>
+        </form>
       </ng-container>
       <!-- <form [formGroup]="newForm">
         <ion-list class="newList">
