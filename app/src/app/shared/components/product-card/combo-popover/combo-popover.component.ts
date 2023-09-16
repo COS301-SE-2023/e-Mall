@@ -157,11 +157,10 @@ export class ComboPopoverComponent implements OnInit {
   UpdateExistingCombo() {
     if (this.selectForm.valid) {
       if (this.selectForm.value.selectedOptions[0] == 'wishlist') {
-        this.favClickAnalytics();
-        this.wishlistFacade.addProductToWishlist(this.product);
-
         if (this.selectForm.value.selectedOptions.length > 1) {
-          const options = this.selectForm.value.selectedOptions.slice(1);
+          const options = this.selectForm.value.selectedOptions
+            .slice(1)
+            .map(Number);
           const data = {
             combo_ids: options,
             product_id: this.product.id,
@@ -169,10 +168,11 @@ export class ComboPopoverComponent implements OnInit {
           };
           this.updateCombo(data);
         }
+        this.updateWishlist(this.product);
         this.closePopover();
       } else {
         const data = {
-          combo_ids: this.selectForm.value.selectedOptions,
+          combo_ids: this.selectForm.value.selectedOptions.map(Number),
           product_id: this.product.id,
           product: this.product,
         };
@@ -180,6 +180,10 @@ export class ComboPopoverComponent implements OnInit {
         this.closePopover();
       }
     }
+  }
+  updateWishlist(product: IProduct) {
+    this.favClickAnalytics();
+    this.wishlistFacade.addProductToWishlist(product);
   }
 
   updateCombo(data: any) {

@@ -88,6 +88,7 @@ export class ComboState {
         if (draft.combos) {
           for (const combo of draft.combos) {
             if (action.payload.combo_ids.includes(combo.id)) {
+              console.log(typeof combo.id);
               combo.products.push(action.payload.product);
             }
           }
