@@ -162,14 +162,109 @@ export class InventoryState {
       totalCount: 0,
     });
   }
-  @Action(InventoryActions.AddProduct)
-  addProduct(
+  @Action(InventoryActions.AddExistingProduct)
+  addExistingProduct(
     ctx: StateContext<InventoryStateModel>,
-    action: InventoryActions.AddProduct
+    action: InventoryActions.AddExistingProduct
   ) {
     ctx.setState(
       produce((draft: InventoryStateModel) => {
-        draft.products?.push(action.data);
+        if (draft.products === null) {
+          //create an IInventoryItem
+          const newProduct: IInventoryItem = {
+            id: 0,
+            original_price: action.data.original_price,
+            price: action.data.price,
+            discount: action.data.discount,
+            discount_rate: action.data.discount_rate,
+            product_url: action.data.product_url,
+            in_stock: action.data.in_stock,
+            img_array: action.data.img_array,
+            product: action.data.product_name,
+            seller: action.data.seller_name,
+            product_name: action.data.product_name,
+            product_category: '',
+          };
+          draft.products = [newProduct];
+          draft.totalCount = 1;
+        } else {
+          let largest_id = 0;
+          for (let i = 0; i < draft.products.length; i++) {
+            if (draft.products[i].id > largest_id) {
+              largest_id = draft.products[i].id;
+            }
+          }
+          const newProduct: IInventoryItem = {
+            id: largest_id + 1,
+            original_price: action.data.original_price,
+            price: action.data.price,
+            discount: action.data.discount,
+            discount_rate: action.data.discount_rate,
+            product_url: action.data.product_url,
+            in_stock: action.data.in_stock,
+            img_array: action.data.img_array,
+            product: action.data.product_name,
+            seller: action.data.seller_name,
+            product_name: action.data.product_name,
+            product_category: '',
+          };
+          draft.products.unshift(newProduct);
+          draft.totalCount++;
+        }
+      })
+    );
+  }
+
+  @Action(InventoryActions.AddNewProduct)
+  addNewProduct(
+    ctx: StateContext<InventoryStateModel>,
+    action: InventoryActions.AddNewProduct
+  ) {
+    ctx.setState(
+      produce((draft: InventoryStateModel) => {
+        if (draft.products === null) {
+          //create an IInventoryItem
+          const newProduct: IInventoryItem = {
+            id: 0,
+            original_price: action.data.original_price,
+            price: action.data.price,
+            discount: action.data.discount,
+            discount_rate: action.data.discount_rate,
+            product_url: action.data.product_url,
+            in_stock: action.data.in_stock,
+            img_array: action.data.img_array,
+            product: action.data.name,
+            seller: '',
+            product_name: action.data.name,
+            product_category: action.data.category,
+          };
+          draft.products = [newProduct];
+          draft.totalCount = 1;
+        } else {
+          //find largest prod id
+          let largest_id = 0;
+          for (let i = 0; i < draft.products.length; i++) {
+            if (draft.products[i].id > largest_id) {
+              largest_id = draft.products[i].id;
+            }
+          }
+          const newProduct: IInventoryItem = {
+            id: largest_id + 1,
+            original_price: action.data.original_price,
+            price: action.data.price,
+            discount: action.data.discount,
+            discount_rate: action.data.discount_rate,
+            product_url: action.data.product_url,
+            in_stock: action.data.in_stock,
+            img_array: action.data.img_array,
+            product: action.data.name,
+            seller: action.data.seller_name,
+            product_name: action.data.name,
+            product_category: action.data.category,
+          };
+          draft.products.unshift(newProduct);
+          draft.totalCount++;
+        }
       })
     );
   }
