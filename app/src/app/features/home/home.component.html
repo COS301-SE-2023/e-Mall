@@ -2,15 +2,26 @@
 
 <ion-content class="global-ion-content">
   <div class="ion-content-wrapper">
-    <div class="banner">
-      <div class="image-container">
-        <img [src]="images" alt="Home banner" />
-        <ion-button class="overlay-button" (click)="onAllClick()"
-          >Shop For You</ion-button
-        >
-      </div>
+    <div class="row">
+    <div class="side-pannel">
+      <ion-img
+      id="logo"
+      src="assets/images/logo.png"
+      alt="E-Mall"></ion-img>
+
+    <h3 class="welcome-footer">
+      Discover<br />Compare<br />Shop<br />E-Mall Has It All!
+    </h3>
+    <ion-button class="overlay-button" (click)="onAllClick()">
+      More About Us
+    </ion-button>
     </div>
-    
+    <div class="side-pannel2">
+        <h3>Top Product Today</h3>
+      </div>
+
+    </div>
+
     <div class="cat-container">
       <div class="cat-title">
         <h2>Browse by Category</h2>

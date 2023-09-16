@@ -36,14 +36,12 @@ h3 {
 }
 
 .overlay-button {
-  position: absolute;
-  top: 80%;
-  left: 80%;
-  transform: translate(-50%, -50%);
+ margin-top: 1%;
   border: none;
   cursor: pointer;
   z-index: 99;
   font-size: 150%;
+  justify-self: flex-end;
 }
 
 ion-button {
@@ -103,7 +101,7 @@ swiper-slide {
 
 .cat-container {
   min-height: 100%;
-  min-width: 100%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   padding: 5%;
@@ -144,3 +142,57 @@ swiper-slide {
   background-color: #37d0d6; /* Apply your desired style for selected elements */
   /* Add any other styles you want for selected elements */
 }
+
+  a{
+    color: var( --ion-color-primary-shade);
+  }
+
+
+  .row {
+    min-width: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+
+  }
+  
+
+  .side-pannel {
+    background: linear-gradient(180deg, #19B2B8 99.99%, rgba(25, 178, 184, 0.00) 100%);
+    align-items: center;
+    text-align: center;
+    width: 50%;
+    display: block;
+    justify-self: flex-start;
+    justify-content: center;
+    padding-bottom: 2%
+  }
+  .side-pannel2 {
+    display: flex;
+    align-items: flex-start;
+    text-align: center;
+    width: 50%;
+    justify-content: flex-start;
+    padding: 2%;
+    padding-left: 5%
+  }
+  
+  .welcome-header {
+    color: var(--ion-color-text);
+    margin-bottom: 2rem;
+  }
+  .welcome-header-accent {
+    color: var(--ion-color-text-contrast);
+  }
+  .welcome-footer {
+    color: var(--ion-color-text);
+  }
+  
+  #logo {
+    height: 16rem;
+    width: auto;
+    margin: auto;
+    display: block;
+    margin-bottom: 2rem;
+  }
+  
