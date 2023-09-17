@@ -107,12 +107,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.router.navigate(['products'], navigationextras);
   }
 
-  async onAllClick() {
-    if (this.recommendedHeading) {
-      this.recommendedHeading.nativeElement.scrollIntoView({
-        behavior: 'smooth',
-      });
-    }
+  async onAboutClick() {
+    this.router.navigate(['about']);
   }
   getOneImg(imgList?: string[]) {
     //remove following when no need to have mock data
