@@ -19,10 +19,10 @@ from decimal import Decimal
 def getProd(request):
     try:
         user = request.user
-        seller_name = user.username
+        seller_name = user.business_name
 
         # # remove this later
-        #seller_name = "Takealot"
+        # seller_name = "Takealot"
 
         search = request.data.get("search")
         search_option = request.data.get("searchOption")

@@ -6,7 +6,8 @@ import { ICategoryBreadcrumb } from '../models/category-breadcrumb.interface';
 @Injectable()
 export class CategoryBreadcrumbFacade {
   getBreadcrumbs(
-    categoryList: string[] | string | undefined
+    categoryList: string[] | string | undefined,
+    isProductPage: boolean
   ): ICategoryBreadcrumb[] {
     const crumbs: ICategoryBreadcrumb[] = [{ label: 'Home', url: '/home' }];
     let data: string[] = [];
@@ -19,7 +20,18 @@ export class CategoryBreadcrumbFacade {
     }
     if (data)
       for (const category of data) {
-        if (category) crumbs.push({ label: category, url: `/category/${category}` });
+        if (isProductPage)
+          crumbs.push({
+            label: category,
+            url: `/category/${category}`,
+            isProductPage: true,
+          });
+        else
+          crumbs.push({
+            label: category,
+            url: `/category/${category}`,
+            isProductPage: false,
+          });
       }
 
     return crumbs;

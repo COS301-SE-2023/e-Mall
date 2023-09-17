@@ -1,4 +1,20 @@
-.breadcrumb-desktop-container{
-    padding-top: 20px;
-    padding-left: 20px;
+.breadcrumb-desktop-container {
+  padding-top: 20px;
+  padding-left: 20px;
+}
+/* styles.css or your-component.css */
+.crumb-label {
+  cursor: pointer;
+  transition: background-color 0.2s ease; /* Add a smooth transition effect */
+
+  &:hover {
+    color: #37d0d6; /* Change the text color on hover */
+  }
+}
+
+.custom-css-class {
+  font-weight: normal; /* Removes the bold style */
+  color: rgb(103, 116, 131);
+  font-size: 16px;
+  font-weight: 400;
 }

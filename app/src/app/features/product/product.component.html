@@ -1,22 +1,23 @@
 <app-navbar></app-navbar>
 
-<ion-content class="global-ion-content" >
-
+<ion-content class="global-ion-content">
   <ng-container *ngIf="product$ | async as product">
     <app-category-breadcrumb
-      [categoryList]="product.category" *ngIf="!showSpinner"></app-category-breadcrumb>
+      [categoryList]="product.category"
+      *ngIf="!showSpinner" [isProductPage]="true"></app-category-breadcrumb>
   </ng-container>
   <div class="ion-content-wrapper">
     <div class="container-fluid body-container">
       <div class="container-fluid prices" id="prices">
         <!--<div class="spinner-container" >-->
-          <div class="spinner" *ngIf="showSpinner">
-            <ion-spinner style="color: #99e3dc"></ion-spinner>
-          </div>
+        <div class="spinner" *ngIf="showSpinner">
+          <ion-spinner style="color: #99e3dc"></ion-spinner>
+        </div>
         <!--</div>-->
         <div
           class="row product-img-info-container"
-          style="margin-left: 10px; margin-right: 10px" *ngIf="!showSpinner">
+          style="margin-left: 10px; margin-right: 10px"
+          *ngIf="!showSpinner">
           <!--<div *ngIf="(product$ | async) === null">
             <mat-spinner></mat-spinner>
           </div>-->
@@ -34,7 +35,7 @@
             </div>
           </div>
 
-          <div class="col-sm-4 col-md-4 col-lg-4 main-img-container" >
+          <div class="col-sm-4 col-md-4 col-lg-4 main-img-container">
             <mat-card class="product-card">
               <div class="position-relative">
                 <img
@@ -44,7 +45,6 @@
                       ? selectedImage
                       : getOneImg((product$ | async)?.min_price_img_array)
                   "
-                  
                   class="product-image" />
                 <div
                   class="min-price-discount_rate"
@@ -62,9 +62,7 @@
                 </div>
               </div>
               <mat-card-actions>
-                <span class="button-container">
-                 
-                </span>
+                <span class="button-container"> </span>
               </mat-card-actions>
             </mat-card>
           </div>
@@ -79,15 +77,15 @@
               <p>{{ product.description }}</p>
               <p>
                 <ion-button
-                (click)="toggleBookmark()"
-                class="bookmark-button"
-                shape="round"
-                fill="clear"
-                mode="ios">
-                <ion-icon
-                  [name]="'bookmark-outline'"
-                  style="color: var(--c-5-a, #37d0d6)"></ion-icon>
-              </ion-button>
+                  (click)="toggleBookmark()"
+                  class="bookmark-button"
+                  shape="round"
+                  fill="clear"
+                  mode="ios">
+                  <ion-icon
+                    [name]="'bookmark-outline'"
+                    style="color: var(--c-5-a, #37d0d6)"></ion-icon>
+                </ion-button>
               </p>
             </div>
           </div>
@@ -143,94 +141,94 @@
 
         <div #comp_products id="comp_products"></div>
 
-          <div class="spinner-container" *ngIf="showSpinner2">
-            <div class="spinner">
-              <ion-spinner style="color: #99e3dc"></ion-spinner>
-            </div>
+        <div class="spinner-container" *ngIf="showSpinner2">
+          <div class="spinner">
+            <ion-spinner style="color: #99e3dc"></ion-spinner>
           </div>
+        </div>
         <div *ngIf="!showSpinner2">
-        <ng-container *ngIf="sellers$ | async as sellers">
-          <ul style="padding-left: 20px" class="seller-list">
-            <li *ngFor="let seller of sellers">
-              <div class="container-fluid comp-products">
-                <mat-accordion>
-                  <mat-expansion-panel hideToggle disabled>
-                    <mat-expansion-panel-header>
-                      <mat-panel-title>
-                        <mat-card-title
-                          class="seller-name"
-                          (click)="goToSellerPage(seller.seller)"
-                          >{{ seller.business_name }}</mat-card-title
-                        >
-                      </mat-panel-title>
-                      <mat-panel-description></mat-panel-description>
-                    </mat-expansion-panel-header>
-                  </mat-expansion-panel>
-                  <mat-card-header class="seller-product-name-price">
-                    <div class="container-fluid card-title-container">
-                      <mat-card-title class="product-name">
-                        <a
-                          href="{{ seller.product_url }}"
-                          (click)="linkClickAnalytics(seller.business_name)">
-                          {{ seller.product_name }}
-                        </a>
-                      </mat-card-title>
-                      <div class="right-section">
-                        <div
-                          class="in-stock-container"
-                          [ngClass]="{
-                            'in-stock-boxes': seller.in_stock,
-                            'out-of-stock-boxes': !seller.in_stock
-                          }"
-                          matTooltipPosition="above"
-                          aria-label="Example tooltip">
-                          <i
-                            class="fa-sharp fa-solid fa-boxes-stacked in-stock-box"></i>
-                          <i
-                            *ngIf="seller.in_stock"
-                            class="fa-sharp fa-solid fa-check in-stock-tick"
-                            matTooltip="in stock"></i>
-                          <i
-                            *ngIf="!seller.in_stock"
-                            class="fa-sharp fa-solid fa-x in-stock-x"
-                            matTooltip="out of stock"></i>
-                        </div>
-                        <mat-card-title class="product-price">
-                          R{{ seller.price }}
+          <ng-container *ngIf="sellers$ | async as sellers">
+            <ul style="padding-left: 20px" class="seller-list">
+              <li *ngFor="let seller of sellers">
+                <div class="container-fluid comp-products">
+                  <mat-accordion>
+                    <mat-expansion-panel hideToggle disabled>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          <mat-card-title
+                            class="seller-name"
+                            (click)="goToSellerPage(seller.seller)"
+                            >{{ seller.business_name }}</mat-card-title
+                          >
+                        </mat-panel-title>
+                        <mat-panel-description></mat-panel-description>
+                      </mat-expansion-panel-header>
+                    </mat-expansion-panel>
+                    <mat-card-header class="seller-product-name-price">
+                      <div class="container-fluid card-title-container">
+                        <mat-card-title class="product-name">
+                          <a
+                            href="{{ seller.product_url }}"
+                            (click)="linkClickAnalytics(seller.business_name)">
+                            {{ seller.product_name }}
+                          </a>
                         </mat-card-title>
+                        <div class="right-section">
+                          <div
+                            class="in-stock-container"
+                            [ngClass]="{
+                              'in-stock-boxes': seller.in_stock,
+                              'out-of-stock-boxes': !seller.in_stock
+                            }"
+                            matTooltipPosition="above"
+                            aria-label="Example tooltip">
+                            <i
+                              class="fa-sharp fa-solid fa-boxes-stacked in-stock-box"></i>
+                            <i
+                              *ngIf="seller.in_stock"
+                              class="fa-sharp fa-solid fa-check in-stock-tick"
+                              matTooltip="in stock"></i>
+                            <i
+                              *ngIf="!seller.in_stock"
+                              class="fa-sharp fa-solid fa-x in-stock-x"
+                              matTooltip="out of stock"></i>
+                          </div>
+                          <mat-card-title class="product-price">
+                            R{{ seller.price }}
+                          </mat-card-title>
+                        </div>
                       </div>
-                    </div>
-                  </mat-card-header>
-                </mat-accordion>
-              </div>
-            </li>
-          </ul>
-        </ng-container>
+                    </mat-card-header>
+                  </mat-accordion>
+                </div>
+              </li>
+            </ul>
+          </ng-container>
         </div>
 
         <div
           style="padding-left: 30px; padding-right: 30px"
           #product_info
           class="container-fluid full-product-info"
-          id="full-product-info" >
+          id="full-product-info">
           <div *ngIf="!showSpinner2">
-          <h3>Products Information</h3>
-          <ng-container *ngIf="sellers$ | async as sellers">
-            <div *ngFor="let seller of sellers; let i = index"></div>
+            <h3>Products Information</h3>
+            <ng-container *ngIf="sellers$ | async as sellers">
+              <div *ngFor="let seller of sellers; let i = index"></div>
 
-            <div *ngIf="product$ | async as product">
-              <p>
-                Lowest price for {{ product.name }} is
-                <b>R{{ product.min_price }}</b> this is currrently the lowest
-                price out of {{ sellers.length }} stores
-              </p>
+              <div *ngIf="product$ | async as product">
+                <p>
+                  Lowest price for {{ product.name }} is
+                  <b>R{{ product.min_price }}</b> this is currrently the lowest
+                  price out of {{ sellers.length }} stores
+                </p>
 
-              <p>
-                <b>{{ product.name }}</b>
-              </p>
-              <p>{{ product.description }}</p>
-            </div>
-          </ng-container>
+                <p>
+                  <b>{{ product.name }}</b>
+                </p>
+                <p>{{ product.description }}</p>
+              </div>
+            </ng-container>
           </div>
         </div>
       </div>

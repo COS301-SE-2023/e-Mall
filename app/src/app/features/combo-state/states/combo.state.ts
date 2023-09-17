@@ -88,8 +88,13 @@ export class ComboState {
         if (draft.combos) {
           for (const combo of draft.combos) {
             if (action.payload.combo_ids.includes(combo.id)) {
-              console.log(typeof combo.id);
-              combo.products.push(action.payload.product);
+              //check if product already exists in combo
+              const productIndex = combo.products.findIndex(
+                product => product.id === action.payload.product.id
+              );
+              if (productIndex === -1) {
+                combo.products.push(action.payload.product);
+              }
             }
           }
         }
