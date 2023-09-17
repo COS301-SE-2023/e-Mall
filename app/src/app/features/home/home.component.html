@@ -47,91 +47,95 @@
     </div>
     <div
       style="
-        width: 80%;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
       "
       *ngIf="!showSpinner">
-      <div>
-        <div *ngIf="(forYouProducts$ | async) === null">
-          <ngb-carousel
-            *ngIf="popProducts$ | async as products"
-            [interval]="0"
-            [animation]="true"
-            [showNavigationArrows]="true"
-            [showNavigationIndicators]="true"
-            [wrap]="true">
-            <ng-template ngbSlide>
-              <div class="row">
-                <div
-                  class="product-card"
-                  *ngFor="let product of products.slice(0, 4); let i = index">
-                  <app-product-card
-                    [product]="product"
-                    [pageType]="'normal'"></app-product-card>
-                </div>
+      <div
+        class="carousel-container"
+        *ngIf="(forYouProducts$ | async) === null">
+        <ngb-carousel
+          *ngIf="popProducts$ | async as products"
+          [interval]="0"
+          [animation]="true"
+          [showNavigationArrows]="true"
+          [showNavigationIndicators]="false"
+          [wrap]="true"
+          class="custom-carousel carousel-dark">
+          <ng-template ngbSlide *ngIf="products[0]">
+            <div class="row">
+              <div
+                class="product-card"
+                *ngFor="let product of products.slice(0, 3); let i = index">
+                <app-product-card
+                  [product]="product"
+                  [pageType]="'normal'"></app-product-card>
               </div>
-            </ng-template>
-            <ng-template ngbSlide>
-              <div class="row">
-                <div
-                  class="product-card"
-                  *ngFor="let product of products.slice(4, 8); let i = index">
-                  <app-product-card
-                    [product]="product"
-                    [pageType]="'normal'"></app-product-card>
-                </div>
+            </div>
+          </ng-template>
+          <ng-template ngbSlide *ngIf="products[3]">
+            <div class="row">
+              <div
+                class="product-card"
+                *ngFor="let product of products.slice(3, 6); let i = index">
+                <app-product-card
+                  [product]="product"
+                  [pageType]="'normal'"></app-product-card>
               </div>
-            </ng-template>
-            <ng-template ngbSlide>
-              <div class="row">
-                <div
-                  class="product-card"
-                  *ngFor="let product of products.slice(8, 12); let i = index">
-                  <app-product-card
-                    [product]="product"
-                    [pageType]="'normal'"></app-product-card>
-                </div>
+            </div>
+          </ng-template>
+          <ng-template ngbSlide *ngIf="products[6]">
+            <div class="row">
+              <div
+                class="product-card"
+                *ngFor="let product of products.slice(6, 9); let i = index">
+                <app-product-card
+                  [product]="product"
+                  [pageType]="'normal'"></app-product-card>
               </div>
-            </ng-template>
-          </ngb-carousel>
-        </div>
+            </div>
+          </ng-template>
+        </ngb-carousel>
+      </div>
 
+      <div class="carousel-container"  *ngIf="(forYouProducts$ | async) !== null">
         <ngb-carousel
           *ngIf="forYouProducts$ | async as products"
           [interval]="0"
           [animation]="true"
           [showNavigationArrows]="true"
-          [showNavigationIndicators]="true"
-          [wrap]="true">
-          <ng-template ngbSlide>
+          [showNavigationIndicators]="false"
+          [wrap]="true"
+          class="custom-carousel carousel-dark">
+          <ng-template ngbSlide *ngIf="products[0]">
             <div class="row">
               <div
                 class="product-card"
-                *ngFor="let product of products.slice(0, 4); let i = index">
+                *ngFor="let product of products.slice(0, 3); let i = index">
                 <app-product-card
                   [product]="product"
                   [pageType]="'normal'"></app-product-card>
               </div>
             </div>
           </ng-template>
-          <ng-template ngbSlide>
+          <ng-template ngbSlide *ngIf="products[3]">
             <div class="row">
               <div
                 class="product-card"
-                *ngFor="let product of products.slice(4, 8); let i = index">
+                *ngFor="let product of products.slice(3, 6); let i = index">
                 <app-product-card
                   [product]="product"
                   [pageType]="'normal'"></app-product-card>
               </div>
             </div>
           </ng-template>
-          <ng-template ngbSlide>
+          <ng-template ngbSlide *ngIf="products[6]">
             <div class="row">
               <div
                 class="col-md-6"
-                *ngFor="let product of products.slice(8, 12); let i = index">
+                *ngFor="let product of products.slice(6, 9); let i = index">
                 <app-product-card
                   [product]="product"
                   [pageType]="'normal'"></app-product-card>
@@ -149,7 +153,7 @@
     </div>
     <div
       style="
-        width: 80%;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -159,20 +163,20 @@
           <ion-spinner style="color: #99e3dc"></ion-spinner>
         </div>
       </div>
-      <div *ngIf="!showSpinner">
+      <div class="carousel-container" *ngIf="!showSpinner">
         <ngb-carousel
           [interval]="0"
           [animation]="true"
           [showNavigationArrows]="true"
-          [showNavigationIndicators]="true"
+          [showNavigationIndicators]="false"
           [wrap]="true"
           *ngIf="trendingProducts$ | async as products"
-          class="custom-carousel">
+          class="custom-carousel carousel-dark">
           <ng-template ngbSlide>
             <div class="row">
               <div
                 class="product-card"
-                *ngFor="let product of products.slice(0, 4); let i = index">
+                *ngFor="let product of products.slice(0, 3); let i = index">
                 <app-product-card
                   [product]="product"
                   [pageType]="'normal'"></app-product-card>
@@ -183,7 +187,7 @@
             <div class="row">
               <div
                 class="product-card"
-                *ngFor="let product of products.slice(4, 8); let i = index">
+                *ngFor="let product of products.slice(3, 6); let i = index">
                 <app-product-card
                   [product]="product"
                   [pageType]="'normal'"></app-product-card>
@@ -194,7 +198,7 @@
             <div class="row">
               <div
                 class="product-card"
-                *ngFor="let product of products.slice(8, 12); let i = index">
+                *ngFor="let product of products.slice(6, 9); let i = index">
                 <app-product-card
                   [product]="product"
                   [pageType]="'normal'"></app-product-card>
@@ -210,6 +214,7 @@
     </ng-container>
   </div>
   <br /><br />
+
   <ng-container *ngIf="followedSellers$ | async as sellers">
     <ng-container *ngIf="sellers !== null && sellers.length !== 0">
       <div
