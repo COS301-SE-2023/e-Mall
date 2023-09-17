@@ -322,12 +322,9 @@ def count_unread_notifications(request):
 @api_view(["POST"])
 def get_settings(request):
     try:
-        print("1")
         user_id = str(request.user.id)
         user_ref = db.collection(user_collection).document(user_id)
         doc = user_ref.get()
-        print("2")
-
         if doc.exists:
             data = doc.to_dict()
             settings = data.get("settings", None)
@@ -336,8 +333,7 @@ def get_settings(request):
                 settings is None
             ):  # If settings field doesn't exist, set all fields to False
                 valid_fields = ["general", "following", "wishlist", "all"]
-                settings = {field: False for field in valid_fields}
-            print(settings)
+                settings = {field: True for field in valid_fields}
             return Response(settings)
         else:
             return Response(
@@ -345,8 +341,6 @@ def get_settings(request):
                 status=status.HTTP_404_NOT_FOUND,
             )
     except Exception as e:
-        print(e)
-
         return Response(
             {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
         )

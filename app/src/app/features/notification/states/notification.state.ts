@@ -25,10 +25,10 @@ export interface NotificationStateModel {
     count: 0,
     unread_count: 0,
     settings: {
-      all: false,
-      following: false,
-      general: false,
-      wishlist: false,
+      all: true,
+      following: true,
+      general: true,
+      wishlist: true,
     },
   },
 })
@@ -47,10 +47,10 @@ export class NotificationState {
       count: 0,
       unread_count: 0,
       settings: {
-        all: false,
-        following: false,
-        general: false,
-        wishlist: false,
+        all: true,
+        following: true,
+        general: true,
+        wishlist: true,
       },
     });
   }
