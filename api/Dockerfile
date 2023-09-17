@@ -19,9 +19,13 @@ COPY docker-entrypoint.sh .
 # RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
+# RUN apt-get update && apt-get install redis -y && redis-server --daemonize yes &&  redis-cli ping
+# RUN redis-cli ping
+# RUN redis-cli ping
+# RUN redis-cli ping
 # Copy the rest of the project files into the container
 COPY . .
-COPY docker-entrypoint.prod.sh .
+COPY docker-entrypoint.sh .
 
 #database migration
 # RUN sudo apt install build-essential libpq-dev python3-dev
@@ -34,4 +38,5 @@ ENTRYPOINT ["./docker-entrypoint.sh"]
 EXPOSE 3000
 # RUN python manage.py migrate
 # Start the Django development server
+
 CMD ["python", "manage.py", "runserver", "0.0.0.0:3000"]
