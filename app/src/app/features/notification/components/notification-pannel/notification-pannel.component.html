@@ -81,7 +81,7 @@
           <ion-accordion-group
             (ionChange)="onIonChange($event)"
             (ionBlur)="readPrevClicked()"
-            [value]="selectedItem">
+            [value]="notificationFacade.accordionOpen$ | async">
             <ion-accordion
               *ngFor="let item of notificationList; let index = index"
               [value]="item">

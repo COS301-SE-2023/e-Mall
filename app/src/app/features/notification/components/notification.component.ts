@@ -51,7 +51,7 @@ export class NotificationComponent implements OnDestroy {
         message: `${message.notification.body}`,
         position: 'top',
         translucent: true,
-        header: message.notification.title,
+        // header: message.notification.title,
         mode: 'ios',
         cssClass: 'custom-notification',
         // duration: 3000,
@@ -100,9 +100,6 @@ export class NotificationComponent implements OnDestroy {
         const foundItem = notificationList.find(item => item.id === message.id);
         if (foundItem) {
           this.notificationFacade.accordionOpen$.next(foundItem);
-        } else {
-          this.notificationFacade.accordionOpen$.next(undefined);
-          console.log('Item not found to view');
         }
       }
     });

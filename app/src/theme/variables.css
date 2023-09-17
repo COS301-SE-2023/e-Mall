@@ -225,22 +225,33 @@ ion-toast.custom-notification{
     --background: #f4f4fa;
     --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
     --color: #4b4a50;
-    --width: 20rem;
+    --width: 22rem;
     --min-height: 7rem;
     --start: 4000;
     --max-height: 15rem;
 }
 
 ion-toast.custom-notification::part(message) {
-  font-style: italic;
+  /* font-style: italic; */
+  color: #000000;
+  text-align: start;
+  /* padding: 20px; */
+  padding-left: 10px;
+  /* padding-right: 5px; */
+  height: 100%;
+  padding-top: 10px;
+  /* padding-bottom: 0; */
+  /* overflow: auto !important; */
+  /* text-overflow: auto !important; */
+}
+/* ion-toast.custom-notification::part(header) {
   color: #000000;
   text-align: start;
   padding: 20px;
   max-height: 10rem;
   overflow: auto !important;
   text-overflow: auto !important;
-
-}
+} */
 /* ion-toast.custom-notification::part(message) > ion-avatar {
   width: 1px !important;
   min-width: 1px !important;
@@ -253,7 +264,10 @@ ion-avatar.notification-avatar {
 } */
 ion-toast.custom-notification::part(button) {
   color: var(--ion-color-clear-button);
-  font-size: 15px;
+  font-size: 0.8rem;
+  /* padding-top: 0; */
+  /* padding-bottom: 5px; */
+  height: min-content;
   /* position: fixed; */
   /* right: 0px; */
   /* top: 0px; */
