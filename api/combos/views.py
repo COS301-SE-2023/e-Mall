@@ -10,7 +10,7 @@ from product.models import Product
 from user.models import User
 from consumer.models import Consumer
 from consumer.serializers import ConsumerSerializer
-from notification.utils import update_combo
+# from notification.utils import update_combo
 from notification.messaging.templates import ComboTemplate
 from notification.messaging.types import MessageUser, MessageType
 from notification.messaging.messages import Message
@@ -100,7 +100,6 @@ def update_user(request):
                     else:
                         combo.pending_emails.remove(user.email)
                         combo.save()
-                        update_combo([user.id], combo.id, "reject")
 
                     return Response(
                         {"success": "User removed from pending emails successfully"}
@@ -200,12 +199,10 @@ def delete(request):
             # check if user email is last email in the list
             if len(combo.user_emails) == 1 and combo.user_emails[0] == user.email:
                 combo.delete()
-                update_combo([user.id], combo.id, "leave")
                 return Response({"success": "Combo deleted successfully"})
             elif user.email in combo.user_emails:
                 combo.user_emails.remove(user.email)
                 combo.save()
-                update_combo([user.id], combo.id, "leave")
                 # build data for message
                 users = Consumer.objects.filter(email__in=combo.user_emails)
                 combo_template = ComboTemplate()

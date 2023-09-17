@@ -6,10 +6,13 @@
       </app-customer-profile-sidenav>
     </div>
     <div class="combos-container">
+      <app-combo-breadcrumb [combo]="undefined"></app-combo-breadcrumb>
       <h2>My Collections</h2>
       <div class="head">
-        <div class="invite-container" *ngIf="comboInvites$ | async as comboInvites" >
-          <ion-card *ngIf="comboInvites?.length!==0" class="invite-card">
+        <div
+          class="invite-container"
+          *ngIf="comboInvites$ | async as comboInvites">
+          <ion-card *ngIf="comboInvites?.length !== 0" class="invite-card">
             <ion-card-header (click)="togglePanel(1)">
               <div class="invites">
                 <ion-card-title>Pending invitations</ion-card-title>
@@ -24,7 +27,7 @@
               </div>
             </ion-card-header>
             <ion-card-content [hidden]="!isPanelOpen[1]">
-              <ion-list >
+              <ion-list>
                 <div *ngFor="let invite of comboInvites">
                   <!--loop through invites here-->
                   <ion-item class="invite-info">
@@ -44,7 +47,6 @@
               </ion-list>
             </ion-card-content>
           </ion-card>
-         
         </div>
       </div>
       <div class="combos">
