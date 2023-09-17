@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { AuthModule } from '@features/auth/auth.module';
 import { ProfileModule } from '@features/profile/profile.module';
+import { NotificationModule } from '@app/features/notification/notification.module';
 
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
@@ -26,6 +27,7 @@ describe('NotFoundComponent', () => {
         NotFoundModule,
         AuthModule,
         ProfileModule,
+        NotificationModule,
       ],
     }).compileComponents();
   });

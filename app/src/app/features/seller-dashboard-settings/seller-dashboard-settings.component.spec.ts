@@ -9,6 +9,7 @@ import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
 import { NgxsModule } from '@ngxs/store';
 
 import { SellerNavComponent } from '@shared/components/seller-nav/seller-nav.component';
+import { NotificationModule } from '../notification/notification.module';
 
 describe('SellerDashboardSettingsComponent', () => {
   let component: SellerDashboardSettingsComponent;
@@ -16,14 +17,15 @@ describe('SellerDashboardSettingsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SellerDashboardSettingsComponent,SellerNavComponent],
+      declarations: [SellerDashboardSettingsComponent, SellerNavComponent],
       imports: [
         NgxsModule.forRoot([]),
         IonicModule,
         AuthModule,
         ProfileModule,
         HttpClientTestingModule,
-        NgxsDispatchPluginModule
+        NgxsDispatchPluginModule,
+        NotificationModule,
       ],
     });
     fixture = TestBed.createComponent(SellerDashboardSettingsComponent);

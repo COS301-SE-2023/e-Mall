@@ -12,6 +12,7 @@ import { NgxsModule } from '@ngxs/store';
 import { AboutModule } from '../about.module';
 import { AuthModule } from '@features/auth/auth.module';
 import { ProfileModule } from '@features/profile/profile.module';
+import { NotificationModule } from '@app/features/notification/notification.module';
 
 describe('AboutComponent', () => {
   let component: AboutComponent;
@@ -30,6 +31,7 @@ describe('AboutComponent', () => {
         AuthModule,
         ProfileModule,
         AboutModule,
+        NotificationModule,
       ],
       declarations: [AboutComponent],
       providers: [
