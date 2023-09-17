@@ -234,7 +234,7 @@ export class InventoryState {
             in_stock: action.data.in_stock,
             img_array: action.data.img_array,
             product: action.data.name,
-            seller: '',
+            seller: action.data.seller_name,
             product_name: action.data.name,
             product_category: action.data.category,
           };
