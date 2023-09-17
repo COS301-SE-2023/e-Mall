@@ -8,6 +8,6 @@ gunicorn api.wsgi:application --bind 0.0.0.0:3000 --daemon
 
 nginx -g 'daemon off;'
 #run celery
-celery -A api.celery worker --loglevel=info &
+celery -A api.celery worker --loglevel=info
 
 exec "$@"
