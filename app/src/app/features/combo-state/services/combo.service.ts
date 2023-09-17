@@ -36,8 +36,8 @@ export class ComboService {
     }
   }
 
-  async updateCombo(data: any): Promise<any> {
-    const url = `${this.apiUrl}update/`;
+  async inviteUsers(data: any): Promise<any> {
+    const url = `${this.apiUrl}invite/`;
 
     const res = await lastValueFrom(
       this.http
@@ -54,7 +54,6 @@ export class ComboService {
 
   async updateUsers(data: any): Promise<any> {
     const url = `${this.apiUrl}update_user/`;
-
     const res = await lastValueFrom(
       this.http
         .post(url, data, {
@@ -115,6 +114,40 @@ export class ComboService {
 
   async editCombo(data: any): Promise<any> {
     const url = `${this.apiUrl}edit/`;
+    const res = await lastValueFrom(
+      this.http
+        .post(url, data, {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+          observe: 'response',
+        })
+        .pipe(take(1), shareReplay(1))
+    );
+    return res.body;
+  }
+
+  async getInvites(): Promise<any> {
+    const url = `${this.apiUrl}get_invites/`;
+    const res = await lastValueFrom(
+      this.http
+        .post(
+          url,
+          {},
+          {
+            headers: new HttpHeaders()
+              .set('Content-Type', 'application/json')
+              .set('Authorization', 'true'),
+            observe: 'response',
+          }
+        )
+        .pipe(take(1), shareReplay(1))
+    );
+    return res.body;
+  }
+
+  async addProduct(data: any): Promise<any> {
+    const url = `${this.apiUrl}add_product/`;
     const res = await lastValueFrom(
       this.http
         .post(url, data, {

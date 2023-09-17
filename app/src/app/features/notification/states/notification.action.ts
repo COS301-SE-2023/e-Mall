@@ -1,3 +1,4 @@
+import { INotificationSettings } from '../models/notification-settings.interface';
 import { INotification } from '../models/notification.interface';
 
 export class SetToken {
@@ -46,4 +47,8 @@ export class ReadAll {
 }
 export class EmptyAction {
   static readonly type = '[Notification] Empty Action';
+}
+export class UpdateSettings {
+  static readonly type = '[Notification] Update Settings';
+  constructor(public settings: INotificationSettings) {}
 }

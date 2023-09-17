@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ComboFacade } from '@features/combo-state/services/combo.facade';
 import { ComboEditComponent } from './combo-edit/combo-edit.component';
 import { ModalController } from '@ionic/angular';
+import { ComboInviteComponent } from './combo-invite/combo-invite.component';
 //import { AuthFacade } from '@app/features/auth/services/auth.facade';
 //import { IUser } from '@app/features/auth/models/user.interface';
 //import { Observable } from 'rxjs';
@@ -125,7 +126,10 @@ export class ComboComponent implements OnInit, OnDestroy {
   }
 
   edit() {
-    this.openComboPopover();
+    this.openComboEditPopover();
+  }
+  invite() {
+    this.openComboInvitePopover();
   }
   public alertButtons = [
     {
@@ -142,13 +146,33 @@ export class ComboComponent implements OnInit, OnDestroy {
       },
     },
   ];
-  async openComboPopover() {
+  async openComboEditPopover() {
     const modal = await this.modalController.create({
       component: ComboEditComponent,
       componentProps: {
         combo_id: this.combo_id,
-        combo_name: this.name, // Pass the product as a property
+        combo_name: this.name,
       },
+      cssClass: ['inventory-modal'],
+      backdropDismiss: false,
+      animated: true,
+      mode: 'md',
+      presentingElement: await this.modalController.getTop(),
+    });
+    return await modal.present();
+  }
+
+  async openComboInvitePopover() {
+    const modal = await this.modalController.create({
+      component: ComboInviteComponent,
+      componentProps: {
+        combo_id: this.combo_id
+      },
+      cssClass: ['inventory-modal'],
+      backdropDismiss: false,
+      animated: true,
+      mode: 'md',
+      presentingElement: await this.modalController.getTop(),
     });
     return await modal.present();
   }

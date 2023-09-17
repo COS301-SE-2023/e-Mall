@@ -35,7 +35,8 @@ import { NgxsModule } from '@ngxs/store';
 import { AuthModule } from '@features/auth/auth.module';
 import { AuthFacade } from '@features/auth/services/auth.facade';
 import { ProfileModule } from '@features/profile/profile.module';
-import { ComboStateModule } from '@features/combo-state/combo-state.module'; 
+import { ComboStateModule } from '@features/combo-state/combo-state.module';
+import { NotificationModule } from '@app/features/notification/notification.module';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -107,6 +108,7 @@ describe('SearchComponent', () => {
         AuthModule,
         ProfileModule,
         IonicModule,
+        NotificationModule,
       ],
       providers: [
         ProductService,

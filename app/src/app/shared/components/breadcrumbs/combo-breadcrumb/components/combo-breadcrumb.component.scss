@@ -1,0 +1,14 @@
+.breadcrumb-desktop-container {
+  padding-top: 20px;
+}
+
+//mouse animation for hovering over
+/* Add this to your component's .scss or in a global styles.scss file */
+ion-breadcrumb {
+  cursor: pointer;
+  transition: background-color 0.2s ease; /* Add a smooth transition effect */
+
+  &:hover {
+    color: #37d0d6; /* Change the text color on hover */
+  }
+}

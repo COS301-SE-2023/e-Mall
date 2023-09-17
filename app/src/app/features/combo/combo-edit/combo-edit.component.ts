@@ -8,6 +8,7 @@ import { Observable, of } from 'rxjs';
 import { NavParams } from '@ionic/angular';
 import { IProduct } from '@shared/models/product/product.interface';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
+import { ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-combo-edit',
   templateUrl: './combo-edit.component.html',
@@ -22,10 +23,9 @@ export class ComboEditComponent implements OnInit {
   userEmail!: string;
   username!: string | undefined;
   comboName!: string;
-  comboEmail!: string;
   isChanged = false;
-  
-  addEmails:string[]=[];
+
+  addEmails: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -33,7 +33,8 @@ export class ComboEditComponent implements OnInit {
     private modalController: ModalController,
     private comboFacade: ComboFacade,
     private navParams: NavParams,
-    private profileFacade: ProfileFacade
+    private profileFacade: ProfileFacade,
+    private toastController: ToastController
   ) {}
 
   ngOnInit() {
@@ -52,36 +53,19 @@ export class ComboEditComponent implements OnInit {
 
     this.newForm = this.fb.group({
       newName: [this.comboName, Validators.required],
-      newEmails: ['', [Validators.email]],
     });
 
     this.comboFacade.getCombos().subscribe(data => {
       if (data) this.combos$ = of(data);
     });
   }
-  AddEmail() {
-    const newEmailsControl = this.newForm.get('newEmails');
-    if (newEmailsControl&&newEmailsControl.valid) {
-      this.addEmails.push(newEmailsControl.value);
-      newEmailsControl.reset();
-      this.isChanged = true;
-    }
-  }
-  
 
   editCombo() {
     if (this.newForm.valid) {
-      // Get form values
       const newName = this.newForm.value.newName;
-
-      // Split emails into an array
-      const useremailsarray = this.addEmails;
-
-      // Create data object
       const data = {
         combo_id: this.navParams.get('combo_id'),
         combo_name: newName,
-        user_emails: useremailsarray,
       };
 
       // Reset the form
@@ -89,6 +73,15 @@ export class ComboEditComponent implements OnInit {
 
       // Call your 'addCombo' function with 'data'
       this.updateCombo(data);
+    } else {
+      this.toastController
+        .create({
+          header: 'An error has occurred:',
+          message: 'Combo name cannot be empty',
+          duration: 2000,
+          cssClass: 'error-toast',
+        })
+        .then(toast => toast.present());
     }
   }
 
@@ -104,5 +97,4 @@ export class ComboEditComponent implements OnInit {
   onChange() {
     this.isChanged = true;
   }
-
 }

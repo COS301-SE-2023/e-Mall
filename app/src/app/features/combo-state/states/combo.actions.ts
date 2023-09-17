@@ -1,13 +1,28 @@
 import { IProduct } from '@shared/models/product/product.interface';
-import { ICombo } from '../models/combo.interface';
+import { ICombo, ICombo_invites } from '../models/combo.interface';
 
 export class SetCombos {
   static readonly type = '[Combo] Set Combos';
-  constructor(public combos: ICombo[]) {}
+  constructor(
+    public payload: {
+      combos: ICombo[];
+      combo_invites: ICombo_invites[];
+    }
+  ) {}
 }
 
-export class UpdateCombo {
-  static readonly type = '[Combo] Update Combo';
+export class InviteUsers {
+  static readonly type = '[Combo] Invited Users';
+  constructor(
+    public payload: {
+      combo_id: number;
+      user_emails: string[];
+    }
+  ) {}
+}
+
+export class AddProduct {
+  static readonly type = '[Combo] Add Product';
   constructor(
     public payload: {
       combo_ids: number[];
@@ -33,7 +48,6 @@ export class EditCombo {
     public payload: {
       combo_id: number;
       combo_name: string;
-      user_emails: string[];
     }
   ) {}
 }
@@ -42,7 +56,9 @@ export class UpdateUsers {
   static readonly type = '[Combo] Update Users';
   constructor(
     public payload: {
-      combo: any;
+      combo_id: number;
+      user_email: string;
+      action: string;
     }
   ) {}
 }
@@ -69,6 +85,7 @@ export class CreateCombo {
   static readonly type = '[Combo] Create Combo';
   constructor(
     public payload: {
+      current_user_email: string;
       combo_name: string;
       user_emails: string[];
       product_ids: number[];

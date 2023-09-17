@@ -10,7 +10,7 @@ import { ComboPopoverComponent } from './combo-popover/combo-popover.component';
 import { ComboFacade } from '@features/combo-state/services/combo.facade';
 import { AuthFacade } from '@features/auth/services/auth.facade';
 import { Navigate } from '@ngxs/router-plugin';
-
+import { WishlistFacade } from '@app/features/wishlist/wishlist-state/services/wishlist.facade';
 @Component({
   selector: 'app-product-card',
   templateUrl: 'product-card.component.html',
@@ -32,7 +32,8 @@ export class ProductCardComponent implements OnInit {
     private profileFacade: ProfileFacade,
     private analytics: AnalyticsService,
     private comboFacade: ComboFacade,
-    private authFacade: AuthFacade
+    private authFacade: AuthFacade,
+    private wishlistFacade: WishlistFacade
   ) {
     this.pageType = '';
   }
@@ -77,7 +78,7 @@ export class ProductCardComponent implements OnInit {
   }
   updateWishlist() {
     this.favClickAnalytics();
-    this.profileFacade.toggleWishlist(this.product.id);
+    this.wishlistFacade.addProductToWishlist(this.product);
   }
 
   removeProd() {
@@ -90,7 +91,7 @@ export class ProductCardComponent implements OnInit {
 
   removeProdFromWishlist() {
     this.favClickAnalytics();
-    this.profileFacade.removeProductFromWishlist(this.product.id);
+    this.wishlistFacade.removeProductFromWishlist(this.product);
   }
 
   goToProductPage(prod_id: number): void {
