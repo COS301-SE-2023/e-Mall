@@ -270,9 +270,9 @@ def update_settings(request):
     try:
         user_id = str(request.user.id)
         user_ref = db.collection(user_collection).document(user_id)
-        settings = request.data
+        settings = request.data.get("settings")
         valid_fields = ["general", "following", "wishlist", "all"]
-
+        print(settings)
         if not settings:  # If settings is empty, set all fields to True
             settings = {field: True for field in valid_fields}
 
@@ -289,6 +289,7 @@ def update_settings(request):
             {"status": "success", "message": "Settings updated successfully"}
         )
     except Exception as e:
+        print(e)
         return Response(
             {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
         )
@@ -311,6 +312,33 @@ def count_unread_notifications(request):
             "unread_count": count,
         }
         return Response(response_data)
+    except Exception as e:
+        return Response(
+            {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
+        )
+
+
+@api_view(["POST"])
+def get_settings(request):
+    try:
+        user_id = str(request.user.id)
+        user_ref = db.collection(user_collection).document(user_id)
+        doc = user_ref.get()
+        if doc.exists:
+            data = doc.to_dict()
+            settings = data.get("settings", None)
+
+            if (
+                settings is None
+            ):  # If settings field doesn't exist, set all fields to False
+                valid_fields = ["general", "following", "wishlist", "all"]
+                settings = {field: True for field in valid_fields}
+            return Response(settings)
+        else:
+            return Response(
+                {"status": "error", "message": "User not found"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
     except Exception as e:
         return Response(
             {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST

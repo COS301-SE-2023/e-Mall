@@ -165,6 +165,7 @@ export class NotificationService {
     );
   }
   async updateSettings(settings: INotificationSettings) {
+    console.log(settings);
     const url = `${this.apiUrl}settings/update/`;
     return await firstValueFrom(
       this.http.post(

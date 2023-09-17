@@ -584,14 +584,15 @@ class TestNotificationRemainingViews(TestCase):
 
     def test_update_settings_fail_invalid_field(self):
         request = self.api_client.post(
-            "/api/notification/update_settings/", {"invalid_field": True}
+            "/api/notification/update_settings/", {"settings": {"invalid_field": True}}
         )
         response = update_settings(request)
         self.assertEqual(response.status_code, 400)
 
     def test_update_settings_fail_invalid_value(self):
         request = self.api_client.post(
-            "/api/notification/update_settings/", {"general": "invalid_value"}
+            "/api/notification/update_settings/",
+            {"settings": {"general": "invalid_value"}},
         )
         response = update_settings(request)
         self.assertEqual(response.status_code, 400)
