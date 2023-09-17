@@ -27,16 +27,7 @@ export function transformMessage(message: any): INotification {
   } else if (message.data.is_read) {
     is_read = true;
   }
-  const sender: INotificationUser = {
-    id: message.data.sender.id,
-    name: message.data.sender.name,
-    image: message.data.sender.image,
-  };
-  const doc: INotificationUser = {
-    id: message.data.doc.id,
-    name: message.data.doc.name,
-    image: message.data.doc.image,
-  };
+
   return {
     id: message.data.id,
     is_read: is_read,
@@ -65,13 +56,13 @@ export function transformNewMessage(message: any): INotification {
   console.log(timestamp);
   const unixTimestamp =
     timestamp._seconds * 1000 + timestamp._nanoseconds / 1000000;
-  let timeStampBeforeConversion = '';
+  let time_stamp_before_conversion = '';
   if (unixTimestamp != null) {
     if (isNaN(Number(unixTimestamp))) {
       message_time = new Date(unixTimestamp);
     } else {
       message_time = new Date(Number(unixTimestamp));
-      timeStampBeforeConversion = message_time.toISOString();
+      time_stamp_before_conversion = message_time.toISOString();
     }
     readable_time = new DatePipe('en-ZA').transform(
       message_time,
@@ -104,7 +95,7 @@ export function transformNewMessage(message: any): INotification {
     doc: doc,
     message_type: data.message_type,
     action: data.action,
-    timestamp: timeStampBeforeConversion,
+    timestamp: time_stamp_before_conversion,
     timestamp_locale: readable_time,
     notification: {
       title: message.notification.title,

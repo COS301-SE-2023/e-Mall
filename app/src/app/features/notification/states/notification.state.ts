@@ -220,10 +220,10 @@ export class NotificationState {
       })
     );
   }
-  @Action(NotificationActions.updateSettings)
+  @Action(NotificationActions.UpdateSettings)
   updateSettings(
     ctx: StateContext<NotificationStateModel>,
-    action: NotificationActions.updateSettings
+    action: NotificationActions.UpdateSettings
   ) {
     ctx.setState(
       produce(draft => {

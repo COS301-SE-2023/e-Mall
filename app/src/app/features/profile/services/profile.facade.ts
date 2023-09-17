@@ -6,13 +6,11 @@ import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 import { Select } from '@ngxs/store';
 import {
   Observable,
-  shareReplay,
   tap,
   Subscription,
   map,
   of,
   debounceTime,
-  firstValueFrom,
   distinctUntilChanged,
 } from 'rxjs';
 import { IConsumerProfile } from '../models/consumer-profile.interface';

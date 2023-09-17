@@ -48,7 +48,7 @@ export class ReadAll {
 export class EmptyAction {
   static readonly type = '[Notification] Empty Action';
 }
-export class updateSettings {
+export class UpdateSettings {
   static readonly type = '[Notification] Update Settings';
   constructor(public settings: INotificationSettings) {}
 }

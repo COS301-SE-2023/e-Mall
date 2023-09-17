@@ -263,7 +263,7 @@ export class NotificationFacade implements OnDestroy {
   async updateSettings(settings: INotificationSettings) {
     try {
       await this.notificationService.updateSettings(settings);
-      return new NotificationActions.updateSettings(settings);
+      return new NotificationActions.UpdateSettings(settings);
     } catch (error) {
       return this.setError(error);
     }
@@ -272,7 +272,7 @@ export class NotificationFacade implements OnDestroy {
   async getSettings() {
     try {
       const res = await this.notificationService.getSettings();
-      return new NotificationActions.updateSettings(res);
+      return new NotificationActions.UpdateSettings(res);
     } catch (error) {
       return this.setError(error);
     }
