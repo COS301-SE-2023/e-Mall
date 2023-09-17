@@ -22,6 +22,7 @@ import {
   transformMessage,
   transformNewMessage,
 } from '../utils/transformMessage';
+import { INotificationSettings } from '../models/notification-settings.interface';
 @Injectable()
 export class NotificationFacade implements OnDestroy {
   @Select(NotificationSelectors.getUnreadCount)
@@ -34,6 +35,8 @@ export class NotificationFacade implements OnDestroy {
   hasNext$!: Observable<boolean>;
   @Select(NotificationSelectors.getCount)
   count$!: Observable<number>;
+  @Select(NotificationSelectors.getNotificationSettings)
+  settings$!: Observable<INotificationSettings>;
 
   newMessage$ = new BehaviorSubject<INotification | null>(null);
   messageListenSubs = new Subscription();
@@ -42,6 +45,7 @@ export class NotificationFacade implements OnDestroy {
   isInitial = true;
   isLoading = new BehaviorSubject<boolean>(true);
   token = '';
+  accordionOpen$ = new BehaviorSubject<INotification | undefined>(undefined);
   constructor(
     private notificationService: NotificationService,
     authfacade: AuthFacade
@@ -76,6 +80,7 @@ export class NotificationFacade implements OnDestroy {
     this.resetNotifications();
     this.isInitial = true;
     this.getUnreadCount();
+    this.getSettings();
 
     this.messageListenSubs = this.notificationService.message$
       .pipe(debounceTime(500))
@@ -247,8 +252,30 @@ export class NotificationFacade implements OnDestroy {
   }
   @Dispatch()
   async updateDeviceToken(token: string) {
-    this.notificationService.updateDeviceToken(token);
-    return new NotificationActions.SetToken(token);
+    try {
+      this.notificationService.updateDeviceToken(token);
+      return new NotificationActions.SetToken(token);
+    } catch (error) {
+      return this.setError(error);
+    }
+  }
+  @Dispatch()
+  async updateSettings(settings: INotificationSettings) {
+    try {
+      await this.notificationService.updateSettings(settings);
+      return new NotificationActions.updateSettings(settings);
+    } catch (error) {
+      return this.setError(error);
+    }
+  }
+  @Dispatch()
+  async getSettings() {
+    try {
+      const res = await this.notificationService.getSettings();
+      return new NotificationActions.updateSettings(res);
+    } catch (error) {
+      return this.setError(error);
+    }
   }
 
   ngOnDestroy(): void {

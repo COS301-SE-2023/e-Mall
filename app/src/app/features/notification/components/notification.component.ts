@@ -18,8 +18,9 @@ export class NotificationComponent implements OnDestroy {
   newMessageSubs = new Subscription();
   isMenuOpened = false;
   menuOpenedSubs = new Subscription();
+
   constructor(
-    private notificationFacade: NotificationFacade,
+    public notificationFacade: NotificationFacade,
     private toastController: ToastController
   ) {
     this.menuOpenedSubs = notificationFacade.isMenuOpen$.subscribe(
@@ -38,7 +39,6 @@ export class NotificationComponent implements OnDestroy {
   }
 
   async showMessage(message: any) {
-    console.log(message);
     this.messages = [message];
     this.displayNextMessage();
   }
@@ -48,18 +48,26 @@ export class NotificationComponent implements OnDestroy {
       this.isToastPresented = true;
       const message = this.messages.shift();
       this.toast = await this.toastController.create({
-        message: `<ion-avatar class="notification-avatar">
-  <img alt="Silhouette of a person's head" src="${message.notification.image}" />
-</ion-avatar>${message.notification.body}`,
-        position: 'bottom',
+        message: `${message.notification.body}`,
+        position: 'top',
         translucent: true,
+        // header: message.notification.title,
         mode: 'ios',
         cssClass: 'custom-notification',
-        duration: 3000,
+        // duration: 3000,
+        layout: 'stacked',
         buttons: [
           {
             side: 'end',
-            icon: 'close',
+            text: 'View',
+            role: 'openPannel',
+            handler: () => {
+              this.openMenu(message);
+            },
+          },
+          {
+            side: 'end',
+            text: 'Dismiss',
             role: 'cancel',
             handler: () => {
               this.toast?.dismiss();
@@ -69,7 +77,7 @@ export class NotificationComponent implements OnDestroy {
       });
       this.toast.onDidDismiss().then(() => {
         this.isToastPresented = false;
-        this.displayNextMessage();
+        if (!this.isMenuOpened) this.displayNextMessage();
       });
       this.toast.present();
     }
@@ -83,5 +91,17 @@ export class NotificationComponent implements OnDestroy {
   }
   ngOnDestroy(): void {
     this.newMessageSubs.unsubscribe();
+  }
+
+  async openMenu(message: INotification) {
+    this.notificationFacade.isMenuOpen$.next(true);
+    this.notificationFacade.notificationList$.subscribe(notificationList => {
+      if (notificationList) {
+        const foundItem = notificationList.find(item => item.id === message.id);
+        if (foundItem) {
+          this.notificationFacade.accordionOpen$.next(foundItem);
+        }
+      }
+    });
   }
 }

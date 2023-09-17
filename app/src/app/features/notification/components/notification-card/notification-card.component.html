@@ -25,15 +25,23 @@
       style="
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
+        justify-content: start;
+        min-height: 7rem;
       ">
-      <ion-label style="margin-bottom: 5px" position="stacked"
+      <ion-label style="margin-bottom: 7px" position="stacked"
         >Content</ion-label
       >
 
       {{ item.notification.body }}
+      <div style="flex: 1"></div>
       <ion-label
-        style="text-align: end; font-style: italic; font-size: small"
+        style="
+          justify-self: end;
+          padding-top: 4px;
+          text-align: end;
+          font-style: italic;
+          font-size: small;
+        "
         >{{ calculatedTime }}</ion-label
       >
     </div>

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 
@@ -10,12 +11,7 @@ exports.userNotification = functions
         const title = data.title;
         const body = data.message;
         const image = data.image ? data.image : "";
-        // const isRead = data.is_read;
-        // const timestamp = data.timestamp;
-        // const unixTimestamp = timestamp.toMillis();
-        // const sender = data.sender;
-        // const target = data.receiver;
-
+        const messageType = data.message_type;
         const payload = {
           id: data.id,
           sender: data.sender,
@@ -23,7 +19,7 @@ exports.userNotification = functions
           is_read: data.is_read,
           timestamp: data.timestamp,
           doc: data.doc,
-          message_type: data.message_type,
+          message_type: messageType,
         };
         // Get the device token from the parent document
         const parentRef = snap.ref.parent.parent;

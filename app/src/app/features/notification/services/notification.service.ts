@@ -10,6 +10,7 @@ import {
 import { AuthFacade } from '@features/auth/services/auth.facade';
 import { environment } from 'environments/env';
 import { firstValueFrom, EMPTY, Observable, from } from 'rxjs';
+import { INotificationSettings } from '../models/notification-settings.interface';
 
 @Injectable()
 export class NotificationService {
@@ -162,5 +163,34 @@ export class NotificationService {
         }
       )
     );
+  }
+  async updateSettings(settings: INotificationSettings) {
+    const url = `${this.apiUrl}settings/update/`;
+    return await firstValueFrom(
+      this.http.post(
+        url,
+        { settings },
+        {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+        }
+      )
+    );
+  }
+  async getSettings(): Promise<INotificationSettings> {
+    const url = `${this.apiUrl}settings/get/`;
+    const res = await firstValueFrom(
+      this.http.post<INotificationSettings>(
+        url,
+        {},
+        {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+        }
+      )
+    );
+    return res;
   }
 }

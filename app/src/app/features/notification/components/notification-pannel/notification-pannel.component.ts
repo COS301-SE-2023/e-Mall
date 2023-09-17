@@ -2,7 +2,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, Input } from '@angular/core';
 import { INotification } from '@features/notification/models/notification.interface';
 import { NotificationFacade } from '@features/notification/services/notification.facade';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, debounceTime } from 'rxjs';
 import {
   reactiveTimeFormat,
   timeFormat,
@@ -19,7 +19,9 @@ export class NotificationPannelComponent implements OnDestroy {
   lastNotification$: Observable<string | null>;
   opendAccordionNotification: any = undefined;
   menuOpenedSubs = new Subscription();
+  selectedItemSubs = new Subscription();
   settings = false;
+  selectedItem: INotification | undefined;
   constructor(
     public notificationFacade: NotificationFacade,
     private cdr: ChangeDetectorRef
@@ -32,12 +34,18 @@ export class NotificationPannelComponent implements OnDestroy {
         }
       }
     );
-
+    this.selectedItemSubs = notificationFacade.accordionOpen$.subscribe(val => {
+      if (val) {
+        this.opendAccordionNotification = val;
+        this.cdr.markForCheck();
+      }
+    });
     this.notificationList$ = notificationFacade.notificationList$;
     this.lastNotification$ = notificationFacade.lastNotification$;
   }
   ngOnDestroy(): void {
     this.menuOpenedSubs.unsubscribe();
+    this.selectedItemSubs.unsubscribe();
     console.log('dropdown component destroyed');
   }
 
@@ -70,6 +78,7 @@ export class NotificationPannelComponent implements OnDestroy {
       this.readPrevClicked();
     }
     this.opendAccordionNotification = currentNotification;
+    this.notificationFacade.accordionOpen$.next(currentNotification);
   }
 
   async closeMenu() {
