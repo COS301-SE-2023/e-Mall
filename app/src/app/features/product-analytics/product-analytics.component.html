@@ -39,7 +39,13 @@
       </div>
     </div>
     <div class="container">
-      <div class="table">
+      <div class="spinner-container" *ngIf="showSpinner">
+        <div class="spinner">
+          <ion-spinner style="color: #99e3dc; margin-top: 15%; margin-left: 300px; margin-bottom: 200px;"></ion-spinner>
+        </div>
+      </div>
+      
+      <div class="table" *ngIf="!showSpinner">
         <ion-list lines="full">
           <ion-item>
             <ion-grid>
@@ -52,6 +58,7 @@
               </ion-row>
             </ion-grid>
           </ion-item>
+
           <ng-container *ngIf="topProducts$ | async as topProducts">
             <ion-item *ngFor="let product of topProducts">
               <ion-grid>
@@ -70,6 +77,7 @@
                 </ion-row>
               </ion-grid>
             </ion-item>
+            
           </ng-container>
           <div class="paginator-container">
             <ng-container *ngIf="topProducts$ | async as topProducts">

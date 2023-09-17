@@ -22,17 +22,22 @@ import { MatRadioModule } from '@angular/material/radio';
 import { ProductService } from '@shared/servicies/product/product.service';
 import { AuthService } from '@app/features/auth/services/auth.service';
 import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
 import { ProductCardModule } from '../../shared/components/product-card/product-card.module';
 import { ProfileModule } from '@features/profile/profile.module';
 import { ComboStateModule } from '@features/combo-state/combo-state.module';
+
+const routes: Routes = [
+  { path: '', pathMatch: 'full', component: HomeComponent },
+];
+
 @NgModule({
   declarations: [HomeComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ProductService, AuthService],
-  exports: [HomeComponent],
+  exports: [RouterModule],
   imports: [
     HttpClientModule,
     CommonModule,
@@ -61,6 +66,7 @@ import { ComboStateModule } from '@features/combo-state/combo-state.module';
     ProductCardModule,
     ProfileModule,
     ComboStateModule,
+    RouterModule.forChild(routes),
   ],
 })
 export class HomeModule {}

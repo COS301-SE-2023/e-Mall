@@ -15,8 +15,11 @@ from product.models import Product
 from ca_matrix.models import ca_matrix
 import numpy as np
 import pandas as pd
-from notification.utils import update_wishlist
-from notification.utils import update_followed_users
+
+# from notification.utils import update_wishlist
+# from notification.utils import update_followed_users
+from celery import shared_task
+from cust_analytics.views import post, my_custom_function
 
 
 @api_view(["POST"])
@@ -76,9 +79,9 @@ def updateWishlist(request):
             consumer = Consumer.objects.get(email=user.email)
             if product_id not in consumer.wishlist:
                 consumer.wishlist.append(product_id)
-            res = update_wishlist(user.id, product_id, "add")
-            if res.get("status") == "error":
-                raise Exception(res.get("message"))
+            # res = update_wishlist(user.id, product_id, "add")
+            # if res.get("status") == "error":
+            # raise Exception(res.get("message"))
             consumer.save()
             return Response({"success": True})
         else:
@@ -98,9 +101,9 @@ def removeProductFromWishlist(request):
         if user.type == "consumer":
             consumer = Consumer.objects.get(email=user.email)
             consumer.wishlist.remove(product_id)
-            res = update_wishlist(user.id, product_id, "remove")
-            if res.get("status") == "error":
-                raise Exception(res.get("message"))
+            # res = update_wishlist(user.id, product_id, "remove")
+            # if res.get("status") == "error":
+            # raise Exception(res.get("message"))
             consumer.save()
             return Response({"success": True})
         else:
@@ -122,12 +125,12 @@ def updateFollowedSellers(request):
             seller = Seller.objects.get(business_name=seller_name)
             if seller_name in consumer.followed_sellers:
                 consumer.followed_sellers.remove(seller_name)
-                res = update_followed_users(user.id, seller.id, "remove")
+                # res = update_followed_users(user.id, seller.id, "remove")
             else:
                 consumer.followed_sellers.append(seller_name)
-                res = update_followed_users(user.id, seller.id, "add")
-            if res.get("status") == "error":
-                raise Exception(res.get("message"))
+                # res = update_followed_users(user.id, seller.id, "add")
+            # if res.get("status") == "error":
+            # raise Exception(res.get("message"))
             consumer.save()
             return Response({"success": True})
         else:
@@ -162,44 +165,41 @@ def get_followed_seller_details(request):
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-@api_view(["POST"])
-def update_recommended_products(request):
+@shared_task
+def update_recommended_products(email):
     try:
-        user = request.user
-        if user is None:
-            raise Exception("User not found")
-        if user.type == "consumer":
-            rec_prods = []
-            # get the predictions data
-            predictions_data = ca_matrix.objects.all()
-            # create the df table
-            df, df1 = createTables(predictions_data)
-            for m in df[df[user.email] == 0].index.tolist():
-                index_df = df.index.tolist().index(m)
-                predicted_rating = df1.iloc[
-                    index_df, df1.columns.tolist().index(user.email)
-                ]
-                rec_prods.append((m, predicted_rating))
+        if email is None:
+            return {"error": "User not found"}
 
-            sorted_rm = sorted(rec_prods, key=lambda x: x[1], reverse=True)
-            # find the consumer
-            consumer = Consumer.objects.get(email=user.email)
-            # remove old similar products array
-            consumer.recommended_products = []
-            # #add new similar products array
+        rec_prods = []
+        # get the predictions data
+        predictions_data = ca_matrix.objects.all()
+        # create the df table
+        df, df1 = createTables(predictions_data)
+        for m in df[df[email] == 0].index.tolist():
+            index_df = df.index.tolist().index(m)
+            predicted_rating = df1.iloc[index_df, df1.columns.tolist().index(email)]
+            rec_prods.append((m, predicted_rating))
 
-            for name, value in sorted_rm:
-                consumer.recommended_products.append(name)
+        sorted_rm = sorted(rec_prods, key=lambda x: x[1], reverse=True)
+        # find the consumer
+        consumer = Consumer.objects.get(email=email)
+        # remove old similar products array
+        consumer.recommended_products = []
+        # #add new similar products array
 
-            consumer.save()
+        for name, value in sorted_rm:
+            consumer.recommended_products.append(name)
 
-            return Response({"success": True})
+        # Log the recommended products before and after the update
 
-        else:
-            raise Exception("User is seller")
+        consumer.save()
+
+        return {"success": True}
+
     except Exception as e:
         # handle other exceptions here
-        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return {"error": str(e)}  # Return a dictionary with the error message
 
 
 @api_view(["POST"])
@@ -209,11 +209,15 @@ def get_recommended_products(request):
         if user is None:
             raise Exception("User not found")
         if user.type == "consumer":
+            post.delay()
+            update_recommended_products.delay(user.email)
+            # Define recommended_products as an empty queryset initially
+            recommended_products = Product.objects.none()
             if (
                 user.recommended_products is not None
                 and len(user.recommended_products) > 0
             ):
-                # get the recommended products by product name
+                # Update recommended_products if the user has recommendations
                 recommended_products = Product.objects.filter(
                     name__in=user.recommended_products
                 )
@@ -224,7 +228,7 @@ def get_recommended_products(request):
             raise Exception("User is seller")
 
     except Exception as e:
-        # handle other exceptions here
+        # Handle other exceptions here
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
@@ -241,3 +245,23 @@ def createTables(predictions_data):
     df = predictions_df.pivot(index="product", columns="user_email", values="value")
     df1 = df.copy()
     return df, df1
+
+
+@api_view(["POST"])
+def getWishlistedProducts(request):
+    try:
+        user = request.user
+        if user is None:
+            raise Exception("User not found")
+        if user.type == "seller":
+            raise Exception("Seller cannot have wishlist")
+        else:
+            consumer = Consumer.objects.get(email=user.email)
+            wishlisted_products = Product.objects.filter(
+                id__in=consumer.wishlist
+            ).order_by("-created_at")
+            serializer = ProductSerializer(wishlisted_products, many=True)
+            return Response(serializer.data)
+    except Exception as e:
+        # handle other exceptions here
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

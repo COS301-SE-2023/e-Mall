@@ -13,6 +13,7 @@ import { NgxsModule } from '@ngxs/store';
 import { ContactModule } from '../contact.module';
 import { AuthModule } from '@features/auth/auth.module';
 import { ProfileModule } from '@features/profile/profile.module';
+import { NotificationModule } from '@app/features/notification/notification.module';
 
 describe('ContactComponent', () => {
   let component: ContactComponent;
@@ -31,6 +32,7 @@ describe('ContactComponent', () => {
         ContactModule,
         AuthModule,
         ProfileModule,
+        NotificationModule,
       ],
       declarations: [ContactComponent],
       providers: [

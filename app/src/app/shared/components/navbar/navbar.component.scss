@@ -1,4 +1,3 @@
-@import 'mixins';
 .navbar {
   height: 65px;
   background-color: #ecf6f6;
@@ -121,13 +120,3 @@ ion-badge {
 //     width: 100% !important;
 //   }
 // }
-
-ion-menu {
-  --width: 412px;
-}
-@include screen-medium {
-  ion-menu::part(container) {
-    --width: 100% !important;
-    width: 100% !important;
-  }
-}

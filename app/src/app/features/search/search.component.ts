@@ -41,6 +41,8 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   loading = true;
 
+  showSpinner = true;
+
   ////J fix for min , max price
 
   priceRangeGroup;
@@ -60,6 +62,14 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+    this.showSpinner = true;
+    
+    setTimeout(() => {
+      this.showSpinner = false;
+      
+    }, 6000);
+    
     this.minPrice = 0;
     this.maxPrice = 5000;
     this.route.queryParams.subscribe(params => {

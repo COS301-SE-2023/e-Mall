@@ -33,6 +33,7 @@ import { SellerNavComponent } from '@shared/components/seller-nav/seller-nav.com
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
+import { NotificationModule } from '@app/features/notification/notification.module';
 
 // Mock AnalyticsService
 const mockAnalyticsService = {
@@ -85,6 +86,7 @@ describe('ProductAnalyticsComponent', () => {
         MatRadioModule,
         AuthModule,
         ProfileModule,
+        NotificationModule,
       ],
       providers: [
         { provide: AnalyticsService, useValue: mockAnalyticsService },

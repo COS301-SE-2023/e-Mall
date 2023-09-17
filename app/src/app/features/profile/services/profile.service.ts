@@ -124,7 +124,7 @@ export class ProfileService {
 
   async fetchRecommendedProducts(): Promise<IProduct[]> {
     console.log('fetchRecommendedProducts start');
-    await this.updateRecommendedProducts();
+    // await this.updateRecommendedProducts();
     const url = `${this.apiUrl}fetchRecommendedProducts/`;
 
     const response = await lastValueFrom(
@@ -168,4 +168,6 @@ export class ProfileService {
     const url = `http://localhost:3000/api/custanalytics/predicted_matrix/`;
     return firstValueFrom(this.http.post(url, {}));
   }
+
+
 }

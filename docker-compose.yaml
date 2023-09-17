@@ -11,8 +11,16 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      redis: # Add this line
+        condition: service_healthy # Add this line
     links:
       - db:db
+      - redis:redis
+    networks:
+      - dev
+    # environment:
+    #   - CELERY_BROKER=redis://redis:6379/0
+    #   - CELERY_BACKEND=redis://redis:6379/0
   db:
     image: postgres:14.7
     healthcheck:
@@ -29,5 +37,23 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+    networks:
+      - dev
+  redis:
+    hostname: redis
+    image: redis:alpine
+    depends_on:
+      - db
+    # ports:
+    #   - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 3s
+      timeout: 5s
+      retries: 5
+    networks:
+      - dev
 volumes:
   postgres_data:
+networks:
+  dev:

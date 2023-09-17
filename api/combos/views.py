@@ -1,6 +1,5 @@
 from django.shortcuts import render
 import string
-from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
@@ -11,7 +10,10 @@ from product.models import Product
 from user.models import User
 from consumer.models import Consumer
 from consumer.serializers import ConsumerSerializer
-
+# from notification.utils import update_combo
+from notification.messaging.templates import ComboTemplate
+from notification.messaging.types import MessageUser, MessageType
+from notification.messaging.messages import Message
 
 # Create your views here.
 
@@ -21,26 +23,38 @@ def create(request):
     try:
         user = request.user
         combo_name = request.data["combo_name"]
-        user_emails = request.data["user_emails"]
         product_ids = request.data["product_ids"]
-        pending_emails = user_emails[1:] if len(user_emails) > 1 else []
+        pending_emails = request.data["user_emails"]
         if user is None:
             raise Exception("User not found")
         if user.type == "seller":
             raise Exception("Seller cannot create combos")
         if user.type == "consumer":
             # add to db
-
             combo = Combos(
                 combo_name=combo_name,
-                user_emails=[user_emails[0]],
+                user_emails=[user.email],
                 product_ids=product_ids,
                 pending_emails=pending_emails,
             )
             combo.save()
+
+            # build data for message
+            users = Consumer.objects.filter(email__in=combo.pending_emails)
+            combo_template = ComboTemplate()
+            params = {
+                "action": MessageType.Combo.CREATE,
+                "template": combo_template.invite,
+                "doc": combo,
+                "sender": user,
+                "receivers": users,
+            }
+
+            Message(**params).send_to_combo()
+
         return Response({"success": "Combo created successfully"})
     except Exception as e:
-        # handle other exceptions here
+        print(e)
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
@@ -59,6 +73,18 @@ def update_user(request):
                 # remove user email from pending emails and add to user emails
                 combo = Combos.objects.get(id=combo_id)
                 if user.email in combo.pending_emails:
+                    # build data for message
+                    users = Consumer.objects.filter(email__in=combo.user_emails)
+                    combo_template = ComboTemplate()
+                    params = {
+                        "action": MessageType.Combo.ACCEPT,
+                        "template": combo_template.accept,
+                        "doc": combo,
+                        "sender": user,
+                        "receivers": users,
+                    }
+                    Message(**params).send_to_combo()
+
                     combo.pending_emails.remove(user.email)
                     combo.user_emails.append(user.email)
                     combo.save()
@@ -74,6 +100,7 @@ def update_user(request):
                     else:
                         combo.pending_emails.remove(user.email)
                         combo.save()
+
                     return Response(
                         {"success": "User removed from pending emails successfully"}
                     )
@@ -84,28 +111,31 @@ def update_user(request):
 
 
 @api_view(["POST"])
-def update(request):
+def invite(request):
     try:
         user = request.user
-        combo_ids = request.data["combo_ids"]
-        if "combo_name" in request.data:
-            combo_name = request.data["combo_name"]
-        else:
-            combo_name = ""
-        product_id = request.data["product_id"]
-
+        combo_id = request.data["combo_id"]
+        user_emails = request.data["user_emails"]
         if user is None:
             raise Exception("User not found")
         if user.type == "seller":
             raise Exception("Seller cannot create combos")
         if user.type == "consumer":
             # update existing combo
-            for id in combo_ids:
-                combo = Combos.objects.get(id=id)
-                combo.product_ids.append(product_id)
-                if combo_name != "":
-                    combo.combo_name = combo_name
-                combo.save()
+            combo = Combos.objects.get(id=combo_id)
+            combo.pending_emails.extend(user_emails)
+            combo.save()
+            # build data for message
+            users = Consumer.objects.filter(email__in=user_emails)
+            combo_template = ComboTemplate()
+            params = {
+                "action": MessageType.Combo.INVITE,
+                "template": combo_template.invite,
+                "doc": combo,
+                "sender": user,
+                "receivers": users,
+            }
+            Message(**params).send_to_combo()
         return Response({"success": "Combo updated successfully"})
     except Exception as e:
         # handle other exceptions here
@@ -139,7 +169,6 @@ def edit(request):
         user = request.user
         combo_id = request.data["combo_id"]
         combo_name = request.data["combo_name"]
-        user_emails = request.data["user_emails"]
         if user is None:
             raise Exception("User not found")
         if user.type == "seller":
@@ -148,10 +177,6 @@ def edit(request):
             # update existing combo
             combo = Combos.objects.get(id=combo_id)
             combo.combo_name = combo_name
-            if user_emails[0] != "":
-                for email in user_emails:
-                    if email not in combo.pending_emails:
-                        combo.pending_emails.append(email)
             combo.save()
         return Response({"success": "Combo edited successfully"})
     except Exception as e:
@@ -178,6 +203,18 @@ def delete(request):
             elif user.email in combo.user_emails:
                 combo.user_emails.remove(user.email)
                 combo.save()
+                # build data for message
+                users = Consumer.objects.filter(email__in=combo.user_emails)
+                combo_template = ComboTemplate()
+                params = {
+                    "action": MessageType.Combo.LEAVE,
+                    "template": combo_template.leave,
+                    "doc": combo,
+                    "sender": user,
+                    "receivers": users,
+                }
+
+                Message(**params).send_to_combo()
                 return Response({"success": "User removed from Combo successfully"})
             else:
                 raise Exception("User not found in Combo")
@@ -218,6 +255,68 @@ def get(request):
 
             return Response({"combos": combo_data})
 
+    except Exception as e:
+        # handle other exceptions here
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(["POST"])
+def getInvites(request):
+    try:
+        user = request.user
+        if user is None:
+            raise Exception("User not found")
+        if user.type == "seller":
+            raise Exception("Seller cannot access combos")
+        if user.type == "consumer":
+            # Get all combos for the user where the user is pending
+            combos = Combos.objects.filter(pending_emails__contains=[user.email])
+
+            combo_data = []
+            for combo in combos:
+                # add id and name to combo_data
+                combo_data.append(
+                    {
+                        "id": combo.id,
+                        "name": combo.combo_name,
+                    }
+                )
+
+            return Response({"combos": combo_data})
+    except Exception as e:
+        # handle other exceptions here
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(["POST"])
+def addProduct(request):
+    try:
+        user = request.user
+        combo_ids = request.data["combo_ids"]
+        product_id = request.data["product_id"]
+        if user is None:
+            raise Exception("User not found")
+        if user.type == "seller":
+            raise Exception("Seller cannot access combos")
+        if user.type == "consumer":
+            for id in combo_ids:
+                combo = Combos.objects.get(id=id)
+                combo.product_ids.append(product_id)
+                combo.save()
+                # build data for message
+                user_emails = combo.user_emails
+                user_emails.remove(user.email)
+                users = Consumer.objects.filter(email__in=user_emails)
+                combo_template = ComboTemplate()
+                params = {
+                    "action": MessageType.Combo.ADD,
+                    "template": combo_template.add,
+                    "doc": combo,
+                    "sender": user,
+                    "receivers": users,
+                }
+                Message(**params).send_to_combo()
+            return Response({"success": "Product added to combo successfully"})
     except Exception as e:
         # handle other exceptions here
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

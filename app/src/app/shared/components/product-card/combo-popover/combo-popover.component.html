@@ -1,6 +1,6 @@
 <div class="modal-container">
   <ion-item lines="none" class="modal-header-item">
-    <ion-text class="modal-header"> Add to Combo </ion-text>
+    <ion-text class="modal-header"> Add to Collections </ion-text>
     <ion-button
       class="close-button"
       fill="clear"
@@ -16,16 +16,15 @@
       <form [formGroup]="selectForm">
         <!-- Wrap form elements in a formGroup -->
         <ion-item class="item-padding" lines="none">
-          
           <ion-select
             multiple="true"
             interface="popover"
             formControlName="selectedOptions"
-            label="Select Combo"
-            label-placement="floating" fill="outline"
+            label="Select Collections"
+            label-placement="floating"
+            fill="outline"
             class="custom-select">
-            <ion-select-option value="wishlist">
-              Wishlist</ion-select-option>
+            <ion-select-option value="wishlist"> Wishlist</ion-select-option>
             <ng-container *ngFor="let combo of combos$ | async">
               <ion-select-option value="{{ combo.id }}">{{
                 combo.name
@@ -35,7 +34,7 @@
         </ion-item>
         <ion-item class="item-padding" lines="none">
           <ion-button mode="ios" color="primary" (click)="newClick()">
-            New Combo
+            New Collection
           </ion-button>
           <ion-button
             mode="ios"
@@ -55,19 +54,29 @@
             <ion-label position="floating">Name:</ion-label>
             <ion-input formControlName="newName" clearInput></ion-input>
           </ion-item>
-
           <ion-item class="input">
-            <ion-label position="floating">Emails:</ion-label>
+            <ion-label position="floating">Add Emails:</ion-label>
             <ion-input
               formControlName="newEmails"
               clearInput
-              (keyup.enter)="createNewComboAndClearInput()"></ion-input>
+              (keyup.enter)="addEmailToArray()"></ion-input>
+            <ion-button slot="end">
+              <ion-icon
+                name="add"
+                (click)="addEmailToArray()"
+                style="cursor: pointer; pointer-events: auto"></ion-icon>
+            </ion-button>
           </ion-item>
-          <ion-item *ngIf="addEmails?.length!==0" class="email">
+          <ion-item *ngIf="addEmails?.length !== 0" class="email">
             <ion-list>
               <div *ngFor="let email of addEmails">
                 <ion-item class="email">
                   <ion-label class="emails">{{ email }}</ion-label>
+                  <ion-icon
+                    name="close-outline"
+                    slot="end"
+                    (click)="removeEmail(email)"
+                    style="cursor: pointer; pointer-events: auto"></ion-icon>
                 </ion-item>
               </div>
             </ion-list>

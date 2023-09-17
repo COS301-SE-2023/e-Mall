@@ -45,9 +45,12 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 import { NotificationModule } from './features/notification/notification.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { SpinnerComponent } from './shared/components/spinner/spinner.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { LoadingInterceptor } from '@shared/components/spinner/interceptors/loading.interceptor';
+import { WishlistStateModule } from './features/wishlist/wishlist-state/wishlist-state.module';
 @NgModule({
-  declarations: [AppComponent],
-
+  declarations: [AppComponent, SpinnerComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -78,7 +81,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AuthModule,
     ErrorModule,
     ComboStateModule,
-
+    WishlistStateModule,
     HomeModule,
     // ProductModule,
     SignInModule,
@@ -113,12 +116,14 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
+    HttpClientModule,
   ],
 
   providers: [
     { provide: 'API_URL', useValue: environment.apiUrl },
     httpInterceptorProviders,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

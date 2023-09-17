@@ -28,6 +28,26 @@ ion-icon{
 
 }
 
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30rem;
+}
+
+.spinner ion-spinner{
+  width: 80px; 
+  height: 80px;
+  --color:black;
+}
+
+.spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
 .upperNav{
   background-color: $color_type_8 !important;
 }

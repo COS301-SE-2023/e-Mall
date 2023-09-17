@@ -3,14 +3,17 @@ from django.conf import settings
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .swagger.decorator import *
+from rest_framework import status
 
 # Initialize Firebase
 db = firestore.client()
 user_collection = "users"
 product_collection = "products"
-message_types = ["user", "query", "wishlist", "follower"]
-singe_msg_collection_name = "logs"  # sent to user
-multi_msg_collection_name = "follower_logs"  # sent to followers
+combo_collection = "combos"
+message_types = ["user", "query", "wishlist", "follower", "combo"]
+user_logs_collection = "logs"  # sent to user
+follower_logs_collection = "follower_logs"  # sent to followers
+combo_logs_collection = "combo_logs"  # sent to followers
 
 
 @send_message_api_decorator
@@ -20,18 +23,42 @@ def send_message_api(request):
         main_collection_name = user_collection
         target_id = request.data.get("target")
         msg_type = request.data.get("message_type")
-        image = request.data.get("image")
+        image = (
+            request.data.get("image") if request.data.get("image") is not None else ""
+        )
         message = request.data.get("message")
         title = request.data.get("title")
 
+        sender = str(request.user.id)
+        target = str(target_id)
+
+        data = {
+            "image": image,
+            "is_read": False,
+            "message": message,
+            "message_type": msg_type,
+            "timestamp": firestore.SERVER_TIMESTAMP,
+            "title": title,
+            "sender": sender,
+            "target": target,
+        }
         if msg_type not in message_types:
             raise Exception("invalid parameter")
 
-        sub_collection_name = singe_msg_collection_name
+        sub_collection_name = user_logs_collection
+
+        # new follower, follwing seller has new update
         if msg_type == "follower":
-            sub_collection_name = multi_msg_collection_name
+            sub_collection_name = follower_logs_collection
+
+        # new follwing product has new update
         elif msg_type == "wishlist":
             main_collection_name = product_collection
+
+        # update on active user list, new pending user
+        elif msg_type == "combo":
+            main_collection_name = combo_collection
+            sub_collection_name = combo_logs_collection
 
         doc_ref = (
             db.collection(main_collection_name)
@@ -40,22 +67,15 @@ def send_message_api(request):
             .document()
         )
         doc_id = doc_ref.id
-
-        data = {
-            "id": doc_id,
-            "image": image,
-            "is_read": False,
-            "message": message,
-            "message_type": msg_type,
-            "timestamp": firestore.SERVER_TIMESTAMP,
-            "title": title,
-        }
+        data["id"] = doc_id
 
         doc_ref.set(data)
 
         return Response({"status": "success"})
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        return Response(
+            {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 @delete_decorator
@@ -64,12 +84,16 @@ def delete(request):
     try:
         user_id = str(request.user.id)
         log_id = request.data.get("notification_id")
+        if log_id is None:
+            raise Exception("notification_id is required")
         db.collection(user_collection).document(user_id).collection(
-            singe_msg_collection_name
+            user_logs_collection
         ).document(log_id).delete()
         return Response({"status": "success"})
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        return Response(
+            {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 @delete_all_decorator
@@ -81,7 +105,7 @@ def delete_all(request):
         docs = (
             db.collection(user_collection)
             .document(user_id)
-            .collection(singe_msg_collection_name)
+            .collection(user_logs_collection)
             .stream()
         )
         for doc in docs:
@@ -90,7 +114,9 @@ def delete_all(request):
         batch.commit()
         return Response({"status": "success"})
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        return Response(
+            {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 @read_decorator
@@ -99,12 +125,17 @@ def read(request):
     try:
         user_id = str(request.user.id)
         log_id = request.data.get("notification_id")
+        if log_id is None:
+            raise Exception("notification_id is required")
         db.collection(user_collection).document(user_id).collection(
-            singe_msg_collection_name
+            user_logs_collection
         ).document(log_id).update({"is_read": True})
         return Response({"status": "success"})
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        print(e)
+        return Response(
+            {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 @read_all_decorator
@@ -116,7 +147,7 @@ def read_all(request):
         docs = (
             db.collection(user_collection)
             .document(user_id)
-            .collection(singe_msg_collection_name)
+            .collection(user_logs_collection)
             .where("is_read", "==", False)
             .stream()
         )
@@ -126,21 +157,22 @@ def read_all(request):
         batch.commit()
         return Response({"status": "success"})
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        return Response(
+            {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 @get_decorator
 @api_view(["POST"])
-def get(request):
+def get(request, page_size=15):
     try:
         user_id = str(request.user.id)
-        page_size = 15
         start_after = request.data.get("notification_id")
 
         logs_ref = (
             db.collection(user_collection)
             .document(user_id)
-            .collection(singe_msg_collection_name)
+            .collection(user_logs_collection)
             .order_by("timestamp", direction=firestore.Query.DESCENDING)
             .limit(page_size)
         )
@@ -148,7 +180,7 @@ def get(request):
             start_after_doc = (
                 db.collection(user_collection)
                 .document(user_id)
-                .collection(singe_msg_collection_name)
+                .collection(user_logs_collection)
                 .document(start_after)
                 .get()
             )
@@ -165,9 +197,14 @@ def get(request):
                     "image": doc.to_dict()["image"],
                 },
                 "data": {
-                    "id": doc.id,
-                    "is_read": doc.to_dict()["is_read"],
-                    "timestamp": doc.to_dict()["timestamp"],
+                    **{
+                        k: v
+                        for k, v in doc.to_dict().items()
+                        if k not in ["targets", "title", "message", "image"]
+                    },
+                    # "id": doc.id,
+                    # "is_read": doc.to_dict()["is_read"],
+                    # "timestamp": doc.to_dict()["timestamp"],
                 },
             }
             for doc in docs
@@ -178,7 +215,7 @@ def get(request):
             next_logs = (
                 db.collection(user_collection)
                 .document(user_id)
-                .collection(singe_msg_collection_name)
+                .collection(user_logs_collection)
                 .order_by("timestamp", direction=firestore.Query.DESCENDING)
                 .limit(1)
                 .start_after(last_log)
@@ -195,8 +232,9 @@ def get(request):
         }
         return Response(response_data)
     except Exception as e:
-        print(e)
-        return Response({"status": "error", "message": str(e)})
+        return Response(
+            {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 @update_device_token_decorator
@@ -221,7 +259,9 @@ def update_device_token(request):
             {"status": "success", "message": "Device token updated successfully"}
         )
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        return Response(
+            {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 @update_settings_decorator
@@ -230,22 +270,29 @@ def update_settings(request):
     try:
         user_id = str(request.user.id)
         user_ref = db.collection(user_collection).document(user_id)
-        settings = request.data
+        settings = request.data.get("settings")
         valid_fields = ["general", "following", "wishlist", "all"]
-
+        print(settings)
         if not settings:  # If settings is empty, set all fields to True
             settings = {field: True for field in valid_fields}
 
         for field in settings:
-            if field not in valid_fields or not isinstance(settings[field], bool):
+            if field not in valid_fields:
                 raise Exception(f"Invalid field or value: {field}={settings[field]}")
+            elif isinstance(settings[field], str) and (
+                settings[field].lower() not in ["true", "false"]
+            ):
+                raise Exception(f"Invalid value: {field}={settings[field]}")
 
         user_ref.set({"settings": settings}, merge=True)
         return Response(
             {"status": "success", "message": "Settings updated successfully"}
         )
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        print(e)
+        return Response(
+            {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 @count_unread_notifications_decorator
@@ -256,14 +303,43 @@ def count_unread_notifications(request):
         logs_ref = (
             db.collection(user_collection)
             .document(user_id)
-            .collection(singe_msg_collection_name)
+            .collection(user_logs_collection)
             .where("is_read", "==", False)
         )
-        count = len(logs_ref.get())
+        count = len(list(logs_ref.get()))
         response_data = {
             "status": "success",
             "unread_count": count,
         }
         return Response(response_data)
     except Exception as e:
-        return Response({"status": "error", "message": str(e)})
+        return Response(
+            {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
+        )
+
+
+@api_view(["POST"])
+def get_settings(request):
+    try:
+        user_id = str(request.user.id)
+        user_ref = db.collection(user_collection).document(user_id)
+        doc = user_ref.get()
+        if doc.exists:
+            data = doc.to_dict()
+            settings = data.get("settings", None)
+
+            if (
+                settings is None
+            ):  # If settings field doesn't exist, set all fields to False
+                valid_fields = ["general", "following", "wishlist", "all"]
+                settings = {field: True for field in valid_fields}
+            return Response(settings)
+        else:
+            return Response(
+                {"status": "error", "message": "User not found"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+    except Exception as e:
+        return Response(
+            {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
+        )

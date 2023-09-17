@@ -10,7 +10,7 @@ import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 import * as InventoryActions from '../states/inventory.action';
 import { SetError } from '@features/error/states/error.action';
 import { IError } from '@features/error/models/error.interface';
-import { LoaderFacade } from '@shared/components/loader/loader.facade';
+//import { LoaderFacade } from '@shared/components/loader/loader.facade';
 
 @Injectable()
 export class InventoryFacade implements OnDestroy {
@@ -34,11 +34,8 @@ export class InventoryFacade implements OnDestroy {
     InventoryActions.DeleteItem,
     InventoryActions.UpdateItems,
   ];
-  constructor(
-    private inventoryService: InventoryService,
-    private loaderFacade: LoaderFacade
-  ) {
-    this.loaderFacade.addActions(this.actions);
+  constructor(private inventoryService: InventoryService) {
+    //this.loaderFacade.addActions(this.actions);
 
     this.queryTemp = {};
     console.log('inventory facade initialized');
@@ -61,7 +58,7 @@ export class InventoryFacade implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.loaderFacade.removeActions(this.actions);
+    //this.loaderFacade.removeActions(this.actions);
     console.log('inventory facade destroyed');
   }
   async fetchItems(options: ISearchOptions) {

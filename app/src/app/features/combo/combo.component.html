@@ -8,17 +8,22 @@
     </div>
 
     <div class="combo-container">
+      <ng-container *ngIf="combo$ | async as combo">
+        <app-combo-breadcrumb [combo]="combo"></app-combo-breadcrumb>
+      </ng-container>
       <div class="head">
         <h2>{{ name }}</h2>
         <div class="head-buttons">
-          <ion-button (click)="edit()">Edit Combo</ion-button>
-          <ion-button id="present-alert">
-            Leave Combo</ion-button>
+          <ion-button (click)="edit()">Edit Name</ion-button>
+          <ion-button (click)="invite()">Invite</ion-button>
+          <ion-button id="present-alert"> Leave Collection</ion-button>
           <ion-alert
             trigger="present-alert"
-            csscClass='custom-alert'
+            csscClass="custom-alert"
             header="Leave collection?"
-            message="Are you sure you want to leave the collection: <b>{{name}}</b>"
+            message="Are you sure you want to leave the collection: <b>{{
+              name
+            }}</b>"
             [buttons]="alertButtons">
           </ion-alert>
         </div>
