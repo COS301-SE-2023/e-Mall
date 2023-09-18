@@ -147,8 +147,14 @@ export class PopovernewComponent implements OnInit {
     this.productForm.get(field)?.setValue(value);
   }
   getFormControlValue(field: string) {
+    return this.productSellerForm.get(field)?.value;
+  }
+
+  getProdFormControlValue(field: string) {
     return this.productForm.get(field)?.value;
   }
+
+
   Done() {
     console.log('Done');
   }
@@ -165,16 +171,16 @@ export class PopovernewComponent implements OnInit {
       img_array: this.getFormControlValue('imgs'),
     };
     console.log(data);
-    // this.inventoryFacade.addExistingProduct(data);
+     this.inventoryFacade.addExistingProduct(data);
   }
 
   createNewProduct() {
     const data = {
       seller_name: this.seller_name,
-      name: this.getFormControlValue('name'),
-      brand: this.getFormControlValue('brand'),
-      category: this.getFormControlValue('category'),
-      description: this.getFormControlValue('description'),
+      name: this.getProdFormControlValue('name'),
+      brand: this.getProdFormControlValue('brand'),
+      category: this.getProdFormControlValue('category'),
+      description: this.getProdFormControlValue('description'),
       //prodseller details
       price: this.getFormControlValue('price'),
       discount: this.getFormControlValue('discount'),
@@ -185,6 +191,6 @@ export class PopovernewComponent implements OnInit {
       img_array: this.getFormControlValue('imgs'),
     };
     console.log(data);
-    // this.inventoryFacade.newProduct(data);
+    //this.inventoryFacade.newProduct(data);
   }
 }

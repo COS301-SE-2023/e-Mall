@@ -18,6 +18,7 @@ ion-modal {
     padding: 20px;
   }
   .content-container{
+    display: flex;
     height: 100%;
     width: 60%;
   }
@@ -87,8 +88,8 @@ ion-modal {
     }
     ion-list {
       display: flex;
-      flex-direction: column;
       height: 100%;
+      width: 100%;
       //   max-height: 19rem;
     }
     .item-button-container {
@@ -154,4 +155,8 @@ ion-modal {
     padding-left: 360px;
     position: relative;
 
+  }
+
+  ion-item{
+    width: 100%;
   }
