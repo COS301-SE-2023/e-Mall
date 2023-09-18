@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -7,7 +7,7 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./filter-modal.component.scss']
 })
 export class FilterModalComponent {
-  
+  @Input() brandOptions: string[] = [];
   constructor(private modalController: ModalController) {}
 
   closeModal() {
