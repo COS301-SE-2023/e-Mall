@@ -53,7 +53,7 @@ const routes: Routes = [
   {
     path: 'register',
     component: SellerRegisterComponent,
-    canActivate: [preAuthGuard],
+    canActivate: [baseGuard],
   },
   { path: 'sign-in', component: SignInComponent, canActivate: [preAuthGuard] },
 

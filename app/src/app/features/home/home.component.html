@@ -1,5 +1,4 @@
 <app-navbar></app-navbar>
-
 <ion-content class="global-ion-content">
   <div class="ion-content-wrapper">
     <div class="row1">
@@ -208,10 +207,21 @@
         </ngb-carousel>
       </div>
     </div>
-    <ng-container *ngIf="imageObject !== null && imageObject.length > 0">
-      <br /><br />
-      <!--Product carousel-->
-    </ng-container>
+    <br /><br />
+    <div class="row1">
+      <div class="register-container">
+        <div class="register-title">
+        <h2 class="welcome-footer">
+          Have a small local business?<br /> Register it E-Mall today!
+        </h2>
+      </div>
+      <div class="register-btn">
+        <ion-button class="overlay-button" (click)="onRegClick()">
+          Register
+        </ion-button>
+      </div>
+      </div>
+    </div>
   </div>
   <br /><br />
 

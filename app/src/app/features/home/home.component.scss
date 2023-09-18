@@ -118,13 +118,13 @@ a {
   margin: 0 auto;
   display: flex;
   flex-direction: row;
-  align-items: center; /* Align items vertically in the center */
-  justify-content: center; /* Space the items evenly along the row */
+  align-items: flex-start; /* Align items vertically in the center */
+  justify-content: flex-start; /* Space the items evenly along the row */
   padding: 0%;
 }
 
 .product-card {
-  flex: 1; /* Adjust the flex property to control width of each product card */
+  flex: 0; /* Adjust the flex property to control width of each product card */
   padding: 0%;
   width: min-content;
 }
@@ -133,6 +133,7 @@ a {
   display: flex;
   flex-direction: row;
   background-color: white;
+  justify-content: center;
 }
 
 .side-pannel {
@@ -174,6 +175,7 @@ a {
   color: var(--ion-color-text-contrast);
 }
 .welcome-footer {
+
   color: var(--ion-color-text);
 }
 
@@ -194,4 +196,38 @@ a {
   display: flex;
   min-width: 100%;
   justify-content: center;
+}
+
+.register-container{
+  display:flex;
+  width: 75%;
+  justify-self: center;
+  background-color: var(--ion-color-primary-alt);
+  border-radius: 12px;
+  align-self: center;
+
+  padding:5%;
+  text-align: center;
+  justify-content: center;
+
+}
+
+.register-title{
+  display:flex;
+  width: 75%;
+  justify-self: flex-start;
+  text-align: center;
+  justify-content: center;
+}
+.register-btn{
+  display: flex;
+  width:25%;
+  .overlay-button {
+    margin-top: 2rem;
+    border: none;
+    cursor: pointer;
+    z-index: 99;
+    font-size: 100%;
+    justify-self: flex-end;
+  }
 }

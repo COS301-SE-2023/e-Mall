@@ -110,6 +110,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   async onAboutClick() {
     this.router.navigate(['about']);
   }
+
+  onRegClick(){
+    this.router.navigate(['register']);
+  }
+
   getOneImg(imgList?: string[]) {
     //remove following when no need to have mock data
     if (!imgList || imgList.length < 1)
@@ -126,5 +131,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.followSubs.unsubscribe();
     this.forYouSubs.unsubscribe();
+  }
+
+  chunkArray(arr: any[], chunkSize: number): any[] {
+    const resultArray = [];
+    let index = 0;
+  
+    while (index < arr.length && index<21) {
+      resultArray.push(arr.slice(index, index + chunkSize));
+      index += chunkSize;
+    }
+  
+    return resultArray;
   }
 }
