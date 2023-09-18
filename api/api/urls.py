@@ -73,5 +73,9 @@ urlpatterns = [
         schema_view.with_ui("redoc", cache_timeout=0),
         name="schema-redoc-ui",
     ),
+    path(
+        "api/queries/",
+        include("queries.urls"),
+    ),
     re_path(r"^static/(?P<path>.*)$", serve, {"document_root": STATIC_ROOT}),
 ]
