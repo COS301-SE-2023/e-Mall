@@ -151,8 +151,17 @@
   background-color: #ddd;
 }
 
+.product-card-no {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center content */
+  align-items: center; /* Horizontally center content */
+  text-align: center; /* Optional: Center text within the div */
+}
+
+
 .nimage {
-  width: 300px;
+  width: 50%;
   height: 300px;
   justify-content: center;
   opacity: 30%;
