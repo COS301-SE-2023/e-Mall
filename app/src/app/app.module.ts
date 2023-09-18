@@ -48,6 +48,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoadingInterceptor } from '@shared/components/spinner/interceptors/loading.interceptor';
+import { PopovernewModule } from './features/inventory/components/popovernew/popovernew.module';
 @NgModule({
   declarations: [AppComponent, SpinnerComponent],
 

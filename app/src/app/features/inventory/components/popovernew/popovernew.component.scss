@@ -19,7 +19,7 @@ ion-modal {
   }
   .content-container{
     height: 100%;
-    width: 100%;
+    width: 60%;
   }
   /* Set a maximum height for the modal's content */
   ion-modal .modal-wrapper {
@@ -143,3 +143,15 @@ ion-modal {
     width: 80%;
   
    }
+
+   .dashboard-content-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    padding-top: 100px;
+    padding-left: 360px;
+    position: relative;
+
+  }

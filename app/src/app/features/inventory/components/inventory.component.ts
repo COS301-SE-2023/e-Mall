@@ -14,6 +14,7 @@ import { IInventoryItem } from '../models/inventory-item.interface';
 import { ISearchOptions } from '../models/search-options.interface';
 import { InventoryFacade } from '../servicies/inventory.facade';
 import { PopovernewComponent } from './popovernew/popovernew.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inventory',
@@ -58,6 +59,7 @@ export class InventoryComponent implements OnInit{
   
 
   constructor(
+    private router: Router,
     private inventoryFacade: InventoryFacade,
     private popoverController: PopoverController,
     private loadingController: LoadingController,
@@ -189,11 +191,6 @@ export class InventoryComponent implements OnInit{
   }
 
   async presentNewModal() {
-    const modal = await this.modalController.create({
-      component: PopovernewComponent,
-      mode: 'ios',
-      cssClass: ['inventory-modal'],
-    });
-    return await modal.present();
-  }
+    await this.router.navigate(['new-product']);
+}
 }

@@ -19,6 +19,8 @@ import { SellerDashboardSettingsComponent } from '@features/seller-dashboard-set
 import { consumerTypeGuard } from '@shared/guards/consumer-type.guard';
 import { MyCombosComponent } from '@features/my-combos/my-combos.component';
 import { ComboComponent } from '@features/combo/combo.component';
+import { PopovernewComponent } from './features/inventory/components/popovernew/popovernew.component';
+import { PopovernewModule } from './features/inventory/components/popovernew/popovernew.module';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -66,6 +68,14 @@ const routes: Routes = [
     loadChildren: () =>
       import('@app/features/inventory/inventory.module').then(
         m => m.InventoryModule
+      ),
+    canActivate: [postAuthGuard, sellerTypeGuard],
+  },
+  {
+    path: 'new-product',
+    loadChildren: () =>
+      import('@app/features/inventory/components/popovernew/popovernew.module').then(
+        m => m.PopovernewModule
       ),
     canActivate: [postAuthGuard, sellerTypeGuard],
   },

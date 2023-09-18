@@ -27,7 +27,6 @@ import { InventoryState } from './states/inventory.state';
     InventoryRoutingModule,
     SellerNavModule,
     PopovereditModule,
-    PopovernewModule,
   ],
   exports: [InventoryComponent],
   providers: [InventoryService, InventoryFacade],
