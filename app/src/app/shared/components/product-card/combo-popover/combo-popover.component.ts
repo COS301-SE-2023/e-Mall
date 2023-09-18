@@ -162,7 +162,7 @@ export class ComboPopoverComponent implements OnInit {
             .slice(1)
             .map(Number);
           const data = {
-            combo_ids: options,
+            collection_ids: options,
             product_id: this.product.id,
             product: this.product,
           };
@@ -172,7 +172,7 @@ export class ComboPopoverComponent implements OnInit {
         this.closePopover();
       } else {
         const data = {
-          combo_ids: this.selectForm.value.selectedOptions.map(Number),
+          collection_ids: this.selectForm.value.selectedOptions.map(Number),
           product_id: this.product.id,
           product: this.product,
         };
