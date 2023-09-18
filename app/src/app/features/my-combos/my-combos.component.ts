@@ -66,7 +66,6 @@ export class MyCombosComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.routeSubscription.unsubscribe();
-    console.log('My-combos destoryed');
   }
   togglePanel(panelNumber: number) {
     this.isPanelOpen[panelNumber] = !this.isPanelOpen[panelNumber];
@@ -84,11 +83,11 @@ export class MyCombosComponent implements OnInit, OnDestroy {
     this.router.navigate(['/wishlist']);
   }
 
-  goToComboPage(combo_id: number) {
+  goToComboPage(collection_id: number) {
     const navigationextras: NavigationExtras = {
-      queryParams: { combo_id: combo_id },
+      queryParams: { collection_id: collection_id },
     };
-    this.router.navigate(['/combo'], navigationextras);
+    this.router.navigate(['/collection'], navigationextras);
   }
 
   goToProductPage(prod_id: number): void {
@@ -157,18 +156,18 @@ export class MyCombosComponent implements OnInit, OnDestroy {
       }
     });
   }
-  AcceptFunction(combo_id: number) {
+  AcceptFunction(collection_id: number) {
     const data = {
-      combo_id: combo_id,
+      collection_id: collection_id,
       user_email: this.email,
       action: 'Accept',
     };
     this.comboFacade.updateUsers(data);
     window.location.reload();
   }
-  RejectFunction(combo_id: number) {
+  RejectFunction(collection_id: number) {
     const data = {
-      combo_id: combo_id,
+      collection_id: collection_id,
       user_email: this.email,
       action: 'Reject',
     };

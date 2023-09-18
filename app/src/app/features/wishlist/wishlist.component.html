@@ -90,8 +90,8 @@
             </ion-item>
             <div *ngFor="let combo of combos">
               <ion-item
-                [routerLink]="['/combo']"
-                [queryParams]="{ combo_id: combo.id }"
+                [routerLink]="['/collection']"
+                [queryParams]="{ collection_id: combo.id }"
                 routerLinkActive="active"
                 class="nav-item">
                 <ion-label>{{ combo.name }}</ion-label>

@@ -62,7 +62,7 @@ def create(request):
 def update_user(request):
     try:
         user = request.user
-        combo_id = request.data["combo_id"]
+        combo_id = request.data["collection_id"]
         action = request.data["action"]
         if user is None:
             raise Exception("User not found")
@@ -114,7 +114,7 @@ def update_user(request):
 def invite(request):
     try:
         user = request.user
-        combo_id = request.data["combo_id"]
+        combo_id = request.data["collection_id"]
         user_emails = request.data["user_emails"]
         if user is None:
             raise Exception("User not found")
@@ -146,7 +146,7 @@ def invite(request):
 def removeProduct(request):
     try:
         user = request.user
-        combo_id = request.data["combo_id"]
+        combo_id = request.data["collection_id"]
         product_id = request.data["product_id"]
         if user is None:
             raise Exception("User not found")
@@ -167,7 +167,7 @@ def removeProduct(request):
 def edit(request):
     try:
         user = request.user
-        combo_id = request.data["combo_id"]
+        combo_id = request.data["collection_id"]
         combo_name = request.data["combo_name"]
         if user is None:
             raise Exception("User not found")
@@ -188,7 +188,7 @@ def edit(request):
 def delete(request):
     try:
         user = request.user
-        combo_id = request.data["combo_id"]
+        combo_id = request.data["collection_id"]
         if user is None:
             raise Exception("User not found")
         if user.type == "seller":
@@ -292,7 +292,7 @@ def getInvites(request):
 def addProduct(request):
     try:
         user = request.user
-        combo_ids = request.data["combo_ids"]
+        combo_ids = request.data["collection_ids"]
         product_id = request.data["product_id"]
         if user is None:
             raise Exception("User not found")
