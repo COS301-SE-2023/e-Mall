@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ProductService } from '@shared/servicies/product/product.service';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
@@ -8,8 +8,8 @@ import { Observable, of } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthFacade } from '@features/auth/services/auth.facade';
-import { FilterModalComponent } from './components/filter-modal/filter-modal.component';
-import { ModalController } from '@ionic/angular';
+//import { FilterModalComponent } from './components/filter-modal/filter-modal.component';
+import { IonModal, ModalController } from '@ionic/angular';
 interface RangeValue {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any;
@@ -44,6 +44,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   loading = true;
 
   showSpinner = true;
+
+  @ViewChild(IonModal)
+  modal!: IonModal;
 
   ////J fix for min , max price
 
@@ -308,11 +311,19 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
   }
 
+  /*
   async openModal() {
     const modal = await this.modalController.create({
       component: FilterModalComponent,
+      componentProps: {
+        brandOptions: this.brandOptions, // Pass the array to the modal
+      },
     });
     return await modal.present();
+  }*/
+
+  closeModal() {
+    this.modal.dismiss(null, 'cancel');
   }
 
 }
