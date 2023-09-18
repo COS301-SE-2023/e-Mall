@@ -17,15 +17,16 @@ import { ICategoryBreadcrumb } from '../models/category-breadcrumb.interface';
 export class CategoryBreadcrumbComponent implements OnInit {
   @Input()
   categoryList: any;
-  @Input()
-  isProductPage = false;
   crumbs: ICategoryBreadcrumb[] = [];
   constructor(public categoryBreadcrumbFacade: CategoryBreadcrumbFacade) {}
 
   ngOnInit(): void {
     this.crumbs = this.categoryBreadcrumbFacade.getBreadcrumbs(
-      this.categoryList,
-      this.isProductPage
+      this.categoryList
     );
+  }
+
+  navigateTo(url: string): void {
+    this.categoryBreadcrumbFacade.navigateTo(url);
   }
 }

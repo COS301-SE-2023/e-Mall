@@ -13,7 +13,8 @@ class Query(models.Model):
     ]
     status_options = [
         ("pending", "Pending"),
-        ("in_progress", "In Progress")("resolved", "Resolved"),
+        ("in_progress", "In Progress"),
+        ("resolved", "Resolved"),
     ]
     id = models.AutoField(primary_key=True)
     product_id = models.PositiveIntegerField()

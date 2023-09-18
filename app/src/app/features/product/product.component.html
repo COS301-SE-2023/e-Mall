@@ -3,8 +3,8 @@
 <ion-content class="global-ion-content">
   <ng-container *ngIf="product$ | async as product">
     <app-category-breadcrumb
-      [categoryList]="product.category"
-      *ngIf="!showSpinner" [isProductPage]="true"></app-category-breadcrumb>
+      [categoryList]="product"
+      *ngIf="!showSpinner"></app-category-breadcrumb>
   </ng-container>
   <div class="ion-content-wrapper">
     <div class="container-fluid body-container">
