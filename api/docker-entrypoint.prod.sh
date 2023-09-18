@@ -1,9 +1,4 @@
 #!/bin/bash
-echo "Reset the database"
-python manage.py reset_db --noinput
-
-echo "Flush the database record"
-python manage.py flush --no-input
 
 python manage.py makemigrations
 python manage.py migrate --no-input
