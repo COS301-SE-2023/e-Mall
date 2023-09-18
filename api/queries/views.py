@@ -22,6 +22,7 @@ def create(request):
                 user_email=user.email,
                 seller_email=request.data["seller_email"],
                 query_option=request.data["query_option"],
+                status="pending",
             )
             query.save()
 
@@ -51,6 +52,8 @@ def getQueries(request):
                         "user_email": query.user_email,
                         "seller_email": query.seller_email,
                         "query_option": query.query_option,
+                        "time": query.time,
+                        "status": query.status,
                     }
                 )
             return Response({"queries": query_data}, status=status.HTTP_200_OK)
@@ -59,20 +62,20 @@ def getQueries(request):
 
 
 @api_view(["Post"])
-def deleteQuery(request):
+def UpdateQuery(request):
     try:
         user = request.user
         if user is None:
             raise Exception("User not found")
         if user.type == "consumer":
-            raise Exception("Consumer cannot delete queries")
+            raise Exception("Consumer cannot update queries")
         if user.type == "seller":
             query = Query.objects.filter(id=request.data["id"])
             if query is None:
                 raise Exception("Query not found")
-            query.delete()
+            query.update(status=request.data["status"])
             return Response(
-                {"message": "Query deleted successfully"}, status=status.HTTP_200_OK
+                {"message": "Query updated successfully"}, status=status.HTTP_200_OK
             )
     except Exception as e:
         return Response({"message": str(e)}, status=status.HTTP_400_BAD_REQUEST)
