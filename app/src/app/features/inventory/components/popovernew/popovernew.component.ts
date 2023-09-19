@@ -109,7 +109,7 @@ export class PopovernewComponent implements OnInit {
   }
 
   backClick() {
-    this.nextClicked = false;
+    this.nextClicked = true;
     this.isSelected = false;
     this.newClicked = false;
   }
@@ -171,7 +171,7 @@ export class PopovernewComponent implements OnInit {
       img_array: this.getFormControlValue('imgs'),
     };
     console.log(data);
-     this.inventoryFacade.addExistingProduct(data);
+    // this.inventoryFacade.addExistingProduct(data);
   }
 
   createNewProduct() {
