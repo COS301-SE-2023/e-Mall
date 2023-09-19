@@ -5,7 +5,8 @@
     max-height: 50vh; /* Adjust as needed */
   }
   .custom-select{
-    padding: 2%;
+    width: 70%;
+    height: 32px;
   }
   .newList{
     padding-top: 0;
@@ -88,7 +89,6 @@
     }
   
     .input-container-num{
-      height: 32px;
       width: 20%;
       display: flex;
       justify-content: center;
@@ -99,7 +99,6 @@
       border: 2px solid var(--ion-color-primary-tint);
     }
     .input-container {
-      height: 32px;
       width: 70%;
       display: flex;
       justify-content: center;

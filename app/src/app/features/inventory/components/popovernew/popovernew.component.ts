@@ -154,7 +154,6 @@ export class PopovernewComponent implements OnInit {
     return this.productForm.get(field)?.value;
   }
 
-
   Done() {
     console.log('Done');
   }
@@ -162,16 +161,16 @@ export class PopovernewComponent implements OnInit {
     const data = {
       seller_name: this.seller_name,
       product_name: this.SelectedProduct,
-      price: this.getFormControlValue('price'),
-      discount: this.getFormControlValue('discount'),
-      discount_rate: this.getFormControlValue('discount'),
+      price: this.getCurrPrice(),
+      discount: this.getDiscAmount(),
+      discount_rate: this.getDiscRate(),
       original_price: this.getFormControlValue('price'),
       product_url: this.getFormControlValue('url'),
       in_stock: this.getFormControlValue('stock'),
       img_array: this.getFormControlValue('imgs'),
     };
     console.log(data);
-    // this.inventoryFacade.addExistingProduct(data);
+     this.inventoryFacade.addExistingProduct(data);
   }
 
   createNewProduct() {
@@ -182,15 +181,25 @@ export class PopovernewComponent implements OnInit {
       category: this.getProdFormControlValue('category'),
       description: this.getProdFormControlValue('description'),
       //prodseller details
-      price: this.getFormControlValue('price'),
-      discount: this.getFormControlValue('discount'),
-      discount_rate: this.getFormControlValue('discount'),
+      price: this.getCurrPrice(),
+      discount: this.getDiscAmount(),
+      discount_rate: this.getDiscRate(),
       original_price: this.getFormControlValue('price'),
       product_url: this.getFormControlValue('url'),
       in_stock: this.getFormControlValue('stock'),
       img_array: this.getFormControlValue('imgs'),
     };
     console.log(data);
-    //this.inventoryFacade.newProduct(data);
+    this.inventoryFacade.newProduct(data);
+  }
+  getDiscRate() {
+    return this.getFormControlValue('discount') / 100.0;
+  }
+  getDiscAmount() {
+    return this.getDiscRate() * this.getFormControlValue('price');
+  }
+
+  getCurrPrice() {
+    return this.getFormControlValue('price') - this.getDiscAmount();
   }
 }
