@@ -81,7 +81,6 @@ export class NavbarComponent implements OnDestroy {
   }
 
   public redirect(page: string): void {
-    // this.router.navigate([`/${page}`]);
     window.location.href = `/${page}`;
   }
 
