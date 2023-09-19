@@ -99,9 +99,9 @@
             <div class="item-label">Original Price (R)</div>
             <div class="input-container-num">
               <ion-input
+              clearInput="true"
                 type="number"
                 step="0.10"
-                (ionChange)="formatNumber($event, 'price')"
                 min="1"
                 inputmode="decimal"
                 formControlName="price"></ion-input>

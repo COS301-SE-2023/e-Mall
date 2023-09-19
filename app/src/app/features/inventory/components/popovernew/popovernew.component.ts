@@ -62,9 +62,9 @@ export class PopovernewComponent implements OnInit {
     });
     this.productSellerForm = this.fb.group({
       productSeller: ['', [Validators.required, Validators.minLength(2)]],
-      price: [{ value: '0.00' }],
+      price: [{ value: '0' }],
       discount: [
-        '0.00',
+        '0',
         [Validators.min(0), Validators.max(100), Validators.required],
       ],
       stock: ['in'],
