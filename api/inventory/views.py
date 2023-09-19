@@ -244,11 +244,9 @@ def createSimilarProduct(request):
                     in_stock=request.data["in_stock"],
                     img_array=request.data["img_array"],
                 ).save()
-
-                return Response(
-                    "ProductSeller relation created successfully",
-                    status=status.HTTP_201_CREATED,
-                )
+                #return the product 
+                serializer = ProductSellerSerializer(ProductSeller.objects.get(product=Product.objects.get(name=product_name),seller=user))
+                return Response({"data":serializer.data}, status=status.HTTP_201_CREATED)
     except Exception as e:
         # handle other exceptions here
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -270,7 +268,6 @@ def createNewProduct(request):
                 description=request.data["description"],
             )
             product.save()
-            print("product created succesfully ")
             ProductSeller.objects.create(
                 product=product,
                 seller=user,
@@ -283,11 +280,9 @@ def createNewProduct(request):
                 img_array=request.data["img_array"],
                 product_name=product.name,
             ).save()
-            print("product seller created succesfully ")
-        return Response(
-            "Product and productseller relation created successfully",
-            status=status.HTTP_201_CREATED,
-        )
+                #return the product 
+            serializer = ProductSellerSerializer(ProductSeller.objects.get(product=Product.objects.get(name=product.name),seller=user))
+            return Response({"data":serializer.data}, status=status.HTTP_201_CREATED)
     except Exception as e:
         # handle other exceptions here
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

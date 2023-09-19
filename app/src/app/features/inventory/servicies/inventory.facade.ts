@@ -36,10 +36,7 @@ export class InventoryFacade implements OnDestroy {
     InventoryActions.DeleteItem,
     InventoryActions.UpdateItems,
   ];
-  constructor(
-    private inventoryService: InventoryService,
-    
-  ) {
+  constructor(private inventoryService: InventoryService) {
     //this.loaderFacade.addActions(this.actions);
 
     this.queryTemp = {};
@@ -84,7 +81,7 @@ export class InventoryFacade implements OnDestroy {
         await this.inventoryService.updateProductSellerData(data),
       ];
     } catch (error) {
-      return this.setError(error); 
+      return this.setError(error);
     }
   }
   async removeItem(data: IInventoryItem) {
@@ -133,8 +130,9 @@ export class InventoryFacade implements OnDestroy {
   @Dispatch()
   async newProduct(data: any) {
     try {
-      await this.inventoryService.addnewProduct(data);
-      return new InventoryActions.AddNewProduct(data);
+      //service will return a product seller instance with product id
+      const res = await this.inventoryService.addnewProduct(data);
+      return new InventoryActions.AddNewProduct(res.data);
     } catch (error) {
       return this.setError(error);
     }
@@ -143,8 +141,8 @@ export class InventoryFacade implements OnDestroy {
   @Dispatch()
   async addExistingProduct(data: any) {
     try {
-      await this.inventoryService.addSimilarProduct(data);
-      return new InventoryActions.AddExistingProduct(data);
+      const res = await this.inventoryService.addSimilarProduct(data);
+      return new InventoryActions.AddExistingProduct(res.data);
     } catch (error) {
       return this.setError(error);
     }

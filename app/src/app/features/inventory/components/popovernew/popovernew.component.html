@@ -5,6 +5,11 @@
     <ion-text>
       <h2 class="dashboard-header-padding">Add a product</h2>
     </ion-text>
+    <ion-item class="item-padding" lines="none">
+      <ion-button mode="ios" color="primary" (click)="home()">
+        Home
+      </ion-button>
+    </ion-item>
 
     <div class="content-container">
       <div class="name-container" *ngIf="!isSelected && !newClicked">

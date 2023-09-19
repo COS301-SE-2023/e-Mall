@@ -118,6 +118,9 @@ export class PopovernewComponent implements OnInit {
   NewProduct() {
     console;
   }
+  home() {
+    this.router.navigate(['/inventory']);
+  }
 
   formatNumber(e: any, val: string) {
     const separator = '.';
@@ -172,7 +175,7 @@ export class PopovernewComponent implements OnInit {
       img_array: this.getFormControlValue('imgs'),
     };
     this.inventoryFacade.addExistingProduct(data);
-    this.closeModal();
+    this.router.navigate(['/inventory']);
   }
 
   createNewProduct() {
@@ -193,12 +196,7 @@ export class PopovernewComponent implements OnInit {
     };
     //call the inventory facade and wait for it before navigating back to product page
     this.inventoryFacade.newProduct(data);
-    //make the page reload
-    this.router
-      .navigateByUrl('/inventory', { skipLocationChange: true })
-      .then(() => {
-        this.router.navigate(['/inventory']);
-      });
+    this.router.navigate(['/inventory']);
   }
   getDiscRate() {
     return this.getFormControlValue('discount') / 100.0;
