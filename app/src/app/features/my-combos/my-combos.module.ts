@@ -24,6 +24,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
   ],
   declarations: [MyCombosComponent],
-  exports:[RouterModule],
+  exports: [RouterModule],
 })
-export class MyCombosModule { }
+export class MyCombosModule {}

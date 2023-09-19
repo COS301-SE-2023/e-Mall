@@ -3,7 +3,16 @@ import { IError } from '@features/error/models/error.interface';
 import { SetError } from '@features/error/states/error.action';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 import { Select } from '@ngxs/store';
-import { Observable, shareReplay, tap, Subscription, map, of } from 'rxjs';
+import {
+  Observable,
+  tap,
+  Subscription,
+  map,
+  of,
+  debounceTime,
+  distinctUntilChanged,
+  shareReplay,
+} from 'rxjs';
 import { ICombo, ICombo_invites } from '../models/combo.interface';
 import { AuthFacade } from '@features/auth/services/auth.facade';
 import { Router } from '@angular/router';
@@ -20,6 +29,7 @@ export class ComboFacade implements OnDestroy {
   @Select(ComboSelectors.getComboInvites)
   private combo_invites$!: Observable<ICombo_invites[] | null>;
   private authSubscription: Subscription;
+  private combosSubscription = new Subscription();
 
   constructor(
     private authFacade: AuthFacade,
@@ -31,9 +41,10 @@ export class ComboFacade implements OnDestroy {
     this.authSubscription = this.authFacade
       .getCurrentUser()
       .pipe(
-        tap(user => {
+        debounceTime(500),
+        tap(async user => {
           if (user) {
-            this.fetchCombos();
+            await this.fetchCombos();
           } else {
             this.clearCombos();
           }
@@ -188,5 +199,6 @@ export class ComboFacade implements OnDestroy {
 
   ngOnDestroy() {
     this.authSubscription.unsubscribe();
+    this.combosSubscription.unsubscribe();
   }
 }

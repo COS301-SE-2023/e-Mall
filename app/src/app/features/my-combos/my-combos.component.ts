@@ -13,9 +13,7 @@ import { EmailValidator, FormControl, FormGroup } from '@angular/forms';
 import { IProduct } from '@shared/models/product/product.interface';
 import { ConsumerService } from '@shared/servicies/consumer/consumer.service';
 import { ActivatedRoute } from '@angular/router';
-//import { AuthFacade } from '@app/features/auth/services/auth.facade';
-//import { IUser } from '@app/features/auth/models/user.interface';
-//import { Observable } from 'rxjs';
+import { WishlistFacade } from '../wishlist/wishlist-state/services/wishlist.facade';
 
 @Component({
   selector: 'app-my-combos',
@@ -40,7 +38,8 @@ export class MyCombosComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public profileFacade: ProfileFacade,
     public comboFacade: ComboFacade,
-    private consumerService: ConsumerService
+    private consumerService: ConsumerService,
+    private wishlistFacade: WishlistFacade
   ) {}
   ngOnInit(): void {
     this.profile$ = this.profileFacade.getProfile();
@@ -135,17 +134,19 @@ export class MyCombosComponent implements OnInit, OnDestroy {
   }
 
   wishlistCollage() {
-    this.consumerService.getConsumerInfo(this.email).subscribe(data => {
+    //get from wishlist state
+    this.wishlistFacade.getWishlist().subscribe(data => {
       for (let i = 0; i < 4; i++) {
         this.wishlistImages[i] = 'assets/images/logo-black-no-bg.png';
       }
       let image_count = 0;
-      data.products.forEach((product: IProduct) => {
-        if (product.min_price_img_array && image_count < 4) {
-          this.wishlistImages[image_count] = product.min_price_img_array[0];
-          image_count++;
-        }
-      });
+      if (data)
+        data.forEach((product: IProduct) => {
+          if (product.min_price_img_array && image_count < 4) {
+            this.wishlistImages[image_count] = product.min_price_img_array[0];
+            image_count++;
+          }
+        });
     });
   }
 

@@ -71,7 +71,7 @@ export class ProfileFacade implements OnDestroy {
       )
       .subscribe(profile => {
         if (profile) {
-          this.fetchRecommendedProducts();
+          if (profile.type === 'consumer') this.fetchRecommendedProducts();
         }
       });
   }
@@ -118,16 +118,6 @@ export class ProfileFacade implements OnDestroy {
     return this.profile$;
   }
 
-  // getRecommendedProducts(): Observable<IProduct[]> {
-  //   return this.recommendedProducts$.pipe(
-  //     tap(async products => {
-  //       if (products == null && (await this.authFacade.isLoggedIn())) {
-  //         await this.fetchRecommendedProducts();
-  //       }
-  //     }),
-  //     shareReplay(1)
-  //   );
-  // }
 
   async fetchProfile() {
     try {
