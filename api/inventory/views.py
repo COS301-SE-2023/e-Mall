@@ -163,7 +163,12 @@ def delete(request):
     _id = request.data.get("id")
     try:
         product_seller = ProductSeller.objects.get(id=_id)
-        product_seller.delete()
+        #check to see if this seller is the only one selling this product
+        if ProductSeller.objects.filter(product=product_seller.product).count() == 1:
+            #delete the product as well
+            product_seller.product.delete()
+        else:
+            product_seller.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     except Exception as e:
         return Response({"error": str(e)}, status=status.HTTP_404_NOT_FOUND)
@@ -179,8 +184,15 @@ def getSimilarProducts(request):
             raise Exception("Consumers cannot create products")
         elif user.type == "seller":
             threshold = 80
-            # create a product_names array with all the product names
-            product_names = Product.objects.values_list("name", flat=True)
+            # create a product_names array with all the product names where the user is nto a seller for the product
+            product_names = []
+            for product in Product.objects.all():
+                if not ProductSeller.objects.filter(
+                    product=product, seller=user
+                ).exists():
+                    product_names.append(product.name)
+
+
             user_product_name = request.data["name"]
 
             similar_products = []
@@ -243,7 +255,7 @@ def createSimilarProduct(request):
 
 
 @api_view(["POST"])
-def createNewProduct(self, request):
+def createNewProduct(request):
     try:
         user = request.user
         if user is None:
@@ -258,7 +270,7 @@ def createNewProduct(self, request):
                 description=request.data["description"],
             )
             product.save()
-
+            print("product created succesfully ")
             ProductSeller.objects.create(
                 product=product,
                 seller=user,
@@ -269,8 +281,9 @@ def createNewProduct(self, request):
                 product_url=request.data["product_url"],
                 in_stock=request.data["in_stock"],
                 img_array=request.data["img_array"],
-                product_name=request.data["name"],
+                product_name=product.name,
             ).save()
+            print("product seller created succesfully ")
         return Response(
             "Product and productseller relation created successfully",
             status=status.HTTP_201_CREATED,

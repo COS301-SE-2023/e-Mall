@@ -8,6 +8,7 @@ import { ProfileFacade } from '@app/features/profile/services/profile.facade';
 import { ISellerProfile } from '@app/features/profile/models/seller-profile.interface';
 import { IConsumerProfile } from '@app/features/profile/models/consumer-profile.interface';
 import { Observable, Subscription, map, of } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-popovernew',
@@ -42,7 +43,8 @@ export class PopovernewComponent implements OnInit {
     private modalController: ModalController,
     private fb: FormBuilder,
     private inventoryService: InventoryService,
-    private profileFacade: ProfileFacade
+    private profileFacade: ProfileFacade,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.profile$ = this.profileFacade.getProfile();
@@ -67,7 +69,7 @@ export class PopovernewComponent implements OnInit {
         '0',
         [Validators.min(0), Validators.max(100), Validators.required],
       ],
-      stock: ['in'],
+      stock: ['True'],
       url: ['', [Validators.required]],
       imgs: [''],
     });
@@ -169,8 +171,8 @@ export class PopovernewComponent implements OnInit {
       in_stock: this.getFormControlValue('stock'),
       img_array: this.getFormControlValue('imgs'),
     };
-    console.log(data);
-     this.inventoryFacade.addExistingProduct(data);
+    this.inventoryFacade.addExistingProduct(data);
+    this.closeModal();
   }
 
   createNewProduct() {
@@ -189,8 +191,14 @@ export class PopovernewComponent implements OnInit {
       in_stock: this.getFormControlValue('stock'),
       img_array: this.getFormControlValue('imgs'),
     };
-    console.log(data);
+    //call the inventory facade and wait for it before navigating back to product page
     this.inventoryFacade.newProduct(data);
+    //make the page reload
+    this.router
+      .navigateByUrl('/inventory', { skipLocationChange: true })
+      .then(() => {
+        this.router.navigate(['/inventory']);
+      });
   }
   getDiscRate() {
     return this.getFormControlValue('discount') / 100.0;

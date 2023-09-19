@@ -40,7 +40,11 @@
             </ion-radio-group>
           </ion-item>
           <ion-item class="item-padding" lines="none">
-            <ion-button mode="ios" color="primary" (click)="selectProd()" *ngIf="SelectedProduct">
+            <ion-button
+              mode="ios"
+              color="primary"
+              (click)="selectProd()"
+              *ngIf="SelectedProduct">
               Select Product
             </ion-button>
             <ion-button mode="ios" color="primary" (click)="newClick()">
@@ -51,7 +55,7 @@
       </div>
 
       <ng-container *ngIf="newClicked">
-        <form [formGroup]="productForm" (submit)="NewProduct()">
+        <form [formGroup]="productForm">
           <ion-item class="item-padding" lines="none">
             <div class="item-label">Name</div>
             <div class="input-container">
@@ -60,20 +64,20 @@
           </ion-item>
           <ion-item class="item-padding" lines="none">
             <div class="item-label">Category</div>
-              <ion-select
-                multiple="false"
-                interface="popover"
-                placeholder="Select Category"
-                fill="outline"
-                class="custom-select"
-                formControlName="category">
-                <ng-container *ngFor="let category of categories">
+            <ion-select
+              multiple="false"
+              interface="popover"
+              placeholder="Select Category"
+              fill="outline"
+              class="custom-select"
+              formControlName="category">
+              <ng-container *ngFor="let category of categories">
+                {{ category }}
+                <ion-select-option value="{{ category }}">
                   {{ category }}
-                  <ion-select-option value="{{ category }}">
-                    {{ category }}
-                  </ion-select-option>
-                </ng-container>
-              </ion-select>
+                </ion-select-option>
+              </ng-container>
+            </ion-select>
           </ion-item>
           <ion-item class="item-padding" lines="none">
             <div class="item-label">Brand</div>
@@ -92,14 +96,12 @@
         </form>
       </ng-container>
       <ng-container *ngIf="isSelected || newClicked">
-        <form
-          [formGroup]="productSellerForm"
-          (submit)="createExistingProduct()">
+        <form [formGroup]="productSellerForm">
           <ion-item class="item-padding" lines="none">
             <div class="item-label">Original Price (R)</div>
             <div class="input-container-num">
               <ion-input
-              clearInput="true"
+                clearInput="true"
                 type="number"
                 step="0.10"
                 min="1"
@@ -124,13 +126,13 @@
             <div class="item-label">Inventory Status</div>
             <div class="item-content stock-icon-container">
               <ion-segment mode="ios" formControlName="stock">
-                <ion-segment-button value="in">
+                <ion-segment-button value="True">
                   <ion-icon
                     class="stock-icon"
                     name="checkmark"
                     color="success"></ion-icon>
                 </ion-segment-button>
-                <ion-segment-button value="out">
+                <ion-segment-button value="False">
                   <ion-icon
                     class="stock-icon"
                     name="close"
@@ -166,7 +168,7 @@
                 mode="ios"
                 color="primary"
                 *ngIf="isSelected"
-                (click)="createExistingProduct()"> 
+                (click)="createExistingProduct()">
                 Create
               </ion-button>
               <ion-button mode="ios" color="primary" (click)="backClick()">
