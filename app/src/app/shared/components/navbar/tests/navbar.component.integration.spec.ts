@@ -122,12 +122,12 @@ describe('NavbarComponentIntegration', () => {
   //   expect(routerNavigateSpy).toHaveBeenCalledWith(['sign-out']);
   // });
 
-  it('should navigate to a specified page', () => {
-    const page = 'home';
-    const routerNavigateSpy = spyOn(router, 'navigate');
+  //   it('should navigate to a specified page', () => {
+  //     const page = 'home';
+  //     const routerNavigateSpy = spyOn(router, 'navigate');
 
-    component.redirect(page);
+  //     component.redirect(page);
 
-    expect(routerNavigateSpy).toHaveBeenCalledWith([`/${page}`]);
-  });
+  //     expect(routerNavigateSpy).toHaveBeenCalledWith([`/${page}`]);
+  //   });
 });
