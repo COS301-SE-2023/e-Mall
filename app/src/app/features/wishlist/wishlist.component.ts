@@ -73,11 +73,6 @@ export class WishlistComponent implements OnInit, OnDestroy {
     this.routeSubscription.unsubscribe();
   }
   loadWishlist() {
-    // if (!this.email) return;
-
-    // this.consumerService.getConsumerInfo(this.email).subscribe(data => {
-    //   this.products$ = of(data.products);
-    // });
     this.wishlistFacade.getWishlist().subscribe(data => {
       if (data) {
         this.products$ = of(data);

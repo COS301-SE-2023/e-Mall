@@ -187,7 +187,7 @@ def update_recommended_products(email):
         # remove old similar products array
         consumer.recommended_products = []
         # #add new similar products array
-
+        print(sorted_rm)
         for name, value in sorted_rm:
             consumer.recommended_products.append(name)
 
