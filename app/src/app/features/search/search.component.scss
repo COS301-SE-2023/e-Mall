@@ -128,7 +128,7 @@
   //margin-left: 12rem;
   display: flex;
   justify-content: center;
-  margin-left: 10%
+  margin-left: 5%
 }
 
 .custom-select .mat-select-panel {
@@ -261,10 +261,34 @@ ion-range {
   display: flex;
   flex-direction: column;
   align-items: center; /* Center items horizontally */
-  text-align: center; /* Center text horizontally */
+  text-align: center; 
 }
 
 .label {
   margin-bottom: 8px; /* Add spacing between label and button */
 }
 
+.sticky-button {
+  position: sticky;
+  bottom: 5; /* Stick to the bottom of the container */
+  //background-color: #007bff; /* Customize button background color */
+  //color: #fff; /* Customize button text color */
+  //padding: 10px 20px; /* Add padding for better visibility */
+  text-align: center;
+
+}
+
+
+.sticky-button ion-button{
+  --background: #1dc4b0;
+  margin-bottom: 15px;
+  color:white;
+}
+
+ion-modal{
+  border-top-right-radius: 10px;
+}
+
+ion-list ion-item::after {
+  border-bottom: none;
+}

@@ -211,7 +211,7 @@
         </div>
       </main>
     </div>
-  </div>
+  </div>  
 
   <!--mobile view filter modal-->
   <ion-modal trigger="open-modal" >
@@ -273,9 +273,8 @@
             <ion-list-header> 
               <h3>Category</h3>
             </ion-list-header>
-            <ion-item>
+            <ion-item *ngFor="let category of categoryOptions">
               <mat-checkbox
-                *ngFor="let category of categoryOptions"
                 [value]="category"
                 (change)="
                   onFilterOptionChange(
@@ -337,9 +336,8 @@
             <ion-list-header>
               <h3>Seller</h3>
             </ion-list-header>
-            <ion-item>
+            <ion-item *ngFor="let seller of sellerOptions">
               <mat-checkbox
-                *ngFor="let seller of sellerOptions"
                 [value]="seller"
                 (change)="
                   onFilterOptionChange('filter_seller', seller, $event.checked)
@@ -349,7 +347,9 @@
             </ion-item>
           </ion-list>
           
-          <ion-button (click)="closeModal()">Search Results</ion-button>
+          <div class="sticky-button" style="position: sticky; bottom: 0; text-align: center;">
+            <ion-button (click)="closeModal()">Search Results</ion-button>
+          </div>
           
       </ion-content>      
     </ng-template>
