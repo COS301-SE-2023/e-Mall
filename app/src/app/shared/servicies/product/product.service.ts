@@ -88,16 +88,14 @@ export class ProductService {
 
   getCategoryProducts(
     category: string,
-    sortOption?: any,
-
+    sortOption?: any
   ): Observable<IProduct[]> {
     let url = `${this.apiUrl}products/backend/?filter_category=${category}`;
     // filterOptions = { };
-    url += '&per_page=100'
+    url += '&per_page=100';
     if (sortOption) {
       url += '&sort=' + sortOption;
     }
-    url += '&per_page=100';
     return this.http.get(url).pipe(
       map((res: any) => res['data'] as IProduct[]),
       mergeMap((products: IProduct[]) => products),
