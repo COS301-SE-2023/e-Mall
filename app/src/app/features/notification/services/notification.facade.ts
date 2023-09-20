@@ -53,7 +53,7 @@ export class NotificationFacade implements OnDestroy {
     console.log('Notification Facade initialized');
     this.authSubs = authfacade
       .getCurrentUser()
-      .pipe(debounceTime(100))
+      .pipe(debounceTime(500))
       .subscribe(async (user: IUser | null) => {
         if (user != null) {
           await notificationService.request().then(permission => {
@@ -62,7 +62,7 @@ export class NotificationFacade implements OnDestroy {
                 .getToken()
                 .pipe(debounceTime(100), take(1))
                 .subscribe(async token => {
-                  this.init(token);
+                  if (token) this.init(token);
                 });
             } else {
               console.log('Notification is disabled');
@@ -70,7 +70,7 @@ export class NotificationFacade implements OnDestroy {
           });
         } else {
           this.messageListenSubs.unsubscribe();
-          this.signOut();
+          // this.signOut();
         }
       });
   }
