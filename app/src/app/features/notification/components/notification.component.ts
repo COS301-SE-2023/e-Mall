@@ -36,32 +36,6 @@ export class NotificationComponent implements OnDestroy {
         }
       }
     );
-    const message = {
-      id: 'KeZTdBhB7PsKivc3v3pC',
-      is_read: false,
-      sender: {
-        id: '8b49cfce-db4a-41a0-9b67-ad1397609f59',
-        name: 'sgonzalez',
-        image: '',
-      },
-      doc: {
-        id: '108',
-        name: '132',
-        image: '',
-      },
-      message_type: 'combo',
-      action: 'create',
-      timestamp: '2023-09-17T22:24:53.333Z',
-      timestamp_locale: '2023-09-18 00:24:53',
-      notification: {
-        title: "You have been invited to '132'",
-        body: "@sgonzalez has invited you to '132'",
-        image: '',
-      },
-    };
-    setTimeout(() => this.showMessage(message), 1000);
-    setTimeout(() => this.showMessage(message), 2000);
-    setTimeout(() => this.showMessage(message), 3000);
   }
 
   async showMessage(message: any) {
