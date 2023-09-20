@@ -8,7 +8,7 @@ import { ProductCardModule } from '@shared/components/product-card/product-card.
 import { CustomerProfileSidenavModule } from '@shared/components/customer-profile-sidenav/customer-profile-sidenav.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule, Routes } from '@angular/router';
-
+import { ComboBreadcrumbModule } from '@app/shared/components/breadcrumbs/combo-breadcrumb/combo-breadcrumb.module';
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: WishlistComponent },
 ];
@@ -22,6 +22,7 @@ const routes: Routes = [
     ProductCardModule,
     CustomerProfileSidenavModule,
     MatProgressSpinnerModule,
+    ComboBreadcrumbModule,
     RouterModule.forChild(routes),
   ],
   exports: [RouterModule],

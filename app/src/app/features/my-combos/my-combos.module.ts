@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CustomerProfileSidenavModule } from '@shared/components/customer-profile-sidenav/customer-profile-sidenav.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule, Routes } from '@angular/router';
+import { ComboBreadcrumbModule } from '@app/shared/components/breadcrumbs/combo-breadcrumb/combo-breadcrumb.module';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: MyCombosComponent },
@@ -19,9 +20,10 @@ const routes: Routes = [
     IonicModule,
     CustomerProfileSidenavModule,
     MatProgressSpinnerModule,
+    ComboBreadcrumbModule,
     RouterModule.forChild(routes),
   ],
   declarations: [MyCombosComponent],
-  exports:[RouterModule],
+  exports: [RouterModule],
 })
-export class MyCombosModule { }
+export class MyCombosModule {}

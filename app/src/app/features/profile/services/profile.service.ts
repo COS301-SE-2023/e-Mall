@@ -168,4 +168,6 @@ export class ProfileService {
     const url = `http://localhost:3000/api/custanalytics/predicted_matrix/`;
     return firstValueFrom(this.http.post(url, {}));
   }
+
+
 }

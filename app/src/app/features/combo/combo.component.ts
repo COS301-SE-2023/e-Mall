@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ComboFacade } from '@features/combo-state/services/combo.facade';
 import { ComboEditComponent } from './combo-edit/combo-edit.component';
 import { ModalController } from '@ionic/angular';
+import { ComboInviteComponent } from './combo-invite/combo-invite.component';
 //import { AuthFacade } from '@app/features/auth/services/auth.facade';
 //import { IUser } from '@app/features/auth/models/user.interface';
 //import { Observable } from 'rxjs';
@@ -29,7 +30,7 @@ export class ComboComponent implements OnInit, OnDestroy {
   email!: string;
   username!: string | undefined;
   paramMapSubscription: Subscription;
-  combo_id: number;
+  collection_id: number;
   combo$!: Observable<ICombo | null | undefined>;
   name: string | undefined;
   active_users: string[] | undefined = [];
@@ -45,7 +46,7 @@ export class ComboComponent implements OnInit, OnDestroy {
     private modalController: ModalController
   ) {
     this.paramMapSubscription = new Subscription();
-    this.combo_id = -1;
+    this.collection_id = -1;
   }
 
   ngOnInit(): void {
@@ -57,10 +58,10 @@ export class ComboComponent implements OnInit, OnDestroy {
       }
     });
     this.paramMapSubscription = this.route.queryParamMap.subscribe(params => {
-      const id = params.get('combo_id');
+      const id = params.get('collection_id');
       if (id) {
-        this.combo_id = +id;
-        this.fetchComboData(this.combo_id);
+        this.collection_id = +id;
+        this.fetchComboData(this.collection_id);
       }
     });
   }
@@ -95,11 +96,11 @@ export class ComboComponent implements OnInit, OnDestroy {
     this.router.navigate(['/construction']);
   }
 
-  goToComboPage(combo_id: number) {
+  goToComboPage(collection_id: number) {
     const navigationextras: NavigationExtras = {
-      queryParams: { combo_id: combo_id },
+      queryParams: { collection_id: collection_id },
     };
-    this.router.navigate(['/combo'], navigationextras);
+    this.router.navigate(['/collection'], navigationextras);
   }
 
   getOneImg(imgList?: string[]) {
@@ -125,7 +126,10 @@ export class ComboComponent implements OnInit, OnDestroy {
   }
 
   edit() {
-    this.openComboPopover();
+    this.openComboEditPopover();
+  }
+  invite() {
+    this.openComboInvitePopover();
   }
   public alertButtons = [
     {
@@ -142,23 +146,43 @@ export class ComboComponent implements OnInit, OnDestroy {
       },
     },
   ];
-  async openComboPopover() {
+  async openComboEditPopover() {
     const modal = await this.modalController.create({
       component: ComboEditComponent,
       componentProps: {
-        combo_id: this.combo_id,
-        combo_name: this.name, // Pass the product as a property
+        collection_id: this.collection_id,
+        combo_name: this.name,
       },
+      cssClass: ['inventory-modal'],
+      backdropDismiss: false,
+      animated: true,
+      mode: 'md',
+      presentingElement: await this.modalController.getTop(),
+    });
+    return await modal.present();
+  }
+
+  async openComboInvitePopover() {
+    const modal = await this.modalController.create({
+      component: ComboInviteComponent,
+      componentProps: {
+        collection_id: this.collection_id,
+      },
+      cssClass: ['inventory-modal'],
+      backdropDismiss: false,
+      animated: true,
+      mode: 'md',
+      presentingElement: await this.modalController.getTop(),
     });
     return await modal.present();
   }
 
   leaveCombo() {
     const data = {
-      combo_id: this.combo_id,
+      collection_id: this.collection_id,
     };
     this.comboFacade.deleteUser(data);
-    this.router.navigate(['/my-combos']);
+    this.router.navigate(['/my-collections']);
   }
 
   comboData() {

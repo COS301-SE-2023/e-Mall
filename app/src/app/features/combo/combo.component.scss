@@ -59,10 +59,7 @@ ion-item {
   justify-content: flex-end;
 }
 
-.combo-container h2 {
-  margin-left: 15px;
-  margin-top: 0px;
-}
+
 
 .combo-container1 h2 {
   margin-left: 15px;
@@ -139,4 +136,10 @@ ion-item {
   button.alert-button.cancel-button{
     color: green;
   }
+}
+
+h2 {
+  margin-left: 15px;
+  margin-top: 18px;
+  margin-bottom: 18px;
 }

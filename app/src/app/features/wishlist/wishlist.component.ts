@@ -11,10 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ComboFacade } from '@features/combo-state/services/combo.facade';
 import { ICombo } from '@features/combo-state/models/combo.interface';
-
-//import { AuthFacade } from '@app/features/auth/services/auth.facade';
-//import { IUser } from '@app/features/auth/models/user.interface';
-//import { Observable } from 'rxjs';
+import { WishlistFacade } from './wishlist-state/services/wishlist.facade';
 
 @Component({
   selector: 'app-wishlist',
@@ -38,6 +35,7 @@ export class WishlistComponent implements OnInit, OnDestroy {
     public profileFacade: ProfileFacade,
     private consumerService: ConsumerService,
     private comboFacade: ComboFacade,
+    private wishlistFacade: WishlistFacade
   ) {
     this.customerprofileForm = new FormGroup({
       username: new FormControl(),
@@ -54,12 +52,11 @@ export class WishlistComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.showSpinner = true;
-    
+
     setTimeout(() => {
       this.showSpinner = false;
-      
     }, 6000);
-    
+
     this.profile$ = this.profileFacade.getProfile();
     this.profile$.subscribe(profile => {
       if (profile) {
@@ -71,16 +68,15 @@ export class WishlistComponent implements OnInit, OnDestroy {
   }
   // Subscribe to route parameter changes and reload data accordingly
 
-
   ngOnDestroy(): void {
     // Unsubscribe from the route parameter subscription to avoid memory leaks
     this.routeSubscription.unsubscribe();
   }
   loadWishlist() {
-    if (!this.email) return;
-
-    this.consumerService.getConsumerInfo(this.email).subscribe(data => {
-      this.products$ = of(data.products);
+    this.wishlistFacade.getWishlist().subscribe(data => {
+      if (data) {
+        this.products$ = of(data);
+      }
     });
   }
   goToCustomerProfile() {
@@ -92,7 +88,6 @@ export class WishlistComponent implements OnInit, OnDestroy {
     };
     this.router.navigate(['/combo'], navigationextras);
   }
-
 
   goToConstruction() {
     this.router.navigate(['/construction']);

@@ -19,7 +19,6 @@ describe('AppComponent', () => {
         // HttpClient,
       ],
       declarations: [AppComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   });
 

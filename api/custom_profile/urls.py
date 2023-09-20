@@ -30,4 +30,9 @@ urlpatterns = [
         views.update_recommended_products,
         name="updateRecommendedProducts",
     ),
+    path(
+        "getWishlistedProducts/",
+        views.getWishlistedProducts,
+        name="getWishlistedProducts",
+    ),
 ]

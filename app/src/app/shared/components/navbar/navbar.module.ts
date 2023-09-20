@@ -31,7 +31,7 @@ import { NotificationModule } from '@features/notification/notification.module';
     MatFormFieldModule,
     MatInputModule,
     IonicModule,
-    NotificationModule,
+    // NotificationModule,
   ],
 })
 export class NavbarModule {}

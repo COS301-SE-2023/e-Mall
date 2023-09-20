@@ -17,7 +17,6 @@ import { ICategoryBreadcrumb } from '../models/category-breadcrumb.interface';
 export class CategoryBreadcrumbComponent implements OnInit {
   @Input()
   categoryList: any;
-
   crumbs: ICategoryBreadcrumb[] = [];
   constructor(public categoryBreadcrumbFacade: CategoryBreadcrumbFacade) {}
 
@@ -25,5 +24,9 @@ export class CategoryBreadcrumbComponent implements OnInit {
     this.crumbs = this.categoryBreadcrumbFacade.getBreadcrumbs(
       this.categoryList
     );
+  }
+
+  navigateTo(url: string): void {
+    this.categoryBreadcrumbFacade.navigateTo(url);
   }
 }
