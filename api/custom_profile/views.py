@@ -19,7 +19,8 @@ import pandas as pd
 # from notification.utils import update_wishlist
 # from notification.utils import update_followed_users
 from celery import shared_task
-from cust_analytics.views import post, my_custom_function
+from cust_analytics.views import post
+from cust_analytics.models import cust_analytics
 
 
 @api_view(["POST"])
@@ -173,13 +174,17 @@ def update_recommended_products(email):
 
         rec_prods = []
         # get the predictions data
-        predictions_data = ca_matrix.objects.all()
+        initial_data = ca_matrix.objects.all()
+        prediction_data= cust_analytics.objects.all()
         # create the df table
-        df, df1 = createTables(predictions_data)
+        df = createTables(initial_data)
+        df1 = createTables(prediction_data)
+        
         for m in df[df[email] == 0].index.tolist():
             index_df = df.index.tolist().index(m)
             predicted_rating = df1.iloc[index_df, df1.columns.tolist().index(email)]
-            rec_prods.append((m, predicted_rating))
+            if(predicted_rating > 0):
+                rec_prods.append((m, predicted_rating))
 
         sorted_rm = sorted(rec_prods, key=lambda x: x[1], reverse=True)
         # find the consumer
@@ -187,7 +192,6 @@ def update_recommended_products(email):
         # remove old similar products array
         consumer.recommended_products = []
         # #add new similar products array
-        print(sorted_rm)
         for name, value in sorted_rm:
             consumer.recommended_products.append(name)
 
@@ -221,6 +225,8 @@ def get_recommended_products(request):
                 recommended_products = Product.objects.filter(
                     name__in=user.recommended_products
                 )
+                #sort it the same way that the user has sorted it
+                recommended_products = sorted(recommended_products, key=lambda x: user.recommended_products.index(x.name))
             serializer = ProductSerializer(recommended_products, many=True)
             return Response(serializer.data)
 
@@ -243,8 +249,7 @@ def createTables(predictions_data):
     predictions_df = pd.DataFrame(data)
     # Pivot the data to create the table
     df = predictions_df.pivot(index="product", columns="user_email", values="value")
-    df1 = df.copy()
-    return df, df1
+    return df
 
 
 @api_view(["POST"])
