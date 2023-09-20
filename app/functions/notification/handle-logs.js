@@ -17,7 +17,6 @@ function handleLogs(path) {
 
     // Get the current document data and ID
     const docData = snap.data();
-    console.log(docData);
     const receivers = docData.targets;
     const docId = snap.id;
 
@@ -39,6 +38,7 @@ function handleLogs(path) {
           docDataCopy.title = replaceFields(docData.title, docData.doc.name, receiver.name, docData.sender.name);
           docDataCopy.message = replaceFields(docData.message, docData.doc.name, receiver.name, docData.sender.name);
           // Add the document data to the user"s logs collection in the batch
+          console.log(docDataCopy);
           batch.set(userLogRef, docDataCopy);
         }
       } catch (error) {
