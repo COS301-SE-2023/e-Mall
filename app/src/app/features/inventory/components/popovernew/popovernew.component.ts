@@ -115,9 +115,6 @@ export class PopovernewComponent implements OnInit {
     this.isSelected = false;
     this.newClicked = false;
   }
-  NewProduct() {
-    console;
-  }
   home() {
     this.router.navigate(['/inventory']);
   }
