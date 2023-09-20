@@ -40,10 +40,8 @@ export class ProductService {
     return this.http.get(url).pipe(map((res: any) => res as IProduct[]));
   }
   public getTrendingProducts(): Observable<IProduct[]> {
-    const url = `${this.apiUrl}products/test?search=x`;
-    return this.http
-      .get(url)
-      .pipe(map((res: any) => res['data'] as IProduct[]));
+    const url = `${this.apiUrl}products/trendingproducts/`;
+    return this.http.get(url).pipe(map((res: any) => res as IProduct[]));
   }
 
   public getForYouProducts(): Observable<IProduct[]> {
