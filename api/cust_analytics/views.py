@@ -17,6 +17,7 @@ from celery import shared_task
 @shared_task
 def post():
     try:
+        # populate the database table with users predicted data
         with transaction.atomic():
             # Call the ca_matrix model and make it recalculate the data
             # for the cust_analytics model
@@ -26,7 +27,7 @@ def post():
         predictions_data = ca_matrix.objects.all()
 
         predicated_values = calculate_predicted_values(predictions_data)
-
+        # print("coming from cust_analytics",calculate_predicted_values(predictions_data))
         # Store predictions in the CustAnalytics model
         for index, row in predicated_values.iterrows():
             for user_email in row.index:
@@ -82,21 +83,23 @@ def calculate_predicted_values(predictions_data):
     predictions_df = pd.DataFrame(data)
     # Pivot the data to create the table
     df = predictions_df.pivot(index="product", columns="user_email", values="value")
+    #starting of the prediction
     df1 = df.copy()
-
+    #works up unti here
     # Create a user-product matrix for prediction
     user_product_matrix = create_user_product_matrix(
         user_indices, product_indices, values
     )
     # Perform NearestNeighbors calculation
-    number_neighbors = 3
+    number_neighbors = 12
     knn = NearestNeighbors(metric="cosine", algorithm="brute")
     knn.fit(user_product_matrix)
     distances, indices = knn.kneighbors(
         user_product_matrix, n_neighbors=number_neighbors
     )
+    print("distances" , distances)
     # iterating through all users
-    for user_index, user_uuid in list(enumerate(df.columns)):
+    for user_index, user_email in list(enumerate(df.columns)):
         # iterating through all products.
         for row, name in list(enumerate(df.index)):
             # find products that have not been interacted with by the user
@@ -151,7 +154,7 @@ def calculate_predicted_values(predictions_data):
                         predicted_value = 0
                 else:
                     predicted_value = 0
-
+                print("predicted value", predicted_value)
                 # place the predicted value in the dataframe
                 df1.iloc[row, user_index] = predicted_value
 
@@ -173,8 +176,3 @@ def create_user_product_matrix(user_indices, product_indices, values):
 
     return matrix
 
-
-@shared_task
-def my_custom_function():
-    # Your custom code here
-    print("Hello World!")
