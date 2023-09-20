@@ -1,10 +1,10 @@
-from django.test import TestCase, RequestFactory
-from django.contrib.auth.models import User
-from rest_framework.test import APIRequestFactory
-from consumer.models import Consumer
-from combos.models import Combos
-from combos.views import create, update, delete
-from unittest.mock import PropertyMock, patch
+# from django.test import TestCase, RequestFactory
+# from django.contrib.auth.models import User
+# from rest_framework.test import APIRequestFactory
+# from consumer.models import Consumer
+# from combos.models import Combos
+# from combos.views import create, update, delete
+# from unittest.mock import PropertyMock, patch
 
 
 # class ComboViewsTestCase(TestCase):

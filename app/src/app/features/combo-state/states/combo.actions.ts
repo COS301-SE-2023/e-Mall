@@ -1,16 +1,31 @@
 import { IProduct } from '@shared/models/product/product.interface';
-import { ICombo } from '../models/combo.interface';
+import { ICombo, ICombo_invites } from '../models/combo.interface';
 
 export class SetCombos {
   static readonly type = '[Combo] Set Combos';
-  constructor(public combos: ICombo[]) {}
-}
-
-export class UpdateCombo {
-  static readonly type = '[Combo] Update Combo';
   constructor(
     public payload: {
-      combo_ids: number[];
+      combos: ICombo[];
+      combo_invites: ICombo_invites[];
+    }
+  ) {}
+}
+
+export class InviteUsers {
+  static readonly type = '[Combo] Invited Users';
+  constructor(
+    public payload: {
+      collection_id: number;
+      user_emails: string[];
+    }
+  ) {}
+}
+
+export class AddProduct {
+  static readonly type = '[Combo] Add Product';
+  constructor(
+    public payload: {
+      collection_ids: number[];
       product_id: number;
       product: IProduct;
     }
@@ -21,7 +36,7 @@ export class RemoveProductFromCombo {
   static readonly type = '[Combo] Remove Product From Combo';
   constructor(
     public payload: {
-      combo_id: number;
+      collection_id: number;
       product_id: number;
     }
   ) {}
@@ -31,9 +46,8 @@ export class EditCombo {
   static readonly type = '[Combo] Edit Combo';
   constructor(
     public payload: {
-      combo_id: number;
+      collection_id: number;
       combo_name: string;
-      user_emails: string[];
     }
   ) {}
 }
@@ -42,7 +56,9 @@ export class UpdateUsers {
   static readonly type = '[Combo] Update Users';
   constructor(
     public payload: {
-      combo: any;
+      collection_id: number;
+      user_email: string;
+      action: string;
     }
   ) {}
 }
@@ -51,7 +67,7 @@ export class DeleteUser {
   static readonly type = '[Combo] Delete Combo';
   constructor(
     public payload: {
-      combo_id: number;
+      collection_id: number;
     }
   ) {}
 }
@@ -69,6 +85,7 @@ export class CreateCombo {
   static readonly type = '[Combo] Create Combo';
   constructor(
     public payload: {
+      current_user_email: string;
       combo_name: string;
       user_emails: string[];
       product_ids: number[];

@@ -21,6 +21,7 @@ import { IonicModule } from '@ionic/angular';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
 import { ProductCardModule } from "../../shared/components/product-card/product-card.module";
+import { CategoryBreadcrumbModule } from '@app/shared/components/breadcrumbs/category-breadcrumb/category-breadcrumb.module';
 
 @NgModule({
     declarations: [CategoryComponent],
@@ -46,7 +47,8 @@ import { ProductCardModule } from "../../shared/components/product-card/product-
         IonicModule,
         NavbarModule,
         FooterModule,
-        ProductCardModule
+        ProductCardModule,
+        CategoryBreadcrumbModule
     ]
 })
 export class CategoryModule {}

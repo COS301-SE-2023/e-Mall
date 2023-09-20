@@ -10,7 +10,7 @@ import { ComboPopoverComponent } from './combo-popover/combo-popover.component';
 import { ComboFacade } from '@features/combo-state/services/combo.facade';
 import { AuthFacade } from '@features/auth/services/auth.facade';
 import { Navigate } from '@ngxs/router-plugin';
-
+import { WishlistFacade } from '@app/features/wishlist/wishlist-state/services/wishlist.facade';
 @Component({
   selector: 'app-product-card',
   templateUrl: 'product-card.component.html',
@@ -20,7 +20,7 @@ export class ProductCardComponent implements OnInit {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() product: any;
   @Input() pageType: string;
-  @Input() combo_id!: any;
+  @Input() collection_id!: any;
   isHearted = of(false);
   isBookmark = of(false);
   consumer_id!: string;
@@ -32,7 +32,8 @@ export class ProductCardComponent implements OnInit {
     private profileFacade: ProfileFacade,
     private analytics: AnalyticsService,
     private comboFacade: ComboFacade,
-    private authFacade: AuthFacade
+    private authFacade: AuthFacade,
+    private wishlistFacade: WishlistFacade
   ) {
     this.pageType = '';
   }
@@ -77,12 +78,12 @@ export class ProductCardComponent implements OnInit {
   }
   updateWishlist() {
     this.favClickAnalytics();
-    this.profileFacade.toggleWishlist(this.product.id);
+    this.wishlistFacade.addProductToWishlist(this.product);
   }
 
   removeProd() {
     const data = {
-      combo_id: this.combo_id,
+      collection_id: this.collection_id,
       product_id: this.product.id,
     };
     this.comboFacade.removeProduct(data);
@@ -90,7 +91,7 @@ export class ProductCardComponent implements OnInit {
 
   removeProdFromWishlist() {
     this.favClickAnalytics();
-    this.profileFacade.removeProductFromWishlist(this.product.id);
+    this.wishlistFacade.removeProductFromWishlist(this.product);
   }
 
   goToProductPage(prod_id: number): void {

@@ -40,5 +40,5 @@ python manage.py migrate
 # done
 
 echo "Django is fully configured successfully."
-
+celery -A api.celery worker --loglevel=info &
 exec "$@"

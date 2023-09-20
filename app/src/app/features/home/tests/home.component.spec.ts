@@ -17,6 +17,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { ProfileService } from '@features/profile/services/profile.service';
 import { ComboStateModule } from '@features/combo-state/combo-state.module';
+import { NotificationModule } from '@app/features/notification/notification.module';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -29,14 +30,18 @@ describe('HomeComponent', () => {
     name: 'Mock Product 1',
     min_price: 10.99,
     description: 'This is a mock product',
-    brand:'brand1',
-    category:'category 1',
+    brand: 'brand1',
+    category: 'category 1',
   };
 
   beforeEach(() => {
     // Create a mock ProductService
-    const productServiceSpy = jasmine.createSpyObj('ProductService', ['getPopProducts']);
-    const profileServiceSpy = jasmine.createSpyObj('ProfileService', ['getSimilarProducts']); // Add this line
+    const productServiceSpy = jasmine.createSpyObj('ProductService', [
+      'getPopProducts',
+    ]);
+    const profileServiceSpy = jasmine.createSpyObj('ProfileService', [
+      'getSimilarProducts',
+    ]); // Add this line
 
     TestBed.configureTestingModule({
       imports: [
@@ -46,14 +51,21 @@ describe('HomeComponent', () => {
         AuthModule,
         ProfileModule,
         RouterTestingModule,
-        ComboStateModule
+        ComboStateModule,
+        NotificationModule,
       ],
-      providers: [HomeComponent,{ provide: ProductService, useValue: productServiceSpy }, { provide: ProfileService, useValue: profileServiceSpy } ],
+      providers: [
+        HomeComponent,
+        { provide: ProductService, useValue: productServiceSpy },
+        { provide: ProfileService, useValue: profileServiceSpy },
+      ],
     });
 
     component = TestBed.inject(HomeComponent);
     httpTestingController = TestBed.inject(HttpTestingController);
-    productServiceMock = TestBed.inject(ProductService) as jasmine.SpyObj<ProductService>;
+    productServiceMock = TestBed.inject(
+      ProductService
+    ) as jasmine.SpyObj<ProductService>;
   });
 
   afterEach(() => {
@@ -73,7 +85,8 @@ describe('HomeComponent', () => {
 
   it('should return a default image if the image list is empty', () => {
     const mockImageList: string[] = [];
-    const defaultImage = 'https://www.incredible.co.za/media/catalog/product/cache/7ce9addd40d23ee411c2cc726ad5e7ed/s/c/screenshot_2022-05-03_142633.jpg';
+    const defaultImage =
+      'https://www.incredible.co.za/media/catalog/product/cache/7ce9addd40d23ee411c2cc726ad5e7ed/s/c/screenshot_2022-05-03_142633.jpg';
 
     const singleImage = component.getOneImg(mockImageList);
 

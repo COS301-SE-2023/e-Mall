@@ -15,8 +15,9 @@ from product.models import Product
 from ca_matrix.models import ca_matrix
 import numpy as np
 import pandas as pd
-from notification.utils import update_wishlist
-from notification.utils import update_followed_users
+
+# from notification.utils import update_wishlist
+# from notification.utils import update_followed_users
 from celery import shared_task
 from cust_analytics.views import post, my_custom_function
 
@@ -78,9 +79,9 @@ def updateWishlist(request):
             consumer = Consumer.objects.get(email=user.email)
             if product_id not in consumer.wishlist:
                 consumer.wishlist.append(product_id)
-            res = update_wishlist(user.id, product_id, "add")
-            if res.get("status") == "error":
-                raise Exception(res.get("message"))
+            # res = update_wishlist(user.id, product_id, "add")
+            # if res.get("status") == "error":
+            # raise Exception(res.get("message"))
             consumer.save()
             return Response({"success": True})
         else:
@@ -100,9 +101,9 @@ def removeProductFromWishlist(request):
         if user.type == "consumer":
             consumer = Consumer.objects.get(email=user.email)
             consumer.wishlist.remove(product_id)
-            res = update_wishlist(user.id, product_id, "remove")
-            if res.get("status") == "error":
-                raise Exception(res.get("message"))
+            # res = update_wishlist(user.id, product_id, "remove")
+            # if res.get("status") == "error":
+            # raise Exception(res.get("message"))
             consumer.save()
             return Response({"success": True})
         else:
@@ -124,12 +125,12 @@ def updateFollowedSellers(request):
             seller = Seller.objects.get(business_name=seller_name)
             if seller_name in consumer.followed_sellers:
                 consumer.followed_sellers.remove(seller_name)
-                res = update_followed_users(user.id, seller.id, "remove")
+                # res = update_followed_users(user.id, seller.id, "remove")
             else:
                 consumer.followed_sellers.append(seller_name)
-                res = update_followed_users(user.id, seller.id, "add")
-            if res.get("status") == "error":
-                raise Exception(res.get("message"))
+                # res = update_followed_users(user.id, seller.id, "add")
+            # if res.get("status") == "error":
+            # raise Exception(res.get("message"))
             consumer.save()
             return Response({"success": True})
         else:
@@ -186,7 +187,7 @@ def update_recommended_products(email):
         # remove old similar products array
         consumer.recommended_products = []
         # #add new similar products array
-
+        print(sorted_rm)
         for name, value in sorted_rm:
             consumer.recommended_products.append(name)
 
@@ -244,3 +245,23 @@ def createTables(predictions_data):
     df = predictions_df.pivot(index="product", columns="user_email", values="value")
     df1 = df.copy()
     return df, df1
+
+
+@api_view(["POST"])
+def getWishlistedProducts(request):
+    try:
+        user = request.user
+        if user is None:
+            raise Exception("User not found")
+        if user.type == "seller":
+            raise Exception("Seller cannot have wishlist")
+        else:
+            consumer = Consumer.objects.get(email=user.email)
+            wishlisted_products = Product.objects.filter(
+                id__in=consumer.wishlist
+            ).order_by("-created_at")
+            serializer = ProductSerializer(wishlisted_products, many=True)
+            return Response(serializer.data)
+    except Exception as e:
+        # handle other exceptions here
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

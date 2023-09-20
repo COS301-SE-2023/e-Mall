@@ -5,8 +5,9 @@
       [itemsBeforeCollapse]="0"
       [itemsAfterCollapse]="3">
       <ng-container *ngFor="let crumb of crumbs">
-        <ion-breadcrumb routerLink="{{ crumb.url }}"
-          >{{ crumb.label }}
+        <ion-breadcrumb (click)="navigateTo(crumb.url)">
+          <!-- Apply the CSS class here -->
+          <span class="crumb-label">{{ crumb.label }}</span>
           <ion-icon slot="separator" name="chevron-forward-outline"></ion-icon>
         </ion-breadcrumb>
       </ng-container>

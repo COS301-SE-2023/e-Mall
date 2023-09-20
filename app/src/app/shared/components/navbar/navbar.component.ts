@@ -67,7 +67,7 @@ export class NavbarComponent implements OnDestroy {
 
   async combos(event: Event) {
     if (await this.authFacade.isLoggedIn()) {
-      this.router.navigate(['/my-combos']);
+      this.router.navigate(['/my-collections']);
     } else {
       this.router.navigate(['/sign-in']);
     }
@@ -81,7 +81,7 @@ export class NavbarComponent implements OnDestroy {
   }
 
   public redirect(page: string): void {
-    this.router.navigate([`/${page}`]);
+    window.location.href = `/${page}`;
   }
 
   async openPopover(event: MouseEvent) {

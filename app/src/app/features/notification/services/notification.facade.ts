@@ -18,7 +18,11 @@ import * as NotificationActions from '../states/notification.action';
 import { IUser } from '../../auth/models/user.interface';
 import { Select } from '@ngxs/store';
 import { NotificationSelectors } from '../states/notification.selector';
-import { transformMessage } from '../utils/transformMessage';
+import {
+  transformMessage,
+  transformNewMessage,
+} from '../utils/transformMessage';
+import { INotificationSettings } from '../models/notification-settings.interface';
 @Injectable()
 export class NotificationFacade implements OnDestroy {
   @Select(NotificationSelectors.getUnreadCount)
@@ -31,13 +35,17 @@ export class NotificationFacade implements OnDestroy {
   hasNext$!: Observable<boolean>;
   @Select(NotificationSelectors.getCount)
   count$!: Observable<number>;
+  @Select(NotificationSelectors.getNotificationSettings)
+  settings$!: Observable<INotificationSettings>;
 
   newMessage$ = new BehaviorSubject<INotification | null>(null);
   messageListenSubs = new Subscription();
   authSubs = new Subscription();
   isMenuOpen$ = new BehaviorSubject<boolean>(false);
   isInitial = true;
+  isLoading = new BehaviorSubject<boolean>(true);
   token = '';
+  accordionOpen$ = new BehaviorSubject<INotification | undefined>(undefined);
   constructor(
     private notificationService: NotificationService,
     authfacade: AuthFacade
@@ -72,6 +80,7 @@ export class NotificationFacade implements OnDestroy {
     this.resetNotifications();
     this.isInitial = true;
     this.getUnreadCount();
+    this.getSettings();
 
     this.messageListenSubs = this.notificationService.message$
       .pipe(debounceTime(500))
@@ -79,12 +88,13 @@ export class NotificationFacade implements OnDestroy {
         console.log('Listening for messages');
         if (message) {
           console.log(message);
-          const payload = transformMessage(message);
+          const payload = transformNewMessage(message);
           this.newNotification(payload);
         }
       });
   }
   async getNotifications() {
+    this.isLoading.next(true);
     if (this.isInitial) {
       this.isInitial = false;
       const lastNotificationId = await firstValueFrom(this.lastNotification$);
@@ -97,10 +107,13 @@ export class NotificationFacade implements OnDestroy {
       }
       this.updateNotificationList(tmp_list, res.has_next);
     }
+    this.isLoading.next(false);
   }
 
   async loadMoreNotifications() {
     try {
+      this.isLoading.next(true);
+
       const hasNext = await firstValueFrom(this.hasNext$);
 
       if (hasNext) {
@@ -114,6 +127,8 @@ export class NotificationFacade implements OnDestroy {
         }
         this.updateNotificationList(tmp_list, res.has_next);
       }
+      this.isLoading.next(false);
+
       return null;
     } catch (error) {
       return this.setError(error);
@@ -123,6 +138,16 @@ export class NotificationFacade implements OnDestroy {
     try {
       this.markReadInState(id);
       const res = await this.notificationService.read(id);
+      return res;
+    } catch (error) {
+      return this.setError(error);
+    }
+  }
+  async delete(id: string) {
+    try {
+      console.log(id);
+      this.deleteInState(id);
+      const res = await this.notificationService.delete(id);
       return res;
     } catch (error) {
       return this.setError(error);
@@ -162,10 +187,25 @@ export class NotificationFacade implements OnDestroy {
       return this.setError(error);
     }
   }
+  async refresh() {
+    try {
+      this.resetNotifications();
+      this.isInitial = true;
+      this.getUnreadCount();
+      this.getNotifications();
+      // return res;
+    } catch (error) {
+      this.setError(error);
+    }
+  }
 
   @Dispatch()
   markReadInState(id: string) {
     return new NotificationActions.Read(id);
+  }
+  @Dispatch()
+  deleteInState(id: string) {
+    return new NotificationActions.Delete(id);
   }
   @Dispatch()
   deleteAllState() {
@@ -212,8 +252,30 @@ export class NotificationFacade implements OnDestroy {
   }
   @Dispatch()
   async updateDeviceToken(token: string) {
-    this.notificationService.updateDeviceToken(token);
-    return new NotificationActions.SetToken(token);
+    try {
+      this.notificationService.updateDeviceToken(token);
+      return new NotificationActions.SetToken(token);
+    } catch (error) {
+      return this.setError(error);
+    }
+  }
+  @Dispatch()
+  async updateSettings(settings: INotificationSettings) {
+    try {
+      await this.notificationService.updateSettings(settings);
+      return new NotificationActions.UpdateSettings(settings);
+    } catch (error) {
+      return this.setError(error);
+    }
+  }
+  @Dispatch()
+  async getSettings() {
+    try {
+      const res = await this.notificationService.getSettings();
+      return new NotificationActions.UpdateSettings(res);
+    } catch (error) {
+      return this.setError(error);
+    }
   }
 
   ngOnDestroy(): void {

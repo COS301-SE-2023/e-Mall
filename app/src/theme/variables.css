@@ -70,7 +70,7 @@
   --ion-color-medium-shade: #aad1cd;
   --ion-color-medium-tint: #c7efeb;
 
-  --ion-color-light: #e6f8f7;
+  --ion-color-light: #d3d3d3;
   --ion-color-light-rgb: 230, 248, 247;
   --ion-color-light-contrast: #000000;
   --ion-color-light-contrast-rgb: 0, 0, 0;
@@ -222,45 +222,56 @@ ion-modal.inventory-modal{
 }
 
 /*notification*/
-ion-toast.custom-notification{
-    --background: #f4f4fa;
-    --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
-    --color: #4b4a50;
-    --width: 20rem;
-    --min-height: 7rem;
-    --start: 4000;
-    --max-height: 15rem;
-            /* overflow: hidden !important; */
-              /* text-overflow: ellipsis !important; */
+@media (max-width:574px) {
+  ion-toast.custom-notification {
+      --background: #f4f4fa;
+      --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
+      --color: #4b4a50;
+      /* --width: 22rem; */
+      /* --min-height: 7rem; */
+      /* --start: 4000; */
+      --max-height: 15rem;
+    }
+  
+    ion-toast.custom-notification::part(message) {
+      color: #000000;
+      text-align: center;
+      padding-left: 5px;
+      height: 100%;
+      padding-top: 10px;
+    }
+  
+    ion-toast.custom-notification::part(button) {
+      color: var(--ion-color-clear-button);
+      font-size: 0.8rem;
+      height: min-content;
+    }
 }
+@media (min-width:574px)
+   { ion-toast.custom-notification {
+      --background: #f4f4fa;
+      --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
+      --color: #4b4a50;
+      --width: 22rem;
+      --min-height: 7rem;
+      --start: 4000;
+      --max-height: 15rem;
+    }
+  
+    ion-toast.custom-notification::part(message) {
+      color: #000000;
+      text-align: start;
+      padding-left: 10px;
+      height: 100%;
+      padding-top: 10px;
+    }
+  
+    ion-toast.custom-notification::part(button) {
+      color: var(--ion-color-clear-button);
+      font-size: 0.8rem;
+      height: min-content;
+    }}
 
-ion-toast.custom-notification::part(message) {
-  font-style: italic;
-  color: #000000;
-  text-align: start;
-  padding: 20px;
-  max-height: 10rem;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-
-}
-ion-toast.custom-notification::part(message) > ion-avatar {
-  width: 1px !important;
-  min-width: 1px !important;
-  height: 5px !important;
-}
-ion-avatar.notification-avatar {
-  width: 1px !important;
-  min-width: 1px !important;
-  height: 5px !important;
-}
-ion-toast.custom-notification::part(button) {
-  color: #030207;
-  font-size: 15px;
-  position: fixed;
-  right: 0px;
-  top: 0px;
-}
 
 .carousel-control-prev-icon {
   color: red; /* Customize the color of the left (previous) arrow */

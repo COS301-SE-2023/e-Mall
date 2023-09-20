@@ -3,8 +3,17 @@ import { IError } from '@features/error/models/error.interface';
 import { SetError } from '@features/error/states/error.action';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 import { Select } from '@ngxs/store';
-import { Observable, shareReplay, tap, Subscription, map, of } from 'rxjs';
-import { ICombo } from '../models/combo.interface';
+import {
+  Observable,
+  tap,
+  Subscription,
+  map,
+  of,
+  debounceTime,
+  distinctUntilChanged,
+  shareReplay,
+} from 'rxjs';
+import { ICombo, ICombo_invites } from '../models/combo.interface';
 import { AuthFacade } from '@features/auth/services/auth.facade';
 import { Router } from '@angular/router';
 import { ComboSelectors } from '../states/combo.selector';
@@ -17,7 +26,10 @@ import { async } from '@angular/core/testing';
 export class ComboFacade implements OnDestroy {
   @Select(ComboSelectors.getCombos)
   private combos$!: Observable<ICombo[] | null>;
+  @Select(ComboSelectors.getComboInvites)
+  private combo_invites$!: Observable<ICombo_invites[] | null>;
   private authSubscription: Subscription;
+  private combosSubscription = new Subscription();
 
   constructor(
     private authFacade: AuthFacade,
@@ -29,9 +41,10 @@ export class ComboFacade implements OnDestroy {
     this.authSubscription = this.authFacade
       .getCurrentUser()
       .pipe(
-        tap(user => {
+        debounceTime(500),
+        tap(async user => {
           if (user) {
-            this.fetchCombos();
+            await this.fetchCombos();
           } else {
             this.clearCombos();
           }
@@ -41,19 +54,29 @@ export class ComboFacade implements OnDestroy {
   }
 
   @Dispatch()
-  setCombos(combos: ICombo[]) {
+  setCombos(combos: ICombo[], combo_invites: ICombo_invites[]) {
     try {
-      return new ComboActions.SetCombos(combos);
+      return new ComboActions.SetCombos({ combos, combo_invites });
     } catch (error) {
       return this.setError(error);
     }
   }
 
   @Dispatch()
-  updateCombo(data: any) {
+  inviteUsers(data: any) {
     try {
-      this.comboService.updateCombo(data);
-      return new ComboActions.UpdateCombo(data);
+      this.comboService.inviteUsers(data);
+      return new ComboActions.InviteUsers(data);
+    } catch (error) {
+      return this.setError(error);
+    }
+  }
+
+  @Dispatch()
+  addProduct(data: any) {
+    try {
+      this.comboService.addProduct(data);
+      return new ComboActions.AddProduct(data);
     } catch (error) {
       return this.setError(error);
     }
@@ -78,7 +101,6 @@ export class ComboFacade implements OnDestroy {
       return this.setError(error);
     }
   }
-  
 
   @Dispatch()
   editCombo(data: any) {
@@ -135,6 +157,17 @@ export class ComboFacade implements OnDestroy {
     );
   }
 
+  getCombos_invites(): Observable<ICombo_invites[] | null> {
+    return this.combo_invites$.pipe(
+      tap(async combos => {
+        if (combos == null && (await this.authFacade.isLoggedIn())) {
+          await this.fetchCombos();
+        }
+      }),
+      shareReplay({ bufferSize: 1, refCount: true })
+    );
+  }
+
   getOneCombo(id: number): Observable<ICombo | undefined> {
     return this.combos$.pipe(
       map(combos => {
@@ -157,7 +190,8 @@ export class ComboFacade implements OnDestroy {
   async fetchCombos() {
     try {
       const res = await this.comboService.getCombos();
-      if (res != null) this.setCombos(res.combos);
+      const restwo = await this.comboService.getInvites();
+      if (res != null) this.setCombos(res.combos, restwo.combos);
     } catch (error) {
       this.setError(error);
     }
@@ -165,5 +199,6 @@ export class ComboFacade implements OnDestroy {
 
   ngOnDestroy() {
     this.authSubscription.unsubscribe();
+    this.combosSubscription.unsubscribe();
   }
 }

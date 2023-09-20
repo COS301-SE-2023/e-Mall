@@ -17,105 +17,155 @@
   justify-content: flex-start;
   align-items: flex-start;
 }
-/* component.css or your CSS file */
-.combo-grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-  gap: 20px; 
-}
-
-
-.content {
-  display: flex;
-  flex-direction: row;
-}
-
 .combos-container {
   flex: 1;
-  padding-left: 5%;
+
+  margin-left: 5%;
+  padding-right: 3%;
   margin-top: 30px;
 }
 
-.combos-container h2 {
+.invite-container {
+  display: flex;
+  width: 50%;
+}
+
+.invite-container ion-card {
+  padding: 0%;
+  min-width: 100%;
+  height: fit-content;
+  ion-icon {
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+}
+ion-item {
+  --border-width: 0;
+  --inner-border-width: 0;
+}
+.invites {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.arrow {
+  justify-content: flex-end;
+}
+
+.invite-info {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.invite-buttons {
+  padding: 2%;
+  display: flex;
+  justify-content: space-between;
+  gap: 2%;
+}
+
+.reject-button {
+  --background: #ed8291;
+}
+.combos {
+  /* component.css or your CSS file */
+  .combo-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: row;
+  }
+
+
+
+  .combos-container-cards {
+    flex: 1;
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .combos-container-nocards {
+    flex: 1;
+    margin-top: 50px;
+    text-align: center;
+    padding-right: 100px;
+  }
+
+  .nimage {
+    width: 300px;
+    height: 300px;
+    justify-content: center;
+    opacity: 30%;
+    align-items: center;
+  }
+
+  ion-card {
+    display: flex;
+    width: 240px;
+    height: 250px;
+    padding: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    position: relative;
+  }
+  .collage-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .collage-images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .image-container {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .image-container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  .head {
+    display: flex;
+    justify-content: space-between;}
+
+  .ion-card-header {
+    text-align: center;
+  }
+  ion-card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--c-1-a, #151515);
+    font-family: Poppins, sans-serif;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: center;
+  }
+
+  .row-combos-container-cards {
+    display: flex;
+  }
+}
+h2 {
   margin-left: 15px;
-  margin-top: 0px;
-}
-
-.combos-container-cards {
-  flex: 1;
-  margin-top: 50px;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.combos-container-nocards {
-  flex: 1;
-  margin-top: 50px;
-  text-align: center;
-  padding-right: 100px;
-}
-
-.nimage {
-  width: 300px;
-  height: 300px;
-  justify-content: center;
-  opacity: 30%;
-  align-items: center;
-}
-
-ion-card {
-  display: flex;
-  width: 240px;
-  height: 250px;
-  padding: 16px;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-  position: relative;
-}
-.collage-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-}
-
-.collage-images {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 5px;
-  width: 100%;
-  max-width: 100%;
-  overflow: hidden;
-}
-
-.image-container {
-  position: relative;
-  overflow: hidden;
-}
-
-.image-container img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-.ion-card-header {
-  text-align: center;
-}
-ion-card-title {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: var(--c-1-a, #151515);
-  font-family: Poppins, sans-serif;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  text-align: center;
-}
-
-.row-combos-container-cards {
-  display: flex;
+  margin-top: 18px;
+  margin-bottom: 18px;
 }

@@ -74,6 +74,7 @@
     "chart.js": "^3.9.1",
     "eslint-plugin-check-file": "^2.6.2",
     "eslint-plugin-eslint-plugin": "^5.1.1",
+    "global": "^4.4.0",
     "lint": "^1.1.2",
     "moment": "^2.29.4",
     "ngxs-reset-plugin": "^3.0.0",

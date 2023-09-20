@@ -30,7 +30,8 @@ import { NgxsModule } from '@ngxs/store';
 import { FooterModule } from '@shared/components/footer/footer.module';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { ProductCardModule } from '@shared/components/product-card/product-card.module';
-
+import { NotificationModule } from '@app/features/notification/notification.module';
+import { CategoryBreadcrumbModule } from '@app/shared/components/breadcrumbs/category-breadcrumb/category-breadcrumb.module';
 describe('CategoryComponent', () => {
   let component: CategoryComponent;
   let fixture: ComponentFixture<CategoryComponent>;
@@ -42,50 +43,53 @@ describe('CategoryComponent', () => {
     ]);
 
     TestBed.configureTestingModule({
-        imports: [
-            IonicModule,
-            NgxsModule.forRoot([]),
-            NavbarModule,
-            FooterModule,
-            ProductCardModule,
-            HttpClientModule,
-            RouterTestingModule,
-            ReactiveFormsModule,
-            FormsModule,
-            BrowserAnimationsModule,
-            MatExpansionModule,
-            MatFormFieldModule,
-            MatSelectModule,
-            MatDividerModule,
-            MatSidenavModule,
-            MatCheckboxModule,
-            MatCardModule,
-            MatIconModule,
-            MatPaginatorModule,
-            MatSliderModule,
-            MatButtonToggleModule,
-            MatProgressSpinnerModule,
-            MatSlideToggleModule,
-            MatRadioModule,
-            AuthModule,
-            ProfileModule,
-          ],
-      declarations: [CategoryComponent],
-      providers: [
-        { provide: ProductService, useValue: productServiceSpy },
+      imports: [
+        IonicModule,
+        NgxsModule.forRoot([]),
+        NavbarModule,
+        FooterModule,
+        ProductCardModule,
+        HttpClientModule,
+        RouterTestingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        MatExpansionModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatDividerModule,
+        MatSidenavModule,
+        MatCheckboxModule,
+        MatCardModule,
+        MatIconModule,
+        MatPaginatorModule,
+        MatSliderModule,
+        MatButtonToggleModule,
+        MatProgressSpinnerModule,
+        MatSlideToggleModule,
+        MatRadioModule,
+        AuthModule,
+        ProfileModule,
+        NotificationModule,
+        CategoryBreadcrumbModule,
       ],
+      declarations: [CategoryComponent],
+      providers: [{ provide: ProductService, useValue: productServiceSpy }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CategoryComponent);
     component = fixture.componentInstance;
-    productService = TestBed.inject(ProductService) as jasmine.SpyObj<ProductService>;
+    productService = TestBed.inject(
+      ProductService
+    ) as jasmine.SpyObj<ProductService>;
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
   it('should set a default image URL when imgList is not provided', () => {
-    const defaultImgUrl = 'https://www.incredible.co.za/media/catalog/product/cache/7ce9addd40d23ee411c2cc726ad5e7ed/s/c/screenshot_2022-05-03_142633.jpg';
+    const defaultImgUrl =
+      'https://www.incredible.co.za/media/catalog/product/cache/7ce9addd40d23ee411c2cc726ad5e7ed/s/c/screenshot_2022-05-03_142633.jpg';
 
     const imageUrl = component.getOneImg();
     expect(imageUrl).toBe(defaultImgUrl);

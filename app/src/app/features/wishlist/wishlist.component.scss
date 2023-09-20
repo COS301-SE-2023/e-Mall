@@ -23,11 +23,6 @@
   padding-right: 3%;
 }
 
-.wishlist-container h2 {
-  margin-left: 15px;
-  margin-top: 0px;
-}
-
 .wishlist-container-cards {
   flex: 1;
   margin-top: 10px;
@@ -87,4 +82,9 @@
 .main {
   display: flex;
   flex-wrap: wrap;
+}
+h2 {
+  margin-left: 15px;
+  margin-top: 18px;
+  margin-bottom: 18px;
 }

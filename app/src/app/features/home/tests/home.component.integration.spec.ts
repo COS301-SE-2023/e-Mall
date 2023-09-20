@@ -12,13 +12,14 @@ import { ProfileModule } from '@features/profile/profile.module';
 import { NgxsModule } from '@ngxs/store';
 import { ElementRef } from '@angular/core';
 import { ComboStateModule } from '@features/combo-state/combo-state.module';
+import { NotificationModule } from '@app/features/notification/notification.module';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let httpTestingController: HttpTestingController;
   let router: Router;
-  
-  let mockRecommendedHeading: ElementRef<HTMLElement>
+
+  let mockRecommendedHeading: ElementRef<HTMLElement>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -28,6 +29,7 @@ describe('HomeComponent', () => {
         AuthModule,
         ProfileModule,
         NgxsModule.forRoot(),
+        NotificationModule,
       ],
       providers: [HomeComponent],
     });
@@ -36,8 +38,10 @@ describe('HomeComponent', () => {
     httpTestingController = TestBed.inject(HttpTestingController);
 
     router = TestBed.inject(Router);
-    
-    mockRecommendedHeading = new ElementRef<HTMLElement>(document.createElement('div'));
+
+    mockRecommendedHeading = new ElementRef<HTMLElement>(
+      document.createElement('div')
+    );
     component.recommendedHeading = mockRecommendedHeading;
   });
 
@@ -67,7 +71,10 @@ describe('HomeComponent', () => {
   });
 
   it('should scroll to recommendedHeading', () => {
-    const scrollSpy = spyOn(mockRecommendedHeading.nativeElement, 'scrollIntoView');
+    const scrollSpy = spyOn(
+      mockRecommendedHeading.nativeElement,
+      'scrollIntoView'
+    );
 
     component.onAllClick();
 
