@@ -10,6 +10,8 @@ import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 import * as InventoryActions from '../states/inventory.action';
 import { SetError } from '@features/error/states/error.action';
 import { IError } from '@features/error/models/error.interface';
+import { IProduct } from '@app/shared/models/product/product.interface';
+import { IProductSeller } from '@app/shared/models/product/product-seller.interface';
 //import { LoaderFacade } from '@shared/components/loader/loader.facade';
 
 @Injectable()
@@ -123,5 +125,26 @@ export class InventoryFacade implements OnDestroy {
   @Dispatch()
   resetState() {
     return new InventoryActions.ResetInventoryState();
+  }
+
+  @Dispatch()
+  async newProduct(data: any) {
+    try {
+      //service will return a product seller instance with product id
+      const res = await this.inventoryService.addnewProduct(data);
+      return new InventoryActions.AddNewProduct(res.data);
+    } catch (error) {
+      return this.setError(error);
+    }
+  }
+
+  @Dispatch()
+  async addExistingProduct(data: any) {
+    try {
+      const res = await this.inventoryService.addSimilarProduct(data);
+      return new InventoryActions.AddExistingProduct(res.data);
+    } catch (error) {
+      return this.setError(error);
+    }
   }
 }
