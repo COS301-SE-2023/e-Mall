@@ -12,6 +12,7 @@
   --ion-color-primary-contrast-rgb: 0, 0, 0;
   --ion-color-primary-shade: #37D0D6;
   --ion-color-primary-tint: #4bd5da;
+  --ion-color-primary-alt: #19b2b8;
 
   --ion-color-secondary: #99e3dc;
   --ion-color-secondary-rgb: 153, 227, 220;
@@ -221,57 +222,56 @@ ion-modal.inventory-modal{
 }
 
 /*notification*/
-ion-toast.custom-notification{
-    --background: #f4f4fa;
-    --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
-    --color: #4b4a50;
-    --width: 22rem;
-    --min-height: 7rem;
-    --start: 4000;
-    --max-height: 15rem;
+@media (max-width:574px) {
+  ion-toast.custom-notification {
+      --background: #f4f4fa;
+      --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
+      --color: #4b4a50;
+      /* --width: 22rem; */
+      /* --min-height: 7rem; */
+      /* --start: 4000; */
+      --max-height: 15rem;
+    }
+  
+    ion-toast.custom-notification::part(message) {
+      color: #000000;
+      text-align: center;
+      padding-left: 5px;
+      height: 100%;
+      padding-top: 10px;
+    }
+  
+    ion-toast.custom-notification::part(button) {
+      color: var(--ion-color-clear-button);
+      font-size: 0.8rem;
+      height: min-content;
+    }
 }
+@media (min-width:574px)
+   { ion-toast.custom-notification {
+      --background: #f4f4fa;
+      --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
+      --color: #4b4a50;
+      --width: 22rem;
+      --min-height: 7rem;
+      --start: 4000;
+      --max-height: 15rem;
+    }
+  
+    ion-toast.custom-notification::part(message) {
+      color: #000000;
+      text-align: start;
+      padding-left: 10px;
+      height: 100%;
+      padding-top: 10px;
+    }
+  
+    ion-toast.custom-notification::part(button) {
+      color: var(--ion-color-clear-button);
+      font-size: 0.8rem;
+      height: min-content;
+    }}
 
-ion-toast.custom-notification::part(message) {
-  /* font-style: italic; */
-  color: #000000;
-  text-align: start;
-  /* padding: 20px; */
-  padding-left: 10px;
-  /* padding-right: 5px; */
-  height: 100%;
-  padding-top: 10px;
-  /* padding-bottom: 0; */
-  /* overflow: auto !important; */
-  /* text-overflow: auto !important; */
-}
-/* ion-toast.custom-notification::part(header) {
-  color: #000000;
-  text-align: start;
-  padding: 20px;
-  max-height: 10rem;
-  overflow: auto !important;
-  text-overflow: auto !important;
-} */
-/* ion-toast.custom-notification::part(message) > ion-avatar {
-  width: 1px !important;
-  min-width: 1px !important;
-  height: 5px !important;
-}
-ion-avatar.notification-avatar {
-  width: 1px !important;
-  min-width: 1px !important;
-  height: 5px !important;
-} */
-ion-toast.custom-notification::part(button) {
-  color: var(--ion-color-clear-button);
-  font-size: 0.8rem;
-  /* padding-top: 0; */
-  /* padding-bottom: 5px; */
-  height: min-content;
-  /* position: fixed; */
-  /* right: 0px; */
-  /* top: 0px; */
-}
 
 .carousel-control-prev-icon {
   color: red; /* Customize the color of the left (previous) arrow */

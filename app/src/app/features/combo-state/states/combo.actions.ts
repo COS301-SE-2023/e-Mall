@@ -15,7 +15,7 @@ export class InviteUsers {
   static readonly type = '[Combo] Invited Users';
   constructor(
     public payload: {
-      combo_id: number;
+      collection_id: number;
       user_emails: string[];
     }
   ) {}
@@ -25,7 +25,7 @@ export class AddProduct {
   static readonly type = '[Combo] Add Product';
   constructor(
     public payload: {
-      combo_ids: number[];
+      collection_ids: number[];
       product_id: number;
       product: IProduct;
     }
@@ -36,7 +36,7 @@ export class RemoveProductFromCombo {
   static readonly type = '[Combo] Remove Product From Combo';
   constructor(
     public payload: {
-      combo_id: number;
+      collection_id: number;
       product_id: number;
     }
   ) {}
@@ -46,7 +46,7 @@ export class EditCombo {
   static readonly type = '[Combo] Edit Combo';
   constructor(
     public payload: {
-      combo_id: number;
+      collection_id: number;
       combo_name: string;
     }
   ) {}
@@ -56,7 +56,7 @@ export class UpdateUsers {
   static readonly type = '[Combo] Update Users';
   constructor(
     public payload: {
-      combo_id: number;
+      collection_id: number;
       user_email: string;
       action: string;
     }
@@ -67,7 +67,7 @@ export class DeleteUser {
   static readonly type = '[Combo] Delete Combo';
   constructor(
     public payload: {
-      combo_id: number;
+      collection_id: number;
     }
   ) {}
 }

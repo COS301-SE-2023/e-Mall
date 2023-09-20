@@ -33,7 +33,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   images = 'assets/images/home_banner.png';
   @ViewChild('recommendedHeading') recommendedHeading!: ElementRef;
   showSpinner = true;
-
+  cat_pages = [
+    { title: 'ELECTRONICS', path: '/category/Electronics'},
+    { title: 'SPORTS & OUTDOORS', path: '/category/Sports%20and%20Outdoors'},
+    { title: 'CLOTHING', path: '/category/Clothing', nav: ''},
+    { title: 'HOME & KITCHEN', path: '/category/Home%20and%20Kitchen'},
+    { title: 'HEALTH & BEAUTY', path: '/category/Health%20and%20Beauty'},
+    { title: 'TOYS & GAMES', path: '/category/Toys%20and%20Games'},
+    { title: 'BOOKS', path: '/category/Books'}
+  ];  
   // isAuthenticated$;
   constructor(
     private router: Router,
@@ -70,7 +78,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.fetchTrendingProducts();
 
   }
-
+  async onCatClicked(path: string) {
+    this.router.navigate([path]);
+  }
   fetchPopProducts() {
     //Need to implement AI algo
     //Mock data below
@@ -97,13 +107,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.router.navigate(['products'], navigationextras);
   }
 
-  async onAllClick() {
-    if (this.recommendedHeading) {
-      this.recommendedHeading.nativeElement.scrollIntoView({
-        behavior: 'smooth',
-      });
-    }
+  async onAboutClick() {
+    this.router.navigate(['about']);
   }
+
+  onRegClick(){
+    this.router.navigate(['register']);
+  }
+
   getOneImg(imgList?: string[]) {
     //remove following when no need to have mock data
     if (!imgList || imgList.length < 1)
@@ -120,5 +131,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.followSubs.unsubscribe();
     this.forYouSubs.unsubscribe();
+  }
+
+  chunkArray(arr: any[], chunkSize: number): any[] {
+    const resultArray = [];
+    let index = 0;
+  
+    while (index < arr.length && index<21) {
+      resultArray.push(arr.slice(index, index + chunkSize));
+      index += chunkSize;
+    }
+  
+    return resultArray;
   }
 }

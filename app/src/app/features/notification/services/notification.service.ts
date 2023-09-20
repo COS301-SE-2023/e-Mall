@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, Optional } from '@angular/core';
+import { Injectable, Injector, Optional } from '@angular/core';
 import {
   Messaging,
   getToken,
   onMessage,
   deleteToken,
+  isSupported,
 } from '@angular/fire/messaging';
 import { AuthFacade } from '@features/auth/services/auth.facade';
 import { environment } from 'environments/env';
@@ -23,10 +24,14 @@ export class NotificationService {
     private http: HttpClient,
     private authFacade: AuthFacade
   ) {
-    if (this.messaging) {
-      // this.token$ = this.getToken();
-      this.message$ = this.getMessage();
-    }
+    isSupported().then((supported: any) => {
+      if (supported) {
+        if (this.messaging) {
+          // this.token$ = this.getToken();
+          this.message$ = this.getMessage();
+        }
+      }
+    });
   }
 
   async signOut() {
@@ -35,7 +40,7 @@ export class NotificationService {
         console.log('Token deleted.');
       })
       .catch(err => {
-        console.log('Unable to delete token. ', err);
+        console.log('Unable to delete token dddddddd. ', err);
       });
   }
   getToken() {

@@ -19,7 +19,7 @@ export class ComboInviteComponent implements OnInit {
   newForm!: FormGroup;
   newClicked: boolean = false;
   combos$!: Observable<ICombo[] | null>;
-  combo_id!: number;
+  collection_id!: number;
   userEmail!: string;
   username!: string | undefined;
   comboEmail!: string;
@@ -44,7 +44,7 @@ export class ComboInviteComponent implements OnInit {
         this.username = data.username;
       }
     });
-    this.combo_id = this.navParams.get('combo_id');
+    this.collection_id = this.navParams.get('collection_id');
 
     this.selectForm = this.fb.group({
       selectedOptions: [[]],
@@ -105,7 +105,7 @@ export class ComboInviteComponent implements OnInit {
 
       // Create data object
       const data = {
-        combo_id: this.navParams.get('combo_id'),
+        collection_id: this.navParams.get('collection_id'),
         user_emails: useremailsarray,
       };
 

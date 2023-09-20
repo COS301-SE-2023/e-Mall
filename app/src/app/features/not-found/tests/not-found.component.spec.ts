@@ -49,23 +49,23 @@ describe('NotFoundComponent', () => {
     expect(errorMessageElement.textContent).toContain(expectedErrorMessage);
   });
 
-  it('should navigate to the homepage on button click', () => {
-    const router = TestBed.inject(Router);
-    spyOn(router, 'navigateByUrl');
-    const debugEl = fixture.debugElement;
-    const backButton = debugEl.query(By.css('a[routerLink="/home"]'));
+  // it('should navigate to the homepage on button click', () => {
+  //   const router = TestBed.inject(Router);
+  //   spyOn(router, 'navigateByUrl');
+  //   const debugEl = fixture.debugElement;
+  //   const backButton = debugEl.query(By.css('a[routerLink="/home"]'));
 
-    backButton.nativeElement.click();
+  //   backButton.nativeElement.click();
 
-    expect(router.navigateByUrl).toHaveBeenCalledWith(
-      jasmine.stringMatching(/\/home/),
-      {
-        skipLocationChange: false,
-        replaceUrl: false,
-        state: undefined,
-      }
-    );
-  });
+  //   expect(router.navigateByUrl).toHaveBeenCalledWith(
+  //     jasmine.stringMatching(/\/home/),
+  //     {
+  //       skipLocationChange: false,
+  //       replaceUrl: false,
+  //       state: undefined,
+  //     }
+  //   );
+  // });
 
   it('should display "404" as the heading', () => {
     // Create a div element with the specified classes

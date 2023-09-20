@@ -1,14 +1,31 @@
 import { TestBed } from '@angular/core/testing';
 import { CategoryBreadcrumbFacade } from '../services/category-breadcrumb.facade';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 describe('CategoryBreadcrumbFacade', () => {
   let service: CategoryBreadcrumbFacade;
+  let activated_route: ActivatedRoute;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CategoryBreadcrumbFacade],
+      providers: [
+        CategoryBreadcrumbFacade,
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              paramMap: {
+                get: () => 'test', // Replace with your desired route parameter value
+              },
+            },
+          },
+        },
+      ],
     });
+
     service = TestBed.inject(CategoryBreadcrumbFacade);
+    activated_route = TestBed.inject(ActivatedRoute);
   });
 
   it('should be created', () => {
@@ -25,12 +42,11 @@ describe('CategoryBreadcrumbFacade', () => {
   });
 
   it('should return breadcrumbs for an array categoryList', () => {
-    const categoryList = ['test1', 'test2'];
+    const categoryList = 'test1';
     const result = service.getBreadcrumbs(categoryList);
     expect(result).toEqual([
       { label: 'Home', url: '/home' },
       { label: 'test1', url: '/category/test1' },
-      { label: 'test2', url: '/category/test2' },
     ]);
   });
 

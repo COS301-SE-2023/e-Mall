@@ -12,3 +12,18 @@ ion-breadcrumb {
     color: #37d0d6; /* Change the text color on hover */
   }
 }
+
+ion-item.item-native {
+  --padding-start: 0;
+  --padding-end: 0;
+  --inner-padding-start: 0;
+  --inner-padding-end: 0;
+  padding: 0;
+}
+
+ion-item {
+  --padding-start: 2px;
+  --padding-end: 0;
+  --inner-padding-start: 0;
+  --inner-padding-end: 0;
+}

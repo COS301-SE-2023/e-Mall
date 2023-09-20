@@ -12,7 +12,7 @@ export class ComboBreadcrumbFacade {
   getBreadcrumbs(combo: ICombo | string): IComboBreadcrumb[] {
     const crumbs: IComboBreadcrumb[] = [
       { label: 'Home', url: '/home' },
-      { label: 'My Collections', url: '/my-combos' },
+      { label: 'My Collections', url: 'my-collections' },
     ];
 
     if (typeof combo !== 'string' && combo !== undefined) {
@@ -29,15 +29,15 @@ export class ComboBreadcrumbFacade {
   navigateTo(url: string): void {
     if (
       url.includes('home') ||
-      url.includes('my-combos') ||
+      url.includes('my-collections') ||
       url.includes('wishlist')
     ) {
       this.router.navigate([url]);
     } else {
       const navigationextras: NavigationExtras = {
-        queryParams: { combo_id: Number(url) },
+        queryParams: { collection_id: Number(url) },
       };
-      this.router.navigate(['/combo'], navigationextras);
+      this.router.navigate(['/collection'], navigationextras);
     }
   }
 }

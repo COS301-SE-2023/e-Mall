@@ -7,8 +7,7 @@
     </div>
     <div class="combos-container">
       <app-combo-breadcrumb [combo]="undefined"></app-combo-breadcrumb>
-      <h2>My Collections</h2>
-      <div class="head">
+      <div class="head"><h2>My Collections</h2></div> 
         <div
           class="invite-container"
           *ngIf="comboInvites$ | async as comboInvites">
@@ -48,7 +47,7 @@
             </ion-card-content>
           </ion-card>
         </div>
-      </div>
+      
       <div class="combos">
         <div
           class="row-combos-container-cards"

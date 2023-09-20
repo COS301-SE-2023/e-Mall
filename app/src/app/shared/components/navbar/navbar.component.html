@@ -16,29 +16,9 @@
             (click)="redirect('home')" />
         </a>
       </div>
-
-      <ion-buttons slot="start">
-        <ion-button class="toolbar-button" (click)="toggleCategory($event)">
-          <span class="label">All Categories</span>
-          <ion-icon
-            *ngIf="!isCategoryOpened"
-            name="chevron-down"
-            class="arrow"></ion-icon>
-          <ion-icon
-            *ngIf="isCategoryOpened"
-            name="chevron-up"
-            class="arrow"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-
-      <!-- <ion-buttons slot="start">
-        <ion-button class="toolbar-button" (click)="wishlist($event)">
-          <span class="label">Wishlist</span>
-        </ion-button>
-      </ion-buttons> -->
+      <app-search-bar class="search-bar"></app-search-bar>
 
       <div class="navbar-spacer"></div>
-      <app-search-bar class="search-bar"></app-search-bar>
       <ion-button
         (click)="combos($event)"
         class="bookmark-button"
@@ -52,7 +32,6 @@
         class="wishlist-button"
         shape="round"
         fill="clear"
-        *ngIf="(isAuthenticated | async) !== null"
         mode="ios">
         <ion-icon [name]="'notifications'" style="color: black"></ion-icon>
         <ng-container *ngIf="notificationUnreadCount$ | async as unread_count">

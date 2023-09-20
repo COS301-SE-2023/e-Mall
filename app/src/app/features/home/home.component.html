@@ -1,84 +1,68 @@
 <app-navbar></app-navbar>
-
 <ion-content class="global-ion-content">
   <div class="ion-content-wrapper">
-    <div class="banner">
-      <div class="image-container">
-        <img [src]="images" alt="Home banner" />
-        <ion-button class="overlay-button" (click)="onAllClick()"
-          >Shop For You</ion-button
-        >
+    <div class="row1">
+      <div class="side-pannel">
+        <ion-img id="logo" src="assets/images/logo.png" alt="E-Mall"></ion-img>
+
+        <h3 class="welcome-footer">
+          Discover<br />Compare<br />Shop<br />E-Mall Has It All!
+        </h3>
+        <ion-button class="overlay-button" (click)="onAboutClick()">
+          More About Us
+        </ion-button>
+      </div>
+
+      <div class="cat-container">
+        <div class="cat-title">
+          <h2>Browse by Category</h2>
+        </div>
+        <div class="bubble-container">
+          <div
+            *ngFor="let page of cat_pages"
+            class="category-bubble"
+            (click)="onCatClicked(page.path)">
+            {{ page.title }}
+          </div>
+        </div>
       </div>
     </div>
 
     <br /><br />
     <!--Product carousel-->
-    <div style="align-items: center">
-      <h3 #recommendedHeading>
-        {{
-          (forYouProducts$ | async)
-            ? 'Recommended For You'
-            : 'Most Popular Products'
-        }}
-      </h3>
+    <div style="align-items: center" *ngIf="(forYouProducts$ | async) !== null">
+      <h3 #recommendedHeading>Recommended For You</h3>
     </div>
-    <div class="spinner-container" *ngIf="showSpinner">
+    <div
+      class="spinner-container"
+      *ngIf="(forYouProducts$ | async) !== null && showSpinner">
       <div class="spinner">
         <ion-spinner style="color: #99e3dc"></ion-spinner>
       </div>
     </div>
     <div
       style="
-        width: 80%;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
       "
       *ngIf="!showSpinner">
-      <div>
-        <div *ngIf="(forYouProducts$ | async) === null">
-          <ngb-carousel *ngIf="popProducts$ | async as products" [wrap]="true">
-            <ng-template ngbSlide>
-              <div class="row">
-                <div
-                  class="col-md-3"
-                  *ngFor="let product of products.slice(0, 4); let i = index">
-                  <app-product-card
-                    [product]="product"
-                    [pageType]="'normal'"></app-product-card>
-                </div>
-              </div>
-            </ng-template>
-            <ng-template ngbSlide>
-              <div class="row">
-                <div
-                  class="col-md-3"
-                  *ngFor="let product of products.slice(4, 8); let i = index">
-                  <app-product-card
-                    [product]="product"
-                    [pageType]="'normal'"></app-product-card>
-                </div>
-              </div>
-            </ng-template>
-            <ng-template ngbSlide>
-              <div class="row">
-                <div
-                  class="col-md-3"
-                  *ngFor="let product of products.slice(8, 12); let i = index">
-                  <app-product-card
-                    [product]="product"
-                    [pageType]="'normal'"></app-product-card>
-                </div>
-              </div>
-            </ng-template>
-          </ngb-carousel>
-        </div>
-
-        <ngb-carousel *ngIf="forYouProducts$ | async as products" [wrap]="true">
-          <ng-template ngbSlide>
+      <div
+        class="carousel-container"
+        *ngIf="(forYouProducts$ | async) !== null">
+        <ngb-carousel
+          *ngIf="forYouProducts$ | async as products"
+          [interval]="0"
+          [animation]="true"
+          [showNavigationArrows]="true"
+          [showNavigationIndicators]="true"
+          [wrap]="true"
+          class="custom-carousel carousel-dark">
+          <ng-template ngbSlide *ngIf="products[0]">
             <div class="row">
               <div
-                class="col-md-3"
+                class="product-card"
                 *ngFor="let product of products.slice(0, 4); let i = index">
                 <app-product-card
                   [product]="product"
@@ -86,10 +70,10 @@
               </div>
             </div>
           </ng-template>
-          <ng-template ngbSlide>
+          <ng-template ngbSlide *ngIf="products[4]">
             <div class="row">
               <div
-                class="col-md-3"
+                class="product-card"
                 *ngFor="let product of products.slice(4, 8); let i = index">
                 <app-product-card
                   [product]="product"
@@ -97,10 +81,10 @@
               </div>
             </div>
           </ng-template>
-          <ng-template ngbSlide>
+          <ng-template ngbSlide *ngIf="products[8]">
             <div class="row">
               <div
-                class="col-md-6"
+                class="product-card"
                 *ngFor="let product of products.slice(8, 12); let i = index">
                 <app-product-card
                   [product]="product"
@@ -113,35 +97,34 @@
     </div>
 
     <br /><br />
-    <!--Product carousel-->
     <div style="align-items: center">
       <h3>Trending products</h3>
     </div>
     <div
       style="
-        width: 80%;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
       ">
-      <!--<div *ngIf="(trendingProducts$ | async) === null">
-        <mat-spinner></mat-spinner>
-      </div>-->
       <div class="spinner-container" *ngIf="showSpinner">
         <div class="spinner">
           <ion-spinner style="color: #99e3dc"></ion-spinner>
         </div>
       </div>
-      <div *ngIf="!showSpinner">
+      <div class="carousel-container" *ngIf="!showSpinner">
         <ngb-carousel
-          *ngIf="trendingProducts$ | async as products"
+          [interval]="0"
+          [animation]="true"
+          [showNavigationArrows]="true"
+          [showNavigationIndicators]="true"
           [wrap]="true"
-          class="custom-carousel-arrows"
-          style="color: black">
-          <ng-template ngbSlide>
+          *ngIf="trendingProducts$ | async as products"
+          class="custom-carousel carousel-dark">
+          <ng-template ngbSlide *ngIf="products[0]">
             <div class="row">
               <div
-                class="col-md-3"
+                class="product-card"
                 *ngFor="let product of products.slice(0, 4); let i = index">
                 <app-product-card
                   [product]="product"
@@ -149,10 +132,10 @@
               </div>
             </div>
           </ng-template>
-          <ng-template ngbSlide>
+          <ng-template ngbSlide *ngIf="products[4]">
             <div class="row">
               <div
-                class="col-md-3"
+                class="product-card"
                 *ngFor="let product of products.slice(4, 8); let i = index">
                 <app-product-card
                   [product]="product"
@@ -160,11 +143,11 @@
               </div>
             </div>
           </ng-template>
-          <ng-template ngbSlide>
+          <ng-template ngbSlide *ngIf="products[8]">
             <div class="row">
               <div
-                class="col-md-6"
-                *ngFor="let product of products.slice(8, 10); let i = index">
+                class="product-card"
+                *ngFor="let product of products.slice(8, 12); let i = index">
                 <app-product-card
                   [product]="product"
                   [pageType]="'normal'"></app-product-card>
@@ -174,12 +157,25 @@
         </ngb-carousel>
       </div>
     </div>
-    <ng-container *ngIf="imageObject !== null && imageObject.length > 0">
-      <br /><br />
-      <!--Product carousel-->
-    </ng-container>
+    <br /><br />
+    <div class="register-row">
+      <div class="register-container">
+        <div class="register-title">
+          <h2 class="welcome-footer">
+            Have a small local business?<br />
+            Register it on E-Mall today!
+          </h2>
+        </div>
+        <div class="register-btn">
+          <ion-button class="overlay-button" (click)="onRegClick()">
+            Register
+          </ion-button>
+        </div>
+      </div>
+    </div>
   </div>
   <br /><br />
+
   <ng-container *ngIf="followedSellers$ | async as sellers">
     <ng-container *ngIf="sellers !== null && sellers.length !== 0">
       <div
