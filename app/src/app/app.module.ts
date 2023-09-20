@@ -107,8 +107,8 @@ import { WishlistStateModule } from './features/wishlist/wishlist-state/wishlist
     AppRoutingModule,
     SellerDetailsModule,
     SellerDashboardSettingsModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideMessaging(() => getMessaging()),
+    // provideFirebaseApp(() => initializeApp(environment.firebase)),
+    // provideMessaging(() => getMessaging()),
     NotificationModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),

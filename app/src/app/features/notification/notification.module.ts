@@ -11,6 +11,10 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NotificationCardComponent } from './components/notification-card/notification-card.component';
 import { SettingsPannelComponent as NotificationSettingsPannelComponent } from './components/settings-pannel/settings-pannel.component';
 import { FormsModule } from '@angular/forms';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideMessaging, getMessaging } from '@angular/fire/messaging';
+import { environment } from 'environments/env';
+
 @NgModule({
   declarations: [
     NotificationComponent,
@@ -23,6 +27,8 @@ import { FormsModule } from '@angular/forms';
     NgxsModule.forFeature([NotificationState]),
     IonicModule,
     ScrollingModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideMessaging(() => getMessaging()),
   ],
   exports: [
     NotificationComponent,
