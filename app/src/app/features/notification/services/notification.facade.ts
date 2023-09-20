@@ -53,17 +53,13 @@ export class NotificationFacade implements OnDestroy {
     console.log('Notification Facade initialized');
     this.authSubs = authfacade
       .getCurrentUser()
-      .pipe(debounceTime(100))
+      .pipe(debounceTime(500))
       .subscribe(async (user: IUser | null) => {
         if (user != null) {
-          await notificationService.request().then(permission => {
+          await notificationService.request().then(async permission => {
             if (permission === 'granted') {
-              notificationService
-                .getToken()
-                .pipe(debounceTime(100), take(1))
-                .subscribe(async token => {
-                  this.init(token);
-                });
+              const token = await notificationService.getToken();
+              if (token) this.init(token);
             } else {
               console.log('Notification is disabled');
             }
@@ -158,16 +154,16 @@ export class NotificationFacade implements OnDestroy {
     // Delete the FCM registration token
     await this.notificationService.signOut();
     // Unregister the service worker
-    navigator.serviceWorker
-      .getRegistrations()
-      .then(function (registrations) {
-        for (const registration of registrations) {
-          registration.unregister();
-        }
-      })
-      .catch(function (err) {
-        console.log('Service Worker registration failed: ', err);
-      });
+    // navigator.serviceWorker
+    //   .getRegistrations()
+    //   .then(function (registrations) {
+    //     for (const registration of registrations) {
+    //       registration.unregister();
+    //     }
+    //   })
+    //   .catch(function (err) {
+    //     console.log('Service Worker registration failed: ', err);
+    //   });
   }
   async readAll() {
     try {
