@@ -105,7 +105,7 @@ export class ComboInviteComponent implements OnInit {
 
       // Create data object
       const data = {
-        combo_id: this.navParams.get('collection_id'),
+        collection_id: this.navParams.get('collection_id'),
         user_emails: useremailsarray,
       };
 
