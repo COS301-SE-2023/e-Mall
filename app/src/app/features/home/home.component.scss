@@ -1,3 +1,4 @@
+
 .ion-content-wrapper {
 }
 .overlay-button {
@@ -135,6 +136,17 @@ a {
   flex-direction: row;
   background-color: white;
   justify-content: center;
+  align-items: center;
+  height: 42rem;
+}
+
+.register-row {
+  min-width: 100%;
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
 }
 
 .side-pannel {
@@ -142,10 +154,11 @@ a {
   align-items: center;
   text-align: center;
   width: 50%;
+  height: 100%;
   display: block;
   justify-self: flex-start;
   justify-content: center;
-  padding-bottom: 2%;
+  padding: 5%;
   h3 {
     font-size: 200%;
   }
@@ -184,7 +197,6 @@ a {
   height: 14rem;
   width: auto;
   margin: auto;
-  display: block;
 }
 
 .custom-carousel {
@@ -284,3 +296,4 @@ a {
   justify-content: center;
   align-items: center;
 }
+
