@@ -1,9 +1,8 @@
+from datetime import datetime, timedelta
 from django.http import HttpResponseBadRequest
 from django.shortcuts import render
 from analytics.models import Analytics
 from django.db.models import Count
-
-# Create your views here.
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -23,7 +22,7 @@ from rest_framework.decorators import api_view, permission_classes
 from django.forms.models import model_to_dict
 
 from decimal import Decimal
-from math import ceil
+
 
 
 class ProductFrontendAPIView(APIView):
@@ -321,6 +320,35 @@ class GetPopularProductsAPIView(APIView):
         serializer = ProductSerializer(
             products, many=True
         )  # Assuming you have a ProductSerializer
+
+        return Response(serializer.data)
+
+class GetTrendingProductsAPIView(APIView):
+    def get(self, request):
+        # Define the time frame for trending products (e.g., the last week)
+        end_date = datetime.now()
+        start_date = end_date - timedelta(days=7)  # Change this time frame as needed
+
+        # Get the most viewed products in the defined time frame
+        trending_products = (
+            Analytics.objects.filter(
+                event_type="product_click",
+                event_date__gte=start_date,
+                event_date__lte=end_date,
+        )
+            .values("product")
+            .annotate(view_count=Count("product"))
+            .order_by("-view_count")[:12]  # Get top 10 trending products
+        )
+
+        # Extract product names from the queryset
+        trending_products_names = [product["product"] for product in trending_products]
+
+        # Fetch the actual Product objects from the database
+        products = Product.objects.filter(name__in=trending_products_names)
+
+        # Serialize the trending products
+        serializer = ProductSerializer(products, many=True)
 
         return Response(serializer.data)
 
