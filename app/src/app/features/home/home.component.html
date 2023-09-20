@@ -28,45 +28,6 @@
       </div>
     </div>
 
-    <!-- <div class="row1">
-      <div class="side-container-left">
-        <div class="prod-title"><h2> Popular Products</h2></div>
-        <div class="prod" *ngIf="popProducts$ | async as products">
-          <div
-            class="product-card"
-            *ngFor="let product of products.slice(0, 5); let i = index">
-            <app-product-card
-              [product]="product"
-              [pageType]="'normal'"></app-product-card>
-          </div>
-        </div>
-      </div>
-
-      <div class="side-container-right">
-          <div class="prod-title"><h2> Popular Products</h2></div>
-          <div class="prod" *ngIf="popProducts$ | async as products">
-            <div
-              class="product-card"
-              *ngFor="let product of products.slice(0, 5); let i = index">
-              <app-product-card
-                [product]="product"
-                [pageType]="'normal'"></app-product-card>
-            </div>
-          </div>
-      </div>
-    </div> -->
-
-    <!-- <div class="prod-title"><h2> Popular Products</h2></div>
-    <div class="prod" *ngIf="popProducts$ | async as products">
-      <div
-        class="product-card"
-        *ngFor="let product of products.slice(0, 5); let i = index">
-        <app-product-card
-          [product]="product"
-          [pageType]="'normal'"></app-product-card>
-      </div>
-    </div> -->
-
     <br /><br />
     <!--Product carousel-->
     <div style="align-items: center" *ngIf="(forYouProducts$ | async) !== null">
@@ -99,7 +60,6 @@
           [wrap]="true"
           class="custom-carousel carousel-dark">
           <ng-template ngbSlide *ngIf="products[0]">
-
             <div class="row">
               <div
                 class="product-card"
@@ -125,7 +85,6 @@
             <div class="row">
               <div
                 class="product-card"
-
                 *ngFor="let product of products.slice(8, 12); let i = index">
                 <app-product-card
                   [product]="product"
