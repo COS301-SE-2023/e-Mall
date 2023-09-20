@@ -9,7 +9,9 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 export class CategoryBreadcrumbFacade {
   constructor(private router: Router, private route: ActivatedRoute) {}
 
-  getBreadcrumbs(product: IProduct | string): ICategoryBreadcrumb[] {
+  getBreadcrumbs(
+    product: IProduct | string | undefined
+  ): ICategoryBreadcrumb[] {
     if (typeof product === 'string') {
       const url = '/category/' + product;
       const crumbs: ICategoryBreadcrumb[] = [
@@ -19,6 +21,9 @@ export class CategoryBreadcrumbFacade {
           url: url,
         },
       ];
+      return crumbs;
+    } else if (product === undefined) {
+      const crumbs: ICategoryBreadcrumb[] = [{ label: 'Home', url: '/home' }];
       return crumbs;
     } else {
       const url = '/category/' + product.category;
