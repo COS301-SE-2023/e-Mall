@@ -21,15 +21,15 @@ export class NotificationService {
 
   constructor(
     @Optional() private messaging: Messaging,
-    private injector: Injector,
     private http: HttpClient,
     private authFacade: AuthFacade
   ) {
     isSupported().then((supported: any) => {
       if (supported) {
-        this.messaging = this.injector.get(Messaging);
-        // this.token$ = this.getToken();
-        this.message$ = this.getMessage();
+        if (this.messaging) {
+          // this.token$ = this.getToken();
+          this.message$ = this.getMessage();
+        }
       }
     });
   }
