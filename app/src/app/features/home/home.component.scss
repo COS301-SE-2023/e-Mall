@@ -1,6 +1,4 @@
-
-.ion-content-wrapper{
-  
+.ion-content-wrapper {
 }
 .overlay-button {
   margin-top: 2rem;
@@ -72,9 +70,9 @@ swiper-slide {
   flex-wrap: wrap;
 }
 .cat-title {
-  h2{
+  h2 {
     font-size: 400%;
-    color:var(--ion-color-primary-alt);
+    color: var(--ion-color-primary-alt);
   }
   height: min-content;
   width: 100%;
@@ -95,38 +93,41 @@ swiper-slide {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(
-    --ion-color-primary-alt
-  ); 
+  background-color: var(--ion-color-primary-alt);
   color: #ffffff;
   border-radius: 20px;
-  padding: 8px 16px; 
-  margin: 8px; 
+  padding: 8px 16px;
+  margin: 8px;
   cursor: pointer;
   white-space: nowrap;
 }
 
-.category-bubble:hover, .selected{
+.category-bubble:hover,
+.selected {
   background-color: var(--ion-color-secondary);
 }
 
 a {
   color: var(--ion-color-primary-shade);
 }
-.row{
-  width: 65%;
-  margin: 0 auto;
+.row {
+  width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: flex-start; /* Align items vertically in the center */
-  justify-content: flex-start; /* Space the items evenly along the row */
-  padding: 0%;
+  align-items: center; /* Align items vertically in the center */
+  justify-content: center; /* Space the items evenly along the row */
+  padding: 2%;
+  padding-bottom: 5%;
+  flex-wrap: nowrap;
+  margin: 0;
 }
 
 .product-card {
   flex: 0; /* Adjust the flex property to control width of each product card */
   padding: 0%;
   width: min-content;
+  justify-self: center;
+
 }
 .row1 {
   min-width: 100%;
@@ -145,10 +146,11 @@ a {
   justify-self: flex-start;
   justify-content: center;
   padding-bottom: 2%;
-  h3{
+  h3 {
     font-size: 200%;
   }
 }
+
 .side-pannel2 {
   display: flex;
   align-items: center;
@@ -175,7 +177,6 @@ a {
   color: var(--ion-color-text-contrast);
 }
 .welcome-footer {
-
   color: var(--ion-color-text);
 }
 
@@ -186,42 +187,41 @@ a {
   display: block;
 }
 
-.custom-carousel{
+.custom-carousel {
   display: flex;
   min-width: 95%;
   justify-content: center;
 }
 
-.carousel-container{
+.carousel-container {
   display: flex;
   min-width: 100%;
   justify-content: center;
 }
 
-.register-container{
-  display:flex;
+.register-container {
+  display: flex;
   width: 75%;
   justify-self: center;
   background-color: var(--ion-color-primary-alt);
   border-radius: 12px;
   align-self: center;
 
-  padding:5%;
+  padding: 5%;
   text-align: center;
   justify-content: center;
-
 }
 
-.register-title{
-  display:flex;
+.register-title {
+  display: flex;
   width: 75%;
   justify-self: flex-start;
   text-align: center;
   justify-content: center;
 }
-.register-btn{
+.register-btn {
   display: flex;
-  width:25%;
+  width: 25%;
   .overlay-button {
     margin-top: 2rem;
     border: none;
@@ -230,4 +230,57 @@ a {
     font-size: 100%;
     justify-self: flex-end;
   }
+}
+
+.side-container-left,
+.side-container-right {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  justify-content: center;
+  background-color: var(--ion-color-primary);
+  flex-wrap: wrap;
+  flex-direction: row;
+  padding: 5%;
+}
+
+.side-container-left {
+  background-color: var(--ion-color-primary);
+  .prod-title {
+    h2 {
+      color:  var(--ion-color-primary-alt);
+    }
+  }
+}
+.side-container-right {
+  background-color: var(--ion-color-primary-alt);
+  .prod-title {
+    h2 {
+      color: white;
+    }
+  }
+}
+
+.prod {
+  display: flex;
+  width: 90%;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+}
+.prod-title {
+  h2 {
+    font-size: 200%;
+    color: white;
+  }
+  height: min-content;
+  width: 100%;
+  display: flex;
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
 }
