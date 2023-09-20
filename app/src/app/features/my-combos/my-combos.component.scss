@@ -19,7 +19,9 @@
 }
 .combos-container {
   flex: 1;
-  padding-left: 5%;
+
+  margin-left: 5%;
+  padding-right: 3%;
   margin-top: 30px;
 }
 
@@ -78,10 +80,7 @@ ion-item {
     flex-direction: row;
   }
 
-  .combos-container h2 {
-    margin-left: 15px;
-    margin-top: 0px;
-  }
+
 
   .combos-container-cards {
     flex: 1;
@@ -141,6 +140,9 @@ ion-item {
     height: auto;
     object-fit: cover;
   }
+  .head {
+    display: flex;
+    justify-content: space-between;}
 
   .ion-card-header {
     text-align: center;
@@ -161,4 +163,9 @@ ion-item {
   .row-combos-container-cards {
     display: flex;
   }
+}
+h2 {
+  margin-left: 15px;
+  margin-top: 18px;
+  margin-bottom: 18px;
 }

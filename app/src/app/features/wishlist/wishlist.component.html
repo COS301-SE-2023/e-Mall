@@ -28,21 +28,9 @@
 
     <div class="wishlist-container" *ngIf="(products$ | async)?.length !== 0">
       <app-combo-breadcrumb [combo]="'My wishlist'"></app-combo-breadcrumb>
-
-      <!--<div class="row" style="grid-auto-rows: auto">
-                    <div class="col-md-3 col-12" style="grid-auto-columns: auto; min-width: 300px">
-                        <app-product-card ></app-product-card>
-                         Add an empty column after every 4th product card, but only if there are more than 4 product cards
-                        <div class="col-md-1" ></div>
-                      </div>
-                </div>-->
+      
+      <h2>My Wishlist</h2>
       <div class="wishlist-container-cards">
-        <div class="product-card">
-          <!--<div
-            style="display: flex; justify-content: center; align-items: center"
-            *ngIf="(products$ | async) === null">
-            <mat-spinner></mat-spinner>
-          </div>-->
           <div class="spinner-container" *ngIf="showSpinner">
             <div class="spinner">
               <ion-spinner style="color: #99e3dc"></ion-spinner>
@@ -50,7 +38,6 @@
           </div>
           <ng-container *ngIf="products$ | async as products">
             <div *ngIf="!showSpinner">
-              <h2>My Wishlist</h2>
               <div class="row" style="grid-auto-rows: auto">
                 <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
                 <div
@@ -72,7 +59,7 @@
               </div>
             </div>
           </ng-container>
-        </div>
+      
       </div>
     </div>
     <div class="collection-cards" *ngIf="comboData$ | async as combos">
@@ -90,8 +77,8 @@
             </ion-item>
             <div *ngFor="let combo of combos">
               <ion-item
-                [routerLink]="['/combo']"
-                [queryParams]="{ combo_id: combo.id }"
+                [routerLink]="['/collection']"
+                [queryParams]="{ collection_id: combo.id }"
                 routerLinkActive="active"
                 class="nav-item">
                 <ion-label>{{ combo.name }}</ion-label>

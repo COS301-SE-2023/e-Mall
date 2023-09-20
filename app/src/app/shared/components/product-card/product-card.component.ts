@@ -20,7 +20,7 @@ export class ProductCardComponent implements OnInit {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() product: any;
   @Input() pageType: string;
-  @Input() combo_id!: any;
+  @Input() collection_id!: any;
   isHearted = of(false);
   isBookmark = of(false);
   consumer_id!: string;
@@ -83,7 +83,7 @@ export class ProductCardComponent implements OnInit {
 
   removeProd() {
     const data = {
-      combo_id: this.combo_id,
+      collection_id: this.collection_id,
       product_id: this.product.id,
     };
     this.comboFacade.removeProduct(data);

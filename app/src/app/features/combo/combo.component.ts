@@ -30,7 +30,7 @@ export class ComboComponent implements OnInit, OnDestroy {
   email!: string;
   username!: string | undefined;
   paramMapSubscription: Subscription;
-  combo_id: number;
+  collection_id: number;
   combo$!: Observable<ICombo | null | undefined>;
   name: string | undefined;
   active_users: string[] | undefined = [];
@@ -46,7 +46,7 @@ export class ComboComponent implements OnInit, OnDestroy {
     private modalController: ModalController
   ) {
     this.paramMapSubscription = new Subscription();
-    this.combo_id = -1;
+    this.collection_id = -1;
   }
 
   ngOnInit(): void {
@@ -58,10 +58,10 @@ export class ComboComponent implements OnInit, OnDestroy {
       }
     });
     this.paramMapSubscription = this.route.queryParamMap.subscribe(params => {
-      const id = params.get('combo_id');
+      const id = params.get('collection_id');
       if (id) {
-        this.combo_id = +id;
-        this.fetchComboData(this.combo_id);
+        this.collection_id = +id;
+        this.fetchComboData(this.collection_id);
       }
     });
   }
@@ -96,11 +96,11 @@ export class ComboComponent implements OnInit, OnDestroy {
     this.router.navigate(['/construction']);
   }
 
-  goToComboPage(combo_id: number) {
+  goToComboPage(collection_id: number) {
     const navigationextras: NavigationExtras = {
-      queryParams: { combo_id: combo_id },
+      queryParams: { collection_id: collection_id },
     };
-    this.router.navigate(['/combo'], navigationextras);
+    this.router.navigate(['/collection'], navigationextras);
   }
 
   getOneImg(imgList?: string[]) {
@@ -150,7 +150,7 @@ export class ComboComponent implements OnInit, OnDestroy {
     const modal = await this.modalController.create({
       component: ComboEditComponent,
       componentProps: {
-        combo_id: this.combo_id,
+        collection_id: this.collection_id,
         combo_name: this.name,
       },
       cssClass: ['inventory-modal'],
@@ -166,7 +166,7 @@ export class ComboComponent implements OnInit, OnDestroy {
     const modal = await this.modalController.create({
       component: ComboInviteComponent,
       componentProps: {
-        combo_id: this.combo_id
+        collection_id: this.collection_id,
       },
       cssClass: ['inventory-modal'],
       backdropDismiss: false,
@@ -179,10 +179,10 @@ export class ComboComponent implements OnInit, OnDestroy {
 
   leaveCombo() {
     const data = {
-      combo_id: this.combo_id,
+      collection_id: this.collection_id,
     };
     this.comboFacade.deleteUser(data);
-    this.router.navigate(['/my-combos']);
+    this.router.navigate(['/my-collections']);
   }
 
   comboData() {

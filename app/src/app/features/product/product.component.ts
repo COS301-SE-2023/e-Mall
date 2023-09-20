@@ -32,8 +32,8 @@ export class ProductComponent implements OnInit, OnDestroy {
   selectedImage!: string;
   isHearted = of(false);
   product_params!: IProduct;
+  applyCustomClass = true; // Set it to true on the specific page where you want the custom class.
 
-  
   isBookmark = of(false);
 
   currencyCode = 'ZAR';
@@ -42,7 +42,6 @@ export class ProductComponent implements OnInit, OnDestroy {
   showSpinner2 = true;
 
   // Your timer function
-  
 
   //expandedStates: Map<string, boolean> = new Map<string, boolean>();
 
@@ -63,17 +62,15 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.prod_id = -1;
   }
 
-
   ngOnInit(): void {
-    console.log("ng called");
+    console.log('ng called');
     this.showSpinner = true;
     this.showSpinner2 = true;
-    
+
     setTimeout(() => {
       this.showSpinner = false;
       this.showSpinner2 = false;
-      
-    }, 6500); 
+    }, 6500);
 
     this.paramMapSubscription = this.route.queryParamMap.subscribe(params => {
       this.selectedImage = '';
@@ -86,7 +83,7 @@ export class ProductComponent implements OnInit, OnDestroy {
       if (this.consumer_id === undefined) {
         this.consumer_id = null;
       }
-      if(this.consumer_email === undefined){
+      if (this.consumer_email === undefined) {
         this.consumer_email = null;
       }
       // this.consumer_id = this.profileFacade.getProfile().id;
@@ -95,9 +92,9 @@ export class ProductComponent implements OnInit, OnDestroy {
       if (id) {
         this.prod_id = +id;
         this.product$ = this.productService.getProductData(this.prod_id);
-        this.product$.subscribe(data =>{
+        this.product$.subscribe(data => {
           this.product_params = data;
-        })
+        });
         this.sellers$ = this.productService.getSellerList(
           this.prod_id,
           'default'
@@ -113,14 +110,14 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   toggleBookmark() {
     this.isBookmark = of(true);
-    this.openComboPopover(); 
+    this.openComboPopover();
   }
   async openComboPopover() {
     const modal = await this.modalController.create({
       component: ComboPopoverComponent,
       componentProps: {
         product: this.product_params,
-        consumer_email: this.consumer_email
+        consumer_email: this.consumer_email,
       },
       cssClass: ['inventory-modal'],
       backdropDismiss: false,
@@ -210,10 +207,9 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
   onlyInStockToggler() {
     this.showSpinner2 = true;
-    
+
     setTimeout(() => {
       this.showSpinner2 = false;
-      
     }, 5000);
 
     this.divClicked = !this.divClicked;

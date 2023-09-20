@@ -26,7 +26,6 @@ export class ComboPopoverComponent implements OnInit {
   userEmail!: string;
   username!: string | undefined;
   addEmails: string[] = [];
-  consumer_email!: string;
 
   constructor(
     private fb: FormBuilder,
@@ -48,7 +47,6 @@ export class ComboPopoverComponent implements OnInit {
       }
     });
     this.product = this.navParams.get('product');
-    this.consumer_email = this.navParams.get('consumer_email');
 
     this.selectForm = this.fb.group({
       selectedOptions: [[]],
@@ -162,7 +160,7 @@ export class ComboPopoverComponent implements OnInit {
             .slice(1)
             .map(Number);
           const data = {
-            combo_ids: options,
+            collection_ids: options,
             product_id: this.product.id,
             product: this.product,
           };
@@ -172,7 +170,7 @@ export class ComboPopoverComponent implements OnInit {
         this.closePopover();
       } else {
         const data = {
-          combo_ids: this.selectForm.value.selectedOptions.map(Number),
+          collection_ids: this.selectForm.value.selectedOptions.map(Number),
           product_id: this.product.id,
           product: this.product,
         };
@@ -204,7 +202,7 @@ export class ComboPopoverComponent implements OnInit {
         seller: this.product.min_price_seller_business_name,
         product: this.product.name,
         product_category: this.product.category,
-        consumer_email: this.consumer_email,
+        consumer_email: this.userEmail,
         event_type: 'favourited_product',
         metadata: null,
       };

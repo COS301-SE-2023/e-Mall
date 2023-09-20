@@ -67,7 +67,7 @@ export class NavbarComponent implements OnDestroy {
 
   async combos(event: Event) {
     if (await this.authFacade.isLoggedIn()) {
-      this.router.navigate(['/my-combos']);
+      this.router.navigate(['/my-collections']);
     } else {
       this.router.navigate(['/sign-in']);
     }

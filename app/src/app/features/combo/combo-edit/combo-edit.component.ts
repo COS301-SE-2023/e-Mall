@@ -19,7 +19,7 @@ export class ComboEditComponent implements OnInit {
   newForm!: FormGroup;
   newClicked: boolean = false;
   combos$!: Observable<ICombo[] | null>;
-  combo_id!: number;
+  collection_id!: number;
   userEmail!: string;
   username!: string | undefined;
   comboName!: string;
@@ -44,7 +44,7 @@ export class ComboEditComponent implements OnInit {
         this.username = data.username;
       }
     });
-    this.combo_id = this.navParams.get('combo_id');
+    this.collection_id = this.navParams.get('collection_id');
     this.comboName = this.navParams.get('combo_name');
 
     this.selectForm = this.fb.group({
@@ -64,7 +64,7 @@ export class ComboEditComponent implements OnInit {
     if (this.newForm.valid) {
       const newName = this.newForm.value.newName;
       const data = {
-        combo_id: this.navParams.get('combo_id'),
+        collection_id: this.navParams.get('collection_id'),
         combo_name: newName,
       };
 

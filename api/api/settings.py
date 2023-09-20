@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     "cust_analytics.apps.CustAnalyticsConfig",
     "notification.apps.NotificationConfig",
     "combos.apps.CombosConfig",
+    "queries.apps.QueriesConfig",
 ]
 
 MIDDLEWARE = [

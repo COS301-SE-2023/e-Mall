@@ -47,7 +47,7 @@ export class ComboState {
       produce((draft: ComboStateModel) => {
         if (draft.combos) {
           for (const combo of draft.combos) {
-            if (combo.id === action.payload.combo_id) {
+            if (combo.id === action.payload.collection_id) {
               for (const email of action.payload.user_emails) {
                 combo.pending_users.push(email);
               }
@@ -67,7 +67,7 @@ export class ComboState {
       produce((draft: ComboStateModel) => {
         if (draft.combos) {
           for (const combo of draft.combos) {
-            if (combo.id === Number(action.payload.combo_id)) {
+            if (combo.id === Number(action.payload.collection_id)) {
               combo.products = combo.products.filter(
                 product => product.id !== action.payload.product_id
               );
@@ -87,9 +87,14 @@ export class ComboState {
       produce((draft: ComboStateModel) => {
         if (draft.combos) {
           for (const combo of draft.combos) {
-            if (action.payload.combo_ids.includes(combo.id)) {
-              console.log(typeof combo.id);
-              combo.products.push(action.payload.product);
+            if (action.payload.collection_ids.includes(combo.id)) {
+              //check if product already exists in combo
+              const productIndex = combo.products.findIndex(
+                product => product.id === action.payload.product.id
+              );
+              if (productIndex === -1) {
+                combo.products.push(action.payload.product);
+              }
             }
           }
         }
@@ -106,11 +111,11 @@ export class ComboState {
       produce((draft: ComboStateModel) => {
         if (draft.combos) {
           const comboToUpdate = draft.combos.find(
-            combo => combo.id === action.payload.combo_id
+            combo => combo.id === action.payload.collection_id
           );
           if (draft.combo_invites) {
             draft.combo_invites = draft.combo_invites.filter(
-              invite => invite.id !== action.payload.combo_id
+              invite => invite.id !== action.payload.collection_id
             );
           }
           if (comboToUpdate) {
@@ -140,7 +145,7 @@ export class ComboState {
           return;
         }
         const comboIndex = draft.combos.findIndex(
-          combo => combo.id === action.payload.combo_id
+          combo => combo.id === action.payload.collection_id
         );
         if (comboIndex !== -1) {
           //remove combo from combos array
@@ -187,7 +192,7 @@ export class ComboState {
       produce((draft: ComboStateModel) => {
         if (draft.combos) {
           for (const combo of draft.combos) {
-            if (combo.id === action.payload.combo_id) {
+            if (combo.id === action.payload.collection_id) {
               combo.name = action.payload.combo_name;
             }
           }

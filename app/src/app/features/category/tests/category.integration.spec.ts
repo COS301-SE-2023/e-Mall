@@ -31,6 +31,7 @@ import { FooterModule } from '@shared/components/footer/footer.module';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { ProductCardModule } from '@shared/components/product-card/product-card.module';
 import { NotificationModule } from '@app/features/notification/notification.module';
+import { CategoryBreadcrumbModule } from '@app/shared/components/breadcrumbs/category-breadcrumb/category-breadcrumb.module';
 
 describe('CategoryComponent', () => {
   let component: CategoryComponent;
@@ -71,6 +72,7 @@ describe('CategoryComponent', () => {
         AuthModule,
         ProfileModule,
         NotificationModule,
+        CategoryBreadcrumbModule,
       ],
       declarations: [CategoryComponent],
       providers: [{ provide: ProductService, useValue: productServiceSpy }],

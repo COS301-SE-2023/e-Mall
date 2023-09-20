@@ -133,7 +133,7 @@ const routes: Routes = [
     canActivate: [consumerTypeGuard],
   },
   {
-    path: 'my-combos',
+    path: 'my-collections',
     loadChildren: () =>
       import('@app/features/my-combos/my-combos.module').then(
         m => m.MyCombosModule
@@ -142,7 +142,7 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
   },
   {
-    path: 'combo',
+    path: 'collection',
     loadChildren: () =>
       import('@app/features/combo/combo.module').then(m => m.ComboModule),
     canActivate: [consumerTypeGuard],
