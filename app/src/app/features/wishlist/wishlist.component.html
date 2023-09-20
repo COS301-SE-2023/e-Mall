@@ -7,6 +7,7 @@
     </div>
 
     <div class="wishlist-container" *ngIf="(products$ | async)?.length === 0">
+      <app-combo-breadcrumb [combo]="'My wishlist'"></app-combo-breadcrumb>
       <h2>My Wishlist</h2>
 
       <div class="wishlist-container-nocards">
@@ -60,6 +61,32 @@
           </div>
         </ng-container>
       </div>
+    </div>
+    <div class="collection-cards" *ngIf="comboData$ | async as combos">
+      <ion-card class="collection-card">
+        <ion-card-header>
+          <ion-card-title>My Collections</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <ion-item
+              [routerLink]="['/wishlist']"
+              routerLinkActive="active"
+              class="nav-item">
+              <ion-label>Wishlist</ion-label>
+            </ion-item>
+            <div *ngFor="let combo of combos">
+              <ion-item
+                [routerLink]="['/collection']"
+                [queryParams]="{ collection_id: combo.id }"
+                routerLinkActive="active"
+                class="nav-item">
+                <ion-label>{{ combo.name }}</ion-label>
+              </ion-item>
+            </div>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
     </div>
   </div>
 </ion-content>

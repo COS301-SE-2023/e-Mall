@@ -1,15 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, Optional } from '@angular/core';
+import { Injectable, Injector, Optional } from '@angular/core';
 import {
   Messaging,
   getToken,
   onMessage,
   deleteToken,
+  isSupported,
 } from '@angular/fire/messaging';
 import { AuthFacade } from '@features/auth/services/auth.facade';
 import { environment } from 'environments/env';
 import { firstValueFrom, EMPTY, Observable, from } from 'rxjs';
+import { INotificationSettings } from '../models/notification-settings.interface';
 
 @Injectable()
 export class NotificationService {
@@ -22,10 +24,14 @@ export class NotificationService {
     private http: HttpClient,
     private authFacade: AuthFacade
   ) {
-    if (this.messaging) {
-      // this.token$ = this.getToken();
-      this.message$ = this.getMessage();
-    }
+    isSupported().then((supported: any) => {
+      if (supported) {
+        if (this.messaging) {
+          // this.token$ = this.getToken();
+          this.message$ = this.getMessage();
+        }
+      }
+    });
   }
 
   async signOut() {
@@ -34,7 +40,7 @@ export class NotificationService {
         console.log('Token deleted.');
       })
       .catch(err => {
-        console.log('Unable to delete token. ', err);
+        console.log('Unable to delete token dddddddd. ', err);
       });
   }
   getToken() {
@@ -74,8 +80,23 @@ export class NotificationService {
     );
   }
   async read(id: string) {
-    console.log('read in service', id);
     const url = `${this.apiUrl}read/`;
+    return await firstValueFrom(
+      this.http.post(
+        url,
+        {
+          notification_id: id,
+        },
+        {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+        }
+      )
+    );
+  }
+  async delete(id: string) {
+    const url = `${this.apiUrl}delete/`;
     return await firstValueFrom(
       this.http.post(
         url,
@@ -147,5 +168,35 @@ export class NotificationService {
         }
       )
     );
+  }
+  async updateSettings(settings: INotificationSettings) {
+    console.log(settings);
+    const url = `${this.apiUrl}settings/update/`;
+    return await firstValueFrom(
+      this.http.post(
+        url,
+        { settings },
+        {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+        }
+      )
+    );
+  }
+  async getSettings(): Promise<INotificationSettings> {
+    const url = `${this.apiUrl}settings/get/`;
+    const res = await firstValueFrom(
+      this.http.post<INotificationSettings>(
+        url,
+        {},
+        {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', 'true'),
+        }
+      )
+    );
+    return res;
   }
 }

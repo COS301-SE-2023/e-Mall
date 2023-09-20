@@ -21,8 +21,7 @@ export class AuthFacade {
   private currentUser$!: Observable<IUser>;
   private redirectUrl: string | null = null;
   constructor(
-    private authService: AuthService,
-    //private loaderService: LoaderFacade
+    private authService: AuthService //private loaderService: LoaderFacade
   ) {
     /*loaderService.addActions([
       AuthActions.SignOutAction,

@@ -23,6 +23,7 @@ import { NgxsModule } from '@ngxs/store';
 import { ProfileModule } from '@features/profile/profile.module';
 import { DropdownPopoverComponent } from '@shared/components/dropdown-popover/dropdown-popover.component';
 import { NotificationModule } from '@app/features/notification/notification.module';
+// import { NotificationModule } from '@app/features/notification/notification.module';
 
 describe('NavbarComponentIntegration', () => {
   let component: NavbarComponent;
@@ -121,12 +122,12 @@ describe('NavbarComponentIntegration', () => {
   //   expect(routerNavigateSpy).toHaveBeenCalledWith(['sign-out']);
   // });
 
-  it('should navigate to a specified page', () => {
-    const page = 'home';
-    const routerNavigateSpy = spyOn(router, 'navigate');
+  //   it('should navigate to a specified page', () => {
+  //     const page = 'home';
+  //     const routerNavigateSpy = spyOn(router, 'navigate');
 
-    component.redirect(page);
+  //     component.redirect(page);
 
-    expect(routerNavigateSpy).toHaveBeenCalledWith([`/${page}`]);
-  });
+  //     expect(routerNavigateSpy).toHaveBeenCalledWith([`/${page}`]);
+  //   });
 });

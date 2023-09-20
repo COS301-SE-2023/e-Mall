@@ -9,6 +9,8 @@ import { NavParams } from '@ionic/angular';
 import { IProduct } from '@shared/models/product/product.interface';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
+import { ToastController } from '@ionic/angular';
+import { WishlistFacade } from '@app/features/wishlist/wishlist-state/services/wishlist.facade';
 
 @Component({
   selector: 'app-combo-popover',
@@ -24,7 +26,6 @@ export class ComboPopoverComponent implements OnInit {
   userEmail!: string;
   username!: string | undefined;
   addEmails: string[] = [];
-  consumer_email!: string;
 
   constructor(
     private fb: FormBuilder,
@@ -33,7 +34,9 @@ export class ComboPopoverComponent implements OnInit {
     private comboFacade: ComboFacade,
     private navParams: NavParams,
     private profileFacade: ProfileFacade,
-    private analytics: AnalyticsService
+    private analytics: AnalyticsService,
+    private toastController: ToastController,
+    private wishlistFacade: WishlistFacade
   ) {}
 
   ngOnInit() {
@@ -44,7 +47,6 @@ export class ComboPopoverComponent implements OnInit {
       }
     });
     this.product = this.navParams.get('product');
-    this.consumer_email = this.navParams.get('consumer_email');
 
     this.selectForm = this.fb.group({
       selectedOptions: [[]],
@@ -64,16 +66,49 @@ export class ComboPopoverComponent implements OnInit {
     this.newClicked = true;
   }
 
-  createNewComboAndClearInput() {
-    // Get the "newEmails" form control
-    console.log('enter');
-    const newEmailsControl = this.newForm.get('newEmails');
+  removeEmail(email: string) {
+    this.addEmails = this.addEmails.filter(e => e !== email);
+  }
 
+  addEmailToArray() {
+    // Get the "newEmails" form control
+    const newEmailsControl = this.newForm.get('newEmails');
     // Check if the control exists and is not null or undefined
     if (newEmailsControl && newEmailsControl.valid) {
-      console.log('here');
       // Push the value from the form control to your array (assuming "addEmails" is an array)
-      this.addEmails.push(newEmailsControl.value);
+      if (newEmailsControl.value == this.userEmail) {
+        //throw toast error message
+        this.toastController
+          .create({
+            header: 'An error has occurred:',
+            message: 'You cannot add your own email',
+            duration: 2000,
+            cssClass: 'error-toast',
+          })
+          .then(toast => {
+            toast.present();
+          });
+        newEmailsControl.reset();
+        return;
+      } else if (
+        newEmailsControl.value == '' ||
+        newEmailsControl.value == null
+      ) {
+        this.toastController
+          .create({
+            header: 'An error has occurred:',
+            message: 'Please enter an email',
+            duration: 2000,
+            cssClass: 'error-toast',
+          })
+          .then(toast => {
+            toast.present();
+          });
+        newEmailsControl.reset();
+        return;
+      } else {
+        this.addEmails.push(newEmailsControl.value);
+      }
 
       // Reset the "newEmails" form control to clear the input field
       newEmailsControl.reset();
@@ -87,10 +122,10 @@ export class ComboPopoverComponent implements OnInit {
 
       // Split emails into an array
       const useremailsarray = this.addEmails;
-      useremailsarray.unshift(this.userEmail);
 
       // Create data object
       const data = {
+        current_user_email: this.userEmail,
         combo_name: newName,
         user_emails: useremailsarray,
         product_ids: [this.product.id], // You need to define 'this.product'
@@ -103,29 +138,39 @@ export class ComboPopoverComponent implements OnInit {
 
       // Call your 'addCombo' function with 'data'
       this.addCombo(data);
+    } else {
+      this.toastController
+        .create({
+          header: 'An error has occurred:',
+          message: 'Please enter a name for your combo',
+          duration: 2000,
+          cssClass: 'error-toast',
+        })
+        .then(toast => {
+          toast.present();
+        });
     }
   }
 
   UpdateExistingCombo() {
     if (this.selectForm.valid) {
-
       if (this.selectForm.value.selectedOptions[0] == 'wishlist') {
-        this.favClickAnalytics();
-        this.profileFacade.toggleWishlist(this.product.id);
-        
-        if(this.selectForm.value.selectedOptions.length>1 ){
-          const options = this.selectForm.value.selectedOptions.slice(1);
+        if (this.selectForm.value.selectedOptions.length > 1) {
+          const options = this.selectForm.value.selectedOptions
+            .slice(1)
+            .map(Number);
           const data = {
-            combo_ids:options,
+            collection_ids: options,
             product_id: this.product.id,
             product: this.product,
           };
           this.updateCombo(data);
         }
+        this.updateWishlist(this.product);
         this.closePopover();
       } else {
         const data = {
-          combo_ids: this.selectForm.value.selectedOptions,
+          collection_ids: this.selectForm.value.selectedOptions.map(Number),
           product_id: this.product.id,
           product: this.product,
         };
@@ -134,9 +179,13 @@ export class ComboPopoverComponent implements OnInit {
       }
     }
   }
+  updateWishlist(product: IProduct) {
+    this.favClickAnalytics();
+    this.wishlistFacade.addProductToWishlist(product);
+  }
 
   updateCombo(data: any) {
-    this.comboFacade.updateCombo(data);
+    this.comboFacade.addProduct(data);
   }
 
   addCombo(data: any) {
@@ -153,7 +202,7 @@ export class ComboPopoverComponent implements OnInit {
         seller: this.product.min_price_seller_business_name,
         product: this.product.name,
         product_category: this.product.category,
-        consumer_email: this.consumer_email,
+        consumer_email: this.userEmail,
         event_type: 'favourited_product',
         metadata: null,
       };

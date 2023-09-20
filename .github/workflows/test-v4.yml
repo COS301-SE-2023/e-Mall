@@ -1,4 +1,4 @@
-name: test-v3
+name: test-v4
 
 on:
   push:
@@ -16,12 +16,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{env.node_version}}
-
       - name: Create env files
         run: |
           echo "${{secrets.APP_ENV_TS}}" > ./app/src/environments/env.ts
@@ -40,6 +34,11 @@ jobs:
             exit 1
           fi
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{env.node_version}}
+
       - name: Get node_modules cache
         uses: actions/cache@v3
         id: node_modules
@@ -54,9 +53,13 @@ jobs:
         working-directory: ./app
         run: yarn install --frozen-lockfile
 
-      - name: Lint and build
+      - name: Linting
         working-directory: ./app
-        run: yarn lint && yarn build
+        run: yarn lint
+
+      - name: Building
+        working-directory: ./app
+        run: yarn build
 
       - name: Frontend unit and integration tests
         working-directory: ./app

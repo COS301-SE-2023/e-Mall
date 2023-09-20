@@ -27,7 +27,8 @@ const routes: Routes = [
 
   {
     path: 'home',
-    component: HomeComponent,
+    loadChildren: () =>
+      import('@app/features/home/home.module').then(m => m.HomeModule),
     canActivate: [baseGuard],
   },
   {
@@ -54,7 +55,7 @@ const routes: Routes = [
   {
     path: 'register',
     component: SellerRegisterComponent,
-    canActivate: [preAuthGuard],
+    canActivate: [baseGuard],
   },
   { path: 'sign-in', component: SignInComponent, canActivate: [preAuthGuard] },
 
@@ -142,7 +143,7 @@ const routes: Routes = [
     canActivate: [consumerTypeGuard],
   },
   {
-    path: 'my-combos',
+    path: 'my-collections',
     loadChildren: () =>
       import('@app/features/my-combos/my-combos.module').then(
         m => m.MyCombosModule
@@ -151,7 +152,7 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
   },
   {
-    path: 'combo',
+    path: 'collection',
     loadChildren: () =>
       import('@app/features/combo/combo.module').then(m => m.ComboModule),
     canActivate: [consumerTypeGuard],

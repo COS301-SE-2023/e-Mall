@@ -12,6 +12,7 @@ import { NgxsModule } from '@ngxs/store';
 import { ConstructionModule } from '../construction.module';
 import { AuthModule } from '@features/auth/auth.module';
 import { ProfileModule } from '@features/profile/profile.module';
+import { NotificationModule } from '@app/features/notification/notification.module';
 describe('ConstructionComponent', () => {
   let component: ConstructionComponent;
   let fixture: ComponentFixture<ConstructionComponent>;
@@ -29,6 +30,7 @@ describe('ConstructionComponent', () => {
         ConstructionModule,
         AuthModule,
         ProfileModule,
+        NotificationModule,
       ],
       declarations: [ConstructionComponent],
       providers: [

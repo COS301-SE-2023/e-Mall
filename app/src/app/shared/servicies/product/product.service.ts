@@ -37,17 +37,13 @@ export class ProductService {
     //Algo needs to be implemented
     //Mock data for demo
     const url = `${this.apiUrl}products/popularproducts/`;
-    return this.http
-      .get(url)
-      .pipe(map((res: any) => res as IProduct[]));
+    return this.http.get(url).pipe(map((res: any) => res as IProduct[]));
   }
   public getTrendingProducts(): Observable<IProduct[]> {
-    const url = `${this.apiUrl}products/test?search=x`;
-    return this.http
-      .get(url)
-      .pipe(map((res: any) => res['data'] as IProduct[]));
+    const url = `${this.apiUrl}products/trendingproducts/`;
+    return this.http.get(url).pipe(map((res: any) => res as IProduct[]));
   }
-  
+
   public getForYouProducts(): Observable<IProduct[]> {
     //Algo needs to be implemented
     //Mock data for demo
@@ -101,6 +97,7 @@ export class ProductService {
     if (sortOption) {
       url += '&sort=' + sortOption;
     }
+    url += '&per_page=100';
     return this.http.get(url).pipe(
       map((res: any) => res['data'] as IProduct[]),
       mergeMap((products: IProduct[]) => products),

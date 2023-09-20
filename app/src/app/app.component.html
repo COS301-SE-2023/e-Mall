@@ -8,7 +8,16 @@
 </head>
 
 <ion-app>
+  <ion-menu
+    side="end"
+    menuId="notification"
+    contentId="main-content"
+    (ionWillClose)="notificationMenuClosed()">
+    <app-notification-pannel
+      menuId="notification"
+      style="height: 100%"></app-notification-pannel>
+  </ion-menu>
   <app-notification></app-notification>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-router-outlet id="main-content"></ion-router-outlet>
   <app-spinner></app-spinner>
 </ion-app>

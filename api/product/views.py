@@ -1,9 +1,8 @@
+from datetime import datetime, timedelta
 from django.http import HttpResponseBadRequest
 from django.shortcuts import render
 from analytics.models import Analytics
 from django.db.models import Count
-
-# Create your views here.
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -22,7 +21,7 @@ from rest_framework.decorators import api_view, permission_classes
 from django.forms.models import model_to_dict
 
 from decimal import Decimal
-from math import ceil
+
 
 
 class ProductFrontendAPIView(APIView):
@@ -323,3 +322,116 @@ class GetPopularProductsAPIView(APIView):
 
         return Response(serializer.data)
 
+class GetTrendingProductsAPIView(APIView):
+    def get(self, request):
+        # Define the time frame for trending products (e.g., the last week)
+        end_date = datetime.now()
+        start_date = end_date - timedelta(days=7)  # Change this time frame as needed
+
+        # Get the most viewed products in the defined time frame
+        trending_products = (
+            Analytics.objects.filter(
+                event_type="product_click",
+                event_date__gte=start_date,
+                event_date__lte=end_date,
+        )
+            .values("product")
+            .annotate(view_count=Count("product"))
+            .order_by("-view_count")[:12]  # Get top 10 trending products
+        )
+
+        # Extract product names from the queryset
+        trending_products_names = [product["product"] for product in trending_products]
+
+        # Fetch the actual Product objects from the database
+        products = Product.objects.filter(name__in=trending_products_names)
+
+        # Serialize the trending products
+        serializer = ProductSerializer(products, many=True)
+
+        return Response(serializer.data)
+
+
+class CreateAPIView(APIView):
+    def post(self, request):
+        try:
+            user = request.user
+            if user is None:
+                raise Exception("User not found")
+            if user.type == "consumer":
+                raise Exception("Consumers cannot create products")
+            elif user.type == "seller":
+                threshold = 80
+                # create a product_names array with all the product names
+                product_names = Product.objects.values_list("name", flat=True)
+                user_product_name = request.data["name"]
+
+                similar_products = []
+                for product_name in product_names:
+                    similarity_score = fuzz.partial_ratio(
+                        user_product_name, product_name
+                    )
+                    if similarity_score >= threshold:
+                        similar_products.append((product_name, similarity_score))
+
+                # Sort similar products by similarity score
+                similar_products.sort(key=lambda x: x[1], reverse=True)
+
+                if similar_products:
+                    # check if the seller already has a productseller entry for the product
+                    if ProductSeller.objects.filter(
+                        product=Product.objects.get(name=similar_products[0][0]),
+                        seller=user,
+                    ).exists():
+                        raise Exception(
+                            "You already have a product with the same name in the database"
+                        )
+
+                    ProductSeller.objects.create(
+                        product=Product.objects.get(name=similar_products[0][0]),
+                        seller=user,
+                        price=request.data["price"],
+                        discount=request.data["discount"],
+                        discount_rate=request.data["discount_rate"],
+                        original_price=request.data["original_price"],
+                        product_url=request.data["product_url"],
+                        in_stock=request.data["in_stock"],
+                        img_array=request.data["img_array"],
+                    ).save()
+
+                    return Response(
+                        "ProductSeller relation created successfully",
+                        status=status.HTTP_201_CREATED,
+                    )
+
+                else:
+                    product = Product.objects.create(
+                        name=request.data["name"],
+                        brand=request.data["brand"],
+                        category=request.data["category"],
+                        description=request.data["description"],
+                    )
+                    product.save()
+
+                    ProductSeller.objects.create(
+                        product=product,
+                        seller=user,
+                        price=request.data["price"],
+                        discount=request.data["discount"],
+                        discount_rate=request.data["discount_rate"],
+                        original_price=request.data["original_price"],
+                        product_url=request.data["product_url"],
+                        in_stock=request.data["in_stock"],
+                        img_array=request.data["img_array"],
+                        product_name=request.data["name"],
+                    ).save()
+                return Response(
+                    "Product and productseller relation created successfully",
+                    status=status.HTTP_201_CREATED,
+                )
+
+        except Exception as e:
+            # handle other exceptions here
+            return Response(
+                {"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )

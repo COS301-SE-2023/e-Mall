@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { TestBed, inject } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { ProductService } from './product.service';
 import { IProduct } from '@shared/models/product/product.interface';
 import { IProductSeller } from '@shared/models/product/product-seller.interface';
@@ -52,7 +55,9 @@ describe('ProductService', () => {
       expect(product).toEqual(mockProduct);
     });
 
-    const req = httpMock.expectOne(`${productService['apiUrl']}products/frontend?prod_id=${productId}`);
+    const req = httpMock.expectOne(
+      `${productService['apiUrl']}products/frontend?prod_id=${productId}`
+    );
     expect(req.request.method).toEqual('GET');
     req.flush(mockProduct);
   });
@@ -63,18 +68,19 @@ describe('ProductService', () => {
     const mockSellers: IProductSeller[] = [
       { id: 1, product: 'Product1', seller: 'Seller1' },
       { id: 2, product: 'Product2', seller: 'Seller2' },
-     
     ];
-    productService.getSellerList(productId, inStock).subscribe((sellers: IProductSeller[]) => {
-      expect(sellers).toEqual(mockSellers);
-    });
+    productService
+      .getSellerList(productId, inStock)
+      .subscribe((sellers: IProductSeller[]) => {
+        expect(sellers).toEqual(mockSellers);
+      });
 
-    const req = httpMock.expectOne(`${productService['apiUrl']}productseller/backend?prod_id=${productId}&filter_in_stock=true`);
+    const req = httpMock.expectOne(
+      `${productService['apiUrl']}productseller/backend?prod_id=${productId}&filter_in_stock=true`
+    );
     expect(req.request.method).toEqual('GET');
     req.flush(mockSellers);
   });
-
- 
 
   it('should get products "For You"', () => {
     const mockProducts: IProduct[] = [
@@ -120,7 +126,9 @@ describe('ProductService', () => {
       expect(products).toEqual(mockProducts);
     });
 
-    const req = httpMock.expectOne(`${productService['apiUrl']}products/test?search=x`);
+    const req = httpMock.expectOne(
+      `${productService['apiUrl']}products/test?search=x`
+    );
     expect(req.request.method).toEqual('GET');
     req.flush({ data: mockProducts });
   });
@@ -170,7 +178,9 @@ describe('ProductService', () => {
       expect(result.products).toEqual(mockProducts);
     });
 
-    const req = httpMock.expectOne(`${productService['apiUrl']}products/test?search=${searchQuery}`);
+    const req = httpMock.expectOne(
+      `${productService['apiUrl']}products/test?search=${searchQuery}`
+    );
     expect(req.request.method).toEqual('GET');
     req.flush({ data: mockProducts });
   });
@@ -216,11 +226,15 @@ describe('ProductService', () => {
       },
     ];
 
-    productService.getCategoryProducts(category).subscribe((products: IProduct[]) => {
-      expect(products).toEqual(mockProducts);
-    });
+    productService
+      .getCategoryProducts(category)
+      .subscribe((products: IProduct[]) => {
+        expect(products).toEqual(mockProducts);
+      });
 
-    const req = httpMock.expectOne(`${productService['apiUrl']}products/backend/?filter_category=${category}`);
+    const req = httpMock.expectOne(
+      `${productService['apiUrl']}products/backend/?filter_category=${category}&per_page=100`
+    );
     expect(req.request.method).toEqual('GET');
     req.flush({ data: mockProducts });
   });

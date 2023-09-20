@@ -6,13 +6,11 @@ import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 import { Select } from '@ngxs/store';
 import {
   Observable,
-  shareReplay,
   tap,
   Subscription,
   map,
   of,
   debounceTime,
-  firstValueFrom,
   distinctUntilChanged,
 } from 'rxjs';
 import { IConsumerProfile } from '../models/consumer-profile.interface';
@@ -123,16 +121,6 @@ export class ProfileFacade implements OnDestroy {
     return this.profile$;
   }
 
-  // getRecommendedProducts(): Observable<IProduct[]> {
-  //   return this.recommendedProducts$.pipe(
-  //     tap(async products => {
-  //       if (products == null && (await this.authFacade.isLoggedIn())) {
-  //         await this.fetchRecommendedProducts();
-  //       }
-  //     }),
-  //     shareReplay(1)
-  //   );
-  // }
 
   async fetchProfile() {
     try {

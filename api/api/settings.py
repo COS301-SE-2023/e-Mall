@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     "cust_analytics.apps.CustAnalyticsConfig",
     "notification.apps.NotificationConfig",
     "combos.apps.CombosConfig",
+    "queries.apps.QueriesConfig",
 ]
 
 MIDDLEWARE = [
@@ -209,9 +210,14 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
 
 # Celery configuration
-CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://redis:6379")
-CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER", "redis://redis:6379")
+# CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://redis:6379")
+# CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER", "redis://redis:6379")
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = "Africa/Johannesburg"
+REDIS_HOST = "redis"
+REDIS_PORT = "6379"
+CELERY_BROKER_URL = "redis://" + REDIS_HOST + ":" + REDIS_PORT
+CELERY_RESULT_BACKEND = "redis://" + REDIS_HOST + ":" + REDIS_PORT
+BROKER_TRANSPORT_OPTIONS = {"visibility_timeout": 3600}

@@ -30,6 +30,13 @@ jobs:
           echo "${{secrets.APP_ENV_PROD_TS}}" > ./app/src/environments/env.prod.ts
           echo "${{secrets.FIREBASE_SW}}" > ./app/src/firebase-messaging-sw.js
 
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@v1.2.2
+        with:
+          name: "./api/api/serviceAccountKey.json"
+          json: ${{ secrets.SERVICE_ACCOUNT }}
+
       - name: Check if env files exists
         run: |
           if [ ! -f ./app/src/environments/env.ts ]; then
