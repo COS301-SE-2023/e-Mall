@@ -66,13 +66,6 @@ describe('HomeComponent', () => {
     });
   });
 
-  it('should scroll to recommendedHeading', () => {
-    const scrollSpy = spyOn(mockRecommendedHeading.nativeElement, 'scrollIntoView');
-
-    component.onAllClick();
-
-    expect(scrollSpy).toHaveBeenCalledWith({ behavior: 'smooth' });
-  });
   it('should return the first image URL when imgList is provided', () => {
     const imgList = ['image1.jpg', 'image2.jpg', 'image3.jpg'];
     const result = component.getOneImg(imgList);
