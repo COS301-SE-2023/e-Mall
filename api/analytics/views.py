@@ -198,6 +198,8 @@ class ConversionRateAPIView(APIView):
                         }
                     )
 
+        #sort by highest conversion rate
+        response_data = sorted(response_data, key=lambda k: k["conversion_rate"], reverse=True)
         return Response(response_data)
 
 
