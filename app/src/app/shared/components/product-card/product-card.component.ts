@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { Observable, of, Subscription, BehaviorSubject } from 'rxjs';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
@@ -11,6 +11,7 @@ import { ComboFacade } from '@features/combo-state/services/combo.facade';
 import { AuthFacade } from '@features/auth/services/auth.facade';
 import { Navigate } from '@ngxs/router-plugin';
 import { WishlistFacade } from '@app/features/wishlist/wishlist-state/services/wishlist.facade';
+import { ProductCardFacade } from './services/product-card.facade';
 @Component({
   selector: 'app-product-card',
   templateUrl: 'product-card.component.html',
@@ -25,6 +26,7 @@ export class ProductCardComponent implements OnInit {
   isBookmark = of(false);
   consumer_id!: string;
   consumer_email!: string;
+  public isLoaded = false;
 
   constructor(
     private modalController: ModalController,
@@ -33,10 +35,12 @@ export class ProductCardComponent implements OnInit {
     private analytics: AnalyticsService,
     private comboFacade: ComboFacade,
     private authFacade: AuthFacade,
-    private wishlistFacade: WishlistFacade
+    private wishlistFacade: WishlistFacade,
+    public productCardFacade: ProductCardFacade
   ) {
     this.pageType = '';
   }
+
   ngOnInit(): void {
     this.profileFacade.getProfile().subscribe(profile => {
       if (profile) {
@@ -45,7 +49,9 @@ export class ProductCardComponent implements OnInit {
       }
     });
   }
-
+  onImageLoad() {
+    this.isLoaded = true;
+  }
   toggleHeart() {
     this.favClickAnalytics();
     this.profileFacade.toggleWishlist(this.product.id);

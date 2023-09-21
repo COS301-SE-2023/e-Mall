@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, distinct, map, mergeMap, toArray } from 'rxjs';
 import { IProduct } from '@shared/models/product/product.interface';
 import { IProductSeller } from '@shared/models/product/product-seller.interface';
+import { ProductCardFacade } from '@app/shared/components/product-card/services/product-card.facade';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,10 @@ export class ProductService {
   currentProductId$: number | undefined;
   private apiUrl = 'http://localhost:3000/api/';
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private productCardFacade: ProductCardFacade
+  ) {
     console.log('product service initialized');
   }
 

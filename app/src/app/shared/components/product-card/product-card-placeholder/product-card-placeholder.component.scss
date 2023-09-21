@@ -1,0 +1,138 @@
+/* Default styles */
+ion-card {
+  display: flex;
+  width: 240px;
+  height: 330px;
+  padding: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  position: relative;
+}
+
+.discount-tag {
+  position: absolute;
+  display: inline-flex;
+  padding: 0px 8px;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+  border-radius: 12px;
+  background: var(--c-5-e, #ecf6f6);
+}
+
+ion-label {
+  color: var(--c-5-a, #37d0d6);
+  font-family: Poppins, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+ion-img {
+  object-fit: cover !important;
+  width: 208px;
+  height: 180px;
+  flex-shrink: 0;
+}
+
+ion-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-self: stretch;
+  justify-content: center;
+}
+
+ion-card-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--c-1-a, #151515);
+  font-family: Poppins, sans-serif;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-align: center;
+}
+
+h4 {
+  color: var(--c-1-a, #151515);
+  font-family: Poppins, sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+p {
+  color: var(--c-1-b, #575757);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+}
+
+.price-and-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+}
+
+ion-button {
+  --padding-start: 0;
+  --padding-end: 0;
+  padding: 2px;
+  margin: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+::part(native) {
+  padding: 0;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 600px) {
+  ion-card {
+    width: 100%; /* Adjusted width for responsiveness */
+    max-width: 160px; /* Set a maximum width for larger screens */
+    margin: 0 auto; /* Center the card horizontally */
+    max-height: 250px;
+  }
+
+  ion-img {
+    width: 100%; /* Adjusted width for responsiveness */
+    max-height: 120px; /* Set a maximum height for larger screens */
+  }
+
+  ion-card-content {
+    gap: 8px; /* Adjusted gap for responsiveness */
+  }
+
+  ion-card-title {
+    font-size: 14px; /* Adjusted font size for responsiveness */
+  }
+
+  h4 {
+    font-size: 16px; /* Adjusted font size for responsiveness */
+  }
+
+  p {
+    font-size: 11px; /* Adjusted font size for responsiveness */
+  }
+}
+/* styles.scss or your-component.scss */
+.custom-modal {
+  height: 50vh; /* Set the height to 50% of the viewport height */
+  max-height: none; /* Remove any max-height constraints */
+}
