@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { Observable, of, Subscription, forkJoin } from 'rxjs';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
@@ -87,35 +87,65 @@ export class SalesComponent implements OnInit {
     //   });
     //   this.createCategoryPercentageChart();
     // });
-    const conversionRate$ = this.analytics.getConversionRate(this.sellerName);
-    const categoryPercentage$ = this.analytics.getCategoryPercentage(
-      this.sellerName
-    );
-    forkJoin([conversionRate$, categoryPercentage$]).subscribe(
-      ([conversionData, categoryData]) => {
-        // Handle conversionData and categoryData
-        this.conversionRate = conversionData.map(
-          (item: { [x: string]: any }) => item['conversion_rate']
-        );
-        this.conversionRateLabels = conversionData.map(
-          (item: { [x: string]: any }) => item['product_name']
-        );
-        this.createProductPerformanceChart();
+    // const conversionRate$ = this.analytics.getConversionRate(this.sellerName);
+    // const categoryPercentage$ = this.analytics.getCategoryPercentage(
+    //   this.sellerName
+    // );
+    // forkJoin([conversionRate$, categoryPercentage$]).subscribe(
+    //   ([conversionData, categoryData]) => {
+    //     // Handle conversionData and categoryData
+    //     this.conversionRate = conversionData.map(
+    //       (item: { [x: string]: any }) => item['conversion_rate']
+    //     );
+    //     this.conversionRateLabels = conversionData.map(
+    //       (item: { [x: string]: any }) => item['product_name']
+    //     );
+    //     this.createProductPerformanceChart();
 
-        this.categories = categoryData.map(
-          (item: { [x: string]: any }) => item['category']
-        );
-        this.categoryPercentage = categoryData.map(
-          (item: { [x: string]: any }) => item['percentage']
-        );
-        this.createCategoryPercentageChart();
-
-        // Now register the chart
-        Chart.register(...registerables);
-      }
-    );
+    //     this.categories = categoryData.map(
+    //       (item: { [x: string]: any }) => item['category']
+    //     );
+    //     this.categoryPercentage = categoryData.map(
+    //       (item: { [x: string]: any }) => item['percentage']
+    //     );
+    //     this.createCategoryPercentageChart();
+    //   }
+    //   // Now register the chart
+    //   // Chart.register(...registerables);
+    // );
+    // this.ngAfterViewInit();
+    // Chart.register(...registerables);
   }
 
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      const conversionRate$ = this.analytics.getConversionRate(this.sellerName);
+      const categoryPercentage$ = this.analytics.getCategoryPercentage(
+        this.sellerName
+      );
+      forkJoin([conversionRate$, categoryPercentage$]).subscribe(
+        ([conversionData, categoryData]) => {
+          // Handle conversionData and categoryData
+          this.conversionRate = conversionData.map(
+            (item: { [x: string]: any }) => item['conversion_rate']
+          );
+          this.conversionRateLabels = conversionData.map(
+            (item: { [x: string]: any }) => item['product_name']
+          );
+          this.createProductPerformanceChart();
+
+          this.categories = categoryData.map(
+            (item: { [x: string]: any }) => item['category']
+          );
+          this.categoryPercentage = categoryData.map(
+            (item: { [x: string]: any }) => item['percentage']
+          );
+          this.createCategoryPercentageChart();
+        }
+      );
+      Chart.register(...registerables);
+    }, 6000);
+  }
   createProductPerformanceChart() {
     const productPerformanceCanvas = document.getElementById(
       'product-performance-chart'
