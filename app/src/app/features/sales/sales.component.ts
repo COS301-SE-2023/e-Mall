@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
-import { Observable, of, Subscription, forkJoin } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 interface ProductData {
@@ -17,7 +17,7 @@ interface ProductData {
   templateUrl: 'sales.component.html',
   styleUrls: ['sales.component.scss'],
 })
-export class SalesComponent implements OnInit {
+export class SalesComponent implements OnInit, AfterViewInit {
   productPerformanceChart: any;
   public productClicksChart: Chart | undefined;
   sellerName!: string | undefined;
@@ -61,60 +61,6 @@ export class SalesComponent implements OnInit {
       this.websiteClicks = data.link_clicks;
       this.favourited = data.favourites;
     });
-
-    // this.analytics.getConversionRate(this.sellerName).subscribe(data => {
-    //   this.conversionRateData$ = of(data);
-    //   this.conversionRateData$.subscribe(data => {
-    //     this.conversionRate = data.map(
-    //       (item: { [x: string]: any }) => item['conversion_rate']
-    //     );
-    //     this.conversionRateLabels = data.map(
-    //       (item: { [x: string]: any }) => item['product_name']
-    //     );
-    //   });
-    //   this.createProductPerformanceChart();
-    // });
-
-    // this.analytics.getCategoryPercentage(this.sellerName).subscribe(data => {
-    //   this.categoryPercentageData$ = of(data);
-    //   this.categoryPercentageData$.subscribe(data => {
-    //     this.categories = data.map(
-    //       (item: { [x: string]: any }) => item['category']
-    //     );
-    //     this.categoryPercentage = data.map(
-    //       (item: { [x: string]: any }) => item['percentage']
-    //     );
-    //   });
-    //   this.createCategoryPercentageChart();
-    // });
-    // const conversionRate$ = this.analytics.getConversionRate(this.sellerName);
-    // const categoryPercentage$ = this.analytics.getCategoryPercentage(
-    //   this.sellerName
-    // );
-    // forkJoin([conversionRate$, categoryPercentage$]).subscribe(
-    //   ([conversionData, categoryData]) => {
-    //     // Handle conversionData and categoryData
-    //     this.conversionRate = conversionData.map(
-    //       (item: { [x: string]: any }) => item['conversion_rate']
-    //     );
-    //     this.conversionRateLabels = conversionData.map(
-    //       (item: { [x: string]: any }) => item['product_name']
-    //     );
-    //     this.createProductPerformanceChart();
-
-    //     this.categories = categoryData.map(
-    //       (item: { [x: string]: any }) => item['category']
-    //     );
-    //     this.categoryPercentage = categoryData.map(
-    //       (item: { [x: string]: any }) => item['percentage']
-    //     );
-    //     this.createCategoryPercentageChart();
-    //   }
-    //   // Now register the chart
-    //   // Chart.register(...registerables);
-    // );
-    // this.ngAfterViewInit();
-    // Chart.register(...registerables);
   }
 
   ngAfterViewInit(): void {
