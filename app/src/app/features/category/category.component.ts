@@ -4,7 +4,6 @@ import { IProduct } from '@shared/models/product/product.interface';
 import { ProductService } from '@shared/servicies/product/product.service';
 import { Observable } from 'rxjs';
 
-
 @Component({
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss'],
@@ -14,7 +13,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
   categoryName!: string;
   categoryTitle!: string;
   categoryProducts$: Observable<IProduct[]> | undefined;
-  showSpinner = true;
+  // showSpinner = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,21 +25,24 @@ export class CategoryComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // this.showSpinner = true;
 
-    this.showSpinner = true;
-    
-    setTimeout(() => {
-      this.showSpinner = false;
-      
-    }, 6000);
-    
+    // setTimeout(() => {
+    //   this.showSpinner = false;
+
+    // }, 6000);
+
     this.route.params.subscribe(params => {
       this.categoryName = params['category'];
-      this.selectedSortOption='name'
-      this.categoryTitle = decodeURIComponent(decodeURIComponent(this.categoryName)); // Decode the URL twice
-      this.categoryProducts$ = this.productService.getCategoryProducts(this.categoryName,this.selectedSortOption);
+      this.selectedSortOption = 'name';
+      this.categoryTitle = decodeURIComponent(
+        decodeURIComponent(this.categoryName)
+      ); // Decode the URL twice
+      this.categoryProducts$ = this.productService.getCategoryProducts(
+        this.categoryName,
+        this.selectedSortOption
+      );
     });
-
   }
 
   getOneImg(imgList?: string[]) {
@@ -61,7 +63,9 @@ export class CategoryComponent implements OnInit, OnDestroy {
     this.router.navigate(['products'], navigationextras);
   }
   onSortOptionChange(): void {
-    this.categoryProducts$ = this.productService.getCategoryProducts(this.categoryName,this.selectedSortOption);
+    this.categoryProducts$ = this.productService.getCategoryProducts(
+      this.categoryName,
+      this.selectedSortOption
+    );
   }
-
 }

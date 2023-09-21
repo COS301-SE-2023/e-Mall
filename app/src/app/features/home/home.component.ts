@@ -87,9 +87,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   fetchTrendingProducts() {
-    this.trendingProducts$ = this.productService
-      .getTrendingProducts()
-      .pipe(delay(3000));
+    this.trendingProducts$ = this.productService.getTrendingProducts();
+    // .pipe(delay(3000));
     // this.trendingProducts$ = this.productService.getTrendingProducts();
   }
 

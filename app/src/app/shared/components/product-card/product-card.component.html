@@ -1,17 +1,23 @@
-<ng-container *ngIf="[isLoaded]; else loading">
-  <ion-card>
-    <div class="discount-tag" *ngIf="product.min_price_discount_rate > 0">
-      <ion-label
-        >-{{
-          product.min_price_discount_rate * 100 | number : '1.0-0'
-        }}%</ion-label
-      >
-    </div>
-    <ion-img
-      [src]="getOneImg(product?.min_price_img_array)"
-      (click)="goToProductPage(product.id)">
-      (load)="onImageLoad()"
-    </ion-img>
+<!-- <ng-container *ngIf="[isLoaded]; else loading"> -->
+<ion-card>
+  <div class="discount-tag" *ngIf="product.min_price_discount_rate > 0">
+    <ion-label
+      >-{{
+        product.min_price_discount_rate * 100 | number : '1.0-0'
+      }}%</ion-label
+    >
+  </div>
+  <ion-img
+    [src]="getOneImg(product?.min_price_img_array)"
+    (click)="goToProductPage(product.id)"
+    (ionImgDidLoad)="onImageLoad()"
+    [ngClass]="{ hidden: ![isLoaded] }">
+  </ion-img>
+  <ion-skeleton-text
+    animated
+    *ngIf="!isLoaded"
+    style="width: 100%; height: 100%"></ion-skeleton-text>
+  <ng-container *ngIf="isLoaded; else loading">
     <ion-card-content>
       <div>
         <div>
@@ -59,9 +65,28 @@
         </div>
       </div>
     </ion-card-content>
-  </ion-card>
-</ng-container>
+  </ng-container>
+</ion-card>
+<!-- </ng-container> -->
 
 <ng-template #loading>
-  <app-product-card-placeholder></app-product-card-placeholder>
+  <ion-card-content>
+    <div>
+      <div>
+        <ion-card-title>
+          <ion-skeleton-text animated style="width: 100%"> </ion-skeleton-text>
+        </ion-card-title>
+        <div
+          style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding-bottom: 1rem;
+          ">
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </div>
+      </div>
+    </div>
+  </ion-card-content>
 </ng-template>

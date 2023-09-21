@@ -42,6 +42,7 @@ export class ProductCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isLoaded = false;
     this.profileFacade.getProfile().subscribe(profile => {
       if (profile) {
         this.consumer_id = profile.id;
@@ -50,6 +51,7 @@ export class ProductCardComponent implements OnInit {
     });
   }
   onImageLoad() {
+    console.log('Image loaded');
     this.isLoaded = true;
   }
   toggleHeart() {
