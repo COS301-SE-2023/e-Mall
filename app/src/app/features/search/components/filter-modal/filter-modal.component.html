@@ -1,0 +1,67 @@
+<!-- my-modal.component.html -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Filter</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    <!-- Your modal content here -->
+    <ion-list>
+
+      <ion-list-header>
+        <h3>Sort by</h3>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>Option 1</ion-label>
+          <ion-radio slot="start" value="option1"></ion-radio>
+      </ion-item>
+
+      <ion-list-header>
+        <h3>Brand</h3>
+      </ion-list-header>
+      <ion-item *ngFor="let option of brandOptions">
+        <ion-checkbox slot="start"></ion-checkbox>
+        <ion-label>{{ option }}</ion-label>
+      </ion-item>
+
+      <ion-list-header> 
+        <h3>Category</h3>
+      </ion-list-header>
+      <ion-item>
+        <ion-checkbox slot="start"></ion-checkbox>
+        <ion-label>Checkbox 1</ion-label>
+      </ion-item>
+
+      <ion-list-header>
+        <h3> Price</h3>
+      </ion-list-header>
+      <ion-item>
+       
+      </ion-item>
+
+      <ion-list-header>
+        <h3>Inventory</h3>
+      </ion-list-header>
+      <ion-item>
+        <ion-checkbox slot="start"></ion-checkbox>
+        <ion-label>Only In-stock</ion-label>
+      </ion-item>
+
+      <ion-list-header>
+        <h3>Seller</h3>
+      </ion-list-header>
+      <ion-item>
+        <ion-checkbox slot="start"></ion-checkbox>
+        <ion-label>Checkbox 1</ion-label>
+      </ion-item>
+    </ion-list>
+    
+    <ion-button (click)="closeModal()">Search Results</ion-button>
+    
+</ion-content>
+  
