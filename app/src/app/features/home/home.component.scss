@@ -235,13 +235,16 @@ a {
 .register-btn {
   display: flex;
   width: 25%;
+  justify-content: center;
+  align-items: center;
   .overlay-button {
     margin-top: 2rem;
     border: none;
     cursor: pointer;
     z-index: 99;
-    font-size: 100%;
+    font-size: 150%;
     justify-self: flex-end;
+    height: fit-content;
   }
 }
 
@@ -299,13 +302,14 @@ a {
 }
 
 @media (max-width: 768px) {
- .side-pannel,.cat-container{
+ .side-pannel,.cat-container,.register-title, .register-btn{
   width: 100%;
  }
  .row1{
   height: auto;
  }
- .carousel-container,.custom-carousel, .row{
+ .carousel-container,.custom-carousel, .row,.register-container{
   flex-wrap: wrap;
  }
+
 }
