@@ -138,6 +138,7 @@ a {
   justify-content: center;
   align-items: center;
   height: 42rem;
+  flex-wrap: wrap;
 }
 
 .register-row {
@@ -297,3 +298,14 @@ a {
   align-items: center;
 }
 
+@media (max-width: 768px) {
+ .side-pannel,.cat-container{
+  width: 100%;
+ }
+ .row1{
+  height: auto;
+ }
+ .carousel-container,.custom-carousel, .row{
+  flex-wrap: wrap;
+ }
+}
