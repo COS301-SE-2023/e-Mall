@@ -54,7 +54,7 @@ def create(request):
 
         return Response({"success": "Combo created successfully"})
     except Exception as e:
-        print(e)
+        print("create error",e)
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
@@ -106,6 +106,7 @@ def update_user(request):
                     )
 
     except Exception as e:
+        print("error message is ",e)
         # handle other exceptions here
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
