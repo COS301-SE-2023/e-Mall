@@ -12,6 +12,7 @@ import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { NavigationExtras, Router } from '@angular/router';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { ComboPopoverComponent } from '@shared/components/product-card/combo-popover/combo-popover.component';
+import { PageLoaderFacade } from '@app/shared/components/loader/loader-for-page.facade';
 
 @Component({
   selector: 'app-product',
@@ -55,11 +56,13 @@ export class ProductComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private analytics: AnalyticsService,
-    private profileFacade: ProfileFacade
+    private profileFacade: ProfileFacade,
+    public loader: PageLoaderFacade
   ) {
     this.selected = new FormControl('default');
     this.paramMapSubscription = new Subscription();
     this.prod_id = -1;
+    this.loader.loading.next(true);
   }
 
   ngOnInit(): void {

@@ -1,4 +1,8 @@
 /*@use "utils" as *;*/
+@import 'mixins';
+ion-menu {
+  --width: 412px;
+}
 
 $color_type_0: rgb(0, 0, 0);
 $color_type_1: rgb(124, 208, 211);
@@ -118,21 +122,15 @@ ion-icon {
   border-radius: 0.25rem;
 }
 
-.main-img-container {
-  width: 400px;
-  margin-top: 10px;
-  height: 400px;
-}
-
-.main-img-container img {
-  // display: flex;
-  // justify-self: center;
-  // vertical-align: middle;
-  max-width: 100%;
-  height: 300px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-}
+// .main-img-container img {
+//   // display: flex;
+//   // justify-self: center;
+//   // vertical-align: middle;
+//   max-width: 100%;
+//   height: 300px;
+//   border-top-left-radius: 20px;
+//   border-top-right-radius: 20px;
+// }
 
 .discount_rate_badge {
   height: 30px;
@@ -181,13 +179,6 @@ ion-icon {
   color: red;
 }
 
-.product-card {
-  border: 1px solid #ccc;
-  border-radius: 0.25rem;
-  padding: 1rem;
-  cursor: pointer;
-}
-
 .product-image {
   background-size: cover;
   background-position: center center;
@@ -210,11 +201,6 @@ ion-icon {
 
 .upper-product-info-container h2 {
   margin-bottom: 20px;
-}
-
-.lower-body-container {
-  padding: 0;
-  background-color: rgb(245, 245, 245);
 }
 
 .lowerNav {
@@ -322,11 +308,6 @@ ion-icon {
 
 .seller-card {
   padding: 0;
-}
-
-.seller-list {
-  list-style: none;
-  padding-left: 0;
 }
 
 .card-title-container {
@@ -667,11 +648,155 @@ ion-button {
 ion-icon {
   margin: 0;
 }
+// ion-grid {
+//   --min-width: 300px;
+//   min-width: 300px;
+//   height: 100%;
+// }
 
-::part(native) {
-  padding: 0;
+ion-button.accordian-buttons::part(native) {
+  padding: 0 1rem;
+}
+ion-button.accordian-buttons {
+  margin: 0 2rem;
 }
 
-mat-card-actions {
-  justify-content: right;
+ion-col {
+  display: flex;
+  justify-content: space-between;
+  // align-items: center;
+}
+ion-row {
+  width: 100%;
+}
+.main-img-container {
+  width: 400px;
+  margin-top: 10px;
+  height: 400px;
+}
+.mini-thumbnails {
+  display: flex;
+  flex-direction: row;
+  // justify-content: center;
+  // align-items: center;
+  width: 100%;
+}
+@include screen-medium {
+  .main-img-container {
+    width: 300px;
+    margin-top: 10px;
+    height: 300px;
+  }
+  ion-col {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    // align-items: center;
+  }
+  ion-item {
+    font-size: small;
+  }
+  ion-chip {
+    min-width: fit-content;
+    font-size: small;
+    padding: 7px 7px;
+  }
+  .stock-icon {
+    height: 0.9rem;
+  }
+  .comp-products-list {
+    border-radius: 12px;
+    margin-top: 20px;
+    width: 100%; // try changing this width to something smaller for the seller listing to be smaller
+    // margin-left: 10px;
+    // padding: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    background-color: white;
+    // padding: 0 24px;
+    //height: 100px;
+  }
+  .stock-label {
+    visibility: hidden;
+    display: none;
+  }
+  .stock-cube {
+    display: block !important;
+    visibility: visible !important;
+  }
+}
+.lower-body-container {
+  padding-bottom: 10px;
+  // background-color: rgb(235, 19, 19);
+  background-color: rgb(245, 245, 245);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.seller-list-color {
+  background-color: rgb(245, 245, 245);
+  --background: rgb(245, 245, 245);
+}
+.seller-list-group {
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  width: 100vw;
+  padding-left: 5vw;
+  padding-right: 5vw;
+}
+.comp-products-list {
+  border-radius: 12px;
+  margin-top: 20px;
+  width: 100%; // try changing this width to something smaller for the seller listing to be smaller
+  // margin-left: 1rem;
+  // margin-right: 1rem;
+  // padding: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  background-color: white;
+  // padding: 0 24px;
+  //height: 100px;
+}
+.inner-heading-padding {
+  // margin: 0.5rem 2rem;
+}
+.accordion-content {
+  border-top: 1px solid grey;
+}
+.product-card {
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  cursor: pointer;
+}
+.product-mini-card {
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  width: 100%;
+  height: 150px;
+  aspect-ratio: 1;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.stock-icon {
+  height: 1.2rem;
+}
+
+ion-item {
+  --inner-padding-end: 0px !important;
+}
+ion-item::part(native) {
+  --inner-padding-end: 0px !important;
+}
+
+.stock-cube {
+  display: none;
+  visibility: hidden;
+}
+.price-label {
+  margin-right: 0.5rem;
 }

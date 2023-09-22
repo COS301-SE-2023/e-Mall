@@ -21,7 +21,7 @@
   --ion-color-secondary-shade: #87c8c2;
   --ion-color-secondary-tint: #a3e6e0;
 
-  --ion-color-tertiary: #e6f8f7;
+  --ion-color-tertiary: #ffffff;
   --ion-color-tertiary-rgb: 230, 248, 247;
   --ion-color-tertiary-contrast: #000000;
   --ion-color-tertiary-contrast-rgb: 0, 0, 0;
@@ -108,15 +108,17 @@ ion-content::-webkit-scrollbar {
 }
 
 
+
 .ion-content-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   vertical-align: middle;
-  min-height: 90vh;
-  width: 100%;
-  padding: 2px 2px;
+  min-height: 80vh;
+  padding: 2px auto;
+  margin-right: auto;
   background: #fff;
+  width: 100vw;
 }
 
 .error-toast {
@@ -246,6 +248,13 @@ ion-modal.inventory-modal{
       font-size: 0.8rem;
       height: min-content;
     }
+        ion-content.global-ion-content {
+          display: flex;
+          flex-direction: column;
+          overflow: scroll;
+          width: 100vw;
+        }
+    
 }
 @media (min-width:574px)
    { ion-toast.custom-notification {
@@ -270,7 +279,9 @@ ion-modal.inventory-modal{
       color: var(--ion-color-clear-button);
       font-size: 0.8rem;
       height: min-content;
-    }}
+    }
+  
+  }
 
 
 .carousel-control-prev-icon {
@@ -307,3 +318,9 @@ ion-modal.inventory-modal{
   
 }*/
 
+ion-grid {
+  max-width: 100vw;
+  width: 100%;
+  height: 100%;
+  /* overflow-x: hidden; */
+}
