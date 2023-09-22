@@ -9,9 +9,7 @@ from rest_framework import serializers
 
 class ConsumerProfileSerializer(ConsumerSerializer):
     def to_representation(self, instance):
-        try:
             data = super().to_representation(instance)
-            print("data",data)
             return {
             "id": data.get("id"),
             "username": data.get("username"),
@@ -31,8 +29,6 @@ class ConsumerProfileSerializer(ConsumerSerializer):
                 "postal_code": data.get("postal_code"),
             },
             }
-        except Exception as e:
-            print("create error",e)
 
 
 
