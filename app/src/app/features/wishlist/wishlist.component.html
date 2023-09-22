@@ -6,87 +6,90 @@
       </app-customer-profile-sidenav>
     </div>
 
-    <div class="wishlist-container" *ngIf="(products$ | async)?.length === 0">
+    <div class="wishlist-container">
       <app-combo-breadcrumb [combo]="'My wishlist'"></app-combo-breadcrumb>
       <h2>My Wishlist</h2>
-
-      <div class="wishlist-container-nocards">
-        <div class="product-card-no">
-          <img
-            src="assets\images\no-image.jpeg"
-            alt="No Product Found"
-            class="nimage" />
-        </div>
-        <h3>Oops! It's empty here!</h3>
-        <p>
-          Fill this page with your favourite products. All you have to do is
-          find a product you like, click the heart icon and it will be added to
-          your wishlist.
-        </p>
-      </div>
-    </div>
-
-    <div class="wishlist-container" *ngIf="(products$ | async)?.length !== 0">
-      <div class="wishlist-container-cards">
-        <div class="product-card">
-          style="display: flex; justify-content: center; align-items: center"
-          *ngIf="(products$ | async) === null">
-          <mat-spinner></mat-spinner>
-        </div>
-        <div class="spinner-container" *ngIf="showSpinner">
-          <div class="spinner">
-            <ion-spinner style="color: #99e3dc"></ion-spinner>
+      <div class="main">
+        <div
+          class="wishlist-container-nocards"
+          *ngIf="(products$ | async)?.length === 0">
+          <div class="product-card-no">
+            <img
+              src="assets\images\no-image.jpeg"
+              alt="No Product Found"
+              class="nimage" />
           </div>
+          <h3>Oops! It's empty here!</h3>
+          <p>
+            Fill this page with your favourite products. All you have to do is
+            find a product you like, click the heart icon and it will be added
+            to your wishlist.
+          </p>
         </div>
-        <ng-container *ngIf="products$ | async as products">
-          <div *ngIf="!showSpinner">
-            <h2>My Wishlist</h2>
-            <div class="row" style="grid-auto-rows: auto">
-              <div
-                class="col-md-3 col-12"
-                style="grid-auto-columns: auto; min-width: 270px"
-                *ngFor="let product of products; let i = index">
-                <app-product-card
-                  [product]="product"
-                  [pageType]="'wishlistPage'"></app-product-card>
+
+        <div
+          class="wishlist-container-cards"
+          *ngIf="(products$ | async)?.length !== 0">
+          <div
+            class="product-card"
+            style="display: flex; justify-content: center; align-items: center"
+            *ngIf="(products$ | async) === null">
+            <mat-spinner></mat-spinner>
+          </div>
+          <div class="spinner-container" *ngIf="showSpinner">
+            <div class="spinner">
+              <ion-spinner style="color: #99e3dc"></ion-spinner>
+            </div>
+          </div>
+          <ng-container *ngIf="products$ | async as products">
+            <div *ngIf="!showSpinner">
+              <div class="row" style="grid-auto-rows: auto">
+                <div
+                  class="col-md-3 col-12"
+                  style="grid-auto-columns: auto; min-width: 270px"
+                  *ngFor="let product of products; let i = index">
+                  <app-product-card
+                    [product]="product"
+                    [pageType]="'wishlistPage'"></app-product-card>
                   <div
-                  class="col-md-1"
-                  *ngIf="
-                    (i + 1) % 4 === 0 &&
-                    products.length > 4 &&
-                    i + 1 !== products.length
-                  "></div>
+                    class="col-md-1"
+                    *ngIf="
+                      (i + 1) % 4 === 0 &&
+                      products.length > 4 &&
+                      i + 1 !== products.length
+                    "></div>
+                </div>
               </div>
             </div>
-          </div>
-        </ng-container>
+          </ng-container>
+        </div>
+        <div class="collection-cards" *ngIf="comboData$ | async as combos">
+          <ion-card class="collection-card">
+            <ion-card-header>
+              <ion-card-title>My Collections</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-list>
+                <ion-item
+                  [routerLink]="['/wishlist']"
+                  routerLinkActive="active"
+                  class="nav-item">
+                  <ion-label>Wishlist</ion-label>
+                </ion-item>
+                <div *ngFor="let combo of combos">
+                  <ion-item
+                    [routerLink]="['/collection']"
+                    [queryParams]="{ collection_id: combo.id }"
+                    routerLinkActive="active"
+                    class="nav-item">
+                    <ion-label>{{ combo.name }}</ion-label>
+                  </ion-item>
+                </div>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </div>
       </div>
-    </div>
-    <div class="collection-cards" *ngIf="comboData$ | async as combos">
-      <ion-card class="collection-card">
-        <ion-card-header>
-          <ion-card-title>My Collections</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-list>
-            <ion-item
-              [routerLink]="['/wishlist']"
-              routerLinkActive="active"
-              class="nav-item">
-              <ion-label>Wishlist</ion-label>
-            </ion-item>
-            <div *ngFor="let combo of combos">
-              <ion-item
-                [routerLink]="['/collection']"
-                [queryParams]="{ collection_id: combo.id }"
-                routerLinkActive="active"
-                class="nav-item">
-                <ion-label>{{ combo.name }}</ion-label>
-              </ion-item>
-            </div>
-          </ion-list>
-        </ion-card-content>
-      </ion-card>
     </div>
   </div>
 </ion-content>
