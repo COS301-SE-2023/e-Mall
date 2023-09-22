@@ -29,5 +29,8 @@ export interface ISellerProfile {
     landline_number?: number;
     support_email?: string;
     recommended_products?: any;
+    first_name?: string;
+    last_name?: string;
+    phone_number?: number;
   };
 }

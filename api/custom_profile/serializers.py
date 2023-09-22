@@ -1,3 +1,4 @@
+from urllib import response
 from seller.serializers import SellerSerializer
 from consumer.serializers import ConsumerSerializer
 from product.serializers import ProductSerializer
@@ -8,8 +9,10 @@ from rest_framework import serializers
 
 class ConsumerProfileSerializer(ConsumerSerializer):
     def to_representation(self, instance):
-        data = super().to_representation(instance)
-        return {
+        try:
+            data = super().to_representation(instance)
+            print("data",data)
+            return {
             "id": data.get("id"),
             "username": data.get("username"),
             "email": data.get("email"),
@@ -20,8 +23,17 @@ class ConsumerProfileSerializer(ConsumerSerializer):
                 "modified_at": data.get("modified_at"),
                 "followed_sellers": data.get("followed_sellers"),
                 "recommended_products": data.get("recommended_products"),
+                "first_name": data.get("first_name"),
+                "last_name": data.get("last_name"),
+                "phone_number": data.get("phone_number"),
+                "address": data.get("address"),
+                "city": data.get("city"),
+                "postal_code": data.get("postal_code"),
             },
-        }
+            }
+        except Exception as e:
+            print("create error",e)
+
 
 
 class SellerProfileSerializer(SellerSerializer):

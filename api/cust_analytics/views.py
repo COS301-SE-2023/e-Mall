@@ -97,7 +97,6 @@ def calculate_predicted_values(predictions_data):
     distances, indices = knn.kneighbors(
         user_product_matrix, n_neighbors=number_neighbors
     )
-    print("distances" , distances)
     # iterating through all users
     for user_index, user_email in list(enumerate(df.columns)):
         # iterating through all products.
@@ -154,7 +153,6 @@ def calculate_predicted_values(predictions_data):
                         predicted_value = 0
                 else:
                     predicted_value = 0
-                print("predicted value", predicted_value)
                 # place the predicted value in the dataframe
                 df1.iloc[row, user_index] = predicted_value
 

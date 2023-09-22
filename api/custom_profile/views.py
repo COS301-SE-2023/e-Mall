@@ -53,6 +53,7 @@ def update(request):
         details_data = data.pop("details", {})
         data.update(details_data)
         if user.type == "consumer":
+            print("data_before_serial", data)
             serializer = ConsumerProfileSerializer(user, data=data, partial=True)
 
         elif user.type == "seller":
