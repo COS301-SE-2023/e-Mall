@@ -15,6 +15,7 @@ import { switchMap, take, tap } from 'rxjs/operators';
 import { combineLatest } from 'rxjs';
 import { SellerDataResolver } from './seller-details-resolver';
 import { IProduct } from '@shared/models/product/product.interface';
+import { InfiniteScrollCustomEvent } from '@ionic/angular';
 
 @Component({
   selector: 'app-inventory',
@@ -35,7 +36,7 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
   filterOptions: string[] = []; // Stores the selected filter options
   selectedSortOption!: string;
   currentPage!: number;
-  itemsPerPage!: number;
+  itemsPerPage = 10;
   totalSearchCount$: Observable<number> | undefined;
   searchKeyword!: string;
   isFollowed = of(false);
@@ -55,7 +56,7 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
   showSpinner = true;
 
   private paramMapSubscription: Subscription;
-  
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
@@ -72,11 +73,10 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.showSpinner = true;
-    
+
     setTimeout(() => {
       this.showSpinner = false;
-      
-    }, 6000); 
+    }, 6000);
 
     // Subscribe to changes in the query parameters (seller_id)
     this.paramMapSubscription = this.route.queryParamMap
@@ -147,8 +147,7 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
   }
 
   onPageChange(event: PageEvent) {
-    this.currentPage = event.pageIndex;
-    this.itemsPerPage = event.pageSize;
+    this.itemsPerPage += 10;
 
     this.ProductSellerService.getProductSellerData(
       this.seller_business_name,
@@ -277,5 +276,12 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
     };
 
     this.router.navigate(['products'], navigationextras);
+  }
+
+  onIonInfinite(ev: any) {
+    setTimeout(() => {
+      this.onPageChange(ev);
+      (ev as InfiniteScrollCustomEvent).target.complete();
+    }, 1000);
   }
 }
