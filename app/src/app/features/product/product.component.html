@@ -2,9 +2,10 @@
 
 <ion-content class="global-ion-content">
   <ng-container *ngIf="product$ | async as product">
+    <div class="breadcrumb">
     <app-category-breadcrumb
       [categoryList]="product"
-      *ngIf="!showSpinner"></app-category-breadcrumb>
+      *ngIf="!showSpinner"></app-category-breadcrumb></div>
   </ng-container>
   <div class="ion-content-wrapper">
     <div class="container-fluid body-container">

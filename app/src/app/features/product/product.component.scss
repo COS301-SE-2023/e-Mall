@@ -89,7 +89,7 @@ ion-icon {
 }
 
 .body-container {
-  padding: 50px; // change this padding to an amount that is suitable, maybe 20/30px
+  padding: 2% 5%;
 }
 
 .product-img-info-container {
@@ -674,4 +674,14 @@ ion-icon {
 
 mat-card-actions {
   justify-content: right;
+}
+
+
+app-category-breadcrumb{
+  padding-left: 15px;
+}
+.breadcrumb{
+  margin-top: 2%;
+  margin-bottom: 0%;
+  padding-left: 4%;
 }
