@@ -9,7 +9,7 @@
 
     <div class="spinner-container" *ngIf="(profile$ | async) === null">
       <div class="spinner">
-        <ion-spinner style="color: #99e3dc;"></ion-spinner>
+        <ion-spinner style="color: #99e3dc"></ion-spinner>
       </div>
     </div>
     <div class="settings-container" *ngIf="profile$ | async as profile">
@@ -24,19 +24,57 @@
             fill="outline"
             formControlName="username"
             required="true"
-            (input)="onUsernameChange()"
-            ></ion-input>
-            
+            (input)="onChange()"></ion-input>
+          <ion-input
+            type="text"
+            label="First Name"
+            labelPlacement="floating"
+            fill="outline"
+            formControlName="first_name"
+            required="true"
+            (input)="onChange()"></ion-input>
+          <ion-input
+            type="text"
+            label="Last Name"
+            labelPlacement="floating"
+            fill="outline"
+            formControlName="last_name"
+            required="true"
+            (input)="onChange()"></ion-input>
+          <ion-input
+            type="text"
+            label="Phone Number"
+            labelPlacement="floating"
+            fill="outline"
+            formControlName="phone_number"
+            required="true"
+            (input)="onChange()"></ion-input>
+          <ion-input
+            type="text"
+            label="Address"
+            labelPlacement="floating"
+            fill="outline"
+            formControlName="address"
+            required="true"
+            (input)="onChange()"></ion-input>
+          <ion-input
+            type="text"
+            label="City"
+            labelPlacement="floating"
+            fill="outline"
+            formControlName="city"
+            required="true"
+            (input)="onChange()"></ion-input>
+          <ion-input
+            type="text"
+            label="Postal Code"
+            labelPlacement="floating"
+            fill="outline"
+            formControlName="postal_code"
+            required="true"
+            (input)="onChange()"></ion-input>
 
-          <!-- <ion-input
-                            type="email"
-                            label="Email"
-                            labelPlacement="floating"
-                            fill="outline"
-                            formControlName="email"
-                            required="true"></ion-input> -->
-
-          <ion-button type="submit" [disabled]="!isUsernameChanged">Submit</ion-button>
+          <ion-button type="submit" [disabled]="!isChanged">Submit</ion-button>
         </form>
       </div>
     </div>

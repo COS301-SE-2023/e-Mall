@@ -15,6 +15,9 @@ class Message:
             receiver = [MessageUser(target_user) for target_user in receivers]
             if not isinstance(doc, MessageUser):
                 raise Exception("Invalid document")
+            #add a check if sender is E-Mall string
+            
+
             sender = sender.to_dict()
             receiver = [
                 user.to_dict() for user in receiver if isinstance(user, MessageUser)

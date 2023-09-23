@@ -37,6 +37,14 @@ class ComboTemplate(MessageTemplate):
         return self
 
 
+class RegisterTemplate(MessageTemplate):
+    @property
+    def register(self):
+        self.message = "Welcome to E-mall, @[sender] ! We are glad to have you here! Please edit your profile to get started!"
+        self.title = "Welcome to E-mall!"
+        return self
+
+
 class UserTemplate(MessageTemplate):
     def __init__(self, sender, targetName=""):
         super().__init__()

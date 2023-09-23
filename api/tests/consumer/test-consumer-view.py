@@ -112,3 +112,4 @@ class ConsumerViewsTestCase(TestCase):
         response = self.client.post("/api/consumer/get_consumer_info/", data)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(response.data["message"], "Consumer does not exist")
+

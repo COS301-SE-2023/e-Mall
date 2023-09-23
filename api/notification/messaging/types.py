@@ -6,6 +6,7 @@ class MessageType:
         GENERAL = "general"
         ALERT = "alert"
         QUERY = "query"
+        REGISTER = "register"
 
     class Wishlist:
         PRICE_ALERT = "price_alert"
