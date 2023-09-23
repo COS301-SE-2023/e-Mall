@@ -133,15 +133,4 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.forYouSubs.unsubscribe();
   }
 
-  chunkArray(arr: any[], chunkSize: number): any[] {
-    const resultArray = [];
-    let index = 0;
-  
-    while (index < arr.length && index<21) {
-      resultArray.push(arr.slice(index, index + chunkSize));
-      index += chunkSize;
-    }
-  
-    return resultArray;
-  }
 }
