@@ -140,8 +140,8 @@ describe('SearchComponent', () => {
       'a',
       [],
       'price',
-      undefined,
-      undefined
+      0,
+      10
     );
 
     expect(component.searchResults$).toBeTruthy();

@@ -79,13 +79,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params['search'];
       this.productService
-        .searchProducts(
-          this.searchQuery,
-          undefined,
-          this.selectedSortOption,
-          0,
-          10
-        )
+        .searchProducts(this.searchQuery, [], this.selectedSortOption, 0, 10)
         .subscribe(result => {
           this.searchResults$ = of(result.products);
           this.totalSearchCount$ = of(result.totalCount);
