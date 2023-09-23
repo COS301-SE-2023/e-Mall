@@ -91,6 +91,7 @@ export class PopovernewComponent implements OnInit {
       };
       this.inventoryService.getSimilarProducts(data).then(
         response => {
+          console.log(response);
           // Handle the successful response here
           this.similarProducts = response.body; // Access the response body
         },
@@ -116,6 +117,7 @@ export class PopovernewComponent implements OnInit {
     this.newClicked = false;
   }
   home() {
+    this.resetForm();
     this.router.navigate(['/inventory']);
   }
 
@@ -156,9 +158,6 @@ export class PopovernewComponent implements OnInit {
     return this.productForm.get(field)?.value;
   }
 
-  Done() {
-    console.log('Done');
-  }
   createExistingProduct() {
     const data = {
       seller_name: this.seller_name,
@@ -173,6 +172,8 @@ export class PopovernewComponent implements OnInit {
     };
     this.inventoryFacade.addExistingProduct(data);
     this.router.navigate(['/inventory']);
+    //clear the form
+    this.resetForm();
   }
 
   createNewProduct() {
@@ -194,6 +195,8 @@ export class PopovernewComponent implements OnInit {
     //call the inventory facade and wait for it before navigating back to product page
     this.inventoryFacade.newProduct(data);
     this.router.navigate(['/inventory']);
+    //clear the form
+    this.resetForm();
   }
   getDiscRate() {
     return this.getFormControlValue('discount') / 100.0;
@@ -204,5 +207,13 @@ export class PopovernewComponent implements OnInit {
 
   getCurrPrice() {
     return this.getFormControlValue('price') - this.getDiscAmount();
+  }
+  resetForm() {
+    this.nameForm.reset();
+    this.productForm.reset();
+    this.productSellerForm.reset();
+    this.newClicked = false;
+    this.nextClicked = false;
+    this.isSelected = false;
   }
 }

@@ -228,8 +228,10 @@ def createSimilarProduct(request):
                     product=Product.objects.get(name=product_name),
                     seller=user,
                 ).exists():
-                    raise Exception(
-                        "You already have a product with the same name in the database"
+                    # return it as a response error with a custom error message
+                    return Response(
+                        {"error": "Product already exists"},
+                        status=status.HTTP_400_BAD_REQUEST,
                     )
 
                 ProductSeller.objects.create(
