@@ -32,13 +32,17 @@ import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { ProductCardModule } from '@shared/components/product-card/product-card.module';
 import { NotificationModule } from '@app/features/notification/notification.module';
 import { CategoryBreadcrumbModule } from '@app/shared/components/breadcrumbs/category-breadcrumb/category-breadcrumb.module';
+import { Messaging } from '@angular/fire/messaging';
 
 describe('CategoryComponent', () => {
   let component: CategoryComponent;
   let fixture: ComponentFixture<CategoryComponent>;
   let productService: jasmine.SpyObj<ProductService>;
+  let messagingSpy;
 
   beforeEach(() => {
+    messagingSpy = jasmine.createSpyObj('Messaging', ['isSupported']);
+    messagingSpy.isSupported.and.returnValue(Promise.resolve(true));
     const productServiceSpy = jasmine.createSpyObj('ProductService', [
       'getCategoryProducts',
     ]);
@@ -75,7 +79,10 @@ describe('CategoryComponent', () => {
         CategoryBreadcrumbModule,
       ],
       declarations: [CategoryComponent],
-      providers: [{ provide: ProductService, useValue: productServiceSpy }],
+      providers: [
+        { provide: ProductService, useValue: productServiceSpy },
+        { provide: Messaging, useValue: messagingSpy },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CategoryComponent);

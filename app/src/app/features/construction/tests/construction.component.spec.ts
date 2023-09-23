@@ -13,11 +13,14 @@ import { ConstructionModule } from '../construction.module';
 import { AuthModule } from '@features/auth/auth.module';
 import { ProfileModule } from '@features/profile/profile.module';
 import { NotificationModule } from '@app/features/notification/notification.module';
+import { Messaging } from '@angular/fire/messaging';
 describe('ConstructionComponent', () => {
   let component: ConstructionComponent;
   let fixture: ComponentFixture<ConstructionComponent>;
-
+  let messagingSpy;
   beforeEach(async () => {
+    messagingSpy = jasmine.createSpyObj('Messaging', ['isSupported']);
+    messagingSpy.isSupported.and.returnValue(Promise.resolve(true));
     await TestBed.configureTestingModule({
       imports: [
         BrowserAnimationsModule,
@@ -34,6 +37,7 @@ describe('ConstructionComponent', () => {
       ],
       declarations: [ConstructionComponent],
       providers: [
+        { provide: Messaging, useValue: messagingSpy },
         {
           provide: ActivatedRoute,
           useValue: {

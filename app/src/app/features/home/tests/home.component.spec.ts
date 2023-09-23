@@ -12,12 +12,11 @@ import { ProfileModule } from '@features/profile/profile.module';
 import { NgxsModule } from '@ngxs/store';
 import { IProduct } from '@shared/models/product/product.interface';
 import { ProductService } from '@shared/servicies/product/product.service';
-import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { ProfileService } from '@features/profile/services/profile.service';
 import { ComboStateModule } from '@features/combo-state/combo-state.module';
 import { NotificationModule } from '@app/features/notification/notification.module';
+import { ProductCardFacade } from '@app/shared/components/product-card/services/product-card.facade';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -56,6 +55,7 @@ describe('HomeComponent', () => {
       ],
       providers: [
         HomeComponent,
+        ProductCardFacade,
         { provide: ProductService, useValue: productServiceSpy },
         { provide: ProfileService, useValue: profileServiceSpy },
       ],

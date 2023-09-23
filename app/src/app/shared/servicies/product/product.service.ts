@@ -14,10 +14,7 @@ export class ProductService {
   currentProductId$: number | undefined;
   private apiUrl = 'http://localhost:3000/api/';
 
-  constructor(
-    private http: HttpClient,
-    private productCardFacade: ProductCardFacade
-  ) {
+  constructor(private http: HttpClient) {
     console.log('product service initialized');
   }
 
