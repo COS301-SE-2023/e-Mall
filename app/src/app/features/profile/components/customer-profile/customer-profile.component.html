@@ -1,38 +1,40 @@
 <app-navbar></app-navbar>
 <ion-content class="global-ion-content">
-    <div class="ion-content-wrapper">
-        <!--<div class="container">-->
-            
-            <div class="side-nav-container" *ngIf="profile$ | async as profile">
-                <app-customer-profile-sidenav
-                [profile]="{username: profile.username}">
-                </app-customer-profile-sidenav> 
-            </div> 
-        
-            <div class="profile-info-container" *ngIf="profile$ | async as profile">
-              <h2>My Account</h2>
-                <div class="user-info">
-                  <div class="user-container">
-                    <div class="user-circle-container">
-                      <b>{{ profile.username?.charAt(0) }}</b>
-                    </div>
-                  </div>
-                  <div class="user-details">
-                    <p><b>Username : </b>{{ profile.username }}</p>
-                    <p><b>Email :</b> {{ profile.email }}</p>
-                    <div class="edit-button-container">
-                      <ion-button (click)="goToEditProfile()">
-                        <ion-icon name="pencil" aria-hidden="true"></ion-icon>
-                        Edit profile
-                      </ion-button>
-                    </div>
-                  </div>
-                </div>
-                
-              </div>
+  <div class="ion-content-wrapper">
+    <!--<div class="container">-->
 
-              
-              
-        <!--</div>-->
+    <div class="side-nav-container" *ngIf="profile$ | async as profile">
+      <app-customer-profile-sidenav [profile]="{ username: profile.username }">
+      </app-customer-profile-sidenav>
     </div>
+
+    <div class="profile-info-container" *ngIf="profile$ | async as profile">
+      <h2>My Account</h2>
+      <div class="user-info">
+        <div class="user-container">
+          <div class="user-circle-container">
+            <b>{{ profile.username?.charAt(0) }}</b>
+          </div>
+        </div>
+        <div class="user-details">
+          <p><b>Username: </b>{{ profile.username }}</p>
+          <p><b>Email:</b> {{ profile.email }}</p>
+          <p><b>First Name: </b>{{ profile.details.first_name }}</p>
+          <p><b>Last Name: </b>{{ profile.details.last_name }}</p>
+          <p><b>Phone Number: </b>{{ profile.details.phone_number }}</p>
+          <p><b>Address: </b>{{ profile.details.address }}</p>
+          <p><b>City: </b>{{ profile.details.city }}</p>
+          <p><b>Postal Code: </b>{{ profile.details.postal_code }}</p>
+          <div class="edit-button-container">
+            <ion-button (click)="goToEditProfile()">
+              <ion-icon name="pencil" aria-hidden="true"></ion-icon>
+              Edit profile
+            </ion-button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--</div>-->
+  </div>
 </ion-content>
