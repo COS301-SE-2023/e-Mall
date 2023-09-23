@@ -1,0 +1,188 @@
+<app-seller-nav></app-seller-nav>
+
+<ion-content>
+  <div class="dashboard-content-wrapper">
+    <ion-text>
+      <h2 class="dashboard-header-padding">Add a product</h2>
+    </ion-text>
+    <ion-item class="item-padding" lines="none">
+      <ion-button mode="ios" color="primary" (click)="home()">
+        Home
+      </ion-button>
+    </ion-item>
+
+    <div class="content-container">
+      <div class="name-container" *ngIf="!isSelected && !newClicked">
+        <form [formGroup]="nameForm" class="name-form">
+          <ion-list class="newList">
+            <ion-item class="input">
+              <ion-label position="floating">Name:</ion-label>
+              <ion-input
+                formControlName="newName"
+                clearInput
+                (keyup.enter)="nextClick()"></ion-input>
+            </ion-item>
+          </ion-list>
+        </form>
+        <ion-item class="item-padding" lines="none">
+          <ion-button mode="ios" color="primary" (click)="nextClick()">
+            Enter
+          </ion-button>
+        </ion-item>
+      </div>
+      <div class="name-select">
+        <ng-container *ngIf="nextClicked">
+          <ion-item class="item-padding" lines="none">
+            <ion-radio-group
+              [allowEmptySelection]="true"
+              [(ngModel)]="SelectedProduct">
+              <ng-container *ngFor="let prod of similarProducts">
+                <ion-radio alignment="start" color="dark" [value]="prod">{{
+                  prod
+                }}</ion-radio>
+                <br />
+              </ng-container>
+            </ion-radio-group>
+          </ion-item>
+          <ion-item class="item-padding" lines="none">
+            <ion-button
+              mode="ios"
+              color="primary"
+              (click)="selectProd()"
+              *ngIf="SelectedProduct">
+              Select Product
+            </ion-button>
+            <ion-button mode="ios" color="primary" (click)="newClick()">
+              Create New
+            </ion-button>
+          </ion-item>
+        </ng-container>
+      </div>
+
+      <ng-container *ngIf="newClicked">
+        <form [formGroup]="productForm">
+          <ion-item class="item-padding" lines="none">
+            <div class="item-label">Name</div>
+            <div class="input-container">
+              <ion-input clearInput="true" formControlName="name"></ion-input>
+            </div>
+          </ion-item>
+          <ion-item class="item-padding" lines="none">
+            <div class="item-label">Category</div>
+            <ion-select
+              multiple="false"
+              interface="popover"
+              placeholder="Select Category"
+              fill="outline"
+              class="custom-select"
+              formControlName="category">
+              <ng-container *ngFor="let category of categories">
+                {{ category }}
+                <ion-select-option value="{{ category }}">
+                  {{ category }}
+                </ion-select-option>
+              </ng-container>
+            </ion-select>
+          </ion-item>
+          <ion-item class="item-padding" lines="none">
+            <div class="item-label">Brand</div>
+            <div class="input-container">
+              <ion-input clearInput="true" formControlName="brand"></ion-input>
+            </div>
+          </ion-item>
+          <ion-item class="item-padding" lines="none">
+            <div class="item-label">Description</div>
+            <div class="input-container">
+              <ion-input
+                clearInput="true"
+                formControlName="description"></ion-input>
+            </div>
+          </ion-item>
+        </form>
+      </ng-container>
+      <ng-container *ngIf="isSelected || newClicked">
+        <form [formGroup]="productSellerForm">
+          <ion-item class="item-padding" lines="none">
+            <div class="item-label">Original Price (R)</div>
+            <div class="input-container-num">
+              <ion-input
+                clearInput="true"
+                type="number"
+                step="0.10"
+                min="1"
+                inputmode="decimal"
+                formControlName="price"></ion-input>
+            </div>
+          </ion-item>
+          <ion-item class="item-padding" lines="none">
+            <div class="item-label">Discount rate (%)</div>
+            <div class="input-container-num">
+              <ion-input
+                clearInput="true"
+                type="number"
+                step="1.0"
+                inputmode="decimal"
+                max="100"
+                min="0"
+                formControlName="discount"></ion-input>
+            </div>
+          </ion-item>
+          <ion-item class="item-padding" lines="none">
+            <div class="item-label">Inventory Status</div>
+            <div class="item-content stock-icon-container">
+              <ion-segment mode="ios" formControlName="stock">
+                <ion-segment-button value="True">
+                  <ion-icon
+                    class="stock-icon"
+                    name="checkmark"
+                    color="success"></ion-icon>
+                </ion-segment-button>
+                <ion-segment-button value="False">
+                  <ion-icon
+                    class="stock-icon"
+                    name="close"
+                    color="danger"></ion-icon>
+                </ion-segment-button>
+              </ion-segment>
+            </div>
+          </ion-item>
+          <ion-item class="item-padding" lines="none">
+            <div class="item-label">Product URL</div>
+            <div class="input-container">
+              <ion-input clearInput="true" formControlName="url"></ion-input>
+            </div>
+          </ion-item>
+          <ion-item class="item-padding" lines="none">
+            <div class="item-label">Images URL's</div>
+            <div class="input-container">
+              <ion-input clearInput="true" formControlName="imgs"></ion-input>
+            </div>
+          </ion-item>
+          <ion-item class="item-padding" lines="none">
+            <div class="item-button-container">
+              <ion-button
+                type="submit"
+                mode="ios"
+                color="primary"
+                *ngIf="newClicked"
+                (click)="createNewProduct()">
+                Create
+              </ion-button>
+              <ion-button
+                type="submit"
+                mode="ios"
+                color="primary"
+                *ngIf="isSelected"
+                (click)="createExistingProduct()">
+                Create
+              </ion-button>
+              <ion-button mode="ios" color="primary" (click)="backClick()">
+                Back
+              </ion-button>
+            </div>
+          </ion-item>
+        </form>
+      </ng-container>
+    </div>
+  </div>
+</ion-content>

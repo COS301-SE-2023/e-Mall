@@ -7,7 +7,7 @@ import { Observable, of, Subscription } from 'rxjs';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { PageEvent } from '@angular/material/paginator';
-
+import { InfiniteScrollCustomEvent } from '@ionic/angular';
 interface ProductData {
   [productName: string]: {
     [month: string]: number;
@@ -39,7 +39,7 @@ export class ProductAnalyticsComponent implements OnInit {
   currentDate = new Date().toISOString().split('T')[0];
   searchKeyword!: string;
   currentPage!: number;
-  itemsPerPage!: number;
+  itemsPerPage = 5;
   totalSearchCount$: Observable<number> | undefined;
   showSpinner = true;
 
@@ -50,12 +50,10 @@ export class ProductAnalyticsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-
     this.showSpinner = true;
-    
+
     setTimeout(() => {
       this.showSpinner = false;
-      
     }, 6000);
 
     this.productNames = [];
@@ -272,8 +270,7 @@ export class ProductAnalyticsComponent implements OnInit {
     });
   }
   onPageChange(event: PageEvent) {
-    this.currentPage = event.pageIndex;
-    this.itemsPerPage = event.pageSize;
+    this.itemsPerPage += 5;
 
     const data = {
       seller_name: this.sellerName,
@@ -317,5 +314,11 @@ export class ProductAnalyticsComponent implements OnInit {
       this.productData = data;
       this.createProductClicksChart();
     });
+  }
+  onIonInfinite(ev: any) {
+    setTimeout(() => {
+      this.onPageChange(ev);
+      (ev as InfiniteScrollCustomEvent).target.complete();
+    }, 1000);
   }
 }

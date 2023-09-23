@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class EditCustomerProfileComponent implements OnInit {
   customerprofileForm: FormGroup;
-  isUsernameChanged = false;
+  isChanged = false;
   // editProfileForm: FormGroup;
   profile$: Observable<ISellerProfile | IConsumerProfile | null>;
 
@@ -24,6 +24,12 @@ export class EditCustomerProfileComponent implements OnInit {
   ) {
     this.customerprofileForm = new FormGroup({
       username: new FormControl(),
+      first_name: new FormControl(),
+      last_name: new FormControl(),
+      phone_number: new FormControl(),
+      address: new FormControl(),
+      city: new FormControl(),
+      postal_code: new FormControl(),
     });
 
     this.profile$ = this.profileFacade.getProfile();
@@ -36,6 +42,12 @@ export class EditCustomerProfileComponent implements OnInit {
       if (profile) {
         this.customerprofileForm.patchValue({
           username: profile.username,
+          first_name: profile.details.first_name,
+          last_name: profile.details.last_name,
+          phone_number: profile.details.phone_number,
+          address: profile.details.address,
+          city: profile.details.city,
+          postal_code: profile.details.postal_code,
         });
       }
     });
@@ -44,12 +56,19 @@ export class EditCustomerProfileComponent implements OnInit {
   onSubmit() {
     this.profileFacade.updateProfile({
       username: this.customerprofileForm.value.username,
+      details: {
+        first_name: this.customerprofileForm.value.first_name,
+        last_name: this.customerprofileForm.value.last_name,
+        phone_number: this.customerprofileForm.value.phone_number,
+        address: this.customerprofileForm.value.address,
+        city: this.customerprofileForm.value.city,
+        postal_code: this.customerprofileForm.value.postal_code,
+      },
     });
     this.router.navigate(['/customer-profile']);
   }
 
-  onUsernameChange() {
-    
-    this.isUsernameChanged = true;
+  onChange() {
+    this.isChanged = true;
   }
 }

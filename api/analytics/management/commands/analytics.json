@@ -989,42 +989,6 @@
     "event_date": "2023-03-10T01:45:00Z",
     "metadata": null
   },
-  "111": {
-    "seller": "Protea Boekwinkel",
-    "product": "Applied Calculus",
-    "product_category": "books",
-    "consumer_email": "melissar@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-04-09T04:00:00Z",
-    "metadata": null
-  },
-  "112": {
-    "seller": "Protea Boekwinkel",
-    "product": "Applied Calculus",
-    "product_category": "books",
-    "consumer_email": "melissar@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-04-08T10:15:00Z",
-    "metadata": null
-  },
-  "113": {
-    "seller": "Protea Boekwinkel",
-    "product": "Applied Calculus",
-    "product_category": "books",
-    "consumer_email": "melissar@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-04-07T02:30:00Z",
-    "metadata": null
-  },
-  "114": {
-    "seller": "Protea Boekwinkel",
-    "product": "Applied Calculus",
-    "product_category": "books",
-    "consumer_email": "melissar@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-04-06T06:45:00Z",
-    "metadata": null
-  },
   "115": {
     "seller": "Protea Boekwinkel",
     "product": "Applied Calculus",
@@ -1142,42 +1106,6 @@
     "event_date": "2023-05-24T05:00:00Z",
     "metadata": null
   },
-  "128": {
-    "seller": "Protea Boekwinkel",
-    "product": "Applied Calculus",
-    "product_category": "books",
-    "consumer_email": "melissar@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-23T09:15:00Z",
-    "metadata": null
-  },
-  "129": {
-    "seller": "Cool Collectables",
-    "product": "Naruto Shippuden - Headband - Konoha",
-    "product_category": "toys and games",
-    "consumer_email": "u19004232@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-03-10T01:45:00Z",
-    "metadata": null
-  },
-  "130": {
-    "seller": "Cool Collectables",
-    "product": "Naruto Shippuden - Headband - Konoha",
-    "product_category": "toys and games",
-    "consumer_email": "u19004232@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-04-09T04:00:00Z",
-    "metadata": null
-  },
-  "131": {
-    "seller": "Cool Collectables",
-    "product": "Naruto Shippuden - Headband - Konoha",
-    "product_category": "toys and games",
-    "consumer_email": "u19004232@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-04-08T10:15:00Z",
-    "metadata": null
-  },
   "132": {
     "seller": "Cool Collectables",
     "product": "Naruto Shippuden - Headband - Konoha",
@@ -1275,114 +1203,6 @@
     "consumer_email": "u19004232@gmail.com",
     "event_type": "link_click",
     "event_date": "2023-05-28T11:00:00Z",
-    "metadata": null
-  },
-  "143": {
-    "seller": "Cool Collectables",
-    "product": "Naruto Shippuden - Headband - Konoha",
-    "product_category": "toys and games",
-    "consumer_email": "u19004232@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-27T03:15:00Z",
-    "metadata": null
-  },
-  "144": {
-    "seller": "Cool Collectables",
-    "product": "Naruto Shippuden - Headband - Konoha",
-    "product_category": "toys and games",
-    "consumer_email": "u19004232@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-26T07:30:00Z",
-    "metadata": null
-  },
-  "145": {
-    "seller": "Cool Collectables",
-    "product": "Naruto Shippuden - Headband - Konoha",
-    "product_category": "toys and games",
-    "consumer_email": "u19004232@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-25T12:45:00Z",
-    "metadata": null
-  },
-  "146": {
-    "seller": "Cool Collectables",
-    "product": "Naruto Shippuden - Headband - Konoha",
-    "product_category": "toys and games",
-    "consumer_email": "u19004232@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-24T05:00:00Z",
-    "metadata": null
-  },
-  "147": {
-    "seller": "Cool Collectables",
-    "product": "Naruto Shippuden - Headband - Konoha",
-    "product_category": "toys and games",
-    "consumer_email": "u19004232@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-23T09:15:00Z",
-    "metadata": null
-  },
-  "148": {
-    "seller": "Nexus Hub",
-    "product": "Monopoly Warhammer 40k",
-    "product_category": "Toys and Games",
-    "consumer_email": "u19004232@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-04-21T12:04:00Z",
-    "metadata": null
-  },
-  "149": {
-    "seller": "Nexus Hub",
-    "product": "Monopoly Warhammer 40k",
-    "product_category": "Toys and Games",
-    "consumer_email": "u19004232@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-04-20T04:15:00Z",
-    "metadata": null
-  },
-  "150": {
-    "seller": "Nexus Hub",
-    "product": "Monopoly Warhammer 40k",
-    "product_category": "Toys and Games",
-    "consumer_email": "u19004232@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-04-19T11:30:00Z",
-    "metadata": null
-  },
-  "151": {
-    "seller": "Nexus Hub",
-    "product": "Monopoly Warhammer 40k",
-    "product_category": "Toys and Games",
-    "consumer_email": "u19004232@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-18T03:45:00Z",
-    "metadata": null
-  },
-  "152": {
-    "seller": "Nexus Hub",
-    "product": "Monopoly Warhammer 40k",
-    "product_category": "Toys and Games",
-    "consumer_email": "u19004232@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-17T08:00:00Z",
-    "metadata": null
-  },
-  "153": {
-    "seller": "Nexus Hub",
-    "product": "Monopoly Warhammer 40k",
-    "product_category": "Toys and Games",
-    "consumer_email": "u19004232@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-16T12:15:00Z",
-    "metadata": null
-  },
-  "154": {
-    "seller": "Nexus Hub",
-    "product": "Monopoly Warhammer 40k",
-    "product_category": "Toys and Games",
-    "consumer_email": "u19004232@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-15T02:30:00Z",
     "metadata": null
   },
   "155": {
@@ -1484,87 +1304,6 @@
     "event_date": "2023-05-04T05:15:00Z",
     "metadata": null
   },
-  "166": {
-    "seller": "Nexus Hub",
-    "product": "Xbox Series X Diablo IV & Carbon Black Controller Bundle",
-    "product_category": "electronics",
-    "consumer_email": "k@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-03T09:30:00Z",
-    "metadata": null
-  },
-  "167": {
-    "seller": "Nexus Hub",
-    "product": "Xbox Series X Diablo IV & Carbon Black Controller Bundle",
-    "product_category": "electronics",
-    "consumer_email": "k@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-02T01:45:00Z",
-    "metadata": null
-  },
-  "168": {
-    "seller": "Nexus Hub",
-    "product": "Xbox Series X Diablo IV & Carbon Black Controller Bundle",
-    "product_category": "electronics",
-    "consumer_email": "k@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-01T06:00:00Z",
-    "metadata": null
-  },
-  "169": {
-    "seller": "Nexus Hub",
-    "product": "Xbox Series X Diablo IV & Carbon Black Controller Bundle",
-    "product_category": "electronics",
-    "consumer_email": "k@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-31T10:15:00Z",
-    "metadata": null
-  },
-  "170": {
-    "seller": "Nexus Hub",
-    "product": "Xbox Series X Diablo IV & Carbon Black Controller Bundle",
-    "product_category": "electronics",
-    "consumer_email": "k@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-30T02:30:00Z",
-    "metadata": null
-  },
-  "171": {
-    "seller": "Nexus Hub",
-    "product": "Xbox Series X Diablo IV & Carbon Black Controller Bundle",
-    "product_category": "electronics",
-    "consumer_email": "k@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-29T06:45:00Z",
-    "metadata": null
-  },
-  "172": {
-    "seller": "Nexus Hub",
-    "product": "Xbox Series X Diablo IV & Carbon Black Controller Bundle",
-    "product_category": "electronics",
-    "consumer_email": "k@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-28T11:00:00Z",
-    "metadata": null
-  },
-  "173": {
-    "seller": "Nexus Hub",
-    "product": "Xbox Series X Diablo IV & Carbon Black Controller Bundle",
-    "product_category": "electronics",
-    "consumer_email": "k@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-27T03:15:00Z",
-    "metadata": null
-  },
-  "174": {
-    "seller": "Nexus Hub",
-    "product": "Xbox Series X Diablo IV & Carbon Black Controller Bundle",
-    "product_category": "electronics",
-    "consumer_email": "k@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-26T07:30:00Z",
-    "metadata": null
-  },
   "175": {
     "seller": "Nexus Hub",
     "product": "Xbox Series X Diablo IV & Carbon Black Controller Bundle",
@@ -1644,60 +1383,6 @@
     "consumer_email": "k@gmail.com",
     "event_type": "link_click",
     "event_date": "2023-05-05T01:00:00Z",
-    "metadata": null
-  },
-  "184": {
-    "seller": "Nexus Hub",
-    "product": "LEGO Brawls",
-    "product_category": "toys and games",
-    "consumer_email": "k@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-04T05:15:00Z",
-    "metadata": null
-  },
-  "185": {
-    "seller": "Nexus Hub",
-    "product": "LEGO Brawls",
-    "product_category": "toys and games",
-    "consumer_email": "k@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-03T09:30:00Z",
-    "metadata": null
-  },
-  "186": {
-    "seller": "Nexus Hub",
-    "product": "LEGO Brawls",
-    "product_category": "toys and games",
-    "consumer_email": "k@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-02T01:45:00Z",
-    "metadata": null
-  },
-  "187": {
-    "seller": "Nexus Hub",
-    "product": "LEGO Brawls",
-    "product_category": "toys and games",
-    "consumer_email": "k@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-01T06:00:00Z",
-    "metadata": null
-  },
-  "188": {
-    "seller": "Nexus Hub",
-    "product": "LEGO Brawls",
-    "product_category": "toys and games",
-    "consumer_email": "k@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-31T10:15:00Z",
-    "metadata": null
-  },
-  "189": {
-    "seller": "Nexus Hub",
-    "product": "LEGO Brawls",
-    "product_category": "toys and games",
-    "consumer_email": "k@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-05-30T02:30:00Z",
     "metadata": null
   },
   "190": {
@@ -1799,30 +1484,12 @@
     "event_date": "2023-09-19T04:15:00Z",
     "metadata": null
   },
-  "201": {
-    "seller": "Nexus Hub",
-    "product": "PlayStation 5 (PS5)",
-    "product_category": "electronics",
-    "consumer_email": "thabothommy@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-09-19T04:15:00Z",
-    "metadata": null
-  },
   "202": {
     "seller": "Nexus Hub",
     "product": "Xbox Series X Diablo IV & Carbon Black Controller Bundle",
     "product_category": "electronics",
     "consumer_email": "thabothommy@gmail.com",
     "event_type": "link_click",
-    "event_date": "2023-09-19T04:15:00Z",
-    "metadata": null
-  },
-  "203": {
-    "seller": "Nexus Hub",
-    "product": "Xbox Series X Diablo IV & Carbon Black Controller Bundle",
-    "product_category": "electronics",
-    "consumer_email": "thabothommy@gmail.com",
-    "event_type": "favourited_product",
     "event_date": "2023-09-19T04:15:00Z",
     "metadata": null
   },
@@ -1850,15 +1517,6 @@
     "product_category": "electronics",
     "consumer_email": "thabothommy@gmail.com",
     "event_type": "link_click",
-    "event_date": "2023-09-19T04:15:00Z",
-    "metadata": null
-  },
-  "207": {
-    "seller": "Wize Books",
-    "product": "Volkano Equinox Series True Wireless Earphones",
-    "product_category": "electronics",
-    "consumer_email": "thabothommy@gmail.com",
-    "event_type": "favourited_product",
     "event_date": "2023-09-19T04:15:00Z",
     "metadata": null
   },
@@ -1895,15 +1553,6 @@
     "product_category": "electronics",
     "consumer_email": "thabothommy@gmail.com",
     "event_type": "product_click",
-    "event_date": "2023-09-19T04:15:00Z",
-    "metadata": null
-  },
-  "212": {
-    "seller": "Nexus Hub",
-    "product": "LG 20MK400H 19.5' Monitor",
-    "product_category": "electronics",
-    "consumer_email": "thabothommy@gmail.com",
-    "event_type": "favourited_product",
     "event_date": "2023-09-19T04:15:00Z",
     "metadata": null
   },
@@ -1952,15 +1601,6 @@
     "event_date": "2023-09-19T04:15:00Z",
     "metadata": null
   },
-  "218": {
-    "seller": "Nexus Hub",
-    "product": "Intel Core i5-13600KF Processor",
-    "product_category": "electronics",
-    "consumer_email": "thabothommy@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-09-19T04:15:00Z",
-    "metadata": null
-  },
   "219": {
     "seller": "Nexus Hub",
     "product": "Intel Core i9-13900KF Processor",
@@ -1997,15 +1637,6 @@
     "event_date": "2023-03-10T01:45:00Z",
     "metadata": null
   },
-  "223": {
-    "seller": "Sundae Skin Co",
-    "product": "Ultimate Shaving Care Bundle",
-    "product_category": "health and beauty",
-    "consumer_email": "k@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-03-10T01:45:00Z",
-    "metadata": null
-  },
   "224": {
     "seller": "Sundae Skin Co",
     "product": "Anti Body Acne Bundle",
@@ -2024,15 +1655,6 @@
     "event_date": "2023-03-10T01:45:00Z",
     "metadata": null
   },
-  "226": {
-    "seller": "Sundae Skin Co",
-    "product": "Anti Body Acne Bundle",
-    "product_category": "health and beauty",
-    "consumer_email": "k@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-03-10T01:45:00Z",
-    "metadata": null
-  },
   "227": {
     "seller": "Retail Box",
     "product": "Paul Mitchell Tea Tree Shampoo 300ml",
@@ -2048,15 +1670,6 @@
     "product_category": "health and beauty",
     "consumer_email": "k@gmail.com",
     "event_type": "link_click",
-    "event_date": "2023-03-10T01:45:00Z",
-    "metadata": null
-  },
-  "229": {
-    "seller": "Retail Box",
-    "product": "Paul Mitchell Tea Tree Shampoo 300ml",
-    "product_category": "health and beauty",
-    "consumer_email": "k@gmail.com",
-    "event_type": "favourited_product",
     "event_date": "2023-03-10T01:45:00Z",
     "metadata": null
   },
@@ -2096,15 +1709,6 @@
     "event_date": "2023-03-10T01:45:00Z",
     "metadata": null
   },
-  "234": {
-    "seller": "Salon 500",
-    "product": "Kerastase Nutritive Nectar Thermique 150ml",
-    "product_category": "health and beauty",
-    "consumer_email": "k@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-03-10T01:45:00Z",
-    "metadata": null
-  },
   "235": {
     "seller": "My Runway",
     "product": "Pastel Pink Rea Cotton Piqué Polo Shirt",
@@ -2120,15 +1724,6 @@
     "product_category": "clothing",
     "consumer_email": "k@gmail.com",
     "event_type": "link_click",
-    "event_date": "2023-03-10T01:45:00Z",
-    "metadata": null
-  },
-  "237": {
-    "seller": "My Runway",
-    "product": "Pastel Pink Rea Cotton Piqué Polo Shirt",
-    "product_category": "clothing",
-    "consumer_email": "k@gmail.com",
-    "event_type": "favourited_product",
     "event_date": "2023-03-10T01:45:00Z",
     "metadata": null
   },
@@ -2150,15 +1745,6 @@
     "event_date": "2023-03-10T01:45:00Z",
     "metadata": null
   },
-  "240": {
-    "seller": "My Runway",
-    "product": "Light Pink Blue Classic Pique Golfer",
-    "product_category": "clothing",
-    "consumer_email": "k@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-03-10T01:45:00Z",
-    "metadata": null
-  },
   "241": {
     "seller": "Protea Boekwinkel",
     "product": "Applied Calculus",
@@ -2174,15 +1760,6 @@
     "product_category": "books",
     "consumer_email": "melissar@gmail.com",
     "event_type": "link_click",
-    "event_date": "2023-03-10T01:45:00Z",
-    "metadata": null
-  },
-  "243": {
-    "seller": "Protea Boekwinkel",
-    "product": "Applied Calculus",
-    "product_category": "books",
-    "consumer_email": "melissar@gmail.com",
-    "event_type": "favourited_product",
     "event_date": "2023-03-10T01:45:00Z",
     "metadata": null
   },
@@ -2204,15 +1781,6 @@
     "event_date": "2023-03-10T01:45:00Z",
     "metadata": null
   },
-  "247": {
-    "seller": "Van Schaik Bookstore",
-    "product": "The New Official K53 Manual",
-    "product_category": "books",
-    "consumer_email": "melissar@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-03-10T01:45:00Z",
-    "metadata": null
-  },
   "248": {
     "seller": "Wize Books",
     "product": "RICH DAD POOR DAD",
@@ -2228,15 +1796,6 @@
     "product_category": "books",
     "consumer_email": "melissar@gmail.com",
     "event_type": "product_click",
-    "event_date": "2023-03-10T01:45:00Z",
-    "metadata": null
-  },
-  "250": {
-    "seller": "Wize Books",
-    "product": "RICH DAD POOR DAD",
-    "product_category": "books",
-    "consumer_email": "melissar@gmail.com",
-    "event_type": "favourited_product",
     "event_date": "2023-03-10T01:45:00Z",
     "metadata": null
   },
@@ -2276,15 +1835,6 @@
     "event_date": "2023-03-10T01:45:00Z",
     "metadata": null
   },
-  "255": {
-    "seller": "Wize Books",
-    "product": "Winnie and Nelson",
-    "product_category": "books",
-    "consumer_email": "melissar@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-03-10T01:45:00Z",
-    "metadata": null
-  },
   "256": {
     "seller": "Wize Books",
     "product": "Business Management for Entrepreneurs 5th Edition",
@@ -2300,15 +1850,6 @@
     "product_category": "books",
     "consumer_email": "melissar@gmail.com",
     "event_type": "link_click",
-    "event_date": "2023-03-10T01:45:00Z",
-    "metadata": null
-  },
-  "258": {
-    "seller": "Wize Books",
-    "product": "Business Management for Entrepreneurs 5th Edition",
-    "product_category": "books",
-    "consumer_email": "melissar@gmail.com",
-    "event_type": "favourited_product",
     "event_date": "2023-03-10T01:45:00Z",
     "metadata": null
   },
@@ -2348,15 +1889,6 @@
     "event_date": "2023-03-10T01:45:00Z",
     "metadata": null
   },
-  "263": {
-    "seller": "Props and Collectibles",
-    "product": "CLUEDO: HARRY POTTER",
-    "product_category": "toys and games",
-    "consumer_email": "u19004232@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-03-10T01:45:00Z",
-    "metadata": null
-  },
   "264": {
     "seller": "Bobshop",
     "product": "LEGO Brawls",
@@ -2372,15 +1904,6 @@
     "product_category": "toys and games",
     "consumer_email": "u19004232@gmail.com",
     "event_type": "link_click",
-    "event_date": "2023-03-10T01:45:00Z",
-    "metadata": null
-  },
-  "266": {
-    "seller": "Bobshop",
-    "product": "LEGO Brawls",
-    "product_category": "toys and games",
-    "consumer_email": "u19004232@gmail.com",
-    "event_type": "favourited_product",
     "event_date": "2023-03-10T01:45:00Z",
     "metadata": null
   },
@@ -2402,15 +1925,6 @@
     "event_date": "2023-03-10T01:45:00Z",
     "metadata": null
   },
-  "269": {
-    "seller": "Bobshop",
-    "product": "Funko POP! Games #629: Pokémon – Flareon",
-    "product_category": "toys and games",
-    "consumer_email": "u19004232@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-03-10T01:45:00Z",
-    "metadata": null
-  },
   "270": {
     "seller": "Bobshop",
     "product": "Funko POP! Games #580: Pokémon – Vulpix",
@@ -2426,15 +1940,6 @@
     "product_category": "toys and games",
     "consumer_email": "u19004232@gmail.com",
     "event_type": "link_click",
-    "event_date": "2023-03-10T01:45:00Z",
-    "metadata": null
-  },
-  "272": {
-    "seller": "Bobshop",
-    "product": "Funko POP! Games #580: Pokémon – Vulpix",
-    "product_category": "toys and games",
-    "consumer_email": "u19004232@gmail.com",
-    "event_type": "favourited_product",
     "event_date": "2023-03-10T01:45:00Z",
     "metadata": null
   },
@@ -2456,15 +1961,6 @@
     "event_date": "2023-03-10T01:45:00Z",
     "metadata": null
   },
-  "275": {
-    "seller": "Cool Collectables",
-    "product": "Naruto Shippuden - Headband - Konoha",
-    "product_category": "toys and games",
-    "consumer_email": "u19004232@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-03-10T01:45:00Z",
-    "metadata": null
-  },
   "276": {
     "seller": "Bobshop",
     "product": "Monopoly Warhammer 40k",
@@ -2483,30 +1979,12 @@
     "event_date": "2023-03-10T01:45:00Z",
     "metadata": null
   },
-  "278": {
-    "seller": "Bobshop",
-    "product": "Monopoly Warhammer 40k",
-    "product_category": "toys and games",
-    "consumer_email": "u19004232@gmail.com",
-    "event_type": "favourited_product",
-    "event_date": "2023-03-10T01:45:00Z",
-    "metadata": null
-  },
   "279": {
     "seller": "Comic Warehouse",
     "product": "Spider-Man Walkie Talkie Action Figure Set",
     "product_category": "toys and games",
     "consumer_email": "u19004232@gmail.com",
     "event_type": "product_click",
-    "event_date": "2023-03-10T01:45:00Z",
-    "metadata": null
-  },
-  "280": {
-    "seller": "Comic Warehouse",
-    "product": "Spider-Man Walkie Talkie Action Figure Set",
-    "product_category": "toys and games",
-    "consumer_email": "u19004232@gmail.com",
-    "event_type": "favourited_product",
     "event_date": "2023-03-10T01:45:00Z",
     "metadata": null
   }

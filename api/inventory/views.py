@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import status
+from product.models import Product
 from productseller.models import ProductSeller
 from productseller.serializers import ProductSellerSerializer
 from django.http import JsonResponse
@@ -8,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import api_view, permission_classes
-
+from fuzzywuzzy import fuzz
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from decimal import Decimal
@@ -56,10 +57,8 @@ def getProd(request):
 
         # Filtering of the products
         filters = Q(seller__business_name=seller_name)
-        print(filters)
         # searching
         if search and len(search) > 0:
-            print("Searching", search, search_option)
             if search_option == "id":
                 if not search.isnumeric():
                     return Response({"data": [], "total_count": 0})
@@ -71,11 +70,8 @@ def getProd(request):
                 filters &= Q(product__name__icontains=search)
 
         if filter_in_stock is not None:
-            print(" filter_in_stock", filter_in_stock)
             filters &= Q(in_stock=filter_in_stock)
         if filter_category:
-            print(" filter_category", filter_category)
-
             categories_values = filter_category.split(
                 ",,,"
             )  # Split the filter_categories value by comma
@@ -88,26 +84,20 @@ def getProd(request):
             filters &= category_filters
 
         if filter_price_min:
-            print(" filter_price_min", filter_price_min)
             filters &= Q(price__gte=filter_price_min)
         if filter_price_max:
-            print(" filter_price_max", filter_price_max)
             filters &= Q(price__lte=filter_price_max)
-        print(filters)
         productseller = ProductSeller.objects.filter(filters)
 
         # sorting
         if sort and sort in sort_fields:
-            print(" sort", sort)
             productseller = productseller.order_by(sort_fields[sort])
 
         # Pagination
-        print(request.data)
         page = int(request.data.get("page")) if request.data.get("page") else 0
         per_page = (
             int(request.data.get("per_page")) if request.data.get("per_page") else 10
         )
-        print(page, per_page)
         paginator = Paginator(productseller, per_page)
         total_count = paginator.count
         try:
@@ -173,7 +163,126 @@ def delete(request):
     _id = request.data.get("id")
     try:
         product_seller = ProductSeller.objects.get(id=_id)
-        product_seller.delete()
+        #check to see if this seller is the only one selling this product
+        if ProductSeller.objects.filter(product=product_seller.product).count() == 1:
+            #delete the product as well
+            product_seller.product.delete()
+        else:
+            product_seller.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     except Exception as e:
         return Response({"error": str(e)}, status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(["POST"])
+def getSimilarProducts(request):
+    try:
+        user = request.user
+        if user is None:
+            raise Exception("User not found")
+        if user.type == "consumer":
+            raise Exception("Consumers cannot create products")
+        elif user.type == "seller":
+            threshold = 80
+            # create a product_names array with all the product names where the user is nto a seller for the product
+            product_names = []
+            for product in Product.objects.all():
+                if not ProductSeller.objects.filter(
+                    product=product, seller=user
+                ).exists():
+                    product_names.append(product.name)
+
+
+            user_product_name = request.data["name"]
+
+            similar_products = []
+            for product_name in product_names:
+                similarity_score = fuzz.partial_ratio(user_product_name, product_name)
+                if similarity_score >= threshold:
+                    similar_products.append((product_name, similarity_score))
+
+            # Sort similar products by similarity score
+            similar_products.sort(key=lambda x: x[1], reverse=True)
+
+            # only show the name
+            similar_products = [product[0] for product in similar_products]
+            return Response(similar_products, status=status.HTTP_200_OK)
+
+    except Exception as e:
+        # handle other exceptions here
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(["POST"])
+def createSimilarProduct(request):
+    try:
+        user = request.user
+        if user is None:
+            raise Exception("User not found")
+        if user.type == "consumer":
+            raise Exception("Consumers cannot create products")
+        elif user.type == "seller":
+            product_name = request.data["product_name"]
+            if product_name:
+                # check if the seller already has a productseller entry for the product
+                if ProductSeller.objects.filter(
+                    product=Product.objects.get(name=product_name),
+                    seller=user,
+                ).exists():
+                    raise Exception(
+                        "You already have a product with the same name in the database"
+                    )
+
+                ProductSeller.objects.create(
+                    product=Product.objects.get(name=product_name),
+                    seller=user,
+                    price=request.data["price"],
+                    discount=request.data["discount"],
+                    discount_rate=request.data["discount_rate"],
+                    original_price=request.data["original_price"],
+                    product_url=request.data["product_url"],
+                    in_stock=request.data["in_stock"],
+                    img_array=request.data["img_array"],
+                ).save()
+                #return the product 
+                serializer = ProductSellerSerializer(ProductSeller.objects.get(product=Product.objects.get(name=product_name),seller=user))
+                return Response({"data":serializer.data}, status=status.HTTP_201_CREATED)
+    except Exception as e:
+        # handle other exceptions here
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(["POST"])
+def createNewProduct(request):
+    try:
+        user = request.user
+        if user is None:
+            raise Exception("User not found")
+        if user.type == "consumer":
+            raise Exception("Consumers cannot create products")
+        elif user.type == "seller":
+            product = Product.objects.create(
+                name=request.data["name"],
+                brand=request.data["brand"],
+                category=request.data["category"],
+                description=request.data["description"],
+            )
+            product.save()
+            ProductSeller.objects.create(
+                product=product,
+                seller=user,
+                price=request.data["price"],
+                discount=request.data["discount"],
+                discount_rate=request.data["discount_rate"],
+                original_price=request.data["original_price"],
+                product_url=request.data["product_url"],
+                in_stock=request.data["in_stock"],
+                img_array=request.data["img_array"],
+                product_name=product.name,
+            ).save()
+                #return the product 
+            serializer = ProductSellerSerializer(ProductSeller.objects.get(product=Product.objects.get(name=product.name),seller=user))
+            return Response({"data":serializer.data}, status=status.HTTP_201_CREATED)
+    except Exception as e:
+        # handle other exceptions here
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

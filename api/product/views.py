@@ -15,7 +15,6 @@ from django.utils.dateparse import parse_date
 from django.db.models import Subquery, OuterRef, Min
 from productseller.models import ProductSeller
 from django.core import serializers
-from fuzzywuzzy import fuzz
 from rest_framework.decorators import api_view, permission_classes
 
 
