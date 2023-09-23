@@ -104,7 +104,9 @@ export class ProductComponent implements OnInit, OnDestroy {
         this.isHearted = this.profileFacade.checkWishlist(this.prod_id);
       }
     });
+  }
 
+  ionViewWillEnter(): void {
     this.prodClickAnalytics();
   }
 
