@@ -70,10 +70,10 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.showSpinner = true;
     this.showSpinner2 = true;
 
-    setTimeout(() => {
-      this.showSpinner = false;
-      this.showSpinner2 = false;
-    }, 6500);
+    // setTimeout(() => {
+    //   this.showSpinner = false;
+    //   this.showSpinner2 = false;
+    // }, 6500);
 
     this.paramMapSubscription = this.route.queryParamMap.subscribe(params => {
       this.selectedImage = '';
@@ -97,6 +97,7 @@ export class ProductComponent implements OnInit, OnDestroy {
         this.product$ = this.productService.getProductData(this.prod_id);
         this.product$.subscribe(data => {
           this.product_params = data;
+          console.log(data);
         });
         this.sellers$ = this.productService.getSellerList(
           this.prod_id,
