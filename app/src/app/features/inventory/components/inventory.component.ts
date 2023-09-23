@@ -13,6 +13,8 @@ import { PopovereditComponent } from './popoveredit/popoveredit.component';
 import { IInventoryItem } from '../models/inventory-item.interface';
 import { ISearchOptions } from '../models/search-options.interface';
 import { InventoryFacade } from '../servicies/inventory.facade';
+import { PopovernewComponent } from './popovernew/popovernew.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inventory',
@@ -57,6 +59,7 @@ export class InventoryComponent implements OnInit{
   
 
   constructor(
+    private router: Router,
     private inventoryFacade: InventoryFacade,
     private popoverController: PopoverController,
     private loadingController: LoadingController,
@@ -186,4 +189,8 @@ export class InventoryComponent implements OnInit{
     });
     return await popover.present();
   }
+
+  async presentNewModal() {
+    await this.router.navigate(['new-product']);
+}
 }

@@ -162,4 +162,41 @@ export class InventoryState {
       totalCount: 0,
     });
   }
+  @Action(InventoryActions.AddExistingProduct)
+  addExistingProduct(
+    ctx: StateContext<InventoryStateModel>,
+    action: InventoryActions.AddExistingProduct
+  ) {
+    ctx.setState(
+      produce((draft: InventoryStateModel) => {
+        console.log(action.IInventoryItem);
+        if (draft.products === null) {
+          draft.products = [action.IInventoryItem];
+          draft.totalCount = 1;
+        } else {
+          draft.products.unshift(action.IInventoryItem);
+          draft.totalCount++;
+        }
+      })
+    );
+  }
+
+  @Action(InventoryActions.AddNewProduct)
+  addNewProduct(
+    ctx: StateContext<InventoryStateModel>,
+    action: InventoryActions.AddNewProduct
+  ) {
+    ctx.setState(
+      produce((draft: InventoryStateModel) => {
+        console.log(action.IInventoryItem);
+        if (draft.products === null) {
+          draft.products = [action.IInventoryItem];
+          draft.totalCount = 1;
+        } else {
+          draft.products.unshift(action.IInventoryItem);
+          draft.totalCount++;
+        }
+      })
+    );
+  }
 }

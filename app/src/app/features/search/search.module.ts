@@ -21,9 +21,10 @@ import { IonicModule } from '@ionic/angular';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
 import { ProductCardModule } from "../../shared/components/product-card/product-card.module";
+import { FilterModalComponent } from './components/filter-modal/filter-modal.component';
 
 @NgModule({
-    declarations: [SearchComponent],
+    declarations: [SearchComponent, FilterModalComponent],
     exports: [SearchComponent],
     imports: [
         CommonModule,

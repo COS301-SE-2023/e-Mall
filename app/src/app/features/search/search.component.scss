@@ -1,38 +1,51 @@
 
 .body {
+  
   display: flex;
   min-height: fit-content;
-  min-width: 1448px;
-  padding: 25px 45px;
+  min-width: 100%;
+  padding: 25px 10px;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-start; 
+  box-sizing: border-box;
 }
 
+.landing{
+  min-height: fit-content;
+  min-width: 100%;
+}
+
+
 .top {
-  max-width: 90%;
+  //min-width: 90%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  
 }
 
+/*
 .toptxt {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-}
+}*/
 
 .search-query {
   margin-top: 10px;
 }
 
+/*
 .dropdown {
   display: flex;
   position: relative;
   align-items: flex-end;
 }
 .dropbtn{
-min-width: 150px;
+  max-width: 150px;
 }
+
+*/
 .dropdown-menu {
   top: 100%;
   left: 0;
@@ -88,12 +101,12 @@ min-width: 150px;
 
 .search-results{
   margin-top: 1rem;
-  min-width: 1300px;
+  min-width: 100%;
   padding: 10px;
   // margin-right: 0.5rem;
 }
 .dropbtn {
-  margin-left: 88%;
+  //margin-left: 20%;
   opacity: 100%;
   background-color: #ffffff;
   border: 0.0000001px solid #ccc;
@@ -112,9 +125,10 @@ min-width: 150px;
 }
 
 .mat-paginator {
-  margin-left: 12rem;
+  //margin-left: 12rem;
   display: flex;
   justify-content: center;
+  margin-left: 5%
 }
 
 .custom-select .mat-select-panel {
@@ -138,8 +152,17 @@ min-width: 150px;
   background-color: #ddd;
 }
 
+.product-card-no {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center content */
+  align-items: center; /* Horizontally center content */
+  text-align: center; /* Optional: Center text within the div */
+}
+
+
 .nimage {
-  width: 300px;
+  width: 50%;
   height: 300px;
   justify-content: center;
   opacity: 30%;
@@ -166,4 +189,106 @@ ion-range {
   --bar-background-active: #37D0D6;
   --bar-height: 6px;
   --bar-border-radius: 8px;
+}
+
+/* Initially hide the filter button */
+.filter-button-container {
+  display: none;
+}
+
+/* Show the filter section when the screen size is larger */
+@media (min-width: 768px) {
+  .filter-menu {
+    display: block !important; /* Use !important to override Angular's styles */
+  }
+
+  .dropdown{
+    display: block !important;
+  }
+  
+  /* Hide the filter button */
+  .filter-button-container{
+    display: none;
+  }
+
+  //.search-results{
+  //  margin-top: 1rem;
+  //  min-width: 1300px;
+  //  padding: 10px;
+  //  // margin-right: 0.5rem;
+  //}
+}
+
+/* Show the filter button when the screen size is smaller */
+@media (max-width: 767px) {
+  .filter-menu {
+    display: none !important; /* Use !important to override Angular's styles */
+  }
+
+  .dropdown{
+    display: none !important;
+  }
+
+  /* Show the filter button */
+  .filter-button-container {
+    display: inline-block !important;
+    /* Add styling for the button as needed */
+  }
+
+  //.search-results{
+  //  margin-top: 1rem;
+  //  min-width: 0px;
+  //  padding: 10px;
+  //  // margin-right: 0.5rem;
+  //}
+
+  /*
+  .top {
+    flex-direction: column; /* Stack elements vertically on smaller screens 
+    align-items: flex-start;
+  }
+
+  .toptxt {
+    align-items: flex-start;
+  }
+
+  .dropdown {
+    margin-top: 1rem; /* Add some space between elements 
+  }*/
+}
+
+.filter-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+  text-align: center; 
+}
+
+.label {
+  margin-bottom: 8px; /* Add spacing between label and button */
+}
+
+.sticky-button {
+  position: sticky;
+  bottom: 5; /* Stick to the bottom of the container */
+  //background-color: #007bff; /* Customize button background color */
+  //color: #fff; /* Customize button text color */
+  //padding: 10px 20px; /* Add padding for better visibility */
+  text-align: center;
+
+}
+
+
+.sticky-button ion-button{
+  --background: #1dc4b0;
+  margin-bottom: 15px;
+  color:white;
+}
+
+ion-modal{
+  border-top-right-radius: 10px;
+}
+
+ion-list ion-item::after {
+  border-bottom: none;
 }

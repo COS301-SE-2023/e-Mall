@@ -35,25 +35,26 @@ export class NotificationService {
   }
 
   async signOut() {
+    console.log('Signing out');
     await deleteToken(this.messaging)
       .then(() => {
         console.log('Token deleted.');
       })
       .catch(err => {
-        console.log('Unable to delete token dddddddd. ', err);
+        console.log('Unable to delete token.');
       });
   }
   getToken() {
-    return from(
-      navigator.serviceWorker
-        .register('firebase-messaging-sw.js', { type: 'module', scope: '__' })
-        .then(serviceWorkerRegistration =>
-          getToken(this.messaging, {
-            serviceWorkerRegistration,
-            vapidKey: environment.firebase.vapidKey,
-          })
-        )
-    );
+    // return from(
+    return navigator.serviceWorker
+      .register('firebase-messaging-sw.js', { type: 'module', scope: '__' })
+      .then(serviceWorkerRegistration => {
+        return getToken(this.messaging, {
+          serviceWorkerRegistration,
+          vapidKey: environment.firebase.vapidKey,
+        });
+      });
+    // );
   }
   getMessage() {
     return new Observable(sub => onMessage(this.messaging, it => sub.next(it)));

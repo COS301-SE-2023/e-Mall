@@ -42,3 +42,13 @@ export class UpdateFilterOptions {
 export class ResetInventoryState {
   static readonly type = '[Inventory] Reset Inventory State';
 }
+
+export class AddNewProduct {
+  static readonly type = '[Inventory] Add Product';
+  constructor(public IInventoryItem: IInventoryItem) {}
+}
+
+export class AddExistingProduct {
+  static readonly type = '[Inventory] Add Existing Product';
+  constructor(public IInventoryItem: IInventoryItem) {}
+}

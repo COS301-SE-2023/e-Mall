@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ProductService } from '@shared/servicies/product/product.service';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
@@ -8,6 +8,8 @@ import { Observable, of } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthFacade } from '@features/auth/services/auth.facade';
+//import { FilterModalComponent } from './components/filter-modal/filter-modal.component';
+import { IonModal, ModalController } from '@ionic/angular';
 interface RangeValue {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any;
@@ -31,7 +33,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   minPrice!: number; // Minimum price value
   maxPrice!: number; // Maximum price value
   filterOptions: string[] = []; // Stores the selected filter options
-  selectedSortOption!: string;
+  selectedSortOption = 'price';
   isChecked!: boolean;
   currentPage!: number;
   maxPrice$: Observable<number> | null = null;
@@ -43,6 +45,9 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   showSpinner = true;
 
+  @ViewChild(IonModal)
+  modal!: IonModal;
+
   ////J fix for min , max price
 
   priceRangeGroup;
@@ -53,7 +58,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     private productService: ProductService,
     private router: Router,
     private analytics: AnalyticsService,
-    private authFacade: AuthFacade
+    private authFacade: AuthFacade,
+    private modalController: ModalController
   ) {
     this.priceRangeGroup = new FormGroup({
       lower: new FormControl(0),
@@ -62,27 +68,18 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
     this.showSpinner = true;
-    
+
     setTimeout(() => {
       this.showSpinner = false;
-      
     }, 6000);
-    
+
     this.minPrice = 0;
     this.maxPrice = 5000;
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params['search'];
-      this.selectedSortOption = 'price';
       this.productService
-        .searchProducts(
-          this.searchQuery,
-          this.filterOptions,
-          this.selectedSortOption,
-          this.currentPage,
-          this.itemsPerPage
-        )
+        .searchProducts(this.searchQuery, [], this.selectedSortOption, 0, 10)
         .subscribe(result => {
           this.searchResults$ = of(result.products);
           this.totalSearchCount$ = of(result.totalCount);
@@ -134,7 +131,20 @@ export class SearchComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy(): void {
-    console.log();
+    this.searchQuery = '';
+    this.searchResults$ = undefined;
+    this.brandOptions = [];
+    this.sellerOptions = [];
+    this.categoryOptions = [];
+    this.priceRange = [0, 100];
+    this.minPrice = 0;
+    this.maxPrice = 5000;
+    this.filterOptions = [];
+    this.selectedSortOption = 'price';
+    this.isChecked = false;
+    this.currentPage = 0;
+    this.itemsPerPage = 10;
+    this.totalSearchCount$ = undefined;
   }
 
   //
@@ -303,5 +313,20 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.minPrice = lower;
       this.maxPrice = upper;
     }
+  }
+
+  /*
+  async openModal() {
+    const modal = await this.modalController.create({
+      component: FilterModalComponent,
+      componentProps: {
+        brandOptions: this.brandOptions, // Pass the array to the modal
+      },
+    });
+    return await modal.present();
+  }*/
+
+  closeModal() {
+    this.modal.dismiss(null, 'cancel');
   }
 }

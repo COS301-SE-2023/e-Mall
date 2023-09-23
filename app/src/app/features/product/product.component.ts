@@ -127,7 +127,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     });
     return await modal.present();
   }
-  prodClickAnalytics(): void {
+  async prodClickAnalytics(): Promise<void> {
     if (this.product$) {
       this.product$.subscribe(product => {
         this.product_name = product.name;
@@ -176,20 +176,6 @@ export class ProductComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.paramMapSubscription.unsubscribe();
   }
-
-  /*
-  togglePanel(seller: any) {
-    const expanded = this.expandedStates.get(seller.id) || false;
-    this.expandedStates.set(seller.id, !expanded);
-  }
-  
-  isExpanded(seller: any): boolean {
-    return this.expandedStates.get(seller.id) || false;
-  }
-  
-  getAriaLabel(seller: any): string {
-    return this.isExpanded(seller) ? 'Collapse panel' : 'Expand panel';
-  }*/
 
   getOneImg(imgList?: string[]) {
     //remove following when no need to have mock data

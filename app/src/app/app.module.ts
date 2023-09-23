@@ -48,6 +48,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoadingInterceptor } from '@shared/components/spinner/interceptors/loading.interceptor';
+import { PopovernewModule } from './features/inventory/components/popovernew/popovernew.module';
 import { WishlistStateModule } from './features/wishlist/wishlist-state/wishlist-state.module';
 @NgModule({
   declarations: [AppComponent, SpinnerComponent],
@@ -107,8 +108,8 @@ import { WishlistStateModule } from './features/wishlist/wishlist-state/wishlist
     AppRoutingModule,
     SellerDetailsModule,
     SellerDashboardSettingsModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideMessaging(() => getMessaging()),
+    // provideFirebaseApp(() => initializeApp(environment.firebase)),
+    // provideMessaging(() => getMessaging()),
     NotificationModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),

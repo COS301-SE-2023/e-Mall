@@ -10,6 +10,11 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework import status
 
+# from notification.utils import update_combo
+from notification.messaging.templates import RegisterTemplate
+from notification.messaging.types import MessageUser, MessageType
+from notification.messaging.messages import Message
+
 # temporary import
 from faker import Faker
 
@@ -25,6 +30,17 @@ def register(request):
             print(f"Error in field {field}: {error}")
     serializer.is_valid(raise_exception=True)
     serializer.save()
+    # send welcome message
+    user = Consumer.objects.get(email=data["email"])
+    register_template = RegisterTemplate()
+    params = {
+        "action": MessageType.User.REGISTER,
+        "doc": user,
+        "template": register_template.register,
+        "receivers": [user],
+        "sender": user,
+    }
+    Message(**params).send_to_user()
 
     return Response(
         {"message": "Consumer registered successfully"}, status=status.HTTP_201_CREATED

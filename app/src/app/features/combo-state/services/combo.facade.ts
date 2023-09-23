@@ -44,7 +44,8 @@ export class ComboFacade implements OnDestroy {
         debounceTime(500),
         tap(async user => {
           if (user) {
-            await this.fetchCombos();
+            if (user.type === 'seller') return;
+            this.fetchCombos();
           } else {
             this.clearCombos();
           }
