@@ -27,8 +27,10 @@
     </div>
 
     <div class="wishlist-container" *ngIf="(products$ | async)?.length !== 0">
+      <app-combo-breadcrumb [combo]="'My wishlist'"></app-combo-breadcrumb>
       <div class="wishlist-container-cards">
-        <div class="product-card">
+        <div
+          class="product-card"
           style="display: flex; justify-content: center; align-items: center"
           *ngIf="(products$ | async) === null">
           <mat-spinner></mat-spinner>
@@ -49,7 +51,7 @@
                 <app-product-card
                   [product]="product"
                   [pageType]="'wishlistPage'"></app-product-card>
-                  <div
+                <div
                   class="col-md-1"
                   *ngIf="
                     (i + 1) % 4 === 0 &&

@@ -165,6 +165,7 @@
                 mode="ios"
                 color="primary"
                 *ngIf="newClicked"
+                [disabled]="!productForm.valid"
                 (click)="createNewProduct()">
                 Create
               </ion-button>
@@ -172,6 +173,7 @@
                 type="submit"
                 mode="ios"
                 color="primary"
+                [disabled]="!productSellerForm.valid"
                 *ngIf="isSelected"
                 (click)="createExistingProduct()">
                 Create
