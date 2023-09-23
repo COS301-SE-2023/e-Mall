@@ -8,9 +8,10 @@
     >
   </div>
   <ion-img
-    [src]="getOneImg(product?.min_price_img_array)"
+    [src]="isFailed ? selectedImg : getOneImg(product?.min_price_img_array)"
     (click)="goToProductPage(product.id)"
     (ionImgDidLoad)="onImageLoad()"
+    (ionError)="onImageFail()"
     [ngClass]="{ hidden: ![isLoaded] }">
   </ion-img>
   <ion-skeleton-text

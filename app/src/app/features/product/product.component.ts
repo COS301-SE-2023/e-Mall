@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { IProductSeller } from '@shared/models/product/product-seller.interface';
 import { Observable, of, Subscription } from 'rxjs';
 
@@ -19,7 +25,7 @@ import { PageLoaderFacade } from '@app/shared/components/loader/loader-for-page.
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss'],
 })
-export class ProductComponent implements OnInit, OnDestroy {
+export default class ProductComponent implements OnInit {
   prod_id: number;
   consumer_id!: string | null;
   consumer_email!: string | null;
@@ -39,8 +45,8 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   currencyCode = 'ZAR';
 
-  showSpinner = true;
-  showSpinner2 = true;
+  // showSpinner = true;
+  // showSpinner2 = true;
 
   // Your timer function
 
@@ -62,13 +68,11 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.selected = new FormControl('default');
     this.paramMapSubscription = new Subscription();
     this.prod_id = -1;
-    this.loader.loading.next(true);
   }
 
   ngOnInit(): void {
-    console.log('ng called');
-    this.showSpinner = true;
-    this.showSpinner2 = true;
+    // this.showSpinner = true;
+    // this.showSpinner2 = true;
 
     // setTimeout(() => {
     //   this.showSpinner = false;
@@ -184,7 +188,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   getOneImg(imgList?: string[]) {
     //remove following when no need to have mock data
     if (!imgList) {
-      return '';
+      return 'assets/images/default.png';
     }
 
     return imgList[0];
@@ -196,12 +200,6 @@ export class ProductComponent implements OnInit, OnDestroy {
     el.scrollIntoView();
   }
   onlyInStockToggler() {
-    this.showSpinner2 = true;
-
-    setTimeout(() => {
-      this.showSpinner2 = false;
-    }, 5000);
-
     this.divClicked = !this.divClicked;
 
     this.sellers$ = this.productService.getSellerList(
@@ -246,5 +244,11 @@ export class ProductComponent implements OnInit, OnDestroy {
       queryParams: { seller_id: seller_id },
     };
     this.router.navigate(['seller-details'], navigationextras);
+  }
+  ionViewWillEnter() {
+    this.loader.loading.next(true);
+  }
+  ionViewWillLeave() {
+    this.loader.loading.next(false);
   }
 }

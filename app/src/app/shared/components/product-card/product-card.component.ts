@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { Observable, of, Subscription, BehaviorSubject } from 'rxjs';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
@@ -17,7 +23,7 @@ import { ProductCardFacade } from './services/product-card.facade';
   templateUrl: 'product-card.component.html',
   styleUrls: ['product-card.component.scss'],
 })
-export class ProductCardComponent implements OnInit {
+export class ProductCardComponent implements OnInit, OnDestroy {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() product: any;
   @Input() pageType: string;
@@ -27,7 +33,9 @@ export class ProductCardComponent implements OnInit {
   consumer_id!: string;
   consumer_email!: string;
   public isLoaded = false;
-
+  public isFailed = false;
+  selectedImg = 'assets/images/default.png';
+  profileSubs = new Subscription();
   constructor(
     private modalController: ModalController,
     private router: Router,
@@ -40,10 +48,13 @@ export class ProductCardComponent implements OnInit {
   ) {
     this.pageType = '';
   }
+  ngOnDestroy(): void {
+    this.profileSubs.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.isLoaded = false;
-    this.profileFacade.getProfile().subscribe(profile => {
+    this.profileSubs = this.profileFacade.getProfile().subscribe(profile => {
       if (profile) {
         this.consumer_id = profile.id;
         this.consumer_email = profile.email;
@@ -51,7 +62,6 @@ export class ProductCardComponent implements OnInit {
     });
   }
   onImageLoad() {
-    console.log('Image loaded');
     this.isLoaded = true;
   }
   toggleHeart() {
@@ -114,9 +124,15 @@ export class ProductCardComponent implements OnInit {
   getOneImg(imgList?: string[]) {
     //remove following when no need to have mock data
     if (!imgList || imgList.length < 1) {
-      return 'https://www.incredible.co.za/media/catalog/product/cache/7ce9addd40d23ee411c2cc726ad5e7ed/s/c/screenshot_2022-05-03_142633.jpg';
+      this.selectedImg = 'assets/images/default.png';
+    } else {
+      this.selectedImg = imgList[0];
     }
-    return imgList[0];
+    return this.selectedImg;
+  }
+  onImageFail() {
+    this.isFailed = true;
+    this.selectedImg = 'assets/images/default.png';
   }
 
   favClickAnalytics(): void {

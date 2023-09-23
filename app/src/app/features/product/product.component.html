@@ -3,17 +3,17 @@
 <ion-content class="global-ion-content">
   <ng-container *ngIf="product$ | async as product">
     <app-category-breadcrumb [categoryList]="product"></app-category-breadcrumb>
-    <div class="ion-content-wrapper">
+  </ng-container>
+  <div class="ion-content-wrapper">
+    <ng-container *ngIf="product$ | async as product; else loading">
       <ion-grid class="product-page" mode="ios">
         <ion-row>
           <ion-col class="top-col">
             <div class="mini-thumbnails">
-              <ion-thumbnail *ngFor="let img of product.min_price_img_array">
+              <ion-thumbnail
+                *ngFor="let img of product.min_price_img_array; let i = index">
                 <ion-img
-                  [src]="img"
-                  alt="Product Image"
-                  (ionImgDidLoad)="this.loader.onImageLoaded()"
-                  (ionImgWillLoad)="this.loader.onImageStartLoading()"
+                  [src]="img ? img : 'assets/images/default.png'"
                   (click)="selectImage(img)" />
               </ion-thumbnail>
             </div>
@@ -24,13 +24,13 @@
               <div class="product-card">
                 <ion-img
                   class="product-image"
-                  (ionImgDidLoad)="this.loader.onImageLoaded()"
-                  (ionImgWillLoad)="this.loader.onImageStartLoading()"
+                  (ionImgDidLoad)="this.loader.loading.next(false)"
                   [src]="
                     selectedImage
                       ? selectedImage
                       : getOneImg((product$ | async)?.min_price_img_array)
                   " />
+
                 <div class="min-price-discount_rate">
                   <span
                     class="discount-tag"
@@ -86,6 +86,7 @@
           <ion-col>
             <div class="lower-body-container" #comp_products>
               <ion-button
+                color="tertiary"
                 shape="round"
                 class="stock-button"
                 (click)="onlyInStockToggler()"
@@ -93,7 +94,8 @@
                 <span><i class="fa-solid fa-cube" aria-hidden="true"></i></span>
                 Only in stock
               </ion-button>
-              <ng-container *ngIf="sellers$ | async as sellers">
+              <ng-container
+                *ngIf="sellers$ | async as sellers; else loading_spinner">
                 <ion-accordion-group
                   class="seller-list-group"
                   [multiple]="true">
@@ -228,8 +230,9 @@
               id="full-product-info">
               <div>
                 <h3>Products Information</h3>
-                <ng-container *ngIf="sellers$ | async as sellers">
-                  <div *ngIf="product$ | async as product">
+                <ng-container
+                  *ngIf="sellers$ | async as sellers; else info_loading">
+                  <div *ngIf="product$ | async as product; else info_loading">
                     <ion-text>
                       <p>
                         Lowest price for <u>{{ product.name }}</u> is
@@ -250,7 +253,43 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-    </div>
-  </ng-container>
+    </ng-container>
+  </div>
   <app-footer></app-footer>
 </ion-content>
+
+<ng-template #loading>
+  <app-product-placeholder
+    style="width: 100%; height: 100%"></app-product-placeholder>
+</ng-template>
+<ng-template #loading_spinner>
+  <ion-spinner name="dots"></ion-spinner>
+</ng-template>
+<ng-template #info_loading>
+  <ion-list>
+    <ion-list-header>
+      <ion-skeleton-text
+        [animated]="true"
+        style="width: 80px"></ion-skeleton-text>
+    </ion-list-header>
+    <ion-item lines="none">
+      <ion-label>
+        <h3>
+          <ion-skeleton-text
+            [animated]="true"
+            style="width: 80%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text
+            [animated]="true"
+            style="width: 60%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text
+            [animated]="true"
+            style="width: 30%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ng-template>

@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   imageObject: Array<object> = [];
   images = 'assets/images/home_banner.png';
   @ViewChild('recommendedHeading') recommendedHeading!: ElementRef;
-  showSpinner = true;
+  // showSpinner = true;
   cat_pages = [
     { title: 'ELECTRONICS', path: '/category/Electronics' },
     { title: 'SPORTS & OUTDOORS', path: '/category/Sports%20and%20Outdoors' },
@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.showSpinner = true;
+    // this.showSpinner = true;
 
     // setTimeout(() => {
     //   this.showSpinner = false;
@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     // }, 6000);
     this.fetchPopProducts();
     this.fetchTrendingProducts();
-    this.showSpinner = false;
+    // this.showSpinner = false;
   }
   async onCatClicked(path: string) {
     this.router.navigate([path]);

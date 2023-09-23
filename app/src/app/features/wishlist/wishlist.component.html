@@ -28,18 +28,8 @@
 
     <div class="wishlist-container" *ngIf="(products$ | async)?.length !== 0">
       <div class="wishlist-container-cards">
-        <div class="product-card">
-          style="display: flex; justify-content: center; align-items: center"
-          *ngIf="(products$ | async) === null">
-          <mat-spinner></mat-spinner>
-        </div>
-        <div class="spinner-container" *ngIf="showSpinner">
-          <div class="spinner">
-            <ion-spinner style="color: #99e3dc"></ion-spinner>
-          </div>
-        </div>
         <ng-container *ngIf="products$ | async as products">
-          <div *ngIf="!showSpinner">
+          <div>
             <h2>My Wishlist</h2>
             <div class="row" style="grid-auto-rows: auto">
               <div
@@ -49,7 +39,7 @@
                 <app-product-card
                   [product]="product"
                   [pageType]="'wishlistPage'"></app-product-card>
-                  <div
+                <div
                   class="col-md-1"
                   *ngIf="
                     (i + 1) % 4 === 0 &&

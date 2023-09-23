@@ -43,7 +43,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   loading = true;
 
-  showSpinner = true;
+  // showSpinner = true;
 
   @ViewChild(IonModal)
   modal!: IonModal;
@@ -68,14 +68,13 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // this.showSpinner = true;
 
-    this.showSpinner = true;
-    
-    setTimeout(() => {
-      this.showSpinner = false;
-      
-    }, 6000);
-    
+    // setTimeout(() => {
+    //   this.showSpinner = false;
+
+    // }, 6000);
+
     this.minPrice = 0;
     this.maxPrice = 5000;
     this.route.queryParams.subscribe(params => {
@@ -325,5 +324,4 @@ export class SearchComponent implements OnInit, OnDestroy {
   closeModal() {
     this.modal.dismiss(null, 'cancel');
   }
-
 }

@@ -1,6 +1,7 @@
 from typing import Any, Optional
 from django.core.management.base import BaseCommand
 from faker import Faker
+from api.utils import upload_to_spaces
 from productseller.models import ProductSeller
 from product.models import Product
 from seller.models import Seller
@@ -31,21 +32,29 @@ class Command(BaseCommand):
 
         items = list(data.keys())
         for item in items:
-                productseller_data = data[item]
-                seller = Seller.objects.get(business_name=productseller_data["seller_name"])
-                product = Product.objects.get(name=productseller_data["product_name"]) 
-                # Create the ProductSeller object and assign the fields from the JSON data
-                productseller = ProductSeller(
-                    product=product,
-                    seller=seller,
-                    original_price=productseller_data["original_price"],
-                    price=productseller_data["price"],
-                    discount=productseller_data["discount"],
-                    discount_rate=productseller_data["discount_rate"],
-                    product_url=productseller_data["product_url"],
-                    in_stock=productseller_data["in_stock"],
-                    img_array=productseller_data["img_array"],
-                    product_name=product.name,
-                )
-                productseller.save()
+            productseller_data = data[item]
+            seller = Seller.objects.get(business_name=productseller_data["seller_name"])
+            product = Product.objects.get(name=productseller_data["product_name"])
+            # Create the ProductSeller object and assign the fields from the JSON data
+
+            # Assuming the images are stored locally and img_array contains the paths to the images
+            img_urls = []
+            for img_path in productseller_data["img_array"]:
+                if img_path:  # Check if img_path is not empty
+                    url = upload_to_spaces(img_path, "product_seller")
+                    img_urls.append(url)
+
+            productseller = ProductSeller(
+                product=product,
+                seller=seller,
+                original_price=productseller_data["original_price"],
+                price=productseller_data["price"],
+                discount=productseller_data["discount"],
+                discount_rate=productseller_data["discount_rate"],
+                product_url=productseller_data["product_url"],
+                in_stock=productseller_data["in_stock"],
+                img_array=img_urls,
+                product_name=product.name,
+            )
+            productseller.save()
         self.stdout.write(self.style.SUCCESS("Productsellers populated"))

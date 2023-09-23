@@ -119,6 +119,7 @@ import { WishlistStateModule } from './features/wishlist/wishlist-state/wishlist
       registrationStrategy: 'registerWhenStable:30000',
     }),
     HttpClientModule,
+
     // SplashModule,
   ],
 

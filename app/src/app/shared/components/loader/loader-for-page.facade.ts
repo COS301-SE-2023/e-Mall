@@ -9,17 +9,15 @@ export class PageLoaderFacade implements OnDestroy {
   public loading = new BehaviorSubject(false);
   private loader: HTMLIonLoadingElement | null | undefined;
   private loadingSubs = new Subscription();
-
+  public loadingArray = [false];
   constructor(private loadingController: LoadingController) {
     this.loadingSubs = this.loading
       .pipe(debounceTime(500))
       .subscribe(async isLoading => {
-        if (isLoading) {
-          console.log('isLoading', isLoading);
+        console.log(this.loadingArray);
+        if (isLoading && !this.isStillLoading()) {
           await this.presentLoading();
-          console.log('finished loader presenting');
         } else {
-          console.log('isDismmising', isLoading);
           await this.dismissLoading();
         }
       });
@@ -34,15 +32,14 @@ export class PageLoaderFacade implements OnDestroy {
   }
 
   async presentLoading() {
-    // console.log(this.loader);
     if (this.loader === null || this.loader === undefined) {
-      this.loader = undefined;
+      // this.loader = undefined;
       this.loader = await this.loadingController.create({
         spinner: 'dots',
         message: 'Please wait...',
         translucent: true,
         backdropDismiss: false,
-        //mode: 'ios',
+        mode: 'ios',
         // duration: 5000,
         cssClass: 'custom-loader',
       });
@@ -58,10 +55,15 @@ export class PageLoaderFacade implements OnDestroy {
       console.log('dismissed loading from loader');
     }
   }
-  onImageLoaded() {
+  onImageLoaded(index: number) {
+    this.loadingArray[index] = false;
     this.loading.next(false);
   }
-  onImageStartLoading() {
+  onImageStartLoading(index: number) {
+    this.loadingArray[index] = true;
     this.loading.next(true);
+  }
+  isStillLoading() {
+    return this.loadingArray.every(val => val === true);
   }
 }

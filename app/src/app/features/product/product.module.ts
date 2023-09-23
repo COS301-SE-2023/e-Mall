@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ProductRoutingModule } from './product-routing.module';
-import { ProductComponent } from './product.component';
+import ProductComponent from './product.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
@@ -15,9 +15,10 @@ import { NgxsModule } from '@ngxs/store';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
 import { CategoryBreadcrumbModule } from '../../shared/components/breadcrumbs/category-breadcrumb/category-breadcrumb.module';
+import { ProductPlaceholderComponent } from './product-placeholder/product-placeholder.component';
 
 @NgModule({
-  declarations: [ProductComponent],
+  declarations: [ProductComponent, ProductPlaceholderComponent],
   imports: [
     CommonModule,
     NgxsModule.forFeature(),

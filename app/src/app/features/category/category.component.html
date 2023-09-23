@@ -39,17 +39,7 @@
               " *ngIf="(categoryProducts$ | async) === null">
               <mat-spinner></mat-spinner>
             </div>-->
-            <!-- <div
-              style="
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-top: 200px;
-              "
-              class="spinner"
-              *ngIf="showSpinner">
-              <ion-spinner style="color: #99e3dc"></ion-spinner>
-            </div> -->
+
             <!-- <div *ngIf="!showSpinner"> -->
             <ng-container *ngIf="categoryProducts$ | async as products">
               <div class="row" style="grid-auto-rows: auto">
