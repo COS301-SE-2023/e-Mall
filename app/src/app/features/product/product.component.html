@@ -145,7 +145,8 @@
                         <a
                           class="product-mini-card-container"
                           href="{{ seller.product_url }}"
-                          target="_blank">
+                          target="_blank"
+                          rel="noopener">
                           <div class="product-mini-card">
                             <ion-thumbnail slot="strat">
                               <ion-img [src]="getOneImg(seller.img_array)" />
@@ -156,6 +157,7 @@
                           <a
                             href="{{ seller.product_url }}"
                             target="_blank"
+                            rel="noopener"
                             (click)="linkClickAnalytics(seller.business_name)">
                             {{ seller.product_name }}
                           </a>
