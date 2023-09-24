@@ -15,25 +15,30 @@ s3 = boto3.client(
 
 
 def upload_to_spaces(url, folder_name, acl="public-read"):
-    try:
-        response = requests.get(url)
-        file = BytesIO(response.content)
-        file.name = url.split("/")[-1]  # Use the last part of the URL as the file name
+    if not settings.DEBUG:
+        try:
+            response = requests.get(url)
+            file = BytesIO(response.content)
+            file.name = url.split("/")[
+                -1
+            ]  # Use the last part of the URL as the file name
 
-        s3.upload_fileobj(
-            file,
-            folder_name,
-            file.name,
-            ExtraArgs={
-                "ACL": acl,
-            },
-        )
+            s3.upload_fileobj(
+                file,
+                folder_name,
+                file.name,
+                ExtraArgs={
+                    "ACL": acl,
+                },
+            )
 
-    except FileNotFoundError:
-        print("The file was not found")
-        return False
-    except NoCredentialsError:
-        print("Credentials not available")
-        return False
+        except FileNotFoundError:
+            print("The file was not found")
+            return False
+        except NoCredentialsError:
+            print("Credentials not available")
+            return False
+        return f"https://{bucket_name}.ams3.cdn.digitaloceanspaces.com/{folder_name}/{file.name}"
 
-    return f"https://{bucket_name}.ams3.cdn.digitaloceanspaces.com/{folder_name}/{file.name}"
+    else:
+        return requests.get(url)
