@@ -14,8 +14,10 @@ export class PageLoaderFacade implements OnDestroy {
     this.loadingSubs = this.loading
       .pipe(debounceTime(500))
       .subscribe(async isLoading => {
-        console.log(this.loadingArray);
+        console.log(isLoading);
         if (isLoading && !this.isStillLoading()) {
+          console.log('im here');
+          this.loadingArray[0] = true;
           await this.presentLoading();
         } else {
           await this.dismissLoading();
@@ -49,11 +51,13 @@ export class PageLoaderFacade implements OnDestroy {
   }
 
   async dismissLoading() {
-    if (this.loading) {
-      await this.loader?.dismiss();
+    // if (this.loading) {
+    await this.loader?.dismiss().then(() => {
       this.loader = null;
-      console.log('dismissed loading from loader');
-    }
+      this.loadingArray[0] = false;
+    });
+    console.log('dismissed loading from loader');
+    // }
   }
   onImageLoaded(index: number) {
     this.loadingArray[index] = false;
@@ -64,6 +68,6 @@ export class PageLoaderFacade implements OnDestroy {
     this.loading.next(true);
   }
   isStillLoading() {
-    return this.loadingArray.every(val => val === true);
+    return !this.loadingArray.every(val => val === false);
   }
 }

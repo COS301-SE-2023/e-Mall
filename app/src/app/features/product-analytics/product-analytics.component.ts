@@ -1,13 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
-import { Observable, of, Subscription } from 'rxjs';
+import {
+  BehaviorSubject,
+  debounceTime,
+  Observable,
+  of,
+  Subscription,
+} from 'rxjs';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { PageEvent } from '@angular/material/paginator';
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
+import { PageLoaderFacade } from '@app/shared/components/loader/loader-for-page.facade';
 interface ProductData {
   [productName: string]: {
     [month: string]: number;
@@ -18,10 +25,10 @@ interface ProductData {
   templateUrl: 'product-analytics.component.html',
   styleUrls: ['product-analytics.component.scss'],
 })
-export class ProductAnalyticsComponent implements OnInit {
+export class ProductAnalyticsComponent implements OnInit, OnDestroy {
   public productClicksChart: Chart | undefined;
   sellerName!: string | undefined;
-  topProducts$: Observable<any> | undefined;
+  topProducts$ = new BehaviorSubject<any>(<any>[]);
   productClicksData$: Observable<any> | undefined;
   table_product_clicks!: number[];
   table_labels!: string[];
@@ -41,20 +48,34 @@ export class ProductAnalyticsComponent implements OnInit {
   currentPage!: number;
   itemsPerPage = 5;
   totalSearchCount$: Observable<number> | undefined;
-  showSpinner = true;
+  // showSpinner = true;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
+  topProdcutSubs = new Subscription();
+
   constructor(
     private analytics: AnalyticsService,
-    private profileFacade: ProfileFacade
-  ) {}
+    private profileFacade: ProfileFacade,
+    public pageLoaderFacade: PageLoaderFacade
+  ) {
+    pageLoaderFacade.loading.next(true);
+    this.topProdcutSubs = this.topProducts$
+      .pipe(debounceTime(2000))
+      .subscribe(val => {
+        console.log(val);
+        this.pageLoaderFacade.loading.next(false);
+      });
+  }
+  ngOnDestroy(): void {
+    this.topProdcutSubs.unsubscribe();
+  }
 
   ngOnInit() {
-    this.showSpinner = true;
+    // this.showSpinner = true;
 
-    setTimeout(() => {
-      this.showSpinner = false;
-    }, 6000);
+    // setTimeout(() => {
+    //   this.showSpinner = false;
+    // }, 6000);
 
     this.productNames = [];
     this.selectedSortOption = 'product_name';
@@ -75,7 +96,7 @@ export class ProductAnalyticsComponent implements OnInit {
       this.productClicksData$ = of(data.data);
       this.totalSearchCount$ = of(data['total_count']);
       this.productClicksData$.subscribe(data => {
-        this.topProducts$ = of(data);
+        this.topProducts$.next(data);
         this.table_product_clicks = data.map(
           (item: { [x: string]: any }) => item['clicks']
         );
@@ -223,7 +244,7 @@ export class ProductAnalyticsComponent implements OnInit {
       this.productClicksData$ = of(data.data);
       this.totalSearchCount$ = of(data['total_count']);
       this.productClicksData$.subscribe(data => {
-        this.topProducts$ = of(data);
+        this.topProducts$.next(data);
         this.table_product_clicks = data.map(
           (item: { [x: string]: any }) => item['clicks']
         );
@@ -254,7 +275,7 @@ export class ProductAnalyticsComponent implements OnInit {
     this.analytics.getAllProducts(data).subscribe(responseData => {
       this.productClicksData$ = of(responseData.data);
       this.totalSearchCount$ = of(responseData.total_count);
-      this.topProducts$ = of(responseData.data);
+      this.topProducts$.next(responseData.data);
       this.table_product_clicks = responseData.data.map(
         (item: { [x: string]: any }) => item['clicks']
       );
@@ -282,7 +303,7 @@ export class ProductAnalyticsComponent implements OnInit {
     this.analytics.getAllProducts(data).subscribe(responseData => {
       this.productClicksData$ = of(responseData.data);
       this.totalSearchCount$ = of(responseData.total_count);
-      this.topProducts$ = of(responseData.data);
+      this.topProducts$.next(responseData.data);
       this.table_product_clicks = responseData.data.map(
         (item: { [x: string]: any }) => item['clicks']
       );
