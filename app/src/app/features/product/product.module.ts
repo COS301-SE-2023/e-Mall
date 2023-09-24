@@ -36,6 +36,6 @@ import { ProductPlaceholderComponent } from './product-placeholder/product-place
     FooterModule,
     CategoryBreadcrumbModule,
   ],
-  exports: [ProductComponent],
+  exports: [ProductComponent, ProductPlaceholderComponent],
 })
 export class ProductModule {}
