@@ -7,11 +7,6 @@
       </app-customer-profile-sidenav>
     </div>
 
-    <!-- <div class="spinner-container" *ngIf="(profile$ | async) === null">
-      <div class="spinner">
-        <ion-spinner name="dots" style="color: #99e3dc"></ion-spinner>
-      </div>
-    </div> -->
     <div class="settings-container" *ngIf="profile$ | async as profile">
       <h2>Settings</h2>
       <div class="general-settings-container">
@@ -74,7 +69,34 @@
             required="true"
             (input)="onChange()"></ion-input>
 
-          <ion-button type="submit" [disabled]="!isChanged">Submit</ion-button>
+          <!-- Display validation errors if any -->
+          <div
+            *ngIf="
+              customerprofileForm.get('username')?.hasError('required') &&
+              customerprofileForm.get('username')?.touched
+            ">
+            Username is required.
+          </div>
+          <div
+            *ngIf="
+              customerprofileForm.get('phone_number')?.hasError('pattern') &&
+              customerprofileForm.get('phone_number')?.touched
+            ">
+            Phone number must be 10 digits.
+          </div>
+          <div
+            *ngIf="
+              customerprofileForm.get('postal_code')?.hasError('pattern') &&
+              customerprofileForm.get('postal_code')?.touched
+            ">
+            Postal code must be 4 digits.
+          </div>
+
+          <ion-button
+            type="submit"
+            [disabled]="customerprofileForm.invalid || !isChanged"
+            >Submit</ion-button
+          >
         </form>
       </div>
     </div>

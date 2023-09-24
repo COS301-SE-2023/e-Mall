@@ -1,9 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ProfileFacade } from '../profile/services/profile.facade';
 import { ISellerProfile } from '../profile/models/seller-profile.interface';
 import { IConsumerProfile } from '../profile/models/consumer-profile.interface';
 import { Observable } from 'rxjs';
-import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
+import {
+  FormControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +16,7 @@ import { Router } from '@angular/router';
   templateUrl: './edit-customer-profile.component.html',
   styleUrls: ['./edit-customer-profile.component.scss'],
 })
-export class EditCustomerProfileComponent implements OnInit {
+export class EditCustomerProfileComponent {
   customerprofileForm: FormGroup;
   isChanged = false;
   // editProfileForm: FormGroup;
@@ -22,22 +27,19 @@ export class EditCustomerProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router
   ) {
-    this.customerprofileForm = new FormGroup({
-      username: new FormControl(),
-      first_name: new FormControl(),
-      last_name: new FormControl(),
-      phone_number: new FormControl(),
-      address: new FormControl(),
-      city: new FormControl(),
-      postal_code: new FormControl(),
+    this.customerprofileForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      phone_number: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      address: ['', Validators.required],
+      city: ['', Validators.required],
+      postal_code: ['', Validators.pattern(/^\d{4}$/)], 
     });
 
     this.profile$ = this.profileFacade.getProfile();
   }
-
-  ngOnInit() {
-    //this.profile$ = this.profileFacade.getProfile();
-
+  ionViewWillEnter() {
     this.profile$.subscribe(profile => {
       if (profile) {
         this.customerprofileForm.patchValue({
