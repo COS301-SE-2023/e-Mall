@@ -85,8 +85,7 @@ describe('HomeComponent', () => {
 
   it('should return a default image if the image list is empty', () => {
     const mockImageList: string[] = [];
-    const defaultImage =
-      'https://www.incredible.co.za/media/catalog/product/cache/7ce9addd40d23ee411c2cc726ad5e7ed/s/c/screenshot_2022-05-03_142633.jpg';
+    const defaultImage = 'assets/images/default.png';
 
     const singleImage = component.getOneImg(mockImageList);
 

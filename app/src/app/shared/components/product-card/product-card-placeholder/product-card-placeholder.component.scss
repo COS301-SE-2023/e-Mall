@@ -97,10 +97,6 @@ ion-button {
   background: transparent;
 }
 
-::part(native) {
-  padding: 0;
-}
-
 /* Media query for responsiveness */
 @media (max-width: 600px) {
   ion-card {
