@@ -223,10 +223,11 @@ CELERY_RESULT_BACKEND = "redis://" + REDIS_HOST + ":" + REDIS_PORT
 BROKER_TRANSPORT_OPTIONS = {"visibility_timeout": 3600}
 
 # bucket
-if DEBUG:
-    DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
-else:
-    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+# if DEBUG:
+# DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+# else:
+# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
 AWS_ACCESS_KEY_ID = env("DO_AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = env("DO_AWS_SECRET_ACCESS_KEY")
