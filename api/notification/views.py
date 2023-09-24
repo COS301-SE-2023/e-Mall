@@ -313,12 +313,11 @@ def count_unread_notifications(request):
 
         # Check if the user exists
         if not user_ref.get().exists:
-            return Response(
-                response_data={
-                    "status": "success:no user exists",
-                    "unread_count": 0,
-                }
-            )
+            response_data = {
+                "status": "success:no user exists",
+                "unread_count": 0,
+            }
+            return Response(response_data)
 
         logs_ref = user_ref.collection(user_logs_collection).where(
             "is_read", "==", False
@@ -330,6 +329,7 @@ def count_unread_notifications(request):
         }
         return Response(response_data)
     except Exception as e:
+        print(e)
         return Response(
             {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
         )

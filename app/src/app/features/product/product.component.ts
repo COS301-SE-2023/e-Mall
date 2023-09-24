@@ -191,6 +191,9 @@ export default class ProductComponent implements OnInit {
 
     return imgList[0];
   }
+  onImageFail() {
+    this.selectImage('assets/images/default.png');
+  }
   scroll(el: HTMLElement) {
     const navbareight = 50; // Replace with the actual height of your navbar
     const y = el.getBoundingClientRect().top + window.scrollY - navbareight;

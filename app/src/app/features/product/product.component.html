@@ -25,6 +25,7 @@
                 <ion-img
                   class="product-image"
                   (ionImgDidLoad)="this.loader.loading.next(false)"
+                  (ionError)="onImageFail()"
                   [src]="
                     selectedImage
                       ? selectedImage

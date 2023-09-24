@@ -8,8 +8,14 @@ exports.userNotification = functions
     .onCreate(async (snap, context) => {
       try {
         const data = snap.data();
-        const title = replaceFields(data.title, data.doc.name, data.receiver.name, data.sender.name);
-        const body = replaceFields(data.message, data.doc.name, data.receiver.name, data.sender.name);
+        const userId = context.params.user_id;
+        const target = data.targets.find((target) => {
+          return target.id === userId;
+        });
+        const targetName = target ? target.name : "you";
+
+        const title = replaceFields(data.title, data.doc.name, targetName, data.sender.name);
+        const body = replaceFields(data.message, data.doc.name, targetName, data.sender.name);
         const image = data.image ? data.image : "";
         const messageType = data.message_type;
         const payload = {
@@ -23,8 +29,16 @@ exports.userNotification = functions
         };
         // Get the device token from the parent document
         const parentRef = snap.ref.parent.parent;
-        const parentDoc = await parentRef.get();
-        const deviceToken = parentDoc.data().device_token;
+        let parentDoc = await parentRef.get();
+        let deviceToken = parentDoc.data().device_token;
+        // If deviceToken is not available, retry after 3 seconds
+        if (!deviceToken) {
+          await new Promise((resolve) => {
+            setTimeout(resolve, 3000);
+          });
+          parentDoc = await parentRef.get();
+          deviceToken = parentDoc.data().device_token;
+        }
         if (deviceToken && deviceToken !== "") {
           // Create the notification payload
           const message = {
@@ -46,7 +60,7 @@ exports.userNotification = functions
         }
       } catch (error) {
         console.error("Error sending notification:", error);
-        throw error;// or handle the error as you see fit
+        throw new functions.https.HttpsError("internal", "Error sending notification", error);
       }
     });
 

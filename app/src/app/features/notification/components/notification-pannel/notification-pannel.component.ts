@@ -2,7 +2,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, Input } from '@angular/core';
 import { INotification } from '@features/notification/models/notification.interface';
 import { NotificationFacade } from '@features/notification/services/notification.facade';
-import { Observable, Subscription, debounceTime } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import {
   reactiveTimeFormat,
   timeFormat,
