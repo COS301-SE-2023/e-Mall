@@ -10,6 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-edit-customer-profile',
@@ -25,7 +26,8 @@ export class EditCustomerProfileComponent {
   constructor(
     public profileFacade: ProfileFacade,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private toastController: ToastController
   ) {
     this.customerprofileForm = this.formBuilder.group({
       username: ['', Validators.required],
@@ -34,7 +36,7 @@ export class EditCustomerProfileComponent {
       phone_number: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       address: ['', Validators.required],
       city: ['', Validators.required],
-      postal_code: ['', Validators.pattern(/^\d{4}$/)], 
+      postal_code: ['', Validators.pattern(/^\d{4}$/)],
     });
 
     this.profile$ = this.profileFacade.getProfile();
@@ -55,7 +57,21 @@ export class EditCustomerProfileComponent {
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
+    if (this.customerprofileForm.invalid) {
+      // Check for specific validation errors and display toast messages
+      if (this.customerprofileForm.get('username')?.hasError('required')) {
+        await this.presentToast('Username is required.');
+      }
+      if (this.customerprofileForm.get('phone_number')?.hasError('pattern')) {
+        await this.presentToast('Phone number must be 10 digits.');
+      }
+      if (this.customerprofileForm.get('postal_code')?.hasError('pattern')) {
+        await this.presentToast('Postal code must be 4 digits.');
+      }
+
+      return; // Don't proceed with form submission if there are errors
+    }
     this.profileFacade.updateProfile({
       username: this.customerprofileForm.value.username,
       details: {
@@ -72,5 +88,14 @@ export class EditCustomerProfileComponent {
 
   onChange() {
     this.isChanged = true;
+  }
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      cssClass: 'error-toast',
+      message: message,
+      duration: 3000, // Adjust the duration as needed
+    });
+
+    await toast.present();
   }
 }
