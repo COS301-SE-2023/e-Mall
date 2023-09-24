@@ -27,6 +27,7 @@
     </div>
 
     <div class="wishlist-container" *ngIf="(products$ | async)?.length !== 0">
+      <app-combo-breadcrumb [combo]="'My wishlist'"></app-combo-breadcrumb>
       <div class="wishlist-container-cards">
         <ng-container *ngIf="products$ | async as products">
           <div>

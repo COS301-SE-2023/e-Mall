@@ -138,7 +138,7 @@ export class InventoryFacade implements OnDestroy {
     try {
       //service will return a product seller instance with product id
       const res = await this.inventoryService.addnewProduct(data);
-      return new InventoryActions.AddNewProduct(res.data);
+      return new InventoryActions.AddNewProduct(res.body.data);
     } catch (error) {
       return this.setError(error);
     }
@@ -148,7 +148,7 @@ export class InventoryFacade implements OnDestroy {
   async addExistingProduct(data: any) {
     try {
       const res = await this.inventoryService.addSimilarProduct(data);
-      return new InventoryActions.AddExistingProduct(res.data);
+      return new InventoryActions.AddExistingProduct(res.body.data);
     } catch (error) {
       return this.setError(error);
     }

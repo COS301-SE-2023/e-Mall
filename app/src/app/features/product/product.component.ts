@@ -112,7 +112,9 @@ export default class ProductComponent implements OnInit {
         this.isHearted = this.profileFacade.checkWishlist(this.prod_id);
       }
     });
+  }
 
+  ionViewWillEnter(): void {
     this.prodClickAnalytics();
   }
 

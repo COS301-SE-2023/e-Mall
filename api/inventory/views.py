@@ -163,9 +163,9 @@ def delete(request):
     _id = request.data.get("id")
     try:
         product_seller = ProductSeller.objects.get(id=_id)
-        #check to see if this seller is the only one selling this product
+        # check to see if this seller is the only one selling this product
         if ProductSeller.objects.filter(product=product_seller.product).count() == 1:
-            #delete the product as well
+            # delete the product as well
             product_seller.product.delete()
         else:
             product_seller.delete()
@@ -191,7 +191,6 @@ def getSimilarProducts(request):
                     product=product, seller=user
                 ).exists():
                     product_names.append(product.name)
-
 
             user_product_name = request.data["name"]
 
@@ -229,8 +228,10 @@ def createSimilarProduct(request):
                     product=Product.objects.get(name=product_name),
                     seller=user,
                 ).exists():
-                    raise Exception(
-                        "You already have a product with the same name in the database"
+                    # return it as a response error with a custom error message
+                    return Response(
+                        {"error": "Product already exists"},
+                        status=status.HTTP_400_BAD_REQUEST,
                     )
 
                 ProductSeller.objects.create(
@@ -243,10 +244,18 @@ def createSimilarProduct(request):
                     product_url=request.data["product_url"],
                     in_stock=request.data["in_stock"],
                     img_array=request.data["img_array"],
+                    product_name=product_name,
                 ).save()
-                #return the product 
-                serializer = ProductSellerSerializer(ProductSeller.objects.get(product=Product.objects.get(name=product_name),seller=user))
-                return Response({"data":serializer.data}, status=status.HTTP_201_CREATED)
+                # return the product
+                serializer = ProductSellerSerializer(
+                    ProductSeller.objects.get(
+                        product=Product.objects.get(name=product_name), seller=user
+                    )
+                )
+                print(serializer.data)
+                return Response(
+                    {"data": serializer.data}, status=status.HTTP_201_CREATED
+                )
     except Exception as e:
         # handle other exceptions here
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -280,9 +289,14 @@ def createNewProduct(request):
                 img_array=request.data["img_array"],
                 product_name=product.name,
             ).save()
-                #return the product 
-            serializer = ProductSellerSerializer(ProductSeller.objects.get(product=Product.objects.get(name=product.name),seller=user))
-            return Response({"data":serializer.data}, status=status.HTTP_201_CREATED)
+            # return the product
+            serializer = ProductSellerSerializer(
+                ProductSeller.objects.get(
+                    product=Product.objects.get(name=product.name), seller=user
+                )
+            )
+            print(serializer.data)
+            return Response({"data": serializer.data}, status=status.HTTP_201_CREATED)
     except Exception as e:
         # handle other exceptions here
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

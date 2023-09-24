@@ -33,7 +33,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   minPrice!: number; // Minimum price value
   maxPrice!: number; // Maximum price value
   filterOptions: string[] = []; // Stores the selected filter options
-  selectedSortOption!: string;
+  selectedSortOption = 'price';
   isChecked!: boolean;
   currentPage!: number;
   maxPrice$: Observable<number> | null = null;
@@ -79,15 +79,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.maxPrice = 5000;
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params['search'];
-      this.selectedSortOption = 'price';
       this.productService
-        .searchProducts(
-          this.searchQuery,
-          this.filterOptions,
-          this.selectedSortOption,
-          this.currentPage,
-          this.itemsPerPage
-        )
+        .searchProducts(this.searchQuery, [], this.selectedSortOption, 0, 10)
         .subscribe(result => {
           this.searchResults$ = of(result.products);
           this.totalSearchCount$ = of(result.totalCount);
@@ -139,7 +132,20 @@ export class SearchComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy(): void {
-    console.log();
+    this.searchQuery = '';
+    this.searchResults$ = undefined;
+    this.brandOptions = [];
+    this.sellerOptions = [];
+    this.categoryOptions = [];
+    this.priceRange = [0, 100];
+    this.minPrice = 0;
+    this.maxPrice = 5000;
+    this.filterOptions = [];
+    this.selectedSortOption = 'price';
+    this.isChecked = false;
+    this.currentPage = 0;
+    this.itemsPerPage = 10;
+    this.totalSearchCount$ = undefined;
   }
 
   //
