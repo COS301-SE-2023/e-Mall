@@ -114,10 +114,6 @@ export default class ProductComponent implements OnInit {
     });
   }
 
-  ionViewWillEnter(): void {
-    this.prodClickAnalytics();
-  }
-
   toggleBookmark() {
     this.isBookmark = of(true);
     this.openComboPopover();
@@ -249,6 +245,7 @@ export default class ProductComponent implements OnInit {
   }
   ionViewWillEnter() {
     this.loader.loading.next(true);
+    this.prodClickAnalytics();
   }
   ionViewWillLeave() {
     this.loader.loading.next(false);
