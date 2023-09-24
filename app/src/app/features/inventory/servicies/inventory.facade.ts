@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable, OnDestroy } from '@angular/core';
 import { Select } from '@ngxs/store';
-import { Observable, Subscription, pairwise } from 'rxjs';
+import { Observable, Subscription, debounceTime, pairwise } from 'rxjs';
 import { InventoryService } from './inventory.service';
 import { InventorySelectors } from '../states/inventory.selector';
 import { IInventoryItem } from '../models/inventory-item.interface';
@@ -12,6 +12,7 @@ import { SetError } from '@features/error/states/error.action';
 import { IError } from '@features/error/models/error.interface';
 import { IProduct } from '@app/shared/models/product/product.interface';
 import { IProductSeller } from '@app/shared/models/product/product-seller.interface';
+import { LoaderFacade } from '@app/shared/components/loader/loader-for-state.facade';
 //import { LoaderFacade } from '@shared/components/loader/loader.facade';
 
 @Injectable()
@@ -36,20 +37,25 @@ export class InventoryFacade implements OnDestroy {
     InventoryActions.DeleteItem,
     InventoryActions.UpdateItems,
   ];
-  constructor(private inventoryService: InventoryService) {
-    //this.loaderFacade.addActions(this.actions);
+  constructor(
+    private inventoryService: InventoryService,
+    private loaderFacade: LoaderFacade
+  ) {
+    this.loaderFacade.addActions(this.actions);
 
     this.queryTemp = {};
     console.log('inventory facade initialized');
     this.resetState();
-    this.querySubs = this.query$.subscribe(async query => {
-      if (query) {
-        this.fetchItems(query);
-        this.queryTemp = query;
-      }
-    });
+    this.querySubs = this.query$
+      .pipe(debounceTime(500))
+      .subscribe(async query => {
+        if (query) {
+          this.fetchItems(query);
+          this.queryTemp = query;
+        }
+      });
     this.productSubs = this.products$
-      .pipe(pairwise())
+      .pipe(pairwise(), debounceTime(500))
       .subscribe(async ([prevProducts, currProducts]) => {
         if (prevProducts && currProducts) {
           if (prevProducts.length - 1 === currProducts.length) {

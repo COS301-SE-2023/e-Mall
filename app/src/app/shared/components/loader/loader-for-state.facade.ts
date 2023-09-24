@@ -39,18 +39,18 @@ export class LoaderFacade implements OnDestroy {
         debounceTime(2000),
         map(() => false)
       )
-    ).subscribe(async shouldPresent => {
-      console.log(shouldPresent);
-      if (shouldPresent && this.loading === null) {
-        this.presentLoading();
-      } else {
-        this.dismissLoading();
-      }
-    });
+    )
+      .pipe(debounceTime(500))
+      .subscribe(async shouldPresent => {
+        if (shouldPresent && this.loading === null) {
+          this.presentLoading();
+        } else {
+          this.dismissLoading();
+        }
+      });
   }
   ngOnDestroy(): void {
     if (this.loadingSubs) {
-      console.log('loader service destroyed');
       this.dismissLoading();
       this.loadingSubs.unsubscribe();
     }
@@ -64,12 +64,11 @@ export class LoaderFacade implements OnDestroy {
         message: 'Please wait...',
         translucent: true,
         backdropDismiss: false,
-        //mode: 'ios',
+        mode: 'ios',
         duration: 5000,
         cssClass: 'custom-loader',
       });
       await this.loading.present();
-      console.log('presenting loading from loader');
     }
   }
 
@@ -77,7 +76,6 @@ export class LoaderFacade implements OnDestroy {
     if (this.loading) {
       await this.loading.dismiss();
       this.loading = null;
-      console.log('dismissed loading from loader');
     }
   }
 
@@ -90,11 +88,9 @@ export class LoaderFacade implements OnDestroy {
   }
 
   removeActions(actions: ActionType[]) {
-    console.error('before remove', this.actionsToWatch);
     this.actionsToWatch = this.actionsToWatch.filter(
       action => !actions.includes(action)
     );
-    console.error('after remove', this.actionsToWatch);
     this.watch();
   }
 }
