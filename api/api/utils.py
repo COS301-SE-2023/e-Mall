@@ -6,6 +6,7 @@ from io import BytesIO
 import os
 import uuid
 from urllib.parse import urlparse
+import mimetypes
 
 bucket_name = settings.AWS_STORAGE_BUCKET_NAME
 s3 = boto3.client(
@@ -22,10 +23,10 @@ def upload_to_spaces(url, folder_name, acl="public-read"):
         try:
             response = requests.get(url)
             file = BytesIO(response.content)
-            # Parse the URL and get only the path component
-            url_path = urlparse(url).path
-            # Get the extension of the file
-            _, ext = os.path.splitext(url_path)
+            # Get the MIME type from the response headers
+            mime_type = response.headers.get("content-type")
+            # Guess the file extension based on the MIME type
+            ext = mimetypes.guess_extension(mime_type)
             # Generate a random unique file name with the same extension
             file.name = f"{uuid.uuid4()}{ext}"
 
@@ -44,7 +45,7 @@ def upload_to_spaces(url, folder_name, acl="public-read"):
         except NoCredentialsError:
             print("Credentials not available")
             return False
-        return f"https://{bucket_name}.ams3.cdn.digitaloceanspaces.com/{folder_name}/{file.name}"
+        return f"https://bucket.emall.space/{folder_name}/{file.name}"
 
     else:
         return url
