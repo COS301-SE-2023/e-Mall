@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 // construction unit tests
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ConstructionComponent } from '@app/features/construction/construction.component';
