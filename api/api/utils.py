@@ -3,6 +3,9 @@ from botocore.exceptions import NoCredentialsError
 from django.conf import settings
 import requests
 from io import BytesIO
+import os
+import uuid
+from urllib.parse import urlparse
 
 bucket_name = settings.AWS_STORAGE_BUCKET_NAME
 s3 = boto3.client(
@@ -19,9 +22,12 @@ def upload_to_spaces(url, folder_name, acl="public-read"):
         try:
             response = requests.get(url)
             file = BytesIO(response.content)
-            file.name = url.split("/")[
-                -1
-            ]  # Use the last part of the URL as the file name
+            # Parse the URL and get only the path component
+            url_path = urlparse(url).path
+            # Get the extension of the file
+            _, ext = os.path.splitext(url_path)
+            # Generate a random unique file name with the same extension
+            file.name = f"{uuid.uuid4()}{ext}"
 
             s3.upload_fileobj(
                 file,
