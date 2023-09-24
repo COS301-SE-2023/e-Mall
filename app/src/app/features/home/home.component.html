@@ -30,27 +30,21 @@
 
     <br /><br />
     <!--Product carousel-->
-    <div style="align-items: center" *ngIf="(forYouProducts$ | async) !== null">
+    <!-- <div style="align-items: center" *ngIf="(forYouProducts$ | async) !== null"> -->
+    <div style="align-items: center">
       <h3 #recommendedHeading>Recommended For You</h3>
     </div>
-    <div
-      class="spinner-container"
-      *ngIf="(forYouProducts$ | async) !== null && showSpinner">
-      <div class="spinner">
-        <ion-spinner style="color: #99e3dc"></ion-spinner>
-      </div>
-    </div>
+
     <div
       style="
         width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-      "
-      *ngIf="!showSpinner">
+      ">
       <div
         class="carousel-container"
-        *ngIf="(forYouProducts$ | async) !== null">
+        *ngIf="(forYouProducts$ | async) !== null; else loading">
         <ngb-carousel
           *ngIf="forYouProducts$ | async as products"
           [interval]="0"
@@ -107,20 +101,17 @@
         justify-content: center;
         align-items: center;
       ">
-      <div class="spinner-container" *ngIf="showSpinner">
-        <div class="spinner">
-          <ion-spinner style="color: #99e3dc"></ion-spinner>
-        </div>
-      </div>
-      <div class="carousel-container" *ngIf="!showSpinner">
+      <div
+        class="carousel-container"
+        *ngIf="trendingProducts$ | async as products; else loading">
         <ngb-carousel
           [interval]="0"
           [animation]="true"
           [showNavigationArrows]="true"
           [showNavigationIndicators]="true"
           [wrap]="true"
-          *ngIf="trendingProducts$ | async as products"
           class="custom-carousel carousel-dark">
+          <!-- <ng-template ngbSlide *ngIf="products[0]"> -->
           <ng-template ngbSlide *ngIf="products[0]">
             <div class="row">
               <div
@@ -217,3 +208,24 @@
 
   <app-footer></app-footer>
 </ion-content>
+
+<ng-template #loading>
+  <div class="carousel-container">
+    <ngb-carousel
+      [interval]="0"
+      [animation]="true"
+      [showNavigationArrows]="false"
+      [showNavigationIndicators]="false"
+      [wrap]="true"
+      class="custom-carousel carousel-dark">
+      <!-- <ng-template ngbSlide *ngIf="products[0]"> -->
+      <ng-template ngbSlide>
+        <div class="row">
+          <div class="product-card" *ngFor="let number of [0, 1, 2, 3]">
+            <app-product-card-placeholder></app-product-card-placeholder>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-carousel>
+  </div>
+</ng-template>

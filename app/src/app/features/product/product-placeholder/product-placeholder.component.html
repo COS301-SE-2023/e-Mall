@@ -1,0 +1,107 @@
+<ion-grid class="product-page" mode="ios">
+  <ion-row>
+    <ion-col class="top-col">
+      <div class="mini-thumbnails">
+        <ion-thumbnail *ngFor="let i of [1, 2, 3]">
+          <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+        </ion-thumbnail>
+      </div>
+      <div class="main-img-container">
+        <div class="product-card">
+          <ion-thumbnail class="product-image">
+            <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+          </ion-thumbnail>
+        </div>
+      </div>
+
+      <div id="product-upper-info">
+        <ion-list>
+          <ion-list-header>
+            <ion-skeleton-text
+              [animated]="true"
+              style="width: 50%"></ion-skeleton-text>
+          </ion-list-header>
+
+          <ion-item lines="none">
+            <ion-label>
+              <h3>
+                <ion-skeleton-text
+                  [animated]="true"
+                  style="width: 80%"></ion-skeleton-text>
+              </h3>
+              <p>
+                <ion-skeleton-text
+                  [animated]="true"
+                  style="width: 60%"></ion-skeleton-text>
+              </p>
+              <p>
+                <ion-skeleton-text
+                  [animated]="true"
+                  style="width: 30%"></ion-skeleton-text>
+              </p>
+              <p>
+                <ion-skeleton-text
+                  [animated]="true"
+                  style="width: 60%"></ion-skeleton-text>
+              </p>
+              <p>
+                <ion-skeleton-text
+                  [animated]="true"
+                  style="width: 70%"></ion-skeleton-text>
+              </p>
+              <p>
+                <ion-skeleton-text
+                  [animated]="true"
+                  style="width: 60%"></ion-skeleton-text>
+              </p>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label>
+              <p>
+                <ion-skeleton-text
+                  [animated]="true"
+                  style="width: 30%"></ion-skeleton-text>
+              </p>
+              <p>
+                <ion-skeleton-text
+                  [animated]="true"
+                  style="width: 60%"></ion-skeleton-text>
+              </p>
+              <p>
+                <ion-skeleton-text
+                  [animated]="true"
+                  style="width: 70%"></ion-skeleton-text>
+              </p>
+              <p>
+                <ion-skeleton-text
+                  [animated]="true"
+                  style="width: 60%"></ion-skeleton-text>
+              </p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row style="margin-top: 50px">
+    <ion-col>
+      <div class="middle-container">
+        <ion-item>
+          <ion-label>
+            <h1>
+              <ion-skeleton-text
+                [animated]="true"
+                style="width: 40%"></ion-skeleton-text>
+            </h1>
+          </ion-label>
+        </ion-item>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <div class="lower-body-container" style="height: 200px"></div>
+    </ion-col>
+  </ion-row>
+</ion-grid>

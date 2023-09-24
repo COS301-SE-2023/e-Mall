@@ -13,6 +13,7 @@ import { NgxsModule } from '@ngxs/store';
 import { ElementRef } from '@angular/core';
 import { ComboStateModule } from '@features/combo-state/combo-state.module';
 import { NotificationModule } from '@app/features/notification/notification.module';
+import { ProductCardFacade } from '@app/shared/components/product-card/services/product-card.facade';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -31,7 +32,7 @@ describe('HomeComponent', () => {
         NgxsModule.forRoot(),
         NotificationModule,
       ],
-      providers: [HomeComponent],
+      providers: [HomeComponent, ProductCardFacade],
     });
 
     component = TestBed.inject(HomeComponent);

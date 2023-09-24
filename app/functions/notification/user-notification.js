@@ -8,8 +8,8 @@ exports.userNotification = functions
     .onCreate(async (snap, context) => {
       try {
         const data = snap.data();
-        const title = data.title;
-        const body = data.message;
+        const title = replaceFields(data.title, data.doc.name, data.receiver.name, data.sender.name);
+        const body = replaceFields(data.message, data.doc.name, data.receiver.name, data.sender.name);
         const image = data.image ? data.image : "";
         const messageType = data.message_type;
         const payload = {
@@ -50,3 +50,15 @@ exports.userNotification = functions
       }
     });
 
+/**
+ * Replaces placeholders in a string with provided values.
+ *
+ * @param {string} str - The string with placeholders.
+ * @param {string} docName - The name to replace '[combo]' placeholder.
+ * @param {string} receiverName - The name to replace '[receiver]' placeholder.
+ * @param {string} senderName - The name to replace '[sender]' placeholder.
+ * @return {string} The string with placeholders replaced by provided values.
+ */
+function replaceFields(str, docName, receiverName, senderName) {
+  return str.replace("[doc]", docName).replace("[receiver]", receiverName).replace("[sender]", senderName);
+}

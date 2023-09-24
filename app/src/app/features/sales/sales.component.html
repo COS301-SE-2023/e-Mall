@@ -3,17 +3,12 @@
   <div class="content">
     <ion-text color="settings-header">
       <h2 class="dashboard-header-padding">Analytics</h2>
-      </ion-text>
-      <div class="spinner-container" *ngIf="showSpinner">
-        <div class="spinner">
-          <ion-spinner style="color: #99e3dc; margin-top: 100px;" ></ion-spinner>
-        </div>
-      </div>
-    <div *ngIf="!showSpinner"> 
-    <div class="todays-sales">
+    </ion-text>
 
+    <div class="todays-sales">
       <ion-card class="summary">
-        <div style="
+        <div
+          style="
             display: flex;
             padding: 10px;
             align-items: flex-start;
@@ -22,7 +17,8 @@
           <!-- <h2>This Month</h2>/ -->
         </div>
 
-        <div style="
+        <div
+          style="
             display: flex;
             justify-content: center;
             align-items: center;
@@ -31,7 +27,9 @@
           ">
           <ion-card style="background-color: #ffe2e5">
             <ion-card-header>
-              <ion-icon name="cart" style="background-color: #fa5a7d"></ion-icon>
+              <ion-icon
+                name="cart"
+                style="background-color: #fa5a7d"></ion-icon>
               <ion-card-title>Products Clicked</ion-card-title>
             </ion-card-header>
             <ion-card-content>
@@ -41,7 +39,9 @@
 
           <ion-card style="background-color: #fff4de">
             <ion-card-header>
-              <ion-icon name="globe" style="background-color: #ff947a"></ion-icon>
+              <ion-icon
+                name="globe"
+                style="background-color: #ff947a"></ion-icon>
               <ion-card-title>Website Clicks</ion-card-title>
             </ion-card-header>
             <ion-card-content>
@@ -51,7 +51,9 @@
 
           <ion-card style="background-color: #dcfce7">
             <ion-card-header>
-              <ion-icon name="heart" style="background-color: #3cd856"></ion-icon>
+              <ion-icon
+                name="heart"
+                style="background-color: #3cd856"></ion-icon>
               <ion-card-title>Favourited</ion-card-title>
             </ion-card-header>
             <ion-card-content>
@@ -62,14 +64,19 @@
       </ion-card>
     </div>
 
-    <div class="container">
-      <div class="categoryPercentage-graph">
-        <canvas id="categoryPercentage-chart"></canvas>
+    <div class="container flex-it">
+      <div class="categoryPercentage-graph flex-it">
+        <canvas #categoryChart id="categoryPercentage-chart"></canvas>
+        <div class="chart-spinner-overlay" *ngIf="isProductChartLoading">
+          <ion-spinner class="spinner-for-chart" name="dots"></ion-spinner>
+        </div>
       </div>
-      <div class="product-performance">
-        <canvas id="product-performance-chart"></canvas>
+      <div class="product-performance flex-it">
+        <canvas #productChart id="product-performance-chart"></canvas>
+        <div class="chart-spinner-overlay" *ngIf="isProductChartLoading">
+          <ion-spinner class="spinner-for-chart" name="dots"></ion-spinner>
+        </div>
       </div>
-    </div>
     </div>
   </div>
 </ion-content>

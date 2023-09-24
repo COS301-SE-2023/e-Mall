@@ -2,53 +2,36 @@
 
 <ion-content class="global-ion-content">
   <ng-container *ngIf="product$ | async as product">
-    <app-category-breadcrumb
-      [categoryList]="product"
-      *ngIf="!showSpinner"></app-category-breadcrumb>
+    <app-category-breadcrumb [categoryList]="product"></app-category-breadcrumb>
   </ng-container>
   <div class="ion-content-wrapper">
-    <div class="container-fluid body-container">
-      <div class="container-fluid prices" id="prices">
-        <!--<div class="spinner-container" >-->
-        <div class="spinner" *ngIf="showSpinner">
-          <ion-spinner style="color: #99e3dc"></ion-spinner>
-        </div>
-        <!--</div>-->
-        <div
-          class="row product-img-info-container"
-          style="margin-left: 10px; margin-right: 10px"
-          *ngIf="!showSpinner">
-          <!--<div *ngIf="(product$ | async) === null">
-            <mat-spinner></mat-spinner>
-          </div>-->
-          <div class="col-sm-4 col-md-4 col-lg-4 mini-imgs-container">
-            <div
-              class="mini-imgs-small-container"
-              *ngFor="let img of (product$ | async)?.min_price_img_array">
-              <div>
-                <img
-                  [src]="img"
-                  alt="Product Image"
-                  class="img-fluid w-100"
+    <ng-container *ngIf="product$ | async as product; else loading">
+      <ion-grid class="product-page" mode="ios">
+        <ion-row>
+          <ion-col class="top-col">
+            <div class="mini-thumbnails">
+              <ion-thumbnail
+                *ngFor="let img of product.min_price_img_array; let i = index">
+                <ion-img
+                  [src]="img ? img : 'assets/images/default.png'"
                   (click)="selectImage(img)" />
-              </div>
+              </ion-thumbnail>
             </div>
-          </div>
-
-          <div class="col-sm-4 col-md-4 col-lg-4 main-img-container">
-            <mat-card class="product-card">
-              <div class="position-relative">
-                <img
-                  mat-card-image
+            <!-- </ion-col> -->
+            <!-- <ion-col> -->
+            <!-- <ion-card> -->
+            <div class="main-img-container">
+              <div class="product-card">
+                <ion-img
+                  class="product-image"
+                  (ionImgDidLoad)="this.loader.loading.next(false)"
                   [src]="
                     selectedImage
                       ? selectedImage
                       : getOneImg((product$ | async)?.min_price_img_array)
-                  "
-                  class="product-image" />
-                <div
-                  class="min-price-discount_rate"
-                  *ngIf="product$ | async as product">
+                  " />
+
+                <div class="min-price-discount_rate">
                   <span
                     class="discount-tag"
                     *ngIf="product.min_price_discount_rate !== 0">
@@ -60,179 +43,253 @@
                     >
                   </span>
                 </div>
+                <div class="bookmark-container">
+                  <ion-button
+                    color="tertiary"
+                    (click)="toggleBookmark()"
+                    mode="ios">
+                    <ion-icon name="bookmark-outline"></ion-icon>
+                  </ion-button>
+                </div>
               </div>
-              <mat-card-actions>
-                <span class="button-container"> </span>
-              </mat-card-actions>
-            </mat-card>
-          </div>
-          <div class="col-sm-4 col-md-4 col-lg-4 upper-product-info-container">
-            <div
-              class="upper-product-info-small-container"
-              *ngIf="product$ | async as product">
+            </div>
+            <!-- </ion-col> -->
+            <!-- <ion-col size="auto"></ion-col> -->
+            <!-- <ion-col> -->
+            <div id="product-upper-info" *ngIf="product$ | async as product">
+              <!-- <ion-text> -->
               <h2>
                 {{ product.name }}
               </h2>
+              <!-- </ion-text> -->
+
               <h4>{{ product.brand }}</h4>
-              <p>{{ product.description }}</p>
-              <p>
-                <ion-button
-                  (click)="toggleBookmark()"
-                  class="bookmark-button"
-                  shape="round"
-                  fill="clear"
-                  mode="ios">
-                  <ion-icon
-                    [name]="'bookmark-outline'"
-                    style="color: var(--c-5-a, #37d0d6)"></ion-icon>
-                </ion-button>
+              <p style="font-weight: 300">
+                {{ product.description }}
               </p>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="container-fluid lower-body-container">
-        <nav
-          class="navbar navbar-expand-lg navbar-light bg-light sticky-top lowerNav"
-          style="padding-left: 40px">
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a
-                  style="padding-right: 15px"
-                  class="nav-link"
-                  (click)="scroll(comp_products)"
-                  >Prices</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" (click)="scroll(product_info)"
-                  >Product information</a
-                >
-              </li>
-            </ul>
-          </div>
-        </nav>
-
-        <div class="container-fluid filters" style="margin-left: 20px">
-          <div class="row">
-            <div class="col-sm-2 col-md-2 col-lg-2">
-              <button
-                class="only-in-stock"
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin-top: 50px">
+          <ion-col>
+            <div class="middle-container">
+              <ion-button fill="clear" (click)="scroll(comp_products)">
+                Prices
+              </ion-button>
+              <ion-button fill="clear" (click)="scroll(product_info)">
+                Product information
+              </ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div class="lower-body-container" #comp_products>
+              <ion-button
+                color="tertiary"
+                shape="round"
+                class="stock-button"
                 (click)="onlyInStockToggler()"
-                [ngStyle]="{ border: divClicked ? '2px solid black' : 'none' }">
+                [ngClass]="{ 'stock-button-highlight': divClicked }">
                 <span><i class="fa-solid fa-cube" aria-hidden="true"></i></span>
                 Only in stock
-              </button>
-            </div>
-          </div>
-        </div>
+              </ion-button>
+              <ng-container
+                *ngIf="sellers$ | async as sellers; else loading_spinner">
+                <ion-accordion-group
+                  class="seller-list-group"
+                  [multiple]="true">
+                  <!-- <ul style="padding-left: 20px" class="seller-list"> -->
+                  <ion-accordion *ngFor="let seller of sellers">
+                    <ion-item slot="header" shape="round" lines="none">
+                      <ion-label class="accordion-name">
+                        {{ seller.business_name }}
+                      </ion-label>
 
-        <div #comp_products id="comp_products"></div>
+                      <div slot="end" class="inner-heading-padding">
+                        <ion-label class="price-label"
+                          >R{{ seller.price }}</ion-label
+                        >
+                        <ion-chip *ngIf="seller.in_stock" color="success">
+                          <ion-label class="stock-label"> In Stock </ion-label>
+                          <ion-icon
+                            class="stock-cube stock-icon"
+                            name="cube"></ion-icon>
+                          <ion-icon
+                            class="stock-icon"
+                            name="checkmark-outline"></ion-icon>
+                        </ion-chip>
+                        <ion-chip *ngIf="!seller.in_stock" color="danger">
+                          <ion-label class="stock-label">
+                            Out of Stock
+                          </ion-label>
+                          <ion-icon
+                            class="stock-cube stock-icon"
+                            name="cube"></ion-icon>
 
-        <div class="spinner-container" *ngIf="showSpinner2">
-          <div class="spinner">
-            <ion-spinner style="color: #99e3dc"></ion-spinner>
-          </div>
-        </div>
-        <div *ngIf="!showSpinner2">
-          <ng-container *ngIf="sellers$ | async as sellers">
-            <ul style="padding-left: 20px" class="seller-list">
-              <li *ngFor="let seller of sellers">
-                <div class="container-fluid comp-products">
-                  <mat-accordion>
-                    <mat-expansion-panel hideToggle disabled>
-                      <mat-expansion-panel-header>
-                        <mat-panel-title>
-                          <mat-card-title
-                            class="seller-name"
-                            (click)="goToSellerPage(seller.seller)"
-                            >{{ seller.business_name }}</mat-card-title
-                          >
-                        </mat-panel-title>
-                        <mat-panel-description></mat-panel-description>
-                      </mat-expansion-panel-header>
-                    </mat-expansion-panel>
-                    <mat-card-header class="seller-product-name-price">
-                      <div class="container-fluid card-title-container">
-                        <mat-card-title class="product-name">
+                          <ion-icon
+                            class="stock-icon"
+                            name="close-outline"></ion-icon>
+                        </ion-chip>
+                      </div>
+                      <ion-icon
+                        class="ion-accordion-toggle-icon"
+                        style="display: none; visibility: hidden"
+                        name="logo-ionic"
+                        slot="end"
+                        color="white">
+                      </ion-icon>
+                    </ion-item>
+                    <div class="ion-padding accordion-content" slot="content">
+                      <div class="accordion--inner-content">
+                        <a
+                          class="product-mini-card-container"
+                          href="{{ seller.product_url }}"
+                          target="_blank">
+                          <div class="product-mini-card">
+                            <ion-thumbnail slot="strat">
+                              <ion-img [src]="getOneImg(seller.img_array)" />
+                            </ion-thumbnail>
+                          </div>
+                        </a>
+                        <div class="accordion-content-product-name">
                           <a
                             href="{{ seller.product_url }}"
+                            target="_blank"
                             (click)="linkClickAnalytics(seller.business_name)">
                             {{ seller.product_name }}
                           </a>
-                        </mat-card-title>
-                        <div class="right-section">
-                          <div
-                            class="in-stock-container"
-                            [ngClass]="{
-                              'in-stock-boxes': seller.in_stock,
-                              'out-of-stock-boxes': !seller.in_stock
-                            }"
-                            matTooltipPosition="above"
-                            aria-label="Example tooltip">
-                            <i
-                              class="fa-sharp fa-solid fa-boxes-stacked in-stock-box"></i>
-                            <i
-                              *ngIf="seller.in_stock"
-                              class="fa-sharp fa-solid fa-check in-stock-tick"
-                              matTooltip="in stock"></i>
-                            <i
-                              *ngIf="!seller.in_stock"
-                              class="fa-sharp fa-solid fa-x in-stock-x"
-                              matTooltip="out of stock"></i>
-                          </div>
-                          <mat-card-title class="product-price">
-                            R{{ seller.price }}
-                          </mat-card-title>
                         </div>
+                        <ion-list>
+                          <ion-item>
+                            <ion-label
+                              style="
+                                font-weight: 700;
+                                text-align: center;
+                                width: 100%;
+                              ">
+                              Price breakdown
+                            </ion-label>
+                          </ion-item>
+                          <ion-item lines="none">
+                            <ion-label class="accordion-price-breakdown-label">
+                              {{ seller.original_price }}
+                            </ion-label></ion-item
+                          >
+                          <ion-item lines="full">
+                            <ion-icon
+                              color="danger"
+                              slot="start"
+                              style="height: 0.9rem"
+                              name="remove-circle-outline"></ion-icon>
+                            <ion-label
+                              color="danger"
+                              slot="end"
+                              class="accordion-price-breakdown-label"
+                              >{{ seller.discount }}</ion-label
+                            ></ion-item
+                          >
+                          <ion-item lines="none">
+                            <ion-label
+                              class="accordion-price-breakdown-label"
+                              >{{ seller.price }}</ion-label
+                            >
+                          </ion-item>
+                        </ion-list>
                       </div>
-                    </mat-card-header>
-                  </mat-accordion>
-                </div>
-              </li>
-            </ul>
-          </ng-container>
-        </div>
-
-        <div
-          style="padding-left: 30px; padding-right: 30px"
-          #product_info
-          class="container-fluid full-product-info"
-          id="full-product-info">
-          <div *ngIf="!showSpinner2">
-            <h3>Products Information</h3>
-            <ng-container *ngIf="sellers$ | async as sellers">
-              <div *ngFor="let seller of sellers; let i = index"></div>
-
-              <div *ngIf="product$ | async as product">
-                <p>
-                  Lowest price for {{ product.name }} is
-                  <b>R{{ product.min_price }}</b> this is currrently the lowest
-                  price out of {{ sellers.length }} stores
-                </p>
-
-                <p>
-                  <b>{{ product.name }}</b>
-                </p>
-                <p>{{ product.description }}</p>
+                      <div class="accordion-button-container">
+                        <ion-button
+                          class="accordian-buttons"
+                          size="default"
+                          fill="solid"
+                          href="{{ seller.product_url }}"
+                          target="_blank"
+                          (click)="linkClickAnalytics(seller.business_name)">
+                          Go to this product
+                        </ion-button>
+                        <ion-button
+                          class="accordian-buttons"
+                          size="default"
+                          fill="solid"
+                          (click)="goToSellerPage(seller.seller)">
+                          Seller Profile
+                        </ion-button>
+                      </div>
+                    </div>
+                  </ion-accordion>
+                </ion-accordion-group>
+              </ng-container>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div
+              style="padding-left: 30px; padding-right: 30px"
+              #product_info
+              id="full-product-info">
+              <div>
+                <h3>Products Information</h3>
+                <ng-container
+                  *ngIf="sellers$ | async as sellers; else info_loading">
+                  <div *ngIf="product$ | async as product; else info_loading">
+                    <ion-text>
+                      <p>
+                        Lowest price for <u>{{ product.name }}</u> is
+                        <u
+                          ><b>R{{ product.min_price }}</b></u
+                        >
+                        .This is currrently the lowest price out of
+                        <u>{{ sellers.length }}</u> stores.
+                      </p>
+                    </ion-text>
+                    <ion-text
+                      ><p>{{ product.description }}</p></ion-text
+                    >
+                  </div>
+                </ng-container>
               </div>
-            </ng-container>
-          </div>
-        </div>
-      </div>
-    </div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ng-container>
   </div>
   <app-footer></app-footer>
 </ion-content>
+
+<ng-template #loading>
+  <app-product-placeholder
+    style="width: 100%; height: 100%"></app-product-placeholder>
+</ng-template>
+<ng-template #loading_spinner>
+  <ion-spinner name="dots"></ion-spinner>
+</ng-template>
+<ng-template #info_loading>
+  <ion-list>
+    <ion-list-header>
+      <ion-skeleton-text
+        [animated]="true"
+        style="width: 80px"></ion-skeleton-text>
+    </ion-list-header>
+    <ion-item lines="none">
+      <ion-label>
+        <h3>
+          <ion-skeleton-text
+            [animated]="true"
+            style="width: 80%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text
+            [animated]="true"
+            style="width: 60%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text
+            [animated]="true"
+            style="width: 30%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ng-template>

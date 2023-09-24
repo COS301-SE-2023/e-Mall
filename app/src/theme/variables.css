@@ -21,7 +21,7 @@
   --ion-color-secondary-shade: #87c8c2;
   --ion-color-secondary-tint: #a3e6e0;
 
-  --ion-color-tertiary: #e6f8f7;
+  --ion-color-tertiary: #ffffff;
   --ion-color-tertiary-rgb: 230, 248, 247;
   --ion-color-tertiary-contrast: #000000;
   --ion-color-tertiary-contrast-rgb: 0, 0, 0;
@@ -108,15 +108,17 @@ ion-content::-webkit-scrollbar {
 }
 
 
+
 .ion-content-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   vertical-align: middle;
-  min-height: 90vh;
-  width: 100%;
-  padding: 2px 2px;
+  min-height: 80vh;
+  padding: 2px auto;
+  margin-right: auto;
   background: #fff;
+  width: 100vw;
 }
 
 .error-toast {
@@ -143,20 +145,34 @@ h1 {
   color: #000;
   /* Title */
   font-family: Poppins, sans-serif;
-  font-size: 100px;
+  /* font-size: 100px; */
+  font-size: 6rem;
   font-style: normal;
   font-weight: 600;
   line-height: 140%;
 }
-
+ion-text{
+  font-size: 1rem;
+}
 h2 {
   color: #000;
 
   font-family: Poppins, sans-serif;
-  font-size: 32px;
+  font-size: 2rem !important;
+  /* font-size: 32px; */
   font-style: normal;
   font-weight: 600;
   line-height: 140%;
+}
+h4 {
+  color: #000;
+  
+    font-family: Poppins, sans-serif;
+    font-size: 1.6rem !important;
+    /* font-size: 32px; */
+    font-style: normal;
+    font-weight: 600;
+    line-height: 140%;
 }
 
 p {
@@ -164,7 +180,7 @@ p {
 
   /* Body/Default */
   font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
+  font-size: 1.2rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -172,6 +188,7 @@ p {
 a {
   color: var(--ion-color-primary-shade);
 }
+
 
 /* inventory page start*/
 ion-popover.sort-popover {
@@ -233,8 +250,54 @@ ion-modal.inventory-modal{
   text-align: center;
 }
 
-/*notification*/
+/* med size screen*/
+@media (min-width:1024px){
+html {
+    font-size: 16px;
+  }
+}
+@media (min-width:768px){
+html {
+    font-size: 15px;
+  }
+}
+/*bigger than med size screen */
+@media (min-width:574px) {
+  html {
+    font-size: 13px;
+  }
+
+  ion-toast.custom-notification {
+    --background: #f4f4fa;
+    --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
+    --color: #4b4a50;
+    --width: 22rem;
+    --min-height: 7rem;
+    --start: 4000;
+    --max-height: 15rem;
+  }
+
+  ion-toast.custom-notification::part(message) {
+    color: #000000;
+    text-align: start;
+    padding-left: 10px;
+    height: 100%;
+    padding-top: 10px;
+  }
+
+  ion-toast.custom-notification::part(button) {
+    color: var(--ion-color-clear-button);
+    font-size: 0.8rem;
+    height: min-content;
+  }
+
+
+}
 @media (max-width:574px) {
+  html {
+      font-size: 12px;
+    }
+
   ion-toast.custom-notification {
       --background: #f4f4fa;
       --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
@@ -258,31 +321,23 @@ ion-modal.inventory-modal{
       font-size: 0.8rem;
       height: min-content;
     }
-}
-@media (min-width:574px)
-   { ion-toast.custom-notification {
-      --background: #f4f4fa;
-      --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
-      --color: #4b4a50;
-      --width: 22rem;
-      --min-height: 7rem;
-      --start: 4000;
-      --max-height: 15rem;
+    ion-content.global-ion-content {
+      display: flex;
+      flex-direction: column;
+      overflow: scroll;
+      width: 100vw;
     }
-  
-    ion-toast.custom-notification::part(message) {
-      color: #000000;
-      text-align: start;
-      padding-left: 10px;
+    ion-grid.product-page {
+      max-width: 100vw;
+      width: 100%;
       height: 100%;
-      padding-top: 10px;
+      --ion-grid-padding: 2vw !important;
+      /* overflow-x: hidden; */
     }
-  
-    ion-toast.custom-notification::part(button) {
-      color: var(--ion-color-clear-button);
-      font-size: 0.8rem;
-      height: min-content;
-    }}
+    
+    
+}
+
 
 
 .carousel-control-prev-icon {
@@ -319,3 +374,11 @@ ion-modal.inventory-modal{
   
 }*/
 
+ion-grid.product-page {
+  max-width: 100vw;
+  width: 100%;
+  height: 100%;
+  --ion-grid-padding: 5vw;
+  
+  /* overflow-x: hidden; */
+}

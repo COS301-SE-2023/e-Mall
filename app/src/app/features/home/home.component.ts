@@ -9,10 +9,11 @@ import {
 import { Router, NavigationExtras } from '@angular/router';
 import { ProductService } from '@shared/servicies/product/product.service';
 import { IProduct } from '@shared/models/product/product.interface';
-import { Observable, Subscription, of } from 'rxjs';
+import { Observable, Subscription, delay, of } from 'rxjs';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { ProfileService } from '@features/profile/services/profile.service';
 import { ComboFacade } from '@features/combo-state/services/combo.facade';
+import { ProductCardFacade } from '@app/shared/components/product-card/services/product-card.facade';
 
 //import { register } from 'swiper/element/bundle';
 //register();
@@ -32,24 +33,24 @@ export class HomeComponent implements OnInit, OnDestroy {
   imageObject: Array<object> = [];
   images = 'assets/images/home_banner.png';
   @ViewChild('recommendedHeading') recommendedHeading!: ElementRef;
-  showSpinner = true;
+  // showSpinner = true;
   cat_pages = [
-    { title: 'ELECTRONICS', path: '/category/Electronics'},
-    { title: 'SPORTS & OUTDOORS', path: '/category/Sports%20and%20Outdoors'},
-    { title: 'CLOTHING', path: '/category/Clothing', nav: ''},
-    { title: 'HOME & KITCHEN', path: '/category/Home%20and%20Kitchen'},
-    { title: 'HEALTH & BEAUTY', path: '/category/Health%20and%20Beauty'},
-    { title: 'TOYS & GAMES', path: '/category/Toys%20and%20Games'},
-    { title: 'BOOKS', path: '/category/Books'}
-  ];  
+    { title: 'ELECTRONICS', path: '/category/Electronics' },
+    { title: 'SPORTS & OUTDOORS', path: '/category/Sports%20and%20Outdoors' },
+    { title: 'CLOTHING', path: '/category/Clothing', nav: '' },
+    { title: 'HOME & KITCHEN', path: '/category/Home%20and%20Kitchen' },
+    { title: 'HEALTH & BEAUTY', path: '/category/Health%20and%20Beauty' },
+    { title: 'TOYS & GAMES', path: '/category/Toys%20and%20Games' },
+    { title: 'BOOKS', path: '/category/Books' },
+  ];
   // isAuthenticated$;
   constructor(
     private router: Router,
     private productService: ProductService,
     private profileFacade: ProfileFacade,
     private profileService: ProfileService,
-    private comboFacade: ComboFacade
-
+    private comboFacade: ComboFacade,
+    public productCardFacade: ProductCardFacade
   ) {
     this.followedSellers$ = of(null);
     this.forYouProducts$ = of(null);
@@ -63,20 +64,18 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.forYouProducts$ = of(val);
       }
     });
-
   }
 
   ngOnInit(): void {
-    
-    this.showSpinner = true;
-    
-    setTimeout(() => {
-      this.showSpinner = false;
-      
-    }, 6000);
+    // this.showSpinner = true;
+
+    // setTimeout(() => {
+    //   this.showSpinner = false;
+
+    // }, 6000);
     this.fetchPopProducts();
     this.fetchTrendingProducts();
-
+    // this.showSpinner = false;
   }
   async onCatClicked(path: string) {
     this.router.navigate([path]);
@@ -86,9 +85,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     //Mock data below
     this.popProducts$ = this.productService.getPopProducts();
   }
-  
+
   fetchTrendingProducts() {
     this.trendingProducts$ = this.productService.getTrendingProducts();
+    // .pipe(delay(3000));
+    // this.trendingProducts$ = this.productService.getTrendingProducts();
   }
 
   search(searchQuery: string): void {
@@ -111,7 +112,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.router.navigate(['about']);
   }
 
-  onRegClick(){
+  onRegClick() {
     this.router.navigate(['register']);
   }
 
@@ -136,12 +137,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   chunkArray(arr: any[], chunkSize: number): any[] {
     const resultArray = [];
     let index = 0;
-  
-    while (index < arr.length && index<21) {
+
+    while (index < arr.length && index < 21) {
       resultArray.push(arr.slice(index, index + chunkSize));
       index += chunkSize;
     }
-  
+
     return resultArray;
   }
 }

@@ -91,7 +91,7 @@ describe('SalesComponent', () => {
 });*/
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { SalesComponent } from '@features/sales/sales.component';
+import SalesComponent from '@features/sales/sales.component';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { of } from 'rxjs';
@@ -130,7 +130,7 @@ describe('SalesComponent', () => {
         AuthModule,
         ProfileModule,
         HttpClientTestingModule,
-        NgxsDispatchPluginModule
+        NgxsDispatchPluginModule,
       ],
       providers: [AnalyticsService],
     }).compileComponents();
@@ -152,8 +152,8 @@ describe('SalesComponent', () => {
 
   it('should render a summary card with three subcards', () => {
     const summaryCard = fixture.nativeElement.querySelector('.summary');
-   // expect(summaryCard).toBeTruthy();
-   // const subCards = summaryCard.querySelectorAll('ion-card');
+    // expect(summaryCard).toBeTruthy();
+    // const subCards = summaryCard.querySelectorAll('ion-card');
     //expect(subCards.length).toBe(3);
   });
 
@@ -165,8 +165,10 @@ describe('SalesComponent', () => {
       const productsClickedCard = subCards[1];
       const websiteClicksCard = subCards[2];
       const favouritedCard = subCards[3];
-      const productsClickedValue = productsClickedCard.querySelector('h1').textContent;
-      const websiteClicksValue = websiteClicksCard.querySelector('h1').textContent;
+      const productsClickedValue =
+        productsClickedCard.querySelector('h1').textContent;
+      const websiteClicksValue =
+        websiteClicksCard.querySelector('h1').textContent;
       const favouritedValue = favouritedCard.querySelector('h1').textContent;
       expect(productsClickedValue).toBeDefined();
       expect(websiteClicksValue).toBeDefined();
@@ -174,8 +176,6 @@ describe('SalesComponent', () => {
     });
   }));
   it('should initialize component data correctly', () => {
-   
-    
     const mockAnalyticsData = {
       product_clicks: 100,
       link_clicks: 50,
@@ -194,7 +194,9 @@ describe('SalesComponent', () => {
       { category: 'Category2', percentage: 15 },
     ];
 
-    mockAnalyticsService.getAnalyticsData.and.returnValue(of(mockAnalyticsData));
+    mockAnalyticsService.getAnalyticsData.and.returnValue(
+      of(mockAnalyticsData)
+    );
     mockAnalyticsService.getAllProducts.and.returnValue(of(mockProductData));
     mockAnalyticsService.getConversionRate.and.returnValue(
       of(mockConversionRateData)
@@ -210,20 +212,20 @@ describe('SalesComponent', () => {
     expect(component.favourited).toEqual(0);
   });
 
-//   it('should create product performance chart', () => {
-//     fixture.detectChanges();
-//     const productPerformanceCanvas = fixture.nativeElement.querySelector('#product-performance-chart');
-//     component.createProductPerformanceChart();
-//     expect(component.productPerformanceChart).toBeDefined();
-//  //   expect(productPerformanceCanvas).toBeTruthy();
-//   });
+  //   it('should create product performance chart', () => {
+  //     fixture.detectChanges();
+  //     const productPerformanceCanvas = fixture.nativeElement.querySelector('#product-performance-chart');
+  //     component.createProductPerformanceChart();
+  //     expect(component.productPerformanceChart).toBeDefined();
+  //  //   expect(productPerformanceCanvas).toBeTruthy();
+  //   });
 
   it('should create category percentage chart', () => {
     fixture.detectChanges();
-    const categoryPercentageCanvas = fixture.nativeElement.querySelector('#categoryPercentage-chart');
+    const categoryPercentageCanvas = fixture.nativeElement.querySelector(
+      '#categoryPercentage-chart'
+    );
     component.createCategoryPercentageChart();
-  //  expect(categoryPercentageCanvas).toBeTruthy();
+    //  expect(categoryPercentageCanvas).toBeTruthy();
   });
-    
-  
 });

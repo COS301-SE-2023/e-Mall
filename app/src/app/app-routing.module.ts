@@ -75,9 +75,9 @@ const routes: Routes = [
   {
     path: 'new-product',
     loadChildren: () =>
-      import('@app/features/inventory/components/popovernew/popovernew.module').then(
-        m => m.PopovernewModule
-      ),
+      import(
+        '@app/features/inventory/components/popovernew/popovernew.module'
+      ).then(m => m.PopovernewModule),
     canActivate: [postAuthGuard, sellerTypeGuard],
   },
   {

@@ -23,6 +23,7 @@ import { NgxsModule } from '@ngxs/store';
 import { ProfileModule } from '@features/profile/profile.module';
 import { DropdownPopoverComponent } from '@shared/components/dropdown-popover/dropdown-popover.component';
 import { NotificationModule } from '@app/features/notification/notification.module';
+import { Messaging } from '@angular/fire/messaging';
 // import { NotificationModule } from '@app/features/notification/notification.module';
 
 describe('NavbarComponentIntegration', () => {
@@ -31,8 +32,10 @@ describe('NavbarComponentIntegration', () => {
   let router: Router;
 
   let popoverController: PopoverController;
-
+  let messagingSpy;
   beforeEach(async () => {
+    messagingSpy = jasmine.createSpyObj('Messaging', ['isSupported']);
+    messagingSpy.isSupported.and.returnValue(Promise.resolve(true));
     const popoverControllerMock = {
       create: () =>
         Promise.resolve({
@@ -63,6 +66,7 @@ describe('NavbarComponentIntegration', () => {
       ],
       declarations: [NavbarComponent],
       providers: [
+        { provide: Messaging, useValue: messagingSpy },
         { provide: PopoverController, useValue: popoverControllerMock },
       ],
     }).compileComponents();
