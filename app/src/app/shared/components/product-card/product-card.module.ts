@@ -10,9 +10,11 @@ import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { ProductCardComponent } from './product-card.component';
 import { ComboPopoverModule } from './combo-popover/combo-popover.module';
+import { ProductCardFacade } from './services/product-card.facade';
+import { ProductCardPlaceholderComponent } from './product-card-placeholder/product-card-placeholder.component';
 
 @NgModule({
-  declarations: [ProductCardComponent],
+  declarations: [ProductCardComponent, ProductCardPlaceholderComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -23,8 +25,9 @@ import { ComboPopoverModule } from './combo-popover/combo-popover.module';
     MatListModule,
     MatCardModule,
     IonicModule,
-    ComboPopoverModule
+    ComboPopoverModule,
   ],
-  exports: [ProductCardComponent],
+  providers: [ProductCardFacade],
+  exports: [ProductCardComponent, ProductCardPlaceholderComponent],
 })
 export class ProductCardModule {}

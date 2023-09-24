@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
@@ -7,9 +8,13 @@ import { NotificationModule } from './features/notification/notification.module'
 import { NgxsModule } from '@ngxs/store';
 import { HttpClient } from '@angular/common/http';
 import { AppModule } from './app.module';
+import { Messaging } from '@angular/fire/messaging';
 
 describe('AppComponent', () => {
+  let messagingSpy;
   beforeEach(async () => {
+    messagingSpy = jasmine.createSpyObj('Messaging', ['isSupported']);
+    messagingSpy.isSupported.and.returnValue(Promise.resolve(true));
     await TestBed.configureTestingModule({
       imports: [
         AppModule,
@@ -18,6 +23,7 @@ describe('AppComponent', () => {
         // NgxsModule.forRoot(),
         // HttpClient,
       ],
+      providers: [{ provide: Messaging, useValue: messagingSpy }],
       declarations: [AppComponent],
     }).compileComponents();
   });

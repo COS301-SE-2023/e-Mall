@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Observable, Subscription, debounceTime } from 'rxjs';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import {
   IonContent,
@@ -13,7 +13,6 @@ import { PopovereditComponent } from './popoveredit/popoveredit.component';
 import { IInventoryItem } from '../models/inventory-item.interface';
 import { ISearchOptions } from '../models/search-options.interface';
 import { InventoryFacade } from '../servicies/inventory.facade';
-import { PopovernewComponent } from './popovernew/popovernew.component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -21,10 +20,13 @@ import { Router } from '@angular/router';
   templateUrl: './inventory.component.html',
   styleUrls: ['./inventory.component.scss'],
 })
-export class InventoryComponent implements OnInit{
+export class InventoryComponent implements OnDestroy {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(IonContent)
   content!: IonContent;
+  @ViewChild('inventory_header')
+  inventory_header!: ElementRef;
+
   filterOptions = [
     { key: 'all', value: 'All' },
     { key: 'in', value: 'In Stock' },
@@ -55,9 +57,7 @@ export class InventoryComponent implements OnInit{
   filter_changed = false;
   // isLoading$: Observable<ActionsExecuting>;
   loading: HTMLIonLoadingElement | null | undefined;
-  showSpinner = true;
-  
-
+  searchResultSubs = new Subscription();
   constructor(
     private router: Router,
     private inventoryFacade: InventoryFacade,
@@ -73,26 +73,22 @@ export class InventoryComponent implements OnInit{
 
     this.inventoryFacade.updateFilter(options.filterOptions);
     this.searchResults$ = this.inventoryFacade.products$;
+    this.searchResultSubs = this.searchResults$
+      .pipe(debounceTime(500))
+      .subscribe(results => this.scrollToTop());
     this.totalSearchCount$ = this.inventoryFacade.totalCount$;
   }
-
-  ngOnInit(): void {
-    
-    this.showSpinner = true;
-    
-    setTimeout(() => {
-      this.showSpinner = false;
-      
-    }, 6000);
+  ngOnDestroy(): void {
+    this.searchResultSubs.unsubscribe();
   }
 
   onSearchInputChange(event: any) {
     if (event) {
-      console.log(
-        'onSearchInputChange ',
-        event.detail.value,
-        this.selectedSearchOption
-      );
+      // console.log(
+      //   'onSearchInputChange ',
+      //   event.detail.value,
+      //   this.selectedSearchOption
+      // );
       this.inventoryFacade.updateQuery({
         search: event.detail.value,
         searchOption: this.selectedSearchOption,
@@ -102,8 +98,8 @@ export class InventoryComponent implements OnInit{
   onFilterOptionChange(event: any) {
     if (event) {
       this.filter_changed = true;
-      console.log('onFilterOptionChange ', event.detail.value);
-      this.paginator.firstPage();
+      // console.log('onFilterOptionChange ', event.detail.value);
+      if (this.paginator) this.paginator.firstPage();
       const currentPage = 0;
       this.inventoryFacade.updateQuery({
         page: currentPage,
@@ -113,9 +109,12 @@ export class InventoryComponent implements OnInit{
       this.filter_changed = false;
     }
   }
-
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter');
+    if (this.paginator) this.paginator.firstPage();
+  }
   onSortOptionChange(): void {
-    console.log('onSortOptionChange', this.selectedSortOption);
+    // console.log('onSortOptionChange', this.selectedSortOption);
     this.inventoryFacade.updateQuery({ sortOption: this.selectedSortOption });
   }
 
@@ -127,7 +126,7 @@ export class InventoryComponent implements OnInit{
         event.previousPageIndex !== event.pageIndex &&
         this.prev_per_page != itemsPerPage
       ) {
-        this.paginator.firstPage();
+        if (this.paginator) this.paginator.firstPage();
         this.prev_per_page = itemsPerPage;
         currentPage = 0;
       }
@@ -162,7 +161,9 @@ export class InventoryComponent implements OnInit{
     size: 'cover',
   };
   scrollToTop() {
-    this.content.scrollToPoint(0, 0, 500);
+    console.log('scrollToTop');
+    if (this.content) this.content.scrollToPoint(0, 0, 500);
+    // this.inventory_header.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
   async openModal(product: IInventoryItem) {
     const modal = await this.modalController.create({
@@ -192,5 +193,5 @@ export class InventoryComponent implements OnInit{
 
   async presentNewModal() {
     await this.router.navigate(['new-product']);
-}
+  }
 }

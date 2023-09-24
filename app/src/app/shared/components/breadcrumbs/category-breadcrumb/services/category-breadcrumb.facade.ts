@@ -28,20 +28,34 @@ export class CategoryBreadcrumbFacade {
     } else {
       const url = '/category/' + product.category;
       if (product.name.length > 30) {
-        product.name = product.name.substring(0, 30) + '...';
+        const product_name = product.name.substring(0, 30) + '...';
+
+        const crumbs: ICategoryBreadcrumb[] = [
+          { label: 'Home', url: '/home' },
+          {
+            label: product.category,
+            url: url,
+          },
+          {
+            label: product_name,
+            url: product.id,
+          },
+        ];
+        return crumbs;
+      } else {
+        const crumbs: ICategoryBreadcrumb[] = [
+          { label: 'Home', url: '/home' },
+          {
+            label: product.category,
+            url: url,
+          },
+          {
+            label: product.name,
+            url: product.id,
+          },
+        ];
+        return crumbs;
       }
-      const crumbs: ICategoryBreadcrumb[] = [
-        { label: 'Home', url: '/home' },
-        {
-          label: product.category,
-          url: url,
-        },
-        {
-          label: product.name,
-          url: product.id,
-        },
-      ];
-      return crumbs;
     }
   }
   navigateTo(url: string): void {

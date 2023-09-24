@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './features/home/home.component';
 import { SellerRegisterComponent } from '@features/sign-up/seller/components/seller-register.component';
 import { ConsumerRegisterComponent } from '@features/sign-up/consumer/components/consumer-register.component';
 import { SignInComponent } from './features/sign-in/components/sign-in.component';
@@ -13,14 +12,9 @@ import { sellerTypeGuard } from '@shared/guards/seller-type.guard';
 import { SellerDetailsComponent } from '@features/seller-details/seller-details.component';
 import { SellerDataResolver } from '@features/seller-details/seller-details-resolver';
 import { CustomerProfileComponent } from '@features/profile/components/customer-profile/customer-profile.component';
-import { WishlistComponent } from '@features/wishlist/wishlist.component';
 import { EditCustomerProfileComponent } from '@features/edit-customer-profile/edit-customer-profile.component';
 import { SellerDashboardSettingsComponent } from '@features/seller-dashboard-settings/seller-dashboard-settings.component';
 import { consumerTypeGuard } from '@shared/guards/consumer-type.guard';
-import { MyCombosComponent } from '@features/my-combos/my-combos.component';
-import { ComboComponent } from '@features/combo/combo.component';
-import { PopovernewComponent } from './features/inventory/components/popovernew/popovernew.component';
-import { PopovernewModule } from './features/inventory/components/popovernew/popovernew.module';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -75,9 +69,9 @@ const routes: Routes = [
   {
     path: 'new-product',
     loadChildren: () =>
-      import('@app/features/inventory/components/popovernew/popovernew.module').then(
-        m => m.PopovernewModule
-      ),
+      import(
+        '@app/features/inventory/components/popovernew/popovernew.module'
+      ).then(m => m.PopovernewModule),
     canActivate: [postAuthGuard, sellerTypeGuard],
   },
   {

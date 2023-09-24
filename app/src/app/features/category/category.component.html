@@ -39,59 +39,47 @@
               " *ngIf="(categoryProducts$ | async) === null">
               <mat-spinner></mat-spinner>
             </div>-->
-            <div
-              style="
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-top: 200px;
-              "
-              class="spinner"
-              *ngIf="showSpinner">
-              <!--<mat-spinner></mat-spinner>-->
-              <ion-spinner style="color: #99e3dc"></ion-spinner>
-            </div>
-            <div *ngIf="!showSpinner">
-              <ng-container *ngIf="categoryProducts$ | async as products">
-                <div class="row" style="grid-auto-rows: auto">
-                  <div
-                    class="col-md-3 col-12"
-                    style="grid-auto-columns: auto; min-width: 260px"
-                    *ngFor="let product of products; let i = index">
-                    <app-product-card
-                      [product]="product"
-                      [pageType]="'normal'"></app-product-card>
-                    <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
-                    <div
-                      class="col-md-1"
-                      *ngIf="
-                        (i + 1) % 4 === 0 &&
-                        products.length > 4 &&
-                        i + 1 !== products.length
-                      "></div>
-                  </div>
-                </div>
-              </ng-container>
 
-              <div
-                class="search-results-container"
-                *ngIf="(categoryProducts$ | async)?.length === 0">
-                <div class="product-card-no">
-                  <h3>No Products Found</h3>
-                  <p>
-                    Sorry, we couldn't find any products in this category.
-                    Please check back later or try searching for other
-                    categories.
-                  </p>
-                  <img
-                    src="assets\images\no-image.jpeg"
-                    alt="No Product Found"
-                    class="nimage" />
+            <!-- <div *ngIf="!showSpinner"> -->
+            <ng-container *ngIf="categoryProducts$ | async as products">
+              <div class="row" style="grid-auto-rows: auto">
+                <div
+                  class="col-md-3 col-12"
+                  style="grid-auto-columns: auto; min-width: 260px"
+                  *ngFor="let product of products; let i = index">
+                  <app-product-card
+                    [product]="product"
+                    [pageType]="'normal'"></app-product-card>
+                  <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
+                  <div
+                    class="col-md-1"
+                    *ngIf="
+                      (i + 1) % 4 === 0 &&
+                      products.length > 4 &&
+                      i + 1 !== products.length
+                    "></div>
                 </div>
+              </div>
+            </ng-container>
+
+            <div
+              class="search-results-container"
+              *ngIf="(categoryProducts$ | async)?.length === 0">
+              <div class="product-card-no">
+                <h3>No Products Found</h3>
+                <p>
+                  Sorry, we couldn't find any products in this category. Please
+                  check back later or try searching for other categories.
+                </p>
+                <img
+                  src="assets\images\no-image.jpeg"
+                  alt="No Product Found"
+                  class="nimage" />
               </div>
             </div>
           </div>
         </div>
+        <!-- </div> -->
       </main>
     </div>
   </div>

@@ -6,7 +6,6 @@ import {
   Observable,
   Subscription,
   debounceTime,
-  take,
   firstValueFrom,
 } from 'rxjs';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
@@ -58,8 +57,9 @@ export class NotificationFacade implements OnDestroy {
         if (user != null) {
           await notificationService.request().then(async permission => {
             if (permission === 'granted') {
-              const token = await notificationService.getToken();
-              if (token) this.init(token);
+              await notificationService.getToken().then(token => {
+                this.init(token);
+              });
             } else {
               console.log('Notification is disabled');
             }
@@ -71,23 +71,23 @@ export class NotificationFacade implements OnDestroy {
       });
   }
   async init(token: string) {
-    await this.updateDeviceToken(token);
-    this.token = token;
-    this.resetNotifications();
-    this.isInitial = true;
-    this.getUnreadCount();
-    this.getSettings();
-
-    this.messageListenSubs = this.notificationService.message$
-      .pipe(debounceTime(500))
-      .subscribe((message: any) => {
-        console.log('Listening for messages');
-        if (message) {
-          console.log(message);
-          const payload = transformNewMessage(message);
-          this.newNotification(payload);
-        }
-      });
+    await this.updateDeviceToken(token).then(() => {
+      this.token = token;
+      this.resetNotifications();
+      this.isInitial = true;
+      this.messageListenSubs = this.notificationService.message$
+        .pipe(debounceTime(500))
+        .subscribe((message: any) => {
+          console.log('Listening for messages');
+          if (message) {
+            console.log(message);
+            const payload = transformNewMessage(message);
+            this.newNotification(payload);
+          }
+        });
+      this.getUnreadCount();
+      this.getSettings();
+    });
   }
   async getNotifications() {
     this.isLoading.next(true);
