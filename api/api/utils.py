@@ -41,4 +41,4 @@ def upload_to_spaces(url, folder_name, acl="public-read"):
         return f"https://{bucket_name}.ams3.cdn.digitaloceanspaces.com/{folder_name}/{file.name}"
 
     else:
-        return requests.get(url)
+        return url
