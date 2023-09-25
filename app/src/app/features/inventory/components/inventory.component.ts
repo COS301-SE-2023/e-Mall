@@ -1,12 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { Observable, Subscription, debounceTime } from 'rxjs';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import {
@@ -19,7 +13,6 @@ import { PopovereditComponent } from './popoveredit/popoveredit.component';
 import { IInventoryItem } from '../models/inventory-item.interface';
 import { ISearchOptions } from '../models/search-options.interface';
 import { InventoryFacade } from '../servicies/inventory.facade';
-import { PopovernewComponent } from './popovernew/popovernew.component';
 import { Router } from '@angular/router';
 
 @Component({

@@ -79,8 +79,6 @@ describe('HomeComponent', () => {
 
   it('should return a default image URL when imgList is not provided or empty', () => {
     const result = component.getOneImg();
-    expect(result).toEqual(
-      'https://www.incredible.co.za/media/catalog/product/cache/7ce9addd40d23ee411c2cc726ad5e7ed/s/c/screenshot_2022-05-03_142633.jpg'
-    );
+    expect(result).toEqual('assets/images/default.png');
   });
 });

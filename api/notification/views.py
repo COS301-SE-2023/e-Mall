@@ -1,8 +1,17 @@
 from firebase_admin import firestore
-from django.conf import settings
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .swagger.decorator import *
+from .swagger.decorator import (
+    send_message_api_decorator,
+    delete_decorator,
+    delete_all_decorator,
+    get_decorator,
+    read_decorator,
+    read_all_decorator,
+    update_device_token_decorator,
+    update_settings_decorator,
+    count_unread_notifications_decorator,
+)
 from rest_framework import status
 
 # Initialize Firebase
@@ -304,12 +313,11 @@ def count_unread_notifications(request):
 
         # Check if the user exists
         if not user_ref.get().exists:
-            return Response(
-                response_data={
-                    "status": "success:no user exists",
-                    "unread_count": 0,
-                }
-            )
+            response_data = {
+                "status": "success:no user exists",
+                "unread_count": 0,
+            }
+            return Response(response_data)
 
         logs_ref = user_ref.collection(user_logs_collection).where(
             "is_read", "==", False
@@ -321,6 +329,7 @@ def count_unread_notifications(request):
         }
         return Response(response_data)
     except Exception as e:
+        print(e)
         return Response(
             {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
         )

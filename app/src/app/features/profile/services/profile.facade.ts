@@ -51,7 +51,6 @@ export class ProfileFacade implements OnDestroy {
         tap(async user => {
           if (user) {
             await this.fetchProfile();
-            this.init();
           } else {
             if (this.profileSubs) {
               this.profileSubs.unsubscribe();
@@ -62,22 +61,7 @@ export class ProfileFacade implements OnDestroy {
       )
       .subscribe();
   }
-  init() {
-    this.profileSubs = this.profile$
-      .pipe(
-        distinctUntilChanged((prev, curr) => {
-          return !(prev === null && curr !== null);
-        })
-      )
-      .subscribe(profile => {
-        if (profile) {
-          if (profile.type === 'seller') {
-            return;
-          }
-          this.fetchRecommendedProducts();
-        }
-      });
-  }
+
   @Dispatch()
   setProfile(profile: ISellerProfile | IConsumerProfile) {
     try {
@@ -121,7 +105,6 @@ export class ProfileFacade implements OnDestroy {
     return this.profile$;
   }
 
-
   async fetchProfile() {
     try {
       const res = await this.profileService.getProfile();
@@ -133,8 +116,11 @@ export class ProfileFacade implements OnDestroy {
 
   async fetchRecommendedProducts() {
     try {
-      const res = await this.profileService.fetchRecommendedProducts();
-      if (res != null) this.setRecommendedProducts(res);
+      console.log('FetchRecommendedProducts');
+      if (await this.authFacade.isLoggedIn()) {
+        const res = await this.profileService.fetchRecommendedProducts();
+        if (res != null) this.setRecommendedProducts(res);
+      }
     } catch (error) {
       this.setError(error);
     }

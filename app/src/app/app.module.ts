@@ -41,14 +41,11 @@ import { SellerDashboardSettingsModule } from '@features/seller-dashboard-settin
 import { ComboStateModule } from '@features/combo-state/combo-state.module';
 import { MyCombosModule } from '@features/my-combos/my-combos.module';
 import { ComboModule } from '@features/combo/combo.module';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 import { NotificationModule } from './features/notification/notification.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 // import { SpinnerComponent } from './shared/components/spinner/spinner.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 // import { LoadingInterceptor } from '@shared/components/spinner/interceptors/loading.interceptor';
-import { PopovernewModule } from './features/inventory/components/popovernew/popovernew.module';
 import { WishlistStateModule } from './features/wishlist/wishlist-state/wishlist-state.module';
 
 @NgModule({
