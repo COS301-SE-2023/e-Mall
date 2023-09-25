@@ -8,6 +8,7 @@ import uuid
 from urllib.parse import urlparse, parse_qs, unquote
 import mimetypes
 from PIL import Image
+from webptools import dwebp
 
 bucket_name = settings.AWS_STORAGE_BUCKET_NAME
 s3 = boto3.client(
@@ -20,12 +21,22 @@ s3 = boto3.client(
 mimetypes.add_type("image/webp", ".webp")
 
 
-def convert_image_to_jpg(image_data):
-    image = Image.open(image_data).convert("RGB")
-    output = BytesIO()
-    image.save(output, format="JPEG")
-    output.seek(0)
-    return output
+def convert_image(image_data, format):
+    try:
+        image = Image.open(image_data).convert("RGB")
+        output = BytesIO()
+        image.save(output, format=format)
+        output.seek(0)
+        return output
+    except Exception as e:
+        print(f"Failed to convert image with PIL: {e}")
+        if format.lower() == "jpeg":
+            print("Trying to convert image with webptools...")
+            output = BytesIO()
+            dwebp(input_image=image_data, output_image=output, option="-o")
+            return output
+        else:
+            return image_data
 
 
 def upload_to_spaces(url, folder_name, acl="public-read"):
@@ -56,10 +67,14 @@ def upload_to_spaces(url, folder_name, acl="public-read"):
 
             # Get the file extension
             _, ext = os.path.splitext(filename)
-            # If the image is in WebP format, convert it to JPG
+            # If the image is in WebP format, try converting it to JPG, then PNG if that fails
             if ext.lower() == ".webp":
-                file = convert_image_to_jpg(file)
-                ext = ".jpg"
+                file = convert_image(file, "JPEG")
+                if isinstance(file, BytesIO):
+                    ext = ".jpg"
+                else:
+                    file = convert_image(file, "PNG")
+                    ext = ".png"
             # Generate a random unique file name with the same extension
             filename = f"{uuid.uuid4()}{ext}"
             print("###", filename)
@@ -81,6 +96,5 @@ def upload_to_spaces(url, folder_name, acl="public-read"):
             print("Credentials not available")
             return False
         return f"https://bucket.emall.space/{folder_name}/{filename}"
-
     else:
         return url
