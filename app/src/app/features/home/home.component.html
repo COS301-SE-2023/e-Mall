@@ -42,13 +42,13 @@
       ">
       <div
         class="carousel-container"
-        *ngIf="(forYouProducts$ | async) !== null; else loading">
+        *ngIf="(forYouProducts$ | async) !== null">
         <ngb-carousel
           *ngIf="forYouProducts$ | async as products"
           [interval]="0"
           [animation]="true"
-          [showNavigationArrows]="true"
-          [showNavigationIndicators]="true"
+          [showNavigationArrows]="products.length >= 2"
+          [showNavigationIndicators]="products.length >= 2"
           [wrap]="true"
           class="custom-carousel carousel-dark">
           <ng-template ngbSlide *ngIf="products[0]">
