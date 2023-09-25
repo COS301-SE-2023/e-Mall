@@ -21,7 +21,7 @@ s3 = boto3.client(
 def upload_to_spaces(url, folder_name, acl="public-read"):
     if not settings.DEBUG:
         try:
-            response = requests.get(url)
+            response = requests.get(url, verify=False)
             file = BytesIO(response.content)
 
             # print("********", url)
