@@ -1,27 +1,23 @@
-
 .body {
-  
   display: flex;
   min-height: fit-content;
   min-width: 100%;
   padding: 25px 10px;
   flex-direction: column;
-  align-items: flex-start; 
+  align-items: flex-start;
   box-sizing: border-box;
 }
 
-.landing{
+.landing {
   min-height: fit-content;
   min-width: 100%;
 }
-
 
 .top {
   //min-width: 90%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
 }
 
 /*
@@ -57,7 +53,6 @@
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
 }
-
 
 .dropdown-menu a {
   display: block;
@@ -99,10 +94,10 @@
   width: 190px;
 }
 
-.search-results{
-  margin-top: 1rem;
-  min-width: 100%;
-  padding: 10px;
+.search-results {
+  // margin-top: 1rem;
+  // min-width: 100%;
+  // padding: 10px;
   // margin-right: 0.5rem;
 }
 .dropbtn {
@@ -128,7 +123,7 @@
   //margin-left: 12rem;
   display: flex;
   justify-content: center;
-  margin-left: 5%
+  margin-left: 5%;
 }
 
 .custom-select .mat-select-panel {
@@ -160,7 +155,6 @@
   text-align: center; /* Optional: Center text within the div */
 }
 
-
 .nimage {
   width: 50%;
   height: 300px;
@@ -168,7 +162,7 @@
   opacity: 30%;
   align-items: center;
 }
-.search-results-container{
+.search-results-container {
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -179,14 +173,13 @@
   font-size: small;
 }
 
-
 html {
   scroll-behavior: smooth;
 }
 
 ion-range {
-  --bar-background: #EBEBEB;
-  --bar-background-active: #37D0D6;
+  --bar-background: #ebebeb;
+  --bar-background-active: #37d0d6;
   --bar-height: 6px;
   --bar-border-radius: 8px;
 }
@@ -202,12 +195,12 @@ ion-range {
     display: block !important; /* Use !important to override Angular's styles */
   }
 
-  .dropdown{
+  .dropdown {
     display: block !important;
   }
-  
+
   /* Hide the filter button */
-  .filter-button-container{
+  .filter-button-container {
     display: none;
   }
 
@@ -225,7 +218,7 @@ ion-range {
     display: none !important; /* Use !important to override Angular's styles */
   }
 
-  .dropdown{
+  .dropdown {
     display: none !important;
   }
 
@@ -261,7 +254,7 @@ ion-range {
   display: flex;
   flex-direction: column;
   align-items: center; /* Center items horizontally */
-  text-align: center; 
+  text-align: center;
 }
 
 .label {
@@ -275,17 +268,15 @@ ion-range {
   //color: #fff; /* Customize button text color */
   //padding: 10px 20px; /* Add padding for better visibility */
   text-align: center;
-
 }
 
-
-.sticky-button ion-button{
+.sticky-button ion-button {
   --background: #1dc4b0;
   margin-bottom: 15px;
-  color:white;
+  color: white;
 }
 
-ion-modal{
+ion-modal {
   border-top-right-radius: 10px;
 }
 

@@ -1,157 +1,149 @@
 <app-navbar></app-navbar>
 <ion-content class="global-ion-content">
   <div class="ion-content-wrapper">
-    <div class="body">
-      <main class="landing main">
-        <div class="search-results">
-          <div class="top">
-            <div class="toptxt">
-              <h2>Search Results</h2>
-              <div class="search-query">
-                <p>
-                  You searched for: <strong>{{ searchQuery }}</strong>
-                </p>
-              </div>
-            </div>
+    <!-- <div class="body"> -->
+    <!-- <main class="landing main"> -->
+    <!-- <div> -->
+    <div class="top">
+      <div class="toptxt">
+        <h2>Search Results</h2>
+        <div class="search-query">
+          <p>
+            You searched for: <strong>{{ searchQuery }}</strong>
+          </p>
+        </div>
+      </div>
 
-            <div class="dropdown">
-              <button class="dropbtn">
-                <mat-label>Sort Options</mat-label>
-                <mat-select
-                  [(value)]="selectedSortOption"
-                  (selectionChange)="onSortOptionChange()"
-                  class="custom-select">
-                  <!-- <mat-option value="">Default</mat-option> -->
-                  <mat-option value="price">Lowest price</mat-option>
-                  <mat-option value="-price">Highest price</mat-option>
-                  <mat-option value="discount">Discount</mat-option>
-                  <mat-option value="name">Name(A-Z)</mat-option>
-                  <mat-option value="-name">Name(Z-A)</mat-option>
-                </mat-select>
-              </button>
-            </div>
-          </div>
-          <mat-divider></mat-divider>
-          <!--filter-->
+      <div class="dropdown">
+        <button class="dropbtn">
+          <mat-label>Sort Options</mat-label>
+          <mat-select
+            [(value)]="selectedSortOption"
+            (selectionChange)="onSortOptionChange()"
+            class="custom-select">
+            <!-- <mat-option value="">Default</mat-option> -->
+            <mat-option value="price">Lowest price</mat-option>
+            <mat-option value="-price">Highest price</mat-option>
+            <mat-option value="discount">Discount</mat-option>
+            <mat-option value="name">Name(A-Z)</mat-option>
+            <mat-option value="-name">Name(Z-A)</mat-option>
+          </mat-select>
+        </button>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <!--filter-->
 
-          <mat-accordion class="filter-menu" multi>
-            <h2>Filter</h2>
-            <!-- Brand -->
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title> Brand </mat-panel-title>
-              </mat-expansion-panel-header>
-              <!-- Content for Brand panel -->
+    <mat-accordion class="filter-menu" multi>
+      <h2>Filter</h2>
+      <!-- Brand -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Brand </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content for Brand panel -->
 
-              <div *ngFor="let brand of brandOptions">
-                <mat-checkbox
-                  [value]="brand"
-                  (change)="
-                    onFilterOptionChange('filter_brand', brand, $event.checked)
-                  "
-                  >{{ brand }}
-                </mat-checkbox>
-              </div>
-            </mat-expansion-panel>
+        <div *ngFor="let brand of brandOptions">
+          <mat-checkbox
+            [value]="brand"
+            (change)="
+              onFilterOptionChange('filter_brand', brand, $event.checked)
+            "
+            >{{ brand }}
+          </mat-checkbox>
+        </div>
+      </mat-expansion-panel>
 
-            <!-- ... -->
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title> Category </mat-panel-title>
-              </mat-expansion-panel-header>
-              <!-- Content for Category panel -->
-              <mat-checkbox
-                *ngFor="let category of categoryOptions"
-                [value]="category"
-                (change)="
-                  onFilterOptionChange(
-                    'filter_category',
-                    category,
-                    $event.checked
-                  )
-                "
-                >{{ category }}
-              </mat-checkbox>
-            </mat-expansion-panel>
+      <!-- ... -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Category </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content for Category panel -->
+        <mat-checkbox
+          *ngFor="let category of categoryOptions"
+          [value]="category"
+          (change)="
+            onFilterOptionChange('filter_category', category, $event.checked)
+          "
+          >{{ category }}
+        </mat-checkbox>
+      </mat-expansion-panel>
 
-            <!-- Price -->
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title>Price</mat-panel-title>
-              </mat-expansion-panel-header>
-              <ion-range
-                aria-label="Dual Knobs Range"
-                [pin]="true"
-                [pinFormatter]="pinFormatter"
-                [dualKnobs]="true"
-                min="0"
-                max="5000"
-                step="100"
-                [value]="priceRangeGroup.value"
-                [formGroup]="priceRangeGroup"
-                (ionChange)="onIonChange($event)">
-              </ion-range>
+      <!-- Price -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Price</mat-panel-title>
+        </mat-expansion-panel-header>
+        <ion-range
+          aria-label="Dual Knobs Range"
+          [pin]="true"
+          [pinFormatter]="pinFormatter"
+          [dualKnobs]="true"
+          min="0"
+          max="5000"
+          step="100"
+          [value]="priceRangeGroup.value"
+          [formGroup]="priceRangeGroup"
+          (ionChange)="onIonChange($event)">
+        </ion-range>
 
-              <ion-label>Min: {{ minPrice }}</ion-label
-              ><br />
-              <ion-label>Max: {{ maxPrice }}</ion-label>
-            </mat-expansion-panel>
+        <ion-label>Min: {{ minPrice }}</ion-label
+        ><br />
+        <ion-label>Max: {{ maxPrice }}</ion-label>
+      </mat-expansion-panel>
 
-            <!-- Inventory -->
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title> Inventory </mat-panel-title>
-              </mat-expansion-panel-header>
-              <!-- Content for Inventory panel -->
-              <mat-slide-toggle
-                [(ngModel)]="isChecked"
-                [aria-label]="
-                  min_price_in_stock
-                    ? 'Disable in-stock filter'
-                    : 'Enable in-stock filter'
-                "
-                (change)="
-                  onFilterOptionChange(
-                    'filter_in_stock',
-                    isChecked,
-                    $event.checked
-                  )
-                ">
-                Show only in stock
-              </mat-slide-toggle>
-              <!-- ... -->
-            </mat-expansion-panel>
+      <!-- Inventory -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Inventory </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content for Inventory panel -->
+        <mat-slide-toggle
+          [(ngModel)]="isChecked"
+          [aria-label]="
+            min_price_in_stock
+              ? 'Disable in-stock filter'
+              : 'Enable in-stock filter'
+          "
+          (change)="
+            onFilterOptionChange('filter_in_stock', isChecked, $event.checked)
+          ">
+          Show only in stock
+        </mat-slide-toggle>
+        <!-- ... -->
+      </mat-expansion-panel>
 
-            <!-- Seller -->
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title> Seller </mat-panel-title>
-              </mat-expansion-panel-header>
-              <!-- Content for Seller panel -->
+      <!-- Seller -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Seller </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Content for Seller panel -->
 
-              <mat-checkbox
-                *ngFor="let seller of sellerOptions"
-                [value]="seller"
-                (change)="
-                  onFilterOptionChange('filter_seller', seller, $event.checked)
-                "
-                >{{ seller }}</mat-checkbox
-              >
+        <mat-checkbox
+          *ngFor="let seller of sellerOptions"
+          [value]="seller"
+          (change)="
+            onFilterOptionChange('filter_seller', seller, $event.checked)
+          "
+          >{{ seller }}</mat-checkbox
+        >
 
-              <!-- ... -->
-            </mat-expansion-panel>
-          </mat-accordion>
-          <div class="filter-button-container">
-            <h3 class="label">Filter</h3>
-            <ion-button class="filter-button" id="open-modal">
-              <ion-icon name="options-outline"></ion-icon>
-            </ion-button>
-          </div>
+        <!-- ... -->
+      </mat-expansion-panel>
+    </mat-accordion>
+    <div class="filter-button-container">
+      <h3 class="label">Filter</h3>
+      <ion-button class="filter-button" id="open-modal">
+        <ion-icon name="options-outline"></ion-icon>
+      </ion-button>
+    </div>
 
-          <!--products-->
+    <!--products-->
 
-          <div class="product-card">
-            <!--<div
+    <div class="product-card">
+      <!--<div
               style="
                 display: flex;
                 justify-content: center;
@@ -163,74 +155,73 @@
 
             </div>-->
 
-            <!-- <div class="spinner-container" *ngIf="showSpinner">
+      <!-- <div class="spinner-container" *ngIf="showSpinner">
               <div class="spinner">
                 <ion-spinner style="color: #99e3dc; margin-top: 150px;"></ion-spinner>
               </div>
             </div>
              -->
-            <ng-container *ngIf="searchResults$ | async as products">
-              <div>
-                <ion-grid>
-                  <ion-row>
-                    <ng-container
-                      *ngFor="let product of products; let i = index">
-                      <ion-col
-                        size-lg="4"
-                        size-md="6"
-                        size-sm="6"
-                        size="6"
-                        style="margin-top: 20px">
-                        <app-product-card
-                          [product]="product"
-                          [pageType]="'normal'"></app-product-card>
-                      </ion-col>
-                    </ng-container>
-                  </ion-row>
-                </ion-grid>
-              </div>
-            </ng-container>
-
-            <ion-row
-              class="search-results-container"
-              *ngIf="(searchResults$ | async)?.length === 0">
-              <!--<ion-col>-->
-              <div class="product-card-no">
-                <h3>No Products Found</h3>
-                <p>
-                  Sorry, we couldn't find any products matching "<strong>{{
-                    searchQuery
-                  }}</strong
-                  >". Please try again with a different keyword or refine your
-                  search criteria.
-                </p>
-                <ion-img
-                  src="assets/images/no-image.jpeg"
-                  alt="No Product Found"
-                  class="nimage"></ion-img>
-              </div>
-              <!--</ion-col>-->
+      <ng-container *ngIf="searchResults$ | async as products">
+        <div>
+          <ion-grid>
+            <ion-row>
+              <ng-container *ngFor="let product of products; let i = index">
+                <ion-col
+                  size-lg="4"
+                  size-md="6"
+                  size-sm="6"
+                  size="6"
+                  style="margin-top: 20px">
+                  <app-product-card
+                    [product]="product"
+                    [pageType]="'normal'"></app-product-card>
+                </ion-col>
+              </ng-container>
             </ion-row>
-          </div>
+          </ion-grid>
         </div>
-        <br /><br />
-        <div class="mat-paginator">
-          <ng-container *ngIf="searchResults$ | async as products">
-            <mat-paginator
-              [length]="totalSearchCount$ | async"
-              [pageSizeOptions]="[10, 20, 50, 100]"
-              aria-label="Select page"
-              [pageIndex]="currentPage"
-              [pageSize]="itemsPerPage"
-              (page)="onPageChange($event)"></mat-paginator>
-          </ng-container>
+      </ng-container>
+
+      <ion-row
+        class="search-results-container"
+        *ngIf="(searchResults$ | async)?.length === 0">
+        <!--<ion-col>-->
+        <div class="product-card-no">
+          <h3>No Products Found</h3>
+          <p>
+            Sorry, we couldn't find any products matching "<strong>{{
+              searchQuery
+            }}</strong
+            >". Please try again with a different keyword or refine your search
+            criteria.
+          </p>
+          <ion-img
+            src="assets/images/no-image.jpeg"
+            alt="No Product Found"
+            class="nimage"></ion-img>
         </div>
-      </main>
+        <!--</ion-col>-->
+      </ion-row>
     </div>
   </div>
+  <br /><br />
+  <div class="mat-paginator">
+    <ng-container *ngIf="searchResults$ | async as products">
+      <mat-paginator
+        [length]="totalSearchCount$ | async"
+        [pageSizeOptions]="[10, 20, 50, 100]"
+        aria-label="Select page"
+        [pageIndex]="currentPage"
+        [pageSize]="itemsPerPage"
+        (page)="onPageChange($event)"></mat-paginator>
+    </ng-container>
+  </div>
+  <!-- </main> -->
+  <!-- </div> -->
+  <!-- </div> -->
 
   <!--mobile view filter modal-->
-  <ion-modal trigger="open-modal">
+  <!-- <ion-modal trigger="open-modal">
     <ng-template>
       <ion-header>
         <ion-toolbar>
@@ -244,7 +235,7 @@
       </ion-header>
 
       <ion-content>
-        <!-- Your modal content here -->
+
         <ion-list>
           <ion-list-header>
             <h3>Sort by</h3>
@@ -371,7 +362,7 @@
         </div>
       </ion-content>
     </ng-template>
-  </ion-modal>
+  </ion-modal> -->
 
   <app-footer></app-footer>
 </ion-content>
