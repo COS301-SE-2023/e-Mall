@@ -5,6 +5,8 @@ import {
   OnInit,
   ViewChild,
   OnDestroy,
+  AfterViewChecked,
+  AfterViewInit,
 } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { ProductService } from '@shared/servicies/product/product.service';
@@ -61,6 +63,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     });
   }
+  ionViewWillEnter() {
+    this.profileFacade.fetchRecommendedProducts();
+  }
 
   ngOnInit(): void {
     // this.showSpinner = true;
@@ -71,6 +76,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     // }, 6000);
     this.fetchPopProducts();
     this.fetchTrendingProducts();
+    // this.profileFacade.fetchRecommendedProducts();
+
     // this.showSpinner = false;
   }
   async onCatClicked(path: string) {
