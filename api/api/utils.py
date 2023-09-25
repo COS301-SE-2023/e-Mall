@@ -7,6 +7,7 @@ import os
 import uuid
 from urllib.parse import urlparse, parse_qs, unquote
 import mimetypes
+from PIL import Image
 
 bucket_name = settings.AWS_STORAGE_BUCKET_NAME
 s3 = boto3.client(
@@ -17,6 +18,13 @@ s3 = boto3.client(
     aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
 )
 mimetypes.add_type("image/webp", ".webp")
+
+
+def convert_image_to_jpg(image_path):
+    image = Image.open(image_path).convert("RGB")
+    jpg_image_path = image_path.rsplit(".", 1)[0] + ".jpg"
+    image.save(jpg_image_path, "JPEG")
+    return jpg_image_path
 
 
 def upload_to_spaces(url, folder_name, acl="public-read"):
@@ -47,6 +55,10 @@ def upload_to_spaces(url, folder_name, acl="public-read"):
 
             # Get the file extension
             _, ext = os.path.splitext(filename)
+            # If the image is in WebP format, convert it to JPG
+            if ext.lower() == ".webp":
+                filename = convert_image_to_jpg(filename)
+                ext = ".jpg"
             # Generate a random unique file name with the same extension
             filename = f"{uuid.uuid4()}{ext}"
             print("###", filename)
