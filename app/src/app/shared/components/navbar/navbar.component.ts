@@ -81,7 +81,7 @@ export class NavbarComponent implements OnDestroy {
   }
 
   public redirect(page: string): void {
-    window.location.href = `/${page}`;
+    this.router.navigate([page]);
   }
 
   async openPopover(event: MouseEvent) {
