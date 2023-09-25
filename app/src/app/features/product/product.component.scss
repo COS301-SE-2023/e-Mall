@@ -7,13 +7,13 @@
   justify-content: space-around;
   align-items: center;
 }
-ion-col {
-  // display: flex;
-  // justify-content: space-between;
-  // align-items: center;
-  // height: 100%;
-  // --ion-grid-column-padding-md: 100px;
-}
+// ion-col {
+//   // display: flex;
+//   // justify-content: space-between;
+//   // align-items: center;
+//   // height: 100%;
+//   // --ion-grid-column-padding-md: 100px;
+// }
 ion-row {
   width: 100%;
 }
@@ -21,73 +21,6 @@ ion-row {
 .mini-thumbnails {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.upperNav {
-  // background-color: $color_type_8 !important;
-}
-
-.upperNav a {
-  transition: color 0.3s ease-in-out;
-  color: #444;
-  text-decoration: none;
-}
-
-.search-input {
-  margin-right: 30px;
-  width: 500px;
-  border-radius: 20px !important;
-  padding-left: 50px;
-  height: 40px;
-  text-align: center;
-}
-
-.search-icon {
-  //height: 26px;
-  margin-top: 5px;
-}
-
-.input-group-text {
-  position: absolute;
-  left: 0;
-  z-index: 2;
-  padding: 0.375rem 0.75rem;
-}
-
-.btn-outline-dark {
-  margin-right: 30px;
-}
-
-.body-container {
-  padding: 2% 5%;
-}
-
-.product-img-info-container {
-  margin-top: 25px;
-}
-
-.mini-imgs-container {
-  width: 100px;
-  margin-top: 10px;
-}
-
-.mini-imgs-small-container {
-  // border: 2px solid $color_type_8;
-  margin-top: 6px;
-  margin-bottom: 6px;
-  margin-left: 5px;
-  height: 55px;
-  width: 55px;
-  border-radius: 0.25rem;
-  // background-color: $color_type_8;
-}
-
-.mini-imgs-small-container img {
- 
-  height: 50px;
-  border-radius: 0.25rem;
   top: 0px;
   // height: 100%;
   width: 100%;
@@ -117,14 +50,14 @@ ion-row {
   .product-card {
     border: 1px solid #ccc;
     border-radius: 0.25rem;
-    // padding: 1rem;
+    padding: 1rem;
     cursor: pointer;
     position: relative;
     height: 100%;
     width: 100%;
     min-height: 412px;
     max-height: 412px;
-    padding: auto;
+    // padding: auto;
     aspect-ratio: 1;
   }
   .product-image {
@@ -383,13 +316,13 @@ ion-item::part(native) {
   margin-top: 40px;
 }
 @include screen-medium {
-  #product-upper-info {
-    // min-width: 300px;
-    // width: 100%;
-    // margin-left: 10vw;
-    // max-height: 400px;
-    // font-size: small;
-  }
+  // #product-upper-info {
+  //   // min-width: 300px;
+  //   // width: 100%;
+  //   // margin-left: 10vw;
+  //   // max-height: 400px;
+  //   // font-size: small;
+  // }
 
   // .main-img-container {
   //   min-width: 15vw;
@@ -566,11 +499,11 @@ ion-item::part(native) {
     ion-list {
       flex: 0 0 auto;
       order: 2;
-      ion-item {
-        // font-size: small;
-        // --padding-end: 0px;
-        // --inner-padding-end: 0px;
-      }
+      // ion-item {
+      //   // font-size: small;
+      //   // --padding-end: 0px;
+      //   // --inner-padding-end: 0px;
+      // }
     }
   }
   ion-button.accordian-buttons::part(native) {
@@ -579,14 +512,4 @@ ion-item::part(native) {
   // ion-button.accordian-buttons {
   //   margin: 0 2rem;
   // }
-}
-
-
-app-category-breadcrumb{
-  padding-left: 15px;
-}
-.breadcrumb{
-  margin-top: 2%;
-  margin-bottom: 0%;
-  padding-left: 4%;
 }
