@@ -21,7 +21,7 @@
   margin-top: 30px;
   flex: 1;
   margin-left: 5%;
-  padding-right: 3%;
+  padding-right: 5%;
 }
 .head {
   display: flex;
@@ -30,7 +30,13 @@
   .head-buttons {
     display: flex;
     justify-content: space-between;
-    gap: 5%;
+    gap: 3%;
+
+    ion-button{
+      padding-top: 5%;
+      padding-bottom: 5%;
+      height: min-content;
+    }
   }
 }
 .user-cards {
@@ -128,15 +134,6 @@ ion-item {
   flex-wrap: wrap;
 }
 
-.custom-alert {
-  button.alert-button.exit-button{
-    color: red;
-  }
-
-  button.alert-button.cancel-button{
-    color: green;
-  }
-}
 
 h2 {
   margin-left: 15px;
