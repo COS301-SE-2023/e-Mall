@@ -16,15 +16,19 @@ s3 = boto3.client(
     aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
     aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
 )
+mimetypes.add_type("image/webp", ".webp")
 
 
 def upload_to_spaces(url, folder_name, acl="public-read"):
     if not settings.DEBUG:
         try:
-            response = requests.get(url, verify=False)
+            try:
+                response = requests.get(url)
+            except:
+                response = requests.get(url, verify=False)
             file = BytesIO(response.content)
 
-            # print("********", url)
+            print("********", url)
 
             query_params = urlparse(url).query
             # Extract the image URL from the query parameters, if present
@@ -39,15 +43,15 @@ def upload_to_spaces(url, folder_name, acl="public-read"):
             filename = os.path.basename(urlparse(image_url).path)
             # If the filename has a query string or fragment identifier, remove it
             filename = filename.split("?")[0].split("#")[0]
-            # print(filename)
+            print(filename)
 
             # Get the file extension
             _, ext = os.path.splitext(filename)
             # Generate a random unique file name with the same extension
             filename = f"{uuid.uuid4()}{ext}"
-            # print("###", filename)
+            print("###", filename)
             mime_type, _ = mimetypes.guess_type(filename)
-
+            print("@@@", mime_type)
             s3.upload_fileobj(
                 file,
                 folder_name,
@@ -57,7 +61,6 @@ def upload_to_spaces(url, folder_name, acl="public-read"):
                     "ContentType": mime_type,
                 },
             )
-
         except FileNotFoundError:
             print("The file was not found")
             return False
@@ -65,6 +68,5 @@ def upload_to_spaces(url, folder_name, acl="public-read"):
             print("Credentials not available")
             return False
         return f"https://bucket.emall.space/{folder_name}/{filename}"
-
     else:
         return url
