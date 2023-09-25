@@ -1,11 +1,10 @@
 <app-seller-nav></app-seller-nav>
 
 <ion-content>
-
   <div class="content">
     <div class="settings-content-wrapper">
       <ion-text color="settings-header">
-      <h2 class="dashboard-header-padding">Compare Products</h2>
+        <h2 class="dashboard-header-padding">Compare Products</h2>
       </ion-text>
     </div>
     <div class="container">
@@ -39,13 +38,19 @@
       </div>
     </div>
     <div class="container">
-      <div class="spinner-container" *ngIf="showSpinner">
+      <!-- <div class="spinner-container" *ngIf="showSpinner">
         <div class="spinner">
-          <ion-spinner style="color: #99e3dc; margin-top: 15%; margin-left: 300px; margin-bottom: 200px;"></ion-spinner>
+          <ion-spinner
+            style="
+              color: #99e3dc;
+              margin-top: 15%;
+              margin-left: 300px;
+              margin-bottom: 200px;
+            "></ion-spinner>
         </div>
-      </div>
-      
-      <div class="table" *ngIf="!showSpinner">
+      </div> -->
+
+      <div class="table">
         <ion-list lines="full">
           <ion-item>
             <ion-grid>
@@ -77,18 +82,12 @@
                 </ion-row>
               </ion-grid>
             </ion-item>
-            
           </ng-container>
           <div class="paginator-container">
             <ng-container *ngIf="topProducts$ | async as topProducts">
-              <mat-paginator
-                [length]="this.totalSearchCount$ | async"
-                [pageSizeOptions]="[10, 20, 50, 100]"
-                aria-label="Select page"
-                [pageIndex]="currentPage"
-                [pageSize]="itemsPerPage"
-                (page)="onPageChange($event)">
-              </mat-paginator>
+              <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+                <ion-infinite-scroll-content></ion-infinite-scroll-content>
+              </ion-infinite-scroll>
             </ng-container>
           </div>
         </ion-list>

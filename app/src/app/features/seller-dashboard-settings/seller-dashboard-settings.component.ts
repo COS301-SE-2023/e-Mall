@@ -8,17 +8,15 @@ import { Router } from '@angular/router';
 //import { IonContent } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 
-
 @Component({
   selector: 'app-seller-dashboard-settings',
   templateUrl: './seller-dashboard-settings.component.html',
-  styleUrls: ['./seller-dashboard-settings.component.scss']
+  styleUrls: ['./seller-dashboard-settings.component.scss'],
 })
-export class SellerDashboardSettingsComponent implements OnInit{
+export class SellerDashboardSettingsComponent implements OnInit {
+  // @ViewChild(IonContent)
+  // content!: IonContent;
 
- // @ViewChild(IonContent)
- // content!: IonContent;
-  
   sellerProfileForm: FormGroup;
   isUsernameChanged = false;
   profile$: Observable<ISellerProfile | null>;
@@ -28,8 +26,7 @@ export class SellerDashboardSettingsComponent implements OnInit{
     private formBuilder: FormBuilder,
     private router: Router,
     private toastController: ToastController
-  ) 
-  {
+  ) {
     this.sellerProfileForm = new FormGroup({
       username: new FormControl(),
       name: new FormControl(),
@@ -42,14 +39,10 @@ export class SellerDashboardSettingsComponent implements OnInit{
       facebook: new FormControl(),
       instagram: new FormControl(),
       twitter: new FormControl(),
-
-      
     });
 
     this.profile$ = this.profileFacade.getProfile();
   }
-
-
 
   ngOnInit() {
     //this.profile$ = this.profileFacade.getProfile();
@@ -68,7 +61,6 @@ export class SellerDashboardSettingsComponent implements OnInit{
           phoneNumber: profile.details.landline_number,
           support_email: profile.details.support_email,
           //name: profile.details.business_name,
-
         });
       }
     });
@@ -86,26 +78,23 @@ export class SellerDashboardSettingsComponent implements OnInit{
         city: this.sellerProfileForm.value.city,
         address: this.sellerProfileForm.value.address,
         landline_number: this.sellerProfileForm.value.phoneNumber,
-        support_email: this.sellerProfileForm.value.support_email
-      }
-
+        support_email: this.sellerProfileForm.value.support_email,
+      },
     });
 
     const toast = await this.toastController.create({
       message: 'Profile updated.',
-      duration: 2000, 
+      duration: 2000,
       position: 'bottom',
-      cssClass: 'custom-toast' 
+      cssClass: 'custom-toast',
     });
     await toast.present();
 
-    
     this.router.navigate(['/seller-dashboard-settings']);
     this.isUsernameChanged = false;
   }
 
   onUsernameChange() {
-    
     this.isUsernameChanged = true;
   }
 }

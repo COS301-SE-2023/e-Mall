@@ -1,8 +1,17 @@
 from firebase_admin import firestore
-from django.conf import settings
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .swagger.decorator import *
+from .swagger.decorator import (
+    send_message_api_decorator,
+    delete_decorator,
+    delete_all_decorator,
+    get_decorator,
+    read_decorator,
+    read_all_decorator,
+    update_device_token_decorator,
+    update_settings_decorator,
+    count_unread_notifications_decorator,
+)
 from rest_framework import status
 
 # Initialize Firebase
@@ -300,11 +309,18 @@ def update_settings(request):
 def count_unread_notifications(request):
     try:
         user_id = str(request.user.id)
-        logs_ref = (
-            db.collection(user_collection)
-            .document(user_id)
-            .collection(user_logs_collection)
-            .where("is_read", "==", False)
+        user_ref = db.collection(user_collection).document(user_id)
+
+        # Check if the user exists
+        if not user_ref.get().exists:
+            response_data = {
+                "status": "success:no user exists",
+                "unread_count": 0,
+            }
+            return Response(response_data)
+
+        logs_ref = user_ref.collection(user_logs_collection).where(
+            "is_read", "==", False
         )
         count = len(list(logs_ref.get()))
         response_data = {
@@ -313,6 +329,7 @@ def count_unread_notifications(request):
         }
         return Response(response_data)
     except Exception as e:
+        print(e)
         return Response(
             {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
         )
@@ -327,19 +344,15 @@ def get_settings(request):
         if doc.exists:
             data = doc.to_dict()
             settings = data.get("settings", None)
-
-            if (
-                settings is None
-            ):  # If settings field doesn't exist, set all fields to False
-                valid_fields = ["general", "following", "wishlist", "all"]
-                settings = {field: True for field in valid_fields}
-            return Response(settings)
         else:
-            return Response(
-                {"status": "error", "message": "User not found"},
-                status=status.HTTP_404_NOT_FOUND,
-            )
+            settings = None
+
+        if settings is None:  # If settings field doesn't exist, set all fields to False
+            valid_fields = ["general", "following", "wishlist", "all"]
+            settings = {field: True for field in valid_fields}
+        return Response(settings)
+
     except Exception as e:
         return Response(
-            {"status": "error", "message": str(e)}, status=status.HTTP_400_BAD_REQUEST
+            {"status": "error", "message": str(e)}, status=status.HTTP_404_NOT_FOUND
         )

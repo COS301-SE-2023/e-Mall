@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NotificationFacade } from './features/notification/services/notification.facade';
 
 @Component({

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, Subscription, debounceTime, forkJoin } from 'rxjs';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 interface ProductData {
@@ -17,7 +17,9 @@ interface ProductData {
   templateUrl: 'sales.component.html',
   styleUrls: ['sales.component.scss'],
 })
-export class SalesComponent implements OnInit, AfterViewInit {
+export default class SalesComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   productPerformanceChart: any;
   public productClicksChart: Chart | undefined;
   sellerName!: string | undefined;
@@ -34,63 +36,71 @@ export class SalesComponent implements OnInit, AfterViewInit {
   conversionRate!: number[];
   categories!: string[];
   categoryPercentage!: number[];
-  showSpinner = true;
+
+  chartSubs = new Subscription();
+  profileSubs = new Subscription();
+  analyticsSubs = new Subscription();
   // eslint-disable-next-line @typescript-eslint/no-empty-function
+  isCategoryChartLoading = true;
+  isProductChartLoading = true;
+
   constructor(
     private analytics: AnalyticsService,
     private profileFacade: ProfileFacade
   ) {}
+  ngOnDestroy(): void {
+    this.chartSubs.unsubscribe();
+    this.profileSubs.unsubscribe();
+    this.analyticsSubs.unsubscribe();
+  }
 
   ngOnInit() {
-    this.showSpinner = true;
-
-    setTimeout(() => {
-      this.showSpinner = false;
-    }, 6000);
-
     console.log('sales component initialized');
-    this.profileFacade.getProfile().subscribe(profile => {
-      if (profile) {
-        if ('business_name' in profile.details) {
-          this.sellerName = profile.details.business_name;
+    this.profileSubs = this.profileFacade
+      .getProfile()
+
+      .subscribe(profile => {
+        if (profile) {
+          if ('business_name' in profile.details) {
+            this.sellerName = profile.details.business_name;
+          }
         }
-      }
-    });
-    this.analytics.getAnalyticsData(this.sellerName).subscribe(data => {
-      this.productsClicked = data.product_clicks;
-      this.websiteClicks = data.link_clicks;
-      this.favourited = data.favourites;
-    });
+      });
+    this.analyticsSubs = this.analytics
+      .getAnalyticsData(this.sellerName)
+      .subscribe(data => {
+        this.productsClicked = data.product_clicks;
+        this.websiteClicks = data.link_clicks;
+        this.favourited = data.favourites;
+      });
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      const conversionRate$ = this.analytics.getConversionRate(this.sellerName);
-      const categoryPercentage$ = this.analytics.getCategoryPercentage(
-        this.sellerName
-      );
-      forkJoin([conversionRate$, categoryPercentage$]).subscribe(
-        ([conversionData, categoryData]) => {
-          // Handle conversionData and categoryData
-          this.conversionRate = conversionData.map(
-            (item: { [x: string]: any }) => item['conversion_rate']
-          );
-          this.conversionRateLabels = conversionData.map(
-            (item: { [x: string]: any }) => item['product_name']
-          );
-          this.createProductPerformanceChart();
+    const conversionRate$ = this.analytics.getConversionRate(this.sellerName);
+    const categoryPercentage$ = this.analytics.getCategoryPercentage(
+      this.sellerName
+    );
+    this.chartSubs = forkJoin([conversionRate$, categoryPercentage$]).subscribe(
+      ([conversionData, categoryData]) => {
+        // Handle conversionData and categoryData
+        this.conversionRate = conversionData.map(
+          (item: { [x: string]: any }) => item['conversion_rate']
+        );
+        this.conversionRateLabels = conversionData.map(
+          (item: { [x: string]: any }) => item['product_name']
+        );
+        this.createProductPerformanceChart();
 
-          this.categories = categoryData.map(
-            (item: { [x: string]: any }) => item['category']
-          );
-          this.categoryPercentage = categoryData.map(
-            (item: { [x: string]: any }) => item['percentage']
-          );
-          this.createCategoryPercentageChart();
-        }
-      );
-      Chart.register(...registerables);
-    }, 6000);
+        this.categories = categoryData.map(
+          (item: { [x: string]: any }) => item['category']
+        );
+        this.categoryPercentage = categoryData.map(
+          (item: { [x: string]: any }) => item['percentage']
+        );
+        this.createCategoryPercentageChart();
+      }
+    );
+    Chart.register(...registerables);
   }
   createProductPerformanceChart() {
     const productPerformanceCanvas = document.getElementById(
@@ -143,6 +153,7 @@ export class SalesComponent implements OnInit, AfterViewInit {
         responsive: true,
       },
     });
+    this.isProductChartLoading = false;
   }
 
   createCategoryPercentageChart() {
@@ -196,5 +207,6 @@ export class SalesComponent implements OnInit, AfterViewInit {
         responsive: true,
       },
     });
+    this.isCategoryChartLoading = false;
   }
 }

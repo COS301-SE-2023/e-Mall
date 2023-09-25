@@ -13,6 +13,7 @@ import { NgxsModule } from '@ngxs/store';
 import { ElementRef } from '@angular/core';
 import { ComboStateModule } from '@features/combo-state/combo-state.module';
 import { NotificationModule } from '@app/features/notification/notification.module';
+import { ProductCardFacade } from '@app/shared/components/product-card/services/product-card.facade';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -31,7 +32,7 @@ describe('HomeComponent', () => {
         NgxsModule.forRoot(),
         NotificationModule,
       ],
-      providers: [HomeComponent],
+      providers: [HomeComponent, ProductCardFacade],
     });
 
     component = TestBed.inject(HomeComponent);
@@ -78,8 +79,6 @@ describe('HomeComponent', () => {
 
   it('should return a default image URL when imgList is not provided or empty', () => {
     const result = component.getOneImg();
-    expect(result).toEqual(
-      'https://www.incredible.co.za/media/catalog/product/cache/7ce9addd40d23ee411c2cc726ad5e7ed/s/c/screenshot_2022-05-03_142633.jpg'
-    );
+    expect(result).toEqual('assets/images/default.png');
   });
 });

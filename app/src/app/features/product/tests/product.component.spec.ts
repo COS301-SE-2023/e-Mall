@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ProductComponent } from '@app/features/product/product.component';
+import ProductComponent from '@app/features/product/product.component';
 import { ProductService } from '@shared/servicies/product/product.service';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
 import { CommonModule } from '@angular/common';

@@ -31,7 +31,10 @@ function handleLogs(path) {
         const userLogRef = admin.firestore().collection("users").doc(receiver.id).collection("logs").doc(docId);
         const parentRef = userLogRef.parent.parent;
         const parentDoc = await parentRef.get();
-        const settings = parentDoc.data().settings? parentDoc.data().settings: {"all": true};
+        let settings = {"all": true};
+        if (parentDoc.data() && parentDoc.data().settings) {
+          settings = parentDoc.data().settings;
+        }
         if (checkSettings(settings, docData.message_type)) {
           const docDataCopy = {...docData};
           // Replace [combo], [receiver], and [sender] in title and message using the helper function

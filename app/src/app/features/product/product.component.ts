@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { IProductSeller } from '@shared/models/product/product-seller.interface';
 import { Observable, of, Subscription } from 'rxjs';
 
@@ -12,13 +18,14 @@ import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { NavigationExtras, Router } from '@angular/router';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { ComboPopoverComponent } from '@shared/components/product-card/combo-popover/combo-popover.component';
+import { PageLoaderFacade } from '@app/shared/components/loader/loader-for-page.facade';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss'],
 })
-export class ProductComponent implements OnInit, OnDestroy {
+export default class ProductComponent implements OnInit {
   prod_id: number;
   consumer_id!: string | null;
   consumer_email!: string | null;
@@ -38,8 +45,8 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   currencyCode = 'ZAR';
 
-  showSpinner = true;
-  showSpinner2 = true;
+  // showSpinner = true;
+  // showSpinner2 = true;
 
   // Your timer function
 
@@ -55,7 +62,8 @@ export class ProductComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private analytics: AnalyticsService,
-    private profileFacade: ProfileFacade
+    private profileFacade: ProfileFacade,
+    public loader: PageLoaderFacade
   ) {
     this.selected = new FormControl('default');
     this.paramMapSubscription = new Subscription();
@@ -63,14 +71,13 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log('ng called');
-    this.showSpinner = true;
-    this.showSpinner2 = true;
+    // this.showSpinner = true;
+    // this.showSpinner2 = true;
 
-    setTimeout(() => {
-      this.showSpinner = false;
-      this.showSpinner2 = false;
-    }, 6500);
+    // setTimeout(() => {
+    //   this.showSpinner = false;
+    //   this.showSpinner2 = false;
+    // }, 6500);
 
     this.paramMapSubscription = this.route.queryParamMap.subscribe(params => {
       this.selectedImage = '';
@@ -94,6 +101,7 @@ export class ProductComponent implements OnInit, OnDestroy {
         this.product$ = this.productService.getProductData(this.prod_id);
         this.product$.subscribe(data => {
           this.product_params = data;
+          console.log(data);
         });
         this.sellers$ = this.productService.getSellerList(
           this.prod_id,
@@ -104,8 +112,6 @@ export class ProductComponent implements OnInit, OnDestroy {
         this.isHearted = this.profileFacade.checkWishlist(this.prod_id);
       }
     });
-
-    this.prodClickAnalytics();
   }
 
   toggleBookmark() {
@@ -180,10 +186,13 @@ export class ProductComponent implements OnInit, OnDestroy {
   getOneImg(imgList?: string[]) {
     //remove following when no need to have mock data
     if (!imgList) {
-      return '';
+      return 'assets/images/default.png';
     }
 
     return imgList[0];
+  }
+  onImageFail() {
+    this.selectImage('assets/images/default.png');
   }
   scroll(el: HTMLElement) {
     const navbareight = 50; // Replace with the actual height of your navbar
@@ -192,12 +201,6 @@ export class ProductComponent implements OnInit, OnDestroy {
     el.scrollIntoView();
   }
   onlyInStockToggler() {
-    this.showSpinner2 = true;
-
-    setTimeout(() => {
-      this.showSpinner2 = false;
-    }, 5000);
-
     this.divClicked = !this.divClicked;
 
     this.sellers$ = this.productService.getSellerList(
@@ -242,5 +245,12 @@ export class ProductComponent implements OnInit, OnDestroy {
       queryParams: { seller_id: seller_id },
     };
     this.router.navigate(['seller-details'], navigationextras);
+  }
+  ionViewWillEnter() {
+    this.loader.loading.next(true);
+    this.prodClickAnalytics();
+  }
+  ionViewWillLeave() {
+    this.loader.loading.next(false);
   }
 }
