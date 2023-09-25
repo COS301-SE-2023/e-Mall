@@ -47,9 +47,10 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { HttpClientModule } from '@angular/common/http';
 // import { LoadingInterceptor } from '@shared/components/spinner/interceptors/loading.interceptor';
 import { WishlistStateModule } from './features/wishlist/wishlist-state/wishlist-state.module';
+import { SplashComponent } from './features/splash/splash.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SplashComponent],
   // declarations: [AppComponent, SpinnerComponent],
   imports: [
     BrowserModule,
@@ -78,6 +79,7 @@ import { WishlistStateModule } from './features/wishlist/wishlist-state/wishlist
     NgxsActionsExecutingModule.forRoot(),
     NgxsDispatchPluginModule.forRoot(),
     NgxsResetPluginModule.forRoot(),
+    AppRoutingModule,
     AuthModule,
     ErrorModule,
     ComboStateModule,
@@ -104,7 +106,7 @@ import { WishlistStateModule } from './features/wishlist/wishlist-state/wishlist
     ProfileModule,
     DropdownPopoverModule,
     CategoryModule,
-    AppRoutingModule,
+
     SellerDetailsModule,
     SellerDashboardSettingsModule,
     // provideFirebaseApp(() => initializeApp(environment.firebase)),
