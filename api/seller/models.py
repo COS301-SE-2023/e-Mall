@@ -40,7 +40,7 @@ class Seller(User):
     address = models.CharField(max_length=200, default="  ", null=True)
     city = models.CharField(max_length=20, default="  ", null=True)
     postal_code = models.CharField(max_length=4, default="0000", null=True)
-    logo = models.URLField(max_length=200, default="  ", null=True)
+    logo = models.URLField(max_length=1000, default="  ", null=True)
     instagram_link = models.URLField(max_length=200, default="  ", null=True)
     facebook_link = models.URLField(max_length=200, default="  ", null=True)
     twitter_link = models.URLField(max_length=200, default="  ", null=True)
