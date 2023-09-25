@@ -5,7 +5,6 @@ import {
   passwordValidationErrors,
   passwordValidator,
 } from '@shared/validators/password/passwordValidator';
-import { LoadingController } from '@ionic/angular';
 import { ToastComponent } from '@shared/components/toast/toast.component';
 
 @Component({
@@ -19,7 +18,6 @@ export class SignInComponent {
   constructor(
     private formBuilder: FormBuilder,
     private signInFacade: SignInFacade,
-    private loadingController: LoadingController,
     private toast: ToastComponent
   ) {
     this.signInForm = this.formBuilder.group({

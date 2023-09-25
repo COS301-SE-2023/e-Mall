@@ -19,6 +19,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { ComboPopoverComponent } from '@shared/components/product-card/combo-popover/combo-popover.component';
 import { PageLoaderFacade } from '@app/shared/components/loader/loader-for-page.facade';
+import { AuthFacade } from '../auth/services/auth.facade';
 
 @Component({
   selector: 'app-product',
@@ -56,14 +57,14 @@ export default class ProductComponent implements OnInit {
   divClicked = false;
   private paramMapSubscription: Subscription;
   constructor(
-    private popoverController: PopoverController,
     private modalController: ModalController,
     private productService: ProductService,
     private route: ActivatedRoute,
     private router: Router,
     private analytics: AnalyticsService,
     private profileFacade: ProfileFacade,
-    public loader: PageLoaderFacade
+    public loader: PageLoaderFacade,
+    private authFacade: AuthFacade
   ) {
     this.selected = new FormControl('default');
     this.paramMapSubscription = new Subscription();
@@ -114,9 +115,15 @@ export default class ProductComponent implements OnInit {
     });
   }
 
-  toggleBookmark() {
-    this.isBookmark = of(true);
-    this.openComboPopover();
+  async toggleBookmark() {
+    if (!(await this.authFacade.isLoggedIn())) {
+      return this.router.navigate(['sign-in']);
+    } else if ((await this.authFacade.getUserType()) === 'seller') {
+      return this.router.navigate(['sales']);
+    } else {
+      this.isBookmark = of(true);
+      return this.openComboPopover();
+    }
   }
   async openComboPopover() {
     const modal = await this.modalController.create({

@@ -42,6 +42,8 @@ export class ConsumerRegisterComponent {
   async signUp() {
     const loading = await this.loadingController.create({
       message: 'Please Wait',
+      spinner: 'dots',
+      mode: 'ios',
       duration: 2000,
       translucent: true,
     });
