@@ -6,6 +6,7 @@ from io import BytesIO
 import os
 import uuid
 from urllib.parse import urlparse, parse_qs, unquote
+import mimetypes
 
 bucket_name = settings.AWS_STORAGE_BUCKET_NAME
 s3 = boto3.client(
@@ -45,12 +46,15 @@ def upload_to_spaces(url, folder_name, acl="public-read"):
             # Generate a random unique file name with the same extension
             filename = f"{uuid.uuid4()}{ext}"
             # print("###", filename)
+            mime_type, _ = mimetypes.guess_type(filename)
+
             s3.upload_fileobj(
                 file,
                 folder_name,
                 filename,
                 ExtraArgs={
                     "ACL": acl,
+                    "ContentType": mime_type,
                 },
             )
 
