@@ -125,6 +125,9 @@ export class ProfileFacade implements OnDestroy {
       this.setError(error);
     }
   }
+  async isLoggedIn() {
+    return await this.authFacade.isLoggedIn();
+  }
 
   checkWishlist(id: number): Observable<boolean> {
     return this.wishlist$.pipe(

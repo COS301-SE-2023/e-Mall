@@ -7,7 +7,6 @@ import os
 import uuid
 from urllib.parse import urlparse, parse_qs, unquote
 import mimetypes
-from PIL import Image
 
 bucket_name = settings.AWS_STORAGE_BUCKET_NAME
 s3 = boto3.client(
