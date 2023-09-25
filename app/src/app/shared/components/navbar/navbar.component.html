@@ -32,25 +32,28 @@
       <app-search-bar class="search-bar"></app-search-bar>
 
       <div class="navbar-spacer"></div>
-      <ion-button
-        (click)="combos($event)"
-        class="bookmark-button"
-        shape="round"
-        fill="clear"
-        mode="ios">
-        <ion-icon [name]="'bookmark'" style="color: black"></ion-icon>
-      </ion-button>
-      <ion-button
-        (click)="openMenu()"
-        class="wishlist-button"
-        shape="round"
-        fill="clear"
-        mode="ios">
-        <ion-icon [name]="'notifications'" style="color: black"></ion-icon>
-        <ng-container *ngIf="notificationUnreadCount$ | async as unread_count">
-          <ion-badge *ngIf="unread_count > 0">{{ unread_count }}</ion-badge>
-        </ng-container>
-      </ion-button>
+      <ng-container *ngIf="isAuthenticated | async">
+        <ion-button
+          (click)="combos($event)"
+          class="bookmark-button"
+          shape="round"
+          fill="clear"
+          mode="ios">
+          <ion-icon [name]="'bookmark'" style="color: black"></ion-icon>
+        </ion-button>
+        <ion-button
+          (click)="openMenu()"
+          class="wishlist-button"
+          shape="round"
+          fill="clear"
+          mode="ios">
+          <ion-icon [name]="'notifications'" style="color: black"></ion-icon>
+          <ng-container
+            *ngIf="notificationUnreadCount$ | async as unread_count">
+            <ion-badge *ngIf="unread_count > 0">{{ unread_count }}</ion-badge>
+          </ng-container>
+        </ion-button>
+      </ng-container>
       <div class="authButton">
         <button
           mat-button
