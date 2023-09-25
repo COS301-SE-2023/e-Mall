@@ -5,14 +5,14 @@ import {
   OnInit,
   ViewChild,
   OnDestroy,
+  AfterViewChecked,
+  AfterViewInit,
 } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { ProductService } from '@shared/servicies/product/product.service';
 import { IProduct } from '@shared/models/product/product.interface';
-import { Observable, Subscription, delay, of } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
-import { ProfileService } from '@features/profile/services/profile.service';
-import { ComboFacade } from '@features/combo-state/services/combo.facade';
 import { ProductCardFacade } from '@app/shared/components/product-card/services/product-card.facade';
 
 //import { register } from 'swiper/element/bundle';
@@ -48,8 +48,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     private router: Router,
     private productService: ProductService,
     private profileFacade: ProfileFacade,
-    private profileService: ProfileService,
-    private comboFacade: ComboFacade,
     public productCardFacade: ProductCardFacade
   ) {
     this.followedSellers$ = of(null);
@@ -65,6 +63,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     });
   }
+  ionViewWillEnter() {
+    this.profileFacade.fetchRecommendedProducts();
+  }
 
   ngOnInit(): void {
     // this.showSpinner = true;
@@ -75,6 +76,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     // }, 6000);
     this.fetchPopProducts();
     this.fetchTrendingProducts();
+    // this.profileFacade.fetchRecommendedProducts();
+
     // this.showSpinner = false;
   }
   async onCatClicked(path: string) {
@@ -88,6 +91,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   fetchTrendingProducts() {
     this.trendingProducts$ = this.productService.getTrendingProducts();
+    // this.trendingProducts$.subscribe(val => console.log(val));
     // .pipe(delay(3000));
     // this.trendingProducts$ = this.productService.getTrendingProducts();
   }
@@ -118,8 +122,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getOneImg(imgList?: string[]) {
     //remove following when no need to have mock data
-    if (!imgList || imgList.length < 1)
-      return 'https://www.incredible.co.za/media/catalog/product/cache/7ce9addd40d23ee411c2cc726ad5e7ed/s/c/screenshot_2022-05-03_142633.jpg';
+    if (!imgList || imgList.length < 1) return 'assets/images/default.png';
 
     return imgList[0];
   }
@@ -134,15 +137,4 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.forYouSubs.unsubscribe();
   }
 
-  chunkArray(arr: any[], chunkSize: number): any[] {
-    const resultArray = [];
-    let index = 0;
-
-    while (index < arr.length && index < 21) {
-      resultArray.push(arr.slice(index, index + chunkSize));
-      index += chunkSize;
-    }
-
-    return resultArray;
-  }
 }

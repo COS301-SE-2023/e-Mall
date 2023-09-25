@@ -10,8 +10,6 @@ import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 import * as InventoryActions from '../states/inventory.action';
 import { SetError } from '@features/error/states/error.action';
 import { IError } from '@features/error/models/error.interface';
-import { IProduct } from '@app/shared/models/product/product.interface';
-import { IProductSeller } from '@app/shared/models/product/product-seller.interface';
 import { LoaderFacade } from '@app/shared/components/loader/loader-for-state.facade';
 //import { LoaderFacade } from '@shared/components/loader/loader.facade';
 

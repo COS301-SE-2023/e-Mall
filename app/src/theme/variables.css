@@ -287,7 +287,7 @@ html {
 
   ion-toast.custom-notification::part(button) {
     color: var(--ion-color-clear-button);
-    font-size: 0.8rem;
+    font-size: 1rem;
     height: min-content;
   }
 
@@ -340,15 +340,6 @@ html {
 
 
 
-.carousel-control-prev-icon {
-  color: red; /* Customize the color of the left (previous) arrow */
-  width: 50rem;
-}
-
-.carousel-control-next-icon {
-  color: blue; /* Customize the color of the right (next) arrow */
-}
-
 
 .spinner ion-spinner{
   width: 100px; 
@@ -362,7 +353,9 @@ html {
   align-items: center;
   text-align: center;
 }
-
+.alert-button.sc-ion-alert-md{
+  color:var(--ion-color-primary-alt);
+}
 /*
 .custom-loader {
   background-color: rgb(0, 0, 0, 0.96);

@@ -70,6 +70,7 @@ oauth2client==4.1.3
 openapi-codec==1.3.2
 packaging==23.1
 pandas==2.0.3
+Pillow==10.0.1
 pluggy==1.0.0
 prompt-toolkit==3.0.39
 proto-plus==1.22.3
@@ -108,7 +109,9 @@ typing_extensions==4.6.3
 tzdata==2023.3
 uritemplate==4.1.1
 urllib3==1.26.15
+uuid==1.30
 vine==5.0.0
 wcwidth==0.2.6
+webptools==0.0.9
 wrapt==1.15.0
 yarg==0.1.9

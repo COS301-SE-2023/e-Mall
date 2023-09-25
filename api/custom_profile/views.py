@@ -175,15 +175,15 @@ def update_recommended_products(email):
         rec_prods = []
         # get the predictions data
         initial_data = ca_matrix.objects.all()
-        prediction_data= cust_analytics.objects.all()
+        prediction_data = cust_analytics.objects.all()
         # create the df table
         df = createTables(initial_data)
         df1 = createTables(prediction_data)
-        
+
         for m in df[df[email] == 0].index.tolist():
             index_df = df.index.tolist().index(m)
             predicted_rating = df1.iloc[index_df, df1.columns.tolist().index(email)]
-            if(predicted_rating > 0):
+            if predicted_rating > 0:
                 rec_prods.append((m, predicted_rating))
 
         sorted_rm = sorted(rec_prods, key=lambda x: x[1], reverse=True)
@@ -213,8 +213,6 @@ def get_recommended_products(request):
         if user is None:
             raise Exception("User not found")
         if user.type == "consumer":
-            post.delay()
-            update_recommended_products.delay(user.email)
             # Define recommended_products as an empty queryset initially
             recommended_products = Product.objects.none()
             if (
@@ -225,9 +223,14 @@ def get_recommended_products(request):
                 recommended_products = Product.objects.filter(
                     name__in=user.recommended_products
                 )
-                #sort it the same way that the user has sorted it
-                recommended_products = sorted(recommended_products, key=lambda x: user.recommended_products.index(x.name))
+                # sort it the same way that the user has sorted it
+                recommended_products = sorted(
+                    recommended_products,
+                    key=lambda x: user.recommended_products.index(x.name),
+                )
             serializer = ProductSerializer(recommended_products, many=True)
+            post.delay()
+            update_recommended_products.delay(user.email)
             return Response(serializer.data)
 
         else:

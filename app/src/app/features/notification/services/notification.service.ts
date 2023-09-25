@@ -1,16 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, Injector, Optional } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import {
   Messaging,
   getToken,
   onMessage,
-  deleteToken,
   isSupported,
 } from '@angular/fire/messaging';
 import { AuthFacade } from '@features/auth/services/auth.facade';
 import { environment } from 'environments/env';
-import { firstValueFrom, EMPTY, Observable, from } from 'rxjs';
+import { firstValueFrom, EMPTY, Observable } from 'rxjs';
 import { INotificationSettings } from '../models/notification-settings.interface';
 
 @Injectable()
@@ -21,8 +20,7 @@ export class NotificationService {
 
   constructor(
     @Optional() private messaging: Messaging,
-    private http: HttpClient,
-    private authFacade: AuthFacade
+    private http: HttpClient
   ) {
     isSupported().then((supported: any) => {
       if (supported) {
@@ -36,13 +34,18 @@ export class NotificationService {
 
   async signOut() {
     console.log('Signing out');
-    await deleteToken(this.messaging)
-      .then(() => {
-        console.log('Token deleted.');
-      })
-      .catch(err => {
-        console.log('Unable to delete token.');
-      });
+    navigator.serviceWorker.getRegistrations().then(registrations => {
+      for (const registration of registrations) {
+        registration.unregister();
+      }
+    });
+    // await deleteToken(this.messaging)
+    //   .then(() => {
+    //     console.log('Token deleted.');
+    //   })
+    //   .catch(err => {
+    //     console.log('Unable to delete token.');
+    //   });
   }
   getToken() {
     // return from(

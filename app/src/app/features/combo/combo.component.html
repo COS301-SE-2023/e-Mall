@@ -19,7 +19,6 @@
           <ion-button id="present-alert"> Leave Collection</ion-button>
           <ion-alert
             trigger="present-alert"
-            csscClass="custom-alert"
             header="Leave collection?"
             message="Are you sure you want to leave the collection: <b>{{
               name
@@ -81,8 +80,7 @@
         </div>
       </div>
       <div class="main" *ngIf="combo$ | async as comboData">
-        <div
-          class="combo-container-nocards"
+        <div class="combo-container-nocards"
           *ngIf="comboData.products?.length === 0">
           <div class="product-card-no">
             <img
