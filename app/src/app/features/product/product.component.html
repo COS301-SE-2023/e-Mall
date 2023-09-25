@@ -5,7 +5,7 @@
     <div class="breadcrumb">
     <app-category-breadcrumb
       [categoryList]="product"
-      *ngIf="!showSpinner"></app-category-breadcrumb></div>
+      ></app-category-breadcrumb></div>
   </ng-container>
   <div class="ion-content-wrapper">
     <ng-container *ngIf="product$ | async as product; else loading">
