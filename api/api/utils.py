@@ -20,11 +20,12 @@ s3 = boto3.client(
 mimetypes.add_type("image/webp", ".webp")
 
 
-def convert_image_to_jpg(image_path):
-    image = Image.open(image_path).convert("RGB")
-    jpg_image_path = image_path.rsplit(".", 1)[0] + ".jpg"
-    image.save(jpg_image_path, "JPEG")
-    return jpg_image_path
+def convert_image_to_jpg(image_data):
+    image = Image.open(image_data).convert("RGB")
+    output = BytesIO()
+    image.save(output, format="JPEG")
+    output.seek(0)
+    return output
 
 
 def upload_to_spaces(url, folder_name, acl="public-read"):
@@ -57,7 +58,7 @@ def upload_to_spaces(url, folder_name, acl="public-read"):
             _, ext = os.path.splitext(filename)
             # If the image is in WebP format, convert it to JPG
             if ext.lower() == ".webp":
-                filename = convert_image_to_jpg(filename)
+                file = convert_image_to_jpg(file)
                 ext = ".jpg"
             # Generate a random unique file name with the same extension
             filename = f"{uuid.uuid4()}{ext}"
@@ -80,5 +81,6 @@ def upload_to_spaces(url, folder_name, acl="public-read"):
             print("Credentials not available")
             return False
         return f"https://bucket.emall.space/{folder_name}/{filename}"
+
     else:
         return url
