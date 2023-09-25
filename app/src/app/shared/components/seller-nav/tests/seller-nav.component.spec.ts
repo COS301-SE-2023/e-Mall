@@ -52,7 +52,7 @@ describe('SellerNavComponent', () => {
     const sideNav = fixture.nativeElement.querySelector('.side-nav');
     expect(sideNav).toBeTruthy();
     const items = sideNav.querySelectorAll('ion-item');
-    expect(items.length).toBe(6);
+    expect(items.length).toBe(7);
   });
 
   it('should render the correct labels in the items', waitForAsync(() => {

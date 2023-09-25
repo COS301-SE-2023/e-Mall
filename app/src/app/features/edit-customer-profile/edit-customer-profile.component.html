@@ -7,11 +7,6 @@
       </app-customer-profile-sidenav>
     </div>
 
-    <!-- <div class="spinner-container" *ngIf="(profile$ | async) === null">
-      <div class="spinner">
-        <ion-spinner name="dots" style="color: #99e3dc"></ion-spinner>
-      </div>
-    </div> -->
     <div class="settings-container" *ngIf="profile$ | async as profile">
       <h2>Settings</h2>
       <div class="general-settings-container">
@@ -73,7 +68,6 @@
             formControlName="postal_code"
             required="true"
             (input)="onChange()"></ion-input>
-
           <ion-button type="submit" [disabled]="!isChanged">Submit</ion-button>
         </form>
       </div>
