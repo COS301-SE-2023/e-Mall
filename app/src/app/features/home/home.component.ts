@@ -14,6 +14,7 @@ import { IProduct } from '@shared/models/product/product.interface';
 import { Observable, Subscription, of } from 'rxjs';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { ProductCardFacade } from '@app/shared/components/product-card/services/product-card.facade';
+import { AuthFacade } from '../auth/services/auth.facade';
 
 //import { register } from 'swiper/element/bundle';
 //register();
@@ -33,6 +34,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   imageObject: Array<object> = [];
   images = 'assets/images/home_banner.png';
   @ViewChild('recommendedHeading') recommendedHeading!: ElementRef;
+  isLoggedIn = false;
+
   // showSpinner = true;
   cat_pages = [
     { title: 'ELECTRONICS', path: '/category/Electronics' },
@@ -47,8 +50,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private productService: ProductService,
-    private profileFacade: ProfileFacade,
-    public productCardFacade: ProductCardFacade
+    public profileFacade: ProfileFacade,
+    public productCardFacade: ProductCardFacade,
+    public authFacade: AuthFacade
   ) {
     this.followedSellers$ = of(null);
     this.forYouProducts$ = of(null);
@@ -63,7 +67,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     });
   }
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
     this.profileFacade.fetchRecommendedProducts();
   }
 
@@ -136,5 +140,4 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.followSubs.unsubscribe();
     this.forYouSubs.unsubscribe();
   }
-
 }

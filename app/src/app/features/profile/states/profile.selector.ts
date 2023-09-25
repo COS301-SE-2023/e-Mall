@@ -2,6 +2,7 @@ import { Selector } from '@ngxs/store';
 import { IConsumerProfile } from '../models/consumer-profile.interface';
 import { ISellerProfile } from '../models/seller-profile.interface';
 import { ProfileState, ProfileStateModel } from './profile.state';
+import { IProduct } from '@app/shared/models/product/product.interface';
 
 export class ProfileSelectors {
   @Selector([ProfileState])
@@ -19,7 +20,7 @@ export class ProfileSelectors {
     return state.profile?.details.followed_sellers || [];
   }
   @Selector([ProfileState])
-  static getRecommendedProducts(state: ProfileStateModel): number[] {
-    return state.profile?.details.recommended_products || [];
+  static getRecommendedProducts(state: ProfileStateModel): IProduct[] {
+    return state.recommended_products || [];
   }
 }

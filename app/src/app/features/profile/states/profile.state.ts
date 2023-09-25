@@ -5,15 +5,18 @@ import { ISellerProfile } from '../models/seller-profile.interface';
 import * as ProfileActions from './profile.actions';
 import produce from 'immer';
 import { Profile } from '../models/alias-profile.interface';
+import { IProduct } from '@app/shared/models/product/product.interface';
 
 export interface ProfileStateModel {
   profile: Profile;
+  recommended_products: IProduct[] | null;
 }
 
 @State<ProfileStateModel>({
   name: 'profile',
   defaults: {
     profile: null,
+    recommended_products: null,
   },
 })
 @Injectable()
@@ -23,7 +26,17 @@ export class ProfileState {
     ctx: StateContext<ProfileStateModel>,
     action: ProfileActions.SetProfile
   ) {
-    ctx.setState({ profile: action.profile });
+    ctx.setState(
+      produce(draft => {
+        if (draft.profile) {
+          Object.assign(draft.profile, action.profile);
+        } else {
+          draft.profile = action.profile as unknown as
+            | IConsumerProfile
+            | ISellerProfile;
+        }
+      })
+    );
   }
 
   @Action(ProfileActions.UpdateProfile)
@@ -45,7 +58,7 @@ export class ProfileState {
   }
   @Action(ProfileActions.ClearProfile)
   signOut(ctx: StateContext<ProfileStateModel>) {
-    ctx.setState({ profile: null });
+    ctx.setState({ profile: null, recommended_products: null });
   }
 
   // @Action(ProfileActions.AddToWishlist)
@@ -171,9 +184,7 @@ export class ProfileState {
   ) {
     ctx.setState(
       produce(draft => {
-        if (draft.profile) {
-          draft.profile.details.recommended_products = action.products;
-        }
+        draft.recommended_products = action.products;
       })
     );
   }
