@@ -29,15 +29,15 @@ import { ProductCardModule } from '../../shared/components/product-card/product-
 import { ProfileModule } from '@features/profile/profile.module';
 import { ComboStateModule } from '@features/combo-state/combo-state.module';
 
-const routes: Routes = [
-  { path: '', pathMatch: 'full', component: HomeComponent },
-];
+// const routes: Routes = [
+//   { path: '', pathMatch: 'full', component: HomeComponent },
+// ];
 
 @NgModule({
   declarations: [HomeComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [ProductService, AuthService],
-  exports: [RouterModule],
+  // providers: [ProductService, AuthService],
+  // exports: [RouterModule],
   imports: [
     HttpClientModule,
     CommonModule,
@@ -66,7 +66,7 @@ const routes: Routes = [
     ProductCardModule,
     ProfileModule,
     ComboStateModule,
-    RouterModule.forChild(routes),
+    // RouterModule.forChild(routes),
   ],
 })
 export class HomeModule {}

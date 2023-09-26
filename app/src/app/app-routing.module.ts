@@ -15,15 +15,17 @@ import { CustomerProfileComponent } from '@features/profile/components/customer-
 import { EditCustomerProfileComponent } from '@features/edit-customer-profile/edit-customer-profile.component';
 import { SellerDashboardSettingsComponent } from '@features/seller-dashboard-settings/seller-dashboard-settings.component';
 import { consumerTypeGuard } from '@shared/guards/consumer-type.guard';
+import { SplashComponent } from './features/splash/splash.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-
+  // { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', component: SplashComponent, pathMatch: 'full' },
   {
     path: 'home',
     loadChildren: () =>
       import('@app/features/home/home.module').then(m => m.HomeModule),
     canActivate: [baseGuard],
+    pathMatch: 'full',
   },
   {
     path: 'construction',
