@@ -11,7 +11,6 @@ export class InventoryService {
   private apiUrl = '/api/inventory';
 
   constructor(private http: HttpClient) {
-    console.log('product seller service initialized');
   }
 
   public async getProductSellerData(

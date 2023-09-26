@@ -54,7 +54,6 @@ export class DropdownPopoverComponent implements OnInit {
         queryParams: { seller_id: nav },
 
       };
-      console.log(nav)
       this.router.navigate([path], navigationextras);
     }
   }

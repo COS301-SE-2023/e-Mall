@@ -62,7 +62,6 @@ export class ProductAnalyticsComponent implements OnInit, OnDestroy {
     this.topProdcutSubs = this.topProducts$
       .pipe(debounceTime(2000))
       .subscribe(val => {
-        console.log(val);
         this.pageLoaderFacade.loading.next(false);
       });
   }

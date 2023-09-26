@@ -51,9 +51,7 @@ export function transformNewMessage(message: any): INotification {
   let message_time = null;
   let readable_time = null;
   const data = JSON.parse(message.data.data);
-  console.log('data ', data);
   const timestamp = data.timestamp;
-  console.log(timestamp);
   const unixTimestamp =
     timestamp._seconds * 1000 + timestamp._nanoseconds / 1000000;
   let time_stamp_before_conversion = '';
@@ -109,6 +107,5 @@ export function transformNewMessage(message: any): INotification {
           : message.notification.image,
     },
   };
-  console.log(retData);
   return retData;
 }

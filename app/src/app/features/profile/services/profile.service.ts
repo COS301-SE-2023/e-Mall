@@ -123,7 +123,6 @@ export class ProfileService {
   }
 
   async fetchRecommendedProducts(): Promise<IProduct[]> {
-    console.log('fetchRecommendedProducts start');
     // await this.updateRecommendedProducts();
     const url = `${this.apiUrl}fetchRecommendedProducts/`;
 
@@ -141,7 +140,6 @@ export class ProfileService {
         )
         .pipe(take(1), shareReplay(1))
     );
-    console.log('fetchRecommendedProducts end');
 
     return response.body || [];
   }

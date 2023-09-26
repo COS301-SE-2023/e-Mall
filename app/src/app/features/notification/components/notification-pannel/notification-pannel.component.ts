@@ -26,7 +26,6 @@ export class NotificationPannelComponent implements OnDestroy {
     public notificationFacade: NotificationFacade,
     private cdr: ChangeDetectorRef
   ) {
-    console.log('Notification dropdown component initialized');
     this.menuOpenedSubs = notificationFacade.isMenuOpen$.subscribe(
       (val: boolean) => {
         if (!val && this.opendAccordionNotification) {
@@ -46,11 +45,9 @@ export class NotificationPannelComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.menuOpenedSubs.unsubscribe();
     this.selectedItemSubs.unsubscribe();
-    console.log('dropdown component destroyed');
   }
 
   onIonInfinite(event: any) {
-    console.log('load more');
     this.notificationFacade.loadMoreNotifications().then(() => {
       event.target.complete();
     });

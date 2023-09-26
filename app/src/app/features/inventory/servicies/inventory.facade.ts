@@ -42,7 +42,6 @@ export class InventoryFacade implements OnDestroy {
     this.loaderFacade.addActions(this.actions);
 
     this.queryTemp = {};
-    console.log('inventory facade initialized');
     this.resetState();
     this.querySubs = this.query$
       .pipe(debounceTime(500))
@@ -69,7 +68,6 @@ export class InventoryFacade implements OnDestroy {
   }
   async fetchItems(options: ISearchOptions) {
     try {
-      console.log('fetching items');
       const res = await this.inventoryService.getProductSellerData(options);
       return this.setInventory(res.products, res.totalCount);
     } catch (error) {
@@ -78,8 +76,6 @@ export class InventoryFacade implements OnDestroy {
   }
   async updateItem(data: IInventoryItem) {
     try {
-      console.log('updating item');
-
       return [
         this.updateStateItems([data]),
         await this.inventoryService.updateProductSellerData(data),
@@ -90,7 +86,6 @@ export class InventoryFacade implements OnDestroy {
   }
   async removeItem(data: IInventoryItem) {
     try {
-      console.log('updating item');
       await this.inventoryService.deleteProductSellerData(data);
       return this.removeStateItem(data);
     } catch (error) {

@@ -22,7 +22,6 @@ export class WishlistFacade implements OnDestroy {
     private router: Router,
     private wishlistService: WishlistService
   ) {
-    console.log('Wishlist facade initialized');
     this.authSubscription = this.authFacade
       .getCurrentUser()
       .pipe(

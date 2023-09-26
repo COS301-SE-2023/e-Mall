@@ -42,7 +42,6 @@ export class ProfileFacade implements OnDestroy {
     private authFacade: AuthFacade,
     private router: Router
   ) {
-    console.log('Profile facade initialized');
 
     this.authSubscription = this.authFacade
       .getCurrentUser()
@@ -116,7 +115,6 @@ export class ProfileFacade implements OnDestroy {
 
   async fetchRecommendedProducts() {
     try {
-      console.log('FetchRecommendedProducts');
       if (await this.authFacade.isLoggedIn()) {
         const res = await this.profileService.fetchRecommendedProducts();
         if (res != null) this.setRecommendedProducts(res);
