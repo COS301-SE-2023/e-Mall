@@ -375,3 +375,7 @@ ion-grid.product-page {
   
   /* overflow-x: hidden; */
 }
+
+ion-input, ion-select,ion-checkbox,.checkbox-wrapper,ion-popover{
+  --ion-color-primary: #19b2b8;
+}
