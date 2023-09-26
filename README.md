@@ -26,7 +26,7 @@
 
 ## Project Description
 
-E-mall is an online platform that allows verified sellers to list their products and enables customers to easily view and compare similar products across multiple websites. By scraping verified seller websites, E-mall ensures that only high-quality products are displayed to customers, and customers can receive personalized experiences based on their search history. Sellers can benefit from the platform by receiving analytics on customer behavior, while customers can view competitor prices on a given product, enabling them to make informed purchasing decisions. E-mall aims to offer hassle-free shopping and selling experiences to customers and sellers, respectively.
+E-mall is an online platform that allows verified sellers to list their products and enables customers to easily view and compare similar products across multiple websites. E-mall ensures that only high-quality products are displayed to customers, and customers can receive personalized experiences based on their activity on the site. Sellers can benefit from the platform by receiving analytics on customer behavior, while customers can view competitor prices on a given product, enabling them to make informed purchasing decisions. E-mall aims to offer hassle-free shopping and selling experiences to customers and sellers, respectively.
 
 ## Project Methodology
 
@@ -41,11 +41,6 @@ Key features of our Agile approach during this project include:
 - Consistent Communication: We have established a regular meeting schedule, our team will meet fortnightly to discuss project progress and address any issues or concerns. In addition, we will have a weekly mentor meeting to receive guidance and support. Communication between team roles will be ongoing and frequent to ensure that everyone is aligned and working together effectively.
 
 ## Branching Strategy
-
-<div align="center">
-  <h2>Branching Strategy</h2>
-</div>
-
 - [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
  <p >
     <img width="500"  src="https://drive.google.com/uc?export=view&id=1RyA8oq8HRugf5sQH-StnJqOvUtrWEcDu" alt="Gitflow branching strategy">
@@ -77,16 +72,28 @@ Key features of our Agile approach during this project include:
 - [SRS V1](https://drive.google.com/file/d/1xYJfWMI8LHSDu71Z_4f4M5lmC0sm7LC7/view?usp=share_link)
 - [SRS V2](https://drive.google.com/file/d/17sjF_ug5B2UOm4882mR8pB-XNJYRdQlR/view?usp=sharing)
 - [SRS V3](https://drive.google.com/file/d/1JigDUwt08_AUGzS-JQIRdyKzsoh14lhn/view?usp=sharing)
+- [SRS V4](https://drive.google.com/file/d/191BDd6jO6fqrIc0AmcAtijJbYWTKhU6g/view?usp=sharing)
+
 
 ### Architecture
 - [Architecture Document V1](https://drive.google.com/file/d/1bqVY1dhNnN6TRFIE9gbgmBwtZRpwdSxe/view?usp=sharing)
-- [Architecture Document V2](https://drive.google.com/file/d/1C4_xi6-5COi-VOv8yEiFNeXSBJW1rAT0/view?usp=sharing)
+- [Architecture Document V2](https://drive.google.com/file/d/1K9oJPGMBjGXt9OhC_ryt6NQUB7ZqC9Is/view?usp=sharing)
+- [Architecture Document V3](https://drive.google.com/file/d/1csOnBPNgaLv5dwGhadf__-uAF2zDHdfD/view?usp=sharing)
+
+### Testing Policy
+- [Testing Policy](https://drive.google.com/file/d/1hApqfMGzXLPtED9DNnwLHLw5fx-hQzVL/view?usp=sharing)
 
 ### Coding Standards
 - [Coding Standards Document](https://drive.google.com/file/d/1PSxej1cXmVsGjtHcWc3-ent6uTmSJMlR/view?usp=sharing)
 
-### User Manual
-- [User Manual ](https://drive.google.com/file/d/1eVx9C_775NXCrV-AqXXu-QgBNgYYbnaN/view?usp=sharing)
+### Deployment Diagram
+- [Deployment Diagram](https://drive.google.com/file/d/1QMAceIuTqOFg7JRrqjUoYDN24LY--taF/view?usp=sharing)
+
+### User Manuals
+- [User Manual V1](https://drive.google.com/file/d/1eVx9C_775NXCrV-AqXXu-QgBNgYYbnaN/view?usp=sharing)
+- [Consumer User Manual V2](https://drive.google.com/file/d/1ZAOZ1lxjZOZW7LQeYPLO6H37x-oVc9em/view?usp=sharing)
+- [Seller User Manual V2](https://drive.google.com/file/d/1C2dRlvc_CT5acpcCdeCA3uyGibqxPhtf/view?usp=sharing)
+- [Staff User Manual V2](https://drive.google.com/file/d/1TKf-KmtqRjBhbQ2RwNUr5dJ4D_xroN5h/view?usp=sharing)
   
 ## Project Management
 - [Jira](https://ss-e-mall.atlassian.net/jira/software/projects/SS/boards/1)
