@@ -76,6 +76,9 @@ export class NavbarComponent implements OnDestroy {
   public signIn(): void {
     this.router.navigate(['sign-in']);
   }
+  public signUp(): void {
+    this.router.navigate(['sign-up']);
+  }
   public signOut(): void {
     this.authFacade.signOut();
   }
