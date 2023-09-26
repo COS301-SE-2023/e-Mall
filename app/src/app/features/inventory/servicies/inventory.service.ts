@@ -8,7 +8,7 @@ import { ISearchOptions } from '@features/inventory/models/search-options.interf
 @Injectable()
 export class InventoryService {
   currentSellerName$: string | undefined;
-  private apiUrl = 'api/inventory';
+  private apiUrl = '/api/inventory';
 
   constructor(private http: HttpClient) {
     console.log('product seller service initialized');
