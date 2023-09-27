@@ -20,35 +20,37 @@ import { MatRadioModule } from '@angular/material/radio';
 import { IonicModule } from '@ionic/angular';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
-import { ProductCardModule } from "../../shared/components/product-card/product-card.module";
+import { ProductCardModule } from '../../shared/components/product-card/product-card.module';
 import { CategoryBreadcrumbModule } from '@app/shared/components/breadcrumbs/category-breadcrumb/category-breadcrumb.module';
+import { ViewSizeModule } from '@app/shared/directives/view-size/view-size.module';
 
 @NgModule({
-    declarations: [CategoryComponent],
-    exports: [CategoryComponent],
-    imports: [
-        CommonModule,
-        MatExpansionModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatDividerModule,
-        MatSidenavModule,
-        MatCheckboxModule,
-        MatCardModule,
-        MatIconModule,
-        MatPaginatorModule,
-        MatSliderModule,
-        MatButtonToggleModule,
-        MatProgressSpinnerModule,
-        MatSlideToggleModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatRadioModule,
-        IonicModule,
-        NavbarModule,
-        FooterModule,
-        ProductCardModule,
-        CategoryBreadcrumbModule
-    ]
+  declarations: [CategoryComponent],
+  exports: [CategoryComponent],
+  imports: [
+    CommonModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatDividerModule,
+    MatSidenavModule,
+    MatCheckboxModule,
+    MatCardModule,
+    MatIconModule,
+    MatPaginatorModule,
+    MatSliderModule,
+    MatButtonToggleModule,
+    MatProgressSpinnerModule,
+    MatSlideToggleModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatRadioModule,
+    IonicModule,
+    NavbarModule,
+    FooterModule,
+    ProductCardModule,
+    CategoryBreadcrumbModule,
+    ViewSizeModule,
+  ],
 })
 export class CategoryModule {}

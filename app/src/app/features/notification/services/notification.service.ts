@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, Optional } from '@angular/core';
+import { Injectable, Optional, inject } from '@angular/core';
 import {
   Messaging,
   getToken,
@@ -9,31 +9,94 @@ import {
 } from '@angular/fire/messaging';
 import { AuthFacade } from '@features/auth/services/auth.facade';
 import { environment } from 'environments/env';
-import { firstValueFrom, EMPTY, Observable } from 'rxjs';
+import {
+  firstValueFrom,
+  EMPTY,
+  Observable,
+  Subject,
+  filter,
+  take,
+  map,
+} from 'rxjs';
 import { INotificationSettings } from '../models/notification-settings.interface';
-
+// import { collection, onSnapshot, Firestore } from '@angular/fire/firestore';
+import { ProfileFacade } from '@app/features/profile/services/profile.facade';
+// import {  } from '@angular/fire/compat/firestore';
+import {
+  getFirestore,
+  // Firestore,
+  collection,
+  collectionData,
+  onSnapshot,
+  Firestore,
+} from '@angular/fire/firestore';
 @Injectable()
 export class NotificationService {
+  // firestore: Firestore = inject(Firestore);
+
   private apiUrl = '/api/notification/';
   // token$: Observable<any> = EMPTY;
-  message$: Observable<any> = EMPTY;
-
+  message$ = new Subject<any>();
+  // message$: Observable<any> = EMPTY;
+  unsubscribe$: any;
   constructor(
     @Optional() private messaging: Messaging,
-    private http: HttpClient
+    private firestore: Firestore,
+    private http: HttpClient,
+    private profileFacade: ProfileFacade // private firestore: AngularFirestore
   ) {
     isSupported().then((supported: any) => {
       if (supported) {
         if (this.messaging) {
           // this.token$ = this.getToken();
-          this.message$ = this.getMessage();
+          this.getMessage();
         }
       }
     });
+
+    let user_id: string;
+
+    this.profileFacade
+      .getProfile()
+      .pipe(
+        filter(profile => profile !== null && profile !== undefined),
+        take(1)
+      )
+      .subscribe(profile => {
+        if (profile?.id) {
+          user_id = profile.id;
+
+          // Listen to a Firestore collection
+
+          const userLogsCollection = collection(
+            this.firestore,
+            `users/${user_id}/logs`
+          );
+          let initialLoad = true;
+          this.unsubscribe$ = onSnapshot(
+            userLogsCollection,
+            (snapshot: any) => {
+              if (initialLoad) {
+                initialLoad = false;
+                return;
+              }
+              snapshot.docChanges().forEach((change: any) => {
+                if (change.type === 'added') {
+                  const data = change.doc.data();
+                  console.log('New message: ', data);
+                  this.message$.next(data);
+                }
+              });
+            }
+          );
+        }
+      });
   }
 
   async signOut() {
     console.log('Signing out');
+
+    if (this.unsubscribe$) this.unsubscribe$();
     navigator.serviceWorker.getRegistrations().then(registrations => {
       for (const registration of registrations) {
         registration.unregister();
