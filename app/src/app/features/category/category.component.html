@@ -4,35 +4,58 @@
 <ion-content class="global-ion-content">
   <div class="ion-content-wrapper">
     <div class="body">
-      <main class="category main">
-        <div class="search-results">
-          <app-category-breadcrumb
-            [categoryList]="categoryTitle"></app-category-breadcrumb>
-          <div class="top">
-            <div class="toptxt">
-              <h2>Category: {{ categoryTitle }}</h2>
-            </div>
-            <div class="sort-condition">
-              <select
-                name=""
-                id="select"
-                [(ngModel)]="selectedSortOption"
-                (ngModelChange)="onSortOptionChange()">
-                <option value="name">Name (A-Z)</option>
-                <option value="-name">Name (Z-A)</option>
-                <option value="price">Low to high</option>
-                <option value="-price">High to low</option>
-                <option value="discount">Lowest Discount</option>
-                <option value="-discount">Highest Discount</option>
-              </select>
-            </div>
+      <app-category-breadcrumb
+        [categoryList]="categoryTitle"></app-category-breadcrumb>
+      <!-- <main class="category main"> -->
+
+      <!-- <div class="top"> -->
+      <!-- <div class="search-results"> -->
+      <!-- <div class="toptxt"> -->
+      <ion-list style="width: 100%">
+        <ion-item
+          *viewSize="'desktop'"
+          lines="full"
+          style="width: 100%; margin-bottom: 20px">
+          <h2 slot="start">Category: {{ categoryTitle }}</h2>
+          <div slot="end" class="sort-condition">
+            <select
+              name=""
+              id="select"
+              [(ngModel)]="selectedSortOption"
+              (ngModelChange)="onSortOptionChange()">
+              <option value="name">Name (A-Z)</option>
+              <option value="-name">Name (Z-A)</option>
+              <option value="price">Low to high</option>
+              <option value="-price">High to low</option>
+              <option value="discount">Lowest Discount</option>
+              <option value="-discount">Highest Discount</option>
+            </select>
           </div>
+        </ion-item>
+        <div *viewSize="'mobile'" style="display: flex; flex-direction: column">
+          <h2>Category: {{ categoryTitle }}</h2>
+          <div class="sort-condition">
+            <select
+              name=""
+              id="select"
+              [(ngModel)]="selectedSortOption"
+              (ngModelChange)="onSortOptionChange()">
+              <option value="name">Name (A-Z)</option>
+              <option value="-name">Name (Z-A)</option>
+              <option value="price">Low to high</option>
+              <option value="-price">High to low</option>
+              <option value="discount">Lowest Discount</option>
+              <option value="-discount">Highest Discount</option>
+            </select>
+          </div>
+        </div>
+        <!-- </div> -->
 
-          <mat-divider></mat-divider>
-          <!--products-->
+        <!-- <mat-divider></mat-divider> -->
+        <!--products-->
 
-          <div class="product-card">
-            <!--<div style="
+        <div class="product-card">
+          <!--<div style="
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -40,14 +63,21 @@
               <mat-spinner></mat-spinner>
             </div>-->
 
-            <!-- <div *ngIf="!showSpinner"> -->
-            <ng-container *ngIf="categoryProducts$ | async as products">
+          <!-- <div *ngIf="!showSpinner"> -->
+          <ng-container
+            *ngIf="categoryProducts$ | async as products; else loading">
+            <ng-container *ngIf="products.length > 0; else no_result">
               <div class="row" style="grid-auto-rows: auto">
                 <div
                   class="col-md-3 col-12"
                   style="grid-auto-columns: auto; min-width: 260px"
                   *ngFor="let product of products; let i = index">
                   <app-product-card
+                    style="
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                    "
                     [product]="product"
                     [pageType]="'normal'"></app-product-card>
                   <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
@@ -61,27 +91,41 @@
                 </div>
               </div>
             </ng-container>
-
-            <div
-              class="search-results-container"
-              *ngIf="(categoryProducts$ | async)?.length === 0">
-              <div class="product-card-no">
-                <h3>No Products Found</h3>
-                <p>
-                  Sorry, we couldn't find any products in this category. Please
-                  check back later or try searching for other categories.
-                </p>
-                <img
-                  src="assets\images\no-image.jpeg"
-                  alt="No Product Found"
-                  class="nimage" />
-              </div>
-            </div>
-          </div>
+          </ng-container>
         </div>
-        <!-- </div> -->
-      </main>
+      </ion-list>
     </div>
+    <!-- </div> -->
+    <!-- </main> -->
+    <!-- </div> -->
+    <!-- </div> -->
   </div>
+
   <app-footer></app-footer>
 </ion-content>
+
+<ng-template #no_result>
+  <div class="search-results-container">
+    <!-- <div> -->
+    <h3>No Products Found</h3>
+    <p>
+      Sorry, we couldn't find any products in this category. Please check back
+      later or try searching for other categories.
+    </p>
+    <img
+      src="assets\images\no-image.jpeg"
+      alt="No Product Found"
+      class="nimage" />
+    <!-- </div> -->
+  </div>
+</ng-template>
+<ng-template #loading>
+  <div class="row" style="grid-auto-rows: auto">
+    <div
+      class="col-md-3 col-12"
+      style="grid-auto-columns: auto; min-width: 260px"
+      *ngFor="let number of [0, 1, 2, 3]">
+      <app-product-card-placeholder></app-product-card-placeholder>
+    </div>
+  </div>
+</ng-template>

@@ -22,8 +22,7 @@
             formControlName="selectedOptions"
             label="Select Collections"
             label-placement="floating"
-            fill="outline"
-            class="custom-select">
+            fill="outline">
             <ion-select-option value="wishlist"> Wishlist</ion-select-option>
             <ng-container *ngFor="let combo of combos$ | async">
               <ion-select-option value="{{ combo.id }}">{{

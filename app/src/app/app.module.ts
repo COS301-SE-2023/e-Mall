@@ -48,7 +48,18 @@ import { HttpClientModule } from '@angular/common/http';
 // import { LoadingInterceptor } from '@shared/components/spinner/interceptors/loading.interceptor';
 import { WishlistStateModule } from './features/wishlist/wishlist-state/wishlist-state.module';
 import { SplashComponent } from './features/splash/splash.component';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideMessaging, getMessaging } from '@angular/fire/messaging';
+import {
+  provideFirestore,
+  getFirestore,
+  enableMultiTabIndexedDbPersistence,
+} from '@angular/fire/firestore';
+let resolve_persistence_enabled: (enabled: boolean) => void;
 
+export const persistenceEnabled = new Promise<boolean>(resolve => {
+  resolve_persistence_enabled = resolve;
+});
 @NgModule({
   declarations: [AppComponent, SplashComponent],
   // declarations: [AppComponent, SpinnerComponent],
@@ -79,6 +90,17 @@ import { SplashComponent } from './features/splash/splash.component';
     NgxsActionsExecutingModule.forRoot(),
     NgxsDispatchPluginModule.forRoot(),
     NgxsResetPluginModule.forRoot(),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideMessaging(() => getMessaging()),
+    provideFirestore(() => {
+      const firestore = getFirestore();
+
+      enableMultiTabIndexedDbPersistence(firestore).then(
+        () => resolve_persistence_enabled(true),
+        () => resolve_persistence_enabled(false)
+      );
+      return firestore;
+    }),
     AppRoutingModule,
     AuthModule,
     ErrorModule,

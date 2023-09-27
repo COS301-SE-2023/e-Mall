@@ -23,7 +23,8 @@ from faker import Faker
 @permission_classes([AllowAny])
 def register(request):
     data = request.data.copy()
-    data["username"] = Faker().user_name()[:15]
+    #remove part after @ in email
+    data["username"]= data["email"].split("@")[0]
     serializer = ConsumerSerializer(data=data)
     if not serializer.is_valid():
         for field, error in serializer.errors.items():

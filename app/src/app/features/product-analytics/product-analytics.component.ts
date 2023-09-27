@@ -39,7 +39,7 @@ export class ProductAnalyticsComponent implements OnInit, OnDestroy {
   objCount = 0;
   productData: ProductData = {};
   selectedSortOption!: string;
-  selectedPeriodOption = '6_months';
+  selectedPeriodOption = '7_days';
   startDate = '2023-03-10';
   begninningDate = '2023-03-10';
   endDate: string = new Date().toISOString().split('T')[0]; // Set the default end date to the current date
@@ -62,7 +62,6 @@ export class ProductAnalyticsComponent implements OnInit, OnDestroy {
     this.topProdcutSubs = this.topProducts$
       .pipe(debounceTime(2000))
       .subscribe(val => {
-        console.log(val);
         this.pageLoaderFacade.loading.next(false);
       });
   }

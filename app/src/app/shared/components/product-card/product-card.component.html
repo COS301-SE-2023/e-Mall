@@ -1,93 +1,109 @@
 <!-- <ng-container *ngIf="[isLoaded]; else loading"> -->
-<ion-card>
-  <div class="discount-tag" *ngIf="product.min_price_discount_rate > 0">
-    <ion-label
-      >-{{
-        product.min_price_discount_rate * 100 | number : '1.0-0'
-      }}%</ion-label
-    >
-  </div>
-  <ion-img
-    [src]="isFailed ? selectedImg : getOneImg(product?.min_price_img_array)"
-    (click)="goToProductPage(product.id)"
-    (ionImgDidLoad)="onImageLoad()"
-    (ionError)="onImageFail()"
-    [ngClass]="{ hidden: ![isLoaded] }">
-  </ion-img>
-  <ion-skeleton-text
-    animated
-    *ngIf="!isLoaded"
-    style="width: 100%; height: 100%"></ion-skeleton-text>
+<ion-card mode="md">
+  <!-- <div class=""> -->
+  <!-- <div style="position: relative"> -->
+  <ion-thumbnail class="card-image-container">
+    <ion-img
+      [src]="isFailed ? selectedImg : getOneImg(product?.min_price_img_array)"
+      (click)="goToProductPage(product.id)"
+      (ionImgDidLoad)="onImageLoad()"
+      (ionError)="onImageFail()"
+      [ngClass]="{ hidden: ![isLoaded] }">
+    </ion-img>
+
+    <div class="discount-tag" *ngIf="product.min_price_discount_rate > 0">
+      <ion-label
+        >-{{
+          product.min_price_discount_rate * 100 | number : '1.0-0'
+        }}%</ion-label
+      >
+    </div>
+    <ion-skeleton-text
+      animated
+      style="position: absolute; top: 0; left: 0"
+      *ngIf="!isLoaded"></ion-skeleton-text>
+  </ion-thumbnail>
+
+  <!-- </div> -->
+  <!-- </div> -->
+
   <ng-container *ngIf="isLoaded; else loading">
+    <ion-card-header>
+      <ion-card-title (click)="goToProductPage(product.id)">{{
+        product.name
+      }}</ion-card-title>
+      <ion-card-subtitle>
+        {{ product.category }}
+      </ion-card-subtitle>
+    </ion-card-header>
+
     <ion-card-content>
-      <div>
-        <div>
-          <ion-card-title (click)="goToProductPage(product.id)">{{
-            product.name
-          }}</ion-card-title>
-          <p>{{ product.category }}</p>
+      <!-- <div> -->
+      <!-- <div> -->
+
+      <!-- </div> -->
+      <!-- <div class="price-and-buttons"> -->
+      <!-- <ion-item lines="none"> -->
+      <ion-item lines="none">
+        <h4 slot="start">R{{ product.min_price | number : '1.0-0' }}</h4>
+        <div class="button-container" slot="end">
+          <ion-button
+            size="small"
+            (click)="toggleBookmark()"
+            class="bookmark-button"
+            shape="round"
+            fill="clear"
+            mode="ios">
+            <ion-icon
+              class="icons"
+              [name]="'bookmark-outline'"
+              style="color: var(--c-5-a, #37d0d6)"></ion-icon>
+          </ion-button>
+          <ion-button
+            size="small"
+            *ngIf="pageType === 'comboPage'"
+            (click)="removeProd()"
+            class="bookmark-button"
+            shape="round"
+            fill="clear"
+            mode="ios">
+            <ion-icon
+              class="icons"
+              [name]="'trash'"
+              style="color: var(--c-5-a, #37d0d6)"></ion-icon>
+          </ion-button>
+          <ion-button
+            size="small"
+            *ngIf="pageType === 'wishlistPage'"
+            (click)="removeProdFromWishlist()"
+            class="bookmark-button"
+            shape="round"
+            fill="clear"
+            mode="ios">
+            <ion-icon
+              class="icons"
+              [name]="'trash'"
+              style="color: var(--c-5-a, #37d0d6)"></ion-icon>
+          </ion-button>
         </div>
-        <div class="price-and-buttons">
-          <h4>R{{ product.min_price | number : '1.0-0' }}</h4>
-          <div class="button-container">
-            <ion-button
-              (click)="toggleBookmark()"
-              class="bookmark-button"
-              shape="round"
-              fill="clear"
-              mode="ios">
-              <ion-icon
-                [name]="'bookmark-outline'"
-                style="color: var(--c-5-a, #37d0d6)"></ion-icon>
-            </ion-button>
-            <ion-button
-              *ngIf="pageType === 'comboPage'"
-              (click)="removeProd()"
-              class="bookmark-button"
-              shape="round"
-              fill="clear"
-              mode="ios">
-              <ion-icon
-                [name]="'trash'"
-                style="color: var(--c-5-a, #37d0d6)"></ion-icon>
-            </ion-button>
-            <ion-button
-              *ngIf="pageType === 'wishlistPage'"
-              (click)="removeProdFromWishlist()"
-              class="bookmark-button"
-              shape="round"
-              fill="clear"
-              mode="ios">
-              <ion-icon
-                [name]="'trash'"
-                style="color: var(--c-5-a, #37d0d6)"></ion-icon>
-            </ion-button>
-          </div>
-        </div>
-      </div>
+        <!-- </div> -->
+        <!-- </div> -->
+      </ion-item>
     </ion-card-content>
   </ng-container>
 </ion-card>
 <!-- </ng-container> -->
 
 <ng-template #loading>
-  <ion-card-content>
-    <div>
-      <div>
-        <ion-card-title>
-          <ion-skeleton-text animated style="width: 100%"> </ion-skeleton-text>
-        </ion-card-title>
-        <div
-          style="
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            padding-bottom: 1rem;
-          ">
-          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-        </div>
-      </div>
-    </div>
-  </ion-card-content>
+  <ion-card-header style="margin-top: 10px">
+    <ion-card-title>
+      <ion-skeleton-text style="width: 100%" animated></ion-skeleton-text>
+    </ion-card-title>
+
+    <ion-card-subtitle
+      style="display: flex; justify-content: center; align-items: center">
+      <ion-skeleton-text style="width: 30%" animated></ion-skeleton-text>
+    </ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content> </ion-card-content>
 </ng-template>

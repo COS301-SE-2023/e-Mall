@@ -13,7 +13,6 @@ export class SellerService {
   private apiUrl = 'http://localhost:3000/api/';
 
   constructor(private http: HttpClient) {
-    console.log('seller service initialized');
   }
 
   public getSellerData(data: object): Observable<ISeller> {

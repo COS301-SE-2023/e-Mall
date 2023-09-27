@@ -13,7 +13,6 @@ export class ProductSellerService {
   private apiUrl = 'http://localhost:3000/api/';
 
   constructor(private http: HttpClient) {
-    console.log('product seller service initialized');
   }
 
   public getProductSellerData(
@@ -45,7 +44,6 @@ export class ProductSellerService {
     if (per_page) {
       url += '&per_page=' + per_page;
     }
-    console.log(url);
     return this.http.get(url).pipe(
       map((res: any) => ({
         products: res['data'] as IProductSeller[],

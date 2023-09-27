@@ -55,7 +55,6 @@ export default class SalesComponent
   }
 
   ngOnInit() {
-    console.log('sales component initialized');
     this.profileSubs = this.profileFacade
       .getProfile()
 
@@ -157,7 +156,6 @@ export default class SalesComponent
   }
 
   createCategoryPercentageChart() {
-    console.log(3);
     const categoryPercentageCanvas = document.getElementById(
       'categoryPercentage-chart'
     ) as HTMLCanvasElement;

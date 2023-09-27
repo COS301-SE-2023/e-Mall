@@ -14,9 +14,7 @@ export class PageLoaderFacade implements OnDestroy {
     this.loadingSubs = this.loading
       .pipe(debounceTime(500))
       .subscribe(async isLoading => {
-        console.log(isLoading);
         if (isLoading && !this.isStillLoading()) {
-          console.log('im here');
           this.loadingArray[0] = true;
           await this.presentLoading();
         } else {
@@ -27,7 +25,6 @@ export class PageLoaderFacade implements OnDestroy {
 
   ngOnDestroy(): void {
     if (this.loadingSubs) {
-      console.log('page loader service destroyed');
       this.dismissLoading();
       this.loadingSubs.unsubscribe();
     }
@@ -46,7 +43,6 @@ export class PageLoaderFacade implements OnDestroy {
         cssClass: 'custom-loader',
       });
       await this.loader.present();
-      console.log('presenting loading from loader');
     }
   }
 
@@ -56,8 +52,6 @@ export class PageLoaderFacade implements OnDestroy {
       this.loader = null;
       this.loadingArray[0] = false;
     });
-    console.log('dismissed loading from loader');
-    // }
   }
   onImageLoaded(index: number) {
     this.loadingArray[index] = false;

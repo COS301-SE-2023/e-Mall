@@ -108,12 +108,8 @@ export class PopovereditComponent implements OnInit {
     const separator = '.';
     const decimais = 2;
     if (!e.detail.value) return '';
-
     let [num, decimal] = e.detail.value.split(separator);
-    console.log(num, decimal);
-
     num = num.toLocaleString();
-
     if (decimal) {
       decimal = decimal.toString().padEnd(decimais, '0');
     } else {

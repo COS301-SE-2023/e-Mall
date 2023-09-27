@@ -169,7 +169,6 @@ export class InventoryState {
   ) {
     ctx.setState(
       produce((draft: InventoryStateModel) => {
-        console.log(action.IInventoryItem);
         if (draft.products === null) {
           draft.products = [action.IInventoryItem];
           draft.totalCount = 1;
@@ -188,7 +187,6 @@ export class InventoryState {
   ) {
     ctx.setState(
       produce((draft: InventoryStateModel) => {
-        console.log(action.IInventoryItem);
         if (draft.products === null) {
           draft.products = [action.IInventoryItem];
           draft.totalCount = 1;

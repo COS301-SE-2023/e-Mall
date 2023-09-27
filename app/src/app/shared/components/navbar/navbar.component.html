@@ -62,6 +62,13 @@
           (click)="signIn()">
           Sign in
         </button>
+        <button
+        mat-button
+        class="toolbar-button"
+        *ngIf="(isAuthenticated | async) === null"
+        (click)="signUp()">
+        Sign Up
+      </button>
         <div
           *ngIf="(isAuthenticated | async) !== null"
           style="margin-top: 5px"

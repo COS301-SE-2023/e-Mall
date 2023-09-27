@@ -91,12 +91,9 @@ export class PopovernewComponent implements OnInit {
       };
       this.inventoryService.getSimilarProducts(data).then(
         response => {
-          console.log(response);
-          // Handle the successful response here
-          this.similarProducts = response.body; // Access the response body
+          this.similarProducts = response.body;
         },
         (error: any) => {
-          // Handle any errors that occur during the request
           console.error('Error:', error);
         }
       );
@@ -105,7 +102,6 @@ export class PopovernewComponent implements OnInit {
   }
 
   selectProd() {
-    console.log(this.SelectedProduct);
     this.isSelected = true;
     this.newClicked = false;
     this.nextClicked = false;
@@ -125,9 +121,7 @@ export class PopovernewComponent implements OnInit {
     const separator = '.';
     const decimais = 2;
     if (!e.detail.value) return '';
-
     let [num, decimal] = e.detail.value.split(separator);
-    console.log(num, decimal);
 
     num = num.toLocaleString();
 

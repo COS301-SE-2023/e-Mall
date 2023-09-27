@@ -50,12 +50,10 @@ export function transformMessage(message: any): INotification {
 export function transformNewMessage(message: any): INotification {
   let message_time = null;
   let readable_time = null;
-  const data = JSON.parse(message.data.data);
-  console.log('data ', data);
+  const data = message;
   const timestamp = data.timestamp;
-  console.log(timestamp);
   const unixTimestamp =
-    timestamp._seconds * 1000 + timestamp._nanoseconds / 1000000;
+    timestamp.seconds * 1000 + Math.floor(timestamp.nanoseconds / 1000000);
   let time_stamp_before_conversion = '';
   if (unixTimestamp != null) {
     if (isNaN(Number(unixTimestamp))) {
@@ -98,17 +96,10 @@ export function transformNewMessage(message: any): INotification {
     timestamp: time_stamp_before_conversion,
     timestamp_locale: readable_time,
     notification: {
-      title: message.notification.title,
-      body:
-        message.notification.body === undefined
-          ? ''
-          : message.notification.body,
-      image:
-        message.notification.image === undefined
-          ? ''
-          : message.notification.image,
+      title: message.title,
+      body: message.message === undefined ? '' : message.message,
+      image: message.image === undefined ? '' : message.image,
     },
   };
-  console.log(retData);
   return retData;
 }

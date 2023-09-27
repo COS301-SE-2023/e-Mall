@@ -28,7 +28,9 @@
       <ion-icon name="analytics" slot="start"></ion-icon>
       <ion-label>Compare</ion-label>
     </ion-item>
-    <ion-item [class.active]="currentPage === 'seller-dashboard-settings'" (click)="navigateTo('seller-dashboard-settings')">
+    <ion-item
+      [class.active]="currentPage === 'seller-dashboard-settings'"
+      (click)="navigateTo('seller-dashboard-settings')">
       <ion-icon name="settings" slot="start"></ion-icon>
       <ion-label>Settings</ion-label>
     </ion-item>
@@ -36,7 +38,9 @@
       <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
       <ion-label>Sign out</ion-label>
     </ion-item>
-    <ion-item href="https://drive.google.com/file/d/1C2dRlvc_CT5acpcCdeCA3uyGibqxPhtf/view?usp=sharing">
+    <ion-item
+      href="https://drive.google.com/file/d/1C2dRlvc_CT5acpcCdeCA3uyGibqxPhtf/view?usp=sharing"
+      target="_blank">
       <ion-icon name="help-circle-outline" slot="start"></ion-icon>
       <ion-label>Help</ion-label>
     </ion-item>
