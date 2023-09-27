@@ -1,39 +1,25 @@
 <app-navbar></app-navbar>
 <ion-content class="global-ion-content">
   <div class="ion-content-wrapper">
-    <div class="row1">
-      <div class="side-pannel">
-        <ion-img id="logo" src="assets/images/logo.png" alt="E-Mall"></ion-img>
 
-        <h3 class="welcome-footer">
-          Discover<br />Compare<br />Shop<br />E-Mall Has It All!
-        </h3>
-        <ion-button class="overlay-button" (click)="onAboutClick()">
-          More About Us
-        </ion-button>
-      </div>
-
-      <div class="cat-container">
-        <div class="cat-title">
-          <h2>Browse by Category</h2>
-        </div>
-        <div class="bubble-container">
-          <div
-            *ngFor="let page of cat_pages"
-            class="category-bubble"
-            (click)="onCatClicked(page.path)">
-            {{ page.title }}
+    <div class="cat-container">
+      <div class="bubble-container">
+        <div *ngFor="let page of cat_pages" class="category-bubble" (click)="onCatClicked(page.path)">
+          <div class="cat-img-container">
+            <img class="cat-img" src="{{ page.img }}" alt="cat-img"(click)="onCatClicked(page.path)" />
+            <div class="overlay-text">
+             {{page.title}}
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <br /><br />
     <ng-container *ngIf="this.authFacade.getCurrentUser() | async">
       <ng-container *ngIf="forYouProducts$ | async as products">
         <ng-container *ngIf="products.length >= 2 as isEnough">
           <div style="align-items: center">
-            <h3 #recommendedHeading>Recommended For You</h3>
+            <h2>Recommended For You</h2>
           </div>
 
           <div
@@ -104,7 +90,7 @@
 
     <br /><br />
     <div style="align-items: center">
-      <h3>Trending products</h3>
+      <h2>Trending products</h2>
     </div>
     <div
       style="
@@ -166,14 +152,14 @@
     <div class="register-row">
       <div class="register-container">
         <div class="register-title">
-          <h2 class="welcome-footer">
+          <h2>
             Have a small local business?<br />
             Register it on E-Mall today!
           </h2>
         </div>
         <div class="register-btn">
           <ion-button class="overlay-button" (click)="onRegClick()">
-            Register
+            Register Business
           </ion-button>
         </div>
       </div>

@@ -1,5 +1,5 @@
-
-.ion-content-wrapper {
+h2 {
+  font-size: 300%!important;
 }
 .overlay-button {
   margin-top: 2rem;
@@ -8,6 +8,16 @@
   z-index: 99;
   font-size: 150%;
   justify-self: flex-end;
+}
+.overlay-text {
+  justify-self: center;
+  align-self: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white; 
+  padding: 1%;
+  text-align: center;
+  font-size: 125%;
+  font-family: Poppins, sans-serif;
 }
 
 ion-button {
@@ -64,11 +74,12 @@ swiper-slide {
   display: flex;
   align-items: center;
   text-align: center;
-  width: 50%;
+  width: 70%;
   justify-content: center;
-  padding: 5%;
-  background-color: var(--ion-color-primary);
+  padding: 2%;
   flex-wrap: wrap;
+  padding-bottom: 0%;
+  margin-bottom: 0;
 }
 .cat-title {
   h2 {
@@ -91,16 +102,18 @@ swiper-slide {
   flex-wrap: wrap;
 }
 .category-bubble {
+  max-width: 180px;
+  max-height: 250px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: var(--ion-color-primary-alt);
   color: #ffffff;
-  border-radius: 20px;
-  padding: 8px 16px;
+  border-radius: 8px;
   margin: 8px;
   cursor: pointer;
   white-space: nowrap;
+  margin-bottom: 5%;
 }
 
 .category-bubble:hover,
@@ -191,6 +204,8 @@ a {
   color: var(--ion-color-text-contrast);
 }
 .welcome-footer {
+    font-size: 150%!important;
+
   color: var(--ion-color-text);
 }
 
@@ -231,6 +246,12 @@ a {
   justify-self: flex-start;
   text-align: center;
   justify-content: center;
+  h2{
+    color: var(--ion-color-text);
+    font-size: 150%;
+    size: 150%;
+  }
+  
 }
 .register-btn {
   display: flex;
@@ -312,4 +333,21 @@ a {
   flex-wrap: wrap;
  }
 
+}
+
+.cat-img {
+  width: 180px;
+  height: 250px;
+  object-fit: cover; /* This will maintain the aspect ratio and crop the image to cover the specified dimensions */
+  object-position: center center; /* This centers the image within the specified dimensions */
+  align-items: center;
+}
+.cat-img:hover{
+  filter: brightness(50%);
+}
+.cat-img-container{
+  min-width: 180px;
+  height: 250px;
+  align-items: center;
+  justify-content: center;
 }
