@@ -22,10 +22,16 @@ ion-card {
   // gap: 16px;
   // position: relative;
 }
+
+.card-image-container {
+  height: 180px;
+  width: 100%;
+  position: relative;
+}
 ion-img::part(image) {
   // position: ;
   object-fit: contain;
-  height: 180px;
+  // height: 180px;
 }
 ion-card-content {
   display: flex;
@@ -184,6 +190,6 @@ ion-button {
 //   height: 50vh; /* Set the height to 50% of the viewport height */
 //   max-height: none; /* Remove any max-height constraints */
 // }
-// .hidden {
-//   display: none;
-// }
+.hidden {
+  display: none;
+}
