@@ -35,22 +35,6 @@
       <ion-label>My Collections</ion-label>
       <!--</ion-button>-->
     </ion-item>
-    <!--
-                  <ion-item [class.active]="currentPage === 'construction'"
-                  (click)="navigateTo('construction')">
-                      <ion-button aria-label="">
-                          <ion-icon name="notifications" aria-hidden="true" style="margin-right: 10px;"></ion-icon>
-                          <ion-label>Notifications</ion-label>
-                      </ion-button> 
-                  </ion-item>
-                  <ion-item [class.active]="currentPage === 'edit-customer-profile'"
-                  (click)="navigateTo('edit-customer-profile')"> 
-                      <ion-button aria-label="">
-                          <ion-icon name="settings" aria-hidden="true" style="margin-right: 10px;"></ion-icon>
-                          <ion-label>Settings</ion-label>
-                      </ion-button>
-                    
-                  </ion-item>-->
     <ion-item (click)="signOut()">
       <!--<ion-button aria-label="">-->
       <ion-icon
@@ -60,7 +44,9 @@
       <ion-label>Sign Out</ion-label>
       <!--</ion-button>-->
     </ion-item>
-    <ion-item href="https://drive.google.com/file/d/1ZAOZ1lxjZOZW7LQeYPLO6H37x-oVc9em/view?usp=sharing">
+    <ion-item
+      href="https://drive.google.com/file/d/1ZAOZ1lxjZOZW7LQeYPLO6H37x-oVc9em/view?usp=sharing"
+      target="_blank">
       <ion-icon
         name="help-circle-outline"
         aria-hidden="true"
