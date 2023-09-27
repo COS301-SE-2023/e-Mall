@@ -55,10 +55,10 @@ import {
   getFirestore,
   enableMultiTabIndexedDbPersistence,
 } from '@angular/fire/firestore';
-let resolvePersistenceEnabled: (enabled: boolean) => void;
+let resolve_persistence_enabled: (enabled: boolean) => void;
 
 export const persistenceEnabled = new Promise<boolean>(resolve => {
-  resolvePersistenceEnabled = resolve;
+  resolve_persistence_enabled = resolve;
 });
 @NgModule({
   declarations: [AppComponent, SplashComponent],
@@ -96,8 +96,8 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
       const firestore = getFirestore();
 
       enableMultiTabIndexedDbPersistence(firestore).then(
-        () => resolvePersistenceEnabled(true),
-        () => resolvePersistenceEnabled(false)
+        () => resolve_persistence_enabled(true),
+        () => resolve_persistence_enabled(false)
       );
       return firestore;
     }),
