@@ -3,9 +3,9 @@
 <ion-content class="global-ion-content">
   <ng-container *ngIf="product$ | async as product">
     <div class="breadcrumb">
-    <app-category-breadcrumb
-      [categoryList]="product"
-      ></app-category-breadcrumb></div>
+      <app-category-breadcrumb
+        [categoryList]="product"></app-category-breadcrumb>
+    </div>
   </ng-container>
   <div class="ion-content-wrapper">
     <ng-container *ngIf="product$ | async as product; else loading">
@@ -17,6 +17,7 @@
                 *ngFor="let img of product.min_price_img_array; let i = index">
                 <ion-img
                   [src]="img ? img : 'assets/images/default.png'"
+                  (ionError)="updateUrl($event)"
                   (click)="selectImage(img)" />
               </ion-thumbnail>
             </div>
@@ -55,6 +56,10 @@
                     <ion-icon name="bookmark-outline"></ion-icon>
                   </ion-button>
                 </div>
+                <ion-skeleton-text
+                  animated
+                  style="position: absolute; top: 0; left: 0"
+                  *ngIf="this.loader.loading | async"></ion-skeleton-text>
               </div>
             </div>
             <!-- </ion-col> -->

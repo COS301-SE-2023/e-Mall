@@ -9,6 +9,7 @@
       "@service/*":["app/services/*"],
       "@models/*":["app/models/*"],
     },
+    "skipLibCheck": true,
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,

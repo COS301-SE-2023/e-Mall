@@ -37,7 +37,7 @@ export default class ProductComponent implements OnInit {
   seller_name!: string | undefined;
   product_name!: string;
   product_category!: string;
-  selectedImage!: string;
+  selectedImage: string | undefined;
   isHearted = of(false);
   product_params!: IProduct;
   applyCustomClass = true; // Set it to true on the specific page where you want the custom class.
@@ -45,6 +45,8 @@ export default class ProductComponent implements OnInit {
   isBookmark = of(false);
 
   currencyCode = 'ZAR';
+
+  main_image_loaded = false;
 
   // showSpinner = true;
   // showSpinner2 = true;
@@ -81,7 +83,7 @@ export default class ProductComponent implements OnInit {
     // }, 6500);
 
     this.paramMapSubscription = this.route.queryParamMap.subscribe(params => {
-      this.selectedImage = '';
+      this.selectedImage = undefined;
       this.profileFacade.getProfile().subscribe(profile => {
         if (profile) {
           this.consumer_id = profile.id;
@@ -258,5 +260,14 @@ export default class ProductComponent implements OnInit {
   }
   ionViewWillLeave() {
     this.loader.loading.next(false);
+  }
+  onImageLoad() {
+    this.main_image_loaded = true;
+  }
+  onImageStart() {
+    this.main_image_loaded = false;
+  }
+  updateUrl(event: any) {
+    event.target.src = 'assets/images/default.png';
   }
 }

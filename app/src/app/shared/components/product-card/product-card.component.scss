@@ -1,24 +1,61 @@
 /* Default styles */
+// ion-card {
+//   display: flex;
+//   width: 240px;
+//   height: 100%;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   // gap: 16px;
+//   // position: relative;
+// }
+
 ion-card {
-  display: flex;
+  // display: flex;
   width: 240px;
   height: 330px;
+  // flex-direction: column;
+  // align-items: center;
+  // justify-content: center;
   padding: 16px;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
+
+  // gap: 16px;
+  // position: relative;
+}
+
+.card-image-container {
+  height: 180px;
+  width: 100%;
   position: relative;
+}
+ion-img::part(image) {
+  // position: ;
+  object-fit: contain;
+  // height: 180px;
+}
+ion-card-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
 }
 
 .discount-tag {
+  top: 0;
+  left: 0;
   position: absolute;
-  display: inline-flex;
+  // display: inline-flex;
   padding: 0px 8px;
-  align-items: center;
-  gap: 10px;
-  z-index: 100;
+  // align-items: center;
+  // gap: 10px;
+  // z-index: 100;
   border-radius: 12px;
   background: var(--c-5-e, #ecf6f6);
+}
+.icons {
+  font-size: 2rem;
 }
 
 ion-label {
@@ -30,32 +67,43 @@ ion-label {
   line-height: normal;
 }
 
-ion-img {
-  object-fit: cover !important;
-  width: 208px;
-  height: 180px;
-  flex-shrink: 0;
-}
+// ion-img {
+//   object-fit: cover !important;
+//   width: 208px;
+//   height: 180px;
+//   flex-shrink: 0;
+//   position: relative;
+// }
 
-ion-card-content {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-self: stretch;
-  justify-content: center;
-}
+// ion-card-content {
+//   display: flex;
+//   flex-direction: column;
+//   // gap: 16px;
+//   // align-self: stretch;
+//   justify-content: center;
+// }
 
+ion-card-subtitle {
+  text-align: center;
+  font-weight: 400;
+}
 ion-card-title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   color: var(--c-1-a, #151515);
   font-family: Poppins, sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
   text-align: center;
+}
+ion-card-header {
+  padding-bottom: 0;
+}
+ion-item {
+  width: 100%;
 }
 
 h4 {
@@ -67,75 +115,81 @@ h4 {
   line-height: normal;
 }
 
-p {
-  color: var(--c-1-b, #575757);
-  font-family: 'Open Sans', sans-serif;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  text-align: center;
-}
+// p {
+//   color: var(--c-1-b, #575757);
+//   font-family: 'Open Sans', sans-serif;
+//   font-size: 12px;
+//   font-style: normal;
+//   font-weight: 400;
+//   line-height: normal;
+//   text-align: center;
+// }
 
-.price-and-buttons {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+// .price-and-buttons {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+// }
+ion-button {
+  --padding-end: 0;
+  --padding-start: 5px;
 }
 
 .button-container {
   display: flex;
   align-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 
-ion-button {
-  --padding-start: 0;
-  --padding-end: 0;
-  padding: 2px;
-  margin: 0;
-  box-shadow: none;
-  background: transparent;
-}
+// ion-button {
+//   --padding-start: 0;
+//   --padding-end: 0;
+//   padding: 2px;
+//   margin: 0;
+//   box-shadow: none;
+//   background: transparent;
+// }
 
-::part(native) {
-  padding: 0;
-}
+// ::part(native) {
+//   padding: 0;
+// }
 
-/* Media query for responsiveness */
-@media (max-width: 600px) {
-  ion-card {
-    width: 100%; /* Adjusted width for responsiveness */
-    max-width: 160px; /* Set a maximum width for larger screens */
-    margin: 10px 10px; /* Center the card horizontally */
-    max-height: 250px;
-  }
+// /* Media query for responsiveness */
+// @media (max-width: 600px) {
+//   ion-card {
+//     width: 100%; /* Adjusted width for responsiveness */
+//     max-width: 160px; /* Set a maximum width for larger screens */
+//     margin: 10px 10px; /* Center the card horizontally */
+//     max-height: 250px;
+//   }
 
-  ion-img {
-    width: 100%; /* Adjusted width for responsiveness */
-    max-height: 120px; /* Set a maximum height for larger screens */
-  }
+//   ion-img {
+//     width: 100%; /* Adjusted width for responsiveness */
+//     max-height: 120px; /* Set a maximum height for larger screens */
+//   }
 
-  ion-card-content {
-    gap: 8px; /* Adjusted gap for responsiveness */
-  }
+//   ion-card-content {
+//     gap: 8px; /* Adjusted gap for responsiveness */
+//   }
 
-  ion-card-title {
-    font-size: 14px; /* Adjusted font size for responsiveness */
-  }
+//   ion-card-title {
+//     font-size: 14px; /* Adjusted font size for responsiveness */
+//   }
 
-  h4 {
-    font-size: 16px; /* Adjusted font size for responsiveness */
-  }
+//   h4 {
+//     font-size: 16px; /* Adjusted font size for responsiveness */
+//   }
 
-  p {
-    font-size: 11px; /* Adjusted font size for responsiveness */
-  }
-}
-/* styles.scss or your-component.scss */
-.custom-modal {
-  height: 50vh; /* Set the height to 50% of the viewport height */
-  max-height: none; /* Remove any max-height constraints */
-}
+//   p {
+//     font-size: 11px; /* Adjusted font size for responsiveness */
+//   }
+// }
+// /* styles.scss or your-component.scss */
+// .custom-modal {
+//   height: 50vh; /* Set the height to 50% of the viewport height */
+//   max-height: none; /* Remove any max-height constraints */
+// }
 .hidden {
   display: none;
 }

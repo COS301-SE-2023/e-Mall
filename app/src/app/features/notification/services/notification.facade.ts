@@ -45,10 +45,26 @@ export class NotificationFacade implements OnDestroy {
   isLoading = new BehaviorSubject<boolean>(true);
   token = '';
   accordionOpen$ = new BehaviorSubject<INotification | undefined>(undefined);
+
+  // permission = true;
   constructor(
     private notificationService: NotificationService,
-    authfacade: AuthFacade
+    private authfacade: AuthFacade
   ) {
+    console.log('Notification Facade initialized');
+    navigator.permissions
+      .query({ name: 'notifications' })
+      .then(notificationPerm => {
+        notificationPerm.onchange = () => {
+          if (notificationPerm.state === 'granted' && this.token !== '') {
+            this.init(this.token);
+          } else {
+            this.messageListenSubs.unsubscribe();
+            this.signOut();
+          }
+        };
+      });
+
     this.authSubs = authfacade
       .getCurrentUser()
       .pipe(debounceTime(500))
@@ -57,6 +73,8 @@ export class NotificationFacade implements OnDestroy {
           await notificationService.request().then(async permission => {
             if (permission === 'granted') {
               await notificationService.getToken().then(token => {
+                // let token = '';
+                this.resetNotifications();
                 this.init(token);
               });
             } else {
@@ -72,19 +90,20 @@ export class NotificationFacade implements OnDestroy {
   async init(token: string) {
     await this.updateDeviceToken(token).then(() => {
       this.token = token;
-      this.resetNotifications();
+
       this.isInitial = true;
-      this.messageListenSubs = this.notificationService.message$
-        .pipe(debounceTime(500))
-        .subscribe((message: any) => {
+
+      this.messageListenSubs = this.notificationService.message$.subscribe(
+        (message: any) => {
           if (message) {
             const payload = transformNewMessage(message);
             this.newNotification(payload);
           }
-        });
-      this.getUnreadCount();
-      this.getSettings();
+        }
+      );
     });
+    this.getUnreadCount();
+    this.getSettings();
   }
   async getNotifications() {
     this.isLoading.next(true);
@@ -148,6 +167,7 @@ export class NotificationFacade implements OnDestroy {
 
   async signOut() {
     // Delete the FCM registration token
+    // this.messageListenSubs.unsubscribe();
     await this.notificationService.signOut();
   }
   async readAll() {

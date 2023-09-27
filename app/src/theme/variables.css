@@ -114,7 +114,7 @@ ion-content::-webkit-scrollbar {
   flex-direction: column;
   align-items: center;
   vertical-align: middle;
-  min-height: 80vh;
+  min-height: 100vh;
   padding: 2px auto;
   margin-right: auto;
   background: #fff;
