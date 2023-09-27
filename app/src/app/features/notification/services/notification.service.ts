@@ -72,12 +72,12 @@ export class NotificationService {
             this.firestore,
             `users/${user_id}/logs`
           );
-          let initialLoad = true;
+          let initial_load = true;
           this.unsubscribe$ = onSnapshot(
             userLogsCollection,
             (snapshot: any) => {
-              if (initialLoad) {
-                initialLoad = false;
+              if (initial_load) {
+                initial_load = false;
                 return;
               }
               snapshot.docChanges().forEach((change: any) => {
