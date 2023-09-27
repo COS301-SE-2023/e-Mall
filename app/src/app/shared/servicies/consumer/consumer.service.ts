@@ -12,7 +12,6 @@ export class ConsumerService {
   private apiUrl = 'http://localhost:3000/api/consumer/';
 
   constructor(private http: HttpClient) {
-    console.log('product seller service initialized');
   }
 
   public getConsumerInfo(email: string): Observable<any> {

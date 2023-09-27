@@ -15,6 +15,11 @@
   min-width: 100%;
 }
 
+app-footer{
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
 
 .top {
   //min-width: 90%;
@@ -291,4 +296,7 @@ ion-modal{
 
 ion-list ion-item::after {
   border-bottom: none;
+}
+mat-checkbox{
+  width: 100%;
 }

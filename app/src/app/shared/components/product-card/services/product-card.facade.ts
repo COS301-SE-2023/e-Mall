@@ -13,7 +13,6 @@ export class ProductCardFacade implements OnDestroy {
       .pipe(debounceTime(100))
       .subscribe(isLoading => {
         this.loading = isLoading;
-        // console.log('loading: ', this.loading);
       });
   }
   ngOnDestroy(): void {

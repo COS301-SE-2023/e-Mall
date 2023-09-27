@@ -37,7 +37,6 @@ export class ComboFacade implements OnDestroy {
     private comboService: ComboService,
     private ProfileFacade: ProfileFacade
   ) {
-    console.log('Combo facade initialized');
     this.authSubscription = this.authFacade
       .getCurrentUser()
       .pipe(

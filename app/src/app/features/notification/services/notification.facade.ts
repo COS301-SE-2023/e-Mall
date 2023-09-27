@@ -49,7 +49,6 @@ export class NotificationFacade implements OnDestroy {
     private notificationService: NotificationService,
     authfacade: AuthFacade
   ) {
-    console.log('Notification Facade initialized');
     this.authSubs = authfacade
       .getCurrentUser()
       .pipe(debounceTime(500))
@@ -78,9 +77,7 @@ export class NotificationFacade implements OnDestroy {
       this.messageListenSubs = this.notificationService.message$
         .pipe(debounceTime(500))
         .subscribe((message: any) => {
-          console.log('Listening for messages');
           if (message) {
-            console.log(message);
             const payload = transformNewMessage(message);
             this.newNotification(payload);
           }
@@ -141,7 +138,6 @@ export class NotificationFacade implements OnDestroy {
   }
   async delete(id: string) {
     try {
-      console.log(id);
       this.deleteInState(id);
       const res = await this.notificationService.delete(id);
       return res;
@@ -153,17 +149,6 @@ export class NotificationFacade implements OnDestroy {
   async signOut() {
     // Delete the FCM registration token
     await this.notificationService.signOut();
-    // Unregister the service worker
-    // navigator.serviceWorker
-    //   .getRegistrations()
-    //   .then(function (registrations) {
-    //     for (const registration of registrations) {
-    //       registration.unregister();
-    //     }
-    //   })
-    //   .catch(function (err) {
-    //     console.log('Service Worker registration failed: ', err);
-    //   });
   }
   async readAll() {
     try {

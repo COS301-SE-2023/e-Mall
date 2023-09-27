@@ -44,28 +44,17 @@ export class SearchBarComponent {
   }
   keyDownFunction(event: any) {
     if (event.code === 'Enter') {
-      //search call
-      console.log(
-        '[enter] search input was: ',
-        this.searchInputController.value
-      );
       this.search();
     }
   }
   searchIconFunction() {
     if (this.searchInputController.value !== '') {
-      //search call
-      console.log(
-        '[icon] search input was: ',
-        this.searchInputController.value
-      );
       this.search();
     }
   }
 
   //api call to get suggestions
   getSuggestion(): Observable<IProduct[]> {
-    console.log('getting suggestions :', this.searchInputController.value);
     return of(this.generateRandomProducts());
   }
   // api call to get search result
@@ -125,12 +114,12 @@ export class SearchBarComponent {
   //   //     // subscription for response
   //   //   )
   //   //   .subscribe((text: string) => {
-  //   //     console.log(text);
+  //   //     .log(text);
   //   //     this.isSuggesting = true;
   //   //     // this.suggestionSubscription = this.getSuggestion().subscribe(
   //   //     //   (res: IProduct[]) => {
   //   //     //     this.suggestions = res;
-  //   //     //     console.log(this.suggestions);
+  //   //     //     .log(this.suggestions);
   //   //     //     this.isSuggesting = false;
   //   //     //   }
   //   //     // );

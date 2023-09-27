@@ -102,7 +102,6 @@ export default class ProductComponent implements OnInit {
         this.product$ = this.productService.getProductData(this.prod_id);
         this.product$.subscribe(data => {
           this.product_params = data;
-          console.log(data);
         });
         this.sellers$ = this.productService.getSellerList(
           this.prod_id,

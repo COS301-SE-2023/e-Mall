@@ -264,7 +264,6 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
     return imgList[0];
   }
   ngOnDestroy(): void {
-    console.log('seller details page destroyed');
     this.paramMapSubscription.unsubscribe();
   }
 

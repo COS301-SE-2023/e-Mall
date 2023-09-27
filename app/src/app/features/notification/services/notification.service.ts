@@ -33,19 +33,12 @@ export class NotificationService {
   }
 
   async signOut() {
-    console.log('Signing out');
     navigator.serviceWorker.getRegistrations().then(registrations => {
       for (const registration of registrations) {
         registration.unregister();
       }
     });
-    // await deleteToken(this.messaging)
-    //   .then(() => {
-    //     console.log('Token deleted.');
-    //   })
-    //   .catch(err => {
-    //     console.log('Unable to delete token.');
-    //   });
+    
   }
   getToken() {
     // return from(
@@ -67,7 +60,6 @@ export class NotificationService {
     return await Notification.requestPermission();
   }
   async updateDeviceToken(token: string) {
-    console.log('update device token');
     const url = `${this.apiUrl}device/`;
     return await firstValueFrom(
       this.http.post(
@@ -174,7 +166,6 @@ export class NotificationService {
     );
   }
   async updateSettings(settings: INotificationSettings) {
-    console.log(settings);
     const url = `${this.apiUrl}settings/update/`;
     return await firstValueFrom(
       this.http.post(

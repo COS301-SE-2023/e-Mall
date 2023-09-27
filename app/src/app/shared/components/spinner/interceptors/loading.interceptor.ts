@@ -19,7 +19,7 @@
 
 //   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 //     if (!this.isIntercepted) {
-//       console.log('Intercepted');
+//       .log('Intercepted');
 //       this.isIntercepted = true; // Mark as intercepted
 
 //       this.loadingService.setLoading(true);

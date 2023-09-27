@@ -84,11 +84,6 @@ export class InventoryComponent implements OnDestroy {
 
   onSearchInputChange(event: any) {
     if (event) {
-      // console.log(
-      //   'onSearchInputChange ',
-      //   event.detail.value,
-      //   this.selectedSearchOption
-      // );
       this.inventoryFacade.updateQuery({
         search: event.detail.value,
         searchOption: this.selectedSearchOption,
@@ -98,7 +93,6 @@ export class InventoryComponent implements OnDestroy {
   onFilterOptionChange(event: any) {
     if (event) {
       this.filter_changed = true;
-      // console.log('onFilterOptionChange ', event.detail.value);
       if (this.paginator) this.paginator.firstPage();
       const currentPage = 0;
       this.inventoryFacade.updateQuery({
@@ -110,11 +104,9 @@ export class InventoryComponent implements OnDestroy {
     }
   }
   ionViewWillEnter() {
-    console.log('ionViewWillEnter');
     if (this.paginator) this.paginator.firstPage();
   }
   onSortOptionChange(): void {
-    // console.log('onSortOptionChange', this.selectedSortOption);
     this.inventoryFacade.updateQuery({ sortOption: this.selectedSortOption });
   }
 
@@ -161,7 +153,6 @@ export class InventoryComponent implements OnDestroy {
     size: 'cover',
   };
   scrollToTop() {
-    console.log('scrollToTop');
     if (this.content) this.content.scrollToPoint(0, 0, 500);
     // this.inventory_header.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }

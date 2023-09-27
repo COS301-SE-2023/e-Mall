@@ -200,8 +200,11 @@ ion-content {
 .title-stock-row {
   display: flex;
   justify-content: space-between;
-
+  ion-segment {
+    width:fit-content ;
+  }
   ion-button {
+    margin-left: 1%;
     border-radius: 16px;
     --background: #37d0d6;
     --color: #ffffff;
