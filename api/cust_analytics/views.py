@@ -91,7 +91,7 @@ def calculate_predicted_values(predictions_data):
         user_indices, product_indices, values
     )
     # Perform NearestNeighbors calculation
-    number_neighbors = 8
+    number_neighbors = 12
     knn = NearestNeighbors(metric="cosine", algorithm="brute")
     knn.fit(user_product_matrix)
     distances, indices = knn.kneighbors(
