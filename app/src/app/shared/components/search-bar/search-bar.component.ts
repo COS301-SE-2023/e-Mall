@@ -43,7 +43,7 @@ export class SearchBarComponent {
     this.searchInputPreviousText = '';
   }
   keyDownFunction(event: any) {
-    if (event.code === 'Enter') {
+    if (event.code === 'Enter' || event.code === 'NumpadEnter') {
       this.search();
     }
   }
@@ -66,6 +66,7 @@ export class SearchBarComponent {
       };
       this.router.navigate(['/search-results'], navigationextras);
     }
+    this.searchInputController.reset();
   }
 
   ///for mocking
@@ -86,63 +87,4 @@ export class SearchBarComponent {
     return products;
   }
 
-  // for mobile view's search
-  // openSearchBar() {
-  //   this.opened = true;
-  //   this.changeDetectorRef.detectChanges();
-  //   this.searchField?.nativeElement.focus();
-  //   // this.suggestions$ = this.searchInputController.valueChanges.pipe(map(val));
-
-  //   // this.keyEventSubscription = fromEvent(
-  //   //   this.searchField?.nativeElement,
-  //   //   'keyup'
-  //   // )
-  //   //   .pipe(
-  //   //     // get value
-  //   //     map((event: any) => {
-  //   //       return event.target.value;
-  //   //     }),
-  //   //     // if character length greater then 2
-  //   //     filter(res => res.length > 2),
-
-  //   //     // Time in milliseconds between key events
-  //   //     debounceTime(1000),
-
-  //   //     // If previous query is diffent from current
-  //   //     distinctUntilChanged()
-
-  //   //     // subscription for response
-  //   //   )
-  //   //   .subscribe((text: string) => {
-  //   //     .log(text);
-  //   //     this.isSuggesting = true;
-  //   //     // this.suggestionSubscription = this.getSuggestion().subscribe(
-  //   //     //   (res: IProduct[]) => {
-  //   //     //     this.suggestions = res;
-  //   //     //     .log(this.suggestions);
-  //   //     //     this.isSuggesting = false;
-  //   //     //   }
-  //   //     // );
-  //   //     this.suggestions$ = this.getSuggestion();
-  //   //   });
-  //   this.suggestions$ = this.searchInputController.valueChanges.pipe(
-  //     filter(value => value !== null && value.length > 2),
-  //     debounceTime(1000),
-  //     distinctUntilChanged(),
-  //     switchMap(value => this.getSuggestion())
-  //   );
-  // }
-  // closeSearchBar() {
-  //   this.opened = false;
-  //   this.changeDetectorRef.detectChanges();
-  //   this.suggestionSubscription.unsubscribe();
-  //   this.keyEventSubscription.unsubscribe();
-  //   this.searchInputController.reset();
-  //   this.suggestions = [];
-  // }
-  // onBlur() {
-  //   this.opened = false;
-  //   this.changeDetectorRef.detectChanges();
-  //   this.closeSearchBar();
-  // }
 }

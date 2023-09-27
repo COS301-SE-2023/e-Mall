@@ -14,7 +14,7 @@ class MessageTemplate(ABC):
 class ComboTemplate(MessageTemplate):
     @property
     def accept(self):
-        self.message = "Welcome a new collaborator @[receiver]"
+        self.message = "Welcome a new collaborator @[sender]"
         self.title = "New collaborator to '[combo]' "
         return self
 
