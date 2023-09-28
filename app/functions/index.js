@@ -1,11 +1,9 @@
-/* eslint-disable max-len */
-const admin = require("firebase-admin");
-admin.initializeApp();
+const functions = require("firebase-functions");
 
-const userNotificationFunction = require("./notification/user-notification");
-const createHandleLog = require("./notification/handle-logs");
-
-exports.sendUserNotification = userNotificationFunction.userNotification;
-
-exports.logCombo = createHandleLog("combos/{docId}/logs/{logId}");
-exports.logUsers = createHandleLog("personal/{docId}/logs/{logId}");
+// // Create and deploy your first functions
+// // https://firebase.google.com/docs/functions/get-started
+//
+// exports.helloWorld = functions.https.onRequest((request, response) => {
+//   functions.logger.info("Hello logs!", {structuredData: true});
+//   response.send("Hello from Firebase!");
+// });

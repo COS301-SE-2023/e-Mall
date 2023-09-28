@@ -267,8 +267,20 @@
             "karmaConfig": "karma.conf.js",
             "codeCoverage": true,
             "codeCoverageExclude": [
-              "src/app/shared/**/*",
-              "src/app/features/**/*"
+              "src/app/features/combo/**/*",
+              "src/app/features/combo-state/**/*",
+              "src/app/features/edit-customer-profile/**/*",
+              "src/app/features/my-combos/**/*",
+              "src/app/features/notification/**/*",
+              "src/app/features/product/**/*",
+              "src/app/features/product-analytics/**/*",
+              "src/app/features/profile/**/*",
+              "src/app/features/sales/**/*",
+              "src/app/features/seller-dashboard-settings/**/*",
+              "src/app/features/seller-details/**/*",
+              "src/app/features/sign-out/**/*",
+              "src/app/features/splash/**/*",
+              "src/app/features/wishlist/**/*"
             ]
           }
         },
