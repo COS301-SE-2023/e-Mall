@@ -13,10 +13,12 @@ import { AboutModule } from '../about.module';
 import { AuthModule } from '@features/auth/auth.module';
 import { ProfileModule } from '@features/profile/profile.module';
 import { NotificationModule } from '@app/features/notification/notification.module';
+import { Firestore } from '@angular/fire/firestore';
 
 describe('AboutComponent', () => {
   let component: AboutComponent;
   let fixture: ComponentFixture<AboutComponent>;
+  let firestore: Firestore;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -41,8 +43,13 @@ describe('AboutComponent', () => {
             /* Mock or stub properties/methods you need here */
           },
         },
+        {
+          provide: Firestore,
+          useValue: { collection: jasmine.createSpy('collection') },
+        },
       ],
     }).compileComponents();
+    firestore = TestBed.inject(Firestore);
   });
 
   beforeEach(() => {

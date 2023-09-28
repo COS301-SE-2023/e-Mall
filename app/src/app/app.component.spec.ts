@@ -9,7 +9,7 @@ import { NgxsModule } from '@ngxs/store';
 import { HttpClient } from '@angular/common/http';
 import { AppModule } from './app.module';
 import { Messaging } from '@angular/fire/messaging';
-
+import { Firestore } from '@angular/fire/firestore';
 describe('AppComponent', () => {
   let messagingSpy;
   beforeEach(async () => {
@@ -23,7 +23,13 @@ describe('AppComponent', () => {
         // NgxsModule.forRoot(),
         // HttpClient,
       ],
-      providers: [{ provide: Messaging, useValue: messagingSpy }],
+      providers: [
+        { provide: Messaging, useValue: messagingSpy },
+        {
+          provide: Firestore,
+          useValue: { collection: jasmine.createSpy('collection') },
+        },
+      ],
       declarations: [AppComponent],
     }).compileComponents();
   });
