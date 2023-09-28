@@ -7,7 +7,7 @@
     <div *ngIf="!showSpinner">
       <div class="details-container">
         <div class="image-container">
-          <img class="image" src="{{ seller.logo }}" />
+          <img alt="image" class="image" src="{{ seller.logo }}" />
         </div>
         <div class="seller-info-container">
           <div class="titleverified-container">
@@ -16,6 +16,7 @@
             </div>
             <div class="verified">
               <img
+                alt="image"
                 class="verified-image"
                 style="width: 20px; height: 20px; padding: 0px; margin: 0px"
                 src="\assets\images\verified.png" />
@@ -55,18 +56,21 @@
       <div class="social-container">
         <a href="{{ seller.facebook_link }}" target="_blank" rel="noopener">
           <img
+            alt="image"
             class="facebook-image"
             style="width: 60px; height: 60px; padding: 10px; margin: 0px"
             src="\assets\images\facebook.png" />
         </a>
         <a href="{{ seller.twitter_link }}" target="_blank" rel="noopener">
           <img
+            alt="image"
             class="twitter-image"
             style="width: 60px; height: 60px; padding: 10px; margin: 0px"
             src="\assets\images\twitter.png" />
         </a>
         <a href="{{ seller.instagram_link }}" target="_blank" rel="noopener">
           <img
+            alt="image"
             class="instagram-image"
             style="width: 60px; height: 60px; padding: 10px; margin: 0px"
             src="\assets\images\instagram.png" />
