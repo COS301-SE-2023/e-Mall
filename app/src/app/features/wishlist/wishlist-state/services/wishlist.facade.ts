@@ -27,6 +27,8 @@ export class WishlistFacade implements OnDestroy {
       .pipe(
         tap(user => {
           if (user) {
+            if(user.type === 'seller')
+              return
             this.fetchWishlist();
           } else {
             this.clearWishlist();
