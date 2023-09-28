@@ -20,10 +20,12 @@ import { AuthModule } from '@app/features/auth/auth.module';
 import { ProfileModule } from '@features/profile/profile.module';
 import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
 import { NotificationModule } from '@app/features/notification/notification.module';
+import { Firestore } from '@angular/fire/firestore';
 // import { NotificationModule } from '@app/features/notification/notification.module';
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
+  let firestore: Firestore;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -50,8 +52,14 @@ describe('NavbarComponent', () => {
         NotificationModule,
       ],
       declarations: [NavbarComponent],
-      providers: [],
+      providers: [
+        {
+          provide: Firestore,
+          useValue: { collection: jasmine.createSpy('collection') },
+        },
+      ],
     }).compileComponents();
+    firestore = TestBed.inject(Firestore);
   });
   // store = TestBed.inject(Store);
   beforeEach(() => {

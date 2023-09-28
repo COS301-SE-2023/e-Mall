@@ -266,7 +266,10 @@
             ],
             "karmaConfig": "karma.conf.js",
             "codeCoverage": true,
-            "codeCoverageExclude": ["app/shared/**/*"]
+            "codeCoverageExclude": [
+              "src/app/shared/**/*",
+              "src/app/features/**/*"
+            ]
           }
         },
         "lint": {

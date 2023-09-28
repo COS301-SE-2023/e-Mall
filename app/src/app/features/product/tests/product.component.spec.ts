@@ -27,6 +27,7 @@ import { AuthModule } from '@features/auth/auth.module';
 import { ProfileModule } from '@features/profile/profile.module';
 import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
 import { NotificationModule } from '@app/features/notification/notification.module';
+import { Firestore } from '@angular/fire/firestore';
 
 describe('ProductComponent', () => {
   let component: ProductComponent;
@@ -34,6 +35,7 @@ describe('ProductComponent', () => {
   let productService: ProductService;
   let analyticsService: AnalyticsService;
   let router: Router;
+  let firestore: Firestore;
   // eslint-disable-next-line prefer-const
   let mockProductService = jasmine.createSpyObj('ProductService', [
     'getProductData',
@@ -75,8 +77,13 @@ describe('ProductComponent', () => {
         { provide: ProductService, useValue: mockProductService },
         { provide: AnalyticsService, useValue: mockAnalyticsService },
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        {
+          provide: Firestore,
+          useValue: { collection: jasmine.createSpy('collection') },
+        },
       ],
     }).compileComponents();
+    firestore = TestBed.inject(Firestore);
 
     router = TestBed.inject(Router);
     fixture = TestBed.createComponent(ProductComponent);
