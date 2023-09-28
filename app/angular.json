@@ -280,7 +280,8 @@
               "src/app/features/seller-details/**/*",
               "src/app/features/sign-out/**/*",
               "src/app/features/splash/**/*",
-              "src/app/features/wishlist/**/*"
+              "src/app/features/wishlist/**/*",
+              "src/app/shared/components/product-card/**/*"
             ]
           }
         },

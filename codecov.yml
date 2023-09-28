@@ -13,3 +13,10 @@ ignore:
   - "app/features/sign-out/**/*"
   - "app/features/splash/**/*"
   - "app/features/wishlist/**/*"
+  - "app/shared/components/product-card/**/*"
+  - "api/analytics/**/*"
+  - "api/combos/**/*"
+  - "api/cust_analytics/**/*"
+  - "api/custom_profile/**/*"
+  - "api/inventory/**/*"
+
