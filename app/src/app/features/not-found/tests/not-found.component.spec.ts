@@ -11,10 +11,12 @@ import { By } from '@angular/platform-browser';
 import { AuthModule } from '@features/auth/auth.module';
 import { ProfileModule } from '@features/profile/profile.module';
 import { NotificationModule } from '@app/features/notification/notification.module';
+import { Firestore } from '@angular/fire/firestore';
 
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
   let fixture: ComponentFixture<NotFoundComponent>;
+  let firestore: Firestore;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -29,7 +31,14 @@ describe('NotFoundComponent', () => {
         ProfileModule,
         NotificationModule,
       ],
+      providers: [
+        {
+          provide: Firestore,
+          useValue: { collection: jasmine.createSpy('collection') },
+        },
+      ],
     }).compileComponents();
+    firestore = TestBed.inject(Firestore);
   });
 
   beforeEach(() => {

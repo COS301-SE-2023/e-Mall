@@ -83,9 +83,9 @@ def calculate_predicted_values(predictions_data):
     predictions_df = pd.DataFrame(data)
     # Pivot the data to create the table
     df = predictions_df.pivot(index="product", columns="user_email", values="value")
-    #starting of the prediction
+    # starting of the prediction
     df1 = df.copy()
-    #works up unti here
+    # works up unti here
     # Create a user-product matrix for prediction
     user_product_matrix = create_user_product_matrix(
         user_indices, product_indices, values
@@ -173,4 +173,3 @@ def create_user_product_matrix(user_indices, product_indices, values):
         matrix[product_idx, user_emailx] = value  # Swap indices
 
     return matrix
-

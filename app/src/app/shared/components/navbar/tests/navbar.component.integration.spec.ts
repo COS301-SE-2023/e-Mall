@@ -25,6 +25,7 @@ import { DropdownPopoverComponent } from '@shared/components/dropdown-popover/dr
 import { NotificationModule } from '@app/features/notification/notification.module';
 import { Messaging } from '@angular/fire/messaging';
 // import { NotificationModule } from '@app/features/notification/notification.module';
+import { Firestore } from '@angular/fire/firestore';
 
 describe('NavbarComponentIntegration', () => {
   let component: NavbarComponent;
@@ -32,6 +33,7 @@ describe('NavbarComponentIntegration', () => {
   let router: Router;
 
   let popoverController: PopoverController;
+  let firestore: Firestore;
   let messagingSpy;
   beforeEach(async () => {
     messagingSpy = jasmine.createSpyObj('Messaging', ['isSupported']);
@@ -68,8 +70,13 @@ describe('NavbarComponentIntegration', () => {
       providers: [
         { provide: Messaging, useValue: messagingSpy },
         { provide: PopoverController, useValue: popoverControllerMock },
+        {
+          provide: Firestore,
+          useValue: { collection: jasmine.createSpy('collection') },
+        },
       ],
     }).compileComponents();
+    firestore = TestBed.inject(Firestore);
   });
 
   beforeEach(() => {

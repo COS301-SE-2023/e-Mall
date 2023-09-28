@@ -35,14 +35,14 @@ import { ProfileModule } from '@features/profile/profile.module';
 import { ComboStateModule } from '@features/combo-state/combo-state.module';
 import { NotificationModule } from '@app/features/notification/notification.module';
 import { WishlistStateModule } from '@app/features/wishlist/wishlist-state/wishlist-state.module';
-
+import { Firestore } from '@angular/fire/firestore';
 describe('SearchComponent', () => {
   let component: SearchComponent;
   let fixture: ComponentFixture<SearchComponent>;
   let productService: ProductService;
   let router: Router;
   let activatedRoute: ActivatedRoute;
-
+  let firestore: Firestore;
   beforeEach(async () => {
     const mockProductService = {
       searchProducts: jasmine.createSpy('searchProducts').and.returnValue(
@@ -113,9 +113,14 @@ describe('SearchComponent', () => {
         ProductService,
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
         { provide: ProductService, useValue: mockProductService },
+        {
+          provide: Firestore,
+          useValue: { collection: jasmine.createSpy('collection') },
+        },
         AnalyticsService,
       ],
     }).compileComponents();
+    firestore = TestBed.inject(Firestore);
     productService = TestBed.inject(ProductService);
   });
 

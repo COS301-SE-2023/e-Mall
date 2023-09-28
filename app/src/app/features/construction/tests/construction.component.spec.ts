@@ -14,10 +14,12 @@ import { ConstructionModule } from '../construction.module';
 import { AuthModule } from '@features/auth/auth.module';
 import { ProfileModule } from '@features/profile/profile.module';
 import { NotificationModule } from '@app/features/notification/notification.module';
+import { Firestore } from '@angular/fire/firestore';
 import { Messaging } from '@angular/fire/messaging';
 describe('ConstructionComponent', () => {
   let component: ConstructionComponent;
   let fixture: ComponentFixture<ConstructionComponent>;
+  let firestore: Firestore;
   let messagingSpy;
   beforeEach(async () => {
     messagingSpy = jasmine.createSpyObj('Messaging', ['isSupported']);
@@ -45,8 +47,13 @@ describe('ConstructionComponent', () => {
             /* Mock or stub properties/methods you need here */
           },
         },
+        {
+          provide: Firestore,
+          useValue: { collection: jasmine.createSpy('collection') },
+        },
       ],
     }).compileComponents();
+    firestore = TestBed.inject(Firestore);
   });
 
   beforeEach(() => {
