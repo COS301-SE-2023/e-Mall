@@ -78,7 +78,7 @@ Key features of our Agile approach during this project include:
 ### Architecture
 - [Architecture Document V1](https://drive.google.com/file/d/1bqVY1dhNnN6TRFIE9gbgmBwtZRpwdSxe/view?usp=sharing)
 - [Architecture Document V2](https://drive.google.com/file/d/1K9oJPGMBjGXt9OhC_ryt6NQUB7ZqC9Is/view?usp=sharing)
-- [Architecture Document V3](https://drive.google.com/file/d/1csOnBPNgaLv5dwGhadf__-uAF2zDHdfD/view?usp=sharing)
+- [Architecture Document V3](https://drive.google.com/file/d/1n62Risem1h64-FlliN9ZnJWM3BamDVOm/view?usp=sharing)
 
 ### Testing Policy
 - [Testing Policy](https://drive.google.com/file/d/1hApqfMGzXLPtED9DNnwLHLw5fx-hQzVL/view?usp=sharing)

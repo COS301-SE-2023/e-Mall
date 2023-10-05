@@ -14,6 +14,7 @@ import { IInventoryItem } from '../models/inventory-item.interface';
 import { ISearchOptions } from '../models/search-options.interface';
 import { InventoryFacade } from '../servicies/inventory.facade';
 import { Router } from '@angular/router';
+import { PageLoaderFacade } from '@app/shared/components/loader/loader-for-page.facade';
 
 @Component({
   selector: 'app-inventory',
@@ -64,10 +65,14 @@ export class InventoryComponent implements OnDestroy {
     private popoverController: PopoverController,
     private loadingController: LoadingController,
     public modalController: ModalController
-  ) {
+  ) // public loaderFacade: PageLoaderFacade
+  {
+    // this.loaderFacade.loading.next(true);
+
     const options: ISearchOptions = {
       filterOptions: { filter_in_stock: 'all' },
     };
+    // this.loaderFacade.loading.next(true);
 
     this.query$ = this.inventoryFacade.query$;
 

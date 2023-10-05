@@ -1,9 +1,6 @@
 name: master-v2
 
 on:
-  push:
-    branches:
-      - master
   pull_request:
     branches:
       - master
