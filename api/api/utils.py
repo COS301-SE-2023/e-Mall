@@ -17,14 +17,18 @@ s3 = boto3.client(
     aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
 )
 
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
+}
+
 
 def upload_to_spaces(url, folder_name, acl="public-read"):
     if not settings.DEBUG:
         try:
             try:
-                response = requests.get(url)
+                response = requests.get(url, headers=headers)
             except:
-                response = requests.get(url, verify=False)
+                response = requests.get(url, headers=headers, verify=False)
             file = BytesIO(response.content)
 
             print("********", url)
