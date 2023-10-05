@@ -18,7 +18,6 @@ import { consumerTypeGuard } from '@shared/guards/consumer-type.guard';
 import { SplashComponent } from './features/splash/splash.component';
 
 const routes: Routes = [
-  // { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '', component: SplashComponent, pathMatch: 'full' },
   {
     path: 'home',
