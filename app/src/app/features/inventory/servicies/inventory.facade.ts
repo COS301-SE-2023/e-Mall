@@ -88,6 +88,13 @@ export class InventoryFacade implements OnDestroy {
       return this.setError(error);
     }
   }
+  async downloadFile() {
+    return await this.inventoryService.downloadFile();
+  }
+  async uploadBulkData(data: any) {
+    return await this.inventoryService.uploadBulkData(data);
+  }
+
   @Dispatch()
   updateStateItems(products: IInventoryItem[]) {
     return new InventoryActions.UpdateItems(products);

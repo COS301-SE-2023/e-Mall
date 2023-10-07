@@ -10,6 +10,20 @@
         Home
       </ion-button>
     </ion-item>
+    <ion-item class="item-padding" lines="none">
+      <ion-button mode="ios" color="primary" (click)="download()">
+        Bulk download
+      </ion-button>
+    </ion-item>
+    <ion-item class="item-padding" lines="none">
+      <input
+        type="file"
+        accept=".xlsx"
+        (change)="onFileSelect($event)"
+        #fileInput />
+      <ion-button (click)="uploadFile()">Upload</ion-button>
+      <div *ngIf="errorMessage">{{ errorMessage }}</div>
+    </ion-item>
 
     <div class="content-container">
       <div class="name-container" *ngIf="!isSelected && !newClicked">

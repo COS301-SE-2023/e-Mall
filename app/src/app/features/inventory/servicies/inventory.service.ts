@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, take, lastValueFrom } from 'rxjs';
+import { map, take, lastValueFrom, firstValueFrom } from 'rxjs';
 import { IInventoryItem } from '@features/inventory/models/inventory-item.interface';
 import { ISearchOptions } from '@features/inventory/models/search-options.interface';
 
@@ -10,8 +10,7 @@ export class InventoryService {
   currentSellerName$: string | undefined;
   private apiUrl = '/api/inventory';
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   public async getProductSellerData(
     options: ISearchOptions
@@ -103,6 +102,28 @@ export class InventoryService {
           observe: 'response',
         })
         .pipe(take(1))
+    );
+  }
+  public async downloadFile(): Promise<any> {
+    const url = `${this.apiUrl}/download_format/`;
+    return await firstValueFrom(
+      this.http.post(
+        url,
+        {},
+        {
+          headers: new HttpHeaders().set('Authorization', 'true'),
+          responseType: 'blob',
+        }
+      )
+    );
+  }
+  public async uploadBulkData(data: any): Promise<any> {
+    const url = `${this.apiUrl}/upload_bulk/`;
+    return await firstValueFrom(
+      this.http.post(url, data, {
+        headers: new HttpHeaders().set('Authorization', 'true'),
+        responseType: 'blob',
+      })
     );
   }
 }

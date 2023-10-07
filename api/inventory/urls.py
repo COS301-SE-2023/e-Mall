@@ -12,4 +12,6 @@ urlpatterns = [
         name="create_similar_product",
     ),
     path("createNewProduct/", views.createNewProduct, name="create_new_product"),
+    path("download_format/", views.download_format, name="download_format"),
+    path("upload_bulk/", views.upload_bulk, name="upload_bulk"),
 ]

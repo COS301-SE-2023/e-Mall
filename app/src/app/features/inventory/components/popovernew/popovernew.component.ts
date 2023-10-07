@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { IInventoryItem } from '@features/inventory/models/inventory-item.interface';
 import { InventoryFacade } from '@features/inventory/servicies/inventory.facade';
@@ -9,13 +9,17 @@ import { ISellerProfile } from '@app/features/profile/models/seller-profile.inte
 import { IConsumerProfile } from '@app/features/profile/models/consumer-profile.interface';
 import { Observable, Subscription, map, of } from 'rxjs';
 import { Router } from '@angular/router';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-popovernew',
   templateUrl: './popovernew.component.html',
   styleUrls: ['./popovernew.component.scss'],
 })
 export class PopovernewComponent implements OnInit {
+  @ViewChild('fileInput') fileInput?: ElementRef;
+  file?: File;
+  errorMessage?: string;
+
   newClicked = false;
   SelectedProduct!: string;
   selectForm!: FormGroup;
@@ -209,5 +213,75 @@ export class PopovernewComponent implements OnInit {
     this.newClicked = false;
     this.nextClicked = false;
     this.isSelected = false;
+  }
+  async download() {
+    const data = await this.inventoryFacade.downloadFile();
+    const blob = new Blob([data], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'format.xlsx');
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
+
+  onFileSelect(event: any) {
+    const files = event.target.files;
+    const file = files[0];
+    console.log(1);
+    if (file.name.split('.').pop() !== 'xlsx' && this.fileInput) {
+      this.errorMessage = 'Invalid extension! Only .xlsx files are allowed.';
+      this.fileInput.nativeElement.value = '';
+      console.log(2);
+    } else {
+      this.file = file;
+      this.errorMessage = '';
+      console.log(3);
+    }
+  }
+  async uploadFile() {
+    console.log(4);
+
+    if (!this.file) {
+      console.log(5);
+      this.errorMessage = 'Please select a file.';
+      return;
+    }
+    const reader = new FileReader();
+    console.log(55);
+
+    reader.onload = async (event: any) => {
+      console.log(77);
+
+      const data = new Uint8Array(event.target.result);
+      const workbook = XLSX.read(data, { type: 'array' });
+      const worksheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[worksheetName];
+
+      let range = { s: { c: 1, r: 1 }, e: { c: 10, r: 301 } }; // 0-indexed
+
+      // Convert the range of cells to JSON
+      let jsonData = XLSX.utils.sheet_to_json(worksheet, {
+        range: range,
+        header: 1,
+      });
+      // Remove empty rows
+      jsonData = jsonData.filter((row: any) =>
+        row.some((cell: any) => cell !== null && cell !== '')
+      );
+
+      console.log(jsonData);
+
+      try {
+        await this.inventoryFacade.uploadBulkData(jsonData);
+        this.errorMessage = '';
+      } catch (error) {
+        this.errorMessage = 'Failed to send data.';
+      }
+    };
+    reader.readAsArrayBuffer(this.file);
   }
 }

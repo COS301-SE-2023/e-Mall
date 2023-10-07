@@ -13,6 +13,9 @@ from fuzzywuzzy import fuzz
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from decimal import Decimal
+from django.http import FileResponse
+import os
+from django.conf import settings
 
 
 @api_view(["POST"])
@@ -299,4 +302,32 @@ def createNewProduct(request):
             return Response({"data": serializer.data}, status=status.HTTP_201_CREATED)
     except Exception as e:
         # handle other exceptions here
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(["POST"])
+def download_format(request):
+    try:
+        file_path = os.path.join(settings.BASE_DIR, "inventory/resource/format.xlsx")
+        response = FileResponse(
+            open(file_path, "rb"),
+            content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        )
+        response["Content-Disposition"] = 'attachment; filename="format.xlsx"'
+        return response
+    except Exception as e:
+        print(e)
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(["POST"])
+def upload_bulk(request):
+    try:
+        data = request.data
+        print(data)
+        return Response(
+            {"message": "Data received successfully"}, status=status.HTTP_200_OK
+        )
+    except Exception as e:
+        print(e)
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
