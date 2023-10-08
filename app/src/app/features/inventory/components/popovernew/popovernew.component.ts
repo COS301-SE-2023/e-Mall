@@ -261,7 +261,7 @@ export class PopovernewComponent implements OnInit {
       const worksheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[worksheetName];
 
-      let range = { s: { c: 1, r: 2 }, e: { c: 10, r: 301 } }; // 0-indexed
+      let range = { s: { c: 1, r: 2 }, e: { c: 13, r: 301 } }; // 0-indexed
 
       // Convert the range of cells to JSON
       let jsonData = XLSX.utils.sheet_to_json(worksheet, {
