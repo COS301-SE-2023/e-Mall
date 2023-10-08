@@ -359,18 +359,11 @@ def upload_bulk(request):
             if created_product_seller:
                 continue
 
-            # Product.objects.create(
-            #     name=item[0],
-            #     brand=item[10],
-            #     category=item[11],
-            #     description=item[12],
-            # ).save()
-            # to test
             Product.objects.create(
                 name=item[0],
-                brand="test",
-                category="books",
-                description="test",
+                brand=item[10],
+                category=item[11],
+                description=item[12],
             ).save()
             ProductSeller.objects.create(
                 product=Product.objects.get(name=item[0]),
