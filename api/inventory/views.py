@@ -331,7 +331,11 @@ def upload_bulk(request):
         for product in Product.objects.all():
             if not ProductSeller.objects.filter(product=product, seller=user).exists():
                 product_names.append(product.name)
+        total = 0
+        failed = 0
+        successful = 0
         for item in data:
+            total += 1
             img_array = [item[7]]
             if len(item) > 8 and item[8]:
                 img_array.append(item[8])
@@ -341,45 +345,58 @@ def upload_bulk(request):
             for product_name in product_names:
                 similarity_score = fuzz.partial_ratio(item[0], product_name)
                 if similarity_score >= 90:
-                    ProductSeller.objects.create(
-                        product=Product.objects.get(name=product_name),
-                        seller=user,
-                        price=item[2],
-                        discount=item[3],
-                        discount_rate=item[4],
-                        original_price=item[1],
-                        product_url=item[5],
-                        in_stock=item[6],
-                        img_array=img_array,
-                        product_name=product_name,
-                    ).save()
-                    created_product_seller = True  # Set the flag to True
-                    break
+                    try:
+                        ProductSeller.objects.create(
+                            product=Product.objects.get(name=product_name),
+                            seller=user,
+                            price=item[2],
+                            discount=item[3],
+                            discount_rate=item[4],
+                            original_price=item[1],
+                            product_url=item[5],
+                            in_stock=item[6],
+                            img_array=img_array,
+                            product_name=product_name,
+                        ).save()
+                        created_product_seller = True  # Set the flag to True
+                        successful += 1
+                        break
+                    except Exception as e:
+                        failed += 1
+                        print(e)
+                        continue
 
             if created_product_seller:
                 continue
+            try:
+                Product.objects.create(
+                    name=item[0],
+                    brand=item[12],
+                    category=item[11],
+                    description=item[10],
+                ).save()
+                ProductSeller.objects.create(
+                    product=Product.objects.get(name=item[0]),
+                    seller=user,
+                    price=item[2],
+                    discount=item[3],
+                    discount_rate=item[4],
+                    original_price=item[1],
+                    product_url=item[5],
+                    in_stock=item[6],
+                    img_array=img_array,
+                    product_name=item[0],
+                ).save()
+                successful += 1
+            except Exception as e:
+                failed += 1
+                print(e)
+                continue
 
-            Product.objects.create(
-                name=item[0],
-                brand=item[12],
-                category=item[11],
-                description=item[10],
-            ).save()
-            ProductSeller.objects.create(
-                product=Product.objects.get(name=item[0]),
-                seller=user,
-                price=item[2],
-                discount=item[3],
-                discount_rate=item[4],
-                original_price=item[1],
-                product_url=item[5],
-                in_stock=item[6],
-                img_array=img_array,
-                product_name=item[0],
-            ).save()
-
+        # print response with total, successful and failed
         return Response(
-            {"message": "Data received successfully"}, status=status.HTTP_200_OK
+            {"total": total, "successful": successful, "failed": failed},
+            status=status.HTTP_200_OK,
         )
     except Exception as e:
         print(e)
