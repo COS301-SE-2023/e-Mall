@@ -16,6 +16,7 @@ from decimal import Decimal
 from django.http import FileResponse
 import os
 from django.conf import settings
+from seller.models import Seller
 
 
 @api_view(["POST"])
@@ -324,7 +325,66 @@ def download_format(request):
 def upload_bulk(request):
     try:
         data = request.data
-        print(data)
+        user = request.user
+        # create a product_names array with all the product names where the user is nto a seller for the product
+        product_names = []
+        for product in Product.objects.all():
+            if not ProductSeller.objects.filter(product=product, seller=user).exists():
+                product_names.append(product.name)
+        for item in data:
+            img_array = [item[7]]
+            if len(item) > 8 and item[8]:
+                img_array.append(item[8])
+            if len(item) > 9 and item[9]:
+                img_array.append(item[9])
+            created_product_seller = False
+            for product_name in product_names:
+                similarity_score = fuzz.partial_ratio(item[0], product_name)
+                if similarity_score >= 90:
+                    ProductSeller.objects.create(
+                        product=Product.objects.get(name=product_name),
+                        seller=user,
+                        price=item[2],
+                        discount=item[3],
+                        discount_rate=item[4],
+                        original_price=item[1],
+                        product_url=item[5],
+                        in_stock=item[6],
+                        img_array=img_array,
+                        product_name=product_name,
+                    ).save()
+                    created_product_seller = True  # Set the flag to True
+                    break
+
+            if created_product_seller:
+                continue
+
+            # Product.objects.create(
+            #     name=item[0],
+            #     brand=item[10],
+            #     category=item[11],
+            #     description=item[12],
+            # ).save()
+            # to test
+            Product.objects.create(
+                name=item[0],
+                brand="test",
+                category="books",
+                description="test",
+            ).save()
+            ProductSeller.objects.create(
+                product=Product.objects.get(name=item[0]),
+                seller=user,
+                price=item[2],
+                discount=item[3],
+                discount_rate=item[4],
+                original_price=item[1],
+                product_url=item[5],
+                in_stock=item[6],
+                img_array=img_array,
+                product_name=item[0],
+            ).save()
+
         return Response(
             {"message": "Data received successfully"}, status=status.HTTP_200_OK
         )
