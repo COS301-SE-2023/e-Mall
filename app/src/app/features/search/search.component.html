@@ -151,24 +151,6 @@
           <!--products-->
 
           <div class="product-card">
-            <!--<div
-              style="
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-top:40px;
-              "
-              *ngIf="(searchResults$ | async) === null">
-              <mat-spinner></mat-spinner>
-
-            </div>-->
-
-            <!-- <div class="spinner-container" *ngIf="showSpinner">
-              <div class="spinner">
-                <ion-spinner style="color: #99e3dc; margin-top: 150px;"></ion-spinner>
-              </div>
-            </div>
-             -->
             <ng-container *ngIf="searchResults$ | async as products">
               <div>
                 <ion-grid>
