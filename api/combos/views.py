@@ -34,10 +34,13 @@ def create(request):
             # add to db
             # check if emails exists in consumer database
             consumer_emails = []
-            for email in pending_emails:
+            non_existing_emails = []
+
+            for email in pending_emails.copy():
                 if Consumer.objects.filter(email=email).exists():
                     consumer_emails.append(email)
-                    pending_emails.remove(email)
+                else:
+                    non_existing_emails.append(email)
 
             combo = Combos(
                 combo_name=combo_name,
@@ -63,7 +66,7 @@ def create(request):
         return Response(
             {
                 "success": "Combo created successfully",
-                "Unsuccessful": pending_emails,
+                "Unsuccessful": non_existing_emails,
                 "Successful": consumer_emails,
                 "collection_id": combo.id,
             }
@@ -141,20 +144,23 @@ def invite(request):
             combo = Combos.objects.get(id=combo_id)
             consumer_emails = []
             existing_emails = []
+            nonexisting_emails = []
             # check if emails exists in consumer database
-            for email in user_emails:
+            for email in user_emails.copy():
                 if Consumer.objects.filter(email=email).exists():
                     consumer_emails.append(email)
-                    user_emails.remove(email)
+                else:
+                    nonexisting_emails.append(email)
+
             # confirm emails are not already in combo
-            for email in consumer_emails:
+            for email in consumer_emails.copy():
                 if email in combo.pending_emails or email in combo.user_emails:
                     existing_emails.append(email)
                     consumer_emails.remove(email)
             combo.pending_emails.extend(consumer_emails)
             combo.save()
             # build data for message
-            users = Consumer.objects.filter(email__in=user_emails)
+            users = Consumer.objects.filter(email__in=consumer_emails)
             combo_template = ComboTemplate()
             params = {
                 "action": MessageType.Combo.INVITE,
@@ -169,7 +175,7 @@ def invite(request):
             {
                 "success": "User invited to Combo successfully",
                 "collection_id": combo.id,
-                "Unsuccessful": user_emails,
+                "Unsuccessful": nonexisting_emails,
                 "Successful": consumer_emails,
                 "Existing": existing_emails,
             }

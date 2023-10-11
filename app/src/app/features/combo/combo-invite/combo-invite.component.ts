@@ -24,7 +24,7 @@ export class ComboInviteComponent implements OnInit {
   username!: string | undefined;
   comboEmail!: string;
   isChanged = false;
-
+  editedEmailIndex: number | null = null;
   addEmails: string[] = [];
 
   constructor(
@@ -58,6 +58,7 @@ export class ComboInviteComponent implements OnInit {
       if (data) this.combos$ = of(data);
     });
   }
+
   AddEmail() {
     const newEmailsControl = this.newForm.get('newEmails');
     if (newEmailsControl && newEmailsControl.valid) {
@@ -102,13 +103,20 @@ export class ComboInviteComponent implements OnInit {
   editCombo() {
     if (this.newForm.valid) {
       const useremailsarray = this.addEmails;
-
+      const newEmailsControl = this.newForm.get('newEmails');
+      if (newEmailsControl && newEmailsControl.valid) {
+        if (
+          newEmailsControl.value !== '' &&
+          newEmailsControl.value !== null &&
+          newEmailsControl.value !== this.userEmail
+        )
+          useremailsarray.push(newEmailsControl.value);
+      }
       // Create data object
       const data = {
         collection_id: this.navParams.get('collection_id'),
         user_emails: useremailsarray,
       };
-
       // Reset the form
       this.newForm.reset();
 

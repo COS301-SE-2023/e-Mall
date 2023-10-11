@@ -122,7 +122,15 @@ export class ComboPopoverComponent implements OnInit {
 
       // Split emails into an array
       const useremailsarray = this.addEmails;
-
+      const newEmailsControl = this.newForm.get('newEmails');
+      if (newEmailsControl && newEmailsControl.valid) {
+        if (
+          newEmailsControl.value !== '' &&
+          newEmailsControl.value !== null &&
+          newEmailsControl.value !== this.userEmail
+        )
+          useremailsarray.push(newEmailsControl.value);
+      }
       // Create data object
       const data = {
         current_user_email: this.userEmail,
