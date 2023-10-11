@@ -33,7 +33,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   minPrice!: number; // Minimum price value
   maxPrice!: number; // Maximum price value
   filterOptions: string[] = []; // Stores the selected filter options
-  selectedSortOption = 'price';
+  selectedSortOption = 'Most Relevant';
   isChecked!: boolean;
   currentPage!: number;
   maxPrice$: Observable<number> | null = null;
@@ -138,7 +138,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.minPrice = 0;
     this.maxPrice = 5000;
     this.filterOptions = [];
-    this.selectedSortOption = 'price';
+    this.selectedSortOption = 'Most Relevant';
     this.isChecked = false;
     this.currentPage = 0;
     this.itemsPerPage = 10;
