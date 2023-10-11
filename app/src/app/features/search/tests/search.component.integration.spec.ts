@@ -148,7 +148,7 @@ describe('SearchComponent', () => {
     expect(productService.searchProducts).toHaveBeenCalledWith(
       'a',
       [],
-      'price',
+      'Most Relevant',
       0,
       10
     );
@@ -185,9 +185,9 @@ describe('SearchComponent', () => {
     expect(productService.searchProducts).toHaveBeenCalledWith(
       'a',
       component.filterOptions,
-      'price',
-      undefined,
-      undefined
+      'Most Relevant',
+      0,
+      10
     );
   });
 
@@ -202,8 +202,8 @@ describe('SearchComponent', () => {
       'a',
       [],
       'name_asc',
-      undefined,
-      undefined
+      0,
+      10
     );
   });
 
@@ -217,7 +217,7 @@ describe('SearchComponent', () => {
     expect(productService.searchProducts).toHaveBeenCalledWith(
       'a',
       [],
-      'price',
+      'Most Relevant',
       1,
       10
     );
