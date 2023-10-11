@@ -193,7 +193,6 @@ class ProductTestAPIView(APIView):
         sort = request.GET.get("sort")
         if sort is None:
             sort = "Most Relevant"  # Default to "Most Relevant" sorting
-        sort = request.GET.get("sort")
         # Input for filter[brand, price range, category, date range, seller]
         filter_brand = request.GET.get("filter_brand")
         filter_price_min = request.GET.get("filter_price_min")
