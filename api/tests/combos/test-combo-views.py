@@ -148,7 +148,7 @@ class InviteViewTestCase(TestCase):
         self.assertIn("test@example.com", combo.pending_emails)
 
         # Check for a success message in the response content
-        self.assertContains(response, "Combo updated successfully")
+        self.assertContains(response, "User invited to Combo successfully")
 
 class RemoveProductViewTestCase(TestCase):
     def setUp(self):

@@ -63,10 +63,10 @@ export class ComboFacade implements OnDestroy {
   }
 
   @Dispatch()
-  inviteUsers(data: any) {
+  async inviteUsers(data: any) {
     try {
-      this.comboService.inviteUsers(data);
-      return new ComboActions.InviteUsers(data);
+      const res = await this.comboService.inviteUsers(data);
+      return new ComboActions.InviteUsers(res);
     } catch (error) {
       return this.setError(error);
     }
@@ -123,10 +123,10 @@ export class ComboFacade implements OnDestroy {
   }
 
   @Dispatch()
-  CreateCombo(data: any) {
+  async CreateCombo(data: any) {
     try {
-      this.comboService.createCombo(data);
-      return new ComboActions.CreateCombo(data);
+      const res = await this.comboService.createCombo(data);
+      return new ComboActions.CreateCombo(data, res);
     } catch (error) {
       return this.setError(error);
     }

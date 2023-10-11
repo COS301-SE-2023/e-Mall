@@ -14,6 +14,7 @@ import { ElementRef } from '@angular/core';
 import { ComboStateModule } from '@features/combo-state/combo-state.module';
 import { NotificationModule } from '@app/features/notification/notification.module';
 import { ProductCardFacade } from '@app/shared/components/product-card/services/product-card.facade';
+import { ToastModule } from '@app/shared/components/toast/toast.module';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -31,6 +32,7 @@ describe('HomeComponent', () => {
         ProfileModule,
         NgxsModule.forRoot(),
         NotificationModule,
+        ToastModule,
       ],
       providers: [HomeComponent, ProductCardFacade],
     });

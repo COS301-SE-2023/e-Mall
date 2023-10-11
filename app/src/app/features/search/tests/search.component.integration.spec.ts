@@ -39,6 +39,7 @@ import { ComboStateModule } from '@features/combo-state/combo-state.module';
 import { NotificationModule } from '@app/features/notification/notification.module';
 import { WishlistStateModule } from '@app/features/wishlist/wishlist-state/wishlist-state.module';
 import { Firestore } from '@angular/fire/firestore';
+import { ToastModule } from '@app/shared/components/toast/toast.module';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -85,6 +86,7 @@ describe('SearchComponent', () => {
       declarations: [SearchComponent],
       imports: [
         ComboStateModule,
+        ToastModule,
         NavbarModule,
         FooterModule,
         ProductCardModule,
