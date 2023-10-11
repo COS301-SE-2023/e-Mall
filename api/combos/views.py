@@ -10,6 +10,7 @@ from product.models import Product
 from user.models import User
 from consumer.models import Consumer
 from consumer.serializers import ConsumerSerializer
+
 # from notification.utils import update_combo
 from notification.messaging.templates import ComboTemplate
 from notification.messaging.types import MessageUser, MessageType
@@ -31,11 +32,18 @@ def create(request):
             raise Exception("Seller cannot create combos")
         if user.type == "consumer":
             # add to db
+            # check if emails exists in consumer database
+            consumer_emails = []
+            for email in pending_emails:
+                if Consumer.objects.filter(email=email).exists():
+                    consumer_emails.append(email)
+                    pending_emails.remove(email)
+
             combo = Combos(
                 combo_name=combo_name,
                 user_emails=[user.email],
                 product_ids=product_ids,
-                pending_emails=pending_emails,
+                pending_emails=consumer_emails,
             )
             combo.save()
 
@@ -52,9 +60,16 @@ def create(request):
 
             Message(**params).send_to_combo()
 
-        return Response({"success": "Combo created successfully"})
+        return Response(
+            {
+                "success": "Combo created successfully",
+                "Unsuccessful": pending_emails,
+                "Successful": consumer_emails,
+                "collection_id": combo.id,
+            }
+        )
     except Exception as e:
-        print("create error",e)
+        print("create error", e)
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
@@ -106,7 +121,7 @@ def update_user(request):
                     )
 
     except Exception as e:
-        print("error message is ",e)
+        print("error message is ", e)
         # handle other exceptions here
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -124,7 +139,19 @@ def invite(request):
         if user.type == "consumer":
             # update existing combo
             combo = Combos.objects.get(id=combo_id)
-            combo.pending_emails.extend(user_emails)
+            consumer_emails = []
+            existing_emails = []
+            # check if emails exists in consumer database
+            for email in user_emails:
+                if Consumer.objects.filter(email=email).exists():
+                    consumer_emails.append(email)
+                    user_emails.remove(email)
+            # confirm emails are not already in combo
+            for email in consumer_emails:
+                if email in combo.pending_emails or email in combo.user_emails:
+                    existing_emails.append(email)
+                    consumer_emails.remove(email)
+            combo.pending_emails.extend(consumer_emails)
             combo.save()
             # build data for message
             users = Consumer.objects.filter(email__in=user_emails)
@@ -137,7 +164,16 @@ def invite(request):
                 "receivers": users,
             }
             Message(**params).send_to_combo()
-        return Response({"success": "Combo updated successfully"})
+        # return user emails and consumer emails
+        return Response(
+            {
+                "success": "User invited to Combo successfully",
+                "collection_id": combo.id,
+                "Unsuccessful": user_emails,
+                "Successful": consumer_emails,
+                "Existing": existing_emails,
+            }
+        )
     except Exception as e:
         # handle other exceptions here
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

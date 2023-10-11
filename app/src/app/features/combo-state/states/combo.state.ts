@@ -9,9 +9,12 @@ import {
   UpdateUsers,
   DeleteUser,
 } from './combo.actions';
-import { Observable, switchMap } from 'rxjs';
+import { Observable, of, switchMap } from 'rxjs';
 import { ComboService } from '../services/combo.service';
 import { ComboFacade } from '../services/combo.facade';
+import { ToastController } from '@ionic/angular';
+import { ToastComponent } from '@app/shared/components/toast/toast.component';
+import { IError } from '@app/features/error/models/error.interface';
 
 export interface ComboStateModel {
   combos: ICombo[] | null;
@@ -27,6 +30,7 @@ export interface ComboStateModel {
 })
 @Injectable()
 export class ComboState {
+  constructor(private toast: ToastComponent) {}
   @Action(SetCombos)
   setCombos(
     ctx: StateContext<ComboStateModel>,
@@ -48,8 +52,31 @@ export class ComboState {
         if (draft.combos) {
           for (const combo of draft.combos) {
             if (combo.id === action.payload.collection_id) {
-              for (const email of action.payload.user_emails) {
+              for (const email of action.payload.Successful) {
                 combo.pending_users.push(email);
+              }
+              if (action.payload.Unsuccessful.length > 0) {
+                const error: IError = {
+                  code: 400,
+                  message: `The following emails do not exist in E-Mall: ${action.payload.Unsuccessful.join(
+                    ', '
+                  )}`,
+                  name: 'Emails not found',
+                };
+                const errorObservable = of(error);
+                this.toast.presentErrorToast(errorObservable);
+              } else if (action.payload.Existing.length > 0) {
+                const error: IError = {
+                  code: 400,
+                  message: `The following emails already exist in the collection: ${action.payload.Existing.join(
+                    ', '
+                  )}`,
+                  name: 'Emails already exist',
+                };
+                const errorObservable = of(error);
+                this.toast.presentErrorToast(errorObservable);
+              } else {
+                this.toast.presentSuccessToast('Invites sent successfully!');
               }
             }
           }
@@ -161,23 +188,31 @@ export class ComboState {
     action: ComboActions.CreateCombo
   ) {
     const state = ctx.getState();
-    const lastCombo =
-      state.combos && state.combos.length > 0
-        ? state.combos[state.combos.length - 1]
-        : null;
-    const newComboId = lastCombo ? lastCombo.id + 1 : 1;
     const newCombo = {
-      id: newComboId,
-      name: action.payload.combo_name,
-      products: [action.payload.product],
-      active_emails: [action.payload.current_user_email],
-      active_usernames: action.payload.username,
-      pending_users: action.payload.user_emails,
+      id: action.res.collection_id,
+      name: action.data.combo_name,
+      active_usernames: action.data.username,
+      pending_users: action.res.Successful,
+      products: [action.data.product],
+      active_emails: [action.data.current_user_email],
     };
     ctx.setState(
       produce((draft: ComboStateModel) => {
         if (draft.combos) {
           draft.combos.push(newCombo);
+        }
+        if (action.res.Unsuccessful.length > 0) {
+          const error: IError = {
+            code: 400,
+            message: `The following emails do not exist in E-Mall: ${action.res.Unsuccessful.join(
+              ', '
+            )}`,
+            name: 'Emails not found',
+          };
+          const errorObservable = of(error);
+          this.toast.presentErrorToast(errorObservable);
+        } else {
+          this.toast.presentSuccessToast('Collection created successfully!');
         }
       })
     );

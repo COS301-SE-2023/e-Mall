@@ -21,7 +21,7 @@ export class ToastComponent implements OnDestroy {
       if (err) {
         const toast = await this.toastController.create({
           header: 'An error has occurred:',
-          message: `Error: ${err.message}`,
+          message: `${err.message}`,
           duration: this.duration,
           position: 'bottom',
           cssClass: 'error-toast',
@@ -30,6 +30,17 @@ export class ToastComponent implements OnDestroy {
         await toast.present();
       }
     });
+  }
+  async presentSuccessToast(message: string) {
+    const toast = await this.toastController.create({
+      header: 'Success',
+      message,
+      duration: this.duration,
+      position: 'bottom',
+      cssClass: 'success-toast',
+    });
+
+    await toast.present();
   }
   ngOnDestroy(): void {
     if (this.subs) this.subs.unsubscribe();
