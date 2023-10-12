@@ -9,6 +9,7 @@ export interface InventoryStateModel {
   products: IInventoryItem[] | null;
   query: ISearchOptions;
   totalCount: number;
+  newProducts: IInventoryItem[];
 }
 
 @State<InventoryStateModel>({
@@ -26,6 +27,7 @@ export interface InventoryStateModel {
       per_page: 10,
     },
     totalCount: 0,
+    newProducts: [],
   },
 })
 @Injectable()
@@ -160,6 +162,7 @@ export class InventoryState {
         per_page: 10,
       },
       totalCount: 0,
+      newProducts: [],
     });
   }
   @Action(InventoryActions.AddExistingProduct)
@@ -193,6 +196,22 @@ export class InventoryState {
         } else {
           draft.products.unshift(action.IInventoryItem);
           draft.totalCount++;
+        }
+      })
+    );
+  }
+
+  @Action(InventoryActions.AddNewProducts)
+  addNewProducts(
+    ctx: StateContext<InventoryStateModel>,
+    action: InventoryActions.AddNewProducts
+  ) {
+    ctx.setState(
+      produce((draft: InventoryStateModel) => {
+        if (draft.newProducts.length === 0) {
+          draft.newProducts = [...action.newProducts];
+        } else {
+          draft.newProducts.push(...action.newProducts);
         }
       })
     );

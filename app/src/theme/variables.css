@@ -211,6 +211,14 @@ ion-modal.inventory-modal{
   --width: max-content;
   --width:26rem;
 }
+ion-modal.add-modal {
+  --width: 400px;
+  --height: 300px;
+}
+ion-modal.add-modal-second {
+  --width: 600px;
+  --height: 500px;
+}
 /* inventory page end*/
 
 /*nabvar pop over*/

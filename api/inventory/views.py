@@ -302,6 +302,7 @@ def createNewProduct(request):
             print(serializer.data)
             return Response({"data": serializer.data}, status=status.HTTP_201_CREATED)
     except Exception as e:
+        print(e)
         # handle other exceptions here
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

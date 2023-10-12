@@ -4,6 +4,8 @@ import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { Observable, Subscription, debounceTime } from 'rxjs';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import {
+  ActionSheetController,
+  AnimationController,
   IonContent,
   LoadingController,
   ModalController,
@@ -15,6 +17,7 @@ import { ISearchOptions } from '../models/search-options.interface';
 import { InventoryFacade } from '../servicies/inventory.facade';
 import { Router } from '@angular/router';
 import { PageLoaderFacade } from '@app/shared/components/loader/loader-for-page.facade';
+import { PopovernewComponent } from './popovernew/popovernew.component';
 
 @Component({
   selector: 'app-inventory',
@@ -59,14 +62,20 @@ export class InventoryComponent implements OnDestroy {
   // isLoading$: Observable<ActionsExecuting>;
   loading: HTMLIonLoadingElement | null | undefined;
   searchResultSubs = new Subscription();
+
+  presentingElement = undefined;
+  // isModalOpen = true;
+  private canDismissOverride = false;
+  firstModeal: any;
   constructor(
     private router: Router,
     private inventoryFacade: InventoryFacade,
     private popoverController: PopoverController,
     private loadingController: LoadingController,
-    public modalController: ModalController
-  ) // public loaderFacade: PageLoaderFacade
-  {
+    public modalController: ModalController, // public loaderFacade: PageLoaderFacade
+    private actionSheetCtrl: ActionSheetController,
+    private animationCtrl: AnimationController
+  ) {
     // this.loaderFacade.loading.next(true);
 
     const options: ISearchOptions = {
@@ -187,7 +196,69 @@ export class InventoryComponent implements OnDestroy {
     return await popover.present();
   }
 
-  async presentNewModal() {
-    await this.router.navigate(['new-product']);
+  async presentNewModal(modalType: string) {
+    // this.isModalOpen = false;
+
+    // await this.router.navigate(['new-product']);
+    this.firstModeal = await this.modalController.getTop();
+    await this.firstModeal.dismiss();
+    console.log(modalType, 'dddd');
+    const modal = await this.modalController.create({
+      mode: 'ios',
+      cssClass: 'add-modal-second',
+      component: PopovernewComponent,
+      componentProps: {
+        type: modalType, // Pass "single" as a parameter
+      },
+      // animated: false,
+      enterAnimation: this.enterAnimation,
+      leaveAnimation: this.leaveAnimation,
+    });
+    modal.present();
+
+    const { data, role } = await modal.onDidDismiss();
+
+    if (role === 'close') {
+      console.log('bye');
+      //do action after confirm
+      // this.message = `Hello, ${data}!`;
+    }
+    if (role === 'back') {
+      console.log('hiiii');
+      await this.firstModeal.present();
+
+      // this.isModalOpen = true;
+    }
   }
+  // modal() {
+  //   this.isModalOpen = true;
+  // }
+
+  enterAnimation = (baseEl: HTMLElement) => {
+    const root = baseEl.shadowRoot;
+
+    const backdropAnimation = this.animationCtrl
+      .create()
+      .addElement(root?.querySelector('ion-backdrop')!)
+      .fromTo('opacity', '0.01', 'var(--backdrop-opacity)');
+
+    const wrapperAnimation = this.animationCtrl
+      .create()
+      .addElement(root?.querySelector('.modal-wrapper')!)
+      .keyframes([
+        { offset: 0, opacity: '0', transform: 'scale(0)' },
+        { offset: 1, opacity: '0.99', transform: 'scale(1)' },
+      ]);
+
+    return this.animationCtrl
+      .create()
+      .addElement(baseEl)
+      .easing('ease-out')
+      .duration(200)
+      .addAnimation([backdropAnimation, wrapperAnimation]);
+  };
+
+  leaveAnimation = (baseEl: HTMLElement) => {
+    return this.enterAnimation(baseEl).direction('reverse');
+  };
 }

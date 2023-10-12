@@ -20,4 +20,8 @@ export class InventorySelectors {
   static filter(state: InventoryStateModel) {
     return state.query.filterOptions;
   }
+  @Selector([InventoryState])
+  static newProducts(state: InventoryStateModel) {
+    return state.newProducts;
+  }
 }

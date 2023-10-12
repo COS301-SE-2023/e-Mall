@@ -22,12 +22,12 @@
             <ion-label>{{ option.value }}</ion-label>
           </ion-segment-button>
         </ion-segment>
-        <ion-button mode="ios" (click)="presentNewModal()">
+        <ion-button mode="ios" id="add-modal">
           <ion-icon name="add"></ion-icon>
         </ion-button>
       </div>
 
-      <mat-divider></mat-divider>
+      <!-- <mat-divider></mat-divider> -->
 
       <div class="sort-search-wrapper">
         <div class="search-bar">
@@ -58,7 +58,7 @@
               type="search"
               mode="md"
               [(ngModel)]="serachKeyword"
-              [debounce]="2000"
+              [debounce]="1000"
               (ionInput)="onSearchInputChange($event)"></ion-searchbar>
           </ion-item>
         </div>
@@ -179,3 +179,38 @@
     </div>
   </div>
 </ion-content>
+<ion-modal
+  [enterAnimation]="enterAnimation"
+  [leaveAnimation]="leaveAnimation"
+  mode="ios"
+  class="add-modal"
+  trigger="add-modal">
+  <ng-template>
+    <!-- <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Cancel</ion-button>
+          </ion-buttons>
+          <ion-title>Welcome</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header> -->
+    <ion-content class="ion-padding">
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+        ">
+        <ion-button (click)="presentNewModal('single')"
+          >Single Product</ion-button
+        >
+        <ion-button (click)="presentNewModal('bulk')">Bulk Products</ion-button>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>

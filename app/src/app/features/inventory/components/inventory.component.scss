@@ -201,13 +201,15 @@ ion-content {
   display: flex;
   justify-content: space-between;
   ion-segment {
-    width:fit-content ;
+    width: fit-content;
   }
   ion-button {
-    margin-left: 1%;
+    --padding-bottom: 0;
+    --padding-top: 0;
     border-radius: 16px;
     --background: #37d0d6;
     --color: #ffffff;
-    box-shadow: 0px 20px 50px 0px rgba(55, 69, 87, 0.1);
+    font-size: medium;
+    // box-shadow: 0px 20px 50px 0px rgba(55, 69, 87, 0.1);
   }
 }

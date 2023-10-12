@@ -24,6 +24,8 @@ export class InventoryFacade implements OnDestroy {
   totalCount$!: Observable<number>;
   @Select(InventorySelectors.filter)
   filters$!: Observable<any>;
+  @Select(InventorySelectors.newProducts)
+  newProducts$!: Observable<any>;
 
   querySubs: Subscription;
   productSubs: Subscription;
@@ -93,6 +95,14 @@ export class InventoryFacade implements OnDestroy {
   }
   async uploadBulkData(data: any) {
     return await this.inventoryService.uploadBulkData(data);
+  }
+
+  async getSimilarProducts(prodName: string) {
+    try {
+      return await this.inventoryService.getSimilarProducts(prodName);
+    } catch (error) {
+      return this.setError(error);
+    }
   }
 
   @Dispatch()
