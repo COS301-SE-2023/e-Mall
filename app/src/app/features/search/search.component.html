@@ -194,20 +194,20 @@
               </div>
               <!--</ion-col>-->
             </ion-row>
+            <div class="mat-paginator">
+              <ng-container *ngIf="searchResults$ | async as products">
+                <mat-paginator
+                  [length]="totalSearchCount$ | async"
+                  [pageSizeOptions]="[10, 20, 50, 100]"
+                  aria-label="Select page"
+                  [pageIndex]="currentPage"
+                  [pageSize]="itemsPerPage"
+                  (page)="onPageChange($event)"></mat-paginator>
+              </ng-container>
+            </div>
           </div>
         </div>
         <br /><br />
-        <div class="mat-paginator">
-          <ng-container *ngIf="searchResults$ | async as products">
-            <mat-paginator
-              [length]="totalSearchCount$ | async"
-              [pageSizeOptions]="[10, 20, 50, 100]"
-              aria-label="Select page"
-              [pageIndex]="currentPage"
-              [pageSize]="itemsPerPage"
-              (page)="onPageChange($event)"></mat-paginator>
-          </ng-container>
-        </div>
       </main>
     </div>
   </div>
