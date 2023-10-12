@@ -1,21 +1,19 @@
-
 .body {
-  
   display: flex;
   min-height: fit-content;
   min-width: 100%;
   padding: 25px 10px;
   flex-direction: column;
-  align-items: flex-start; 
+  align-items: flex-start;
   box-sizing: border-box;
 }
 
-.landing{
+.landing {
   min-height: fit-content;
   min-width: 100%;
 }
 
-app-footer{
+app-footer {
   position: absolute;
   width: 100%;
   bottom: 0;
@@ -26,7 +24,6 @@ app-footer{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
 }
 
 /*
@@ -62,7 +59,6 @@ app-footer{
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
 }
-
 
 .dropdown-menu a {
   display: block;
@@ -104,7 +100,7 @@ app-footer{
   width: 190px;
 }
 
-.search-results{
+.search-results {
   margin-top: 1rem;
   min-width: 100%;
   padding: 10px;
@@ -133,7 +129,8 @@ app-footer{
   //margin-left: 12rem;
   display: flex;
   justify-content: center;
-  margin-left: 5%
+  margin-left: 5%;
+  padding: 20px;
 }
 
 .custom-select .mat-select-panel {
@@ -165,7 +162,6 @@ app-footer{
   text-align: center; /* Optional: Center text within the div */
 }
 
-
 .nimage {
   width: 50%;
   height: 300px;
@@ -173,7 +169,7 @@ app-footer{
   opacity: 30%;
   align-items: center;
 }
-.search-results-container{
+.search-results-container {
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -184,14 +180,13 @@ app-footer{
   font-size: small;
 }
 
-
 html {
   scroll-behavior: smooth;
 }
 
 ion-range {
-  --bar-background: #EBEBEB;
-  --bar-background-active: #37D0D6;
+  --bar-background: #ebebeb;
+  --bar-background-active: #37d0d6;
   --bar-height: 6px;
   --bar-border-radius: 8px;
 }
@@ -207,12 +202,12 @@ ion-range {
     display: block !important; /* Use !important to override Angular's styles */
   }
 
-  .dropdown{
+  .dropdown {
     display: block !important;
   }
-  
+
   /* Hide the filter button */
-  .filter-button-container{
+  .filter-button-container {
     display: none;
   }
 
@@ -230,7 +225,7 @@ ion-range {
     display: none !important; /* Use !important to override Angular's styles */
   }
 
-  .dropdown{
+  .dropdown {
     display: none !important;
   }
 
@@ -266,7 +261,7 @@ ion-range {
   display: flex;
   flex-direction: column;
   align-items: center; /* Center items horizontally */
-  text-align: center; 
+  text-align: center;
 }
 
 .label {
@@ -280,23 +275,21 @@ ion-range {
   //color: #fff; /* Customize button text color */
   //padding: 10px 20px; /* Add padding for better visibility */
   text-align: center;
-
 }
 
-
-.sticky-button ion-button{
+.sticky-button ion-button {
   --background: #1dc4b0;
   margin-bottom: 15px;
-  color:white;
+  color: white;
 }
 
-ion-modal{
+ion-modal {
   border-top-right-radius: 10px;
 }
 
 ion-list ion-item::after {
   border-bottom: none;
 }
-mat-checkbox{
+mat-checkbox {
   width: 100%;
 }
