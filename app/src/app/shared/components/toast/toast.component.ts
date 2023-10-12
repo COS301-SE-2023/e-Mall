@@ -42,6 +42,22 @@ export class ToastComponent implements OnDestroy {
 
     await toast.present();
   }
+
+  async presentWarningToast(error: Observable<IError | null>) {
+    this.subs = error.pipe(take(1)).subscribe(async (err: IError | null) => {
+      if (err) {
+        const toast = await this.toastController.create({
+          header: 'Warning',
+          message: `${err.message}`,
+          duration: this.duration,
+          position: 'bottom',
+          cssClass: 'warning-toast',
+        });
+
+        await toast.present();
+      }
+    });
+  }
   ngOnDestroy(): void {
     if (this.subs) this.subs.unsubscribe();
   }

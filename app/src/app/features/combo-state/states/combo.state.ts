@@ -64,7 +64,7 @@ export class ComboState {
                   name: 'Emails not found',
                 };
                 const errorObservable = of(error);
-                this.toast.presentErrorToast(errorObservable);
+                this.toast.presentWarningToast(errorObservable);
               } else if (action.payload.Existing.length > 0) {
                 const error: IError = {
                   code: 400,
@@ -210,7 +210,7 @@ export class ComboState {
             name: 'Emails not found',
           };
           const errorObservable = of(error);
-          this.toast.presentErrorToast(errorObservable);
+          this.toast.presentWarningToast(errorObservable);
         } else {
           this.toast.presentSuccessToast('Collection created successfully!');
         }
