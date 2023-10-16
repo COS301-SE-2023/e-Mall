@@ -33,7 +33,7 @@ describe('NavbarComponentIntegration', () => {
   let router: Router;
 
   let popoverController: PopoverController;
-  let firestore: Firestore;
+  // let firestore: Firestore;
   let messagingSpy;
   beforeEach(async () => {
     messagingSpy = jasmine.createSpyObj('Messaging', ['isSupported']);
@@ -76,7 +76,7 @@ describe('NavbarComponentIntegration', () => {
         },
       ],
     }).compileComponents();
-    firestore = TestBed.inject(Firestore);
+    TestBed.inject(Firestore);
   });
 
   beforeEach(() => {

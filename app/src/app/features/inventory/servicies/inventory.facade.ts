@@ -167,7 +167,7 @@ export class InventoryFacade implements OnDestroy {
   async newProduct(data: any) {
     try {
       //service will return a product seller instance with product id
-      const res = await this.inventoryService.addnewProduct(data);
+      await this.inventoryService.addnewProduct(data);
       this.toastSuccess('Successfully added a new product');
       return await this.fetchItems(this.queryTemp);
       // return new InventoryActions.AddNewProduct(res.body.data);
@@ -178,7 +178,7 @@ export class InventoryFacade implements OnDestroy {
 
   async addExistingProduct(data: any) {
     try {
-      const res = await this.inventoryService.addSimilarProduct(data);
+      await this.inventoryService.addSimilarProduct(data);
       this.toastSuccess('Successfully added a new product');
       // return new InventoryActions.AddExistingProduct(res.body.data);
       return await this.fetchItems(this.queryTemp);

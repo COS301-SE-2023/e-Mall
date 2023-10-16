@@ -1,5 +1,5 @@
-import { Inject, Injectable } from '@angular/core';
-import { Action, Actions, State, StateContext } from '@ngxs/store';
+import { Injectable } from '@angular/core';
+import { Action, State, StateContext } from '@ngxs/store';
 import { ICombo, ICombo_invites } from '../models/combo.interface';
 import * as ComboActions from './combo.actions';
 import produce from 'immer';
@@ -9,10 +9,7 @@ import {
   UpdateUsers,
   DeleteUser,
 } from './combo.actions';
-import { Observable, of, switchMap } from 'rxjs';
-import { ComboService } from '../services/combo.service';
-import { ComboFacade } from '../services/combo.facade';
-import { ToastController } from '@ionic/angular';
+import { of } from 'rxjs';
 import { ToastComponent } from '@app/shared/components/toast/toast.component';
 import { IError } from '@app/features/error/models/error.interface';
 
@@ -187,7 +184,6 @@ export class ComboState {
     ctx: StateContext<ComboStateModel>,
     action: ComboActions.CreateCombo
   ) {
-    const state = ctx.getState();
     const newCombo = {
       id: action.res.collection_id,
       name: action.data.combo_name,

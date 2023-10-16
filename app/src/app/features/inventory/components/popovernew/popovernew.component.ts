@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import {
   Component,
   ElementRef,
@@ -15,8 +17,7 @@ import { Observable, Subject, Subscription, debounceTime } from 'rxjs';
 import { Router } from '@angular/router';
 import * as XLSX from 'xlsx';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { HostListener } from '@angular/core';
-import { UrlValidator } from '@app/shared/validators/urlValidator';
+import { UrlValidator } from '@app/shared/validators/URLValidator';
 @Component({
   selector: 'app-popovernew',
   templateUrl: './popovernew.component.html',
@@ -295,22 +296,22 @@ export class PopovernewComponent implements OnInit, OnDestroy {
       const worksheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[worksheetName];
 
-      let range = { s: { c: 1, r: 2 }, e: { c: 13, r: 301 } }; // 0-indexed
+      const range = { s: { c: 1, r: 2 }, e: { c: 13, r: 301 } }; // 0-indexed
 
       // Convert the range of cells to JSON
-      let jsonData = XLSX.utils.sheet_to_json(worksheet, {
+      let json_data = XLSX.utils.sheet_to_json(worksheet, {
         range: range,
         header: 1,
       });
       // Remove empty rows
-      jsonData = jsonData.filter((row: any) =>
+      json_data = json_data.filter((row: any) =>
         row.some((cell: any) => cell !== null && cell !== '')
       );
 
       // console.log(jsonData);
 
       try {
-        const res = await this.inventoryFacade.uploadBulkData(jsonData);
+        const res = await this.inventoryFacade.uploadBulkData(json_data);
         console.log(res);
         this.errorMessage = '';
       } catch (error) {

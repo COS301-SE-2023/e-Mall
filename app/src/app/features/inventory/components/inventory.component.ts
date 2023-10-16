@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { Observable, Subscription, debounceTime } from 'rxjs';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -16,7 +19,6 @@ import { IInventoryItem } from '../models/inventory-item.interface';
 import { ISearchOptions } from '../models/search-options.interface';
 import { InventoryFacade } from '../servicies/inventory.facade';
 import { Router } from '@angular/router';
-import { PageLoaderFacade } from '@app/shared/components/loader/loader-for-page.facade';
 import { PopovernewComponent } from './popovernew/popovernew.component';
 
 @Component({
@@ -226,16 +228,15 @@ export class InventoryComponent implements OnDestroy {
   // }
 
   enterAnimation = (baseEl: HTMLElement) => {
-    const root = baseEl.shadowRoot;
-
+    const root = baseEl.shadowRoot!;
     const backdropAnimation = this.animationCtrl
       .create()
-      .addElement(root?.querySelector('ion-backdrop')!)
+      .addElement(root.querySelector('ion-backdrop')!)
       .fromTo('opacity', '0.01', 'var(--backdrop-opacity)');
 
     const wrapperAnimation = this.animationCtrl
       .create()
-      .addElement(root?.querySelector('.modal-wrapper')!)
+      .addElement(root.querySelector('.modal-wrapper')!)
       .keyframes([
         { offset: 0, opacity: '0', transform: 'scale(0)' },
         { offset: 1, opacity: '0.99', transform: 'scale(1)' },
@@ -250,6 +251,6 @@ export class InventoryComponent implements OnDestroy {
   };
 
   leaveAnimation = (baseEl: HTMLElement) => {
-    return this.enterAnimation(baseEl).direction('reverse');
+    return this.enterAnimation(baseEl)?.direction('reverse');
   };
 }

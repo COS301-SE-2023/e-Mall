@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { Component } from '@angular/core';
 import { AnimationController } from '@ionic/angular';
 import {
   trigger,

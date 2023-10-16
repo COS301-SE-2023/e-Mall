@@ -18,7 +18,7 @@ import { Firestore } from '@angular/fire/firestore';
 describe('AboutComponent', () => {
   let component: AboutComponent;
   let fixture: ComponentFixture<AboutComponent>;
-  let firestore: Firestore;
+  // let firestore: Firestore;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -49,7 +49,7 @@ describe('AboutComponent', () => {
         },
       ],
     }).compileComponents();
-    firestore = TestBed.inject(Firestore);
+    TestBed.inject(Firestore);
   });
 
   beforeEach(() => {

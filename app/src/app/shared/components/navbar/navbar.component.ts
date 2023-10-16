@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnDestroy } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
@@ -65,7 +66,7 @@ export class NavbarComponent implements OnDestroy {
     return await popover.present();
   }
 
-  async combos(event: Event) {
+  async combos(_event: Event) {
     if (await this.authFacade.isLoggedIn()) {
       this.router.navigate(['/my-collections']);
     } else {

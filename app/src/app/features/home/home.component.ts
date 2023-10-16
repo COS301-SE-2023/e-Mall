@@ -5,8 +5,6 @@ import {
   OnInit,
   ViewChild,
   OnDestroy,
-  AfterViewChecked,
-  AfterViewInit,
 } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { ProductService } from '@shared/servicies/product/product.service';
@@ -38,14 +36,41 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   // showSpinner = true;
   cat_pages = [
-    
-    { title: 'BOOKS', path: '/category/Books', img:'assets/images/categories/books.png' },
-    { title: 'CLOTHING', path: '/category/Clothing', img:'assets/images/categories/clothing.png'},
-    { title: 'ELECTRONICS', path: '/category/Electronics', img:'assets/images/categories/electronics.png' },
-    { title: 'HOME & KITCHEN', path: '/category/Home%20and%20Kitchen', img:'assets/images/categories/kitchen.png' },
-    { title: 'HEALTH & BEAUTY', path: '/category/Health%20and%20Beauty', img:'assets/images/categories/beauty.png' },
-    { title: 'SPORTS & OUTDOORS', path: '/category/Sports%20and%20Outdoors', img:'assets/images/categories/sports.png' },
-    { title: 'TOYS & GAMES', path: '/category/Toys%20and%20Games', img:'assets/images/categories/toys.png' },
+    {
+      title: 'BOOKS',
+      path: '/category/Books',
+      img: 'assets/images/categories/books.png',
+    },
+    {
+      title: 'CLOTHING',
+      path: '/category/Clothing',
+      img: 'assets/images/categories/clothing.png',
+    },
+    {
+      title: 'ELECTRONICS',
+      path: '/category/Electronics',
+      img: 'assets/images/categories/electronics.png',
+    },
+    {
+      title: 'HOME & KITCHEN',
+      path: '/category/Home%20and%20Kitchen',
+      img: 'assets/images/categories/kitchen.png',
+    },
+    {
+      title: 'HEALTH & BEAUTY',
+      path: '/category/Health%20and%20Beauty',
+      img: 'assets/images/categories/beauty.png',
+    },
+    {
+      title: 'SPORTS & OUTDOORS',
+      path: '/category/Sports%20and%20Outdoors',
+      img: 'assets/images/categories/sports.png',
+    },
+    {
+      title: 'TOYS & GAMES',
+      path: '/category/Toys%20and%20Games',
+      img: 'assets/images/categories/toys.png',
+    },
   ];
   // isAuthenticated$;
   constructor(

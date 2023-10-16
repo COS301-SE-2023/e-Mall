@@ -3,11 +3,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NotFoundComponent } from '@app/features/not-found/not-found.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
 import { NotFoundModule } from '../not-found.module';
 import { NgxsModule } from '@ngxs/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { By } from '@angular/platform-browser';
 import { AuthModule } from '@features/auth/auth.module';
 import { ProfileModule } from '@features/profile/profile.module';
 import { NotificationModule } from '@app/features/notification/notification.module';
@@ -16,7 +14,7 @@ import { Firestore } from '@angular/fire/firestore';
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
   let fixture: ComponentFixture<NotFoundComponent>;
-  let firestore: Firestore;
+  // let firestore: Firestore;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -38,7 +36,7 @@ describe('NotFoundComponent', () => {
         },
       ],
     }).compileComponents();
-    firestore = TestBed.inject(Firestore);
+    TestBed.inject(Firestore);
   });
 
   beforeEach(() => {

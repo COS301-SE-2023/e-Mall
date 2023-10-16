@@ -4,15 +4,7 @@ import { IError } from '@features/error/models/error.interface';
 import { SetError } from '@features/error/states/error.action';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 import { Select } from '@ngxs/store';
-import {
-  Observable,
-  tap,
-  Subscription,
-  map,
-  of,
-  debounceTime,
-  distinctUntilChanged,
-} from 'rxjs';
+import { Observable, tap, Subscription, map, of, debounceTime } from 'rxjs';
 import { IConsumerProfile } from '../models/consumer-profile.interface';
 import { ISellerProfile } from '../models/seller-profile.interface';
 import { ProfileSelectors } from '../states/profile.selector';
@@ -20,7 +12,6 @@ import { ProfileService } from './profile.service';
 import * as ProfileActions from '../states/profile.actions';
 import { AuthFacade } from '@features/auth/services/auth.facade';
 import { Profile } from '../models/alias-profile.interface';
-import { Router } from '@angular/router';
 import { Navigate } from '@ngxs/router-plugin';
 import { IProduct } from '@shared/models/product/product.interface';
 
@@ -39,10 +30,8 @@ export class ProfileFacade implements OnDestroy {
 
   constructor(
     private profileService: ProfileService,
-    private authFacade: AuthFacade,
-    private router: Router
+    private authFacade: AuthFacade
   ) {
-
     this.authSubscription = this.authFacade
       .getCurrentUser()
       .pipe(

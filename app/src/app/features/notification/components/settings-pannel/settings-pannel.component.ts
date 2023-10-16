@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NotificationFacade } from '../../services/notification.facade';
 import { take, debounceTime } from 'rxjs';

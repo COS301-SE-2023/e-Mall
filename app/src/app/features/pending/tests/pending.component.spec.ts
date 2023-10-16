@@ -2,7 +2,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PendingComponent } from '@app/features/pending/pending.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 describe('PendingComponent', () => {
@@ -27,19 +26,16 @@ describe('PendingComponent', () => {
   });
 
   it('should display the title', () => {
-    const messageelement = fixture.nativeElement.querySelector(
-      'h1'
-    );
+    const messageelement = fixture.nativeElement.querySelector('h1');
     expect(messageelement.textContent).toContain('Verification Pending');
   });
   it('should display the message', () => {
-    const messageelement =
-      fixture.nativeElement.querySelector('h2');
+    const messageelement = fixture.nativeElement.querySelector('h2');
     expect(messageelement.textContent).toContain(
       'Thank you for registering! We will review your application soon'
     );
   });
-/*
+  /*
   it('should navigate to the homepage on button click', () => {
     const router = TestBed.inject(Router);
     spyOn(router, 'navigateByUrl');

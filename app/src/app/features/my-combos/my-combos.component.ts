@@ -1,4 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { ProfileFacade } from '../profile/services/profile.facade';
 import { ISellerProfile } from '../profile/models/seller-profile.interface';
@@ -9,7 +11,6 @@ import {
 } from '@features/combo-state/models/combo.interface';
 import { ComboFacade } from '@features/combo-state/services/combo.facade';
 import { Observable, Subscription, map, of } from 'rxjs';
-import { EmailValidator, FormControl, FormGroup } from '@angular/forms';
 import { IProduct } from '@shared/models/product/product.interface';
 import { ConsumerService } from '@shared/servicies/consumer/consumer.service';
 import { ActivatedRoute } from '@angular/router';
@@ -20,7 +21,7 @@ import { WishlistFacade } from '../wishlist/wishlist-state/services/wishlist.fac
   templateUrl: './my-combos.component.html',
   styleUrls: ['./my-combos.component.scss'],
 })
-export class MyCombosComponent implements OnInit, OnDestroy {
+export class MyCombosComponent implements OnInit, OnDestroy, AfterViewInit {
   products$!: Observable<IProduct[] | null>;
   combos$!: Observable<ICombo[] | null>;
   comboData$: Observable<any> | undefined;

@@ -19,7 +19,7 @@ import { Firestore } from '@angular/fire/firestore';
 describe('ContactComponent', () => {
   let component: ContactComponent;
   let fixture: ComponentFixture<ContactComponent>;
-  let firestore: Firestore;
+  // let firestore: Firestore;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -50,7 +50,7 @@ describe('ContactComponent', () => {
         },
       ],
     }).compileComponents();
-    firestore = TestBed.inject(Firestore);
+    TestBed.inject(Firestore);
   });
 
   beforeEach(() => {

@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
+
 /*import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { SalesComponent } from '@features/sales/sales.component';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
@@ -93,7 +95,6 @@ describe('SalesComponent', () => {
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import SalesComponent from '@features/sales/sales.component';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
-import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { of } from 'rxjs';
 
 import { SellerNavComponent } from '@shared/components/seller-nav/seller-nav.component';
@@ -109,7 +110,7 @@ describe('SalesComponent', () => {
   let component: SalesComponent;
   let fixture: ComponentFixture<SalesComponent>;
   let mockAnalyticsService: jasmine.SpyObj<AnalyticsService>;
-  let mockProfileFacade: jasmine.SpyObj<ProfileFacade>;
+  // let mockProfileFacade: jasmine.SpyObj<ProfileFacade>;
 
   beforeEach(async () => {
     mockAnalyticsService = jasmine.createSpyObj('AnalyticsService', [
@@ -120,7 +121,7 @@ describe('SalesComponent', () => {
       'getSelectedProductData',
     ]);
 
-    mockProfileFacade = jasmine.createSpyObj('ProfileFacade', ['getProfile']);
+    jasmine.createSpyObj('ProfileFacade', ['getProfile']);
 
     await TestBed.configureTestingModule({
       declarations: [SalesComponent, SellerNavComponent],
@@ -151,7 +152,7 @@ describe('SalesComponent', () => {
   });
 
   it('should render a summary card with three subcards', () => {
-    const summaryCard = fixture.nativeElement.querySelector('.summary');
+    // const summaryCard = fixture.nativeElement.querySelector('.summary');
     // expect(summaryCard).toBeTruthy();
     // const subCards = summaryCard.querySelectorAll('ion-card');
     //expect(subCards.length).toBe(3);

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable, OnDestroy } from '@angular/core';
 import { IError } from '@features/error/models/error.interface';
 import { SetError } from '@features/error/states/error.action';
@@ -8,19 +9,14 @@ import {
   tap,
   Subscription,
   map,
-  of,
   debounceTime,
-  distinctUntilChanged,
   shareReplay,
 } from 'rxjs';
 import { ICombo, ICombo_invites } from '../models/combo.interface';
 import { AuthFacade } from '@features/auth/services/auth.facade';
-import { Router } from '@angular/router';
 import { ComboSelectors } from '../states/combo.selector';
 import { ComboService } from './combo.service';
 import * as ComboActions from '../states/combo.actions';
-import { ProfileFacade } from '@features/profile/services/profile.facade';
-import { async } from '@angular/core/testing';
 
 @Injectable()
 export class ComboFacade implements OnDestroy {
@@ -33,9 +29,7 @@ export class ComboFacade implements OnDestroy {
 
   constructor(
     private authFacade: AuthFacade,
-    private router: Router,
-    private comboService: ComboService,
-    private ProfileFacade: ProfileFacade
+    private comboService: ComboService
   ) {
     this.authSubscription = this.authFacade
       .getCurrentUser()

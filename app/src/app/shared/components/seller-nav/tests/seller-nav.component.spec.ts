@@ -12,12 +12,16 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 describe('SellerNavComponent', () => {
   let component: SellerNavComponent;
   let fixture: ComponentFixture<SellerNavComponent>;
-  let router: Router;
+  // let router: Router;
   let profileService: Partial<ProfileService>; // Use Partial to create a partial mock of ProfileService
 
   beforeEach(async () => {
     profileService = {
-      getProfile: jasmine.createSpy('getProfile').and.returnValue(Promise.resolve({ /* mock profile data */ })),
+      getProfile: jasmine.createSpy('getProfile').and.returnValue(
+        Promise.resolve({
+          /* mock profile data */
+        })
+      ),
       // Add any other methods you want to spy on and provide mock return values
     };
 
@@ -29,20 +33,22 @@ describe('SellerNavComponent', () => {
         AuthModule,
         ProfileModule,
         HttpClientTestingModule,
-        NgxsDispatchPluginModule
+        NgxsDispatchPluginModule,
       ],
       providers: [
-        { provide: Router, useValue: { navigate: jasmine.createSpy('navigate') } },
+        {
+          provide: Router,
+          useValue: { navigate: jasmine.createSpy('navigate') },
+        },
         { provide: ProfileService, useValue: profileService }, // Provide the partial mock of ProfileService
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SellerNavComponent);
     component = fixture.componentInstance;
-    router = TestBed.inject(Router);
+    TestBed.inject(Router);
     fixture.detectChanges();
   });
-
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -60,7 +66,7 @@ describe('SellerNavComponent', () => {
       fixture.detectChanges();
 
       const items = fixture.nativeElement.querySelectorAll('ion-item');
-      
+
       const productsItem = items[1];
       const salesItem = items[2];
       const analyticsItem = items[3];
@@ -68,7 +74,8 @@ describe('SellerNavComponent', () => {
       const signOutItem = items[5];
       const salesLabel = salesItem.querySelector('ion-label').textContent;
       const productsLabel = productsItem.querySelector('ion-label').textContent;
-      const analticsLabel = analyticsItem.querySelector('ion-label').textContent;
+      const analticsLabel =
+        analyticsItem.querySelector('ion-label').textContent;
       const SettingsLabel = settingsItem.querySelector('ion-label').textContent;
       const signOutLabel = signOutItem.querySelector('ion-label').textContent;
       expect(salesLabel).toBe('Analytics');
@@ -89,7 +96,4 @@ describe('SellerNavComponent', () => {
     productItem.click();
     expect(component.navigateTo).toHaveBeenCalledWith('sales');
   });
-  
-
-  
 });

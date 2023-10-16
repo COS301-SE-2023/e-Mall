@@ -1,14 +1,18 @@
 /* eslint-disable @typescript-eslint/no-inferrable-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PopoverController, ModalController } from '@ionic/angular';
+import {
+  PopoverController,
+  ModalController,
+  ToastController,
+  NavParams,
+} from '@ionic/angular';
 import { ComboFacade } from '@features/combo-state/services/combo.facade';
 import { ICombo } from '@features/combo-state/models/combo.interface';
 import { Observable, of } from 'rxjs';
-import { NavParams } from '@ionic/angular';
-import { IProduct } from '@shared/models/product/product.interface';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
-import { ToastController } from '@ionic/angular';
+
 @Component({
   selector: 'app-combo-edit',
   templateUrl: './combo-edit.component.html',
