@@ -14,6 +14,7 @@ from analytics.models import Analytics
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from decimal import Decimal
+from rest_framework.decorators import api_view, permission_classes
 
 
 # Create your views here.
@@ -210,10 +211,3 @@ class ProductSellerDashboardAPIView(APIView):
 
         serializer = ProductSellerSerializer(paginated_products, many=True)
         return Response({"data": serializer.data, "total_count": total_count})
-
-
-
-
-
-
-

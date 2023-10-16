@@ -13,6 +13,10 @@ from fuzzywuzzy import fuzz
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from decimal import Decimal
+from django.http import FileResponse
+import os
+from django.conf import settings
+from seller.models import Seller
 
 
 @api_view(["POST"])
@@ -298,5 +302,121 @@ def createNewProduct(request):
             print(serializer.data)
             return Response({"data": serializer.data}, status=status.HTTP_201_CREATED)
     except Exception as e:
+        print(e)
         # handle other exceptions here
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(["POST"])
+def download_format(request):
+    try:
+        file_path = os.path.join(settings.BASE_DIR, "inventory/resource/format.xlsx")
+        response = FileResponse(
+            open(file_path, "rb"),
+            content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        )
+        response["Content-Disposition"] = 'attachment; filename="format.xlsx"'
+        return response
+    except Exception as e:
+        print(e)
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(["POST"])
+def upload_bulk(request):
+    try:
+        data = request.data
+        user = request.user
+        # create a product_names array with all the product names where the user is nto a seller for the product
+        product_names = []
+        for product in Product.objects.all():
+            if not ProductSeller.objects.filter(product=product, seller=user).exists():
+                product_names.append(product.name)
+        total = 0
+        failed = 0
+        successful = 0
+        new_product_sellers = (
+            []
+        )  # List to store the serialized data of new ProductSellers
+        for item in data:
+            total += 1
+            img_array = [item[7]]
+            if len(item) > 8 and item[8]:
+                img_array.append(item[8])
+            if len(item) > 9 and item[9]:
+                img_array.append(item[9])
+            created_product_seller = False
+            for product_name in product_names:
+                similarity_score = fuzz.partial_ratio(item[0], product_name)
+                if similarity_score >= 90:
+                    try:
+                        new_product_seller = ProductSeller.objects.create(
+                            product=Product.objects.get(name=product_name),
+                            seller=user,
+                            price=item[2],
+                            discount=item[3],
+                            discount_rate=item[4],
+                            original_price=item[1],
+                            product_url=item[5],
+                            in_stock=item[6],
+                            img_array=img_array,
+                            product_name=product_name,
+                        )
+                        new_product_seller.save()
+                        created_product_seller = True  # Set the flag to True
+                        successful += 1
+                        # Serialize the new ProductSeller and append it to the list
+                        new_product_sellers.append(
+                            ProductSellerSerializer(new_product_seller).data
+                        )
+                        break
+                    except Exception as e:
+                        failed += 1
+                        print(e)
+                        continue
+
+            if created_product_seller:
+                continue
+            try:
+                Product.objects.create(
+                    name=item[0],
+                    brand=item[12],
+                    category=item[11],
+                    description=item[10],
+                ).save()
+                new_product_seller = ProductSeller.objects.create(
+                    product=Product.objects.get(name=item[0]),
+                    seller=user,
+                    price=item[2],
+                    discount=item[3],
+                    discount_rate=item[4],
+                    original_price=item[1],
+                    product_url=item[5],
+                    in_stock=item[6],
+                    img_array=img_array,
+                    product_name=item[0],
+                )
+                new_product_seller.save()
+                successful += 1
+                # Serialize the new ProductSeller and append it to the list
+                new_product_sellers.append(
+                    ProductSellerSerializer(new_product_seller).data
+                )
+            except Exception as e:
+                failed += 1
+                print(e)
+                continue
+
+        # print response with total, successful and failed
+        return Response(
+            {
+                "total": total,
+                "successful": successful,
+                "failed": failed,
+                "new_product_sellers": new_product_sellers,
+            },
+            status=status.HTTP_200_OK,
+        )
+    except Exception as e:
+        print(e)
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

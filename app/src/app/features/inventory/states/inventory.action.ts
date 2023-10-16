@@ -52,3 +52,7 @@ export class AddExistingProduct {
   static readonly type = '[Inventory] Add Existing Product';
   constructor(public IInventoryItem: IInventoryItem) {}
 }
+export class AddNewProducts {
+  static readonly type = '[Inventory] Add New Products';
+  constructor(public newProducts: IInventoryItem[]) {}
+}

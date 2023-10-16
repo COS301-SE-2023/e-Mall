@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, take, lastValueFrom } from 'rxjs';
+import { map, take, lastValueFrom, firstValueFrom, debounceTime } from 'rxjs';
 import { IInventoryItem } from '@features/inventory/models/inventory-item.interface';
 import { ISearchOptions } from '@features/inventory/models/search-options.interface';
 
@@ -10,8 +10,7 @@ export class InventoryService {
   currentSellerName$: string | undefined;
   private apiUrl = '/api/inventory';
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   public async getProductSellerData(
     options: ISearchOptions
@@ -64,18 +63,23 @@ export class InventoryService {
     );
   }
 
-  public async getSimilarProducts(data: object): Promise<any> {
+  public async getSimilarProducts(data: string): Promise<any> {
     const url = `${this.apiUrl}/getSimilarProducts/`;
-    return await lastValueFrom(
+    const res = await lastValueFrom(
       this.http
-        .post(url, data, {
-          headers: new HttpHeaders()
-            .set('Content-Type', 'application/json')
-            .set('Authorization', 'true'),
-          observe: 'response',
-        })
-        .pipe(take(1))
+        .post(
+          url,
+          { name: data },
+          {
+            headers: new HttpHeaders()
+              .set('Content-Type', 'application/json')
+              .set('Authorization', 'true'),
+            observe: 'response',
+          }
+        )
+        .pipe(take(1), debounceTime(1000))
     );
+    return res.body;
   }
 
   public async addSimilarProduct(data: object): Promise<any> {
@@ -104,5 +108,29 @@ export class InventoryService {
         })
         .pipe(take(1))
     );
+  }
+  public async downloadFile(): Promise<any> {
+    const url = `${this.apiUrl}/download_format/`;
+    return await firstValueFrom(
+      this.http.post(
+        url,
+        {},
+        {
+          headers: new HttpHeaders().set('Authorization', 'true'),
+          responseType: 'blob',
+        }
+      )
+    );
+  }
+  public async uploadBulkData(data: any): Promise<any> {
+    const url = `${this.apiUrl}/upload_bulk/`;
+    const res = await firstValueFrom(
+      this.http.post(url, data, {
+        headers: new HttpHeaders().set('Authorization', 'true'),
+        // responseType: 'blob',
+        observe: 'response',
+      })
+    );
+    return res.body;
   }
 }

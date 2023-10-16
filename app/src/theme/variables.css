@@ -239,7 +239,15 @@ ion-popover.sort-popover ion-item {
 ion-modal.inventory-modal {
   --height: max-content;
   --width: max-content;
-  --width: 26rem;
+  --width:26rem;
+}
+ion-modal.add-modal {
+  --width: 300px;
+  --height: 200px;
+}
+ion-modal.add-modal-second {
+  --width: 600px;
+  --height: 700px;
 }
 /* inventory page end*/
 
@@ -325,6 +333,23 @@ ion-modal.inventory-modal {
     font-size: 12px;
   }
 
+    /* inventory page start*/
+    ion-modal.inventory-modal {
+      --height: max-content;
+      --width: max-content;
+      --width: 100%;
+    }
+  
+    ion-modal.add-modal {
+      --width: 100%;
+      /* --height: 100%; */
+    }
+  
+    ion-modal.add-modal-second {
+      --width: 100%;
+      --height: 100%;
+    }
+ /* inventory page end*/
   ion-toast.custom-notification {
     --background: #f4f4fa;
     --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
