@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   AfterViewInit,
@@ -26,7 +27,7 @@ import { AuthFacade } from '../auth/services/auth.facade';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss'],
 })
-export default class ProductComponent implements OnInit {
+export default class ProductComponent implements OnInit, OnDestroy {
   prod_id: number;
   consumer_id!: string | null;
   consumer_email!: string | null;

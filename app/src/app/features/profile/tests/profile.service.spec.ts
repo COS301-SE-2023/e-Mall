@@ -1,5 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { ProfileService } from '@features/profile/services/profile.service';
 import { Profile } from '../models/alias-profile.interface';
@@ -30,13 +34,13 @@ describe('ProfileService', () => {
     // Mock response data
     const mockProfile: Profile = {
       id: '1',
-      email:'mock@gmail.com',
-      type:'type1',
-      details:{}
+      email: 'mock@gmail.com',
+      type: 'type1',
+      details: {},
     };
 
     // Make the API call
-    profileService.getProfile().then((result) => {
+    profileService.getProfile().then(result => {
       expect(result).toEqual(mockProfile);
     });
 
@@ -57,13 +61,13 @@ describe('ProfileService', () => {
     // Mock response data
     const mockProfile: Profile = {
       id: '1',
-      email:'mock@gmail.com',
-      type:'type1',
-      details:{}
+      email: 'mock@gmail.com',
+      type: 'type1',
+      details: {},
     };
 
     // Make the API call
-    profileService.updateProfile(mockData).then((result) => {
+    profileService.updateProfile(mockData).then(result => {
       expect(result).toEqual(mockProfile);
     });
 

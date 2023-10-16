@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { IProductSeller } from '@shared/models/product/product-seller.interface';
-import { IProduct } from '@shared/models/product/product.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +11,7 @@ export class ProductSellerService {
   currentSellerName$: string | undefined;
   private apiUrl = 'http://localhost:3000/api/';
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   public getProductSellerData(
     name?: string,

@@ -39,6 +39,7 @@ import { ComboStateModule } from '@features/combo-state/combo-state.module';
 import { NotificationModule } from '@app/features/notification/notification.module';
 import { WishlistStateModule } from '@app/features/wishlist/wishlist-state/wishlist-state.module';
 import { Firestore } from '@angular/fire/firestore';
+import { ToastModule } from '@app/shared/components/toast/toast.module';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -85,6 +86,7 @@ describe('SearchComponent', () => {
       declarations: [SearchComponent],
       imports: [
         ComboStateModule,
+        ToastModule,
         NavbarModule,
         FooterModule,
         ProductCardModule,
@@ -148,7 +150,7 @@ describe('SearchComponent', () => {
     expect(productService.searchProducts).toHaveBeenCalledWith(
       'a',
       [],
-      'price',
+      'Most Relevant',
       0,
       10
     );
@@ -185,9 +187,9 @@ describe('SearchComponent', () => {
     expect(productService.searchProducts).toHaveBeenCalledWith(
       'a',
       component.filterOptions,
-      'price',
-      undefined,
-      undefined
+      'Most Relevant',
+      0,
+      10
     );
   });
 
@@ -202,8 +204,8 @@ describe('SearchComponent', () => {
       'a',
       [],
       'name_asc',
-      undefined,
-      undefined
+      0,
+      10
     );
   });
 
@@ -217,7 +219,7 @@ describe('SearchComponent', () => {
     expect(productService.searchProducts).toHaveBeenCalledWith(
       'a',
       [],
-      'price',
+      'Most Relevant',
       1,
       10
     );

@@ -1,14 +1,18 @@
 /* eslint-disable @typescript-eslint/no-inferrable-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PopoverController, ModalController } from '@ionic/angular';
+import {
+  PopoverController,
+  ModalController,
+  ToastController,
+  NavParams,
+} from '@ionic/angular';
 import { ComboFacade } from '@features/combo-state/services/combo.facade';
 import { ICombo } from '@features/combo-state/models/combo.interface';
 import { Observable, of } from 'rxjs';
-import { NavParams } from '@ionic/angular';
-import { IProduct } from '@shared/models/product/product.interface';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
-import { ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-combo-invite',
   templateUrl: './combo-invite.component.html',
@@ -24,7 +28,7 @@ export class ComboInviteComponent implements OnInit {
   username!: string | undefined;
   comboEmail!: string;
   isChanged = false;
-
+  editedEmailIndex: number | null = null;
   addEmails: string[] = [];
 
   constructor(
@@ -58,6 +62,7 @@ export class ComboInviteComponent implements OnInit {
       if (data) this.combos$ = of(data);
     });
   }
+
   AddEmail() {
     const newEmailsControl = this.newForm.get('newEmails');
     if (newEmailsControl && newEmailsControl.valid) {
@@ -102,13 +107,20 @@ export class ComboInviteComponent implements OnInit {
   editCombo() {
     if (this.newForm.valid) {
       const useremailsarray = this.addEmails;
-
+      const newEmailsControl = this.newForm.get('newEmails');
+      if (newEmailsControl && newEmailsControl.valid) {
+        if (
+          newEmailsControl.value !== '' &&
+          newEmailsControl.value !== null &&
+          newEmailsControl.value !== this.userEmail
+        )
+          useremailsarray.push(newEmailsControl.value);
+      }
       // Create data object
       const data = {
         collection_id: this.navParams.get('collection_id'),
         user_emails: useremailsarray,
       };
-
       // Reset the form
       this.newForm.reset();
 

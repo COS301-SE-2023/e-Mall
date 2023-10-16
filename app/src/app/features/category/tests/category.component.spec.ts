@@ -2,10 +2,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
 import { CategoryComponent } from '@features/category/category.component';
 import { ProductService } from '@shared/servicies/product/product.service';
-import { IProduct } from '@shared/models/product/product.interface';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -37,9 +35,9 @@ import { Messaging } from '@angular/fire/messaging';
 describe('CategoryComponent', () => {
   let component: CategoryComponent;
   let fixture: ComponentFixture<CategoryComponent>;
-  let productService: jasmine.SpyObj<ProductService>;
+  // let productService: jasmine.SpyObj<ProductService>;
   let messagingSpy;
-  let firestore: Firestore;
+  // let firestore: Firestore;
 
   beforeEach(() => {
     messagingSpy = jasmine.createSpyObj('Messaging', ['isSupported']);
@@ -90,13 +88,11 @@ describe('CategoryComponent', () => {
         },
       ],
     }).compileComponents();
-    firestore = TestBed.inject(Firestore);
+    TestBed.inject(Firestore);
 
     fixture = TestBed.createComponent(CategoryComponent);
     component = fixture.componentInstance;
-    productService = TestBed.inject(
-      ProductService
-    ) as jasmine.SpyObj<ProductService>;
+    TestBed.inject(ProductService) as jasmine.SpyObj<ProductService>;
   });
 
   it('should create', () => {

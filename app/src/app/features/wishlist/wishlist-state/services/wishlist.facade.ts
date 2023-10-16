@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AuthFacade } from '@features/auth/services/auth.facade';
 import { Router } from '@angular/router';
 import { WishlistSelectors } from '../states/wishlist.selector';
@@ -27,8 +28,7 @@ export class WishlistFacade implements OnDestroy {
       .pipe(
         tap(user => {
           if (user) {
-            if(user.type === 'seller')
-              return
+            if (user.type === 'seller') return;
             this.fetchWishlist();
           } else {
             this.clearWishlist();

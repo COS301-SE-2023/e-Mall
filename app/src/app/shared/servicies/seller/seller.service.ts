@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ISeller } from '@shared/models/seller/seller.interface';
-import { Url } from 'url';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +11,7 @@ export class SellerService {
   currentSellerName$: string | undefined;
   private apiUrl = 'http://localhost:3000/api/';
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   public getSellerData(data: object): Observable<ISeller> {
     const url = `${this.apiUrl}seller/seller_info/`;

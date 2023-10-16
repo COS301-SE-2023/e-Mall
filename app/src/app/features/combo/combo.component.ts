@@ -1,14 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { ProfileFacade } from '../profile/services/profile.facade';
 import { ISellerProfile } from '../profile/models/seller-profile.interface';
 import { IConsumerProfile } from '../profile/models/consumer-profile.interface';
 import { ICombo } from '@features/combo-state/models/combo.interface';
 import { Observable, Subscription, map, of } from 'rxjs';
-import { EmailValidator, FormControl, FormGroup } from '@angular/forms';
 import { IProduct } from '@shared/models/product/product.interface';
 import { ConsumerService } from '@shared/servicies/consumer/consumer.service';
-import { ActivatedRoute } from '@angular/router';
 import { ComboFacade } from '@features/combo-state/services/combo.facade';
 import { ComboEditComponent } from './combo-edit/combo-edit.component';
 import { ModalController } from '@ionic/angular';

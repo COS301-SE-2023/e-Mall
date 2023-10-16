@@ -10,28 +10,18 @@ import { IonicModule } from '@ionic/angular';
 import { AuthModule } from '@features/auth/auth.module';
 import { ProfileModule } from '@features/profile/profile.module';
 import { NgxsModule } from '@ngxs/store';
-import { IProduct } from '@shared/models/product/product.interface';
 import { ProductService } from '@shared/servicies/product/product.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ProfileService } from '@features/profile/services/profile.service';
 import { ComboStateModule } from '@features/combo-state/combo-state.module';
 import { NotificationModule } from '@app/features/notification/notification.module';
 import { ProductCardFacade } from '@app/shared/components/product-card/services/product-card.facade';
+import { ToastModule } from '@app/shared/components/toast/toast.module';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let httpTestingController: HttpTestingController;
-  let productServiceMock: jasmine.SpyObj<ProductService>;
-  const mockProduct: IProduct = {
-    // Define your mock product data here
-    // For example:
-    id: 1,
-    name: 'Mock Product 1',
-    min_price: 10.99,
-    description: 'This is a mock product',
-    brand: 'brand1',
-    category: 'category 1',
-  };
+  // let productServiceMock: jasmine.SpyObj<ProductService>;
 
   beforeEach(() => {
     // Create a mock ProductService
@@ -52,6 +42,7 @@ describe('HomeComponent', () => {
         RouterTestingModule,
         ComboStateModule,
         NotificationModule,
+        ToastModule,
       ],
       providers: [
         HomeComponent,
@@ -63,9 +54,7 @@ describe('HomeComponent', () => {
 
     component = TestBed.inject(HomeComponent);
     httpTestingController = TestBed.inject(HttpTestingController);
-    productServiceMock = TestBed.inject(
-      ProductService
-    ) as jasmine.SpyObj<ProductService>;
+    TestBed.inject(ProductService) as jasmine.SpyObj<ProductService>;
   });
 
   afterEach(() => {

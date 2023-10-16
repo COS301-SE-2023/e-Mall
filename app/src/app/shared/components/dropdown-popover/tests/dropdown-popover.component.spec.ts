@@ -3,8 +3,6 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule, PopoverController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { DropdownPopoverComponent } from '@shared/components/dropdown-popover/dropdown-popover.component';
-import { Observable, of } from 'rxjs';
-import { IProductSeller } from '@shared/models/product/product-seller.interface';
 
 describe('DropdownPopoverComponent', () => {
   let component: DropdownPopoverComponent;
@@ -14,20 +12,24 @@ describe('DropdownPopoverComponent', () => {
 
   beforeEach(waitForAsync(() => {
     const routerMock = jasmine.createSpyObj('Router', ['navigate']);
-    const popoverControllerMock = jasmine.createSpyObj('PopoverController', ['dismiss']);
+    const popoverControllerMock = jasmine.createSpyObj('PopoverController', [
+      'dismiss',
+    ]);
 
     TestBed.configureTestingModule({
       declarations: [DropdownPopoverComponent],
       imports: [IonicModule.forRoot()],
       providers: [
         { provide: Router, useValue: routerMock },
-        { provide: PopoverController, useValue: popoverControllerMock }
-      ]
+        { provide: PopoverController, useValue: popoverControllerMock },
+      ],
     }).compileComponents();
 
     // We need to inject the Router and PopoverController spies here
     routerSpy = TestBed.inject(Router) as jasmine.SpyObj<Router>;
-    popoverControllerSpy = TestBed.inject(PopoverController) as jasmine.SpyObj<PopoverController>;
+    popoverControllerSpy = TestBed.inject(
+      PopoverController
+    ) as jasmine.SpyObj<PopoverController>;
   }));
 
   beforeEach(() => {
@@ -41,7 +43,6 @@ describe('DropdownPopoverComponent', () => {
   });
 
   it('should set the pages array based on parameterData value in ngOnInit', () => {
-    
     component.parameterData = 'Cat';
 
     component.ngOnInit();

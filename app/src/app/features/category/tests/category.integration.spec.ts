@@ -40,7 +40,7 @@ describe('CategoryComponent', () => {
   let fixture: ComponentFixture<CategoryComponent>;
   let productService: jasmine.SpyObj<ProductService>;
   let messagingSpy;
-  let firestore: Firestore;
+  // let firestore: Firestore;
 
   beforeEach(() => {
     messagingSpy = jasmine.createSpyObj('Messaging', ['isSupported']);
@@ -90,7 +90,7 @@ describe('CategoryComponent', () => {
         },
       ],
     }).compileComponents();
-    firestore = TestBed.inject(Firestore);
+    TestBed.inject(Firestore);
 
     fixture = TestBed.createComponent(CategoryComponent);
     component = fixture.componentInstance;

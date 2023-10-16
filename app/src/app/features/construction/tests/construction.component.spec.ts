@@ -19,7 +19,7 @@ import { Messaging } from '@angular/fire/messaging';
 describe('ConstructionComponent', () => {
   let component: ConstructionComponent;
   let fixture: ComponentFixture<ConstructionComponent>;
-  let firestore: Firestore;
+  // let firestore: Firestore;
   let messagingSpy;
   beforeEach(async () => {
     messagingSpy = jasmine.createSpyObj('Messaging', ['isSupported']);
@@ -53,7 +53,7 @@ describe('ConstructionComponent', () => {
         },
       ],
     }).compileComponents();
-    firestore = TestBed.inject(Firestore);
+    TestBed.inject(Firestore);
   });
 
   beforeEach(() => {

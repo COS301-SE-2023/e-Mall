@@ -1,32 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, Optional, inject } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import {
   Messaging,
   getToken,
   onMessage,
   isSupported,
 } from '@angular/fire/messaging';
-import { AuthFacade } from '@features/auth/services/auth.facade';
 import { environment } from 'environments/env';
-import {
-  firstValueFrom,
-  EMPTY,
-  Observable,
-  Subject,
-  filter,
-  take,
-  map,
-} from 'rxjs';
+import { firstValueFrom, Observable, Subject, filter, take } from 'rxjs';
 import { INotificationSettings } from '../models/notification-settings.interface';
 // import { collection, onSnapshot, Firestore } from '@angular/fire/firestore';
 import { ProfileFacade } from '@app/features/profile/services/profile.facade';
 // import {  } from '@angular/fire/compat/firestore';
 import {
-  getFirestore,
   // Firestore,
   collection,
-  collectionData,
   onSnapshot,
   Firestore,
 } from '@angular/fire/firestore';

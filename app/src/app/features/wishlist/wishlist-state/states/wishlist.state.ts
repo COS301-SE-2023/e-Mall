@@ -1,5 +1,5 @@
-import { Inject, Injectable } from '@angular/core';
-import { Action, Actions, State, StateContext } from '@ngxs/store';
+import { Injectable } from '@angular/core';
+import { Action, State, StateContext } from '@ngxs/store';
 import produce from 'immer';
 import * as WishlistActions from './wishlist.actions';
 import { IProduct } from '@app/shared/models/product/product.interface';

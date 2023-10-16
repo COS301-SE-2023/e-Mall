@@ -2,13 +2,11 @@ from datetime import datetime, timedelta
 from django.http import HttpResponseBadRequest
 from django.shortcuts import render
 from analytics.models import Analytics
-from django.db.models import Count
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from django.db.models import OuterRef, Sum, Q, Case, When, Value, DecimalField, Count
 from .models import Product
 from .serializers import ProductSerializer
 from django.utils.dateparse import parse_date
@@ -21,7 +19,6 @@ from rest_framework.decorators import api_view, permission_classes
 from django.forms.models import model_to_dict
 
 from decimal import Decimal
-
 
 
 class ProductFrontendAPIView(APIView):
@@ -174,6 +171,7 @@ class ProductTestAPIView(APIView):
     def get(self, request):
         # set sort fileds map
         sort_fields = {
+            "Most Relevant": "-relevance",
             "id": "id",
             "-id": "-id",
             "name": "name",
@@ -194,7 +192,7 @@ class ProductTestAPIView(APIView):
         # Input for sort[brand, price, name]
         sort = request.GET.get("sort")
         if sort is None:
-            sort = "price"
+            sort = "Most Relevant"  # Default to "Most Relevant" sorting
         # Input for filter[brand, price range, category, date range, seller]
         filter_brand = request.GET.get("filter_brand")
         filter_price_min = request.GET.get("filter_price_min")
@@ -234,7 +232,12 @@ class ProductTestAPIView(APIView):
             min_price_img_array=(min_price_seller.values("img_array")[:1]),
         )
 
-        query = Q(name__icontains=search)
+        query = (
+            Q(name__icontains=search)
+            | Q(description__icontains=search)
+            | Q(brand__icontains=search)
+            | Q(category__icontains=search)
+        )
 
         if filter_brand:
             query &= self.build_query_from_list(filter_brand, "brand")
@@ -254,6 +257,22 @@ class ProductTestAPIView(APIView):
 
         if filter_in_stock:
             query &= Q(min_price_in_stock=True)
+
+        # Calculate relevance score for each product
+        products = products.annotate(
+            relevance=Sum(
+                Case(
+                    When(
+                        name__icontains=search, then=Value(4)
+                    ),  # Adjust weights as needed
+                    When(description__icontains=search, then=Value(1)),
+                    When(brand__icontains=search, then=Value(2)),
+                    When(category__icontains=search, then=Value(3)),
+                    default=Value(0),
+                    output_field=DecimalField(),
+                )
+            )
+        )
 
         products = products.filter(query).order_by(sort_fields[sort])
         data = []
@@ -322,6 +341,7 @@ class GetPopularProductsAPIView(APIView):
 
         return Response(serializer.data)
 
+
 class GetTrendingProductsAPIView(APIView):
     def get(self, request):
         # Define the time frame for trending products (e.g., the last week)
@@ -334,7 +354,7 @@ class GetTrendingProductsAPIView(APIView):
                 event_type="product_click",
                 event_date__gte=start_date,
                 event_date__lte=end_date,
-        )
+            )
             .values("product")
             .annotate(view_count=Count("product"))
             .order_by("-view_count")[:12]  # Get top 10 trending products

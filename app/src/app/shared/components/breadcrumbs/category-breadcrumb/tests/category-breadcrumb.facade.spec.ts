@@ -1,11 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { CategoryBreadcrumbFacade } from '../services/category-breadcrumb.facade';
 import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
 
 describe('CategoryBreadcrumbFacade', () => {
   let service: CategoryBreadcrumbFacade;
-  let activated_route: ActivatedRoute;
+  // let activated_route: ActivatedRoute;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -25,7 +24,7 @@ describe('CategoryBreadcrumbFacade', () => {
     });
 
     service = TestBed.inject(CategoryBreadcrumbFacade);
-    activated_route = TestBed.inject(ActivatedRoute);
+    TestBed.inject(ActivatedRoute);
   });
 
   it('should be created', () => {

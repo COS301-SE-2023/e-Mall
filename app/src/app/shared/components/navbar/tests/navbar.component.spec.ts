@@ -25,7 +25,7 @@ import { Firestore } from '@angular/fire/firestore';
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
-  let firestore: Firestore;
+  // let firestore: Firestore;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -59,7 +59,7 @@ describe('NavbarComponent', () => {
         },
       ],
     }).compileComponents();
-    firestore = TestBed.inject(Firestore);
+    TestBed.inject(Firestore);
   });
   // store = TestBed.inject(Store);
   beforeEach(() => {

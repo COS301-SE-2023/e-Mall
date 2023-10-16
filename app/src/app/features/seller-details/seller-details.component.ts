@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
@@ -7,15 +8,11 @@ import { FormControl } from '@angular/forms';
 import { ProductSellerService } from '@shared/servicies/productseller/productseller.service';
 import { IProductSeller } from '@shared/models/product/product-seller.interface';
 import { ProductService } from '@shared/servicies/product/product.service';
-import { PopoverController } from '@ionic/angular';
+import { PopoverController, InfiniteScrollCustomEvent } from '@ionic/angular';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { ISeller } from '@shared/models/seller/seller.interface';
 import { SellerService } from '@shared/servicies/seller/seller.service';
 import { switchMap, take, tap } from 'rxjs/operators';
-import { combineLatest } from 'rxjs';
-import { SellerDataResolver } from './seller-details-resolver';
-import { IProduct } from '@shared/models/product/product.interface';
-import { InfiniteScrollCustomEvent } from '@ionic/angular';
 
 @Component({
   selector: 'app-inventory',
@@ -146,7 +143,7 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  onPageChange(event: PageEvent) {
+  onPageChange(_event: PageEvent) {
     this.itemsPerPage += 10;
 
     this.ProductSellerService.getProductSellerData(

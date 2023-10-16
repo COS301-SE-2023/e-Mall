@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
 import { lastValueFrom, shareReplay, take } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';

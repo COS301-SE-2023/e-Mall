@@ -16,7 +16,9 @@ export class InviteUsers {
   constructor(
     public payload: {
       collection_id: number;
-      user_emails: string[];
+      Unsuccessful: string[];
+      Successful: string[];
+      Existing: string[];
     }
   ) {}
 }
@@ -84,13 +86,18 @@ export class GetOneCombo {
 export class CreateCombo {
   static readonly type = '[Combo] Create Combo';
   constructor(
-    public payload: {
+    public data: {
       current_user_email: string;
       combo_name: string;
       user_emails: string[];
       product_ids: number[];
       product: IProduct;
       username: string[];
+    },
+    public res: {
+      collection_id: number;
+      Unsuccessful: string[];
+      Successful: string[];
     }
   ) {}
 }

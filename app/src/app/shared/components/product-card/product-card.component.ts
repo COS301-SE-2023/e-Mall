@@ -1,21 +1,13 @@
-import {
-  AfterViewInit,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
-import { Observable, of, Subscription, BehaviorSubject } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
-import { IProduct } from '@shared/models/product/product.interface';
-import { IProductSeller } from '@shared/models/product/product-seller.interface';
 import { AnalyticsService } from '@shared/servicies/analytics/analytics.service';
-import { ModalController, PopoverController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { ComboPopoverComponent } from './combo-popover/combo-popover.component';
 import { ComboFacade } from '@features/combo-state/services/combo.facade';
 import { AuthFacade } from '@features/auth/services/auth.facade';
-import { Navigate } from '@ngxs/router-plugin';
 import { WishlistFacade } from '@app/features/wishlist/wishlist-state/services/wishlist.facade';
 import { ProductCardFacade } from './services/product-card.facade';
 @Component({

@@ -12,25 +12,25 @@ class MockProfileFacade {
   getProfile(): Observable<ISellerProfile | IConsumerProfile | null> {
     // You can return a mocked profile object here if needed.
     const mockProfile: ISellerProfile = {
-        id: '123',
-        type: 'seller',
-        email: '',
-        details: {
-            reg_no: undefined,
-            business_name: undefined,
-            business_type: undefined,
-            catalogue_size: undefined,
-            business_category: undefined,
-            status: undefined,
-            is_verified: undefined,
-            website: undefined,
-            feed_url: undefined,
-            created_at: undefined,
-            modified_at: undefined,
-            last_login: undefined,
-            wishlist: undefined,
-            followed_sellers: undefined
-        }
+      id: '123',
+      type: 'seller',
+      email: '',
+      details: {
+        reg_no: undefined,
+        business_name: undefined,
+        business_type: undefined,
+        catalogue_size: undefined,
+        business_category: undefined,
+        status: undefined,
+        is_verified: undefined,
+        website: undefined,
+        feed_url: undefined,
+        created_at: undefined,
+        modified_at: undefined,
+        last_login: undefined,
+        wishlist: undefined,
+        followed_sellers: undefined,
+      },
     };
     return of(mockProfile); // Return the mocked profile of type ISellerProfile
   }
@@ -39,22 +39,20 @@ class MockProfileFacade {
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
   let fixture: ComponentFixture<ProfileComponent>;
-  let profileFacade: ProfileFacade;
+  // let profileFacade: ProfileFacade;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ProfileComponent],
       imports: [ReactiveFormsModule],
-      providers: [
-        { provide: ProfileFacade, useClass: MockProfileFacade },
-      ],
+      providers: [{ provide: ProfileFacade, useClass: MockProfileFacade }],
     }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ProfileComponent);
     component = fixture.componentInstance;
-    profileFacade = TestBed.inject(ProfileFacade);
+    TestBed.inject(ProfileFacade);
   });
 
   it('should create the component', () => {
@@ -63,8 +61,9 @@ describe('ProfileComponent', () => {
 
   it('should initialize the profileForm', () => {
     expect(component.profileForm).toBeInstanceOf(FormGroup);
-    expect(component.profileForm.controls['username']).toBeInstanceOf(FormControl);
+    expect(component.profileForm.controls['username']).toBeInstanceOf(
+      FormControl
+    );
     expect(component.profileForm.controls['email']).toBeInstanceOf(FormControl);
   });
-
 });

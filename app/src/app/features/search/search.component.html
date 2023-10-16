@@ -22,6 +22,7 @@
                   (selectionChange)="onSortOptionChange()"
                   class="custom-select">
                   <!-- <mat-option value="">Default</mat-option> -->
+                  <mat-option value="Most Relevant">Most Relevant</mat-option>
                   <mat-option value="price">Lowest price</mat-option>
                   <mat-option value="-price">Highest price</mat-option>
                   <mat-option value="discount">Discount</mat-option>
@@ -151,24 +152,6 @@
           <!--products-->
 
           <div class="product-card">
-            <!--<div
-              style="
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-top:40px;
-              "
-              *ngIf="(searchResults$ | async) === null">
-              <mat-spinner></mat-spinner>
-
-            </div>-->
-
-            <!-- <div class="spinner-container" *ngIf="showSpinner">
-              <div class="spinner">
-                <ion-spinner style="color: #99e3dc; margin-top: 150px;"></ion-spinner>
-              </div>
-            </div>
-             -->
             <ng-container *ngIf="searchResults$ | async as products">
               <div>
                 <ion-grid>
@@ -211,20 +194,20 @@
               </div>
               <!--</ion-col>-->
             </ion-row>
+            <div class="mat-paginator">
+              <ng-container *ngIf="searchResults$ | async as products">
+                <mat-paginator
+                  [length]="totalSearchCount$ | async"
+                  [pageSizeOptions]="[10, 20, 50, 100]"
+                  aria-label="Select page"
+                  [pageIndex]="currentPage"
+                  [pageSize]="itemsPerPage"
+                  (page)="onPageChange($event)"></mat-paginator>
+              </ng-container>
+            </div>
           </div>
         </div>
         <br /><br />
-        <div class="mat-paginator">
-          <ng-container *ngIf="searchResults$ | async as products">
-            <mat-paginator
-              [length]="totalSearchCount$ | async"
-              [pageSizeOptions]="[10, 20, 50, 100]"
-              aria-label="Select page"
-              [pageIndex]="currentPage"
-              [pageSize]="itemsPerPage"
-              (page)="onPageChange($event)"></mat-paginator>
-          </ng-container>
-        </div>
       </main>
     </div>
   </div>

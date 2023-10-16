@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 //navbar integration tests
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CommonModule } from '@angular/common';
 import { NavbarPopupComponent } from '@shared/components/navbar-popup/navbar-popup.component';
@@ -15,18 +16,16 @@ import { SearchBarModule } from '@shared/components/search-bar/search-bar.module
 import { ViewSizeModule } from '@shared/directives/view-size/view-size.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { IonicModule, PopoverController } from '@ionic/angular';
 import { AuthModule } from '@app/features/auth/auth.module';
 import { AuthState } from '@app/features/auth/states/auth.state';
 import { NgxsModule } from '@ngxs/store';
 import { ProfileModule } from '@features/profile/profile.module';
-import { DropdownPopoverComponent } from '@shared/components/dropdown-popover/dropdown-popover.component';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { of } from 'rxjs';
 import { ISellerProfile } from '@features/profile/models/seller-profile.interface';
-import {  IConsumerProfile } from '@features/profile/models/consumer-profile.interface';
-import { FormControl, FormGroup } from '@angular/forms';
+import { IConsumerProfile } from '@features/profile/models/consumer-profile.interface';
 
 describe('NavbarPopUpComponentIntegration', () => {
   let component: NavbarPopupComponent;
