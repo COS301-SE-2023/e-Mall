@@ -335,6 +335,9 @@ def upload_bulk(request):
         total = 0
         failed = 0
         successful = 0
+        new_product_sellers = (
+            []
+        )  # List to store the serialized data of new ProductSellers
         for item in data:
             total += 1
             img_array = [item[7]]
@@ -347,7 +350,7 @@ def upload_bulk(request):
                 similarity_score = fuzz.partial_ratio(item[0], product_name)
                 if similarity_score >= 90:
                     try:
-                        ProductSeller.objects.create(
+                        new_product_seller = ProductSeller.objects.create(
                             product=Product.objects.get(name=product_name),
                             seller=user,
                             price=item[2],
@@ -358,9 +361,14 @@ def upload_bulk(request):
                             in_stock=item[6],
                             img_array=img_array,
                             product_name=product_name,
-                        ).save()
+                        )
+                        new_product_seller.save()
                         created_product_seller = True  # Set the flag to True
                         successful += 1
+                        # Serialize the new ProductSeller and append it to the list
+                        new_product_sellers.append(
+                            ProductSellerSerializer(new_product_seller).data
+                        )
                         break
                     except Exception as e:
                         failed += 1
@@ -376,7 +384,7 @@ def upload_bulk(request):
                     category=item[11],
                     description=item[10],
                 ).save()
-                ProductSeller.objects.create(
+                new_product_seller = ProductSeller.objects.create(
                     product=Product.objects.get(name=item[0]),
                     seller=user,
                     price=item[2],
@@ -387,8 +395,13 @@ def upload_bulk(request):
                     in_stock=item[6],
                     img_array=img_array,
                     product_name=item[0],
-                ).save()
+                )
+                new_product_seller.save()
                 successful += 1
+                # Serialize the new ProductSeller and append it to the list
+                new_product_sellers.append(
+                    ProductSellerSerializer(new_product_seller).data
+                )
             except Exception as e:
                 failed += 1
                 print(e)
@@ -396,7 +409,12 @@ def upload_bulk(request):
 
         # print response with total, successful and failed
         return Response(
-            {"total": total, "successful": successful, "failed": failed},
+            {
+                "total": total,
+                "successful": successful,
+                "failed": failed,
+                "new_product_sellers": new_product_sellers,
+            },
             status=status.HTTP_200_OK,
         )
     except Exception as e:

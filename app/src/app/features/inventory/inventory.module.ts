@@ -12,6 +12,7 @@ import { InventoryFacade } from './servicies/inventory.facade';
 import { PopovereditModule } from './components/popoveredit/popoveredit.module';
 import { NgxsModule } from '@ngxs/store';
 import { InventoryState } from './states/inventory.state';
+import { ViewSizeModule } from '@shared/directives/view-size/view-size.module';
 
 @NgModule({
   declarations: [InventoryComponent],
@@ -26,6 +27,7 @@ import { InventoryState } from './states/inventory.state';
     InventoryRoutingModule,
     SellerNavModule,
     PopovereditModule,
+    ViewSizeModule,
   ],
   exports: [InventoryComponent],
   providers: [InventoryService, InventoryFacade],

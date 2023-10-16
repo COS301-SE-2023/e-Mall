@@ -277,18 +277,18 @@ export class PopovernewComponent implements OnInit, OnDestroy {
     }
   }
   async uploadFile() {
-    console.log(4);
+    // console.log(4);
 
     if (!this.file) {
-      console.log(5);
+      // console.log(5);
       this.errorMessage = 'Please select a file.';
       return;
     }
     const reader = new FileReader();
-    console.log(55);
+    // console.log(55);
 
     reader.onload = async (event: any) => {
-      console.log(77);
+      // console.log(77);
 
       const data = new Uint8Array(event.target.result);
       const workbook = XLSX.read(data, { type: 'array' });
@@ -307,17 +307,19 @@ export class PopovernewComponent implements OnInit, OnDestroy {
         row.some((cell: any) => cell !== null && cell !== '')
       );
 
-      console.log(jsonData);
+      // console.log(jsonData);
 
       try {
-        await this.inventoryFacade.uploadBulkData(jsonData);
+        const res = await this.inventoryFacade.uploadBulkData(jsonData);
+        console.log(res);
         this.errorMessage = '';
       } catch (error) {
         this.errorMessage = 'Failed to send data.';
       }
     };
     reader.readAsArrayBuffer(this.file);
-    this.resultPage = true;
+    // this.resultPage = true;
+    this.close();
   }
 
   // async presentNewModal() {
@@ -416,7 +418,8 @@ export class PopovernewComponent implements OnInit, OnDestroy {
       } else {
         this.createNewProduct();
       }
-      this.resultPage = true;
+      // this.resultPage = true;
+      this.close();
     }
   }
   isFormValid() {

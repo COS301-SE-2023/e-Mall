@@ -124,11 +124,13 @@ export class InventoryService {
   }
   public async uploadBulkData(data: any): Promise<any> {
     const url = `${this.apiUrl}/upload_bulk/`;
-    return await firstValueFrom(
+    const res = await firstValueFrom(
       this.http.post(url, data, {
         headers: new HttpHeaders().set('Authorization', 'true'),
-        responseType: 'blob',
+        // responseType: 'blob',
+        observe: 'response',
       })
     );
+    return res.body;
   }
 }

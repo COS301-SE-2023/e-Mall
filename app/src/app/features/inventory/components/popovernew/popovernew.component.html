@@ -1,5 +1,4 @@
 <ion-header>
-  <!-- <app-seller-nav></app-seller-nav> -->
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button *ngIf="!resultPage" (click)="back()">Back</ion-button>
@@ -16,7 +15,7 @@
     </ng-container>
     <ng-container *ngIf="type === 'bulk' && !resultPage; then bulk">
     </ng-container>
-    <ng-container *ngIf="resultPage; then result"> </ng-container>
+    <!-- <ng-container *ngIf="resultPage; then result"> </ng-container> -->
   </div>
 </ion-content>
 
@@ -126,7 +125,6 @@
 </ng-template>
 
 <ng-template #singleSecond>
-  <!-- <ng-container *ngIf="newClicked"> -->
   <div @initFadeInOut style="display: flex; flex-direction: column">
     <ion-label style="font-size: large; font-weight: 500">
       Selected Product Name:
@@ -157,7 +155,6 @@
         </ion-item>
         <ion-item lines="none" class="item-padding">
           <div slot="start">Brand</div>
-          <!-- <div class="input-container"> -->
           <ion-input
             class="item-inputs"
             slot="end"
@@ -168,36 +165,12 @@
             inputmode="text"
             errorText="Invalid input"
             formControlName="brand"></ion-input>
-          <!-- </div> -->
         </ion-item>
-        <!-- <ion-item lines="none">
-          <ion-textarea
-            mode="md"
-            fill="outline"
-            label="Description"
-            labelPlacement="floating"
-            clearInput="true"
-            placeholder="Enter description for product"
-            formControlName="description"></ion-textarea>
-        </ion-item> -->
       </form>
     </ng-container>
-
-    <!-- </ng-container> -->
-    <!-- <ng-container *ngIf="isSelected || newClicked"> -->
     <form [formGroup]="productSellerForm">
-      <!-- <div
-        style="
-          display: flex;
-          flex-direction: row;
-          flex-wrap: nowrap;
-          justify-content: space-between;
-          align-items: center;
-        "> -->
-      <!-- <ion-item class="number-inputs"> -->
       <ion-item lines="none" class="item-padding">
         <div slot="start" class="item-label">Original Price (R)</div>
-        <!-- <div class="input-container-num"> -->
         <ion-input
           class="item-inputs"
           style="min-width: 250px"
@@ -211,12 +184,9 @@
           inputmode="decimal"
           errorText="Invalid number, price should be bigger than 1"
           formControlName="price"></ion-input>
-        <!-- </div> -->
       </ion-item>
-      <!-- <ion-item class="number-inputs"> -->
       <ion-item lines="none" class="item-padding">
         <div slot="start" class="item-label">Discount rate (%)</div>
-        <!-- <div class="input-container-num"> -->
         <ion-input
           class="item-inputs"
           style="min-width: 250px"
@@ -230,12 +200,9 @@
           errorText="Invalid number, price should be in range 0-99"
           placeholder="Enter discount rate (optional)"
           formControlName="discount"></ion-input>
-        <!-- </div> -->
       </ion-item>
-      <!-- </div> -->
       <ion-item lines="none" class="item-padding">
         <div slot="start">Inventory Status</div>
-        <!-- <div class="item-content stock-icon-container"> -->
         <div slot="end" style="min-width: 250px">
           <ion-segment mode="ios" formControlName="stock">
             <ion-segment-button value="True">
@@ -252,11 +219,9 @@
             </ion-segment-button>
           </ion-segment>
         </div>
-        <!-- </div> -->
       </ion-item>
       <ion-item lines="none" class="item-padding">
         <div slot="start">Product URL</div>
-        <!-- <div class="input-container"> -->
         <ion-input
           class="item-inputs"
           style="min-width: 250px"
@@ -267,11 +232,9 @@
           placeholder="Enter URL to product page"
           errorText="Invalid URL, check the URL format"
           formControlName="url"></ion-input>
-        <!-- </div> -->
       </ion-item>
       <ion-item lines="none" class="item-padding">
         <div slot="start">Images URL's</div>
-        <!-- <div class="input-container"> -->
         <ion-input
           class="item-inputs"
           style="min-width: 250px"
@@ -282,7 +245,6 @@
           errorText="Invalid URL, check the URL format"
           placeholder="Enter URL of image (optional)"
           formControlName="imgs"></ion-input>
-        <!-- </div> -->
       </ion-item>
     </form>
     <ng-container *ngIf="!isExisting">
@@ -291,8 +253,6 @@
           <div slot="start">Description</div>
         </ion-item>
         <ion-item lines="none" class="item-padding">
-          <!-- <div class="item-label">Description</div> -->
-          <!-- <div class="input-container"> -->
           <ion-textarea
             class="item-textarea"
             style="min-height: 20rem"
@@ -302,12 +262,9 @@
             placeholder="Enter description for product"
             errorText="Description is required"
             formControlName="description"></ion-textarea>
-          <!-- </div> -->
         </ion-item>
       </form>
     </ng-container>
-    <!-- <ion-item class="item-padding" lines="none"> -->
-    <!-- <div class="item-button-container"> -->
     <ion-button
       class="item-padding"
       type="submit"
@@ -315,11 +272,7 @@
       (click)="create()">
       Create
     </ion-button>
-
-    <!-- </div> -->
-    <!-- </ion-item> -->
   </div>
-  <!-- </ng-container> -->
 </ng-template>
 
 <ng-template #bulk>
@@ -332,7 +285,6 @@
 
       height: 100%;
     ">
-    <!-- <ion-item class="item-padding" lines="none"> -->
     <ion-label style="font-size: large; font-weight: 500"
       >How it works:</ion-label
     >
@@ -344,9 +296,7 @@
       Download
     </ion-button>
     <ion-label style="font-size: large; font-weight: 500">Upload:</ion-label>
-    <!-- </ion-item> -->
 
-    <!-- <ion-item class="item-padding" lines="none"> -->
     <input
       mode="ios"
       type="file"
@@ -354,13 +304,21 @@
       (change)="onFileSelect($event)"
       #fileInput />
     <div *ngIf="errorMessage">{{ errorMessage }}</div>
-    <!-- </ion-item> -->
+
     <ion-button [disabled]="!file" (click)="uploadFile()">Upload</ion-button>
   </div>
 </ng-template>
 <ng-template #result>
   <div @initFadeInOut>
-    <ion-item></ion-item>
+    <ion-list>
+      <ion-list-header>
+        <ion-label> Result</ion-label>
+      </ion-list-header>
+      <ion-item>
+        <ion-label slot="start"></ion-label>
+        <ion-label slot="start"></ion-label>
+      </ion-item>
+    </ion-list>
   </div>
 </ng-template>
 <ng-template #loading>

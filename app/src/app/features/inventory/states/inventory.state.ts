@@ -208,10 +208,12 @@ export class InventoryState {
   ) {
     ctx.setState(
       produce((draft: InventoryStateModel) => {
-        if (draft.newProducts.length === 0) {
-          draft.newProducts = [...action.newProducts];
+        if (draft.products?.length === 0) {
+          draft.products = [...action.newProducts];
+          draft.totalCount = action.newProducts.length;
         } else {
-          draft.newProducts.push(...action.newProducts);
+          draft.products?.push(...action.newProducts);
+          draft.totalCount += action.newProducts.length;
         }
       })
     );

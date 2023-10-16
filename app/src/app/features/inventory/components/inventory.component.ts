@@ -202,7 +202,7 @@ export class InventoryComponent implements OnDestroy {
     // await this.router.navigate(['new-product']);
     this.firstModeal = await this.modalController.getTop();
     await this.firstModeal.dismiss();
-    console.log(modalType, 'dddd');
+    // console.log(modalType, 'dddd');
     const modal = await this.modalController.create({
       mode: 'ios',
       cssClass: 'add-modal-second',
@@ -217,17 +217,8 @@ export class InventoryComponent implements OnDestroy {
     modal.present();
 
     const { data, role } = await modal.onDidDismiss();
-
-    if (role === 'close') {
-      console.log('bye');
-      //do action after confirm
-      // this.message = `Hello, ${data}!`;
-    }
     if (role === 'back') {
-      console.log('hiiii');
       await this.firstModeal.present();
-
-      // this.isModalOpen = true;
     }
   }
   // modal() {
