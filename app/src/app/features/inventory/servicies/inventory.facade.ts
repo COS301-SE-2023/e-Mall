@@ -113,7 +113,7 @@ export class InventoryFacade implements OnDestroy {
       if (res['failed'] !== 0)
         throw `Failed to upload ${res['failed']}/${res['total']} products`;
       return this.toastSuccess(
-        `Successfully uploaded ${res['success']} products`
+        `Successfully uploaded ${res['successful']} products`
       );
       // return new InventoryActions.AddNewProducts(res['new_product_sellers']);
     } catch (error) {
