@@ -2,15 +2,13 @@
   <app-seller-nav></app-seller-nav>
 </ion-header>
 
-<ion-content *viewSize="'desktop'">
+<ion-content>
   <div class="dashboard-content-wrapper">
     <ion-text color="text-revserse">
       <h2 class="dashboard-header-padding">Products</h2>
     </ion-text>
-
-    <!-- <ng-container *ngIf="query$ | async as query"> -->
     <div class="inventory-container">
-      <div class="title-stock-row">
+      <div class="title-stock-row" *viewSize="'desktop'">
         <ion-segment
           mode="md"
           [value]="filterOptions[0].key"
@@ -22,36 +20,49 @@
             <ion-label>{{ option.value }}</ion-label>
           </ion-segment-button>
         </ion-segment>
+
         <ion-button mode="ios" id="add-modal">
           <ion-icon name="add"></ion-icon>
         </ion-button>
       </div>
-
-      <!-- <mat-divider></mat-divider> -->
+      <div class="title-stock-row" *viewSize="'mobile'">
+        <ion-select
+          style="padding-left: 20px"
+          justify="start"
+          #sort
+          [interfaceOptions]="sortPopoverOptions"
+          [(ngModel)]="selectedSortOption"
+          (ionChange)="onSortOptionChange()"
+          mode="md"
+          label="Sort by"
+          shape="round">
+          <ion-select-option
+            *ngFor="let option of sortOptions"
+            [value]="option.key"
+            >{{ option.value }}</ion-select-option
+          >
+        </ion-select>
+        <ion-select
+          style="padding-right: 20px"
+          justify="end"
+          #filter
+          [interfaceOptions]="filterOptions"
+          [(ngModel)]="selectedFilterOption"
+          (ionChange)="onFilterOptionChange($event)"
+          mode="md"
+          label="Filter by"
+          shape="round">
+          <ion-select-option
+            *ngFor="let option of filterOptions"
+            [value]="option.key"
+            >{{ option.value }}</ion-select-option
+          >
+        </ion-select>
+      </div>
 
       <div class="sort-search-wrapper">
         <div class="search-bar">
           <ion-item class="sort-searchbar-container">
-            <ion-list>
-              <ion-item
-                class="searchbar-option-container"
-                lines="none"
-                slot="end">
-                <ion-select
-                  id="search-select"
-                  [interfaceOptions]="searchPopoverOptions"
-                  [(ngModel)]="selectedSearchOption"
-                  mode="md"
-                  interface="popover">
-                  <ion-select-option
-                    *ngFor="let option of searchOptions"
-                    [value]="option.key"
-                    >{{ option.value }}</ion-select-option
-                  >
-                </ion-select>
-              </ion-item>
-            </ion-list>
-
             <ion-searchbar
               class="search-box"
               placeholder="Search products..."
@@ -62,26 +73,8 @@
               (ionInput)="onSearchInputChange($event)"></ion-searchbar>
           </ion-item>
         </div>
-        <div class="sort-wrapper">
-          <ion-list>
-            <ion-item class="sort-searchbar-container" lines="none">
-              <ion-select
-                [interfaceOptions]="sortPopoverOptions"
-                [(ngModel)]="selectedSortOption"
-                (ionChange)="onSortOptionChange()"
-                mode="md"
-                label-placement="stacked"
-                label="Sort by"
-                shape="round"
-                interface="popover">
-                <ion-select-option
-                  *ngFor="let option of sortOptions"
-                  [value]="option.key"
-                  >{{ option.value }}</ion-select-option
-                >
-              </ion-select>
-            </ion-item>
-          </ion-list>
+        <div *viewSize="'desktop'" class="sort-wrapper">
+          <ng-container *ngTemplateOutlet="sort_dropdown"></ng-container>
         </div>
       </div>
       <ion-grid>
@@ -112,7 +105,6 @@
             <ion-row
               *ngFor="let product of searchResults$ | async"
               (click)="openModal(product)">
-              <!-- <ion-col size="1">{{ product.product }}</ion-col> -->
               <ion-col size="6"
                 ><div class="truncate-text">
                   {{ product.product_name }}
@@ -156,30 +148,47 @@
                 </div></ion-col
               >
             </ion-row>
-            <ion-row style="margin-bottom: 25px; margin-top: 25px">
-              <ion-col>
-                <ion-item>
-                  <ng-container *ngIf="query$ | async as query">
-                    <mat-paginator
-                      [disabled]="products.length === 0"
-                      #paginator
-                      [length]="totalSearchCount$ | async"
-                      [pageSizeOptions]="[10, 20, 50, 100]"
-                      aria-label="Select page"
-                      [pageIndex]="query.page"
-                      [pageSize]="query.per_page"
-                      (page)="onPageChange($event)"></mat-paginator>
-                  </ng-container>
-                </ion-item>
-              </ion-col>
-            </ion-row>
           </ng-template>
         </ng-container>
       </ion-grid>
+      <ng-container *ngIf="searchResults$ | async as products">
+        <ng-container *ngIf="products?.length !== 0">
+          <!-- <div> -->
+          <!-- <ion-item> -->
+          <ng-container *ngIf="query$ | async as query">
+            <!-- <div class="paginator"> -->
+            <mat-paginator
+              class="paginator"
+              [disabled]="products.length === 0"
+              #paginator
+              [length]="totalSearchCount$ | async"
+              [pageSizeOptions]="[10, 20, 50, 100]"
+              aria-label="Select page"
+              [pageIndex]="query.page"
+              [pageSize]="query.per_page"
+              (page)="onPageChange($event)"></mat-paginator>
+            <!-- </div> -->
+          </ng-container>
+          <!-- </ion-item> -->
+          <!-- </div>  -->
+        </ng-container></ng-container
+      >
     </div>
   </div>
+  <ion-fab
+    style="margin-right: 20px"
+    *viewSize="'mobile'"
+    slot="fixed"
+    vertical="bottom"
+    horizontal="start"
+    mode="ios">
+    <ion-fab-button (click)="openAddModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
 <ion-modal
+  #add_modal
   [enterAnimation]="enterAnimation"
   [leaveAnimation]="leaveAnimation"
   mode="ios"
@@ -203,181 +212,24 @@
     </ion-content>
   </ng-template>
 </ion-modal>
-
-<ion-content *viewSize="'mobile'">
-  <div class="dashboard-content-wrapper">
-    <ion-text color="text-revserse">
-      <h2 class="dashboard-header-padding">Products</h2>
-    </ion-text>
-
-    <!-- <ng-container *ngIf="query$ | async as query"> -->
-    <div class="inventory-container">
-      <div class="title-stock-row">
-        <ion-segment
-          mode="md"
-          [value]="filterOptions[0].key"
-          (ionChange)="onFilterOptionChange($event)">
-          <ion-segment-button
-            *ngFor="let option of filterOptions"
-            mode="md"
-            [value]="option.key">
-            <ion-label>{{ option.value }}</ion-label>
-          </ion-segment-button>
-        </ion-segment>
-        <ion-button mode="ios" id="add-modal">
-          <ion-icon name="add"></ion-icon>
-        </ion-button>
-      </div>
-
-      <!-- <mat-divider></mat-divider> -->
-
-      <div class="sort-search-wrapper">
-        <div class="search-bar">
-          <ion-item class="sort-searchbar-container">
-            <ion-list>
-              <ion-item
-                class="searchbar-option-container"
-                lines="none"
-                slot="end">
-                <ion-select
-                  id="search-select"
-                  [interfaceOptions]="searchPopoverOptions"
-                  [(ngModel)]="selectedSearchOption"
-                  mode="md"
-                  interface="popover">
-                  <ion-select-option
-                    *ngFor="let option of searchOptions"
-                    [value]="option.key"
-                    >{{ option.value }}</ion-select-option
-                  >
-                </ion-select>
-              </ion-item>
-            </ion-list>
-
-            <ion-searchbar
-              class="search-box"
-              placeholder="Search products..."
-              type="search"
-              mode="md"
-              [(ngModel)]="serachKeyword"
-              [debounce]="1000"
-              (ionInput)="onSearchInputChange($event)"></ion-searchbar>
-          </ion-item>
-        </div>
-        <div class="sort-wrapper">
-          <ion-list>
-            <ion-item class="sort-searchbar-container" lines="none">
-              <ion-select
-                [interfaceOptions]="sortPopoverOptions"
-                [(ngModel)]="selectedSortOption"
-                (ionChange)="onSortOptionChange()"
-                mode="md"
-                label-placement="stacked"
-                label="Sort by"
-                shape="round"
-                interface="popover">
-                <ion-select-option
-                  *ngFor="let option of sortOptions"
-                  [value]="option.key"
-                  >{{ option.value }}</ion-select-option
-                >
-              </ion-select>
-            </ion-item>
-          </ion-list>
-        </div>
-      </div>
-      <ion-grid>
-        <ion-row class="table-header">
-          <!-- <ion-col size="1">ID</ion-col> -->
-          <ion-col size="6">Name</ion-col>
-          <ion-col size="1">Stock</ion-col>
-          <ion-col size="2">Original Price (R)</ion-col>
-          <ion-col size="1">Discount Rate</ion-col>
-          <ion-col size="2">Current Price (R)</ion-col>
-        </ion-row>
-        <ng-container *ngIf="searchResults$ | async as products">
-          <ng-container *ngIf="products?.length === 0; else result">
-            <div class="search-results-container">
-              <h3>No Products Found</h3>
-
-              <p>
-                Please try again with a different keyword or refine your search
-                criteria.
-              </p>
-              <img
-                src="assets\images\no-image.jpeg"
-                alt="No Product Found"
-                class="nimage" />
-            </div>
-          </ng-container>
-          <ng-template #result>
-            <ion-row
-              *ngFor="let product of searchResults$ | async"
-              (click)="openModal(product)">
-              <!-- <ion-col size="1">{{ product.product }}</ion-col> -->
-              <ion-col size="6"
-                ><div class="truncate-text">
-                  {{ product.product_name }}
-                </div></ion-col
-              >
-              <ion-col size="1">
-                <ion-icon
-                  class="stock-icon"
-                  color="success"
-                  *ngIf="product.in_stock"
-                  name="checkmark"></ion-icon>
-                <ion-icon
-                  class="stock-icon"
-                  color="danger"
-                  *ngIf="!product.in_stock"
-                  name="close"></ion-icon
-              ></ion-col>
-              <ion-col size="2">
-                <div class="original-price-chip">
-                  {{ product.original_price }}
-                </div>
-              </ion-col>
-              <ion-col size="1">
-                <div class="discount-chip">
-                  <ng-container
-                    *ngIf="
-                      product.discount_rate === undefined ||
-                        +product.discount_rate === 0;
-                      else percentage
-                    ">
-                    -
-                  </ng-container>
-                  <ng-template #percentage>
-                    {{ product.discount_rate! * 100 | number : '2.2-2' }}%
-                  </ng-template>
-                </div></ion-col
-              >
-              <ion-col size="2"
-                ><div class="current-price-chip">
-                  {{ product.price }}
-                </div></ion-col
-              >
-            </ion-row>
-            <ion-row style="margin-bottom: 25px; margin-top: 25px">
-              <ion-col>
-                <ion-item>
-                  <ng-container *ngIf="query$ | async as query">
-                    <mat-paginator
-                      [disabled]="products.length === 0"
-                      #paginator
-                      [length]="totalSearchCount$ | async"
-                      [pageSizeOptions]="[10, 20, 50, 100]"
-                      aria-label="Select page"
-                      [pageIndex]="query.page"
-                      [pageSize]="query.per_page"
-                      (page)="onPageChange($event)"></mat-paginator>
-                  </ng-container>
-                </ion-item>
-              </ion-col>
-            </ion-row>
-          </ng-template>
-        </ng-container>
-      </ion-grid>
-    </div>
-  </div>
-</ion-content>
+<ng-template #sort_dropdown>
+  <ion-list>
+    <ion-item class="sort-searchbar-container" lines="none">
+      <ion-select
+        [interfaceOptions]="sortPopoverOptions"
+        [(ngModel)]="selectedSortOption"
+        (ionChange)="onSortOptionChange()"
+        mode="md"
+        label-placement="stacked"
+        label="Sort by"
+        shape="round"
+        interface="popover">
+        <ion-select-option
+          *ngFor="let option of sortOptions"
+          [value]="option.key"
+          >{{ option.value }}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+  </ion-list>
+</ng-template>

@@ -7,10 +7,10 @@ import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { Observable, Subscription, debounceTime } from 'rxjs';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import {
-  ActionSheetController,
   AnimationController,
   IonContent,
-  LoadingController,
+  IonModal,
+  IonSelect,
   ModalController,
   PopoverController,
 } from '@ionic/angular';
@@ -18,7 +18,6 @@ import { PopovereditComponent } from './popoveredit/popoveredit.component';
 import { IInventoryItem } from '../models/inventory-item.interface';
 import { ISearchOptions } from '../models/search-options.interface';
 import { InventoryFacade } from '../servicies/inventory.facade';
-import { Router } from '@angular/router';
 import { PopovernewComponent } from './popovernew/popovernew.component';
 
 @Component({
@@ -32,7 +31,9 @@ export class InventoryComponent implements OnDestroy {
   content!: IonContent;
   @ViewChild('inventory_header')
   inventory_header!: ElementRef;
-
+  @ViewChild('add_modal') addModal!: IonModal;
+  @ViewChild('filter') filterSelect!: IonSelect;
+  @ViewChild('sort') sortSelect!: IonSelect;
   filterOptions = [
     { key: 'all', value: 'All' },
     { key: 'in', value: 'In Stock' },
@@ -66,16 +67,11 @@ export class InventoryComponent implements OnDestroy {
   searchResultSubs = new Subscription();
 
   presentingElement = undefined;
-  // isModalOpen = true;
-  private canDismissOverride = false;
   firstModeal: any;
   constructor(
-    private router: Router,
     private inventoryFacade: InventoryFacade,
     private popoverController: PopoverController,
-    private loadingController: LoadingController,
     public modalController: ModalController, // public loaderFacade: PageLoaderFacade
-    private actionSheetCtrl: ActionSheetController,
     private animationCtrl: AnimationController
   ) {
     // this.loaderFacade.loading.next(true);
@@ -91,7 +87,7 @@ export class InventoryComponent implements OnDestroy {
     this.searchResults$ = this.inventoryFacade.products$;
     this.searchResultSubs = this.searchResults$
       .pipe(debounceTime(500))
-      .subscribe(results => this.scrollToTop());
+      .subscribe(() => this.scrollToTop());
     this.totalSearchCount$ = this.inventoryFacade.totalCount$;
   }
   ngOnDestroy(): void {
@@ -218,7 +214,7 @@ export class InventoryComponent implements OnDestroy {
     });
     modal.present();
 
-    const { data, role } = await modal.onDidDismiss();
+    const { role } = await modal.onDidDismiss();
     if (role === 'back') {
       await this.firstModeal.present();
     }
@@ -253,4 +249,19 @@ export class InventoryComponent implements OnDestroy {
   leaveAnimation = (baseEl: HTMLElement) => {
     return this.enterAnimation(baseEl)?.direction('reverse');
   };
+  async close() {
+    const modal = await this.modalController.getTop();
+    modal?.dismiss();
+  }
+  async openAddModal() {
+    await this.addModal.present();
+  }
+  async openSelect(option: string) {
+    console.log(option);
+    if (option === 'filter') {
+      this.filterSelect.open();
+    } else if (option === 'sort') {
+      this.sortSelect.open();
+    }
+  }
 }
