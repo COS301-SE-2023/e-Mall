@@ -17,6 +17,7 @@ from django.http import FileResponse
 import os
 from django.conf import settings
 from seller.models import Seller
+from api.utils import upload_to_spaces
 
 
 @api_view(["POST"])
@@ -36,6 +37,8 @@ def getProd(request):
         sort_fields = {
             "name": "product__name",
             "-name": "-product__name",
+            "date": "-created_at",
+            "-date": "created_at",
             "price": "price",
             "-price": "-price",
             "discount": "discount",
@@ -237,6 +240,11 @@ def createSimilarProduct(request):
                         {"error": "Product already exists"},
                         status=status.HTTP_400_BAD_REQUEST,
                     )
+                img_urls = []
+                for img_path in request.data["img_array"]:
+                    if img_path:
+                        url = upload_to_spaces(img_path, "product_seller")
+                        img_urls.append(url)
 
                 ProductSeller.objects.create(
                     product=Product.objects.get(name=product_name),
@@ -247,7 +255,7 @@ def createSimilarProduct(request):
                     original_price=request.data["original_price"],
                     product_url=request.data["product_url"],
                     in_stock=request.data["in_stock"],
-                    img_array=request.data["img_array"],
+                    img_array=img_urls,
                     product_name=product_name,
                 ).save()
                 # return the product
@@ -281,6 +289,11 @@ def createNewProduct(request):
                 description=request.data["description"],
             )
             product.save()
+            img_urls = []
+            for img_path in request.data["img_array"]:
+                if img_path:
+                    url = upload_to_spaces(img_path, "product_seller")
+                    img_urls.append(url)
             ProductSeller.objects.create(
                 product=product,
                 seller=user,
@@ -290,7 +303,7 @@ def createNewProduct(request):
                 original_price=request.data["original_price"],
                 product_url=request.data["product_url"],
                 in_stock=request.data["in_stock"],
-                img_array=request.data["img_array"],
+                img_array=img_urls,
                 product_name=product.name,
             ).save()
             # return the product
@@ -340,11 +353,16 @@ def upload_bulk(request):
         )  # List to store the serialized data of new ProductSellers
         for item in data:
             total += 1
-            img_array = [item[7]]
+            img_array = []
+            if len(item) > 7 and item[7]:
+                url = upload_to_spaces(item[7], "product_seller")
+                img_array.append(url)
             if len(item) > 8 and item[8]:
-                img_array.append(item[8])
+                url = upload_to_spaces(item[8], "product_seller")
+                img_array.append(url)
             if len(item) > 9 and item[9]:
-                img_array.append(item[9])
+                url = upload_to_spaces(item[9], "product_seller")
+                img_array.append(url)
             created_product_seller = False
             for product_name in product_names:
                 similarity_score = fuzz.partial_ratio(item[0], product_name)

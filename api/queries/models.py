@@ -1,6 +1,7 @@
 from django.utils import timezone
 from django.db import models
-from django.utils.timezone import now
+from django.utils import timezone
+
 
 # Create your models here.
 class Query(models.Model):
@@ -22,5 +23,5 @@ class Query(models.Model):
     user_email = models.EmailField()
     seller_email = models.EmailField()
     query_option = models.CharField(max_length=100, choices=query_options)
-    event_date = models.DateTimeField(default= now(),editable=True)
+    event_date = models.DateTimeField(default=timezone.now(), editable=True)
     status = models.CharField(max_length=100, choices=status_options, default="pending")

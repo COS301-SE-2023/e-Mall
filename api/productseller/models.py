@@ -1,5 +1,7 @@
 from django.db import models
 import uuid
+from django.utils import timezone
+
 
 # Create your models here.
 
@@ -17,6 +19,7 @@ class ProductSeller(models.Model):
     business_name = models.CharField(max_length=100, default="")
     product_name = models.CharField(default="")
     product_category = models.CharField(default="")
+    created_at = models.DateTimeField(default=timezone.now(), editable=True)
 
     def get_names(self):
         seller = self.seller
