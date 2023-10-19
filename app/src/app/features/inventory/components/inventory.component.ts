@@ -47,6 +47,8 @@ export class InventoryComponent implements OnDestroy {
   sortOptions = [
     { key: 'name', value: 'Name (A-Z)' },
     { key: '-name', value: 'Name (Z-A)' },
+    {key: 'date', value: 'Newest First'},
+    {key: '-date', value: 'Oldest First'},
     { key: 'price', value: 'Lowest Price' },
     { key: '-price', value: 'Highest Price' },
     { key: 'discount', value: 'Lowest Disocunt' },
