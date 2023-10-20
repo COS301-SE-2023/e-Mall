@@ -145,3 +145,55 @@ app-footer {
   width: 100%;
   z-index: 0;
 }
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .details-container {
+    flex-direction: column;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .address-container {
+    margin-left: 1rem;
+  }
+
+  .button-container {
+    position: relative;
+    padding-right: 0;
+  }
+
+  .products-container {
+    padding: 0;
+  }
+
+  .Ptitle{
+    padding-left: 15px;
+  }
+
+  .social-container {
+    position: relative;
+    padding-right: 0;
+  }
+
+  .search-sort {
+    flex-direction: column;
+  }
+
+  .sort-condition {
+    margin-left: 0;
+    max-width: 50%;
+  }
+
+  .filter-menu {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .category-bubble {
+    width: 30%;
+    margin-left: auto;
+  }
+  
+}
