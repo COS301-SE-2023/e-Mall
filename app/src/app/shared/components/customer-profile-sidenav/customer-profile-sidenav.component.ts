@@ -15,6 +15,7 @@ export class CustomerProfileSidenavComponent implements OnInit, OnDestroy {
   @Input() profile: any;
   currentPage: string;
   routerURL = new Subscription();
+  public isMenuCollapsed = false;
 
   constructor(private router: Router, private authFacade: AuthFacade) {
     this.currentPage = 'customer-profile';
@@ -51,5 +52,9 @@ export class CustomerProfileSidenavComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.routerURL.unsubscribe();
+  }
+
+  toggleMenu() {
+    this.isMenuCollapsed = !this.isMenuCollapsed;
   }
 }

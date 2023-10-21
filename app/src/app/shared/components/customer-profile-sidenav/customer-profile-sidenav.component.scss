@@ -142,3 +142,7 @@ ion-item.active {
   font-size: larger;
   margin-top: 10px;
 }
+
+.side-nav-container.collapsed {
+  display: none;
+}

@@ -1,4 +1,6 @@
 <!--<div class="side-nav-container">-->
+  
+<div class="side-nav-container" [class.collapsed]="isMenuCollapsed">
 <ion-nav class="side-nav">
   <div class="user-container" *ngIf="profile">
     <div class="user-circle-container">
@@ -55,4 +57,5 @@
     </ion-item>
   </ion-list>
 </ion-nav>
-<!--</div>-->
+</div>
+<button (click)="toggleMenu()">Toggle Menu</button>
