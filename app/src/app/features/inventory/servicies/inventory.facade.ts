@@ -156,7 +156,9 @@ export class InventoryFacade implements OnDestroy {
   }
   @Dispatch()
   setError(error: any) {
-    this.toast.presentErrorToastWithMessage(error);
+    if (typeof error === 'string' && !error.includes('token')) {
+      this.toast.presentErrorToastWithMessage(error);
+    }
     return new SetError('inventory', error as IError);
   }
   @Dispatch()

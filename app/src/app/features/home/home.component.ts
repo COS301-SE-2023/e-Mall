@@ -9,13 +9,13 @@ import {
 import { Router, NavigationExtras } from '@angular/router';
 import { ProductService } from '@shared/servicies/product/product.service';
 import { IProduct } from '@shared/models/product/product.interface';
-import { Observable, Subscription, of } from 'rxjs';
+import { Observable, Subscription, debounceTime, of, share } from 'rxjs';
 import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { ProductCardFacade } from '@app/shared/components/product-card/services/product-card.facade';
 import { AuthFacade } from '../auth/services/auth.facade';
 
-//import { register } from 'swiper/element/bundle';
-//register();
+import { register } from 'swiper/element/bundle';
+register();
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   images = 'assets/images/home_banner.png';
   @ViewChild('recommendedHeading') recommendedHeading!: ElementRef;
   isLoggedIn = false;
+  authSubscription = new Subscription();
 
   // showSpinner = true;
   cat_pages = [
@@ -80,24 +81,36 @@ export class HomeComponent implements OnInit, OnDestroy {
     public productCardFacade: ProductCardFacade,
     public authFacade: AuthFacade
   ) {
-    this.followedSellers$ = of(null);
+    this.followedSellers$ = this.profileFacade.followedSellers$;
+
     this.forYouProducts$ = of(null);
-    this.followSubs = this.profileFacade.followedSellers$.subscribe(val => {
-      if ((val !== null || val !== undefined) && val.length > 0) {
-        this.followedSellers$ = this.profileFacade.fetchFollowedSellerDetails();
-      }
-    });
+    // this.followSubs = this.profileFacade.followedSellers$.subscribe(val => {
+    //   if ((val !== null || val !== undefined) && val.length > 0) {
+    //     this.followedSellers$ = this.profileFacade.fetchFollowedSellerDetails();
+    //   }
+    // });
     this.forYouSubs = this.profileFacade.recommendedProducts$.subscribe(val => {
       if ((val !== null || val !== undefined) && val.length > 0) {
         this.forYouProducts$ = of(val);
       }
     });
+    this.authSubscription = this.authFacade
+      .getCurrentUser()
+      .pipe(debounceTime(500), share())
+      .subscribe(async user => {
+        if (user && user.type === 'consumer') {
+          // console.log(user);
+          await this.fetchFollowedSellerDetails();
+        }
+      });
   }
   async ionViewWillEnter() {
     this.profileFacade.fetchRecommendedProducts();
   }
-
-  ngOnInit(): void {
+  async fetchFollowedSellerDetails() {
+    await this.profileFacade.fetchFollowedSellerDetails();
+  }
+  async ngOnInit(): Promise<void> {
     // this.showSpinner = true;
 
     // setTimeout(() => {
@@ -106,6 +119,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     // }, 6000);
     this.fetchPopProducts();
     this.fetchTrendingProducts();
+
     // this.profileFacade.fetchRecommendedProducts();
 
     // this.showSpinner = false;

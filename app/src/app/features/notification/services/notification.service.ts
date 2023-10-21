@@ -52,7 +52,7 @@ export class NotificationService {
         take(1)
       )
       .subscribe(profile => {
-        if (profile?.id) {
+        if (profile?.id && profile.type === 'consumer') {
           user_id = profile.id;
 
           // Listen to a Firestore collection

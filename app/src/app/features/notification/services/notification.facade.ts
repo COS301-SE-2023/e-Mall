@@ -69,7 +69,7 @@ export class NotificationFacade implements OnDestroy {
       .getCurrentUser()
       .pipe(debounceTime(500))
       .subscribe(async (user: IUser | null) => {
-        if (user != null) {
+        if (user != null && user.type === 'consumer') {
           await notificationService.request().then(async permission => {
             if (permission === 'granted') {
               await notificationService.getToken().then(token => {
