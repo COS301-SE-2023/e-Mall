@@ -6,10 +6,12 @@ import * as ProfileActions from './profile.actions';
 import produce from 'immer';
 import { Profile } from '../models/alias-profile.interface';
 import { IProduct } from '@app/shared/models/product/product.interface';
+import { ISellerCard } from '../models/seller-card.interface';
 
 export interface ProfileStateModel {
   profile: Profile;
   recommended_products: IProduct[] | null;
+  followed_sellers: ISellerCard[] | null;
 }
 
 @State<ProfileStateModel>({
@@ -17,6 +19,7 @@ export interface ProfileStateModel {
   defaults: {
     profile: null,
     recommended_products: null,
+    followed_sellers: null,
   },
 })
 @Injectable()
@@ -58,7 +61,11 @@ export class ProfileState {
   }
   @Action(ProfileActions.ClearProfile)
   signOut(ctx: StateContext<ProfileStateModel>) {
-    ctx.setState({ profile: null, recommended_products: null });
+    ctx.setState({
+      profile: null,
+      recommended_products: null,
+      followed_sellers: null,
+    });
   }
 
   // @Action(ProfileActions.AddToWishlist)
@@ -177,14 +184,38 @@ export class ProfileState {
     );
   }
 
-  @Action(ProfileActions.SetRecommendedProducts)
-  setRecommendedProducts(
+  @Action(ProfileActions.UpdateFollowedSeller)
+  updateFollowedSeller(
     ctx: StateContext<ProfileStateModel>,
-    action: ProfileActions.SetRecommendedProducts
+    action: ProfileActions.UpdateFollowedSeller
   ) {
     ctx.setState(
       produce(draft => {
-        draft.recommended_products = action.products;
+        // If draft.followed_seller is empty or null, just append
+        if (!draft.followed_sellers || draft.followed_sellers.length === 0) {
+          draft.followed_sellers = [action.sellers];
+        } else {
+          // If there are some items in draft.followed_sellers
+          const index = draft.followed_sellers.indexOf(action.sellers);
+          if (index === -1) {
+            // If the action's parameter item doesn't already exist, append to list
+            draft.followed_sellers.push(action.sellers);
+          } else {
+            // If it does exist, remove from the draft.followed_sellers list
+            draft.followed_sellers.splice(index, 1);
+          }
+        }
+      })
+    );
+  }
+  @Action(ProfileActions.SetFollowedSeller)
+  setFollowedSeller(
+    ctx: StateContext<ProfileStateModel>,
+    action: ProfileActions.SetFollowedSeller
+  ) {
+    ctx.setState(
+      produce(draft => {
+        draft.followed_sellers = action.sellers;
       })
     );
   }

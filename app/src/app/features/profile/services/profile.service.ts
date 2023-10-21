@@ -106,20 +106,22 @@ export class ProfileService {
     );
   }
 
-  fetchFollowedSellerDetails(): Observable<ISellerCard[] | null> {
+  fetchFollowedSellerDetails(): Promise<ISellerCard[] | null> {
     const url = `${this.apiUrl}fetchFollowedSellerDetails/`;
-    return this.http
-      .post<ISellerCard[]>(
-        url,
-        {},
-        {
-          headers: new HttpHeaders()
-            .set('Content-Type', 'application/json')
-            .set('Authorization', 'true'),
-          observe: 'response',
-        }
-      )
-      .pipe(map(response => response.body));
+    return firstValueFrom(
+      this.http
+        .post<ISellerCard[]>(
+          url,
+          {},
+          {
+            headers: new HttpHeaders()
+              .set('Content-Type', 'application/json')
+              .set('Authorization', 'true'),
+            observe: 'response',
+          }
+        )
+        .pipe(map(response => response.body))
+    );
   }
 
   async fetchRecommendedProducts(): Promise<IProduct[]> {
@@ -166,6 +168,4 @@ export class ProfileService {
     const url = `http://localhost:3000/api/custanalytics/predicted_matrix/`;
     return firstValueFrom(this.http.post(url, {}));
   }
-
-
 }

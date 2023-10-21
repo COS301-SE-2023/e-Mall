@@ -13,6 +13,7 @@ import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { ISeller } from '@shared/models/seller/seller.interface';
 import { SellerService } from '@shared/servicies/seller/seller.service';
 import { switchMap, take, tap } from 'rxjs/operators';
+import { ISellerCard } from '../profile/models/seller-card.interface';
 
 @Component({
   selector: 'app-inventory',
@@ -126,7 +127,11 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
   }
 
   updateButtonState() {
-    this.profileFacade.toggleSellers(this.seller_business_name);
+    const data: ISellerCard = {
+      id: this.seller_id!,
+      name: this.seller_business_name,
+    };
+    this.profileFacade.toggleSellers(data);
   }
 
   onSortOptionChange(): void {

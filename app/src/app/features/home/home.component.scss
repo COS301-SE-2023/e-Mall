@@ -1,5 +1,5 @@
 h2 {
-  font-size: 300%!important;
+  font-size: 300% !important;
 }
 .overlay-button {
   margin-top: 2rem;
@@ -13,7 +13,7 @@ h2 {
   justify-self: center;
   align-self: center;
   background-color: rgba(0, 0, 0, 0.3);
-  color: white; 
+  color: white;
   padding: 1%;
   text-align: center;
   font-size: 125%;
@@ -26,15 +26,16 @@ ion-button {
 }
 
 swiper-container {
-  width: 100%;
-  height: 100%;
+  max-width: 400px;
+  // width: 100%;
+  // height: 100px;
 }
 
 swiper-slide {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  // display: flex;
+  // flex-direction: row;
+  // align-items: center;
+  // justify-content: center;
 }
 .swiper-button-prev,
 .swiper-button-next {
@@ -83,7 +84,7 @@ swiper-slide {
 }
 .cat-title {
   h2 {
-    font-size: 400%!important;
+    font-size: 400% !important;
     color: var(--ion-color-primary-alt);
   }
   height: min-content;
@@ -141,7 +142,6 @@ a {
   padding: 0%;
   width: min-content;
   justify-self: center;
-
 }
 .row1 {
   min-width: 100%;
@@ -204,7 +204,7 @@ a {
   color: var(--ion-color-text-contrast);
 }
 .welcome-footer {
-    font-size: 150%!important;
+  font-size: 150% !important;
 
   color: var(--ion-color-text);
 }
@@ -246,12 +246,11 @@ a {
   justify-self: flex-start;
   text-align: center;
   justify-content: center;
-  h2{
+  h2 {
     color: var(--ion-color-text);
     font-size: 150%;
     size: 150%;
   }
-  
 }
 .register-btn {
   display: flex;
@@ -287,7 +286,7 @@ a {
   background-color: var(--ion-color-primary);
   .prod-title {
     h2 {
-      color:  var(--ion-color-primary-alt);
+      color: var(--ion-color-primary-alt);
     }
   }
 }
@@ -307,7 +306,6 @@ a {
   text-align: center;
   justify-content: center;
   flex-wrap: wrap;
-
 }
 .prod-title {
   h2 {
@@ -323,16 +321,21 @@ a {
 }
 
 @media (max-width: 768px) {
- .side-pannel,.cat-container,.register-title, .register-btn{
-  width: 100%;
- }
- .row1{
-  height: auto;
- }
- .carousel-container,.custom-carousel, .row,.register-container{
-  flex-wrap: wrap;
- }
-
+  .side-pannel,
+  .cat-container,
+  .register-title,
+  .register-btn {
+    width: 100%;
+  }
+  .row1 {
+    height: auto;
+  }
+  .carousel-container,
+  .custom-carousel,
+  .row,
+  .register-container {
+    flex-wrap: wrap;
+  }
 }
 
 .cat-img {
@@ -342,10 +345,10 @@ a {
   object-position: center center; /* This centers the image within the specified dimensions */
   align-items: center;
 }
-.cat-img:hover{
+.cat-img:hover {
   filter: brightness(50%);
 }
-.cat-img-container{
+.cat-img-container {
   min-width: 180px;
   height: 250px;
   align-items: center;
