@@ -184,3 +184,21 @@ ion-title {
 .edit-button-container {
   margin-top: 40px;
 }
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .profile-info-container{
+    max-width: 320px;
+    margin-left: 0;
+  }
+
+  .user-circle-container{
+    width: 50px;
+    height: 50px;
+    font-size: 4vw;
+  }
+
+  .user-details p{
+    font-size: 4vw;
+  }
+}
