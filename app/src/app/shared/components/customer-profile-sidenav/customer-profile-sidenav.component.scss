@@ -143,6 +143,24 @@ ion-item.active {
   margin-top: 10px;
 }
 
-.side-nav-container.collapsed {
+.OpenNav {
   display: none;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .side-nav-container.collapsed {
+    display: none;
+  }
+
+  .OpenNav {
+    display: block;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 999;
+  } 
+
+
+  
 }
