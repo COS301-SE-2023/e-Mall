@@ -8,15 +8,21 @@
 </head>
 
 <ion-app>
-  <ion-menu
-    side="end"
-    menuId="notification"
-    contentId="main-content"
-    (ionWillClose)="notificationMenuClosed()">
-    <app-notification-pannel
-      menuId="notification"
-      style="height: 100%"></app-notification-pannel>
-  </ion-menu>
-  <app-notification></app-notification>
+  <ng-container *ngIf="authFacade.getCurrentUser() | async as user">
+    <ng-container *ngIf="user.type === 'consumer'">
+      <ion-menu
+        side="end"
+        menuId="notification"
+        swipeGesture="false"
+        contentId="main-content"
+        (ionWillClose)="notificationMenuClosed()">
+        <app-notification-pannel
+          menuId="notification"
+          style="height: 100%"></app-notification-pannel>
+      </ion-menu>
+
+      <app-notification></app-notification> </ng-container
+  ></ng-container>
+
   <ion-router-outlet id="main-content"></ion-router-outlet>
 </ion-app>
