@@ -140,3 +140,22 @@ h2 {
   margin-top: 18px;
   margin-bottom: 18px;
 }
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .head {
+    display: flex;
+    flex-direction: column;
+    align-items: left; /* Center horizontally */
+  }
+  
+  .head-buttons {
+    margin-top: 10px; /* Optional spacing between the name and buttons */
+    display: flex;
+    align-items: center; /* Center horizontally */
+    ion-button{
+      font-size: 3vw;
+    }
+  }
+  
+}

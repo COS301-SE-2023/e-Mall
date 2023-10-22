@@ -159,7 +159,7 @@ ion-button {
 @media (max-width: 600px) {
   ion-card {
     width: 100%; /* Adjusted width for responsiveness */
-    max-width: 160px; /* Set a maximum width for larger screens */
+    max-width: 200px; /* Set a maximum width for larger screens */
     margin: 10px 10px; /* Center the card horizontally */
     max-height: 100%;
   }
@@ -178,7 +178,7 @@ ion-button {
   }
 
   h4 {
-    font-size: 16px; /* Adjusted font size for responsiveness */
+    font-size: 13px; /* Adjusted font size for responsiveness */
   }
 
   p {
