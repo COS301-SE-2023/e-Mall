@@ -156,6 +156,14 @@ h2 {
     ion-button{
       font-size: 3vw;
     }
+
+    .head{
+      .user-cards{
+        ion-card{
+          width: 100%;
+        }
+      }
+    }
   }
   
 }
