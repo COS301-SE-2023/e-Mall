@@ -286,7 +286,106 @@
     "instagram_link": "https://www.instagram.com/bargainseastlondon",
     "facebook_link": "https://www.facebook.com/bargainsstore",
     "twitter_link": ""
+  },
+  "19": {
+    "business_name": "Mamamac’s Bakery",
+    "business_type": "Retailer",
+    "email": "hello@mamamacs.co.za",
+    "username": "Mamamacs",
+    "website": "https://mamamacs.co.za/",
+    "landline_number": "0233134338",
+    "support_email": "hello@mamamacs.co.za",
+    "address": "Prince Alfred Hamlet",
+    "city": "Prince Alfred Hamlet",
+    "postal_code": "6835",
+    "logo": "https://mamamacs.co.za/cdn/shop/files/Mamamacs_name_heart_-_GOLD_165x@2x.png?v=1633372632",
+    "instagram_link": "https://www.instagram.com/mamamacsbakery/",
+    "facebook_link": "https://www.facebook.com/MamamacsBakery",
+    "twitter_link": ""
+  },
+  "20": {
+    "business_name": "Morals The Brand",
+    "business_type": "Retailer",
+    "email": "morals.the.brand@gmail.com",
+    "username": "morals",
+    "website": "https://moralsthebrand.co.za/",
+    "landline_number": "",
+    "support_email": "morals.the.brand@gmail.com",
+    "address": "",
+    "city": "Johanessburg",
+    "postal_code": "6835",
+    "logo": "https://moralsthebrand.co.za/cdn/shop/files/Morals_The_Brand_Logo_180x.jpg?v=1614158429",
+    "instagram_link": "https://www.instagram.com/morals.the.brand/",
+    "facebook_link": "https://www.facebook.com/people/Moralsthebrand/",
+    "twitter_link": ""
+  },
+  "21": {
+    "business_name": "Khayelitsha Cookies",
+    "business_type": "Retailer",
+    "email": "sales@kcco.co.za",
+    "username": "kcco",
+    "website": "https://kcco.co.za/",
+    "landline_number": "0215102300",
+    "support_email": "sales@kcco.co.za",
+    "address": "5, Beaconvale, Cape Town, 7500",
+    "city": "Cape Town",
+    "postal_code": "7500",
+    "logo": "https://kcco.co.za/wp-content/uploads/2023/07/logo2.1.png",
+    "instagram_link": "",
+    "facebook_link": "",
+    "twitter_link": ""
+  },
+  "22": {
+    "business_name": "My Vellies",
+    "business_type": "Retailer",
+    "email": "admin@myvellies.co.za",
+    "username": "myvellies",
+    "website": "https://myvellies.co.za/",
+    "landline_number": "0722255751",
+    "support_email": "admin@myvellies.co.za",
+    "address": "73 lyttleton rd clubview, Gauteng",
+    "city": "Centurion",
+    "postal_code": "0014",
+    "logo": "https://myvellies.co.za/wp-content/uploads/2022/07/MV1_Khaki.png",
+    "instagram_link": "",
+    "facebook_link": "",
+    "twitter_link": ""
+  },
+  "23": {
+    "business_name": "ZA Etc",
+    "business_type": "Retailer",
+    "email": "admin@zaetc.co.za",
+    "username": "zaetc",
+    "website": "https://zaetc.co.za/",
+    "landline_number": "0604114300",
+    "support_email": "admin@zaetc.co.za",
+    "address": "12A 7th Street, Corner 4th Ave,MELVILLE, 2092",
+    "city": "Johanessburg",
+    "postal_code": "2092",
+    "logo": "https://zaetc.co.za/wp-content/uploads/2020/10/cropped-ZAetc-site-logo-1.jpg",
+     "instagram_link": "https://www.instagram.com/zaetcjewellery/",
+    "facebook_link": "https://www.facebook.com/Z-A-Etc-214130859058612/",
+    "twitter_link": ""
+  },
+  "24": {
+    "business_name": "Betse Delicacies",
+    "business_type": "Retailer",
+    "email": " betse.deli@gmail.com",
+    "username": "bestedeli",
+    "website": "https://betsedelicacies.co.za/",
+    "landline_number": "0735889071",
+    "support_email": " betse.deli@gmail.com",
+    "address": " 16 Princes Ave, Windsor West, Randburg, 2194",
+    "city": "Johanessburg",
+    "postal_code": "2194",
+    "logo": "https://betsedelicacies.co.za/assets/img/Round%20logo%20betse%20delicacies.png?h=77776e729170287d70a024224c03f59d",
+     "instagram_link": "https://www.instagram.com/betse_bakes/",
+    "facebook_link": "https://www.facebook.com/betsebakes",
+    "twitter_link": "https://www.twitter.com/betse_bakes"
   }
+
+
+
 
   
 }

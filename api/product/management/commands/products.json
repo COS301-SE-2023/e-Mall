@@ -658,5 +658,263 @@
     "description": "Kids Red Gabriella Hooded Sweater Dress",
     "brand": "Polo",
     "category": "clothing"
+  },
+  "111": {
+    "name": "Vegan Coconut & Cranberry Rusks",
+    "description": "Vegan or not, you are going to love these!  Made with coconut cream and cranberries, these rusks, packed with pumpkin seeds and almonds, are an indulgent treat!",
+    "brand": "Mamamac’s Bakery",
+    "category": "Food"
+  },
+  "112": {
+    "name": "Bran & Honey Rusks",
+    "description":"These traditional bran rusks are made with pure honey from our valley - a delicious combination!",
+    "brand": "Mamamac’s Bakery",
+    "category": "Food"
+  },
+  "113": {
+    "name": "Oats & Bran Flakes Rusks",
+    "description":"Our Oats & Bran flake rusks are a firm favourite in the Mamamac's bakery as well as many a home. We've combined rolled oats and bran flakes for a healthy and hearty rusk. ",
+    "brand": "Mamamac’s Bakery",
+    "category": "Food"
+  },
+  "114": {
+    "name": "Buttermilk Rusks",
+    "description":"Made with real buttermilk the good old-fashioned way. Take our word for it, you're going to need more than 1 bag of these delicious buttermilk rusks!",
+    "brand": "Mamamac’s Bakery",
+    "category": "Food"
+  },
+  "115": {
+    "name": "Choc Chip Biscuits",
+    "description":"Chocolaty and indulgent, made from real chocolate chips. You can take our word on this, you're going to want to order some extra.",
+    "brand": "Mamamac’s Bakery",
+    "category": "Food"
+  },
+  "116": {
+    "name": "Bran & Multiseed Rusks",
+    "description":"Our Bran & Multiseed rusks are a beautiful blend of sunflower, poppy, sesame and linseeds. The ultimate good-for-you rusk!",
+    "brand": "Mamamac’s Bakery",
+    "category": "Food"
+  },
+  "117": {
+    "name": "Buttermilk & Sunflower Seeds Rusks",
+    "description":"All the deliciousness of buttermilk with a sprinkle of sunflower seeds! ",
+    "brand": "Mamamac’s Bakery",
+    "category": "Food"
+  },
+  "118": {
+    "name": "Three Seed with Raisins Rusks",
+    "description":"A delicious high fibre rusk with a generous dose of raisins. Perfect for the raisin lover.",
+    "brand": "Mamamac’s Bakery",
+    "category": "Food"
+  },
+  "119": {
+    "name": "Premium Gift Box Collection",
+    "description":"Treat yourself (or a loved one) to our entire gifting collection. \nThe collection contains the following:\n1 x 250g box of Chocolate Chip Biscuits\n1 x 250g White Chocolate and Cranberry Biscuits\n1 x 250g  Dark Chocolate and Almond Biscuits",
+    "brand": "Mamamac’s Bakery",
+    "category": "Food"
+  },
+  "120": {
+    "name": "Sky Bucket Patch Hat",
+    "description":"A passport to carefree vibes. And the perfect hat that you can take anywhere!\nHandmade in South Africa\nStretch denim\nAvailable in two sizes (M 54-56cm and L 57-59cm)\n100% Cotton lining\nUnisex\nMachine washable at 30 degrees Celsius",
+    "brand": "morals the brand",
+    "category": "clothing"
+  },
+  "121": {
+    "name": "White Patch Hat",
+    "description":"Elegantly splendid;) This crisp white hat is a catch.\nHandmade in South Africa\nStretch denim\nAdjustable drawstring\nEyelet detailing\nFits up to 59cm head circumference\n100% Cotton lining\nUnisex\nMachine washable at 30 degrees Celsius",
+    "brand": "morals the brand",
+    "category": "clothing"
+  },
+  "122": {
+    "name": "Sunset Bloom Bucket",
+    "description":"Handmade in South Africa\nHand printed\nStretch denim\nAvailable in two sizes (M 54-56cm. L 57-59cm) \nReversible (plain white)\nUnisex\nMachine washable at 30 degrees Celsius ",
+    "brand": "morals the brand",
+    "category": "clothing"
+  },
+  "123": {
+    "name": "Bubblegum Multi-top",
+    "description":"A perfect pink! This 9 in 1 top is nothing but the best. Wear it any day of the week and during anytime of the day. It really is so versatile.",
+    "brand": "morals the brand",
+    "category": "clothing"
+  },
+  "124": {
+    "name": "Rosy Embroidered Handbag",
+    "description":"Hand embroidered \nMade from recycled denim jeans\n100% cotton lining\n24x14x5cm with 62cm strap \nMetal zip\nOne-of-a-kind",
+    "brand": "morals the brand",
+    "category": "clothing"
+  },
+  "125": {
+    "name": "Mega Munch Bucket – 4 Litre (Vanilla)",
+    "description":"Flavours: Vanilla, Double Choc, Ginger Snaps",
+    "brand": "Khayelitsha Cookies",
+    "category": "food"
+  },
+  "126": {
+    "name": "Retail Nutty Brownie – 80g",
+    "description":"A Delicious Crispy & Sticky Chocolate Brownie Topped with Pecan Nuts.",
+    "brand": "Khayelitsha Cookies",
+    "category": "food"
+  },
+  "127": {
+    "name": "Individually Wrapped, Mixed Conference Box – 100 (25 x 4 x 9g Cookies)",
+    "description":"100 x 9g mixed variety box of individually wrapped conference cookies.\n25 x Butterscotch (9g)\n25 x Oats (9g)\n25 x Ginger (9g)\n25 x Double Choc (9g)",
+     "brand": "Khayelitsha Cookies",
+    "category": "food"
+  },
+  "128": {
+    "name": "Nutty Fudge Brownie Bites (200g)",
+    "description":"",
+    "brand": "Khayelitsha Cookies",
+    "category": "food"
+  },
+  "129": {
+    "name": "Cheese Straws – 100g Pack",
+    "description":"",
+    "brand": "Khayelitsha Cookies",
+    "category": "food"
+  },
+  "130": {
+    "name": "Biscotti Choc-10pp",
+    "description":"",
+    "brand": "Khayelitsha Cookies",
+    "category": "food"
+  },
+  "131": {
+    "name": "Scrumptious Puffed Rice & Choc – 135g",
+    "description":"",
+    "brand": "Khayelitsha Cookies",
+    "category": "food"
+  },
+  "132": {
+    "name": "Leather Tan Bag",
+    "description":"The My Vellies team insure the best value for money vellies supporting local manufacturers. Our products are made of genuine suede or leather with a good quality rubber sole. Please note that all orders are dispatched between 10 and 20 working days.",
+    "brand": "My Vellies",
+    "category": "clothing"
+  },
+  "133": {
+    "name": "Ladies Tan T-Bar Pump",
+    "description":"The My Vellies team insure the best value for money vellies supporting local manufacturers. Our products are made of genuine suede or leather with a good quality rubber sole. Please note that all orders are dispatched between 10 and 20 working days.",
+    "brand": "My Vellies",
+    "category": "clothing"
+  },
+  "134": {
+    "name": "Ladies Navy & Pewter T Bar sandal",
+    "description":"The My Vellies team insure the best value for money vellies supporting local manufacturers. Our products are made of genuine suede or leather with a good quality rubber sole. Please note that all orders are dispatched between 10 and 20 working days.",
+    "brand": "My Vellies",
+    "category": "clothing"
+  },
+  "135": {
+    "name": "Ladies Coral & Gold T Bar sandal",
+    "description":"The My Vellies team insure the best value for money vellies supporting local manufacturers. Our products are made of genuine suede or leather with a good quality rubber sole. Please note that all orders are dispatched between 10 and 20 working days.",
+    "brand": "My Vellies",
+    "category": "clothing"
+  },
+  "136": {
+    "name": "Green Sole Unisex Vellie",
+    "description":"The My Vellies team insure the best value for money vellies supporting local manufacturers. Our products are made of genuine suede or leather with a good quality rubber sole. Please note that all orders are dispatched between 10 and 20 working days.",
+    "brand": "My Vellies",
+    "category": "clothing"
+  },
+  "137": {
+    "name": "Bok Low Cut Unisex Vellie",
+    "description":"The My Vellies team insure the best value for money vellies supporting local manufacturers. Our products are made of genuine suede or leather with a good quality rubber sole. Please note that all orders are dispatched between 10 and 20 working days.",
+    "brand": "My Vellies",
+    "category": "clothing"
+  },
+  "138": {
+    "name": "Bok High Top Unisex Vellie",
+    "description":"The My Vellies team insure the best value for money vellies supporting local manufacturers. Our products are made of genuine suede or leather with a good quality rubber sole. Please note that all orders are dispatched between 10 and 20 working days.",
+    "brand": "My Vellies",
+    "category": "clothing"
+  },
+  "139": {
+    "name": "Fransa Cole Brass Earrings",
+    "description":"MATERIAL: BRASS\nSIZE: L = 35 MM\nWEIGHT: 4 GRMS",
+    "brand": "ZA Etc",
+    "category": "clothing"
+  },
+  "140": {
+    "name": "Small Stud Gold Tone Earrings",
+    "description":"MATERIAL: POT METAL\nSIZE: L = 15 MM\nWEIGHT: 4 GRMS",
+    "brand": "ZA Etc",
+    "category": "clothing"
+  },
+  "141": {
+    "name": "Koketso Africa Hoop Earrings",
+    "description":"MATERIAL: POLISHED BRASS\nSIZE: L = 65 MM W=60MM\nWEIGHT: 4 GRMS",
+    "brand": "ZA Etc",
+    "category": "clothing"
+  },
+  "142": {
+    "name": "Precious Africa Necklace",
+    "description":"MATERIAL: GOLD PLATED BRASS WITH 30 CM GOLD PLATED CHAIN\nSIZE: D =M50 CM\nWEIGHT: 30 GRMS",
+    "brand": "ZA Etc",
+    "category": "clothing"
+  },
+  "143": {
+    "name": "Silver Plate Necklace",
+    "description":"MATERIAL: SILVER PLATED METAL\nSIZE: L = 500 MM\nWEIGHT: 18 GRMS",
+    "brand": "ZA Etc",
+    "category": "clothing"
+  },
+  "144": {
+    "name": "Cocktail Platter",
+    "description":"A Cocktail Cookies platter consisting of Custard cookies, Strawberry Cookies, Ginger Cookies and Lemon Cookies",
+    "brand": "Betse Delicacies",
+    "category": "food"
+  },
+  "145": {
+    "name": "Chocolate Platter",
+    "description":"A Chocolate cookies platter featuring Chocolate-Coconut Cookies, Choc-Chip Cookies, Vanilla Choc Cookies and Chocolate Cookies",
+    "brand": "Betse Delicacies",
+    "category": "food"
+  },
+  "146": {
+    "name": "Choc-Chip Cookies",
+    "description":"",
+    "brand": "Betse Delicacies",
+    "category": "food"
+  },
+  "147": {
+    "name": "Shortbread Cookies",
+    "description":"",
+    "brand": "Betse Delicacies",
+    "category": "food"
+  },
+  "148": {
+    "name": "Scones",
+    "description":"",
+    "brand": "Betse Delicacies",
+    "category": "food"
+  },
+  "149": {
+    "name": "Vanilla Cookies",
+    "description":"",
+    "brand": "Betse Delicacies",
+    "category": "food"
+  },
+  "150": {
+    "name": "Ginger Cookies",
+    "description":"",
+    "brand": "Betse Delicacies",
+    "category": "food"
+  },
+  "151": {
+    "name": "Lemon Cookies",
+    "description":"",
+    "brand": "Betse Delicacies",
+    "category": "food"
+  },
+  "152": {
+    "name": "Choc-Coated Vanilla Cookies",
+    "description":"",
+    "brand": "Betse Delicacies",
+    "category": "food"
+  },
+  "153": {
+    "name": "Choc-Coconut Cookies",
+    "description":"",
+    "brand": "Betse Delicacies",
+    "category": "food"
   }
 }

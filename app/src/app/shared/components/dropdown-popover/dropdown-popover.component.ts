@@ -22,7 +22,8 @@ export class DropdownPopoverComponent implements OnInit {
     { title: 'Home and Kitchen', path: '/category/Home%20and%20Kitchen', nav: '' },
     { title: 'Health and Beauty', path: '/category/Health%20and%20Beauty', nav: '' },
     { title: 'Toys and Games', path: '/category/Toys%20and%20Games', nav: '' },
-    { title: 'Books', path: '/category/Books', nav:'' }
+    { title: 'Books', path: '/category/Books', nav:'' },
+    { title: 'Food', path: '/category/Food', nav:'' }
   ];  
 
   sel_pages = [
