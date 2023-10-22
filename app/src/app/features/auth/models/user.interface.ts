@@ -4,4 +4,5 @@ export interface IUser {
   seller_verified?: boolean;
   token: string;
   type: string;
+  code?: string;
 }

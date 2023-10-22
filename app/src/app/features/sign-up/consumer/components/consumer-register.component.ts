@@ -9,19 +9,42 @@ import {
 import { IConsumerForm } from '@features/sign-up/consumer/models/consumer.interface';
 import { LoadingController } from '@ionic/angular';
 import { ToastComponent } from '@shared/components/toast/toast.component';
+import { AuthFacade } from '@app/features/auth/services/auth.facade';
+import { animate, style, transition, trigger } from '@angular/animations';
+
 @Component({
   selector: 'app-consumer-register',
   templateUrl: './consumer-register.component.html',
   styleUrls: ['./consumer-register.component.scss'],
+  animations: [
+    trigger('initFadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate(500, style({ opacity: 1 })),
+      ]),
+      // transition(':leave', [animate(500, style({ opacity: 0 }))]),
+    ]),
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate(100, style({ opacity: 1 })),
+      ]),
+      transition(':leave', [animate(100, style({ opacity: 0 }))]),
+    ]),
+  ],
 })
 export class ConsumerRegisterComponent {
   registerForm: FormGroup;
+  confirmForm: FormGroup;
   passwordErrors = passwordValidationErrors;
+  loading = false;
+  next = false;
   constructor(
     private formBuilder: FormBuilder,
-    private consumerFacade: ConsumerFacade,
+    public consumerFacade: ConsumerFacade,
     private loadingController: LoadingController,
-    private toast: ToastComponent
+    private toast: ToastComponent,
+    private authFacade: AuthFacade
   ) {
     this.registerForm = this.formBuilder.group(
       {
@@ -33,10 +56,17 @@ export class ConsumerRegisterComponent {
         validators: passwordMatchValidator('password', 'cpassword'),
       }
     );
+    this.confirmForm = this.formBuilder.group({
+      code: ['', [Validators.required]],
+    });
   }
 
-  onSubmit() {
-    if (this.registerForm.valid) this.signUp();
+  async onSubmit() {
+    if (this.registerForm.valid) {
+      await this.cognitoSignUp().then(() => {
+        this.next = true;
+      });
+    }
   }
 
   async signUp() {
@@ -56,9 +86,43 @@ export class ConsumerRegisterComponent {
     };
     await this.consumerFacade.signUp(form);
     loading.dismiss();
-    this.toast.presentErrorToast(this.consumerFacade.getError());
+    // this.toast.presentErrorToast(this.consumerFacade.getError());
   }
   getFormControl(field: string) {
     return this.registerForm.get(field);
+  }
+  public async confirmSignUp(): Promise<void> {
+    this.loading = true;
+    await this.consumerFacade
+      .confirmSignUp(
+        this.getFormValue(this.registerForm, 'email'),
+        this.getFormValue(this.confirmForm, 'code')
+      )
+      .then(() => {
+        if (this.authFacade.confirmed) return this.signUp();
+        else {
+          console.log('else');
+          return;
+        }
+      })
+      .catch(() => {
+        this.loading = false;
+      });
+  }
+  async cognitoSignUp() {
+    if (this.registerForm.valid) {
+      console.log(this.registerForm);
+      await this.consumerFacade.congnitoSignUp(
+        this.getFormValue(this.registerForm, 'email'),
+        this.getFormValue(this.registerForm, 'password'),
+        'consumer'
+      );
+    }
+  }
+  private getFormValue(form: FormGroup, field: string) {
+    return form.controls[field].value;
+  }
+  public resend() {
+    this.authFacade.resend(this.getFormValue(this.registerForm, 'email'));
   }
 }

@@ -6,7 +6,11 @@
           <h2>Register your Business Today!</h2>
         </ion-text>
 
-        <mat-stepper linear #stepper labelPosition="bottom">
+        <mat-stepper
+          linear
+          #stepper
+          labelPosition="bottom"
+          *ngIf="!next; else confirm">
           <ng-template matStepperIcon="edit"> </ng-template>
           <ng-template matStepperIcon="done">
             <mat-icon>done</mat-icon>
@@ -27,6 +31,8 @@
                     fill="outline"
                     formControlName="email"
                     required="true"
+                    [debounce]="500"
+                    (ionChange)="doesEmailExist()"
                     (ionFocus)="onInputFocus(0)"></ion-input>
 
                   <div class="error-container">
@@ -38,9 +44,9 @@
                         getFormControl(registerFormFirst, 'email')?.dirty &&
                         getFormControl(registerFormFirst, 'email')?.touched
                       ">
-                      <ion-text color="danger" size="small"
-                        >Invalid email address</ion-text
-                      >
+                      <ion-text color="danger" size="small">{{
+                        emailErrorMessage
+                      }}</ion-text>
                     </div>
                   </div>
                 </div>
@@ -349,3 +355,42 @@
     </ion-row>
   </ion-grid>
 </ion-content>
+<ng-template #confirm>
+  <div class="input-error-box-wrapper" @initFadeInOut>
+    <form [formGroup]="confirmForm" (ngSubmit)="onSubmit()">
+      <div class="input-error-box">
+        <ion-input
+          type="text"
+          label="Confirm Code"
+          placeholder="Verification Code"
+          labelPlacement="floating"
+          formControlName="code"
+          fill="outline"
+          required="true"></ion-input>
+
+        <div class="error-container">
+          <div
+            class="error-message"
+            *ngIf="
+              confirmForm.get('code')?.invalid &&
+              confirmForm.get('code')?.dirty &&
+              confirmForm.get('code')?.touched
+            ">
+            <ion-text color="danger" size="small"
+              >Invalid code, check your email
+              {{ confirmForm.get('code')!.value }}</ion-text
+            >
+          </div>
+        </div>
+      </div>
+      <div class="step-button">
+        <ion-button
+          [disabled]="confirmForm.invalid"
+          color="primary"
+          (click)="confirmSignUp()">
+          Confirm
+        </ion-button>
+      </div>
+    </form>
+  </div>
+</ng-template>

@@ -14,13 +14,17 @@ import { IError } from '@app/features/error/models/error.interface';
 import * as ErrorActions from '@features/error/states/error.action';
 //import { LoaderFacade } from '../../../shared/components/loader/loader.facade';
 import { StateResetAll } from 'ngxs-reset-plugin';
+import { ToastComponent } from '@app/shared/components/toast/toast.component';
 //import { LoaderFacade } from '../../../shared/components/loader/loader.facade';
 @Injectable()
 export class AuthFacade {
   @Select(AuthSelectors.currentUser)
   private currentUser$!: Observable<IUser>;
   private redirectUrl: string | null = null;
+  public confirmed = false;
+
   constructor(
+    private toast: ToastComponent,
     private authService: AuthService //private loaderService: LoaderFacade
   ) {
     /*loaderService.addActions([
@@ -58,21 +62,26 @@ export class AuthFacade {
   async signUp(form: ISellerForm | IConsumerForm) {
     try {
       const user = await this.authService.signUp(form);
-      if (form.type === 'seller') {
-        return [
-          new AuthActions.SetCurrentUser(user),
-          new ErrorActions.ClearError('auth'),
-          new Navigate(['pending']),
-        ];
-      }
+      // if (form.type === 'seller') {
+      //   return [
+      //     new AuthActions.SetCurrentUser(user),
+      //     new ErrorActions.ClearError('auth'),
+      //     new Navigate(['pending']),
+      //   ];
+      // }
+      this.toast.presentSuccessToast('Successfully signed up');
       return [
-        new AuthActions.SetCurrentUser(user),
-        new ErrorActions.ClearError('auth'),
-        new Navigate(['home']),
+        // new AuthActions.SetCurrentUser(user),
+        // new ErrorActions.ClearError('auth'),
+        // new Navigate(['home']),
+        new Navigate(['sign-in']),
       ];
     } catch (error) {
       return new SetError('auth', error as IError);
     }
+  }
+  async congnitoSignUp(email: string, password: string, type: string) {
+    return await this.authService.cognitoSignUp(email, password, type);
   }
   @Dispatch()
   async signOut() {
@@ -109,5 +118,31 @@ export class AuthFacade {
   }
   setRedirectUrl(url: string): void {
     this.redirectUrl = url;
+  }
+  public async confirmSignUp(email: string, code: string) {
+    try {
+      const res = await this.authService.confirmSignUp(email, code);
+      this.confirmed = true;
+
+      return res;
+    } catch (error) {
+      return this.setError(error);
+    }
+  }
+  public resend(email: string) {
+    return this.authService.resend(email);
+  }
+  @Dispatch()
+  setError(error: any) {
+    this.toast.presentErrorToastWithMessage(error);
+    return new SetError('consumer', error as IError);
+  }
+
+  async doesEmailExist(email: string) {
+    try {
+      return this.authService.checkEmail(email);
+    } catch (e) {
+      return this.setError(e);
+    }
   }
 }
