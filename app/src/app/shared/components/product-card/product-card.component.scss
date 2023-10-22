@@ -178,11 +178,19 @@ ion-button {
   }
 
   h4 {
-    font-size: 13px; /* Adjusted font size for responsiveness */
+    font-size: 11px !important; /* Adjusted font size for responsiveness */
   }
 
   p {
     font-size: 11px; /* Adjusted font size for responsiveness */
+  }
+
+  .bookmark-button{
+    padding-right: 5px;
+  }
+
+  ion-button{
+    --padding-start:1px !important;
   }
 }
 /* styles.scss or your-component.scss */
