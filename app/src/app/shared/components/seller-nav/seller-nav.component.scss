@@ -103,6 +103,9 @@ ion-item.active {
 
 /* Media queries for responsiveness */
 @media (max-width: 768px) {
+  .side-nav {
+    width: 60%;
+  }
   .side-nav-container.collapsed {
     display: none;
   }
