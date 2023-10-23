@@ -56,3 +56,20 @@ ion-content {
 .custom-toast {
   background-color: #37d0d6; 
 }
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .settings-content-wrapper {
+    padding-left: 0px;
+    width: 95%;
+  }
+
+  .settings-container{
+    margin-left: 0rem;
+    margin-bottom: 5rem;
+  }
+
+  .general-settings-container{
+    width: 95%;
+  }
+}
