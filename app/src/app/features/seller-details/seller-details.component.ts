@@ -46,10 +46,12 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
     'Books',
     'Clothing',
     'Electronics',
+    'Food',
     'Health and Beauty',
     'Home and Kitchen',
     'Sports and Outdoors',
     'Toys and Games',
+    
   ];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() sellerID: any;

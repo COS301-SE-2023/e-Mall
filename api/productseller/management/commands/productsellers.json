@@ -2109,7 +2109,7 @@
   },
   "151": {
     "seller_name": "Mamamac’s Bakery",
-    "product_name": "Buttermilk & Sunflower Seeds Rusks",
+    "product_name": "Three Seed with Raisins Rusks",
     "original_price": 65.0,
     "price": 65.0,
     "discount": 0.0,
@@ -2166,7 +2166,7 @@
       "https://moralsthebrand.co.za/cdn/shop/products/image_76ec0138-1401-4aed-8e8b-68c5057aaddd_grande.heic?v=1677528886"
      ]
   },
-  "154": {
+  "186": {
     "seller_name": "Morals The Brand",
     "product_name": "Sunset Bloom Bucket",
     "original_price": 249.0,
@@ -2602,7 +2602,7 @@
       "https://www.cognitoforms.com/file/4e49YKCf9JEUMNLNbfoOCcyYZSY4-gdk6eNalH2jyQvZPLJ33b9TTgpT5hNWrFWX?id=F-OuDRbCYdYoaa1CgM6Hk1Ku&name=Choc%20Coated%20Vanilla.jpg&ct=image%2Fjpeg&size=115196"
     ]
 },
-"186": {
+"187": {
   "seller_name": "Betse Delicacies",
   "product_name": "Choc-Coconut Cookies",
   "original_price": 120.00,
@@ -2614,7 +2614,350 @@
   "img_array": [
       "https://www.cognitoforms.com/file/4e49YKCf9JEUMNLNbfoOCWQtLkQ66pdnMnDOaKJWpWTiMqgyvFBHxdwK8dWaLHlP?id=F-68tqzLDDuYGZdHe7KP1L!E&name=Choc%20Coconut.jpg&ct=image%2Fjpeg&size=272293"
     ]
+},
+"188": {
+  "seller_name": "ZA Etc",
+  "product_name": "Njabu Boat Necklace",
+  "original_price": 795.00,
+  "price": 795.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/njabu-boat-necklace/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/NECK-Injabu-boat.jpg"]
+},
+"189": {
+  "seller_name": "ZA Etc",
+  "product_name": "Square Lapis Necklace",
+  "original_price":695.00,
+  "price": 695.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/square-lapis-necklace/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/NECK-LAPIS-LAZUR-SQUARE-SMALL.jpg"]
+},
+"190": {
+  "seller_name": "ZA Etc",
+  "product_name": "Ndebele Necklace",
+  "original_price": 550.00,
+  "price": 550.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/ndebele-necklace/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/MC-NDEBELE-Necklace-jpg.jpg"]
+},
+"191": {
+  "seller_name": "ZA Etc",
+  "product_name": "Cubic Round Necklace",
+  "original_price": 550.00,
+  "price": 550.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/cubic-round-necklace/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/MC-CUBIC-Round-Necklace-jpg.jpg"]
+},
+"192": {
+  "seller_name": "ZA Etc",
+  "product_name": "Knowledge Necklace",
+  "original_price": 495.00,
+  "price": 495.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/knowledge-necklace/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/NECK-Knowledge-rings-.jpg"]
+},
+"193": {
+  "seller_name": "ZA Etc",
+  "product_name": "Africa Inspired Necklace",
+  "original_price": 675.00,
+  "price": 675.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/africa-inspired-necklace/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/African-trade-beads.jpg"]
+},
+"194": {
+  "seller_name": "ZA Etc",
+  "product_name": "Repurpose Designs Round Necklace",
+  "original_price": 475.00,
+  "price": 475.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/repurpose-designs-round-necklace/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/neck-repurpose-wood-resin.jpg"]
+},
+"195": {
+  "seller_name": "ZA Etc",
+  "product_name": "Repurpose Designs Oblong Necklace",
+  "original_price": 475.00,
+  "price": 475.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/repurpose-designs-oblong-necklace/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/neck-recucled-wood-resin-1.jpg"]
+},
+"196": {
+  "seller_name": "ZA Etc",
+  "product_name": "Imvelo Bracelet 01",
+  "original_price": 495.00,
+  "price": 495.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/imvelo-bracelet-01/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/Brace-imvelo-01.jpg"]
+},
+"197": {
+  "seller_name": "ZA Etc",
+  "product_name": "Imvelo Wave Bracelet",
+  "original_price": 495.00,
+  "price": 495.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/imvelo-wave-bracelet/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/Brace-imvelo-wave-.jpg"]
+},
+"198": {
+  "seller_name": "ZA Etc",
+  "product_name": "MC Ndebele Bracelet",
+  "original_price": 495.00,
+  "price": 495.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/mc-ndebele-bracelet/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/bracelert-mc-ndebele.jpg"]
+},
+"199": {
+  "seller_name": "ZA Etc",
+  "product_name": "Safety Pin Bracelet",
+  "original_price": 425.00,
+  "price": 425.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/safety-pin-bracelet/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/Brace-Safety-Pin-.jpg"]
+},
+"200": {
+  "seller_name": "ZA Etc",
+  "product_name": "Noxolo Ring",
+  "original_price": 650.00,
+  "price": 650.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/noxolo-ring/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/Ring-Noxolo-A.jpg",
+  "https://zaetc.co.za/wp-content/uploads/2020/10/Ring-Noxolo-B.jpg"]
+},
+"201": {
+  "seller_name": "Kitchenique",
+  "product_name": "Ice Tray Snowva",
+  "original_price": 289.00,
+  "price": 289.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/ice-tray-snowva/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20230619140957/03545.jpg"
+  ]
+},
+"202": {
+  "seller_name": "Kitchenique",
+  "product_name": "Hagerty Silver Foam 185ml",
+  "original_price": 255.00,
+  "price": 255.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/hagerty-silver-foam-185ml/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210630124349/12012.jpg"
+  ]
+},
+"203": {
+  "seller_name": "Kitchenique",
+  "product_name": "Noritake Arctic White Dinner Plate 27cm",
+  "original_price": 213.00,
+  "price": 213.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/noritake-arctic-white-dinner-plate-27cm/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210630124323/14205.jpg"
+  ]
+},
+"204": {
+  "seller_name": "Kitchenique",
+  "product_name": "Noritake Arctic White Side Plate 18cm",
+  "original_price": 94.00,
+  "price": 94.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/noritake-arctic-white-side-plate-18cm/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210630124323/14207.jpg"
+  ]
+},
+"205": {
+  "seller_name": "Kitchenique",
+  "product_name": "Maxwell Williams Caviar Side Plate 15cm Black",
+  "original_price": 60.00,
+  "price": 60.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/maxwell-williams-caviar-side-plate-15cm-black/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210630124344/140028-scaled.jpg"
+  ]
+},
+"206": {
+  "seller_name": "Kitchenique",
+  "product_name": "Aris Simmer Mat Heat Diffuser",
+  "original_price": 324.00,
+  "price": 324.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/aris-simmer-mat-heat-diffuser/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210630124105/46502.jpg"
+  ]
+},
+"207": {
+  "seller_name": "Kitchenique",
+  "product_name": "Kilner Spice Jar Square 70ml",
+  "original_price": 75.00,
+  "price": 75.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/kilner-spice-jar-square-70ml/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20220112115506/KL0025460-package-160x160.jpg",
+    "https://media.kitchenique.co.za/20220112115501/KL0025460-lifestyle-160x160.jpg"
+  ]
+},
+"208": {
+  "seller_name": "Kitchenique",
+  "product_name": "Victorinox Tomato/Steak Knife Serrated Blue 11cm",
+  "original_price": 134.00,
+  "price": 134.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/victorinox-tomato-steak-knife-serrated-blue-11cm/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210630124315/16061.jpg"
+  ]
+},
+"209": {
+  "seller_name": "Kitchenique",
+  "product_name": "Maxwell Williams Caviar Cup & Saucer 250ml Black",
+  "original_price": 154.00,
+  "price": 154.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/maxwell-williams-caviar-cup-saucer-250ml-black/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210630124343/140043-scaled.jpg"
+  ]
+},
+"210": {
+  "seller_name": "Kitchenique",
+  "product_name": "Maxwell Williams Ramekin 6.5cm",
+  "original_price": 21.00,
+  "price": 21.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/maxwell-williams-ramekin-6-5cm/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210630122009/14345-scaled.jpg"
+  ]
+},
+"211": {
+  "seller_name": "Kitchenique",
+  "product_name": "Kilner Butter Churner",
+  "original_price": 899.00,
+  "price": 899.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/kilner-butter-churner/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20220112115034/KL0025348-package-160x160.jpg",
+    "https://media.kitchenique.co.za/20220112115029/KL0025348-lifestyle-160x160.jpg"
+  ]
+},
+"212": {
+  "seller_name": "Kitchenique",
+  "product_name": "Krups Waffle Maker",
+  "original_price": 1649.00,
+  "price": 1649.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/krups-waffle-maker/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210820155909/21238.jpg"
+  ]
+},
+"213": {
+  "seller_name": "Kitchenique",
+  "product_name": "Tablecloth Earth Stone 180x180cm",
+  "original_price": 465.00,
+  "price": 465.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/tablecloth-earth-stone-180x180cm/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20230705120039/10765-lifestyle-160x160.jpg",
+    "https://media.kitchenique.co.za/20230705120028/10765.jpg"
+  ]
+},
+"214": {
+  "seller_name": "Kitchenique",
+  "product_name": "Maxwell Williams Napkin Set of 4 Pebble 45x45cm",
+  "original_price": 255.00,
+  "price": 255.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/maxwell-williams-napkin-set-of-4-pebble-45x45cm/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20221010145925/141382.jpg"
+  ]
 }
+
 
 
 
