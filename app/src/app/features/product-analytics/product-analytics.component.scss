@@ -143,3 +143,23 @@
   ion-content {
     --background: #f7f9f9;
   }
+
+  @media (max-width: 768px) {
+    .content{
+      margin-left: 0px;
+      overflow-x: scroll;
+    }
+    .sort-search-wrapper{
+      display: block;
+
+      .search-bar{
+        width: 40%;
+        padding-left: 10px;
+      }
+
+      .sort-wrapper{
+        margin-top: 10px;
+        padding-left: 10px;
+      }
+    }
+  }
