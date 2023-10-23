@@ -2011,5 +2011,1634 @@
       "https://myrunway.co.za/_next/image?url=https%3A%2F%2Fs3-eu-west-1.amazonaws.com%2Fmyrunway-portal-global%2FImages%2FPOL_P6002047316000317_RED%2FPOL_P6002047316000317_RED%257C2.jpeg&w=1920&q=100",
       "https://myrunway.co.za/_next/image?url=https%3A%2F%2Fs3-eu-west-1.amazonaws.com%2Fmyrunway-portal-global%2FImages%2FPOL_P6002047316000317_RED%2FPOL_P6002047316000317_RED%257C3.jpeg&w=64&q=75"
     ]
-  }
+  },
+  "144": {
+    "seller_name": "Mamamac’s Bakery",
+    "product_name": "Vegan Coconut & Cranberry Rusks",
+    "original_price": 75.0,
+    "price": 75.0,
+    "discount": 0.0,
+    "discount_rate": 0.0,
+    "product_url": "https://mamamacs.co.za/products/vegan-coconut-cranberry-rusks",
+    "in_stock": true,
+    "img_array": [
+      "https://mamamacs.co.za/cdn/shop/files/MAMAMACSLIFESTYLE-99_590x.jpg?v=1685689191",
+      "https://mamamacs.co.za/cdn/shop/files/MAMAMACSLIFESTYLE-75_590x.jpg?v=1685689191",
+      "https://mamamacs.co.za/cdn/shop/files/MAMAMACSLIFESTYLE-78_590x.jpg?v=1685689191"
+    ]
+  },
+  "145": {
+    "seller_name": "Mamamac’s Bakery",
+    "product_name": "Bran & Honey Rusks",
+    "original_price": 65.0,
+    "price": 65.0,
+    "discount": 0.0,
+    "discount_rate": 0.0,
+    "product_url":"https://mamamacs.co.za/products/branandhoneyrusks",
+    "in_stock": true,
+    "img_array": [
+      "https://mamamacs.co.za/cdn/shop/files/MAMAMACSLIFESTYLE-102_590x.jpg?v=1685688765",
+      "https://mamamacs.co.za/cdn/shop/files/MAMAMACSLIFESTYLE-86_150x.jpg?v=1685688765",
+      "https://mamamacs.co.za/cdn/shop/files/MAMAMACSLIFESTYLE-88_150x.jpg?v=1685688765"
+    ]
+  },
+  "146": {
+    "seller_name": "Mamamac’s Bakery",
+    "product_name": "Oats & Bran Flakes Rusks",
+    "original_price": 65.0,
+    "price": 65.0,
+    "discount": 0.0,
+    "discount_rate": 0.0,
+    "product_url":"https://mamamacs.co.za/products/oats-bran-flakes-rusks",
+    "in_stock": true,
+    "img_array": [
+      "https://mamamacs.co.za/cdn/shop/products/oatandbranflakes3_590x.jpg?v=1630958413"
+    ]
+  },
+  "147": {
+    "seller_name": "Mamamac’s Bakery",
+    "product_name": "Buttermilk Rusks",
+    "original_price": 65.0,
+    "price": 65.0,
+    "discount": 0.0,
+    "discount_rate": 0.0,
+    "product_url":"https://mamamacs.co.za/products/buttermilk-rusks",
+    "in_stock": true,
+    "img_array": [
+      "https://mamamacs.co.za/cdn/shop/products/bmilk3_590x.jpg?v=1630958378" 
+    ]
+  },
+  "148": {
+    "seller_name": "Mamamac’s Bakery",
+    "product_name": "Choc Chip Biscuits",
+    "original_price": 70.0,
+    "price": 70.0,
+    "discount": 0.0,
+    "discount_rate": 0.0,
+    "product_url":"https://mamamacs.co.za/products/choc-chip-cookies",
+    "in_stock": true,
+    "img_array": [
+      "https://mamamacs.co.za/cdn/shop/products/chocolatechip3_590x.jpg?v=1630957999" 
+    ]
+  },
+  "149": {
+    "seller_name": "Mamamac’s Bakery",
+    "product_name": "Bran & Multiseed Rusks",
+    "original_price": 65.0,
+    "price": 65.0,
+    "discount": 0.0,
+    "discount_rate": 0.0,
+    "product_url":"https://mamamacs.co.za/products/bran-multiseed-rusks",
+    "in_stock": true,
+    "img_array": [
+      "https://mamamacs.co.za/cdn/shop/products/bran3_900x.jpg?v=1630958157" 
+    ]
+  },
+  "150": {
+    "seller_name": "Mamamac’s Bakery",
+    "product_name": "Buttermilk & Sunflower Seeds Rusks",
+    "original_price": 65.0,
+    "price": 65.0,
+    "discount": 0.0,
+    "discount_rate": 0.0,
+    "product_url":"https://mamamacs.co.za/products/buttermilk-sunflower-seeds-rusks",
+    "in_stock": true,
+    "img_array": [
+      "https://mamamacs.co.za/cdn/shop/products/buttermilk1_900x.jpg?v=1630958356" 
+    ]
+  },
+  "151": {
+    "seller_name": "Mamamac’s Bakery",
+    "product_name": "Three Seed with Raisins Rusks",
+    "original_price": 65.0,
+    "price": 65.0,
+    "discount": 0.0,
+    "discount_rate": 0.0,
+    "product_url":"https://mamamacs.co.za/products/three-seed-with-raisins-rusks",
+    "in_stock": true,
+    "img_array": [
+      "https://mamamacs.co.za/cdn/shop/products/threeseed3_590x.jpg?v=1630962257"
+     ]
+  },
+  "152": {
+    "seller_name": "Mamamac’s Bakery",
+    "product_name": "Premium Gift Box Collection",
+    "original_price": 225.0,
+    "price": 225.0,
+    "discount": 0.0,
+    "discount_rate": 0.0,
+    "product_url":"https://mamamacs.co.za/products/premium-gift-box-collection",
+    "in_stock": false,
+    "img_array": [
+      "https://mamamacs.co.za/cdn/shop/products/MAMAMACS-20_590x.jpg?v=1630957549",
+      "https://mamamacs.co.za/cdn/shop/products/MAMAMACS-22_150x.jpg?v=1630957549",
+      "https://mamamacs.co.za/cdn/shop/products/MAMAMACS-23_150x.jpg?v=1630957549"
+     ]
+  },
+  "153": {
+    "seller_name": "Morals The Brand",
+    "product_name": "Sky Bucket Patch Hat",
+    "original_price": 249.0,
+    "price": 249.0,
+    "discount": 0.0,
+    "discount_rate": 0.0,
+    "product_url":"https://moralsthebrand.co.za/collections/bucket-hats/products/sky-bucket-patch-hat",
+    "in_stock": true,
+    "img_array": [
+      "https://moralsthebrand.co.za/cdn/shop/files/bluebuckethathandmadebymoralsthebrandinsouthafrica_1024x1024@2x.jpg?v=1693419980",
+      "https://moralsthebrand.co.za/cdn/shop/files/bluebuckethatmadebymoralsthebrandinsouthafrica_grande.jpg?v=1693420060",
+      "https://moralsthebrand.co.za/cdn/shop/files/moralsthebrandbuckethat_grande.jpg?v=1693494591"
+     ]
+  },
+  "154": {
+    "seller_name": "Morals The Brand",
+    "product_name": "White Patch Hat",
+    "original_price": 349.0,
+    "price": 349.0,
+    "discount": 0.0,
+    "discount_rate": 0.0,
+    "product_url":"https://moralsthebrand.co.za/products/white-patch-hat",
+    "in_stock": true,
+    "img_array": [
+      "https://moralsthebrand.co.za/cdn/shop/products/image_2920115e-aec1-4eef-a48d-8ccca8579ac6_1024x1024@2x.heic?v=1677528886",
+      "https://moralsthebrand.co.za/cdn/shop/products/image_9598d539-60e2-4fbc-93af-901b34d2f945_grande.heic?v=1677528886",
+      "https://moralsthebrand.co.za/cdn/shop/products/image_5fb60e9a-7c20-433f-8bfe-88b4efd45737_grande.heic?v=1677528886",
+      "https://moralsthebrand.co.za/cdn/shop/products/image_76ec0138-1401-4aed-8e8b-68c5057aaddd_grande.heic?v=1677528886"
+     ]
+  },
+  "186": {
+    "seller_name": "Morals The Brand",
+    "product_name": "Sunset Bloom Bucket",
+    "original_price": 249.0,
+    "price": 249.0,
+    "discount": 0.0,
+    "discount_rate": 0.0,
+    "product_url":"https://moralsthebrand.co.za/products/sunset-bloom",
+    "in_stock": true,
+    "img_array": [
+      "https://moralsthebrand.co.za/cdn/shop/files/sunestbloomandpastelmultitop_2_grande.jpg?v=1693419778",
+      "https://moralsthebrand.co.za/cdn/shop/products/image_grande.heic?v=1693392575",
+      "https://moralsthebrand.co.za/cdn/shop/files/C8A1BEE0-045B-477A-B56C-F0D60345B11A_grande.jpg?v=1693392575",
+      "https://moralsthebrand.co.za/cdn/shop/files/DAE98F30-ABB5-434D-9C5C-8F13C7521FAA_grande.jpg?v=1693392575",
+      "https://moralsthebrand.co.za/cdn/shop/files/BB16E988-97E9-4E2B-989E-0D1AE7FE6FEA_grande.jpg?v=1693392575",
+      "https://moralsthebrand.co.za/cdn/shop/files/sunsetbloombuckethatmadebymoralsthebrand_grande.jpg?v=1693419736"
+    ]
+  },
+  "155": {
+    "seller_name": "Morals The Brand",
+    "product_name": "Bubblegum Multi-top",
+    "original_price": 189.0,
+    "price": 189.0,
+    "discount": 0.0,
+    "discount_rate": 0.0,
+    "product_url":"https://moralsthebrand.co.za/collections/tops/products/untitled-aug17_19-17",    
+    "in_stock": true,
+    "img_array": [
+      "https://moralsthebrand.co.za/cdn/shop/files/6585A8AD-E2BB-4BCC-A8E7-089E8D6BBB20_1024x1024.jpg?v=1693576917",
+      "https://moralsthebrand.co.za/cdn/shop/files/5A533AD7-8820-408F-A87B-6A01C200E291_1024x1024.jpg?v=1693576917",
+      "https://moralsthebrand.co.za/cdn/shop/files/girlwearingabubblegumcolouredmulti-top_grande.jpg?v=1693576917"
+       ]
+  },
+  "156": {
+    "seller_name": "Morals The Brand",
+    "product_name": "Rosy Embroidered Handbag",
+    "original_price": 419.0,
+    "price": 419.0,
+    "discount": 0.0,
+    "discount_rate": 0.0,
+    "product_url":"https://moralsthebrand.co.za/collections/embroidered-handbags/products/rosy-embroidered-handbag",
+    "in_stock": true,
+    "img_array": [
+    "https://moralsthebrand.co.za/cdn/shop/files/Embroideredflowersonadenimshoulderbag.HandmadeinSouthAfricafromrecycelddenimfabric.Discardedfabric.._1024x1024.png?v=1685352678",
+    "https://moralsthebrand.co.za/cdn/shop/files/Embroideredflowersonadenimshoulderbag.HandmadeinSouthAfricafromrecycelddenimfabric.Discardedfabric._1024x1024.png?v=1685352677",
+    "https://moralsthebrand.co.za/cdn/shop/files/Embroideredflowersonadenimshoulderbag.HandmadeinSouthAfricafromrecycelddenimfabric.Discardedfabric_1024x1024.png?v=1685352678"
+    ]
+  },
+  "157": {
+    "seller_name": "Khayelitsha Cookies",
+    "product_name": "Mega Munch Bucket – 4 Litre (Vanilla)",
+    "original_price": 94.50,
+    "price": 94.50,
+    "discount": 0.0,
+    "discount_rate": 0.0,
+    "product_url":"https://kcco.co.za/shop/mega-munch-bucket-4-litre-vanilla/",
+    "in_stock": true,
+    "img_array": [
+    "https://kcco.co.za/wp-content/uploads/2023/07/4l-munc-bucket-vanila.jpg"
+    ]
+  },
+  "158": {
+    "seller_name": "Khayelitsha Cookies",
+    "product_name": "Retail Nutty Brownie – 80g",
+    "original_price": 12.90,
+    "price": 12.90,
+    "discount": 0.0,
+    "discount_rate": 0.0,
+    "product_url":"https://kcco.co.za/shop/retail-nutty-brownie-80g/",
+    "in_stock": true,
+    "img_array": [
+    "https://kcco.co.za/wp-content/uploads/2020/06/nutty-fudge-brown-80g-1.jpg"
+  ]
+  },
+  "159": {
+    "seller_name": "Khayelitsha Cookies",
+    "product_name": "Individually Wrapped, Mixed Conference Box – 100 (25 x 4 x 9g Cookies)",
+    "original_price": 181.94,
+    "price": 181.94,
+    "discount": 0.0,
+    "discount_rate": 0.0,
+    "product_url":"https://kcco.co.za/shop/individually-wrapped-mixed-conference-box-100-25-x-4-x-9g-cookies/",
+    "in_stock": true,
+    "img_array": [
+   "https://kcco.co.za/wp-content/uploads/2020/07/savekcco-set3.jpg"
+  ]
+  },
+  "160": {
+    "seller_name": "Khayelitsha Cookies",
+    "product_name": "Nutty Fudge Brownie Bites (200g)",
+    "original_price": 31.50,
+    "price": 31.50,
+    "discount": 0.0,
+    "discount_rate": 0.0,
+    "product_url":"https://kcco.co.za/shop/nutty-fudge-brownie-bites-200g/",
+    "in_stock": true,
+    "img_array": [
+   "https://kcco.co.za/wp-content/uploads/2020/10/brownie-bites-200g.jpg"
+   ]
+  },
+  "161": {
+    "seller_name": "Khayelitsha Cookies",
+    "product_name": "Cheese Straws – 100g Pack",
+    "original_price": 31.35,
+    "price": 31.35,
+    "discount": 0.0,
+    "discount_rate": 0.0,
+    "product_url":"https://kcco.co.za/shop/cheese-straws-100g-pack/",
+    "in_stock": true,
+    "img_array": [
+   "https://kcco.co.za/wp-content/uploads/2020/06/cheese-straws-100g.jpg"
+  ]
+  },
+  "162": {
+    "seller_name": "Khayelitsha Cookies",
+    "product_name": "Scrumptious Puffed Rice & Choc – 135g",
+    "original_price": 19.00,
+    "price": 19.00,
+    "discount": 0.0,
+    "discount_rate": 0.0,
+    "product_url":"https://kcco.co.za/shop/scrumptious-puffed-rice-choc-135g/",
+    "in_stock": true,
+    "img_array": [
+   "https://kcco.co.za/wp-content/uploads/2020/06/biscotti-choc-10pp-1024x700.jpg"]
+  },
+"163": {
+  "seller_name": "Khayelitsha Cookies",
+  "product_name": "Biscotti Choc-10pp",
+  "original_price": 21.45,
+  "price": 21.45,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kcco.co.za/shop/biscotti-choc-10pp/",
+  "in_stock": true,
+  "img_array": [
+    "https://kcco.co.za/wp-content/uploads/2020/06/scrumptious-puffedrice-choc-105g.jpg"
+  ]
+},
+"164": {
+  "seller_name": "My Vellies",
+  "product_name": "Leather Tan Bag",
+  "original_price": 990.00,
+  "price": 890.00,
+  "discount": 100.0,
+  "discount_rate": 0.101,
+  "product_url":"https://myvellies.co.za/product/leather-tan-bag-2/",
+  "in_stock": true,
+  "img_array": [
+  "https://myvellies.co.za/wp-content/uploads/2023/09/IMG-20230809-WA0024-300x300.jpg",
+  "https://myvellies.co.za/wp-content/uploads/2023/09/IMG-20230809-WA0021-300x300.jpg",
+  "https://myvellies.co.za/wp-content/uploads/2023/09/IMG-20230809-WA0020-300x300.jpg",
+  "https://myvellies.co.za/wp-content/uploads/2023/09/IMG-20230809-WA0023-300x300.jpg",
+  "https://myvellies.co.za/wp-content/uploads/2023/09/IMG-20230809-WA0022-300x300.jpg"
+  ]
+},
+"165": {
+  "seller_name": "My Vellies",
+  "product_name": "Ladies Tan T-Bar Pump",
+  "original_price": 950.00,
+  "price": 950.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://myvellies.co.za/product/ladies-tan-t-bar-pump/",
+  "in_stock": true,
+  "img_array": [
+  "https://myvellies.co.za/wp-content/uploads/2023/06/PXL_20230427_124111052.PORTRAIT3-300x300.jpg",
+"https://myvellies.co.za/wp-content/uploads/2023/06/PXL_20230427_124208867.PORTRAIT2-300x300.jpg",
+"https://myvellies.co.za/wp-content/uploads/2023/06/PXL_20230427_124144215.PORTRAIT2-300x300.jpg"
+]
+},
+"166": {
+  "seller_name": "My Vellies",
+  "product_name": "Ladies Navy & Pewter T Bar sandal",
+  "original_price": 950.00,
+  "price": 790.00,
+  "discount": 160.0,
+  "discount_rate": 0.168,
+  "product_url":"https://myvellies.co.za/product/ladies-navy-pewter-t-bar-sandal/",
+  "in_stock": true,
+  "img_array": [
+    "https://myvellies.co.za/wp-content/uploads/2023/06/FB_IMG_1677148740698-2-300x300.jpg",
+    "https://myvellies.co.za/wp-content/uploads/2023/06/FB_IMG_1677148740698-2-300x300.jpg",
+    "https://myvellies.co.za/wp-content/uploads/2023/06/PXL_20230208_083639227.PORTRAIT-3-300x300.jpg",
+    "https://myvellies.co.za/wp-content/uploads/2023/01/7-300x300.png",
+    "https://myvellies.co.za/wp-content/uploads/2023/01/6-300x300.png"
+  ]
+},
+"167": {
+  "seller_name": "My Vellies",
+  "product_name": "Ladies Coral & Gold T Bar sandal",
+  "original_price": 950.00,
+  "price": 790.00,
+  "discount": 160.0,
+  "discount_rate": 0.168,
+  "product_url":"https://myvellies.co.za/product/ladies-coral-gold-t-bar-sandal/",
+  "in_stock": true,
+  "img_array": [
+    "https://myvellies.co.za/wp-content/uploads/2023/06/PXL_20230208_083903897-2-300x300.jpg",
+    "https://myvellies.co.za/wp-content/uploads/2023/06/PXL_20230208_084043409.PORTRAIT-2-300x300.jpg",
+    "https://myvellies.co.za/wp-content/uploads/2023/06/PXL_20230208_083639227.PORTRAIT-3-300x300.jpg"
+  ]
+},
+"168": {
+  "seller_name": "My Vellies",
+  "product_name": "Bok Low Cut Unisex Vellie",
+  "original_price": 870.00,
+  "price": 770.00,
+  "discount": 100.0,
+  "discount_rate": 0.115,
+  "product_url":"https://myvellies.co.za/product/bok-low-cut-unisex-vellie/",
+  "in_stock": true,
+  "img_array": [
+    "https://myvellies.co.za/wp-content/uploads/2023/04/PXL_20230421_130159651.PORTRAIT2-300x300.jpg",
+    "https://myvellies.co.za/wp-content/uploads/2023/04/PXL_20230421_130459307.PORTRAIT2-300x300.jpg",
+    "https://myvellies.co.za/wp-content/uploads/2023/04/PXL_20230421_130051750.PORTRAIT2-300x300.jpg"
+  ]
+},
+"169": {
+  "seller_name": "My Vellies",
+  "product_name": "Green Sole Unisex Vellie",
+  "original_price": 475.00,
+  "price": 475.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://myvellies.co.za/product/green-sole-unisex-vellie/",
+  "in_stock": true,
+  "img_array": [
+    "https://myvellies.co.za/wp-content/uploads/2023/05/original_0b5dc3ba-380c-43ac-8d28-9001db3d79f2_PXL_20230215_084537542.PORTRAIT-300x300.jpg",
+    "https://myvellies.co.za/wp-content/uploads/2023/05/original_67ea2ce2-bee0-4034-bbed-34c52223ba0c_PXL_20230215_084701135.PORTRAIT-300x300.jpg"
+  ]
+},
+"170": {
+  "seller_name": "My Vellies",
+  "product_name": "Bok High Top Unisex Vellie",
+  "original_price": 920.00,
+  "price": 920.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://myvellies.co.za/product/bok-high-top-unisex-vellie/",
+  "in_stock": true,
+  "img_array": [
+    "https://myvellies.co.za/wp-content/uploads/2023/04/PXL_20230505_080612241.PORTRAIT-300x300.jpg",
+    "https://myvellies.co.za/wp-content/uploads/2023/04/PXL_20230505_074304525.PORTRAIT-300x300.jpg",
+    "https://myvellies.co.za/wp-content/uploads/2023/04/PXL_20230505_074023803.PORTRAIT-300x300.jpg"
+  ]
+},
+"171": {
+  "seller_name": "ZA Etc",
+  "product_name": "Fransa Cole Brass Earrings",
+  "original_price": 750.00,
+  "price": 750.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/fransa-cole-brass-earrings/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/EAR-fransa-leaf-1.jpg"]
+},
+"172": {
+  "seller_name": "ZA Etc",
+  "product_name": "Small Stud Gold Tone Earrings",
+  "original_price": 195.00,
+  "price": 195.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/small-stud-gold-tone-earrings/",
+  "in_stock": true,
+  "img_array": [
+  "https://zaetc.co.za/wp-content/uploads/2020/10/EAR-small-stud-gold-tone.jpg"]
+},
+"173": {
+  "seller_name": "ZA Etc",
+  "product_name": "Koketso Africa Hoop Earrings",
+  "original_price": 475.00,
+  "price": 475.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/koketso-africa-hoop-earrings/",
+  "in_stock": true,
+  "img_array": [
+"https://zaetc.co.za/wp-content/uploads/2020/10/ear-koketso-mohala-africa-hoop-1.jpg"]
+},
+"174": {
+  "seller_name": "ZA Etc",
+  "product_name": "Precious Africa Necklace",
+  "original_price": 795.00,
+  "price": 795.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/precious-africa-necklace/",
+  "in_stock": true,
+  "img_array": [
+"https://zaetc.co.za/wp-content/uploads/2020/10/NECK-precious-m-Africa.jpg"]
+},
+"175": {
+  "seller_name": "ZA Etc",
+  "product_name": "Silver Plate Necklace",
+  "original_price": 350.00,
+  "price": 350.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/silver-plate-necklace/",
+  "in_stock": true,
+  "img_array": [
+"https://zaetc.co.za/wp-content/uploads/2020/10/neck-silver-plate-spoon.jpg"]
+},
+"176": {
+  "seller_name": "Betse Delicacies",
+  "product_name": "Cocktail Platter",
+  "original_price": 390.00,
+  "price": 390.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://betsedelicacies.co.za/Cookies/Platter03.html",
+  "in_stock": true,
+  "img_array": [
+      "https://www.cognitoforms.com/file/4e49YKCf9JEUMNLNbfoOCbhv7UEkyW6l7EagJnCVarmzjHf8FwqeUxfYTm8txd99?id=F-fhNBL4d3KIeRT6PgXExC0E&name=Platter3.jpg&ct=image%2Fjpeg&size=377383"
+    ]
+},
+"177": {
+  "seller_name": "Betse Delicacies",
+  "product_name": "Short-nilla Platter",
+  "original_price": 410.00,
+  "price": 410.00,
+  "discount":0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://betsedelicacies.co.za/Cookies/Platter01.html",
+  "in_stock": true,
+  "img_array": [
+      "https://www.cognitoforms.com/file/4e49YKCf9JEUMNLNbfoOCdPr5wDkCM_mXf5sfGuiGTUq6955vfAdCmurUhI__ncm?id=F-LAyBBBXGyYSu12Ku$6ZkQE&name=Platter1-min.jpg&ct=image%2Fjpeg&size=476240"
+    ]
+},
+"178": {
+  "seller_name": "Betse Delicacies",
+  "product_name": "Chocolate Platter",
+  "original_price": 510.00,
+  "price": 510.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://betsedelicacies.co.za/Cookies/Platter02.html",
+  "in_stock": true,
+  "img_array": [
+      "https://www.cognitoforms.com/file/4e49YKCf9JEUMNLNbfoOCd17LXxgZwrIw35-skFVp6kZ30m95gmmY_SXSmavTiKj?id=F-Wwhh0uOjuI0YQvLkVrBLJ!&name=IMG_20210613_173525-min.jpg&ct=image%2Fjpeg&size=492648"
+    ]
+},
+"179": {
+  "seller_name": "Betse Delicacies",
+  "product_name": "Choc-Chip Cookies",
+  "original_price": 120.00,
+  "price": 120.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://betsedelicacies.co.za/Cookies/ChocChip.html",
+  "in_stock": true,
+  "img_array": [
+      "https://www.cognitoforms.com/file/4e49YKCf9JEUMNLNbfoOCcxFDC5LD4aPbsvx7nuoBsLCccloUuUPdt0nROSLM6PF?id=F-FlgSLYd8DomuyLS3302Zvu&name=Choc%20Chip.jpg&ct=image%2Fjpeg&size=303293"
+    ]
+},
+"180": {
+  "seller_name": "Betse Delicacies",
+  "product_name": "Scones",
+  "original_price": 90.00,
+  "price": 90.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://betsedelicacies.co.za/Cookies/Scones.html",
+  "in_stock": true,
+  "img_array": [
+      "https://www.cognitoforms.com/file/4e49YKCf9JEUMNLNbfoOCSeWiTpZnuZ4K4L3mnFitwLE2DOe4MOrOonRE1EYcG0a?id=F-duGBfn28W2iKwfjrlXSz8k&name=Scones.jpg&ct=image%2Fjpeg&size=93841"
+    ]
+},
+"181": {
+  "seller_name": "Betse Delicacies",
+  "product_name": "Shortbread Cookies",
+  "original_price": 70.00,
+  "price": 70.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://betsedelicacies.co.za/Cookies/Shortbread.html",
+  "in_stock": true,
+  "img_array": [
+      "https://www.cognitoforms.com/file/4e49YKCf9JEUMNLNbfoOCZgODBn1ccL4h899HJyL2tPdRaQBfgq-liFmXzDSFHxu?id=F-KLhuSnLSX203BevV2WWBok&name=Shortbread-min.jpg&ct=image%2Fjpeg&size=391298"
+    ]
+},
+"182": {
+  "seller_name": "Betse Delicacies",
+  "product_name": "Vanilla Cookies",
+  "original_price": 80.00,
+  "price": 80.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://betsedelicacies.co.za/Cookies/VanillaCookies.html",
+  "in_stock": true,
+  "img_array": [
+      "https://www.cognitoforms.com/file/4e49YKCf9JEUMNLNbfoOCbIdidLs320UsgZsVCp5GJim2isUA6URWUu-6-avJGhG?id=F-tK1sIDWhrI4Adp0Z9jcqck&name=Vanilla%20Cookies-min.jpg&ct=image%2Fjpeg&size=396068"
+    ]
+},
+"183": {
+  "seller_name": "Betse Delicacies",
+  "product_name": "Ginger Cookies",
+  "original_price": 80.00,
+  "price": 80.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://betsedelicacies.co.za/Cookies/Ginger.html",
+  "in_stock": true,
+  "img_array": [
+      "https://www.cognitoforms.com/file/4e49YKCf9JEUMNLNbfoOCdXIi4fTBJsp24tGeyv3G-m8QFBvR4TyUz7GZwbs9qMh?id=F-ufbWemz!z2Woxp1dSDGQek&name=Ginger%20Cookies.jpg&ct=image%2Fjpeg&size=334368"
+    ]
+},
+"184": {
+  "seller_name": "Betse Delicacies",
+  "product_name": "Lemon Cookies",
+  "original_price": 90.00,
+  "price": 90.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://betsedelicacies.co.za/Cookies/LemonCookies.html",
+  "in_stock": true,
+  "img_array": [
+      "https://www.cognitoforms.com/file/4e49YKCf9JEUMNLNbfoOCbCTWEQx4BSyDbnLh9LByGVpuDtDv3og8Peu-XpgxRbL?id=F-8XWlh6K3MYCeJTvS07sVb!&name=Lemon%20Cookies.jpg&ct=image%2Fjpeg&size=284970"
+    ]
+},
+"185": {
+  "seller_name": "Betse Delicacies",
+  "product_name": "Choc-Coated Vanilla Cookies",
+  "original_price": 120.00,
+  "price": 120.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://betsedelicacies.co.za/Cookies/ChocCoatedVanilla.html",
+  "in_stock": true,
+  "img_array": [
+      "https://www.cognitoforms.com/file/4e49YKCf9JEUMNLNbfoOCcyYZSY4-gdk6eNalH2jyQvZPLJ33b9TTgpT5hNWrFWX?id=F-OuDRbCYdYoaa1CgM6Hk1Ku&name=Choc%20Coated%20Vanilla.jpg&ct=image%2Fjpeg&size=115196"
+    ]
+},
+"187": {
+  "seller_name": "Betse Delicacies",
+  "product_name": "Choc-Coconut Cookies",
+  "original_price": 120.00,
+  "price": 120.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://betsedelicacies.co.za/Cookies/ChocCoconut.html",
+  "in_stock": true,
+  "img_array": [
+      "https://www.cognitoforms.com/file/4e49YKCf9JEUMNLNbfoOCWQtLkQ66pdnMnDOaKJWpWTiMqgyvFBHxdwK8dWaLHlP?id=F-68tqzLDDuYGZdHe7KP1L!E&name=Choc%20Coconut.jpg&ct=image%2Fjpeg&size=272293"
+    ]
+},
+"188": {
+  "seller_name": "ZA Etc",
+  "product_name": "Njabu Boat Necklace",
+  "original_price": 795.00,
+  "price": 795.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/njabu-boat-necklace/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/NECK-Injabu-boat.jpg"]
+},
+"189": {
+  "seller_name": "ZA Etc",
+  "product_name": "Square Lapis Necklace",
+  "original_price":695.00,
+  "price": 695.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/square-lapis-necklace/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/NECK-LAPIS-LAZUR-SQUARE-SMALL.jpg"]
+},
+"190": {
+  "seller_name": "ZA Etc",
+  "product_name": "Ndebele Necklace",
+  "original_price": 550.00,
+  "price": 550.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/ndebele-necklace/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/MC-NDEBELE-Necklace-jpg.jpg"]
+},
+"191": {
+  "seller_name": "ZA Etc",
+  "product_name": "Cubic Round Necklace",
+  "original_price": 550.00,
+  "price": 550.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/cubic-round-necklace/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/MC-CUBIC-Round-Necklace-jpg.jpg"]
+},
+"192": {
+  "seller_name": "ZA Etc",
+  "product_name": "Knowledge Necklace",
+  "original_price": 495.00,
+  "price": 495.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/knowledge-necklace/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/NECK-Knowledge-rings-.jpg"]
+},
+"193": {
+  "seller_name": "ZA Etc",
+  "product_name": "Africa Inspired Necklace",
+  "original_price": 675.00,
+  "price": 675.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/africa-inspired-necklace/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/African-trade-beads.jpg"]
+},
+"194": {
+  "seller_name": "ZA Etc",
+  "product_name": "Repurpose Designs Round Necklace",
+  "original_price": 475.00,
+  "price": 475.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/repurpose-designs-round-necklace/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/neck-repurpose-wood-resin.jpg"]
+},
+"195": {
+  "seller_name": "ZA Etc",
+  "product_name": "Repurpose Designs Oblong Necklace",
+  "original_price": 475.00,
+  "price": 475.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/repurpose-designs-oblong-necklace/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/neck-recucled-wood-resin-1.jpg"]
+},
+"196": {
+  "seller_name": "ZA Etc",
+  "product_name": "Imvelo Bracelet 01",
+  "original_price": 495.00,
+  "price": 495.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/imvelo-bracelet-01/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/Brace-imvelo-01.jpg"]
+},
+"197": {
+  "seller_name": "ZA Etc",
+  "product_name": "Imvelo Wave Bracelet",
+  "original_price": 495.00,
+  "price": 495.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/imvelo-wave-bracelet/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/Brace-imvelo-wave-.jpg"]
+},
+"198": {
+  "seller_name": "ZA Etc",
+  "product_name": "MC Ndebele Bracelet",
+  "original_price": 495.00,
+  "price": 495.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/mc-ndebele-bracelet/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/bracelert-mc-ndebele.jpg"]
+},
+"199": {
+  "seller_name": "ZA Etc",
+  "product_name": "Safety Pin Bracelet",
+  "original_price": 425.00,
+  "price": 425.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/safety-pin-bracelet/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/Brace-Safety-Pin-.jpg"]
+},
+"200": {
+  "seller_name": "ZA Etc",
+  "product_name": "Noxolo Ring",
+  "original_price": 650.00,
+  "price": 650.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://zaetc.co.za/product/noxolo-ring/",
+  "in_stock": true,
+  "img_array": [
+   "https://zaetc.co.za/wp-content/uploads/2020/10/Ring-Noxolo-A.jpg",
+  "https://zaetc.co.za/wp-content/uploads/2020/10/Ring-Noxolo-B.jpg"]
+},
+"201": {
+  "seller_name": "Kitchenique",
+  "product_name": "Ice Tray Snowva",
+  "original_price": 289.00,
+  "price": 289.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/ice-tray-snowva/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20230619140957/03545.jpg"
+  ]
+},
+"202": {
+  "seller_name": "Kitchenique",
+  "product_name": "Hagerty Silver Foam 185ml",
+  "original_price": 255.00,
+  "price": 255.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/hagerty-silver-foam-185ml/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210630124349/12012.jpg"
+  ]
+},
+"203": {
+  "seller_name": "Kitchenique",
+  "product_name": "Noritake Arctic White Dinner Plate 27cm",
+  "original_price": 213.00,
+  "price": 213.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/noritake-arctic-white-dinner-plate-27cm/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210630124323/14205.jpg"
+  ]
+},
+"204": {
+  "seller_name": "Kitchenique",
+  "product_name": "Noritake Arctic White Side Plate 18cm",
+  "original_price": 94.00,
+  "price": 94.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/noritake-arctic-white-side-plate-18cm/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210630124323/14207.jpg"
+  ]
+},
+"205": {
+  "seller_name": "Kitchenique",
+  "product_name": "Maxwell Williams Caviar Side Plate 15cm Black",
+  "original_price": 60.00,
+  "price": 60.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/maxwell-williams-caviar-side-plate-15cm-black/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210630124344/140028-scaled.jpg"
+  ]
+},
+"206": {
+  "seller_name": "Kitchenique",
+  "product_name": "Aris Simmer Mat Heat Diffuser",
+  "original_price": 324.00,
+  "price": 324.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/aris-simmer-mat-heat-diffuser/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210630124105/46502.jpg"
+  ]
+},
+"207": {
+  "seller_name": "Kitchenique",
+  "product_name": "Kilner Spice Jar Square 70ml",
+  "original_price": 75.00,
+  "price": 75.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/kilner-spice-jar-square-70ml/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20220112115506/KL0025460-package-160x160.jpg",
+    "https://media.kitchenique.co.za/20220112115501/KL0025460-lifestyle-160x160.jpg"
+  ]
+},
+"208": {
+  "seller_name": "Kitchenique",
+  "product_name": "Victorinox Tomato/Steak Knife Serrated Blue 11cm",
+  "original_price": 134.00,
+  "price": 134.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/victorinox-tomato-steak-knife-serrated-blue-11cm/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210630124315/16061.jpg"
+  ]
+},
+"209": {
+  "seller_name": "Kitchenique",
+  "product_name": "Maxwell Williams Caviar Cup & Saucer 250ml Black",
+  "original_price": 154.00,
+  "price": 154.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/maxwell-williams-caviar-cup-saucer-250ml-black/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210630124343/140043-scaled.jpg"
+  ]
+},
+"210": {
+  "seller_name": "Kitchenique",
+  "product_name": "Maxwell Williams Ramekin 6.5cm",
+  "original_price": 21.00,
+  "price": 21.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/maxwell-williams-ramekin-6-5cm/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210630122009/14345-scaled.jpg"
+  ]
+},
+"211": {
+  "seller_name": "Kitchenique",
+  "product_name": "Kilner Butter Churner",
+  "original_price": 899.00,
+  "price": 899.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/kilner-butter-churner/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20220112115034/KL0025348-package-160x160.jpg",
+    "https://media.kitchenique.co.za/20220112115029/KL0025348-lifestyle-160x160.jpg"
+  ]
+},
+"212": {
+  "seller_name": "Kitchenique",
+  "product_name": "Krups Waffle Maker",
+  "original_price": 1649.00,
+  "price": 1649.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/krups-waffle-maker/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210820155909/21238.jpg"
+  ]
+},
+"213": {
+  "seller_name": "Kitchenique",
+  "product_name": "Tablecloth Earth Stone 180x180cm",
+  "original_price": 465.00,
+  "price": 465.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/tablecloth-earth-stone-180x180cm/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20230705120039/10765-lifestyle-160x160.jpg",
+    "https://media.kitchenique.co.za/20230705120028/10765.jpg"
+  ]
+},
+"214": {
+  "seller_name": "Kitchenique",
+  "product_name": "Maxwell Williams Napkin Set of 4 Pebble 45x45cm",
+  "original_price": 255.00,
+  "price": 255.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/maxwell-williams-napkin-set-of-4-pebble-45x45cm/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20221010145925/141382.jpg"
+  ]
+},
+"215": {
+  "seller_name": "Kitchenique",
+  "product_name": "Banhoek Chilli Oil Wrapped 250ml",
+  "original_price": 119.00,
+  "price": 119.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/banhoek-chilli-oil-wrapped-250ml/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20230624211250/16331.jpg"
+  ]
+},
+"216": {
+  "seller_name": "Kitchenique",
+  "product_name": "Funky Ouma Mini Black Garlic 80g",
+  "original_price": 38.00,
+  "price": 38.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/funky-ouma-mini-black-garlic-80g/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20220920155637/82505.jpg"
+  ]
+},
+
+"217": {
+  "seller_name": "Kitchenique",
+  "product_name": "Funky Ouma Mini Himalayan & Herb Salt 80g",
+  "original_price": 38.00,
+  "price": 38.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/funky-ouma-mini-himalayan-herb-salt-80g/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210630122016/82515.jpg"
+  ]
+},
+
+"218": {
+  "seller_name": "Kitchenique",
+  "product_name": "Funky Ouma Tin Olive Oil 500ml",
+  "original_price": 145.00,
+  "price": 145.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/funky-ouma-tin-olive-oil-500ml/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210630124010/82511-scaled.jpg"
+  ]
+},
+"219": {
+  "seller_name": "Kitchenique",
+  "product_name": "Darling Sweet Rooi Bos Chai Toffee 150g",
+  "original_price": 79.00,
+  "price": 79.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/darling-sweet-rooi-bos-chai-toffee-150g/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210630124038/60904.jpg"
+  ]
+},
+"220": {
+  "seller_name": "Kitchenique",
+  "product_name": "Funky Ouma Mini Braai & Cooking Salt 70g",
+  "original_price": 38.00,
+  "price": 38.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/funky-ouma-mini-braai-cooking-salt-70g/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20220920155622/82502.jpg"
+  ]
+},
+"221": {
+  "seller_name": "Kitchenique",
+  "product_name": "Darling Sweet Summer Berry Soft Caramels 150g",
+  "original_price": 79.00,
+  "price": 79.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/darling-sweet-summer-berry-soft-caramels-150g/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210630124035/60943.jpg"
+  ]
+},
+"222": {
+  "seller_name": "Kitchenique",
+  "product_name": "Funky Ouma Africa Rub Travel Tin",
+  "original_price": 59.00,
+  "price": 59.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/funky-ouma-africa-rub-travel-tin/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20211215221730/82526.jpg"
+  ]
+},
+"223": {
+  "seller_name": "Kitchenique",
+  "product_name": "Darling Sweet Assorted Toffees 360g",
+  "original_price": 199.00,
+  "price": 199.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/darling-sweet-assorted-toffees-360g/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210630124037/60923.jpg"
+  ]
+},
+"224": {
+  "seller_name": "Kitchenique",
+  "product_name": "Cape Fynbos Olive Oil Tin 500ml",
+  "original_price": 198.00,
+  "price": 198.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/cape-fynbos-olive-oil-tin-500ml/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20231006161710/40315.jpg"
+  ]
+},
+"225": {
+  "seller_name": "Kitchenique",
+  "product_name": "Cape Fynbos Olive Oil 250ml",
+  "original_price": 129.00,
+  "price": 129.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/cape-fynbos-olive-oil-250ml/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20230629134907/40319.jpg"
+  ]
+},
+"226": {
+  "seller_name": "Kitchenique",
+  "product_name": "Swartland Ginger Biscuits 200g",
+  "original_price": 59.00,
+  "price": 59.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/swartland-ginger-biscuits-200g/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20220131170816/60910.jpg"
+  ]
+},
+"227": {
+  "seller_name": "Kitchenique",
+  "product_name": "Funky Ouma Olive Oil 250ml Convenient",
+  "original_price": 72.00,
+  "price": 72.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://kitchenique.co.za/product/funky-ouma-olive-oil-250ml-convenient/",
+  "in_stock": true,
+  "img_array": [
+    "https://media.kitchenique.co.za/20210630124010/82512-scaled.jpg"
+  ]
+},
+"228": {
+  "seller_name": "Footballers",
+  "product_name": "M&M Vintage Jacket (White)",
+  "original_price": 950.00,
+  "price": 950.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://footballers.co.za/shop-2/formula1/vintage/mm-vintage-jacket-white/?v=503b9bc30753",
+  "in_stock": true,
+  "img_array": [
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2022/07/WhatsApp-Image-2022-07-26-at-11.28.09-AM-1.jpeg?fit=300%2C258&ssl=1",
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2022/07/WhatsApp-Image-2022-07-26-at-11.28.09-AM-2.jpeg?fit=300%2C272&ssl=1",
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2022/07/WhatsApp-Image-2022-07-26-at-11.28.09-AM-3.jpeg?fit=300%2C272&ssl=1",
+   "https://i0.wp.com/footballers.co.za/wp-content/uploads/2022/07/WhatsApp-Image-2022-07-26-at-11.28.09-AM-4.jpeg?fit=300%2C275&ssl=1" 
+  ]
+},
+"229": {
+  "seller_name": "Footballers",
+  "product_name": "Ferrari Racing Vintage Jacket (Red-Shell)",
+  "original_price": 950.00,
+  "price": 950.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://footballers.co.za/shop-2/formula1/vintage/ferrari-racing-vintage-jacket-red-shell/?v=503b9bc30753",
+  "in_stock": true,
+  "img_array": [
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2022/07/WhatsApp-Image-2022-07-26-at-11.28.08-AM-1.jpeg?fit=1024%2C1002&ssl=1"
+  ]
+},
+"230": {
+  "seller_name": "Footballers",
+  "product_name": "Red Bull Racing Vintage Jacket",
+  "original_price": 950.00,
+  "price": 950.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://footballers.co.za/shop-2/formula1/vintage/red-bull-racing-vintage-jacket-blackredwhite-copy/?v=503b9bc30753",
+  "in_stock": true,
+  "img_array": [
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2022/07/WhatsApp-Image-2022-07-26-at-11.28.07-AM-1.jpeg?fit=1024%2C1013&ssl=1"
+  ]
+},
+"231": {
+  "seller_name": "Footballers",
+  "product_name": "Ferrari Racing Vintage Jacket (Red)",
+  "original_price": 950.00,
+  "price": 950.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://footballers.co.za/shop-2/formula1/vintage/ferrari-racing-vintage-jacket-red/?v=503b9bc30753",
+  "in_stock": true,
+  "img_array": [
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2022/07/WhatsApp-Image-2022-07-26-at-11.17.24-AM-2.jpeg?fit=554%2C554&ssl=1"
+  ]
+},
+"232": {
+  "seller_name": "Footballers",
+  "product_name": "Mercedes F1 Racing Shirt (Black)",
+  "original_price": 748.00,
+  "price": 748.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://footballers.co.za/shop-2/formula1/f1-merch/mercedes/mercedes-f1-racing-shirt-black/?v=503b9bc30753",
+  "in_stock": true,
+  "img_array": [
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2022/04/WhatsApp-Image-2022-04-10-at-4.46.52-PM-2.jpeg?fit=500%2C500&ssl=1"
+  ]
+},
+"234": {
+  "seller_name": "Footballers",
+  "product_name": "Mercedes AMG Petronas F1 Lewis Hamilton #44 Sports T-Shirt – Black 2022",
+  "original_price": 748.00,
+  "price": 748.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://footballers.co.za/shop-2/formula1/f1-merch/mercedes/mercedes-amg-petronas-f1-lewis-hamilton-44-sports-t-shirt-black-2022/?v=503b9bc30753",
+  "in_stock": true,
+  "img_array": [
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2022/04/WhatsApp-Image-2022-04-10-at-4.46.50-PM.jpeg?fit=500%2C500&ssl=1"
+  ]
+},
+"235": {
+  "seller_name": "Footballers",
+  "product_name": "Men’s Mercedes AMG Petronas F1 Racing Team Softshell Jacket- Black 2021",
+  "original_price": 1000.00,
+  "price": 1000.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://footballers.co.za/shop-2/formula1/f1-merch/mercedes/mens-mercedes-amg-petronas-f1-racing-team-softshell-jacket-black-2021/?v=503b9bc30753",
+  "in_stock": true,
+  "img_array": [
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2023/06/1653020872566401510.png?fit=300%2C300&ssl=1",
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2023/06/1653020872916143173.png?fit=300%2C300&ssl=1",
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2023/06/1653020872361858801.png?fit=300%2C300&ssl=1"
+  ]
+},
+"236": {
+  "seller_name": "Footballers",
+  "product_name": "Men’s Scuderia Ferrari Puma Softshell Red Jacket 2022",
+  "original_price": 1000.00,
+  "price": 1000.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://footballers.co.za/shop-2/formula1/f1-merch/ferrari/mens-scuderia-ferrari-puma-softshell-red-jacket-2022/?v=503b9bc30753",
+  "in_stock": true,
+  "img_array": [
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2023/06/1653021140298484947-1.png?fit=300%2C300&ssl=1",
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2023/06/1653021141807536426.png?fit=300%2C300&ssl=1",
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2023/06/1653021141979070510.png?fit=300%2C300&ssl=1"
+  ]
+},
+"237": {
+  "seller_name": "Footballers",
+  "product_name": "Scuderia Ferrari F1 Racing Team T-Shirt Red 2022",
+  "original_price": 1000.00,
+  "price": 1000.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://footballers.co.za/shop-2/formula1/f1-merch/ferrari/scuderia-ferrari-f1-racing-team-t-shirt-red-2022/?v=503b9bc30753",
+  "in_stock": true,
+  "img_array": [
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2023/06/1646711097037372701.png?fit=300%2C300&ssl=1",
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2023/06/1646711098549008881.png?fit=300%2C300&ssl=1",
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2023/06/1646711098893515023.png?fit=300%2C300&ssl=1"
+  ]
+},
+"238": {
+  "seller_name": "Footballers",
+  "product_name": "Scuderia Ferrari F1 Racing Team T-Shirt Yellow 2023",
+  "original_price": 1000.00,
+  "price": 1000.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://footballers.co.za/shop-2/formula1/f1-merch/ferrari/scuderia-ferrari-f1-racing-team-t-shirt-yellow-2023/?v=503b9bc30753",
+  "in_stock": true,
+  "img_array": [
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2023/06/1676542184148942866.png?fit=300%2C300&ssl=1",
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2023/06/1676542184913454592.png?fit=300%2C300&ssl=1",
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2023/06/1676542185776853883.png?fit=300%2C300&ssl=1"
+  ]
+},
+"239": {
+  "seller_name": "Footballers",
+  "product_name": "Men’s Los Angeles Lakers Kobe Bryant Mitchell & Ness Gold Hardwood Classics 2008-09 Authentic Jersey",
+  "original_price": 750.00,
+  "price": 750.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://footballers.co.za/shop-2/nba/western/la-lakers/mens-los-angeles-lakers-kobe-bryant-mitchell-ness-gold-hardwood-classics-2008-09-authentic-jersey/?v=503b9bc30753",
+  "in_stock": true,
+  "img_array": [
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2021/08/1624243689165963485.png?fit=500%2C500&ssl=1"
+  ]
+},
+"240": {
+  "seller_name": "Footballers",
+  "product_name": "Chelsea 2022/23 Home Jersey (Player Version)",
+  "original_price": 850.00,
+  "price": 850.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://footballers.co.za/shop-2/afootball/club/chelsea-2022-23-home-jersey-player-version-2/?v=503b9bc30753",
+  "in_stock": true,
+  "img_array": [
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2022/05/WhatsApp-Image-2022-08-06-at-10.32.58-PM.jpeg?fit=1170%2C1432&ssl=1"
+  ]
+},
+"241": {
+  "seller_name": "Footballers",
+  "product_name": "Atletico Madrid Home Jersey Player Version 2023/24",
+  "original_price": 850.00,
+  "price": 850.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://footballers.co.za/shop-2/afootball/club/atletico-madrid-home-jersey-player-version-2023-24/?v=503b9bc30753",
+  "in_stock": true,
+  "img_array": [
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2023/08/1168975863099f41282AtleticoMadridHomeJersey202324MineJerseys.jpg?fit=300%2C300&ssl=1",
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2023/08/01689758630d9f1aab5AtleticoMadridHomeJersey202324BMineJerseys.jpg?fit=300%2C300&ssl=1"
+  ]
+},
+"242": {
+  "seller_name": "Footballers",
+  "product_name": "Men’s Miami Heat Tyler Herro #14 White 19-20 Swingman Jersey – City Edition",
+  "original_price": 750.00,
+  "price": 750.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://footballers.co.za/shop-2/nba/eastern/miami-heat/mens-miami-heat-tyler-herro-14-white-19-20-swingman-jersey-city-edition/?v=503b9bc30753",
+  "in_stock": true,
+  "img_array": [
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2021/08/1160913521411781d60.png?fit=300%2C300&ssl=1",
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2021/08/41609135214c29dac8f.png?fit=300%2C300&ssl=1"
+  ]
+},
+"243": {
+  "seller_name": "Footballers",
+  "product_name": "Men’s Atlanta Hawks Trae Young #11 Jordan Brand Black 2020/21 Swingman Jersey – Statement Edition",
+  "original_price": 750.00,
+  "price": 750.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://footballers.co.za/shop-2/nba/eastern/atlanta-hawks/mens-atlanta-hawks-trae-young-11-jordan-brand-black-2020-21-swingman-jersey-statement-edition/?v=503b9bc30753",
+  "in_stock": true,
+  "img_array": [
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2021/08/1623146578764893351.png?fit=500%2C500&ssl=1"
+  ]
+},
+"244": {
+  "seller_name": "Footballers",
+  "product_name": "Juventus Home Whole Kit(Jersey+Shorts+Socks) 2023/24",
+  "original_price": 850.00,
+  "price": 850.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://footballers.co.za/shop-2/afootball/club/juventus-home-whole-kitjerseyshortssocks-2023-24/?v=503b9bc30753",
+  "in_stock": true,
+  "img_array": [
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2023/08/8afa2a9fc19845e05d9691594544d0c4b8a676.png?fit=300%2C300&ssl=1",
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2023/08/ad650151b17337b604799c825fb0a231b8a671.png?fit=300%2C300&ssl=1",
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2023/08/cc74dbcfc411ddf863d545d7362aabbfb8a678.png?fit=300%2C300&ssl=1",
+    "https://i0.wp.com/footballers.co.za/wp-content/uploads/2023/08/df2ec68af142e23de58cd87a6a0987c8b8a67e.png?fit=300%2C300&ssl=1"
+  ]
+},
+"245": {
+  "seller_name": "Hami",
+  "product_name": "HAMI HIVE Hammock",
+  "original_price": 1350.00,
+  "price": 999.00,
+  "discount": 351.0,
+  "discount_rate": 0.26,
+  "product_url":"https://hami.co.za/collections/hami-hammocks/products/hami-hive-recycled-hammock-with-straps",
+  "in_stock": true,
+  "img_array": [
+    "https://hami.co.za/cdn/shop/products/hivebeach_300x.png?v=1696328133",
+    "https://hami.co.za/cdn/shop/products/HAMIHiveSet_300x.png?v=1696328133",
+    "https://hami.co.za/cdn/shop/products/Hive3_300x.png?v=1658758577"
+  ]
+},
+"246": {
+  "seller_name": "Hami",
+  "product_name": "HAMI OCEAN Hammock",
+  "original_price": 1350.00,
+  "price": 999.00,
+  "discount": 351.0,
+  "discount_rate": 0.26,
+  "product_url":"https://hami.co.za/collections/hami-hammocks/products/hami-ocean-recycled-hammock-with-straps",
+  "in_stock": true,
+  "img_array": [
+    "https://hami.co.za/cdn/shop/products/ocean1_1024x1024.png?v=1696328189"
+  ]
+},
+"247": {
+  "seller_name": "Hami",
+  "product_name": "HAMI EVERGREEN Hammock",
+  "original_price": 1350.00,
+  "price": 1150.00,
+  "discount": 200.0,
+  "discount_rate": 0.15,
+  "product_url":"https://hami.co.za/collections/hami-hammocks/products/hami-evergreen-recycled-hammock-with-straps",
+  "in_stock": true,
+  "img_array": [
+    "https://hami.co.za/cdn/shop/products/hamievergreen_1024x1024.png?v=1696328119",
+    "https://hami.co.za/cdn/shop/products/HAMIForestSet_300x.png?v=1696328119",
+    "https://hami.co.za/cdn/shop/products/HAMIForest_300x.png?v=1696328119"
+  ]
+},
+"248": {
+  "seller_name": "Hami",
+  "product_name": "HAMI CORAL Hammock",
+  "original_price": 1350.00,
+  "price": 1350.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://hami.co.za/collections/hami-hammocks/products/hami-coral-recycled-hammock-with-straps",
+  "in_stock": true,
+  "img_array": [
+    "https://hami.co.za/cdn/shop/products/Hamicoral_8b77ea31-1f89-407b-afc9-7cf2a0ec49bc_1024x1024.png?v=1696328100",
+    "https://hami.co.za/cdn/shop/products/HAMICoralSet_300x.png?v=1696328100",
+    "https://hami.co.za/cdn/shop/products/Hamicoralsiena_300x.png?v=1658758502"
+  ]
+},
+"249": {
+  "seller_name": "Hami",
+  "product_name": "OCEAN ECO-SACK",
+  "original_price":450.00,
+  "price": 450.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://hami.co.za/collections/eco-sacks/products/hami-ocean-sack",
+  "in_stock": true,
+  "img_array": [
+    "https://hami.co.za/cdn/shop/products/OceanSack_1024x1024.png?v=1658758968",
+    "https://hami.co.za/cdn/shop/products/OceanSackPouch_300x.png?v=1658758972"
+  ]
+},
+"250": {
+  "seller_name": "Hami",
+  "product_name": "CORAL ECO-SACK",
+  "original_price": 450.00,
+  "price": 450.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://hami.co.za/collections/eco-sacks/products/hami-coral-sack",
+  "in_stock": true,
+  "img_array": [
+    "https://hami.co.za/cdn/shop/products/CoralSack_1024x1024.png?v=1658758303",
+    "https://hami.co.za/cdn/shop/products/CoralSackPouch_300x.png?v=1658758308"
+  ]
+},
+"251": {
+  "seller_name": "Hami",
+  "product_name": "EVERGREEN ECO-SACK",
+  "original_price": 450.00,
+  "price": 450.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://hami.co.za/collections/eco-sacks/products/hami-forest-sack",
+  "in_stock": true,
+  "img_array": [
+    "https://hami.co.za/cdn/shop/products/ForestSack_1024x1024.png?v=1658758313",
+    "https://hami.co.za/cdn/shop/products/24_9894be59-b950-4117-a1f1-196f00297fd7_300x.png?v=1658758387"
+  ]
+},
+"252": {
+  "seller_name": "Hami",
+  "product_name": "HAMI CARABINERS",
+  "original_price": 250.00,
+  "price": 250.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://hami.co.za/collections/accessories/products/hami-straps-1",
+  "in_stock": false,
+  "img_array": [
+    "https://hami.co.za/cdn/shop/products/HAMICarabiners_63affcf6-46ae-4e6e-84e7-cf23380b4b28_1024x1024.png?v=1658758450"
+  ]
+},
+"253": {
+  "seller_name": "Sundae Skin Co",
+  "product_name": "Unicorn Crush",
+  "original_price": 255.00,
+  "price": 255.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://www.sundaeskinco.co.za/collections/the-whole-collection/products/unicorn-crush",
+  "in_stock": true,
+  "img_array": [
+    "https://www.sundaeskinco.co.za/cdn/shop/products/IMG_3806-Edit_550x.jpg?v=1690926789",
+    "https://www.sundaeskinco.co.za/cdn/shop/files/A80I3145_1100x.jpg?v=1690926792",
+    "https://www.sundaeskinco.co.za/cdn/shop/files/A80I3229_550x.jpg?v=1690926795"
+  ]
+},
+"254": {
+  "seller_name": "Sundae Skin Co",
+  "product_name": "For Your Buns, Hun",
+  "original_price": 255.00,
+  "price": 255.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://www.sundaeskinco.co.za/collections/the-whole-collection/products/for-your-buns-hun",
+  "in_stock": true,
+  "img_array": [
+    "https://www.sundaeskinco.co.za/cdn/shop/products/IMG_3466_550x.jpg?v=1690926790"
+  ]
+},
+"255": {
+  "seller_name": "Sundae Skin Co",
+  "product_name": "Easy Tiger",
+  "original_price": 219.00,
+  "price": 219.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://www.sundaeskinco.co.za/collections/the-whole-collection/products/easy-tiger?variant=47261292593383",
+  "in_stock": true,
+  "img_array": [
+    "https://www.sundaeskinco.co.za/cdn/shop/products/IMG_3582-3_550x.jpg?v=1690926834",
+    "https://www.sundaeskinco.co.za/cdn/shop/products/IMG_3539_550x.jpg?v=1690926840"
+  ]
+},
+"256": {
+  "seller_name": "Sundae Skin Co",
+  "product_name": "Body Slush",
+  "original_price": 265.00,
+  "price": 265.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://www.sundaeskinco.co.za/collections/the-whole-collection/products/body-slush",
+  "in_stock": true,
+  "img_array": [
+    "https://www.sundaeskinco.co.za/cdn/shop/products/IMG_3811_550x.jpg?v=1690926807"
+    
+  ]
+},
+"257": {
+  "seller_name": "Sundae Skin Co",
+  "product_name": "Moonshine",
+  "original_price": 219.00,
+  "price": 219.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://www.sundaeskinco.co.za/collections/the-whole-collection/products/moonshine?variant=47261289218279",
+  "in_stock": true,
+  "img_array": [
+    "https://www.sundaeskinco.co.za/cdn/shop/products/IMG_4167-Edit_550x.png?v=1690926839",
+    "https://www.sundaeskinco.co.za/cdn/shop/products/IMG_4190_550x.png?v=1690926843",
+    "https://www.sundaeskinco.co.za/cdn/shop/files/IMG_3703_550x.jpg?v=1690926849"
+  ]
+},
+"258": {
+  "seller_name": "Sundae Skin Co",
+  "product_name": "Glow Getter",
+  "original_price": 255.00,
+  "price": 255.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://www.sundaeskinco.co.za/collections/the-whole-collection/products/glow-getter",
+  "in_stock": true,
+  "img_array": [
+    "https://www.sundaeskinco.co.za/cdn/shop/products/IMG_3998-Edit_550x.jpg?v=1690926820",
+    "https://www.sundaeskinco.co.za/cdn/shop/products/IMG_4005-Edit_550x.jpg?v=1690926822"
+  ]
+},
+"259": {
+  "seller_name": "Sundae Skin Co",
+  "product_name": "Bright Skin Bish",
+  "original_price": 265.00,
+  "price": 265.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://www.sundaeskinco.co.za/collections/the-whole-collection/products/bright-skin-bish",
+  "in_stock": true,
+  "img_array": [
+    "https://www.sundaeskinco.co.za/cdn/shop/products/IMG_4087-Edit_e0d0f65c-ce27-4436-932f-04c90682bdf2_550x.jpg?v=1690926820"
+  ]
+},
+"260": {
+  "seller_name": "Sundae Skin Co",
+  "product_name": "Fairy Potion",
+  "original_price": 219.00,
+  "price": 219.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://www.sundaeskinco.co.za/collections/the-whole-collection/products/fairy-potion?variant=47261292888295",
+  "in_stock": true,
+  "img_array": [
+    "https://www.sundaeskinco.co.za/cdn/shop/products/Untitled-16_550x.png?v=1690926837",
+    "https://www.sundaeskinco.co.za/cdn/shop/products/IMG_3537_550x.jpg?v=1690926845"
+  ]
+},
+"261": {
+  "seller_name": "Sundae Skin Co",
+  "product_name": "Bumps Be Gone",
+  "original_price": 255.00,
+  "price": 255.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://www.sundaeskinco.co.za/collections/the-whole-collection/products/bumps-be-gone",
+  "in_stock": true,
+  "img_array": [
+    "https://www.sundaeskinco.co.za/cdn/shop/products/IMG_3863_550x.jpg?v=1690926807"
+  ]
+},
+"262": {
+  "seller_name": "Sundae Skin Co",
+  "product_name": "Spot Doctor",
+  "original_price": 219.00,
+  "price": 219.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://www.sundaeskinco.co.za/collections/the-whole-collection/products/spot-doctor?variant=47261293379815",
+  "in_stock": true,
+  "img_array": [
+    "https://www.sundaeskinco.co.za/cdn/shop/products/IMG_3918-Edit_550x.png?v=1690926863",
+    "https://www.sundaeskinco.co.za/cdn/shop/files/IMG_4967_550x.jpg?v=1690926866",
+    "https://www.sundaeskinco.co.za/cdn/shop/products/IMG_3886_550x.jpg?v=1690926868"
+  ]
+},
+"263": {
+  "seller_name": "Sundae Skin Co",
+  "product_name": "Clear Skin Check",
+  "original_price": 265.00,
+  "price": 265.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://www.sundaeskinco.co.za/collections/the-whole-collection/products/clear-skin-check",
+  "in_stock": true,
+  "img_array": [
+    "https://www.sundaeskinco.co.za/cdn/shop/products/IMG_3985_550x.jpg?v=1690926807",
+    "https://www.sundaeskinco.co.za/cdn/shop/products/IMG_3981_550x.jpg?v=1690926811"
+  ]
+},
+"264": {
+  "seller_name": "Sundae Skin Co",
+  "product_name": "In-grown SOS",
+  "original_price": 255.00,
+  "price": 255.00,
+  "discount": 0.0,
+  "discount_rate": 0.0,
+  "product_url":"https://www.sundaeskinco.co.za/collections/the-whole-collection/products/in-grown-sos",
+  "in_stock": true,
+  "img_array": [
+    "https://www.sundaeskinco.co.za/cdn/shop/products/Untitled-131_550x.png?v=1690926822",
+    "https://www.sundaeskinco.co.za/cdn/shop/files/A80I1491_550x.jpg?v=1690926825",
+    "https://www.sundaeskinco.co.za/cdn/shop/products/Untitled-135_550x.png?v=1690926829"
+  ]
+}
+
+
+
+
+
+
+
 }
