@@ -175,7 +175,6 @@ ion-content {
   }
 
   .todays-sales {
-    flex-direction: column;
     align-items: center;
     gap: 20px;
   }
@@ -193,13 +192,12 @@ ion-content {
 
   .summary {
     margin: 10px;
-    display: flex;
-    width: 96%;
+    display: flex-start;
+    width: 1114px;
     height: 300px;
     padding: 20px;
-    flex-direction: column;
+    overflow-x: auto;
     justify-content: space-between;
-    align-items: left;
     align-self: stretch;
     border-radius: 20px;
     border: 1px solid #f8f9fa;
@@ -222,13 +220,13 @@ ion-content {
       line-height: 30px;
     }
 
-    ion-card {
-      padding: 20px;
-      width: 180px;
-      height: 184px;
-      flex-shrink: 0;
-      border-radius: 16px;
-      text-align: center;
+    // ion-card {
+    //   padding: 20px;
+    //   width: px;
+    //   height: 72px;
+    //   flex-shrink: 0;
+    //   border-radius: 16px;
+    //   text-align: center;
 
       h1 {
         color: var(--greys-blue-grey-900, #151d48);
@@ -240,6 +238,6 @@ ion-content {
         font-weight: 600;
         line-height: 32px;
       }
-    }
+    //}
   }
 }
