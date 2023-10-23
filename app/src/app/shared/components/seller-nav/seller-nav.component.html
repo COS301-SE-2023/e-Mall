@@ -1,3 +1,4 @@
+<div class="side-nav-container" [class.collapsed]="isMenuCollapsed">
 <ion-nav class="side-nav">
   <ion-item
     style="
@@ -46,6 +47,8 @@
     </ion-item>
   </ion-list>
 </ion-nav>
+</div>
+<button class="OpenNav" (click)="toggleMenu()">Menu</button>
 <ion-nav class="top-nav">
   <ion-title>Hello {{ this.username }}</ion-title>
 </ion-nav>
