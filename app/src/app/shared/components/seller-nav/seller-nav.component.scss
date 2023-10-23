@@ -103,6 +103,10 @@ ion-item.active {
 
 /* Media queries for responsiveness */
 @media (max-width: 768px) {
+  ion-title{
+    text-align: center !important;
+  }
+  
   .side-nav {
     width: 60%;
   }
@@ -118,6 +122,16 @@ ion-item.active {
     z-index: 999;
   } 
 
-
+  .top-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: 100%; 
+    ion-title {
+      text-align: center; /* Center the text horizontally */
+    }
+  }
+  
+  
   
 }
