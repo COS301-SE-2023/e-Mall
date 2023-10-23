@@ -162,4 +162,29 @@
         padding-left: 10px;
       }
     }
+
+    .table{
+      width: 100%;
+      .col-title{
+        align-items: left;
+        ion-col{
+          text-align: left;
+          font-size: 2vw;
+          text-justify: auto;
+          padding: 5px;
+        }
+      }
+    }
+
+    ion-col{
+      text-align: left;
+      font-size: 2vw;
+      text-justify: auto;
+      padding: 5px;
+    }
+
+    ion-checkbox{
+      width: 10px;
+      height: 10px;
+    }
   }
