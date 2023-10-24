@@ -156,10 +156,19 @@ ion-item.active {
   .OpenNav {
     display: block;
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 0;
+    left: 10px;
     z-index: 999;
   } 
+
+  ion-icon{
+    width: 10%;
+    height: 10%;
+  }
+
+  .side-nav{
+    width: 100%;
+  }
 
 
   
