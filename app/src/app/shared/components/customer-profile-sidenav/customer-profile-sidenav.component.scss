@@ -149,6 +149,10 @@ ion-item.active {
 
 /* Media queries for responsiveness */
 @media (max-width: 768px) {
+
+  .side-nav-container{
+    width:100%;
+  }
   .side-nav-container.collapsed {
     display: none;
   }
@@ -165,11 +169,5 @@ ion-item.active {
     width: 10%;
     height: 10%;
   }
-
-  .side-nav{
-    width: 100%;
-  }
-
-
   
 }
