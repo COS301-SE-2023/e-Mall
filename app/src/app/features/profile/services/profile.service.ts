@@ -1,14 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Injectable } from '@angular/core';
-import {
-  Observable,
-  firstValueFrom,
-  lastValueFrom,
-  map,
-  shareReplay,
-  take,
-} from 'rxjs';
+import { firstValueFrom, lastValueFrom, map, shareReplay, take } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Profile } from '../models/alias-profile.interface';
 import { ISellerCard } from '../models/seller-card.interface';

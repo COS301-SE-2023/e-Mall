@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastComponent } from '@app/shared/components/toast/toast.component';
 import {
   passwordMatchValidator,
   passwordValidationErrors,
@@ -41,7 +40,6 @@ export class ForgotPasswordComponent {
     private formBuilder: FormBuilder,
     // public consumerFacade: ConsumerFacade,
     private loadingController: LoadingController,
-    private toast: ToastComponent,
     private authFacade: AuthFacade
   ) {
     this.forgotForm = this.formBuilder.group(

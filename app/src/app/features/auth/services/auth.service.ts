@@ -42,7 +42,7 @@ export class AuthService {
     } else {
       throw new IError(-1, `invalid user type ${form.type}`);
     }
-    const password = form.password;
+    // const password = form.password;
     form.password = undefined;
     form.verification_code = undefined;
     const data = JSON.stringify(form);
@@ -54,17 +54,6 @@ export class AuthService {
         })
         .pipe(take(1))
     );
-    // console.log('passing here');
-    // await this.cognitoSignUp(form.email, password!, form.type);
-    // const res = await this.waitForAutoSignIn();
-
-    // const user: IUser = {
-    //   email: form.email,
-    //   token: res.signInUserSession.accessToken.jwtToken,
-    //   type: form.type,
-    // };
-    // console.log(user);
-    // return user;
   }
   waitForAutoSignIn(): any {
     return new Promise((resolve, reject) => {

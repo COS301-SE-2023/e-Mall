@@ -16,7 +16,6 @@ import { EditCustomerProfileComponent } from '@features/edit-customer-profile/ed
 import { SellerDashboardSettingsComponent } from '@features/seller-dashboard-settings/seller-dashboard-settings.component';
 import { consumerTypeGuard } from '@shared/guards/consumer-type.guard';
 import { SplashComponent } from './features/splash/splash.component';
-import { ForgotPasswordComponent } from './features/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   { path: '', component: SplashComponent, pathMatch: 'full' },

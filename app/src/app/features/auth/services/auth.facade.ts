@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Injectable } from '@angular/core';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 import { Select } from '@ngxs/store';
@@ -61,7 +63,7 @@ export class AuthFacade {
   @Dispatch()
   async signUp(form: ISellerForm | IConsumerForm) {
     try {
-      const user = await this.authService.signUp(form);
+      await this.authService.signUp(form);
       // if (form.type === 'seller') {
       //   return [
       //     new AuthActions.SetCurrentUser(user),
