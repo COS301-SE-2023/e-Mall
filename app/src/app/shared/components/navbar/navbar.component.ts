@@ -10,6 +10,7 @@ import { DropdownPopoverComponent } from '@shared/components/dropdown-popover/dr
 import { NavbarPopupComponent } from '@shared/components/navbar-popup/navbar-popup.component';
 import { NotificationFacade } from '@features/notification/services/notification.facade';
 import { IonModal, ModalController } from '@ionic/angular';
+import { IonMenu } from '@ionic/angular';
 
 @Component({
   selector: 'app-navbar',
