@@ -1,21 +1,16 @@
 <app-navbar></app-navbar>
 <ion-content class="global-ion-content">
   <div class="ion-content-wrapper">
-    <div class="cat-container">
-      <div class="bubble-container">
+    <div class="cat-container parents">
+      <div
+        *ngFor="let page of cat_pages"
+        class="subCategory"
+        (click)="onCatClicked(page.path)">
         <div
-          *ngFor="let page of cat_pages"
-          class="category-bubble"
-          (click)="onCatClicked(page.path)">
-          <div class="cat-img-container">
-            <img
-              class="cat-img"
-              src="{{ page.img }}"
-              alt="cat-img"
-              (click)="onCatClicked(page.path)" />
-            <div class="overlay-text">
-              {{ page.title }}
-            </div>
+          class="subCategoryCard hoverZoom"
+          style="background-image: url({{page.img}})">
+          <div class="inner">
+            {{ page.title }}
           </div>
         </div>
       </div>
