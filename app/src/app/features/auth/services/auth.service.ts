@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { lastValueFrom, take } from 'rxjs';
+import { firstValueFrom, lastValueFrom, take } from 'rxjs';
 import { ISellerForm } from '@features/sign-up/seller/models/seller.interface';
 import { Amplify, Auth, Hub } from 'aws-amplify';
 import { environment } from '../../../../environments/env';
@@ -33,7 +33,7 @@ export class AuthService {
     return null;
   }
 
-  public async signUp(form: ISellerForm | IConsumerForm): Promise<IUser> {
+  public async signUp(form: ISellerForm | IConsumerForm) {
     let url = '';
     if (form.type === 'seller') {
       url = '/api/seller/register/';
@@ -42,11 +42,11 @@ export class AuthService {
     } else {
       throw new IError(-1, `invalid user type ${form.type}`);
     }
-    const password = form.password;
+    // const password = form.password;
     form.password = undefined;
     form.verification_code = undefined;
     const data = JSON.stringify(form);
-    await lastValueFrom(
+    return await firstValueFrom(
       this.http
         .post(url, data, {
           headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -54,16 +54,6 @@ export class AuthService {
         })
         .pipe(take(1))
     );
-
-    await this.cognitoSignUp(form.email, password!, form.type);
-    const res = await this.waitForAutoSignIn();
-
-    const user: IUser = {
-      email: form.email,
-      token: res.signInUserSession.accessToken.jwtToken,
-      type: form.type,
-    };
-    return user;
   }
   waitForAutoSignIn(): any {
     return new Promise((resolve, reject) => {
@@ -119,5 +109,17 @@ export class AuthService {
         .pipe(take(1))
     );
     return res.body;
+  }
+  public confirmSignUp(email: string, code: string): Promise<any> {
+    return Auth.confirmSignUp(email, code);
+  }
+  public resend(email: string) {
+    return Auth.resendSignUp(email);
+  }
+  forgotpassword(email: string) {
+    return Auth.forgotPassword(email);
+  }
+  confirmForgotPassword(email: string, code: string, newPassword: string) {
+    return Auth.forgotPasswordSubmit(email, code, newPassword);
   }
 }

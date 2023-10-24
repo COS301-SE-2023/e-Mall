@@ -7,6 +7,8 @@ import { ConsumerRegisterComponent } from '../components/consumer-register.compo
 import { ToastComponent } from '@shared/components/toast/toast.component';
 import { IConsumerForm } from '../models/consumer.interface';
 import { of } from 'rxjs';
+import { AuthModule } from '@app/features/auth/auth.module';
+import { AppModule } from '@app/app.module';
 describe('ConsumerModule', () => {
   let component: ConsumerRegisterComponent;
   let fixture: ComponentFixture<ConsumerRegisterComponent>;
@@ -16,7 +18,7 @@ describe('ConsumerModule', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ConsumerRegisterComponent],
-      imports: [ReactiveFormsModule, IonicModule],
+      imports: [ReactiveFormsModule, AppModule, IonicModule, AuthModule],
       providers: [
         {
           provide: ConsumerFacade,
