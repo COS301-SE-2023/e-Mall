@@ -143,6 +143,10 @@ h2 {
 
 /* Media queries for responsiveness */
 @media (max-width: 768px) {
+  app-customer-profile-sidenav{
+    display: 40%;
+  }
+  
   .head {
     display: flex;
     flex-direction: column;
@@ -165,10 +169,15 @@ h2 {
     width: 100%;
     font-size: 3vw;
   }
+
+  .users{
+    font-size: 3vw;
+  }
   
   .head-buttons {
     margin-top: 10px; /* Optional spacing between the name and buttons */
     display: flex;
+    justify-content: 10px !important;
     align-items: center; /* Center horizontally */
     ion-button{
       font-size: 3vw;
