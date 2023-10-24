@@ -199,9 +199,14 @@ ion-title {
   }
 
   .user-circle-container{
+    display: flex;
+    justify-content: center; 
+    align-items: center;
     width: 50px;
     height: 50px;
-    font-size: 4vw;
+    font-size: 6vw;
+    margin-bottom: 15px;
+    margin-right: 0;
   }
 
   .user-details p{
@@ -210,10 +215,8 @@ ion-title {
 
   .user-info{
     display: block;
-    justify-content: center;
-    .user-circle-container{
-      padding-bottom: 10px;
-    }
+    align-items: center;
+    text-align: center;
   }
 
 }
