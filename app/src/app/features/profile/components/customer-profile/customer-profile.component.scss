@@ -187,6 +187,12 @@ ion-title {
 
 /* Media queries for responsiveness */
 @media (max-width: 768px) {
+  .ion-content-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
   .profile-info-container{
     max-width: 320px;
     margin-left: 0;
@@ -201,4 +207,13 @@ ion-title {
   .user-details p{
     font-size: 4vw;
   }
+
+  .user-info{
+    display: block;
+    justify-content: center;
+    .user-circle-container{
+      padding-bottom: 10px;
+    }
+  }
+
 }
