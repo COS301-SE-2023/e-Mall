@@ -281,6 +281,7 @@
               "src/app/features/sign-out/**/*",
               "src/app/features/splash/**/*",
               "src/app/features/wishlist/**/*",
+              "src/app/features/forgot-password/**/*",
               "src/app/shared/components/product-card/**/*"
             ]
           }

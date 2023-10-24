@@ -158,6 +158,8 @@ def get_followed_seller_details(request):
                     for seller in followed_seller
                 ]
                 return Response(res)
+            else:
+                return Response([])
 
         else:
             raise Exception("User is seller")

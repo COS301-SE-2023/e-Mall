@@ -37,8 +37,8 @@ def getProd(request):
         sort_fields = {
             "name": "product__name",
             "-name": "-product__name",
-            "date": "-created_at",
-            "-date": "created_at",
+            "date": "created_at",
+            "-date": "-created_at",
             "price": "price",
             "-price": "-price",
             "discount": "discount",

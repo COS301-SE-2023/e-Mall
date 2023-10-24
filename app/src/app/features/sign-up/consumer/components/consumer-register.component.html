@@ -4,9 +4,9 @@
       <ion-col>
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           <ion-text style="text-align: center">
-            <h2>Become A Member <br>Today!</h2>
+            <h2>Become A Member <br />Today!</h2>
           </ion-text>
-          <div class="input-error-box-wrapper">
+          <div class="input-error-box-wrapper" *ngIf="!next; else confirm">
             <div class="input-error-box">
               <ion-input
                 type="email"
@@ -109,12 +109,21 @@
             </div>
           </div>
 
-          <div class="submit-button">
+          <div class="submit-button" *ngIf="!next">
             <ion-button
               id="submit-button"
               [disabled]="registerForm.invalid"
               type="submit"
               >Submit</ion-button
+            >
+          </div>
+          <div class="submit-button" *ngIf="next">
+            <ion-button
+              id="submit-button"
+              [disabled]="confirmForm.invalid"
+              type="button"
+              (click)="confirmSignUp()"
+              >Confirm</ion-button
             >
           </div>
           <ion-item class="text-center">
@@ -148,3 +157,34 @@
     </ion-row>
   </ion-grid>
 </ion-content>
+<ng-template #confirm>
+  <div class="input-error-box-wrapper" @initFadeInOut>
+    <form [formGroup]="confirmForm" (ngSubmit)="onSubmit()">
+      <div class="input-error-box">
+        <ion-input
+          type="text"
+          label="Confirm Code"
+          placeholder="Verification Code"
+          labelPlacement="floating"
+          formControlName="code"
+          fill="outline"
+          required="true"></ion-input>
+
+        <div class="error-container">
+          <div
+            class="error-message"
+            *ngIf="
+              confirmForm.get('code')?.invalid &&
+              confirmForm.get('code')?.dirty &&
+              confirmForm.get('code')?.touched
+            ">
+            <ion-text color="danger" size="small"
+              >Invalid code, check your email
+              {{ confirmForm.get('code')!.value }}</ion-text
+            >
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>

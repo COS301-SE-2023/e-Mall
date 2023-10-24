@@ -28,6 +28,7 @@ import { ProfileModule } from '@features/profile/profile.module';
 import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
 import { NotificationModule } from '@app/features/notification/notification.module';
 import { Firestore } from '@angular/fire/firestore';
+import { ToastModule } from '@app/shared/components/toast/toast.module';
 
 describe('ProductComponent', () => {
   let component: ProductComponent;

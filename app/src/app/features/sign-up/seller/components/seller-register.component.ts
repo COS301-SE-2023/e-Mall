@@ -10,11 +10,28 @@ import {
   passwordValidator,
 } from '@shared/validators/password/passwordValidator';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-register',
   templateUrl: './seller-register.component.html',
   styleUrls: ['./seller-register.component.scss'],
+  animations: [
+    trigger('initFadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate(500, style({ opacity: 1 })),
+      ]),
+      // transition(':leave', [animate(500, style({ opacity: 0 }))]),
+    ]),
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate(100, style({ opacity: 1 })),
+      ]),
+      transition(':leave', [animate(100, style({ opacity: 0 }))]),
+    ]),
+  ],
 })
 export class SellerRegisterComponent {
   loading: boolean;
@@ -25,9 +42,13 @@ export class SellerRegisterComponent {
   registerFormFirst: FormGroup;
   registerFormSecond: FormGroup;
   registerFormThird: FormGroup;
+  confirmForm: FormGroup;
+
   passwordErrors = passwordValidationErrors;
   stepToggle = [true, false, false];
   focus = [false, false, false];
+  next = false;
+  emailErrorMessage = 'Invalid email address';
   // constructor(private router: Router, ) {
   constructor(
     private router: Router,
@@ -57,6 +78,9 @@ export class SellerRegisterComponent {
       catalogSize: ['', Validators.required],
       sizeOfBusiness: ['', Validators.required],
     });
+    this.confirmForm = this.formBuilder.group({
+      code: ['', [Validators.required]],
+    });
   }
   onSelectionChange(event: StepperSelectionEvent) {
     // Reset all values to false
@@ -68,14 +92,16 @@ export class SellerRegisterComponent {
     this.stepToggle[event.selectedIndex] = true;
   }
 
-  onSubmit() {
+  async onSubmit() {
     // Handle form submission
     if (
       this.registerFormFirst.valid &&
       this.registerFormSecond.valid &&
       this.registerFormThird.valid
     )
-      this.signUp();
+      await this.cognitoSignUp().then(() => {
+        this.next = true;
+      });
   }
 
   private getFormValue(form: FormGroup, field: string) {
@@ -111,5 +137,46 @@ export class SellerRegisterComponent {
     this.focus.fill(false);
     this.focus[index] = true;
   }
+  public async confirmSignUp(): Promise<void> {
+    this.loading = true;
+    await this.authFacade
+      .confirmSignUp(
+        this.getFormValue(this.registerFormFirst, 'email'),
+        this.getFormValue(this.confirmForm, 'code')
+      )
+      .then(() => {
+        if (this.authFacade.confirmed) return this.signUp();
+        else {
+          console.log('else');
+          return;
+        }
+      })
+      .catch(() => {
+        this.loading = false;
+      });
+  }
+  async cognitoSignUp() {
+    if (this.registerFormFirst.valid) {
+      await this.authFacade.congnitoSignUp(
+        this.getFormValue(this.registerFormFirst, 'email'),
+        this.getFormValue(this.registerFormFirst, 'password'),
+        'seller'
+      );
+    }
+  }
+  async doesEmailExist() {
+    const email = this.getFormControl(this.registerFormFirst, 'email');
+    console.log('in here');
+    if (email && email.invalid === false) {
+      const res = await this.authFacade.doesEmailExist(email.value);
+      if (res) {
+        this.emailErrorMessage = 'Email already exists';
+        email.setErrors({ invalid: true });
+      }
+    } else {
+      console.log('not here');
 
+      this.emailErrorMessage = 'Invalid email address';
+    }
+  }
 }

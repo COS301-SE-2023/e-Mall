@@ -13,6 +13,7 @@ class Product(models.Model):
         ("sports and outdoors", "Sports and Outdoors"),
         ("toys and games", "Toys and Games"),
         ("books", "Books"),
+        ("food","Food")
     ]
 
     id = models.AutoField(primary_key=True)

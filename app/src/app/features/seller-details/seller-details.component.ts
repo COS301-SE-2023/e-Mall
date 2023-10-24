@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { Observable, of, Subscription } from 'rxjs';
@@ -13,6 +15,7 @@ import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { ISeller } from '@shared/models/seller/seller.interface';
 import { SellerService } from '@shared/servicies/seller/seller.service';
 import { switchMap, take, tap } from 'rxjs/operators';
+import { ISellerCard } from '../profile/models/seller-card.interface';
 
 @Component({
   selector: 'app-inventory',
@@ -43,10 +46,12 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
     'Books',
     'Clothing',
     'Electronics',
+    'Food',
     'Health and Beauty',
     'Home and Kitchen',
     'Sports and Outdoors',
     'Toys and Games',
+    
   ];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() sellerID: any;
@@ -126,7 +131,11 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
   }
 
   updateButtonState() {
-    this.profileFacade.toggleSellers(this.seller_business_name);
+    const data: ISellerCard = {
+      id: this.seller_id!,
+      name: this.seller_business_name,
+    };
+    this.profileFacade.toggleSellers(data);
   }
 
   onSortOptionChange(): void {

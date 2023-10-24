@@ -4,7 +4,7 @@ import { IError } from '@features/error/models/error.interface';
 import { SetError } from '@features/error/states/error.action';
 import { Dispatch } from '@ngxs-labs/dispatch-decorator';
 import { Select } from '@ngxs/store';
-import { Observable, tap, Subscription, map, of, debounceTime } from 'rxjs';
+import { Observable, Subscription, map, debounceTime, share } from 'rxjs';
 import { IConsumerProfile } from '../models/consumer-profile.interface';
 import { ISellerProfile } from '../models/seller-profile.interface';
 import { ProfileSelectors } from '../states/profile.selector';
@@ -14,6 +14,7 @@ import { AuthFacade } from '@features/auth/services/auth.facade';
 import { Profile } from '../models/alias-profile.interface';
 import { Navigate } from '@ngxs/router-plugin';
 import { IProduct } from '@shared/models/product/product.interface';
+import { ISellerCard } from '../models/seller-card.interface';
 
 @Injectable()
 export class ProfileFacade implements OnDestroy {
@@ -25,7 +26,7 @@ export class ProfileFacade implements OnDestroy {
   public followedSellers$!: Observable<string[]>;
   @Select(ProfileSelectors.getRecommendedProducts)
   public recommendedProducts$!: Observable<IProduct[]>;
-  private authSubscription: Subscription;
+  private authSubscription = new Subscription();
   private profileSubs = new Subscription();
 
   constructor(
@@ -34,20 +35,19 @@ export class ProfileFacade implements OnDestroy {
   ) {
     this.authSubscription = this.authFacade
       .getCurrentUser()
-      .pipe(
-        debounceTime(500),
-        tap(async user => {
-          if (user) {
-            await this.fetchProfile();
-          } else {
-            if (this.profileSubs) {
-              this.profileSubs.unsubscribe();
-            }
-            this.clearProfile();
+      .pipe(debounceTime(500), share())
+      .subscribe(async user => {
+        if (user) {
+          // console.log(user);
+          await this.fetchProfile();
+        } else {
+          // console.log('hi');
+          if (this.profileSubs) {
+            this.profileSubs.unsubscribe();
           }
-        })
-      )
-      .subscribe();
+          this.clearProfile();
+        }
+      });
   }
 
   @Dispatch()
@@ -96,6 +96,7 @@ export class ProfileFacade implements OnDestroy {
   async fetchProfile() {
     try {
       const res = await this.profileService.getProfile();
+      // console.log(res);
       if (res != null) this.setProfile(res);
     } catch (error) {
       this.setError(error);
@@ -133,7 +134,7 @@ export class ProfileFacade implements OnDestroy {
   }
 
   @Dispatch()
-  async toggleSellers(name: string) {
+  async toggleSellers(seller: ISellerCard) {
     if (!(await this.authFacade.isLoggedIn())) {
       this.setError('You must be logged in to follow sellers');
       return new Navigate(['sign-in']);
@@ -142,8 +143,8 @@ export class ProfileFacade implements OnDestroy {
       return new Navigate(['sales']);
     } else {
       try {
-        this.profileService.toggleFollowSeller(name);
-        return new ProfileActions.ToggleSellers(name);
+        this.profileService.toggleFollowSeller(seller.name);
+        return new ProfileActions.UpdateFollowedSeller(seller);
       } catch (error) {
         return this.setError(error);
       }
@@ -187,6 +188,7 @@ export class ProfileFacade implements OnDestroy {
   }
 
   ngOnDestroy() {
+    // console.log('onDestroy');
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
     }
@@ -194,14 +196,13 @@ export class ProfileFacade implements OnDestroy {
       this.profileSubs.unsubscribe();
     }
   }
-
-  fetchFollowedSellerDetails() {
+  @Dispatch()
+  async fetchFollowedSellerDetails() {
     try {
-      this.profileService.fetchFollowedSellerDetails();
-      return;
+      const res = await this.profileService.fetchFollowedSellerDetails();
+      return new ProfileActions.SetFollowedSeller(res);
     } catch (error) {
-      this.setError(error);
-      return of(null);
+      return this.setError(error);
     }
   }
 }

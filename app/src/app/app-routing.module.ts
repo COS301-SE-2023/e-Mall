@@ -60,6 +60,14 @@ const routes: Routes = [
     canActivate: [preAuthGuard],
   },
   {
+    path: 'forgot-password',
+    loadChildren: () =>
+      import('@app/features/forgot-password/forgot-password.module').then(
+        m => m.ForgotPasswordModule
+      ),
+    canActivate: [preAuthGuard],
+  },
+  {
     path: 'inventory',
     loadChildren: () =>
       import('@app/features/inventory/inventory.module').then(

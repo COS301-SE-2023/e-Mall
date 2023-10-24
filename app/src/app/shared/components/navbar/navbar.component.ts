@@ -29,6 +29,7 @@ export class NavbarComponent implements OnDestroy {
     public notificationFacade: NotificationFacade
   ) {
     this.isAuthenticated = this.authFacade.getCurrentUser();
+
     this.notificationUnreadCount$ = this.notificationFacade.unread_count$;
     this.notificationMenuSubs = this.notificationFacade.isMenuOpen$
       .pipe(debounceTime(100))
