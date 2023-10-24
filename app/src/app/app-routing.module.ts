@@ -16,6 +16,7 @@ import { EditCustomerProfileComponent } from '@features/edit-customer-profile/ed
 import { SellerDashboardSettingsComponent } from '@features/seller-dashboard-settings/seller-dashboard-settings.component';
 import { consumerTypeGuard } from '@shared/guards/consumer-type.guard';
 import { SplashComponent } from './features/splash/splash.component';
+import { ForgotPasswordComponent } from './features/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   { path: '', component: SplashComponent, pathMatch: 'full' },
@@ -57,6 +58,14 @@ const routes: Routes = [
   {
     path: 'sign-up',
     component: ConsumerRegisterComponent,
+    canActivate: [preAuthGuard],
+  },
+  {
+    path: 'forgot-password',
+    loadChildren: () =>
+      import('@app/features/forgot-password/forgot-password.module').then(
+        m => m.ForgotPasswordModule
+      ),
     canActivate: [preAuthGuard],
   },
   {

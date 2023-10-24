@@ -127,4 +127,10 @@ export class AuthService {
   public resend(email: string) {
     return Auth.resendSignUp(email);
   }
+  forgotpassword(email: string) {
+    return Auth.forgotPassword(email);
+  }
+  confirmForgotPassword(email: string, code: string, newPassword: string) {
+    return Auth.forgotPasswordSubmit(email, code, newPassword);
+  }
 }

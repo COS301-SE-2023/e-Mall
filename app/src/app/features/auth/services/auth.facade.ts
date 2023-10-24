@@ -140,9 +140,28 @@ export class AuthFacade {
 
   async doesEmailExist(email: string) {
     try {
-      return this.authService.checkEmail(email);
+      return await this.authService.checkEmail(email);
     } catch (e) {
       return this.setError(e);
     }
+  }
+  async requestForgotPassword(email: string) {
+    try {
+      return await this.authService.forgotpassword(email);
+    } catch (e) {
+      return this.setError(e);
+    }
+  }
+  @Dispatch()
+  async confirmForgotPassword(email: string, code: string, password: string) {
+    return await this.authService
+      .confirmForgotPassword(email, code, password)
+      .then(() => {
+        this.toast.presentSuccessToast('Successfully changed password');
+        return [new Navigate(['sign-in'])];
+      })
+      .catch(e => {
+        return this.setError(e);
+      });
   }
 }
