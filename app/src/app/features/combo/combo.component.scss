@@ -148,6 +148,23 @@ h2 {
     flex-direction: column;
     align-items: left; /* Center horizontally */
   }
+
+  ion-card{
+    width: 100%;
+  }
+
+  ion-card-title{
+    font-size: 4vw;
+  }
+
+  ion-card-content{
+    font-size: 2vw;
+  }
+
+  .user-cards{
+    width: 70%;
+    font-size: 3vw;
+  }
   
   .head-buttons {
     margin-top: 10px; /* Optional spacing between the name and buttons */
@@ -155,14 +172,6 @@ h2 {
     align-items: center; /* Center horizontally */
     ion-button{
       font-size: 3vw;
-    }
-
-    .head{
-      .user-cards{
-        ion-card{
-          width: 100%;
-        }
-      }
     }
   }
 
