@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { AuthFacade } from '@app/features/auth/services/auth.facade';
 import { IUser } from '@app/features/auth/models/user.interface';
@@ -9,6 +9,7 @@ import { MenuController, PopoverController } from '@ionic/angular';
 import { DropdownPopoverComponent } from '@shared/components/dropdown-popover/dropdown-popover.component';
 import { NavbarPopupComponent } from '@shared/components/navbar-popup/navbar-popup.component';
 import { NotificationFacade } from '@features/notification/services/notification.facade';
+import { IonModal, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-navbar',
@@ -21,12 +22,17 @@ export class NavbarComponent implements OnDestroy {
   notificationUnreadCount$: Observable<number>;
   notificationMenuSubs = new Subscription();
 
+  @ViewChild(IonModal)
+  modal!: IonModal;
+
   constructor(
     private router: Router,
     private authFacade: AuthFacade,
     private popoverController: PopoverController,
     private menuController: MenuController,
-    public notificationFacade: NotificationFacade
+    public notificationFacade: NotificationFacade,
+    private modalController: ModalController
+    
   ) {
     this.isAuthenticated = this.authFacade.getCurrentUser();
     this.notificationUnreadCount$ = this.notificationFacade.unread_count$;
@@ -105,5 +111,9 @@ export class NavbarComponent implements OnDestroy {
   }
   notificationMenuClosed() {
     this.notificationFacade.isMenuOpen$.next(false);
+  }
+
+  closeModal2() {
+    this.modal.dismiss(null, 'cancel');
   }
 }

@@ -1,11 +1,11 @@
-<ion-menu contentId="menu-one">
+<ion-menu id="menuu" contentId="menu-one">
   <ion-header>
     <ion-toolbar>
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
+  <ion-content contentId="menu-one">
     <ion-list>
       <ion-item>
         <ion-icon name="book" slot="start"></ion-icon>
@@ -58,7 +58,7 @@
 <ion-header>
   <ion-toolbar color="primary" class="navbar">
     <ion-buttons slot="start">
-      <ion-menu-button contentId="menu-one"></ion-menu-button> <!-- Button to open the side menu -->
+      <ion-menu-button id="menuu"></ion-menu-button> <!-- Button to open the side menu -->
     </ion-buttons>
     <div class="flex-container">
       <div class="toolbar-button">
@@ -108,7 +108,7 @@
           </ng-container>
         </ion-button>
       </ng-container>
-      <ion-icon class="search" name="search-outline"></ion-icon>
+      <ion-icon class="search" id="openModal" name="search-outline"></ion-icon>
       <div class="authButton">
         <button
         mat-button
@@ -131,11 +131,18 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-menu side="start" contentId="main-content">
-  <ion-header>
-    <ion-title>Menu</ion-title>
-  </ion-header>
-  <ion-content>
-    <!-- Add your menu items and navigation links here -->
-  </ion-content>
-</ion-menu>
+<ion-modal class="searchMod" trigger="openModal">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title class="ion-text-center">Search</ion-title>
+        <ion-buttons slot="end">
+          <ion-button color="danger" (click)="closeModal2()">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <app-search-bar class="search-bar2"></app-search-bar>
+    </ion-content>
