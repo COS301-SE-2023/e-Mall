@@ -118,7 +118,13 @@ ion-menu-button{
   display: none;
 }
 
+.search{
+  display: none;
+}
+
 @media (max-width: 768px) {
+
+
   .search-bar {
     display: none;
   }
@@ -131,8 +137,27 @@ ion-menu-button{
     display: none;
   }
 
+  .label{
+    display: none;
+  }
+
+  .arrow{
+    display: none;
+  }
+
+  ion-menu-button{
+    padding-left: 5px;
+    display: block;
+  }
+
+  .authButton{
+    padding-right: 10px;
+  }
+
   .circular-button{
     margin-right: 10px;
+    width: 35px;
+    height: 35px;
   }
 
   .toolbar-button {
@@ -145,7 +170,15 @@ ion-menu-button{
 
   .navbar-logo{
     align-items: center !important;
-    margin-left: 11rem;
+    margin-left: 6.5rem;
+  }
+
+  
+  .search{
+    display: flex !important;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
   }
 
   ion-header{
