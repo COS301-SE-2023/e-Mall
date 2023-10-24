@@ -60,4 +60,9 @@
 </div>
 <!-- <button class="OpenNav" (click)="toggleMenu()">Menu</button> -->
 
-<ion-icon class="OpenNav" name="arrow-forward-outline" (click)="toggleMenu()"></ion-icon>
+<!-- <ion-icon class="OpenNav" name="arrow-forward-outline" (click)="toggleMenu()"></ion-icon> -->
+<ion-icon
+  class="OpenNav"
+  [name]="isMenuCollapsed ? 'arrow-forward-outline' : 'arrow-back-outline'"
+  (click)="toggleMenu()">
+</ion-icon>
