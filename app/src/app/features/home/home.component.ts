@@ -53,6 +53,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       img: 'assets/images/categories/electronics.png',
     },
     {
+      title: 'FOOD',
+      path: '/category/Food',
+      img: 'assets/images/categories/food.jpg',
+    },
+    {
       title: 'HOME & KITCHEN',
       path: '/category/Home%20and%20Kitchen',
       img: 'assets/images/categories/kitchen.png',
@@ -72,6 +77,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       path: '/category/Toys%20and%20Games',
       img: 'assets/images/categories/toys.png',
     },
+  
   ];
   // isAuthenticated$;
   constructor(
