@@ -167,7 +167,6 @@ ion-content {
   .content {
     margin-left: 0;
     margin-top: 10rem;
-    overflow-x: scroll;
   }
 
   .dashboard-header-padding{
@@ -175,9 +174,19 @@ ion-content {
     margin-top: 3rem;
   }
 
-  .todays-sales {
-    flex-direction: column;
-    width: 100%;
+  // .todays-sales {
+  //   flex-direction: column;
+  //   width: 100%;
+  // }
+  .summary{
+    height: 700px !important;
+  }
+
+  .summary-container {
+    display: flex !important;
+    flex-direction: column !important; /* Display the cards vertically */
+    gap: 10px !important; /* Add gap between the cards */
+    //height: 2000px !important; /* Make the container take the full height */
   }
 
   .product-performance,
@@ -191,9 +200,5 @@ ion-content {
     box-shadow: 0px 4px 20px 0px rgba(238, 238, 238, 0.5);
   }
 
-  .summary {
-    display: flex;
-    flex-direction: column; /* Display the cards vertically */
-    gap: 10px;
-  }
+  
 }
