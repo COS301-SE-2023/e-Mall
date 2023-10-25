@@ -94,7 +94,7 @@ Once the above requirements are met, we will consider your changes.
 &nbsp;&nbsp;&nbsp;&nbsp;[![image](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:syntax.sharks@gmail.com?subject[GitHub])
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-<details>
+
 <summary><h3>Members<h3></summary>
 
 |                                                                      Member                                                                      |                                                                                                                                                                                    Links                                                                                                                                                                                     | Profile                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
