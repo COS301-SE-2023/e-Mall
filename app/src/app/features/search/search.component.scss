@@ -220,6 +220,9 @@ ion-range {
 
 /* Show the filter button when the screen size is smaller */
 @media (max-width: 767px) {
+  mat-paginator{
+    margin-bottom: 5rem;
+  }
   .filter-menu {
     display: none !important; /* Use !important to override Angular's styles */
   }
