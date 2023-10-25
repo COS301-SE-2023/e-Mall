@@ -121,4 +121,9 @@ export class NavbarComponent implements OnDestroy {
   closeMenuModal() {
     this.modalController.dismiss();
   }
+
+  async navigateToCategory(category: string) {
+    await this.modalController.dismiss();
+    this.router.navigate([category]);
+  }
 }
