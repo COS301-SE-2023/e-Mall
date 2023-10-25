@@ -11,8 +11,7 @@ import { NavbarPopupComponent } from '@shared/components/navbar-popup/navbar-pop
 import { NotificationFacade } from '@features/notification/services/notification.facade';
 import { IonModal, ModalController } from '@ionic/angular';
 import { IonMenu } from '@ionic/angular';
-import { MenuModalComponent } from './menu-modal/menu-modal.component';
-import { SearchModalComponent } from './search-modal/search-modal.component';
+
 
 @Component({
   selector: 'app-navbar',

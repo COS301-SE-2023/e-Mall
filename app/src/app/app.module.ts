@@ -55,8 +55,6 @@ import {
   getFirestore,
   enableMultiTabIndexedDbPersistence,
 } from '@angular/fire/firestore';
-import { MenuModalModule } from './shared/components/navbar/menu-modal/menu-modal.module';
-import { SearchModalModule } from './shared/components/navbar/search-modal/search-modal.module';
 
 let resolve_persistence_enabled: (enabled: boolean) => void;
 
@@ -144,8 +142,6 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
       registrationStrategy: 'registerWhenStable:30000',
     }),
     HttpClientModule,
-    MenuModalModule,
-    SearchModalModule
 
     // SplashModule,
   ],
