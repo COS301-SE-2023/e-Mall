@@ -149,11 +149,6 @@ ion-menu-button{
     display: none;
   }
 
-  ion-menu-button{
-    padding-left: 5px;
-    display: block;
-  }
-
   .authButton{
     padding-right: 10px;
   }
@@ -195,5 +190,11 @@ ion-menu-button{
     --width: 100%;
   }
 
-  
+  ion-item{
+    --height: 50px;
+    --padding-left: 10px;
+    ion-con{
+      --padding-left: 10px;
+    }
+  }
 }
