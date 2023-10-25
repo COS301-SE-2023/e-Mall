@@ -179,7 +179,7 @@ ion-range {
   .body {
     min-width: 100vw;
     padding: 0;
-    padding-left: 20px;
+    padding-left: 0;
   }
 
   .top {
@@ -214,6 +214,10 @@ ion-range {
     width: 100%;
     margin-left: 0;
     padding-right: 20px;
+  }
+
+  h2{
+    padding-left: 20px;
   }
 }
 
