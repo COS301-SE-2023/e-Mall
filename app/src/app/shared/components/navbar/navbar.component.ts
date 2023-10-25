@@ -11,6 +11,7 @@ import { NavbarPopupComponent } from '@shared/components/navbar-popup/navbar-pop
 import { NotificationFacade } from '@features/notification/services/notification.facade';
 import { IonModal, ModalController } from '@ionic/angular';
 import { IonMenu } from '@ionic/angular';
+import { MenuModalComponent } from './menu-modal/menu-modal.component';
 
 @Component({
   selector: 'app-navbar',
@@ -114,16 +115,13 @@ export class NavbarComponent implements OnDestroy {
     this.notificationFacade.isMenuOpen$.next(false);
   }
 
-  closeModal2() {
-    this.modal.dismiss(null, 'cancel');
+  async openMenuModal() {
+    const modal = await this.modalController.create({
+      component: MenuModalComponent,
+      cssClass: 'menu-modal',
+    });
+    return await modal.present();
   }
+  
 
-  closeMenuModal() {
-    this.modalController.dismiss();
-  }
-
-  async navigateToCategory(category: string) {
-    await this.modalController.dismiss();
-    this.router.navigate([category]);
-  }
 }
