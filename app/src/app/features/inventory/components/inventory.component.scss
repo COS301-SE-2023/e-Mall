@@ -274,3 +274,9 @@ ion-grid {
   align-items: center;
   padding: 10px;
 }
+
+@media (max-width: 768px) {
+  .dashboard-content-wrapper{
+    margin-top: 3rem;
+  }
+}

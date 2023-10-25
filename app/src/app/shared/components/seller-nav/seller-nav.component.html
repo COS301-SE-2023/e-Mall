@@ -48,7 +48,11 @@
   </ion-list>
 </ion-nav>
 </div>
-<button class="OpenNav" (click)="toggleMenu()">Menu</button>
+<ion-icon
+  class="OpenNav"
+  [name]="isMenuCollapsed ? 'arrow-forward-outline' : 'arrow-back-outline'"
+  (click)="toggleMenu()">
+</ion-icon>
 <ion-nav class="top-nav">
   <ion-title>Hello {{ this.username }}</ion-title>
 </ion-nav>
