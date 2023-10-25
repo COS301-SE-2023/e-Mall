@@ -122,6 +122,10 @@ ion-menu-button{
   display: none;
 }
 
+.menuItem{
+  display: none;
+}
+
 @media (max-width: 768px) {
 
 
@@ -179,6 +183,12 @@ ion-menu-button{
     width: 30px;
     height: 30px;
     margin-right: 10px;
+  }
+
+  .menuItem{
+    display: flex !important;
+    width: 40px;
+    height: 40px;
   }
 
   ion-header{
