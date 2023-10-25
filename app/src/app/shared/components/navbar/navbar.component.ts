@@ -12,6 +12,7 @@ import { NotificationFacade } from '@features/notification/services/notification
 import { IonModal, ModalController } from '@ionic/angular';
 import { IonMenu } from '@ionic/angular';
 import { MenuModalComponent } from './menu-modal/menu-modal.component';
+import { SearchModalComponent } from './search-modal/search-modal.component';
 
 @Component({
   selector: 'app-navbar',
@@ -119,6 +120,14 @@ export class NavbarComponent implements OnDestroy {
     const modal = await this.modalController.create({
       component: MenuModalComponent,
       cssClass: 'menu-modal',
+    });
+    return await modal.present();
+  }
+
+  async openSearchModal() {
+    const modal = await this.modalController.create({
+      component: SearchModalComponent,
+      cssClass: 'search-modal',
     });
     return await modal.present();
   }
