@@ -117,4 +117,8 @@ export class NavbarComponent implements OnDestroy {
   closeModal2() {
     this.modal.dismiss(null, 'cancel');
   }
+
+  closeMenuModal() {
+    this.modalController.dismiss();
+  }
 }
