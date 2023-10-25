@@ -1,54 +1,3 @@
-<ion-menu id="menuu" contentId="menu-one">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-content contentId="menu-one">
-    <ion-list>
-      <ion-item>
-        <ion-icon name="book" slot="start"></ion-icon>
-        Books
-      </ion-item>
-      <ion-item>
-        <ion-icon name="shirt" slot="start"></ion-icon>
-        Clothing
-      </ion-item>
-      <ion-item>
-        <ion-icon name="phone-portrait" slot="start"></ion-icon>
-        Electronics
-      </ion-item>
-      <ion-item>
-        <ion-icon name="fast-food" slot="start"></ion-icon>
-        Food
-      </ion-item>
-      <ion-item>
-        <ion-icon name="home" slot="start"></ion-icon>
-        Home & Kitchen
-      </ion-item>
-      <ion-item>
-        <ion-icon name="body" slot="start"></ion-icon>
-        Health & Beauty
-      </ion-item>
-      <ion-item>
-        <ion-icon name="football" slot="start"></ion-icon>
-        Sports & Outdoors
-      </ion-item>
-      <ion-item>
-        <ion-icon name="game-controller" slot="start"></ion-icon>
-        Toys & Games
-      </ion-item>
-  
-      <ion-item-divider></ion-item-divider>
-      
-      <ion-item>
-        <ion-label>My Collections</ion-label>
-      </ion-item>
-    </ion-list>
-  </ion-content>
-</ion-menu>
-
 <!-- <ion-menu side="end" menuId="settings" contentId="main-content">
   <app-settings-pannel
     menuId="settings"
@@ -58,7 +7,7 @@
 <ion-header>
   <ion-toolbar color="primary" class="navbar">
     <ion-buttons slot="start">
-      <ion-menu-button id="menuu"></ion-menu-button> <!-- Button to open the side menu -->
+      <ion-icon name="menu-outline" id="openMenuModal"></ion-icon> <!-- Button to open the side menu -->
     </ion-buttons>
     <div class="flex-container">
       <div class="toolbar-button">
@@ -151,3 +100,59 @@
 </ion-modal>
 
 <!--Menu modal-->
+<ion-modal class="menuMod" trigger="openMenuModal">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title class="ion-text-center">Menu</ion-title>
+        <ion-buttons slot="end">
+          <ion-button color="danger" (click)="closeModal2()">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-item>
+          <ion-icon name="book" slot="start"></ion-icon>
+          Books
+        </ion-item>
+        <ion-item>
+          <ion-icon name="shirt" slot="start"></ion-icon>
+          Clothing
+        </ion-item>
+        <ion-item>
+          <ion-icon name="phone-portrait" slot="start"></ion-icon>
+          Electronics
+        </ion-item>
+        <ion-item>
+          <ion-icon name="fast-food" slot="start"></ion-icon>
+          Food
+        </ion-item>
+        <ion-item>
+          <ion-icon name="home" slot="start"></ion-icon>
+          Home & Kitchen
+        </ion-item>
+        <ion-item>
+          <ion-icon name="body" slot="start"></ion-icon>
+          Health & Beauty
+        </ion-item>
+        <ion-item>
+          <ion-icon name="football" slot="start"></ion-icon>
+          Sports & Outdoors
+        </ion-item>
+        <ion-item>
+          <ion-icon name="game-controller" slot="start"></ion-icon>
+          Toys & Games
+        </ion-item>
+    
+        <ion-item-divider></ion-item-divider>
+        
+        <ion-item>
+          <ion-label>My Collections</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-modal>
