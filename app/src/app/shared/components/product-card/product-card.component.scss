@@ -178,7 +178,7 @@ ion-button {
   }
 
   h4 {
-    font-size: 11px; /* Adjusted font size for responsiveness */
+    font-size: 15px !important; /* Adjusted font size for responsiveness */
   }
 
   p {
@@ -187,6 +187,8 @@ ion-button {
 
   .bookmark-button{
     padding-right: 5px;
+    width: 30px;
+    height: 30px;
   }
 
   ion-button{
