@@ -43,7 +43,11 @@ export class SearchBarComponent {
     this.searchInputPreviousText = '';
   }
   keyDownFunction(event: any) {
-    if (event.code === 'Enter' || event.code === 'NumpadEnter') {
+    if (
+      event.code === 'Enter' ||
+      event.code === 'NumpadEnter' ||
+      event.code === 13
+    ) {
       this.search();
     }
   }
@@ -86,5 +90,4 @@ export class SearchBarComponent {
     }
     return products;
   }
-
 }
