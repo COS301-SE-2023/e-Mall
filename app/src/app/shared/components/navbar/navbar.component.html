@@ -7,7 +7,11 @@
 <ion-header>
   <ion-toolbar color="#19b2b8" class="navbar">
     <ion-buttons slot="start">
-      <ion-icon class="menuItem" name="menu-outline" (click)="openMenuModal()"></ion-icon> <!-- Button to open the side menu -->
+      <ion-icon
+        class="menuItem"
+        name="menu-outline"
+        (click)="openMenuModal()"></ion-icon>
+      <!-- Button to open the side menu -->
     </ion-buttons>
     <div class="flex-container">
       <div class="toolbar-button">
@@ -35,7 +39,7 @@
       <app-search-bar class="search-bar"></app-search-bar>
 
       <div class="navbar-spacer"></div>
-      <ng-container *ngIf="isAuthenticated | async">
+      <ng-container>
         <ion-button
           (click)="combos($event)"
           class="bookmark-button"
@@ -45,6 +49,7 @@
           <ion-icon [name]="'bookmark'" style="color: black"></ion-icon>
         </ion-button>
         <ion-button
+          *ngIf="isAuthenticated | async"
           (click)="openMenu()"
           class="wishlist-button"
           shape="round"
@@ -57,15 +62,18 @@
           </ng-container>
         </ion-button>
       </ng-container>
-      <ion-icon class="search" name="search-outline" (click)="openSearchModal()"></ion-icon>
+      <ion-icon
+        class="search"
+        name="search-outline"
+        (click)="openSearchModal()"></ion-icon>
       <div class="authButton">
         <button
-        mat-button
-        class="toolbar-button"
-        *ngIf="(isAuthenticated | async) === null"
-        (click)="signUp()">
-        Sign Up
-      </button>
+          mat-button
+          class="toolbar-button"
+          *ngIf="(isAuthenticated | async) === null"
+          (click)="signUp()">
+          Sign Up
+        </button>
         <div
           *ngIf="(isAuthenticated | async) !== null"
           style="margin-top: 5px"
