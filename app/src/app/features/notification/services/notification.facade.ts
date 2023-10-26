@@ -79,6 +79,8 @@ export class NotificationFacade implements OnDestroy {
               });
             } else {
               console.log('Notification is disabled');
+              this.getUnreadCount();
+              this.getSettings();
             }
           });
         } else {
