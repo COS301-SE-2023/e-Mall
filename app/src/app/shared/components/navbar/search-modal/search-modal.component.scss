@@ -1,0 +1,58 @@
+.toolbar-button {
+  flex-shrink: 0;
+  height: 100%;
+  font-size: medium;
+  font-weight: bold;
+}
+
+.search-bar {
+  padding: 2%;
+  width: 100%;
+}
+::ng-deep .mat-mdc-form-field .dense-3 .search-bar {
+  vertical-align: middle;
+}
+
+::ng-deep .search-bar-wrapper .mat-mdc-text-field-wrapper {
+  height: 33px !important;
+  margin-top: 18px;
+  font-family: sans-serif;
+  background-color: rgb(255, 255, 255);
+  min-width: 250px;
+  align-self: center;
+  vertical-align: middle;
+}
+::ng-deep
+  .search-bar-wrapper
+  .mat-mdc-text-field-wrapper.mdc-text-field--outlined
+  .mat-mdc-form-field-infix {
+  height: 33px !important;
+  padding-bottom: 0px;
+  padding-top: 5px !important;
+  min-height: fit-content !important;
+  font-size: 15px;
+  vertical-align: middle;
+}
+.search-bar input {
+  color: var(--ion-color-text-contrast);
+
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+::ng-deep {
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: green;
+  }
+  mat-form-field {
+    .mat-hint,
+    input,
+    ::placeholder,
+    .mat-form-field-label {
+      color: white;
+    }
+  }
+}
