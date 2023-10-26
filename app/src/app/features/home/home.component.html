@@ -157,7 +157,7 @@
         </div>
         <!-- <div style="width: 80%; height: 150px"> -->
         <swiper-container
-          [slidesPerView]="3"
+          [slidesPerView]="sellers.length >= 3 ? 3 : sellers.length"
           [speed]="500"
           [pagination]="true"
           [space-between]="30"
@@ -176,8 +176,9 @@
           </swiper-slide>
         </swiper-container>
         <swiper-container
-          [slidesPerView]="2"
+          [slidesPerView]="sellers.length >= 2 ? 2 : sellers.length"
           speed="500"
+          [pagination]="true"
           [lazy]="true"
           *viewSize="'mobile'">
           <swiper-slide *ngFor="let seller of sellers">

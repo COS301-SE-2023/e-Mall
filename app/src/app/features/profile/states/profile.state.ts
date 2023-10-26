@@ -197,7 +197,10 @@ export class ProfileState {
           draft.followed_sellers = [action.sellers];
         } else {
           // If there are some items in draft.followed_sellers
-          const index = draft.followed_sellers.indexOf(action.sellers);
+          const index = draft.followed_sellers.findIndex(
+            seller => seller.id === action.sellers.id
+          );
+          console.log(index);
           if (index === -1) {
             // If the action's parameter item doesn't already exist, append to list
             draft.followed_sellers.push(action.sellers);

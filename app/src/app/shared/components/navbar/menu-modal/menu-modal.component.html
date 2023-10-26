@@ -1,4 +1,3 @@
-
 <ion-header>
   <ion-toolbar>
     <ion-title class="ion-text-center">Menu</ion-title>
@@ -11,53 +10,61 @@
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-item
-    (click)="navigateToCategory('category/Books')">
-      <ion-icon name="book" slot="start"></ion-icon>
-      Books
-    </ion-item>
-    <ion-item 
-    (click)="navigateToCategory('category/Clothing')">
-      <ion-icon name="shirt" slot="start"></ion-icon>
-      Clothing
-    </ion-item>
-    <ion-item
-    (click)="navigateToCategory('category/Electronics')">
-      <ion-icon name="phone-portrait" slot="start"></ion-icon>
-      Electronics
-    </ion-item>
-    <ion-item
-    (click)="navigateToCategory('category/Food')">
-      <ion-icon name="fast-food" slot="start"></ion-icon>
-      Food
-    </ion-item>
-    <ion-item
-    (click)="navigateToCategory('category/Home and Kitchen')">
-      <ion-icon name="home" slot="start"></ion-icon>
-      Home & Kitchen
-    </ion-item>
-    <ion-item
-    (click)="navigateToCategory('category/Health and Beauty')">
-      <ion-icon name="body" slot="start"></ion-icon>
-      Health & Beauty
-    </ion-item>
-    <ion-item
-    (click)="navigateToCategory('category/Sports and Outdoors')">
-      <ion-icon name="football" slot="start"></ion-icon>
-      Sports & Outdoors
-    </ion-item>
-    <ion-item
-    (click)="navigateToCategory('category/Toys and Games')">
-      <ion-icon name="game-controller" slot="start"></ion-icon>
-      Toys & Games
-    </ion-item>
-
-    <ion-item-divider></ion-item-divider>
-    
-    <ion-item
-    (click)="combos($event)">
-    <ion-icon name="bookmark-outline"></ion-icon>
-      <ion-label>My Collections</ion-label>
-    </ion-item>
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label style="font-weight: 500">Category</ion-label>
+      </ion-item-divider>
+      <ion-item lines="full" (click)="navigateToCategory('category/Books')">
+        <ion-icon name="book" slot="start"></ion-icon>
+        Books
+      </ion-item>
+      <ion-item lines="full" (click)="navigateToCategory('category/Clothing')">
+        <ion-icon name="shirt" slot="start"></ion-icon>
+        Clothing
+      </ion-item>
+      <ion-item
+        lines="full"
+        (click)="navigateToCategory('category/Electronics')">
+        <ion-icon name="phone-portrait" slot="start"></ion-icon>
+        Electronics
+      </ion-item>
+      <ion-item lines="full" (click)="navigateToCategory('category/Food')">
+        <ion-icon name="fast-food" slot="start"></ion-icon>
+        Food
+      </ion-item>
+      <ion-item
+        lines="full"
+        (click)="navigateToCategory('category/Home and Kitchen')">
+        <ion-icon name="home" slot="start"></ion-icon>
+        Home & Kitchen
+      </ion-item>
+      <ion-item
+        lines="full"
+        (click)="navigateToCategory('category/Health and Beauty')">
+        <ion-icon name="body" slot="start"></ion-icon>
+        Health & Beauty
+      </ion-item>
+      <ion-item
+        lines="full"
+        (click)="navigateToCategory('category/Sports and Outdoors')">
+        <ion-icon name="football" slot="start"></ion-icon>
+        Sports & Outdoors
+      </ion-item>
+      <ion-item
+        lines="none"
+        (click)="navigateToCategory('category/Toys and Games')">
+        <ion-icon name="game-controller" slot="start"></ion-icon>
+        Toys & Games
+      </ion-item>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label style="font-weight: 500">Other</ion-label>
+      </ion-item-divider>
+      <ion-item lines="none" (click)="combos($event)">
+        <ion-icon slot="start" name="bookmark-outline"></ion-icon>
+        <ion-label>My Collections</ion-label>
+      </ion-item>
+    </ion-item-group>
   </ion-list>
 </ion-content>

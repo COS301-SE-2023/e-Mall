@@ -16,7 +16,7 @@ import { ISeller } from '@shared/models/seller/seller.interface';
 import { SellerService } from '@shared/servicies/seller/seller.service';
 import { switchMap, take, tap } from 'rxjs/operators';
 import { ISellerCard } from '../profile/models/seller-card.interface';
-
+import { Url } from 'url';
 @Component({
   selector: 'app-inventory',
   templateUrl: './seller-details.component.html',
@@ -55,6 +55,7 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() sellerID: any;
   showSpinner = true;
+  seller_logo: string | Url;
 
   private paramMapSubscription: Subscription;
 
@@ -70,6 +71,7 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
     this.paramMapSubscription = new Subscription();
     this.seller_id = '';
     this.seller_business_name = '';
+    this.seller_logo = '';
   }
 
   ngOnInit(): void {
@@ -100,10 +102,12 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
           if (res) {
             this.seller$ = of(res);
             this.seller_business_name = res.business_name;
+            if (res.logo) this.seller_logo = res.logo;
           }
           this.isFollowed = this.profileFacade.checkFollowedSellers(
             this.seller_business_name
           );
+
           // Fetch the profile data and return the observable
           return this.profileFacade.getProfile();
         }),
@@ -133,6 +137,7 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
     const data: ISellerCard = {
       id: this.seller_id!,
       name: this.seller_business_name,
+      logo: this.seller_logo,
     };
     this.profileFacade.toggleSellers(data);
   }

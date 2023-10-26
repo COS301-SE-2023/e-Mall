@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   @ViewChild('recommendedHeading') recommendedHeading!: ElementRef;
   isLoggedIn = false;
   authSubscription = new Subscription();
-
+  swiperEl?: SwiperContainer | null;
   // showSpinner = true;
   cat_pages = [
     {
@@ -92,11 +92,21 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {
     this.followedSellers$ = this.profileFacade.followedSellersDetails$;
     this.followedSellers$.pipe(debounceTime(500)).subscribe(data => {
+      this.changeDetector.markForCheck();
       if (data.length > 0) {
         setTimeout(() => {
-          const swiperEl: SwiperContainer | null =
-            document.querySelector('swiper-container');
-          swiperEl?.swiper.update();
+          if (!this.swiperEl) {
+            this.swiperEl = document.querySelector('swiper-container');
+          } else {
+            console.log('swiper updated');
+            this.changeDetector.detectChanges();
+            // this.swiperEl?.swiper.destroy();
+            // this.swiperEl?.swiper.updateSlides();
+
+            // this.swiperEl?.swiper.updateSlidesClasses();
+            // this.swiperEl?.swiper.init();
+            this.swiperEl?.swiper.update();
+          }
         }, 1000);
         // this.swiperr.update();
       }
@@ -125,6 +135,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   async ionViewWillEnter() {
     this.profileFacade.fetchRecommendedProducts();
+
+    // this.changeDetector.markForCheck();
   }
 
   async fetchFollowedSellerDetails() {
