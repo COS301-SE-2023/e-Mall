@@ -1,85 +1,81 @@
-
-
 .close-button {
-    --color: var(--ion-color-clear-button);
+  --color: var(--ion-color-clear-button);
 }
 
 .modal-button-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    margin-top: 10px;
-  }
-  
-  .modal-buttons {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  margin-top: 10px;
+}
 
-  }
-  
-  .modal-buttons ion-button {
-    //margin-left: 8px;
-    margin-bottom: 15px;
-    margin-right: 15px;
-    width: 80px;
-    //height: 40px;
-    color: white;
-    font-size:small ;
-  }
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
 
-  .modal-header-item{
-    margin: 0;
-  }
+.modal-buttons ion-button {
+  //margin-left: 8px;
+  margin-bottom: 15px;
+  // margin-right: 15px;
+  width: 80px;
+  //height: 40px;
+  color: white;
+  font-size: small;
+}
 
+.modal-header-item {
+  margin: 0;
+}
 
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  // margin-left: 40px;
+  margin-top: 0px;
+  margin-bottom: 20px;
+  width: 300px;
+}
 
-  .modal-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-left: 40px;
-    margin-top: 0px;
-    margin-bottom: 20px; 
-  }
-  
-  .user-circle-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: #37d0d6;
-    //margin-bottom: 35px;
-    
-  }
+.user-circle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #37d0d6;
+  margin-bottom: 30px;
+  //margin-bottom: 35px;
+}
 
-  .user-circle-container p {
-    color: white;
-   
-  }
-  
-  .user-info-container {
-    flex: 1; 
-    margin-left: 20px;
-   
-    
-  }
+.user-circle-container p {
+  color: white;
+}
 
-  .user-info-container p{
-    //font-size:300px;
-    margin-bottom: 0;
-  }
+.user-info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  // margin-left: 20px;
+  width: 270px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 
-  .user-circle-container p{
-    font-size:large;
-    margin-top: 15px;
-    
-  }
-  
+.user-info-container p {
+  //font-size:300px;
+  margin-bottom: 0;
+}
 
-
-  
-
+.user-circle-container p {
+  font-size: large;
+  margin-top: 15px;
+}

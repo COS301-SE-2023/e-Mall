@@ -1,5 +1,3 @@
-
-
 <!--<ion-header>
   <ion-toolbar>
     <ion-list mode="ios">
@@ -19,7 +17,6 @@
 </ion-header>-->
 
 <ion-content>
-
   <ion-item lines="none" class="modal-header-item">
     <ion-button
       class="close-button"
@@ -34,30 +31,49 @@
 
   <div class="modal-container" *ngIf="profile$ | async as profile">
     <div class="user-circle-container">
-      <p><b>{{ profile.username?.charAt(0) }}</b></p>
+      <p>
+        <b>{{ profile.username?.charAt(0) }}</b>
+      </p>
     </div>
     <div class="user-info-container">
-      <p><b>{{ profile.username }}</b></p>
-      <p><b> {{profile.email}}</b></p>
+      <ion-label
+        style="
+          color: grey;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          font-size: 1.2rem;
+        ">
+        <b>{{ profile.username }}</b>
+      </ion-label>
+      <ion-label
+        style="
+          font-weight: 500;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          font-size: 1.1rem;
+        ">
+        {{ profile.email }}
+      </ion-label>
     </div>
   </div>
   <div class="modal-button-container">
-  
     <div class="modal-buttons">
       <ion-button
-          class="profile-button modal-button"
-          size="small"
-          (click)="goToCustomerProfile()">
-          Profile
+        class="profile-button modal-button"
+        style="margin-right: 15px"
+        size="small"
+        (click)="goToCustomerProfile()">
+        Profile
       </ion-button>
-  
+
       <ion-button
-          class="sign-out modal-button"
-          size="small"
-          (click)="signOut()">
-          sign Out
+        class="sign-out modal-button"
+        size="small"
+        (click)="signOut()">
+        sign Out
       </ion-button>
     </div>
   </div>
 </ion-content>
-
