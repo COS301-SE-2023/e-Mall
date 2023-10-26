@@ -9,6 +9,7 @@ import { ModalController } from '@ionic/angular';
 export class SearchModalComponent {
   constructor(private modalController: ModalController) {}
 
+  
   closeMenuModal() {
     this.modalController.dismiss();
   }
