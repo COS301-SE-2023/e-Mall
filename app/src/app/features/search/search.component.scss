@@ -220,11 +220,11 @@ ion-range {
 
 /* Show the filter button when the screen size is smaller */
 @media (max-width: 767px) {
-  .body{
+  .body {
     padding: 0 0;
   }
 
-  mat-paginator{
+  mat-paginator {
     margin-bottom: 5rem;
     margin-left: 0;
   }
@@ -241,7 +241,6 @@ ion-range {
     display: inline-block !important;
     /* Add styling for the button as needed */
   }
-
 }
 
 .filter-button {
@@ -279,4 +278,10 @@ ion-list ion-item::after {
 }
 mat-checkbox {
   width: 100%;
+}
+ion-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
 }

@@ -134,21 +134,24 @@
                     <ng-container
                       *ngFor="let product of products; let i = index">
                       <ion-col
+                        size-xl="3"
                         size-lg="4"
                         size-md="6"
                         size-sm="6"
+                        size-xs="12"
                         size="6"
                         style="margin-top: 20px">
                         <app-product-card
-                    [product]="{
-                      min_price_discount_rate: product.discount_rate,
-                      min_price_img_array: product.img_array,
-                      name: product.product_name,
-                      min_price: product.price,
-                      category: product.product_category,
-                      id: product.product,
-                      min_price_seller_business_name: product.business_name
-                    }"></app-product-card>
+                          [product]="{
+                            min_price_discount_rate: product.discount_rate,
+                            min_price_img_array: product.img_array,
+                            name: product.product_name,
+                            min_price: product.price,
+                            category: product.product_category,
+                            id: product.product,
+                            min_price_seller_business_name:
+                              product.business_name
+                          }"></app-product-card>
                       </ion-col>
                     </ng-container>
                   </ion-row>
