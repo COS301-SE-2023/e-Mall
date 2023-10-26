@@ -3,6 +3,11 @@
     <ion-row class="ion-align-items-center ion-justify-content-center">
       <ion-col>
         <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+          <ion-img
+            *viewSize="'mobile'"
+            id="logo-extra"
+            src="assets/images/logo-black-no-bg.png"
+            alt="E-Mall"></ion-img>
           <ion-text style="text-align: center">
             <h2>Sign In</h2>
           </ion-text>

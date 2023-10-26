@@ -1,15 +1,16 @@
-h1{
+@import 'mixins';
+h1 {
   font-size: 30px;
-  }
-  h2{
-    font-size: 24px;
-  }
-  h3{
-    font-size: 20px;
-  }
-  a{
-    color: var( --ion-color-primary-shade);
-  }
+}
+h2 {
+  font-size: 24px;
+}
+h3 {
+  font-size: 20px;
+}
+a {
+  color: var(--ion-color-primary-shade);
+}
 ion-content {
   --background: #444;
   height: 100%;
@@ -88,7 +89,11 @@ form {
   font-size: small;
 }
 .side-pannel {
-  background: linear-gradient(180deg, #19B2B8 99.99%, rgba(25, 178, 184, 0.00) 100%);
+  background: linear-gradient(
+    180deg,
+    #19b2b8 99.99%,
+    rgba(25, 178, 184, 0) 100%
+  );
   height: 100%;
   display: flex;
   align-items: center;
@@ -191,3 +196,16 @@ div.step-button button {
 // :host ::ng-deep .mat-stepper-next {
 //   margin: 20px;
 // }
+#logo-extra {
+  height: 8rem;
+  width: auto;
+  margin: 0;
+  display: block;
+  margin-bottom: 2rem;
+}
+@include screen-large {
+  ion-grid {
+    width: 100%;
+    height: 100%;
+  }
+}
