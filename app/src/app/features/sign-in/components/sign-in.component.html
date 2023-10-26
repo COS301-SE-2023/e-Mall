@@ -66,12 +66,18 @@
               >Sign In</ion-button
             >
           </div>
-          <ion-item class="text-center">
-            <ion-text id="already-have-acc-text"
+          <ion-item class="text-center" lines="none">
+            <ion-text class="already-have-acc-text"
               >Does not have an account yet?</ion-text
             >
             <ion-text color="success">
               <a routerLink="/sign-up">Sign Up</a>
+            </ion-text>
+          </ion-item>
+          <ion-item class="text-center">
+            <ion-text class="already-have-acc-text">Forgot password?</ion-text>
+            <ion-text color="success">
+              <a routerLink="/forgot-password">Find password</a>
             </ion-text>
           </ion-item>
         </form>

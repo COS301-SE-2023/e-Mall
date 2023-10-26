@@ -24,7 +24,7 @@ import { RouterModule } from '@angular/router';
 import { NavbarModule } from '@shared/components/navbar/navbar.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
 import { ProductCardModule } from '../../shared/components/product-card/product-card.module';
-import { ProfileModule } from '@features/profile/profile.module';
+// import { ProfileModule } from '@features/profile/profile.module';
 import { ComboStateModule } from '@features/combo-state/combo-state.module';
 
 // const routes: Routes = [
@@ -62,7 +62,7 @@ import { ComboStateModule } from '@features/combo-state/combo-state.module';
     NavbarModule,
     FooterModule,
     ProductCardModule,
-    ProfileModule,
+    // ProfileModule,
     ComboStateModule,
     // RouterModule.forChild(routes),
   ],
