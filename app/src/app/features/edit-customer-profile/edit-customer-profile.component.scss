@@ -20,3 +20,16 @@ ion-button{
     height: 40px;
   --background: #37d0d6; 
 }
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .settings-container{
+        width: 95%;
+        margin-left: 1rem;
+    }
+
+    .general-settings-container{
+        width: 95%;
+        padding: 20px;
+    }
+}

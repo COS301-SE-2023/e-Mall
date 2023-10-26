@@ -155,41 +155,51 @@ ion-button {
 //   padding: 0;
 // }
 
-// /* Media query for responsiveness */
-// @media (max-width: 600px) {
-//   ion-card {
-//     width: 100%; /* Adjusted width for responsiveness */
-//     max-width: 160px; /* Set a maximum width for larger screens */
-//     margin: 10px 10px; /* Center the card horizontally */
-//     max-height: 250px;
-//   }
+/* Media query for responsiveness */
+@media (max-width: 600px) {
+  ion-card {
+    width: 100%; /* Adjusted width for responsiveness */
+    max-width: 200px; /* Set a maximum width for larger screens */
+    margin: 10px 10px; /* Center the card horizontally */
+    max-height: 100%;
+  }
 
-//   ion-img {
-//     width: 100%; /* Adjusted width for responsiveness */
-//     max-height: 120px; /* Set a maximum height for larger screens */
-//   }
+  ion-img {
+    width: 100%; /* Adjusted width for responsiveness */
+    max-height: 100%; /* Set a maximum height for larger screens */
+  }
 
-//   ion-card-content {
-//     gap: 8px; /* Adjusted gap for responsiveness */
-//   }
+  ion-card-content {
+    gap: 8px; /* Adjusted gap for responsiveness */
+  }
 
-//   ion-card-title {
-//     font-size: 14px; /* Adjusted font size for responsiveness */
-//   }
+  ion-card-title {
+    font-size: 14px; /* Adjusted font size for responsiveness */
+  }
 
-//   h4 {
-//     font-size: 16px; /* Adjusted font size for responsiveness */
-//   }
+  h4 {
+    font-size: 15px !important; /* Adjusted font size for responsiveness */
+  }
 
-//   p {
-//     font-size: 11px; /* Adjusted font size for responsiveness */
-//   }
-// }
-// /* styles.scss or your-component.scss */
-// .custom-modal {
-//   height: 50vh; /* Set the height to 50% of the viewport height */
-//   max-height: none; /* Remove any max-height constraints */
-// }
+  p {
+    font-size: 11px; /* Adjusted font size for responsiveness */
+  }
+
+  .bookmark-button{
+    padding-right: 5px;
+    width: 30px;
+    height: 30px;
+  }
+
+  ion-button{
+    --padding-start:1px !important;
+  }
+}
+/* styles.scss or your-component.scss */
+.custom-modal {
+  height: 50vh; /* Set the height to 50% of the viewport height */
+  max-height: none; /* Remove any max-height constraints */
+}
 .hidden {
   display: none;
 }

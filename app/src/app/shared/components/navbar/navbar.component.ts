@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { AuthFacade } from '@app/features/auth/services/auth.facade';
 import { IUser } from '@app/features/auth/models/user.interface';
@@ -9,6 +9,10 @@ import { MenuController, PopoverController } from '@ionic/angular';
 import { DropdownPopoverComponent } from '@shared/components/dropdown-popover/dropdown-popover.component';
 import { NavbarPopupComponent } from '@shared/components/navbar-popup/navbar-popup.component';
 import { NotificationFacade } from '@features/notification/services/notification.facade';
+import { IonModal, ModalController } from '@ionic/angular';
+import { IonMenu } from '@ionic/angular';
+import { MenuModalComponent } from './menu-modal/menu-modal.component';
+import { SearchModalComponent } from './search-modal/search-modal.component';
 
 @Component({
   selector: 'app-navbar',
@@ -21,12 +25,17 @@ export class NavbarComponent implements OnDestroy {
   notificationUnreadCount$: Observable<number>;
   notificationMenuSubs = new Subscription();
 
+  @ViewChild(IonModal)
+  modal!: IonModal;
+
   constructor(
     private router: Router,
     private authFacade: AuthFacade,
     private popoverController: PopoverController,
     private menuController: MenuController,
-    public notificationFacade: NotificationFacade
+    public notificationFacade: NotificationFacade,
+    private modalController: ModalController
+    
   ) {
     this.isAuthenticated = this.authFacade.getCurrentUser();
 
@@ -107,4 +116,22 @@ export class NavbarComponent implements OnDestroy {
   notificationMenuClosed() {
     this.notificationFacade.isMenuOpen$.next(false);
   }
+
+  async openMenuModal() {
+    const modal = await this.modalController.create({
+      component: MenuModalComponent,
+      cssClass: 'menu-modal',
+    });
+    return await modal.present();
+  }
+
+  async openSearchModal() {
+    const modal = await this.modalController.create({
+      component: SearchModalComponent,
+      cssClass: 'search-modal',
+    });
+    return await modal.present();
+  }
+  
+
 }

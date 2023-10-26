@@ -27,3 +27,10 @@ ion-item {
   --inner-padding-start: 0;
   --inner-padding-end: 0;
 }
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  ion-breadcrumb {
+    font-size: 12px;
+  }
+}

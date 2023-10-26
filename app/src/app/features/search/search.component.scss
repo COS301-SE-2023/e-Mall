@@ -126,7 +126,6 @@ app-footer {
 }
 
 .mat-paginator {
-  //margin-left: 12rem;
   display: flex;
   justify-content: center;
   margin-left: 5%;
@@ -221,6 +220,14 @@ ion-range {
 
 /* Show the filter button when the screen size is smaller */
 @media (max-width: 767px) {
+  .body{
+    padding: 0 0;
+  }
+
+  mat-paginator{
+    margin-bottom: 5rem;
+    margin-left: 0;
+  }
   .filter-menu {
     display: none !important; /* Use !important to override Angular's styles */
   }
@@ -235,26 +242,6 @@ ion-range {
     /* Add styling for the button as needed */
   }
 
-  //.search-results{
-  //  margin-top: 1rem;
-  //  min-width: 0px;
-  //  padding: 10px;
-  //  // margin-right: 0.5rem;
-  //}
-
-  /*
-  .top {
-    flex-direction: column; /* Stack elements vertically on smaller screens 
-    align-items: flex-start;
-  }
-
-  .toptxt {
-    align-items: flex-start;
-  }
-
-  .dropdown {
-    margin-top: 1rem; /* Add some space between elements 
-  }*/
 }
 
 .filter-button {

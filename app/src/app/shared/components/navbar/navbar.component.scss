@@ -114,9 +114,83 @@ ion-badge {
   transform: translate(50%, -50%); /* Center it within the top-right corner */
 }
 
-// @media (max-width: var(--screen-small)) {
-//   ion-menu::part(container) {
-//     --width: 100% !important;
-//     width: 100% !important;
-//   }
-// }
+ion-menu-button{
+  display: none;
+}
+
+.search{
+  display: none;
+}
+
+.menuItem{
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+
+  .search-bar {
+    display: none;
+  }
+
+  .bookmark-button{
+    display: none;
+  }
+
+  .wishlist-button{
+    display: none;
+  }
+
+  .label{
+    display: none;
+  }
+
+  .arrow{
+    display: none;
+  }
+
+  .authButton{
+    padding-right: 10px;
+  }
+
+  .circular-button{
+    margin-right: 10px;
+    width: 35px;
+    height: 35px;
+  }
+
+  .toolbar-button {
+    display: flex;
+    margin: 0 auto; /* Center the logo horizontally */
+    justify-content: center !important;
+    align-items: center !important;
+    vertical-align: middle !important;
+  }
+
+  .navbar-logo{
+    align-items: center !important;
+    margin-left: 6.5rem;
+  }
+
+  
+  .search{
+    display: flex !important;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+
+  .menuItem{
+    display: flex !important;
+    width: 40px;
+    height: 40px;
+  }
+
+  ion-header{
+    --width: 100%;
+  }
+
+  ion-item{
+    --height: 50px;
+  }
+}

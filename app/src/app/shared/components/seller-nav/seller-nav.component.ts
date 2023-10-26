@@ -16,12 +16,17 @@ export class SellerNavComponent implements OnInit, OnDestroy {
   currentPage = 'inventory'; // Set a default value for the current page
   // Set a default value for the current page
   private profileSubscription: Subscription | undefined;
+  public isMenuCollapsed = false;
 
   constructor(
     private router: Router,
     private profileFacade: ProfileFacade,
     private authFacade: AuthFacade
   ) {}
+
+  toggleMenu() {
+    this.isMenuCollapsed = !this.isMenuCollapsed;
+  }
 
   navigateTo(page: string): void {
     this.currentPage = page;

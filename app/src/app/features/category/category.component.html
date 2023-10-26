@@ -6,11 +6,6 @@
     <div class="body">
       <app-category-breadcrumb
         [categoryList]="categoryTitle"></app-category-breadcrumb>
-      <!-- <main class="category main"> -->
-
-      <!-- <div class="top"> -->
-      <!-- <div class="search-results"> -->
-      <!-- <div class="toptxt"> -->
       <ion-list style="width: 100%">
         <ion-item
           *viewSize="'desktop'"
@@ -55,24 +50,19 @@
         <!--products-->
 
         <div class="product-card">
-          <!--<div style="
-                display: flex;
-                justify-content: center;
-                align-items: center;
-              " *ngIf="(categoryProducts$ | async) === null">
-              <mat-spinner></mat-spinner>
-            </div>-->
-
-          <!-- <div *ngIf="!showSpinner"> -->
-          <ng-container
-            *ngIf="categoryProducts$ | async as products; else loading">
-            <ng-container *ngIf="products.length > 0; else no_result">
-              <div class="row" style="grid-auto-rows: auto">
-                <div
-                  class="col-md-3 col-12"
-                  style="grid-auto-columns: auto; min-width: 260px"
-                  *ngFor="let product of products; let i = index">
-                  <app-product-card
+            <ng-container *ngIf="categoryProducts$ | async as products">
+              <div>
+                <ion-grid>
+                  <ion-row>
+                    <ng-container
+                      *ngFor="let product of products; let i = index">
+                      <ion-col
+                        size-lg="4"
+                        size-md="6"
+                        size-sm="6"
+                        size="6"
+                        style="margin-top: 20px">
+                        <app-product-card
                     style="
                       display: flex;
                       justify-content: center;
@@ -80,25 +70,15 @@
                     "
                     [product]="product"
                     [pageType]="'normal'"></app-product-card>
-                  <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
-                  <div
-                    class="col-md-1"
-                    *ngIf="
-                      (i + 1) % 4 === 0 &&
-                      products.length > 4 &&
-                      i + 1 !== products.length
-                    "></div>
-                </div>
+                      </ion-col>
+                    </ng-container>
+                  </ion-row>
+                </ion-grid>
               </div>
             </ng-container>
-          </ng-container>
         </div>
       </ion-list>
     </div>
-    <!-- </div> -->
-    <!-- </main> -->
-    <!-- </div> -->
-    <!-- </div> -->
   </div>
 
   <app-footer></app-footer>

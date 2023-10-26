@@ -1,4 +1,4 @@
-@import 'mixins';
+// @import 'mixins';
 .body {
   display: flex;
   min-height: fit-content;
@@ -175,47 +175,51 @@ ion-range {
 }
 
 /* Media queries for responsiveness */
-// @media (max-width: 1250px) {
-//   .body {
-//     min-width: 100vw;
-//     padding: 25px;
-//     padding-left: 20px;
-//   }
+@media (max-width: 1250px) {
+  .body {
+    min-width: 100vw;
+    padding: 0;
+    padding-left: 0;
+  }
 
-//   .top {
-//     max-width: 100%;
-//     flex-direction: column;
-//     align-items: flex-start;
-//   }
+  .top {
+    max-width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-//   .sort-condition {
-//     margin-left: 1rem;
-//   }
+  .sort-condition {
+    margin-left: 1rem;
+  }
 
-//   .sort-panel {
-//     margin-left: 20px;
-//   }
+  .sort-panel {
+    margin-left: 20px;
+  }
 
-//   .search-results {
-//     // min-width: 100%;
-//     padding: 10px;
-//   }
+  .search-results {
+    // min-width: 100%;
+    padding: 10px;
+  }
 
-//   .dropbtn {
-//     margin-left: 0;
-//     margin-bottom: 0.5rem;
-//   }
+  .dropbtn {
+    margin-left: 0;
+    margin-bottom: 0.5rem;
+  }
 
-//   .mat-paginator {
-//     margin-left: 0;
-//   }
+  .mat-paginator {
+    margin-left: 0;
+  }
 
-//   .filter-menu {
-//     width: 100%;
-//     margin-left: 0;
-//     padding-right: 20px;
-//   }
-// }
+  .filter-menu {
+    width: 100%;
+    margin-left: 0;
+    padding-right: 20px;
+  }
+
+  h2{
+    padding-left: 20px;
+  }
+}
 
 .sort-condition {
   padding: 20px;
@@ -231,18 +235,4 @@ ion-range {
   border: none;
   cursor: pointer;
   border-radius: 45px;
-}
-
-@include screen-medium {
-  h2 {
-    font-size: 1.5rem !important;
-  }
-  .nimage {
-    min-width: 200px;
-    width: 200px;
-  }
-  .sort-condition {
-    padding-left: 0;
-    width: fit-content;
-  }
 }

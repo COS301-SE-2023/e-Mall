@@ -55,6 +55,7 @@ import {
   getFirestore,
   enableMultiTabIndexedDbPersistence,
 } from '@angular/fire/firestore';
+
 let resolve_persistence_enabled: (enabled: boolean) => void;
 
 export const persistenceEnabled = new Promise<boolean>(resolve => {

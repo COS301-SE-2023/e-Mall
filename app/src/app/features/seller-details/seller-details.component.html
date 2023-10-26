@@ -78,7 +78,7 @@
       </div>
 
       <div class="products-container">
-        <h2 class="title">Products</h2>
+        <h2 class="Ptitle">Products</h2>
         <div class="search-sort">
           <ion-searchbar
             class="search-box"
@@ -128,12 +128,18 @@
 
           <div *ngIf="!showSpinner">
             <ng-container *ngIf="searchResults$ | async as products">
-              <div class="row" style="grid-auto-rows: auto">
-                <div
-                  class="col-md-3 col-12"
-                  style="grid-auto-columns: auto; min-width: 300px"
-                  *ngFor="let product of products; let i = index">
-                  <app-product-card
+              <div>
+                <ion-grid>
+                  <ion-row>
+                    <ng-container
+                      *ngFor="let product of products; let i = index">
+                      <ion-col
+                        size-lg="4"
+                        size-md="6"
+                        size-sm="6"
+                        size="6"
+                        style="margin-top: 20px">
+                        <app-product-card
                     [product]="{
                       min_price_discount_rate: product.discount_rate,
                       min_price_img_array: product.img_array,
@@ -143,15 +149,10 @@
                       id: product.product,
                       min_price_seller_business_name: product.business_name
                     }"></app-product-card>
-                  <!-- Add an empty column after every 4th product card, but only if there are more than 4 product cards -->
-                  <div
-                    class="col-md-1"
-                    *ngIf="
-                      (i + 1) % 4 === 0 &&
-                      products.length > 4 &&
-                      i + 1 !== products.length
-                    "></div>
-                </div>
+                      </ion-col>
+                    </ng-container>
+                  </ion-row>
+                </ion-grid>
               </div>
             </ng-container>
           </div>
