@@ -269,21 +269,20 @@ a {
 }
 
 @media (max-width: 768px) {
-  .side-pannel,
-  .cat-container,
-  .register-title,
-  .register-btn {
-    width: 100%;
-  }
-  .row1 {
-    height: auto;
-  }
-  .carousel-container,
-  .custom-carousel,
-  .row,
-  .register-container {
-    flex-wrap: wrap;
-  }
+
+ .side-pannel,.cat-container,.register-title, .register-btn{
+  width: 100%;
+ }
+ .row1{
+  height: auto;
+ }
+ .carousel-container,.custom-carousel, .row,.register-container{
+  flex-wrap: wrap;
+ }
+
+ h2{
+  font-size: 6vw !important;
+ }
 }
 
 .cat-img {

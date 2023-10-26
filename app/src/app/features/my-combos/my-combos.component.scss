@@ -169,3 +169,32 @@ h2 {
   margin-top: 18px;
   margin-bottom: 18px;
 }
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .combos-container{
+    margin-top: 0;
+  }
+  .invite-container{
+    width: 95%;
+    font-size: 3vw;
+  }
+
+  ion-card-header{
+    min-width: 100%;
+  }
+
+  ion-card-title{
+    font-size: 4vw;
+    text-wrap: nowrap;
+  }
+
+  .invite-info{
+    font-size: 3vw;
+    width: 100%;
+  }
+
+  ion-button{
+    font-size: 3vw;
+  }
+}

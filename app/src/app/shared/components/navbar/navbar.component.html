@@ -6,6 +6,9 @@
 
 <ion-header>
   <ion-toolbar color="#19b2b8" class="navbar">
+    <ion-buttons slot="start">
+      <ion-icon class="menuItem" name="menu-outline" (click)="openMenuModal()"></ion-icon> <!-- Button to open the side menu -->
+    </ion-buttons>
     <div class="flex-container">
       <div class="toolbar-button">
         <a class="navbar-brand">
@@ -54,6 +57,7 @@
           </ng-container>
         </ion-button>
       </ng-container>
+      <ion-icon class="search" name="search-outline" (click)="openSearchModal()"></ion-icon>
       <div class="authButton">
         <button
         mat-button

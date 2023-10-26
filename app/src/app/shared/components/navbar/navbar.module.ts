@@ -12,10 +12,12 @@ import { SearchBarModule } from '@shared/components/search-bar/search-bar.module
 import { ViewSizeModule } from '@shared/directives/view-size/view-size.module';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
+import { MenuModalComponent } from './menu-modal/menu-modal.component';
+import { SearchModalComponent } from './search-modal/search-modal.component';
 
 @NgModule({
-  declarations: [NavbarComponent],
-  exports: [NavbarComponent],
+  declarations: [NavbarComponent, MenuModalComponent, SearchModalComponent],
+  exports: [NavbarComponent, MenuModalComponent, SearchModalComponent],
   imports: [
     HttpClientModule,
     CommonModule,
