@@ -42,10 +42,21 @@ export class SearchModalComponent {
   closeMenuModal() {
     this.modalController.dismiss();
   }
-  keyDownFunction(event: any) {
+  keyUpFunction(event: any) {
     this.closeMenuModal();
     this.search();
   }
+  keyDownFunction(event: any) {
+    if (
+      event.code === 'Enter' ||
+      event.code === 'NumpadEnter' ||
+      event.code === 13
+    ) {
+      this.closeMenuModal();
+      this.search();
+    }
+  }
+
   searchIconFunction() {
     if (this.searchInputController.value !== '') {
       this.closeMenuModal();
