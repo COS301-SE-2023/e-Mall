@@ -21,7 +21,8 @@
         matInput
         [placeholder]="placeHolder"
         [formControl]="searchInputController"
-        (keydown)="keyDownFunction($event)" />
+        (keyup.enter)="keyDownFunction($event)"
+         />
 
       <button
         class="toolbar-button"

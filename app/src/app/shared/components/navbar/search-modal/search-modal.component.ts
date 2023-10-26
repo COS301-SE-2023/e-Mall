@@ -39,15 +39,12 @@ export class SearchModalComponent {
     this.searchInputPreviousText = '';
   }
 
-  
   closeMenuModal() {
     this.modalController.dismiss();
   }
   keyDownFunction(event: any) {
-    if (event.code === 'Enter' || event.code === 'NumpadEnter') {
-      this.closeMenuModal();
-      this.search();
-    }
+    this.closeMenuModal();
+    this.search();
   }
   searchIconFunction() {
     if (this.searchInputController.value !== '') {
