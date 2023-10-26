@@ -16,7 +16,7 @@ export class SellerNavComponent implements OnInit, OnDestroy {
   currentPage = 'inventory'; // Set a default value for the current page
   // Set a default value for the current page
   private profileSubscription: Subscription | undefined;
-  public isMenuCollapsed = false;
+  public isMenuCollapsed = true;
 
   constructor(
     private router: Router,
@@ -29,6 +29,7 @@ export class SellerNavComponent implements OnInit, OnDestroy {
   }
 
   navigateTo(page: string): void {
+    this.isMenuCollapsed=true;
     this.currentPage = page;
     setTimeout(() => {
       this.router.navigate([`/${page}`]);

@@ -15,17 +15,19 @@ export class CustomerProfileSidenavComponent implements OnInit, OnDestroy {
   @Input() profile: any;
   currentPage: string;
   routerURL = new Subscription();
-  public isMenuCollapsed = false;
+  public isMenuCollapsed = true;
 
   constructor(private router: Router, private authFacade: AuthFacade) {
     this.currentPage = 'customer-profile';
   }
 
   goToCustomerProfile() {
+    this.isMenuCollapsed = true;
     this.router.navigate(['/customer-profile']);
   }
 
   goToWishlist() {
+    this.isMenuCollapsed = true;
     this.router.navigate(['/wishlist']);
   }
 
@@ -38,6 +40,7 @@ export class CustomerProfileSidenavComponent implements OnInit, OnDestroy {
   }
 
   navigateTo(page: string): void {
+    this.isMenuCollapsed = true;
     this.currentPage = page;
     setTimeout(() => {
       this.router.navigate([`/${page}`]);
@@ -45,6 +48,7 @@ export class CustomerProfileSidenavComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    
     this.routerURL = this.router.events.subscribe(() => {
       this.currentPage = this.router.url.slice(1);
     });
@@ -56,5 +60,11 @@ export class CustomerProfileSidenavComponent implements OnInit, OnDestroy {
 
   toggleMenu() {
     this.isMenuCollapsed = !this.isMenuCollapsed;
+    console.log(this.isMenuCollapsed)
+  }
+
+  ionViewWillEnter(){
+    this.isMenuCollapsed = true;
+    console.log("here");
   }
 }
