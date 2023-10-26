@@ -73,16 +73,7 @@ E-mall is an online platform that allows verified sellers to list their products
 
 ## How to Contribute
 
-Thank you for your interest in E-Mall! Should you want to contribute to the project, please feel free to contact us at syntax.sharks@gmail.com to share your idea for the project. 
-<br>
-<br>
-After contacting us, please feel free to clone the repo, create a branch off of 'dev' and implement your feature or bug fix. Please consult our <a href="https://drive.google.com/file/d/14fMqBF31RnWUtml2GGkyaZ7XS2CuJYdU/view?usp=sharing">️Technical Installation Manual<a> for instructios on how to get the app up and running. Once you have implemented your changes, you can create a pull request back to 'dev' which we will review. 
-<br>
-<br>
-In order to be considered, your changes: 1) must be verified to be correct and non-malicious by a member of Syntax Sharks, 2) pass all of the build and test checks, and 3) meet code coverage requirements in terms of both patch and project coverage. 
-<br>
-<br>
-Once the above requirements are met, we will consider your changes.
+If you are interested in contributing to the project, please clone our repository, the develop branch, on your choice of code editor, preferably Visual Studio code, and follow our [Techincal Installation Guide](https://drive.google.com/file/d/14fMqBF31RnWUtml2GGkyaZ7XS2CuJYdU/view?usp=sharing) on how to run the project on your machine. Upon successful start on your local machine, make your branch with the following notation, Initials/content_you_changed, and publish it. Create a pull request to our develop branch for one of our team members to review and accept or reject. If we do not respond promptly, please click on the button below to contact us. 
 
 
 <br/>
