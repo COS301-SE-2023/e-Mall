@@ -51,7 +51,6 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
     'Home and Kitchen',
     'Sports and Outdoors',
     'Toys and Games',
-    
   ];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() sellerID: any;
@@ -78,7 +77,7 @@ export class SellerDetailsComponent implements OnInit, OnDestroy {
 
     setTimeout(() => {
       this.showSpinner = false;
-    }, 6000);
+    }, 1000);
 
     // Subscribe to changes in the query parameters (seller_id)
     this.paramMapSubscription = this.route.queryParamMap

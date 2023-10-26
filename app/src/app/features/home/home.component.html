@@ -8,7 +8,7 @@
         (click)="onCatClicked(page.path)">
         <div
           class="subCategoryCard hoverZoom"
-          style="background-image: url({{page.img}})">
+          style="background-image: url({{ page.img }})">
           <div class="inner">
             {{ page.title }}
           </div>
@@ -150,6 +150,66 @@
       </div>
     </div>
     <br /><br />
+    <ng-container *ngIf="followedSellers$ | async as sellers">
+      <ng-container *ngIf="sellers !== null && sellers.length !== 0">
+        <div style="align-items: center">
+          <h2>Followed Sellers</h2>
+        </div>
+        <!-- <div style="width: 80%; height: 150px"> -->
+        <swiper-container
+          [slidesPerView]="3"
+          [speed]="500"
+          [pagination]="true"
+          [space-between]="30"
+          [css-mode]="true"
+          [centered-slides]="true"
+          *viewSize="'desktop'">
+          <swiper-slide
+            *ngFor="let seller of sellers"
+            style="align-items: center">
+            <ion-img
+              *ngIf="seller.logo && seller.logo.length > 0"
+              style="height: 100px"
+              (click)="redirect(seller.id)"
+              [src]="seller.logo"
+              [alt]="seller.name"></ion-img>
+          </swiper-slide>
+        </swiper-container>
+        <swiper-container
+          [slidesPerView]="2"
+          speed="500"
+          [lazy]="true"
+          *viewSize="'mobile'">
+          <swiper-slide *ngFor="let seller of sellers">
+            <!-- <div
+                style="
+                  align-items: center;
+                  height: 200px;
+                  border: 1px solid grey;
+                  border-radius: 5px;
+                "> -->
+            <ion-img
+              *ngIf="seller.logo && seller.logo.length > 0"
+              style="height: 100px"
+              (click)="redirect(seller.id)"
+              [src]="seller.logo"
+              [alt]="seller.name"></ion-img>
+            <!-- <ng-template #noLogo>
+                <ion-label
+                  (click)="redirect(seller.id)"
+                  style="font-weight: 500; font-size: large">
+                  {{ seller.name }}
+                </ion-label>
+              </ng-template> -->
+            <!-- </div> -->
+          </swiper-slide>
+        </swiper-container>
+        <!-- </div> -->
+        <!-- </div> -->
+        <br /><br />
+      </ng-container>
+    </ng-container>
+    <br />
     <div class="register-row">
       <div class="register-container">
         <div class="register-title">
@@ -167,52 +227,6 @@
     </div>
   </div>
   <br /><br />
-
-  <ng-container *ngIf="followedSellers$ | async as sellers">
-    <ng-container *ngIf="sellers !== null && sellers.length !== 0">
-      <div
-        style="
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          flex-direction: column;
-        ">
-        <div style="align-items: center">
-          <h3>Followed Sellers</h3>
-        </div>
-        <div style="width: 600px; height: 100px">
-          <swiper-container [slidesPerView]="3" speed="500" [lazy]="true">
-            <swiper-slide
-              *ngFor="let seller of sellers"
-              style="width: 200px; align-items: center">
-              <!-- <div
-                style="
-                  align-items: center;
-                  height: 200px;
-                  border: 1px solid grey;
-                  border-radius: 5px;
-                "> -->
-              <ion-img
-                *ngIf="seller.logo && seller.logo.length > 0"
-                style="height: 100px"
-                (click)="redirect(seller.id)"
-                [src]="seller.logo"
-                [alt]="seller.name"></ion-img>
-              <!-- <ng-template #noLogo>
-                <ion-label
-                  (click)="redirect(seller.id)"
-                  style="font-weight: 500; font-size: large">
-                  {{ seller.name }}
-                </ion-label>
-              </ng-template> -->
-              <!-- </div> -->
-            </swiper-slide>
-          </swiper-container>
-        </div>
-      </div>
-      <br /><br />
-    </ng-container>
-  </ng-container>
 
   <app-footer></app-footer>
 </ion-content>

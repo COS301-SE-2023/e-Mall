@@ -24,6 +24,8 @@ export class ProfileFacade implements OnDestroy {
   private wishlist$!: Observable<number[]>;
   @Select(ProfileSelectors.getFollowedSellers)
   public followedSellers$!: Observable<string[]>;
+  @Select(ProfileSelectors.getDetailedFollowedSellers)
+  public followedSellersDetails$!: Observable<ISellerCard[]>;
   @Select(ProfileSelectors.getRecommendedProducts)
   public recommendedProducts$!: Observable<IProduct[]>;
   private authSubscription = new Subscription();
@@ -144,7 +146,10 @@ export class ProfileFacade implements OnDestroy {
     } else {
       try {
         this.profileService.toggleFollowSeller(seller.name);
-        return new ProfileActions.UpdateFollowedSeller(seller);
+        return [
+          new ProfileActions.ToggleSellers(seller.name),
+          new ProfileActions.UpdateFollowedSeller(seller),
+        ];
       } catch (error) {
         return this.setError(error);
       }

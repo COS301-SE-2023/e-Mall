@@ -26,6 +26,7 @@ import { FooterModule } from '@shared/components/footer/footer.module';
 import { ProductCardModule } from '../../shared/components/product-card/product-card.module';
 // import { ProfileModule } from '@features/profile/profile.module';
 import { ComboStateModule } from '@features/combo-state/combo-state.module';
+import { ViewSizeModule } from '@app/shared/directives/view-size/view-size.module';
 
 // const routes: Routes = [
 //   { path: '', pathMatch: 'full', component: HomeComponent },
@@ -64,6 +65,7 @@ import { ComboStateModule } from '@features/combo-state/combo-state.module';
     ProductCardModule,
     // ProfileModule,
     ComboStateModule,
+    ViewSizeModule,
     // RouterModule.forChild(routes),
   ],
 })

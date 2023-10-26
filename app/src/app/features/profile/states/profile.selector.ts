@@ -25,7 +25,11 @@ export class ProfileSelectors {
     return state.recommended_products || [];
   }
   @Selector([ProfileState])
-  static getFollowedSellers(state: ProfileStateModel): ISellerCard[] {
+  static getFollowedSellers(state: ProfileStateModel): string[] {
+    return state.profile?.details.followed_sellers || [];
+  }
+  @Selector([ProfileState])
+  static getDetailedFollowedSellers(state: ProfileStateModel): ISellerCard[] {
     return state.followed_sellers || [];
   }
 }

@@ -5,6 +5,8 @@ import {
   OnInit,
   ViewChild,
   OnDestroy,
+  AfterViewInit,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { ProductService } from '@shared/servicies/product/product.service';
@@ -14,7 +16,8 @@ import { ProfileFacade } from '@features/profile/services/profile.facade';
 import { ProductCardFacade } from '@app/shared/components/product-card/services/product-card.facade';
 import { AuthFacade } from '../auth/services/auth.facade';
 
-import { register } from 'swiper/element/bundle';
+import { register, SwiperContainer } from 'swiper/element/bundle';
+import Swiper from 'swiper';
 register();
 @Component({
   selector: 'app-home',
@@ -77,7 +80,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       path: '/category/Toys%20and%20Games',
       img: 'assets/images/categories/toys.png',
     },
-  
   ];
   // isAuthenticated$;
   constructor(
@@ -85,10 +87,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     private productService: ProductService,
     public profileFacade: ProfileFacade,
     public productCardFacade: ProductCardFacade,
-    public authFacade: AuthFacade
+    public authFacade: AuthFacade,
+    private changeDetector: ChangeDetectorRef
   ) {
-    this.followedSellers$ = this.profileFacade.followedSellers$;
-
+    this.followedSellers$ = this.profileFacade.followedSellersDetails$;
+    this.followedSellers$.pipe(debounceTime(500)).subscribe(data => {
+      if (data.length > 0) {
+        setTimeout(() => {
+          const swiperEl: SwiperContainer | null =
+            document.querySelector('swiper-container');
+          swiperEl?.swiper.update();
+        }, 1000);
+        // this.swiperr.update();
+      }
+    });
     this.forYouProducts$ = of(null);
     // this.followSubs = this.profileFacade.followedSellers$.subscribe(val => {
     //   if ((val !== null || val !== undefined) && val.length > 0) {
@@ -110,9 +122,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       });
   }
+
   async ionViewWillEnter() {
     this.profileFacade.fetchRecommendedProducts();
   }
+
   async fetchFollowedSellerDetails() {
     await this.profileFacade.fetchFollowedSellerDetails();
   }

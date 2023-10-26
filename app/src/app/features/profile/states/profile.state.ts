@@ -174,6 +174,7 @@ export class ProfileState {
           const index = draft.profile.details.followed_sellers.indexOf(
             action.name
           );
+          console.log(action.name);
           if (index === -1) {
             draft.profile.details.followed_sellers.push(action.name);
           } else {
