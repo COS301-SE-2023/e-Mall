@@ -19,7 +19,7 @@
     <ng-container *ngIf="this.authFacade.getCurrentUser() | async">
       <ng-container *ngIf="forYouProducts$ | async as products">
         <ng-container *ngIf="products.length >= 2 as isEnough">
-          <div style="align-items: center">
+          <div style="align-items: center; margin-top: 30px">
             <h2>Recommended For You</h2>
           </div>
 

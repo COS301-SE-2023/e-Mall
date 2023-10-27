@@ -22,7 +22,7 @@ export class ProfileSelectors {
   // }
   @Selector([ProfileState])
   static getRecommendedProducts(state: ProfileStateModel): IProduct[] {
-    return state.recommended_products || [];
+    return state.profile?.details.recommended_products || [];
   }
   @Selector([ProfileState])
   static getFollowedSellers(state: ProfileStateModel): string[] {
