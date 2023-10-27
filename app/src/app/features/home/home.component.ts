@@ -117,11 +117,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     //     this.followedSellers$ = this.profileFacade.fetchFollowedSellerDetails();
     //   }
     // });
-    this.forYouSubs = this.profileFacade.recommendedProducts$.subscribe(val => {
-      if ((val !== null || val !== undefined) && val.length > 0) {
-        this.forYouProducts$ = of(val);
-      }
-    });
+    // this.forYouSubs = this.profileFacade.recommendedProducts$.subscribe(val => {
+    //   if ((val !== null || val !== undefined) && val.length > 0) {
+    //     this.forYouProducts$ = of(val);
+    //   }
+    // });
     this.authSubscription = this.authFacade
       .getCurrentUser()
       .pipe(debounceTime(500), share())
